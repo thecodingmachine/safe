@@ -38,9 +38,6 @@ class DocPage
             if (preg_match('/&return.falseforfailure;/m', $file)) {
                 return true;
             }
-            if (preg_match('/&return.falseproblem;/m', $file)) {
-                return true;
-            }
         }
         return false;
     }

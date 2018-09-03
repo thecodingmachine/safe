@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 require 'vendor/autoload.php';
 
@@ -49,8 +50,8 @@ function multiPath()
         }
     }
     $fileCreator = new FileCreator();
-    $fileCreator->generateXlsFile($protoFunctions, __DIR__ . '/generated-docs/lib.xls');
-    $fileCreator->generatePhpFile($phpFunctions, __DIR__ . '/generated-docs/lib.php');
+    $fileCreator->generateXlsFile($protoFunctions, __DIR__ . '/generated/lib.xls');
+    $fileCreator->generatePhpFile($phpFunctions, __DIR__ . '/generated/lib.php');
 }
 
 

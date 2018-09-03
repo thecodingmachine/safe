@@ -7,6 +7,7 @@
     }
   },
   "require-dev": {
+    "php": ">=7.1",
     "phpunit/phpunit": "^7",
     "phpstan/phpstan": "^0.10.2",
     "thecodingmachine/phpstan-strict-rules": "^0.10",

@@ -24,6 +24,7 @@ class PathResearcher
     {
         $incompletePaths = glob($this->path);
 
+        $paths = [];
         foreach ($incompletePaths as $incompletePath) {
             $paths[] = glob($incompletePath.'/functions/*');
         }
@@ -32,7 +33,7 @@ class PathResearcher
     }
 
     /**
-     * @parameter string[][]
+     * @param mixed[] $array
      * @return string[]
      */
     private function arrayFlatten(array $array): array  {

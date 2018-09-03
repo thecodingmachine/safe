@@ -61,3 +61,15 @@ $ composer require thecodingmachine/safe
 ```
 
 
+
+## TODO:
+
+- handle objects methods overloading
+- develop a PHPStan extension
+
+
+
+## Contributing
+
+The `lib.php` file that contains all the functions is auto-generated from the PHP doc.
+Read the [CONTRIBUTING.md](CONTRIBUTING.md) file to learn how to regenerate it and to contribute to this library.

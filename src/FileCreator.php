@@ -13,10 +13,10 @@ class FileCreator
     /*
      * This function generate an xls file
      *
-     * @param string[]
-     * @param string
+     * @param string[] $protoFunctions
+     * @param string $path
      */
-    public function generateXlsFile(array $protoFunctions, string $path) {
+    public function generateXlsFile(array $protoFunctions, string $path): void {
         $spreadsheet = new Spreadsheet();
         $numb = 1;
         $status = '';
@@ -48,7 +48,7 @@ class FileCreator
      * @param string[]
      * @param string
      */
-    public function generatePhpFile(array $phpFunctions, string $path) {
+    public function generatePhpFile(array $phpFunctions, string $path): void {
         $stream = fopen($path, 'w');
         fwrite($stream, "<?php\n
         class FileWritingException extends \Exception {}

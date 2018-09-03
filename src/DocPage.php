@@ -47,11 +47,10 @@ class DocPage
 
 
     /*
-     * @return SimpleXMLElement string[]
+     * @return SimpleXMLElement[]
      */
     public function getMethodSynopsis(): array {
         $cleanedFunctions = [];
-        $cleaningFunction = '';
 
         $file = file_get_contents($this->path);
         if (!preg_match_all('/<\/?methodsynopsis[\s\S]*?>[\s\S]*?<\/methodsynopsis>/m', $file, $functions, PREG_SET_ORDER, 0)) {
@@ -64,6 +63,7 @@ class DocPage
             $cleaningFunction = preg_replace('/&(.*);/m', '', $cleaningFunction);
             $cleanedFunctions[] = $cleaningFunction;
         }
+        $functionObjects = [];
         foreach ($cleanedFunctions as $cleanedFunction) {
             $functionObjects[] = simplexml_load_string($cleanedFunction);
         }
@@ -71,8 +71,8 @@ class DocPage
     }
 
     /*
-     * @param multidimensional string array
-     * @return string array
+     * @param mixed[] $array multidimensional string array
+     * @return string[]
      */
     private function arrayFlatten(array $array): array {
         $result = array();

@@ -30,9 +30,9 @@ class WritePhpFunction
     public function getPhpFunctionalFunction(): string
     {
         if ($this->getPhpPrototypeFunction()) {
-            return $phpFunction = $this->writePhpFunction();
+            return $this->writePhpFunction();
         }
-        return $phpFunction = '';
+        return '';
     }
 
     /*
@@ -42,15 +42,17 @@ class WritePhpFunction
         if (strpos($this->method->getFunctionType(), 'void') !== FALSE) {
             return '';
         }
-        $phpFunction = "function {$this->method->getFunctionName()}({$this->displayParamsWithType()}): {$this->method->getFunctionType()} {
-        \$params = func_get_args();
-        if ((\${$this->method->getFunctionType()} = \\{$this->method->getFunctionName()}(...\$params)) === FALSE) {
-             \$error = error_get_last();
-             throw new FileWritingException(\$error['message']);
-        }
-        return \${$this->method->getFunctionType()};
-        }\n\n
-        ";
+        $phpFunction = "function {$this->method->getFunctionName()}({$this->displayParamsWithType()}): {$this->method->getFunctionType()}
+{
+    \$all_params = func_get_args();
+    if ((\${$this->method->getFunctionType()} = \\{$this->method->getFunctionName()}(...\$all_params)) === FALSE) {
+         \$error = error_get_last();
+         throw new FileWritingException(\$error['message']);
+    }
+    return \${$this->method->getFunctionType()};
+}
+
+";
         return $phpFunction;
     }
 
@@ -63,11 +65,18 @@ class WritePhpFunction
         $optDectected = FALSE;
 
         foreach($params as $param) {
-            if ($param->getType() == "mixed" || $param->getType() == "resource") {
-                $paramAsString = '$'.$param->getParameter();
-            } else {
-                $paramAsString = $param->getType().' $'.$param->getParameter();
+            $paramAsString = '';
+            if ($param->getType() !== "mixed" && $param->getType() !== "resource") {
+                $paramAsString = $param->getType().' ';
             }
+
+            $paramName = $param->getParameter();
+            if ($paramName === '...') {
+                $paramAsString .= ' ...$params';
+            } else {
+                $paramAsString .= '$'.$paramName;
+            }
+
 
             if ($param->getInitializer() != null) {
                 $paramAsString .= ' = '.$param->getInitializer();

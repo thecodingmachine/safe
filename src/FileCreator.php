@@ -51,11 +51,28 @@ class FileCreator
     public function generatePhpFile(array $phpFunctions, string $path): void {
         $stream = fopen($path, 'w');
         fwrite($stream, "<?php\n
-        class FileWritingException extends \Exception {}
-        ");
+namespace Safe;
+
+");
         foreach ($phpFunctions as $phpFunction) {
             fwrite($stream, $phpFunction."\n");
         }
         fclose($stream);
     }
+
+    public function createExceptionFile(string $moduleName): void
+    {
+        \file_put_contents(__DIR__.'/../generated/Exceptions/'.$moduleName.'Exception.php',
+            <<<EOF
+<?php
+namespace Safe\Exceptions;
+
+class {$moduleName}Exception extends AbstractSafeException
+{
+}
+
+EOF
+);
+    }
+
 }

@@ -3,16 +3,23 @@
   "description": "Create a list of functional PHP functions which return false on error",
   "autoload": {
     "psr-4": {
+      "Safe\\": ["lib/", "generated/"]
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
       "Safe\\": "src/"
     }
   },
   "require-dev": {
     "php": ">=7.1",
+    "ext-simplexml": "*",
     "phpunit/phpunit": "^7",
     "phpstan/phpstan": "^0.10.2",
     "thecodingmachine/phpstan-strict-rules": "^0.10",
     "phpoffice/phpspreadsheet": "^1.4",
-    "ext-json": "^1.5"
+    "ext-json": "^1.5",
+    "symfony/console": "^4.1.4"
   },
   "scripts": {
     "phpstan": "phpstan analyse src -c phpstan.neon --level=7 --no-progress -vvv"

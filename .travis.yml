@@ -11,6 +11,8 @@ matrix:
 before_script:
 - composer update $PREFER_LOWEST --no-interaction
 - mkdir -p build/logs
+- cd doc && svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en && cd ..
+
 script:
 - "./vendor/bin/phpunit"
 #- "./vendor/bin/composer-require-checker --config-file=composer-require-checker.json"

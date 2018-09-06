@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-/vendor/
-/build/
-/doc/doc-en/
-/doc/entities/generated.ent
-=======
 /generator/vendor/
 /generator/build/
 /generator/doc/doc-en/
 /generator/doc/entities/generated.ent
 /composer.lock
->>>>>>> 5634c5679eb5adb411728e33b8d7e534faa29a19

@@ -1,0 +1,523 @@
+<?php
+
+namespace Safe;
+
+/**
+ * Set the various assert control options or just query
+ * their current settings.
+ * 
+ * @param int $what 
+ * Assert Options
+ * 
+ * 
+ * 
+ * Option
+ * INI Setting
+ * Default value
+ * Description
+ * 
+ * 
+ * 
+ * 
+ * ASSERT_ACTIVE
+ * assert.active
+ * 1
+ * enable assert evaluation
+ * 
+ * 
+ * ASSERT_WARNING
+ * assert.warning
+ * 1
+ * issue a PHP warning for each failed assertion
+ * 
+ * 
+ * ASSERT_BAIL
+ * assert.bail
+ * 0
+ * terminate execution on failed assertions
+ * 
+ * 
+ * ASSERT_QUIET_EVAL
+ * assert.quiet_eval
+ * 0
+ * 
+ * disable error_reporting during assertion expression
+ * evaluation
+ * 
+ * 
+ * 
+ * ASSERT_CALLBACK
+ * assert.callback
+ * (NULL)
+ * Callback to call on failed assertions
+ * 
+ * 
+ * 
+ * 
+ * @param mixed $value An optional new value for the option.
+ * @return mixed Returns the original setting of any option s.
+ * @throws Exceptions\InfoException
+ * 
+ */
+function assert_options(int $what, $value)
+{
+    error_clear_last();
+    if ($value !== null) {
+        $result = \assert_options($what, $value);
+    }else {
+        $result = \assert_options($what);
+    }
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Sets the process title visible in tools such as top and
+ * ps. This function is available only in
+ * CLI mode.
+ * 
+ * @param string $title The new title.
+ * @throws Exceptions\InfoException
+ * 
+ */
+function cli_set_process_title(string $title): void
+{
+    error_clear_last();
+    $result = \cli_set_process_title($title);
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+}
+
+
+/**
+ * Loads the PHP extension given by the parameter
+ * library.
+ * 
+ * Use extension_loaded to test whether a given
+ * extension is already available or not. This works on both built-in
+ * extensions and dynamically loaded ones (either through php.ini or
+ * dl).
+ * 
+ * @param string $library This parameter is only the filename of the
+ * extension to load which also depends on your platform. For example,
+ * the sockets extension (if compiled
+ * as a shared module, not the default!) would be called 
+ * sockets.so on Unix platforms whereas it is called
+ * php_sockets.dll on the Windows platform.
+ * 
+ * The directory where the extension is loaded from depends on your
+ * platform:
+ * 
+ * Windows - If not explicitly set in the php.ini, the extension is
+ * loaded from C:\php5\ by default.
+ * 
+ * Unix - If not explicitly set in the php.ini, the default extension
+ * directory depends on
+ * 
+ * 
+ * 
+ * whether PHP has been built with --enable-debug
+ * or not
+ * 
+ * 
+ * 
+ * 
+ * whether PHP has been built with (experimental) ZTS (Zend Thread Safety)
+ * support or not
+ * 
+ * 
+ * 
+ * 
+ * the current internal ZEND_MODULE_API_NO (Zend
+ * internal module API number, which is basically the date on which a
+ * major module API change happened, e.g. 20010901)
+ * 
+ * 
+ * 
+ * Taking into account the above, the directory then defaults to
+ * &lt;install-dir&gt;/lib/php/extensions/ &lt;debug-or-not&gt;-&lt;zts-or-not&gt;-ZEND_MODULE_API_NO,
+ * e.g.
+ * /usr/local/php/lib/php/extensions/debug-non-zts-20010901
+ * or
+ * /usr/local/php/lib/php/extensions/no-debug-zts-20010901.
+ * @return int Returns TRUE on success . If the functionality of loading modules is not available
+ * or has been disabled (either by setting
+ * enable_dl off or by enabling safe mode
+ * in php.ini) an E_ERROR is emitted
+ * and execution is stopped. If dl fails because the
+ * specified library couldn't be loaded, in addition to FALSE an
+ * E_WARNING message is emitted.
+ * @throws Exceptions\InfoException
+ * 
+ */
+function dl(string $library): void
+{
+    error_clear_last();
+    $result = \dl($library);
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+}
+
+
+/**
+ * Gets the time of the last modification of the main script of execution.
+ * 
+ * If you're interested in getting the last modification time
+ * of a different file, consider using filemtime.
+ * 
+ * @return int Returns the time of the last modification of the current
+ * page. The value returned is a Unix timestamp, suitable for
+ * feeding to date. Returns FALSE on error.
+ * @throws Exceptions\InfoException
+ * 
+ */
+function getlastmod(): int
+{
+    error_clear_last();
+    $result = \getlastmod();
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * 
+ * 
+ * @return int Returns the group ID of the current script, .
+ * @throws Exceptions\InfoException
+ * 
+ */
+function getmygid(): int
+{
+    error_clear_last();
+    $result = \getmygid();
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Gets the inode of the current script.
+ * 
+ * @return int Returns the current script's inode as an integer, .
+ * @throws Exceptions\InfoException
+ * 
+ */
+function getmyinode(): int
+{
+    error_clear_last();
+    $result = \getmyinode();
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Gets the current PHP process ID.
+ * 
+ * @return int Returns the current PHP process ID, .
+ * @throws Exceptions\InfoException
+ * 
+ */
+function getmypid(): int
+{
+    error_clear_last();
+    $result = \getmypid();
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * 
+ * 
+ * @return int Returns the user ID of the current script, .
+ * @throws Exceptions\InfoException
+ * 
+ */
+function getmyuid(): int
+{
+    error_clear_last();
+    $result = \getmyuid();
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * This function prints out the credits listing the PHP developers,
+ * modules, etc. It generates the appropriate HTML codes to insert
+ * the information in a page.
+ * 
+ * @param int $flag To generate a custom credits page, you may want to use the
+ * flag parameter.
+ * 
+ * 
+ * Pre-defined phpcredits flags
+ * 
+ * 
+ * 
+ * name
+ * description
+ * 
+ * 
+ * 
+ * 
+ * CREDITS_ALL
+ * 
+ * All the credits, equivalent to using: CREDITS_DOCS +
+ * CREDITS_GENERAL + CREDITS_GROUP +
+ * CREDITS_MODULES + CREDITS_FULLPAGE.
+ * It generates a complete stand-alone HTML page with the appropriate tags.
+ * 
+ * 
+ * 
+ * CREDITS_DOCS
+ * The credits for the documentation team
+ * 
+ * 
+ * CREDITS_FULLPAGE
+ * 
+ * Usually used in combination with the other flags.  Indicates
+ * that a complete stand-alone HTML page needs to be
+ * printed including the information indicated by the other
+ * flags.
+ * 
+ * 
+ * 
+ * CREDITS_GENERAL
+ * 
+ * General credits: Language design and concept, PHP authors 
+ * and SAPI module.
+ * 
+ * 
+ * 
+ * CREDITS_GROUP
+ * A list of the core developers
+ * 
+ * 
+ * CREDITS_MODULES
+ * 
+ * A list of the extension modules for PHP, and their authors
+ * 
+ * 
+ * 
+ * CREDITS_SAPI
+ * 
+ * A list of the server API modules for PHP, and their authors
+ * 
+ * 
+ * 
+ * 
+ * 
+ * @throws Exceptions\InfoException
+ * 
+ */
+function phpcredits(int $flag = CREDITS_ALL): void
+{
+    error_clear_last();
+    $result = \phpcredits($flag);
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+}
+
+
+/**
+ * Outputs a large amount of information about the current state of  PHP. 
+ * This includes information about PHP compilation options and extensions,
+ * the PHP version, server information and environment (if compiled as a
+ * module), the PHP environment, OS version information, paths, master and
+ * local values of configuration options, HTTP headers, and the PHP License.
+ * 
+ * Because every system is setup differently, phpinfo is
+ * commonly used to check configuration settings and for available
+ * predefined variables
+ * on a given system.
+ * 
+ * phpinfo is also a valuable debugging tool as it
+ * contains all EGPCS (Environment, GET, POST, Cookie, Server) data.
+ * 
+ * @param int $what The output may be customized by passing one or more of the
+ * following constants bitwise values summed
+ * together in the optional what parameter.
+ * One can also combine the respective constants or bitwise values
+ * together with the bitwise or operator.
+ * 
+ * 
+ * phpinfo options
+ * 
+ * 
+ * 
+ * Name (constant)
+ * Value
+ * Description
+ * 
+ * 
+ * 
+ * 
+ * INFO_GENERAL
+ * 1
+ * 
+ * The configuration line, php.ini location, build date, Web
+ * Server, System and more.
+ * 
+ * 
+ * 
+ * INFO_CREDITS
+ * 2
+ * 
+ * PHP Credits.  See also phpcredits.
+ * 
+ * 
+ * 
+ * INFO_CONFIGURATION
+ * 4
+ * 
+ * Current Local and Master values for PHP directives.  See
+ * also ini_get.
+ * 
+ * 
+ * 
+ * INFO_MODULES
+ * 8
+ * 
+ * Loaded modules and their respective settings.  See also
+ * get_loaded_extensions.
+ * 
+ * 
+ * 
+ * INFO_ENVIRONMENT
+ * 16
+ * 
+ * Environment Variable information that's also available in
+ * $_ENV.
+ * 
+ * 
+ * 
+ * INFO_VARIABLES
+ * 32
+ * 
+ * Shows all 
+ * predefined variables from EGPCS (Environment, GET,
+ * POST, Cookie, Server).
+ * 
+ * 
+ * 
+ * INFO_LICENSE
+ * 64
+ * 
+ * PHP License information.  See also the license FAQ.
+ * 
+ * 
+ * 
+ * INFO_ALL
+ * -1
+ * 
+ * Shows all of the above.
+ * 
+ * 
+ * 
+ * 
+ * 
+ * @throws Exceptions\InfoException
+ * 
+ */
+function phpinfo(int $what = INFO_ALL): void
+{
+    error_clear_last();
+    $result = \phpinfo($what);
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+}
+
+
+/**
+ * Adds setting to the server environment.  The
+ * environment variable will only exist for the duration of the current
+ * request. At the end of the request the environment is restored to its
+ * original state.
+ * 
+ * Setting certain environment variables may be a potential security breach.
+ * The safe_mode_allowed_env_vars directive contains a
+ * comma-delimited list of prefixes. In Safe Mode, the user may only alter
+ * environment variables whose names begin with the prefixes supplied by
+ * this directive. By default, users will only be able to set environment
+ * variables that begin with PHP_ (e.g.
+ * PHP_FOO=BAR). Note: if this directive is empty, PHP
+ * will let the user modify ANY environment variable!
+ * 
+ * The safe_mode_protected_env_vars directive contains a
+ * comma-delimited list of environment variables, that the end user won't be
+ * able to change using putenv.  These variables will
+ * be protected even if safe_mode_allowed_env_vars is set
+ * to allow to change them.
+ * 
+ * @param string $setting The setting, like "FOO=BAR"
+ * @throws Exceptions\InfoException
+ * 
+ */
+function putenv(string $setting): void
+{
+    error_clear_last();
+    $result = \putenv($setting);
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+}
+
+
+/**
+ * Sets the include_path
+ * configuration option for the duration of the script.
+ * 
+ * @param string $new_include_path The new value for the include_path
+ * @return string Returns the old include_path on
+ * success .
+ * @throws Exceptions\InfoException
+ * 
+ */
+function set_include_path(string $new_include_path): string
+{
+    error_clear_last();
+    $result = \set_include_path($new_include_path);
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Set the current active configuration setting of magic_quotes_runtime.
+ * 
+ * @param bool $new_setting FALSE for off, TRUE for on.
+ * @throws Exceptions\InfoException
+ * 
+ */
+function set_magic_quotes_runtime(bool $new_setting): void
+{
+    error_clear_last();
+    $result = \set_magic_quotes_runtime($new_setting);
+    if ($result === FALSE) {
+        throw Exceptions\InfoException::createFromPhpError();
+    }
+}
+
+

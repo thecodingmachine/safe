@@ -58,7 +58,7 @@ class GenerateCommand extends Command
         }
 
         // Finally, let's edit the composer.json file
-        ComposerJsonEditor::editFiles($modules);
+        ComposerJsonEditor::editFiles(\array_values($modules));
     }
 
     private function rmGenerated(): void

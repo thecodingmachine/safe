@@ -23,7 +23,7 @@ class ComposerJsonEditor
         $composerJson = \json_decode($composerContent, true);
         $composerJson['autoload']['files'] = $files;
 
-        $newContent = json_encode($composerJson, \JSON_PRETTY_PRINT);
+        $newContent = json_encode($composerJson, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES);
         \file_put_contents(__DIR__.'/../../composer.json', $newContent);
     }
 }

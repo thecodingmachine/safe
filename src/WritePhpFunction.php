@@ -17,11 +17,13 @@ class WritePhpFunction
     /*
      * @return string
      */
-    public function getPhpPrototypeFunction(): string {
-        if ($this->method->getFunctionName() && strpos($this->method->getFunctionType(), 'void') === FALSE)
-            return 'function '.$this->method->getFunctionName().'('.$this->displayParamsWithType().')'.': '.$this->method->getFunctionType().'{}';
-        else
+    public function getPhpPrototypeFunction(): string
+    {
+        if ($this->method->getFunctionName()) {
+            return 'function '.$this->method->getFunctionName().'('.$this->displayParamsWithType($this->method->getFunctionParam()).')'.': '.$this->method->getFunctionType().'{}';
+        } else {
             return '';
+        }
     }
 
     /*
@@ -30,55 +32,137 @@ class WritePhpFunction
     public function getPhpFunctionalFunction(): string
     {
         if ($this->getPhpPrototypeFunction()) {
-            return $phpFunction = $this->writePhpFunction();
+            return $this->writePhpFunction();
         }
-        return $phpFunction = '';
+        return '';
     }
 
     /*
      * return string
      */
-    private function writePhpFunction(): string {
-        if (strpos($this->method->getFunctionType(), 'void') !== FALSE) {
-            return '';
+    private function writePhpFunction(): string
+    {
+        $phpFunction = $this->method->getPhpDoc();
+        if ($this->method->getFunctionType() !== 'mixed' && $this->method->getFunctionType() !== 'resource') {
+            $returnType = ': ' . $this->method->getFunctionType();
+        } else {
+            $returnType = '';
         }
-        $phpFunction = "function {$this->method->getFunctionName()}({$this->displayParamsWithType()}): {$this->method->getFunctionType()} {
-        \$params = func_get_args();
-        if ((\${$this->method->getFunctionType()} = \\{$this->method->getFunctionName()}(...\$params)) === FALSE) {
-             \$error = error_get_last();
-             throw new FileWritingException(\$error['message']);
+        $returnStatement = '';
+        if ($this->method->getFunctionType() !== 'void') {
+            $returnStatement = "    return \$result;\n";
         }
-        return \${$this->method->getFunctionType()};
-        }\n\n
-        ";
+        $moduleName = $this->method->getModuleName();
+
+        $phpFunction .= "function {$this->method->getFunctionName()}({$this->displayParamsWithType($this->method->getFunctionParam())}){$returnType}
+{
+    error_clear_last();
+";
+
+        if (!$this->method->isOverloaded()) {
+            $phpFunction .= '    $result = '.$this->printFunctionCall($this->method);
+        } else {
+            $method = $this->method;
+            $inElse = false;
+            do {
+                $lastParameter = $method->getFunctionParam()[count($method->getFunctionParam())-1];
+                if ($inElse) {
+                    $phpFunction .= ' else';
+                } else {
+                    $phpFunction .= '    ';
+                }
+                $defaultValue = $lastParameter->getDefaultValue();
+                $defaultValueToString = ($defaultValue === null) ? 'null' : $defaultValue;
+                $phpFunction .= 'if ($'.$lastParameter->getParameter().' !== '.$defaultValueToString.') {'."\n";
+                $phpFunction .= '        $result = '.$this->printFunctionCall($method)."\n";
+                $phpFunction .= '    }';
+                $inElse = true;
+                $method = $method->cloneAndRemoveAParameter();
+                if (!$method->isOverloaded()) {
+                    break;
+                }
+            } while (true);
+            $phpFunction .= 'else {'."\n";
+            $phpFunction .= '        $result = '.$this->printFunctionCall($method)."\n";
+            $phpFunction .= '    }';
+        }
+
+        $phpFunction .= $this->generateExceptionCode($moduleName, $this->method).$returnStatement. '}
+
+';
+
         return $phpFunction;
     }
 
-    /*
+    private function generateExceptionCode(string $moduleName, Method $method) : string
+    {
+        // Special case for CURL: we need the first argument of the method if this is a resource.
+        if ($moduleName === 'Curl') {
+            $params = $method->getFunctionParam();
+            if (\count($params) > 0 && $params[0]->getParameter() === 'ch') {
+                return "
+    if (\$result === FALSE) {
+        throw Exceptions\\CurlException::createFromCurlResource(\$ch);
+    }
+";
+            }
+        }
+
+        return "
+    if (\$result === FALSE) {
+        throw Exceptions\\{$moduleName}Exception::createFromPhpError();
+    }
+";
+    }
+
+    /**
+     * @param Parameter[] $params
      * @return string
      */
-    private function displayParamsWithType(): string {
-        $params = $this->method->getFunctionParam();
+    private function displayParamsWithType(array $params): string
+    {
         $paramsAsString = [];
-        $optDectected = FALSE;
+        $optDetected = false;
 
-        foreach($params as $param) {
-            if ($param->getType() == "mixed" || $param->getType() == "resource") {
-                $paramAsString = '$'.$param->getParameter();
-            } else {
-                $paramAsString = $param->getType().' $'.$param->getParameter();
+        foreach ($params as $param) {
+            $paramAsString = '';
+            if ($param->getType() !== 'mixed' && $param->getType() !== 'resource') {
+                $paramAsString = $param->getType().' ';
             }
 
-            if ($param->getInitializer() != null) {
-                $paramAsString .= ' = '.$param->getInitializer();
-                $optDectected = TRUE;
+            $paramName = $param->getParameter();
+            if ($param->isVariadic()) {
+                $paramAsString .= ' ...$'.$paramName;
+            } else {
+                if ($param->isByReference()) {
+                    $paramAsString .= '&';
+                }
+                $paramAsString .= '$'.$paramName;
+            }
 
-            } else if ($optDectected) {
+
+            if ($param->hasDefaultValue()) {
+                $optDetected = true;
+            }
+            $defaultValue = $param->getDefaultValue();
+            if ($defaultValue !== null) {
+                $paramAsString .= ' = '.$defaultValue;
+            } elseif ($optDetected && !$param->isVariadic()) {
                 $paramAsString .= ' = null';
             }
             $paramsAsString[] = $paramAsString;
         }
 
         return implode(', ', $paramsAsString);
+    }
+
+    private function printFunctionCall(Method $function): string
+    {
+        $functionCall = '\\'.$function->getFunctionName().'(';
+        $functionCall .= implode(', ', \array_map(function (Parameter $parameter) {
+            return '$'.$parameter->getParameter();
+        }, $function->getFunctionParam()));
+        $functionCall .= ');';
+        return $functionCall;
     }
 }

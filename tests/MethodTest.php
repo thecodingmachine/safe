@@ -3,31 +3,32 @@
 namespace Safe;
 
 use PHPUnit\Framework\TestCase;
+use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
 
 class MethodTest extends TestCase
 {
     public function testGetFunctionName() {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
-        $method = new Method($xmlObject);
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader());
         $name = $method->getFunctionName();
-        $this->assertEquals(0, strcmp('preg_match', $name[0]));
+        $this->assertEquals('preg_match', $name);
     }
 
     public function  testGetFunctionType() {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
-        $method = new Method($xmlObject);
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader());
         $type = $method->getFunctionType();
-        $this->assertEquals(0, strcmp('int', $type[0]));
+        $this->assertEquals('int', $type);
     }
 
     public function testGetFunctionParam() {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
-        $method = new Method($xmlObject);
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader());
         $params = $method->getFunctionParam();
-        $this->assertEquals(0, strcmp('string', $params[0]['type']));
-        $this->assertEquals(0, strcmp('pattern', $params[0]['parameter']));
+        $this->assertEquals('string', $params[0]->getType());
+        $this->assertEquals('pattern', $params[0]->getParameter());
     }
 }

@@ -37,8 +37,8 @@ class GenerateCommand extends Command
 
         $fileCreator = new FileCreator();
         //$fileCreator->generateXlsFile($protoFunctions, __DIR__ . '/../generated/lib.xls');
-        $fileCreator->generatePhpFile($functions, __DIR__ . '/../generated/');
-        $fileCreator->generateFunctionsList($functions, __DIR__ . '/../generated/functionsList.php');
+        $fileCreator->generatePhpFile($functions, __DIR__ . '/../../generated/');
+        $fileCreator->generateFunctionsList($functions, __DIR__ . '/../../generated/functionsList.php');
 
 
         $modules = [];
@@ -51,7 +51,7 @@ class GenerateCommand extends Command
         }
 
         // Finally, let's require the generated file to check there is no error.
-        $files = \glob(__DIR__.'/../generated/*.php');
+        $files = \glob(__DIR__.'/../../generated/*.php');
 
         foreach ($files as $file) {
             require($file);
@@ -60,13 +60,13 @@ class GenerateCommand extends Command
 
     private function rmGenerated(): void
     {
-        $exceptions = \glob(__DIR__.'/../generated/Exceptions/*.php');
+        $exceptions = \glob(__DIR__.'/../../generated/Exceptions/*.php');
 
         foreach ($exceptions as $exception) {
             \unlink($exception);
         }
 
-        $files = \glob(__DIR__.'/../generated/*.php');
+        $files = \glob(__DIR__.'/../../generated/*.php');
 
         foreach ($files as $file) {
             \unlink($file);

@@ -1,3 +1,4 @@
-/vendor/
-/build/
-/doc/doc-en/
+/generator/vendor/
+/generator/build/
+/generator/doc/doc-en/
+/generator/doc/entities/generated.ent

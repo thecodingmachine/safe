@@ -8,28 +8,36 @@ matrix:
 
 cache:
   directories:
-  - doc/doc-en
+  - generator/doc/doc-en
   - vendor
   - $HOME/.composer
 
 before_script:
+- cd generator
 - composer install --no-interaction
 - mkdir -p build/logs
 - |
-  if [ ! -d "doc/doc-en/en" ]; then
-    cd doc
+  if [ ! -d "generator/doc/doc-en/en" ]; then
+    cd generator/doc
     svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
-    cd ..
-  else
-    cd doc/doc-en
-    svn update
     cd ../..
+  else
+    cd generator/doc/doc-en
+    svn update
+    cd ../../..
   fi
+- cd ..
+- composer update
 
 script:
+- cd generator
 - "./vendor/bin/phpunit"
 #- "./vendor/bin/composer-require-checker --config-file=composer-require-checker.json"
 - composer cs-check
 - composer phpstan
+- cd ..
+- composer cs-check
+- composer phpstan
+
 after_script:
 - travis_retry php vendor/bin/php-coveralls

@@ -7,31 +7,25 @@ Safe-PHP code is generated automatically from the PHP doc.
 The first step is to download the PHP documentation project locally.
 You will need Subversion (svn) installed on your computer.
 
-```
-cd doc
-svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
-cd ..
+```bash
+$ cd generator/doc
+$ svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
+$ cd ../..
 ```
 
-Generating the documentation is a 2 pass process.
-
-### First pass: generating the function list
+At any point, if you want to update the documentation to the latest version, you can use:
 
 ```bash
-php ./parse.php
+$ cd generator/doc/doc-en
+$ svn update
 ```
 
-The first pass is used to find all the functions in the documentation and to put them in a CSV file called `generated/functions.csv`
 
-This CSV file is then **manually edited** to cope for the specific cases of some functions (for instance, the cURL exception
-messages can be fetched from `curl_strerror`).
+### Generating the functions
 
-### Second pass: generating the function list
+Generating the functions can be done with a simple command line.
 
 ```bash
-php ./generate.php
+$ cd generator
+$ php ./safe.php generate
 ```
-
-The second pass uses the `generated/functions.csv` and the downloaded documentation to create the functions wrapper file
-in `generated/lib.php`.
-

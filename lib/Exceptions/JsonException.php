@@ -3,7 +3,6 @@
 
 namespace Safe\Exceptions;
 
-
 class JsonException extends \Exception implements SafeExceptionInterface
 {
     public static function createFromPhpError(): self

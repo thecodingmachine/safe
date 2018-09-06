@@ -43,7 +43,7 @@ class GenerateCommand extends Command
 
         $modules = [];
         foreach ($functions as $function) {
-            $modules[$function->getModuleName()] = true;
+            $modules[$function->getModuleName()] = $function->getModuleName();
         }
 
         foreach ($modules as $moduleName => $foo) {
@@ -58,7 +58,7 @@ class GenerateCommand extends Command
         }
 
         // Finally, let's edit the composer.json file
-        ComposerJsonEditor::editFiles(\array_keys($modules));
+        ComposerJsonEditor::editFiles($modules);
     }
 
     private function rmGenerated(): void

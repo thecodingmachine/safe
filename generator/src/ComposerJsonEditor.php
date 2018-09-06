@@ -13,12 +13,12 @@ class ComposerJsonEditor
      */
     public static function editFiles(array $modules): void
     {
-        $files = \array_map(function(string $module) {
+        $files = \array_map(function (string $module) {
             return 'generated/'.lcfirst($module).'.php';
         }, $modules);
         $composerContent = file_get_contents(__DIR__.'/../../composer.json');
         if ($composerContent === false) {
-            throw new \Exception('Error while loading composer.json file for edition.');
+            throw new \RuntimeException('Error while loading composer.json file for edition.');
         }
         $composerJson = \json_decode($composerContent, true);
         $composerJson['autoload']['files'] = $files;

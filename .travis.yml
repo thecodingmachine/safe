@@ -5,16 +5,15 @@ matrix:
     env: PREFER_LOWEST=""
   - php: 7.1
     env: PREFER_LOWEST=""
-#  - php: 7.1
-#    env: PREFER_LOWEST="--prefer-lowest"
 
 cache:
   directories:
   - doc/doc-en
-
+  - vendor
+  - $HOME/.composer
 
 before_script:
-- composer update $PREFER_LOWEST --no-interaction
+- composer install --no-interaction
 - mkdir -p build/logs
 - |
   if [ ! -d "doc/doc-en/en" ]; then

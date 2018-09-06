@@ -188,7 +188,7 @@ function openssl_csr_get_subject($csr, bool $use_shortnames = true): array
  * @throws Exceptions\OpensslException
  * 
  */
-function openssl_csr_new(array $dn, &$privkey, array $configargs, array $extraattribs)
+function openssl_csr_new(array $dn, &$privkey, array $configargs = null, array $extraattribs = null)
 {
     error_clear_last();
     if ($extraattribs !== null) {
@@ -400,7 +400,7 @@ function openssl_pbkdf2(string $password, string $salt, int $key_length, int $it
  * @throws Exceptions\OpensslException
  * 
  */
-function openssl_pkcs12_export_to_file($x509, string $filename, $priv_key, string $pass, array $args): void
+function openssl_pkcs12_export_to_file($x509, string $filename, $priv_key, string $pass, array $args = null): void
 {
     error_clear_last();
     if ($args !== null) {
@@ -448,7 +448,7 @@ function openssl_pkcs12_export_to_file($x509, string $filename, $priv_key, strin
  * @throws Exceptions\OpensslException
  * 
  */
-function openssl_pkcs12_export($x509, string &$out, $priv_key, string $pass, array $args): void
+function openssl_pkcs12_export($x509, string &$out, $priv_key, string $pass, array $args = null): void
 {
     error_clear_last();
     if ($args !== null) {
@@ -497,7 +497,7 @@ function openssl_pkcs12_read(string $pkcs12, array &$certs, string $pass): void
  * @throws Exceptions\OpensslException
  * 
  */
-function openssl_pkcs7_decrypt(string $infilename, string $outfilename, $recipcert, $recipkey): void
+function openssl_pkcs7_decrypt(string $infilename, string $outfilename, $recipcert, $recipkey = null): void
 {
     error_clear_last();
     if ($recipkey !== null) {
@@ -615,7 +615,7 @@ function openssl_pkcs7_sign(string $infilename, string $outfilename, $signcert, 
  * @throws Exceptions\OpensslException
  * 
  */
-function openssl_pkey_export_to_file($key, string $outfilename, string $passphrase, array $configargs): void
+function openssl_pkey_export_to_file($key, string $outfilename, string $passphrase = null, array $configargs = null): void
 {
     error_clear_last();
     if ($configargs !== null) {
@@ -646,7 +646,7 @@ function openssl_pkey_export_to_file($key, string $outfilename, string $passphra
  * @throws Exceptions\OpensslException
  * 
  */
-function openssl_pkey_export($key, string &$out, string $passphrase, array $configargs): void
+function openssl_pkey_export($key, string &$out, string $passphrase = null, array $configargs = null): void
 {
     error_clear_last();
     if ($configargs !== null) {
@@ -735,7 +735,7 @@ function openssl_pkey_get_public($certificate)
  * @throws Exceptions\OpensslException
  * 
  */
-function openssl_pkey_new(array $configargs)
+function openssl_pkey_new(array $configargs = null)
 {
     error_clear_last();
     if ($configargs !== null) {
@@ -885,7 +885,7 @@ function openssl_public_encrypt(string $data, string &$crypted, $key, int $paddi
  * @throws Exceptions\OpensslException
  * 
  */
-function openssl_random_pseudo_bytes(int $length, bool &$crypto_strong): string
+function openssl_random_pseudo_bytes(int $length, bool &$crypto_strong = null): string
 {
     error_clear_last();
     if ($crypto_strong !== null) {

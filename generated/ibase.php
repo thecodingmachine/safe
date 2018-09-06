@@ -14,7 +14,7 @@ namespace Safe;
  * @throws Exceptions\IbaseException
  * 
  */
-function ibase_add_user($service_handle, string $user_name, string $password, string $first_name, string $middle_name, string $last_name): void
+function ibase_add_user($service_handle, string $user_name, string $password, string $first_name = null, string $middle_name = null, string $last_name = null): void
 {
     error_clear_last();
     if ($last_name !== null) {
@@ -171,7 +171,7 @@ function ibase_commit($link_or_trans_identifier = null): void
  * @throws Exceptions\IbaseException
  * 
  */
-function ibase_connect(string $database, string $username, string $password, string $charset, int $buffers, int $dialect, string $role, int $sync)
+function ibase_connect(string $database = null, string $username = null, string $password = null, string $charset = null, int $buffers = null, int $dialect = null, string $role = null, int $sync = null)
 {
     error_clear_last();
     if ($sync !== null) {
@@ -324,7 +324,7 @@ function ibase_maintain_db($service_handle, string $db, int $action, int $argume
  * @throws Exceptions\IbaseException
  * 
  */
-function ibase_modify_user($service_handle, string $user_name, string $password, string $first_name, string $middle_name, string $last_name): void
+function ibase_modify_user($service_handle, string $user_name, string $password, string $first_name = null, string $middle_name = null, string $last_name = null): void
 {
     error_clear_last();
     if ($last_name !== null) {
@@ -401,7 +401,7 @@ function ibase_name_result($result, string $name): void
  * @throws Exceptions\IbaseException
  * 
  */
-function ibase_pconnect(string $database, string $username, string $password, string $charset, int $buffers, int $dialect, string $role, int $sync)
+function ibase_pconnect(string $database = null, string $username = null, string $password = null, string $charset = null, int $buffers = null, int $dialect = null, string $role = null, int $sync = null)
 {
     error_clear_last();
     if ($sync !== null) {

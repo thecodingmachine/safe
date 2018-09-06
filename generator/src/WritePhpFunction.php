@@ -141,7 +141,7 @@ class WritePhpFunction
             }
 
 
-            if ($param->hasDefaultValue()) {
+            if ($param->hasDefaultValue() || $param->isOptionalWithNoDefault()) {
                 $optDetected = true;
             }
             $defaultValue = $param->getDefaultValue();

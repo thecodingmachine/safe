@@ -81,7 +81,7 @@ function bcompiler_read($filehandle): void
  * @throws Exceptions\BcompilerException
  * 
  */
-function bcompiler_write_class($filehandle, string $className, string $extends): void
+function bcompiler_write_class($filehandle, string $className, string $extends = null): void
 {
     error_clear_last();
     if ($extends !== null) {
@@ -200,7 +200,7 @@ function bcompiler_write_functions_from_file($filehandle, string $fileName): voi
  * @throws Exceptions\BcompilerException
  * 
  */
-function bcompiler_write_header($filehandle, string $write_ver): void
+function bcompiler_write_header($filehandle, string $write_ver = null): void
 {
     error_clear_last();
     if ($write_ver !== null) {

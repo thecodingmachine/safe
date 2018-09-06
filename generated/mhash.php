@@ -54,7 +54,7 @@ function mhash_keygen_s2k(int $hash, string $password, string $salt, int $bytes)
  * @throws Exceptions\MhashException
  * 
  */
-function mhash(int $hash, string $data, string $key): string
+function mhash(int $hash, string $data, string $key = null): string
 {
     error_clear_last();
     if ($key !== null) {

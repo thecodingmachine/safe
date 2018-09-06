@@ -19,7 +19,7 @@ namespace Safe;
  * @throws Exceptions\MssqlException
  * 
  */
-function mssql_close($link_identifier): void
+function mssql_close($link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -134,7 +134,7 @@ function mssql_free_statement($stmt): void
  * @throws Exceptions\MssqlException
  * 
  */
-function mssql_init(string $sp_name, $link_identifier)
+function mssql_init(string $sp_name, $link_identifier = null)
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -174,7 +174,7 @@ function mssql_init(string $sp_name, $link_identifier)
  * @throws Exceptions\MssqlException
  * 
  */
-function mssql_select_db(string $database_name, $link_identifier): void
+function mssql_select_db(string $database_name, $link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {

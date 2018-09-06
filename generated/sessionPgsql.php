@@ -10,7 +10,7 @@ namespace Safe;
  * @throws Exceptions\SessionPgsqlException
  * 
  */
-function session_pgsql_add_error(int $error_level, string $error_message): void
+function session_pgsql_add_error(int $error_level, string $error_message = null): void
 {
     error_clear_last();
     if ($error_message !== null) {

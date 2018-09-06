@@ -12,7 +12,7 @@ namespace Safe;
  * @throws Exceptions\SwooleException
  * 
  */
-function swoole_async_write(string $filename, string $content, integer $offset, callable $callback): void
+function swoole_async_write(string $filename, string $content, integer $offset = null, callable $callback = null): void
 {
     error_clear_last();
     if ($callback !== null) {
@@ -38,7 +38,7 @@ function swoole_async_write(string $filename, string $content, integer $offset, 
  * @throws Exceptions\SwooleException
  * 
  */
-function swoole_async_writefile(string $filename, string $content, callable $callback, int $flags = 0): void
+function swoole_async_writefile(string $filename, string $content, callable $callback = null, int $flags = 0): void
 {
     error_clear_last();
     if ($flags !== 0) {

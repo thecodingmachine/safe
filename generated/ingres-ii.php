@@ -97,7 +97,7 @@ function ingres_commit($link): void
  * @throws Exceptions\Ingres-iiException
  * 
  */
-function ingres_execute($result, array $params, string $types): void
+function ingres_execute($result, array $params = null, string $types = null): void
 {
     error_clear_last();
     if ($types !== null) {

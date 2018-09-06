@@ -34,7 +34,7 @@ namespace Safe;
  * @throws Exceptions\VarException
  * 
  */
-function import_request_variables(string $types, string $prefix): void
+function import_request_variables(string $types, string $prefix = null): void
 {
     error_clear_last();
     if ($prefix !== null) {

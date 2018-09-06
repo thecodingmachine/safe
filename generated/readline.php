@@ -120,7 +120,7 @@ function readline_completion_function(callable $function): void
  * @throws Exceptions\ReadlineException
  * 
  */
-function readline_read_history(string $filename): void
+function readline_read_history(string $filename = null): void
 {
     error_clear_last();
     if ($filename !== null) {
@@ -141,7 +141,7 @@ function readline_read_history(string $filename): void
  * @throws Exceptions\ReadlineException
  * 
  */
-function readline_write_history(string $filename): void
+function readline_write_history(string $filename = null): void
 {
     error_clear_last();
     if ($filename !== null) {

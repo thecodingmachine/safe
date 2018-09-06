@@ -116,7 +116,7 @@ function fam_monitor_file($fam, string $filename)
  * @throws Exceptions\FamException
  * 
  */
-function fam_open(string $appname)
+function fam_open(string $appname = null)
 {
     error_clear_last();
     if ($appname !== null) {

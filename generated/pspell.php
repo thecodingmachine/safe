@@ -88,7 +88,7 @@ function pspell_clear_session(int $dictionary_link): void
  * @throws Exceptions\PspellException
  * 
  */
-function pspell_config_create(string $language, string $spelling, string $jargon, string $encoding): int
+function pspell_config_create(string $language, string $spelling = null, string $jargon = null, string $encoding = null): int
 {
     error_clear_last();
     if ($encoding !== null) {
@@ -370,7 +370,7 @@ function pspell_config_save_repl(int $dictionary_link, bool $flag): void
  * @throws Exceptions\PspellException
  * 
  */
-function pspell_new(string $language, string $spelling, string $jargon, string $encoding, int $mode = 0): int
+function pspell_new(string $language, string $spelling = null, string $jargon = null, string $encoding = null, int $mode = 0): int
 {
     error_clear_last();
     if ($mode !== 0) {

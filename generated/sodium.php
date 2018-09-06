@@ -20,7 +20,7 @@ namespace Safe;
  * @throws Exceptions\SodiumException
  * 
  */
-function sodium_crypto_pwhash(int $length, string $password, string $salt, int $opslimit, int $memlimit, int $alg): string
+function sodium_crypto_pwhash(int $length, string $password, string $salt, int $opslimit, int $memlimit, int $alg = null): string
 {
     error_clear_last();
     if ($alg !== null) {

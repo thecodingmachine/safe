@@ -19,7 +19,7 @@ namespace Safe;
  * @throws Exceptions\SybaseException
  * 
  */
-function sybase_close($link_identifier): void
+function sybase_close($link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -126,7 +126,7 @@ function sybase_free_result($result): void
  * @throws Exceptions\SybaseException
  * 
  */
-function sybase_pconnect(string $servername, string $username, string $password, string $charset, string $appname)
+function sybase_pconnect(string $servername = null, string $username = null, string $password = null, string $charset = null, string $appname = null)
 {
     error_clear_last();
     if ($appname !== null) {
@@ -163,7 +163,7 @@ function sybase_pconnect(string $servername, string $username, string $password,
  * @throws Exceptions\SybaseException
  * 
  */
-function sybase_query(string $query, $link_identifier)
+function sybase_query(string $query, $link_identifier = null)
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -193,7 +193,7 @@ function sybase_query(string $query, $link_identifier)
  * @throws Exceptions\SybaseException
  * 
  */
-function sybase_select_db(string $database_name, $link_identifier): void
+function sybase_select_db(string $database_name, $link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -221,7 +221,7 @@ function sybase_select_db(string $database_name, $link_identifier): void
  * @throws Exceptions\SybaseException
  * 
  */
-function sybase_set_message_handler(callable $handler, $link_identifier): void
+function sybase_set_message_handler(callable $handler, $link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -264,7 +264,7 @@ function sybase_set_message_handler(callable $handler, $link_identifier): void
  * @throws Exceptions\SybaseException
  * 
  */
-function sybase_unbuffered_query(string $query, $link_identifier, bool $store_result)
+function sybase_unbuffered_query(string $query, $link_identifier, bool $store_result = null)
 {
     error_clear_last();
     if ($store_result !== null) {

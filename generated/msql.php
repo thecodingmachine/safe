@@ -39,7 +39,7 @@ function msql_affected_rows($result): int
  * @throws Exceptions\MsqlException
  * 
  */
-function msql_close($link_identifier): void
+function msql_close($link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -79,7 +79,7 @@ function msql_close($link_identifier): void
  * @throws Exceptions\MsqlException
  * 
  */
-function msql_connect(string $hostname)
+function msql_connect(string $hostname = null)
 {
     error_clear_last();
     if ($hostname !== null) {
@@ -106,7 +106,7 @@ function msql_connect(string $hostname)
  * @throws Exceptions\MsqlException
  * 
  */
-function msql_create_db(string $database_name, $link_identifier): void
+function msql_create_db(string $database_name, $link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -158,7 +158,7 @@ function msql_data_seek($result, int $row_number): void
  * @throws Exceptions\MsqlException
  * 
  */
-function msql_db_query(string $database, string $query, $link_identifier)
+function msql_db_query(string $database, string $query, $link_identifier = null)
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -185,7 +185,7 @@ function msql_db_query(string $database, string $query, $link_identifier)
  * @throws Exceptions\MsqlException
  * 
  */
-function msql_drop_db(string $database_name, $link_identifier): void
+function msql_drop_db(string $database_name, $link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -340,7 +340,7 @@ function msql_free_result($result): void
  * @throws Exceptions\MsqlException
  * 
  */
-function msql_pconnect(string $hostname)
+function msql_pconnect(string $hostname = null)
 {
     error_clear_last();
     if ($hostname !== null) {
@@ -369,7 +369,7 @@ function msql_pconnect(string $hostname)
  * @throws Exceptions\MsqlException
  * 
  */
-function msql_query(string $query, $link_identifier)
+function msql_query(string $query, $link_identifier = null)
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -400,7 +400,7 @@ function msql_query(string $query, $link_identifier)
  * @throws Exceptions\MsqlException
  * 
  */
-function msql_select_db(string $database_name, $link_identifier): void
+function msql_select_db(string $database_name, $link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {

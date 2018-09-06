@@ -108,7 +108,7 @@ namespace Safe;
  * @throws Exceptions\DbxException
  * 
  */
-function dbx_connect($module, string $host, string $database, string $username, string $password, int $persistent): object
+function dbx_connect($module, string $host, string $database, string $username, string $password, int $persistent = null): object
 {
     error_clear_last();
     if ($persistent !== null) {

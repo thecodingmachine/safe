@@ -24,7 +24,7 @@ namespace Safe;
  * @throws Exceptions\ComException
  * 
  */
-function com_event_sink(variant $comobject, object $sinkobject, $sinkinterface): void
+function com_event_sink(variant $comobject, object $sinkobject, $sinkinterface = null): void
 {
     error_clear_last();
     if ($sinkinterface !== null) {
@@ -115,7 +115,7 @@ function com_load_typelib(string $typelib_name, bool $case_insensitive = true): 
  * @throws Exceptions\ComException
  * 
  */
-function com_print_typeinfo(object $comobject, string $dispinterface, bool $wantsink = false): void
+function com_print_typeinfo(object $comobject, string $dispinterface = null, bool $wantsink = false): void
 {
     error_clear_last();
     if ($wantsink !== false) {

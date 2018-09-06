@@ -57,7 +57,7 @@ function func_get_arg(int $arg_num)
  * @throws Exceptions\FunchandException
  * 
  */
-function register_tick_function(callable $function, $arg,  ...$params): void
+function register_tick_function(callable $function, $arg = null,  ...$params): void
 {
     error_clear_last();
     if ($params !== null) {

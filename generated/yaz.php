@@ -263,7 +263,7 @@ function yaz_close($id): void
  * @throws Exceptions\YazException
  * 
  */
-function yaz_connect(string $zurl, $options)
+function yaz_connect(string $zurl, $options = null)
 {
     error_clear_last();
     if ($options !== null) {
@@ -425,7 +425,7 @@ function yaz_search($id, string $type, string $query): void
  * @throws Exceptions\YazException
  * 
  */
-function yaz_wait(array &$options)
+function yaz_wait(array &$options = null)
 {
     error_clear_last();
     if ($options !== null) {

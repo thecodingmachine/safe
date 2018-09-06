@@ -497,7 +497,7 @@ function eio_fdatasync($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = NUL
  * @throws Exceptions\EioException
  * 
  */
-function eio_fstat($fd, int $pri, callable $callback, $data)
+function eio_fstat($fd, int $pri, callable $callback, $data = null)
 {
     error_clear_last();
     if ($data !== null) {
@@ -550,7 +550,7 @@ function eio_fstat($fd, int $pri, callable $callback, $data)
  * @throws Exceptions\EioException
  * 
  */
-function eio_fstatvfs($fd, int $pri, callable $callback, $data)
+function eio_fstatvfs($fd, int $pri, callable $callback, $data = null)
 {
     error_clear_last();
     if ($data !== null) {
@@ -1567,7 +1567,7 @@ function eio_seek($fd, int $offset, int $whence, int $pri = EIO_PRI_DEFAULT, cal
  * @throws Exceptions\EioException
  * 
  */
-function eio_sendfile($out_fd, $in_fd, int $offset, int $length, int $pri, callable $callback, string $data)
+function eio_sendfile($out_fd, $in_fd, int $offset, int $length, int $pri = null, callable $callback = null, string $data = null)
 {
     error_clear_last();
     if ($data !== null) {
@@ -1675,7 +1675,7 @@ function eio_stat(string $path, int $pri, callable $callback, $data = NULL)
  * @throws Exceptions\EioException
  * 
  */
-function eio_statvfs(string $path, int $pri, callable $callback, $data)
+function eio_statvfs(string $path, int $pri, callable $callback, $data = null)
 {
     error_clear_last();
     if ($data !== null) {

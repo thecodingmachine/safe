@@ -217,7 +217,7 @@ function xdiff_string_patch_binary(string $str, string $patch): string
  * @throws Exceptions\XdiffException
  * 
  */
-function xdiff_string_patch(string $str, string $patch, int $flags, string &$error): string
+function xdiff_string_patch(string $str, string $patch, int $flags = null, string &$error = null): string
 {
     error_clear_last();
     if ($error !== null) {

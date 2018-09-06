@@ -33,7 +33,7 @@ function zip_entry_close($zip_entry): void
  * @throws Exceptions\ZipException
  * 
  */
-function zip_entry_open($zip, $zip_entry, string $mode): void
+function zip_entry_open($zip, $zip_entry, string $mode = null): void
 {
     error_clear_last();
     if ($mode !== null) {

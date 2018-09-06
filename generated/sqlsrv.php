@@ -253,7 +253,7 @@ function sqlsrv_num_rows($stmt)
  * @throws Exceptions\SqlsrvException
  * 
  */
-function sqlsrv_prepare($conn, string $sql, array $params, array $options)
+function sqlsrv_prepare($conn, string $sql, array $params = null, array $options = null)
 {
     error_clear_last();
     if ($options !== null) {
@@ -290,7 +290,7 @@ function sqlsrv_prepare($conn, string $sql, array $params, array $options)
  * @throws Exceptions\SqlsrvException
  * 
  */
-function sqlsrv_query($conn, string $sql, array $params, array $options)
+function sqlsrv_query($conn, string $sql, array $params = null, array $options = null)
 {
     error_clear_last();
     if ($options !== null) {

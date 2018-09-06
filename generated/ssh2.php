@@ -37,7 +37,7 @@ function ssh2_auth_agent($session, string $username): void
  * @throws Exceptions\Ssh2Exception
  * 
  */
-function ssh2_auth_hostbased_file($session, string $username, string $hostname, string $pubkeyfile, string $privkeyfile, string $passphrase, string $local_username): void
+function ssh2_auth_hostbased_file($session, string $username, string $hostname, string $pubkeyfile, string $privkeyfile, string $passphrase = null, string $local_username = null): void
 {
     error_clear_last();
     if ($local_username !== null) {
@@ -89,7 +89,7 @@ function ssh2_auth_password($session, string $username, string $password): void
  * @throws Exceptions\Ssh2Exception
  * 
  */
-function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, string $privkeyfile, string $passphrase): void
+function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, string $privkeyfile, string $passphrase = null): void
 {
     error_clear_last();
     if ($passphrase !== null) {
@@ -355,7 +355,7 @@ function ssh2_disconnect($session): void
  * @throws Exceptions\Ssh2Exception
  * 
  */
-function ssh2_exec($session, string $command, string $pty, array $env, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
+function ssh2_exec($session, string $command, string $pty = null, array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
 {
     error_clear_last();
     if ($width_height_type !== SSH2_TERM_UNIT_CHARS) {

@@ -103,7 +103,7 @@ function chown(string $filename, $user): void
  * @throws Exceptions\FilesystemException
  * 
  */
-function copy(string $source, string $dest, $context): void
+function copy(string $source, string $dest, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
@@ -703,7 +703,7 @@ function ftruncate($handle, int $size): void
  * @throws Exceptions\FilesystemException
  * 
  */
-function fwrite($handle, string $string, int $length): int
+function fwrite($handle, string $string, int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {
@@ -966,7 +966,7 @@ function readlink(string $path): string
  * @throws Exceptions\FilesystemException
  * 
  */
-function rename(string $oldname, string $newname, $context): void
+function rename(string $oldname, string $newname, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
@@ -1009,7 +1009,7 @@ function rewind($handle): void
  * @throws Exceptions\FilesystemException
  * 
  */
-function rmdir(string $dirname, $context): void
+function rmdir(string $dirname, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
@@ -1115,7 +1115,7 @@ function touch(string $filename, int $time = null, int $atime = null): void
  * @throws Exceptions\FilesystemException
  * 
  */
-function unlink(string $filename, $context): void
+function unlink(string $filename, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {

@@ -51,7 +51,7 @@ function mcrypt_create_iv(int $size, int $source = MCRYPT_DEV_URANDOM): string
  * @throws Exceptions\McryptException
  * 
  */
-function mcrypt_decrypt(string $cipher, string $key, string $data, string $mode, string $iv): string
+function mcrypt_decrypt(string $cipher, string $key, string $data, string $mode, string $iv = null): string
 {
     error_clear_last();
     if ($iv !== null) {
@@ -84,7 +84,7 @@ function mcrypt_decrypt(string $cipher, string $key, string $data, string $mode,
  * @throws Exceptions\McryptException
  * 
  */
-function mcrypt_encrypt(string $cipher, string $key, string $data, string $mode, string $iv): string
+function mcrypt_encrypt(string $cipher, string $key, string $data, string $mode, string $iv = null): string
 {
     error_clear_last();
     if ($iv !== null) {

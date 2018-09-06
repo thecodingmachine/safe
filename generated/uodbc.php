@@ -182,7 +182,7 @@ function odbc_columnprivileges($connection_id, string $qualifier, string $owner,
  * @throws Exceptions\UodbcException
  * 
  */
-function odbc_columns($connection_id, string $qualifier, string $schema, string $table_name, string $column_name)
+function odbc_columns($connection_id, string $qualifier = null, string $schema = null, string $table_name = null, string $column_name = null)
 {
     error_clear_last();
     if ($column_name !== null) {
@@ -258,7 +258,7 @@ function odbc_data_source($connection_id, int $fetch_type): array
  * @throws Exceptions\UodbcException
  * 
  */
-function odbc_exec($connection_id, string $query_string, int $flags)
+function odbc_exec($connection_id, string $query_string, int $flags = null)
 {
     error_clear_last();
     if ($flags !== null) {
@@ -289,7 +289,7 @@ function odbc_exec($connection_id, string $query_string, int $flags)
  * @throws Exceptions\UodbcException
  * 
  */
-function odbc_execute($result_id, array $parameters_array): void
+function odbc_execute($result_id, array $parameters_array = null): void
 {
     error_clear_last();
     if ($parameters_array !== null) {
@@ -317,7 +317,7 @@ function odbc_execute($result_id, array $parameters_array): void
  * @throws Exceptions\UodbcException
  * 
  */
-function odbc_fetch_into($result_id, array &$result_array, int $rownumber): int
+function odbc_fetch_into($result_id, array &$result_array, int $rownumber = null): int
 {
     error_clear_last();
     if ($rownumber !== null) {
@@ -575,7 +575,7 @@ function odbc_primarykeys($connection_id, string $qualifier, string $owner, stri
  * @throws Exceptions\UodbcException
  * 
  */
-function odbc_result_all($result_id, string $format): int
+function odbc_result_all($result_id, string $format = null): int
 {
     error_clear_last();
     if ($format !== null) {
@@ -819,7 +819,7 @@ function odbc_tableprivileges($connection_id, string $qualifier, string $owner, 
  * @throws Exceptions\UodbcException
  * 
  */
-function odbc_tables($connection_id, string $qualifier, string $owner, string $name, string $types)
+function odbc_tables($connection_id, string $qualifier = null, string $owner = null, string $name = null, string $types = null)
 {
     error_clear_last();
     if ($types !== null) {

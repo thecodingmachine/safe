@@ -18,7 +18,7 @@ namespace Safe;
  * @throws Exceptions\PcntlException
  * 
  */
-function pcntl_exec(string $path, array $args, array $envs): void
+function pcntl_exec(string $path, array $args = null, array $envs = null): void
 {
     error_clear_last();
     if ($envs !== null) {
@@ -124,7 +124,7 @@ function pcntl_signal_dispatch(): void
  * @throws Exceptions\PcntlException
  * 
  */
-function pcntl_sigprocmask(int $how, array $set, array &$oldset): void
+function pcntl_sigprocmask(int $how, array $set, array &$oldset = null): void
 {
     error_clear_last();
     if ($oldset !== null) {

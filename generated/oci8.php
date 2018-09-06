@@ -487,7 +487,7 @@ function oci_commit($connection): void
  * @throws Exceptions\Oci8Exception
  * 
  */
-function oci_connect(string $username, string $password, string $connection_string, string $character_set, int $session_mode)
+function oci_connect(string $username, string $password, string $connection_string = null, string $character_set = null, int $session_mode = null)
 {
     error_clear_last();
     if ($session_mode !== null) {
@@ -992,7 +992,7 @@ function oci_new_collection($connection, string $tdo, string $schema = null)
  * @throws Exceptions\Oci8Exception
  * 
  */
-function oci_new_connect(string $username, string $password, string $connection_string, string $character_set, int $session_mode)
+function oci_new_connect(string $username, string $password, string $connection_string = null, string $character_set = null, int $session_mode = null)
 {
     error_clear_last();
     if ($session_mode !== null) {
@@ -1213,7 +1213,7 @@ function oci_parse($connection, string $sql_text)
  * @throws Exceptions\Oci8Exception
  * 
  */
-function oci_pconnect(string $username, string $password, string $connection_string, string $character_set, int $session_mode)
+function oci_pconnect(string $username, string $password, string $connection_string = null, string $character_set = null, int $session_mode = null)
 {
     error_clear_last();
     if ($session_mode !== null) {

@@ -11,7 +11,7 @@ namespace Safe;
  * @throws Exceptions\SuhosinException
  * 
  */
-function sha256_file(string $filename, bool $raw_output): string
+function sha256_file(string $filename, bool $raw_output = null): string
 {
     error_clear_last();
     if ($raw_output !== null) {
@@ -35,7 +35,7 @@ function sha256_file(string $filename, bool $raw_output): string
  * @throws Exceptions\SuhosinException
  * 
  */
-function sha256(string $str, bool $raw_output): string
+function sha256(string $str, bool $raw_output = null): string
 {
     error_clear_last();
     if ($raw_output !== null) {

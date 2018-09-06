@@ -176,7 +176,7 @@ function session_reset(): void
  * @throws Exceptions\SessionException
  * 
  */
-function session_set_cookie_params(int $lifetime, string $path, string $domain, bool $secure = false, bool $httponly = false): void
+function session_set_cookie_params(int $lifetime, string $path = null, string $domain = null, bool $secure = false, bool $httponly = false): void
 {
     error_clear_last();
     if ($httponly !== false) {

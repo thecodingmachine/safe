@@ -208,7 +208,7 @@ function dba_nextkey($handle): string
  * @throws Exceptions\DbaException
  * 
  */
-function dba_open(string $path, string $mode, string $handler,  ...$params)
+function dba_open(string $path, string $mode, string $handler = null,  ...$params)
 {
     error_clear_last();
     if ($params !== null) {
@@ -262,7 +262,7 @@ function dba_optimize($handle): void
  * @throws Exceptions\DbaException
  * 
  */
-function dba_popen(string $path, string $mode, string $handler,  ...$params)
+function dba_popen(string $path, string $mode, string $handler = null,  ...$params)
 {
     error_clear_last();
     if ($params !== null) {

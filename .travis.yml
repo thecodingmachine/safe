@@ -16,7 +16,14 @@ cache:
 before_script:
 - composer update $PREFER_LOWEST --no-interaction
 - mkdir -p build/logs
-- if [ ! -d "doc/doc-en" ]; then svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc/doc-en; else; cd doc && svn update && cd ..; fi
+- |
+  if [ ! -d "doc/doc-en" ]; then
+    svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc/doc-en
+  else
+    cd doc
+    svn update
+    cd ..
+  fi
 
 script:
 - "./vendor/bin/phpunit"

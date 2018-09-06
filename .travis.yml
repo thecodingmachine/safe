@@ -17,7 +17,7 @@ before_script:
 - composer update $PREFER_LOWEST --no-interaction
 - mkdir -p build/logs
 - |
-  if [ ! -d "doc/doc-en" ]; then
+  if [ ! -d "doc/doc-en/en" ]; then
     cd doc
     svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
     cd ..

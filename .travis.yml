@@ -18,11 +18,13 @@ before_script:
 - mkdir -p build/logs
 - |
   if [ ! -d "doc/doc-en" ]; then
-    svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc/doc-en
-  else
     cd doc
-    svn update
+    svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
     cd ..
+  else
+    cd doc/doc-en
+    svn update
+    cd ../..
   fi
 
 script:

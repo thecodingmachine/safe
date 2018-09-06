@@ -56,6 +56,9 @@ class GenerateCommand extends Command
         foreach ($files as $file) {
             require($file);
         }
+
+        // Finally, let's edit the composer.json file
+        ComposerJsonEditor::editFiles(\array_keys($modules));
     }
 
     private function rmGenerated(): void

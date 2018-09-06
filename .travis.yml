@@ -13,9 +13,7 @@ cache:
   - $HOME/.composer
 
 before_script:
-- cd generator
-- composer install --no-interaction
-- mkdir -p build/logs
+- cd generator && composer install --no-interaction && cd ..
 - |
   if [ ! -d "generator/doc/doc-en/en" ]; then
     cd generator/doc
@@ -26,16 +24,12 @@ before_script:
     svn update
     cd ../../..
   fi
-- cd ..
 - composer update
 
 script:
-- cd generator
-- "./vendor/bin/phpunit"
-#- "./vendor/bin/composer-require-checker --config-file=composer-require-checker.json"
-- composer cs-check
-- composer phpstan
-- cd ..
+- cd generator && ./vendor/bin/phpunit && cd ..
+- cd generator && composer cs-check && cd ..
+- cd generator && composer phpstan && cd ..
 - composer cs-check
 - composer phpstan
 

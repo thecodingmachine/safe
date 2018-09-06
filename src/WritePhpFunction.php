@@ -49,7 +49,7 @@ class WritePhpFunction
         if ($this->method->getFunctionType() !== 'void') {
             $returnStatement = "    return \$result;\n";
         }
-        $phpException = $this->method->getModuleName();
+        $moduleName = $this->method->getModuleName();
 
         $phpFunction .= "function {$this->method->getFunctionName()}({$this->displayParamsWithType($this->method->getFunctionParam())}){$returnType}
 {
@@ -84,15 +84,32 @@ class WritePhpFunction
             $phpFunction .= '    }';
         }
 
-        $phpFunction .= "
-    if (\$result === FALSE) {
-        throw Exceptions\\{$phpException}Exception::createFromPhpError();
-    }
-$returnStatement}
+        $phpFunction .= $this->generateExceptionCode($moduleName, $this->method).$returnStatement. '}
 
-";
+';
 
         return $phpFunction;
+    }
+
+    private function generateExceptionCode(string $moduleName, Method $method) : string
+    {
+        // Special case for CURL: we need the first argument of the method if this is a resource.
+        if ($moduleName === 'Curl') {
+            $params = $method->getFunctionParam();
+            if (\count($params) > 0 && $params[0]->getParameter() === 'ch') {
+                return "
+    if (\$result === FALSE) {
+        throw Exceptions\\CurlException::createFromCurlResource(\$ch);
+    }
+";
+            }
+        }
+
+        return "
+    if (\$result === FALSE) {
+        throw Exceptions\\{$moduleName}Exception::createFromPhpError();
+    }
+";
     }
 
     /**

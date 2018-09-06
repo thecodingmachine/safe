@@ -10,7 +10,7 @@ class FileCreator
 {
     public function __construct() {}
 
-    /*
+    /**
      * This function generate an xls file
      *
      * @param string[] $protoFunctions
@@ -42,23 +42,47 @@ class FileCreator
         $writer->save($path);
     }
 
-    /*
+    /**
      * This function generate an improved php lib function in a php file
      *
-     * @param string[]
-     * @param string
+     * @param string[] $phpFunctions
+     * @param string $path
      */
     public function generatePhpFile(array $phpFunctions, string $path): void {
-        $stream = fopen($path, 'w');
-        fwrite($stream, "<?php\n
+        $stream = \fopen($path, 'w');
+        if ($stream === false) {
+            throw new \RuntimeException('Unable to write to '.$path);
+        }
+        \fwrite($stream, "<?php\n
 namespace Safe;
 
 ");
         foreach ($phpFunctions as $phpFunction) {
-            fwrite($stream, $phpFunction."\n");
+            \fwrite($stream, $phpFunction."\n");
         }
+        \fclose($stream);
+    }
+
+
+    /**
+     * This function generate a PHP file containing the list of functions we can handle.
+     *
+     * @param Method[] $functions
+     * @param string $path
+     */
+    public function generateFunctionsList(array $functions, string $path): void {
+        $functionNames = array_map(function(Method $function) { return $function->getFunctionName(); }, $functions);
+        $stream = fopen($path, 'w');
+        if ($stream === false) {
+            throw new \RuntimeException('Unable to write to '.$path);
+        }
+        fwrite($stream, "<?php\n
+return ".var_export($functionNames, true).";
+
+");
         fclose($stream);
     }
+
 
     public function createExceptionFile(string $moduleName): void
     {

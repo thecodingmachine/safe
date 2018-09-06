@@ -83,7 +83,7 @@ class Method
 
     private function getDocBlock(): string
     {
-        $str = $this->getStringForXPath("//docbook:refsect1[@role='description']/docbook:para");
+        $str = $this->stripReturnFalseText($this->getStringForXPath("//docbook:refsect1[@role='description']/docbook:para"));
         $str .= "\n\n";
 
         $i=1;
@@ -98,15 +98,38 @@ class Method
             $str .= '@return '.$bestReturnType. ' ' .$this->getReturnDoc()."\n";
         }
 
+        $str .= '@throws Exceptions\\'.$this->getModuleName(). "Exception\n";
+
         return $str;
     }
 
     private function getReturnDoc(): string
     {
         $returnDoc = $this->getStringForXPath("//docbook:refsect1[@role='returnvalues']/docbook:para");
-        $returnDoc = \strip_tags($returnDoc);
-        $returnDoc = \str_replace('or FALSE on failure', '', $returnDoc);
-        return $returnDoc;
+        return $this->stripReturnFalseText($returnDoc);
+    }
+
+    private function stripReturnFalseText(string $string): string
+    {
+        $string = \strip_tags($string);
+        $string = $this->removeString($string, 'or FALSE on failure');
+        $string = $this->removeString($string, 'on success, or FALSE otherwise');
+        $string = $this->removeString($string, 'or FALSE on error');
+        $string = $this->removeString($string, 'or FALSE if an error occurred');
+        $string = $this->removeString($string, 'the function will return TRUE, or FALSE otherwise');
+        return $string;
+    }
+
+    /**
+     * Removes a string, even if the string is split on multiple lines.
+     * @param string $string
+     * @param string $search
+     * @return string
+     */
+    private function removeString(string $string, string $search): string
+    {
+        $search = str_replace(' ', '\s+', $search);
+        return preg_replace('/'.$search.'/m', '', $string);
     }
 
     private function getStringForXPath(string $xpath): string

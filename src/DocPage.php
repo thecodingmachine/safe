@@ -50,6 +50,7 @@ class DocPage
      * @return \SimpleXMLElement[]
      */
     public function getMethodSynopsis(): array {
+        /** @var string[] $cleanedFunctions */
         $cleanedFunctions = [];
 
         $file = \file_get_contents($this->path);
@@ -58,10 +59,11 @@ class DocPage
         }
         $functions = $this->arrayFlatten($functions);
         foreach ($functions as $function) {
-            $cleaningFunction = preg_replace('/&(false);/m', 'false', $function);
-            $cleaningFunction = preg_replace('/&(true);/m', 'true', $cleaningFunction);
-            $cleaningFunction = preg_replace('/&(null);/m', 'null', $cleaningFunction);
+            $cleaningFunction = \str_replace(['&false;', '&true;', '&null;'], ['false', 'true', 'null'], $function);
             $cleaningFunction = preg_replace('/&(.*);/m', '', $cleaningFunction);
+            if (!\is_string($cleaningFunction)) {
+                throw new \RuntimeException('Error occured in preg_replace');
+            }
             $cleanedFunctions[] = $cleaningFunction;
         }
         $functionObjects = [];
@@ -89,6 +91,9 @@ class DocPage
 
         echo 'Loading '.$this->path."\n";
         $elem = \simplexml_load_string($content, \SimpleXMLElement::class, LIBXML_DTDLOAD | LIBXML_NOENT);
+        if ($elem === false) {
+            throw new \RuntimeException('Invalid XML file for '.$this->path);
+        }
         $elem->registerXPathNamespace('docbook', 'http://docbook.org/ns/docbook');
 
         return $elem;
@@ -119,7 +124,7 @@ class DocPage
         return $str;
     }
 
-    /*
+    /**
      * @param mixed[] $array multidimensional string array
      * @return string[]
      */
@@ -137,7 +142,7 @@ class DocPage
         return $result;
     }
 
-    public static function buildEntities()
+    public static function buildEntities(): void
     {
         $file1 = \file_get_contents(__DIR__.'/../doc/doc-en/en/language-defs.ent');
         $file2 = \file_get_contents(__DIR__.'/../doc/doc-en/en/language-snippets.ent');

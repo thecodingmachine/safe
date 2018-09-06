@@ -45,6 +45,8 @@ class GenerateCommand extends Command
         $fileCreator = new FileCreator();
         //$fileCreator->generateXlsFile($protoFunctions, __DIR__ . '/../generated/lib.xls');
         $fileCreator->generatePhpFile($phpFunctions, __DIR__ . '/../generated/lib.php');
+        $fileCreator->generateFunctionsList($functions, __DIR__ . '/../generated/functionsList.php');
+
 
         $modules = [];
         foreach ($functions as $function) {
@@ -54,6 +56,9 @@ class GenerateCommand extends Command
         foreach ($modules as $moduleName => $foo) {
             $fileCreator->createExceptionFile($moduleName);
         }
+
+        // Finally, let's require the generated file to check there is no error.
+        require __DIR__.'/../generated/lib.php';
     }
 
     private function rmGenerated(): void

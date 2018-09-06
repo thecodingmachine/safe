@@ -35,15 +35,9 @@ class GenerateCommand extends Command
 
         $output->writeln('These functions have been ignored and must be dealt with manually: '.\implode(', ', $overloadedFunctions));
 
-        $phpFunctions = [];
-        foreach ($functions as $function) {
-            $writePhpFunction = new WritePhpFunction($function);
-            $phpFunctions[] = $writePhpFunction->getPhpFunctionalFunction();
-        }
-
         $fileCreator = new FileCreator();
         //$fileCreator->generateXlsFile($protoFunctions, __DIR__ . '/../generated/lib.xls');
-        $fileCreator->generatePhpFile($phpFunctions, __DIR__ . '/../generated/lib.php');
+        $fileCreator->generatePhpFile($functions, __DIR__ . '/../generated/');
         $fileCreator->generateFunctionsList($functions, __DIR__ . '/../generated/functionsList.php');
 
 
@@ -57,7 +51,11 @@ class GenerateCommand extends Command
         }
 
         // Finally, let's require the generated file to check there is no error.
-        require __DIR__.'/../generated/lib.php';
+        $files = \glob(__DIR__.'/../generated/*.php');
+
+        foreach ($files as $file) {
+            require($file);
+        }
     }
 
     private function rmGenerated(): void
@@ -68,9 +66,12 @@ class GenerateCommand extends Command
             \unlink($exception);
         }
 
-        if (\file_exists(__DIR__.'/../generated/lib.php')) {
-            \unlink(__DIR__.'/../generated/lib.php');
+        $files = \glob(__DIR__.'/../generated/*.php');
+
+        foreach ($files as $file) {
+            \unlink($file);
         }
+
         if (\file_exists(__DIR__.'/../doc/entities/generated.ent')) {
             \unlink(__DIR__.'/../doc/entities/generated.ent');
         }

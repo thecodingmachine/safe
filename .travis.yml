@@ -8,10 +8,15 @@ matrix:
 #  - php: 7.1
 #    env: PREFER_LOWEST="--prefer-lowest"
 
+cache:
+  directories:
+  - doc/doc-en
+
+
 before_script:
 - composer update $PREFER_LOWEST --no-interaction
 - mkdir -p build/logs
-- cd doc && svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en && cd ..
+- if [ ! -d "doc/doc-en" ]; then svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc/doc-en; else; cd doc && svn update && cd ..; fi
 
 script:
 - "./vendor/bin/phpunit"

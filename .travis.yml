@@ -31,5 +31,16 @@ script:
 #- "./vendor/bin/composer-require-checker --config-file=composer-require-checker.json"
 - composer cs-check
 - composer phpstan
+# Now, let's regenerate all files and see if we obtain the same set of files as the ones commited:
+- ./safe.php generate
+- |
+  if output=$(git status --porcelain) && [ -z "$output" ]; then
+    # all is good
+    echo "Generated files are the same as committed file: OK"
+  else
+    # Uncommitted changes
+    echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
+    exit 1;
+  fi
 after_script:
 - travis_retry php vendor/bin/php-coveralls

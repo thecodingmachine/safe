@@ -37,7 +37,7 @@ function pg_cancel_query($connection): void
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_client_encoding($connection): string
+function pg_client_encoding($connection = null): string
 {
     error_clear_last();
     if ($connection !== null) {
@@ -67,7 +67,7 @@ function pg_client_encoding($connection): string
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_close($connection): void
+function pg_close($connection = null): void
 {
     error_clear_last();
     if ($connection !== null) {
@@ -149,7 +149,7 @@ function pg_convert($connection, string $table_name, array $assoc_array, int $op
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_copy_from($connection, string $table_name, array $rows, string $delimiter, string $null_as): void
+function pg_copy_from($connection, string $table_name, array $rows, string $delimiter = null, string $null_as = null): void
 {
     error_clear_last();
     if ($null_as !== null) {
@@ -179,7 +179,7 @@ function pg_copy_from($connection, string $table_name, array $rows, string $deli
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_dbname($connection): string
+function pg_dbname($connection = null): string
 {
     error_clear_last();
     if ($connection !== null) {
@@ -258,7 +258,7 @@ function pg_delete($connection, string $table_name, array $assoc_array, int $opt
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_end_copy($connection): void
+function pg_end_copy($connection = null): void
 {
     error_clear_last();
     if ($connection !== null) {
@@ -306,7 +306,7 @@ function pg_end_copy($connection): void
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_execute($connection, string $stmtname, array $params)
+function pg_execute($connection = null, string $stmtname = null, array $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -434,7 +434,7 @@ function pg_free_result($result): void
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_host($connection): string
+function pg_host($connection = null): string
 {
     error_clear_last();
     if ($connection !== null) {
@@ -520,7 +520,7 @@ function pg_insert($connection, string $table_name, array $assoc_array, int $opt
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_last_error($connection): string
+function pg_last_error($connection = null): string
 {
     error_clear_last();
     if ($connection !== null) {
@@ -657,7 +657,7 @@ function pg_lo_close($large_object): void
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_lo_export($connection, int $oid, string $pathname): void
+function pg_lo_export($connection = null, int $oid = null, string $pathname = null): void
 {
     error_clear_last();
     if ($pathname !== null) {
@@ -845,7 +845,7 @@ function pg_lo_unlink($connection, int $oid): void
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_lo_write($large_object, string $data, int $len): int
+function pg_lo_write($large_object, string $data, int $len = null): int
 {
     error_clear_last();
     if ($len !== null) {
@@ -896,7 +896,7 @@ function pg_meta_data($connection, string $table_name, bool $extended = false): 
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_options($connection): string
+function pg_options($connection = null): string
 {
     error_clear_last();
     if ($connection !== null) {
@@ -922,7 +922,7 @@ function pg_options($connection): string
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_ping($connection): void
+function pg_ping($connection = null): void
 {
     error_clear_last();
     if ($connection !== null) {
@@ -951,7 +951,7 @@ function pg_ping($connection): void
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_port($connection): int
+function pg_port($connection = null): int
 {
     error_clear_last();
     if ($connection !== null) {
@@ -1001,7 +1001,7 @@ function pg_port($connection): int
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_prepare($connection, string $stmtname, string $query)
+function pg_prepare($connection = null, string $stmtname = null, string $query = null)
 {
     error_clear_last();
     if ($query !== null) {
@@ -1042,7 +1042,7 @@ function pg_prepare($connection, string $stmtname, string $query)
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_put_line($connection, string $data): void
+function pg_put_line($connection = null, string $data = null): void
 {
     error_clear_last();
     if ($data !== null) {
@@ -1108,7 +1108,7 @@ function pg_put_line($connection, string $data): void
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_query_params($connection, string $query, array $params)
+function pg_query_params($connection = null, string $query = null, array $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -1166,7 +1166,7 @@ function pg_query_params($connection, string $query, array $params)
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_query($connection, string $query)
+function pg_query($connection = null, string $query = null)
 {
     error_clear_last();
     if ($query !== null) {
@@ -1391,7 +1391,7 @@ function pg_trace(string $pathname, string $mode = "w", $connection = null): voi
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_tty($connection): string
+function pg_tty($connection = null): string
 {
     error_clear_last();
     if ($connection !== null) {
@@ -1478,7 +1478,7 @@ function pg_update($connection, string $table_name, array $data, array $conditio
  * @throws Exceptions\PgsqlException
  * 
  */
-function pg_version($connection): array
+function pg_version($connection = null): array
 {
     error_clear_last();
     if ($connection !== null) {

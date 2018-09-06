@@ -33,7 +33,7 @@ function newt_button(int $left, int $top, string $text)
  * @throws Exceptions\NewtException
  * 
  */
-function newt_form($vert_bar, string $help, int $flags)
+function newt_form($vert_bar = null, string $help = null, int $flags = null)
 {
     error_clear_last();
     if ($flags !== null) {

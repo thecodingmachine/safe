@@ -11,7 +11,7 @@ namespace Safe;
  * @throws Exceptions\CrackException
  * 
  */
-function crack_closedict($dictionary): void
+function crack_closedict($dictionary = null): void
 {
     error_clear_last();
     if ($dictionary !== null) {

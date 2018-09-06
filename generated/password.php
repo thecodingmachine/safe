@@ -102,7 +102,7 @@ namespace Safe;
  * @throws Exceptions\PasswordException
  * 
  */
-function password_hash(string $password, int $algo, array $options): string
+function password_hash(string $password, int $algo, array $options = null): string
 {
     error_clear_last();
     if ($options !== null) {

@@ -16,7 +16,7 @@ namespace Safe;
  * @throws Exceptions\ImageException
  * 
  */
-function image2wbmp($image, string $filename, int $foreground): void
+function image2wbmp($image, string $filename = null, int $foreground = null): void
 {
     error_clear_last();
     if ($foreground !== null) {
@@ -43,7 +43,7 @@ function image2wbmp($image, string $filename, int $foreground): void
  * @throws Exceptions\ImageException
  * 
  */
-function imageaffine($image, array $affine, array $clip)
+function imageaffine($image, array $affine, array $clip = null)
 {
     error_clear_last();
     if ($clip !== null) {
@@ -102,7 +102,7 @@ function imageaffinematrixconcat(array $m1, array $m2): array
  * @throws Exceptions\ImageException
  * 
  */
-function imageaffinematrixget(int $type, $options): array
+function imageaffinematrixget(int $type, $options = null): array
 {
     error_clear_last();
     if ($options !== null) {
@@ -998,7 +998,7 @@ function imagefilltoborder($image, int $x, int $y, int $border, int $color): voi
  * @throws Exceptions\ImageException
  * 
  */
-function imagefilter($image, int $filtertype, int $arg1, int $arg2, int $arg3, int $arg4): void
+function imagefilter($image, int $filtertype, int $arg1 = null, int $arg2 = null, int $arg3 = null, int $arg4 = null): void
 {
     error_clear_last();
     if ($arg4 !== null) {
@@ -1150,7 +1150,7 @@ function imagegd2($image, $to = NULL, int $chunk_size = 128, int $type = IMG_GD2
  * @throws Exceptions\ImageException
  * 
  */
-function imagegif($image, $to): void
+function imagegif($image, $to = null): void
 {
     error_clear_last();
     if ($to !== null) {
@@ -1180,7 +1180,7 @@ function imagegif($image, $to): void
  * @throws Exceptions\ImageException
  * 
  */
-function imagejpeg($image, $to, int $quality): void
+function imagejpeg($image, $to = null, int $quality = null): void
 {
     error_clear_last();
     if ($quality !== null) {
@@ -1417,7 +1417,7 @@ function imageopenpolygon($image, array $points, int $num_points, int $color): v
  * @throws Exceptions\ImageException
  * 
  */
-function imagepng($image, $to, int $quality, int $filters): void
+function imagepng($image, $to = null, int $quality = null, int $filters = null): void
 {
     error_clear_last();
     if ($filters !== null) {
@@ -1615,7 +1615,7 @@ function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color):
  * @throws Exceptions\ImageException
  * 
  */
-function imageresolution($image, int $res_x, int $res_y)
+function imageresolution($image, int $res_x = null, int $res_y = null)
 {
     error_clear_last();
     if ($res_y !== null) {
@@ -2299,7 +2299,7 @@ function imagettftext($image, float $size, float $angle, int $x, int $y, int $co
  * @throws Exceptions\ImageException
  * 
  */
-function imagewbmp($image, $to, int $foreground): void
+function imagewbmp($image, $to = null, int $foreground = null): void
 {
     error_clear_last();
     if ($foreground !== null) {
@@ -2356,7 +2356,7 @@ function imagewebp($image, $to = null, int $quality = 80): void
  * @throws Exceptions\ImageException
  * 
  */
-function imagexbm($image, string $filename, int $foreground): void
+function imagexbm($image, string $filename, int $foreground = null): void
 {
     error_clear_last();
     if ($foreground !== null) {

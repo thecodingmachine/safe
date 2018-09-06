@@ -13,7 +13,7 @@ namespace Safe;
  * @throws Exceptions\FtpException
  * 
  */
-function ftp_alloc($ftp_stream, int $filesize, string &$result): void
+function ftp_alloc($ftp_stream, int $filesize, string &$result = null): void
 {
     error_clear_last();
     if ($result !== null) {

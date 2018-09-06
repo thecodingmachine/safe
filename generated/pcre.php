@@ -346,7 +346,7 @@ namespace Safe;
  * @throws Exceptions\PcreException
  * 
  */
-function preg_match_all(string $pattern, string $subject, array &$matches, int $flags = PREG_PATTERN_ORDER, int $offset = 0): int
+function preg_match_all(string $pattern, string $subject, array &$matches = null, int $flags = PREG_PATTERN_ORDER, int $offset = 0): int
 {
     error_clear_last();
     if ($offset !== 0) {
@@ -591,7 +591,7 @@ function preg_match_all(string $pattern, string $subject, array &$matches, int $
  * @throws Exceptions\PcreException
  * 
  */
-function preg_match(string $pattern, string $subject, array &$matches, int $flags = 0, int $offset = 0): int
+function preg_match(string $pattern, string $subject, array &$matches = null, int $flags = 0, int $offset = 0): int
 {
     error_clear_last();
     if ($offset !== 0) {

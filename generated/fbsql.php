@@ -18,7 +18,7 @@ namespace Safe;
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_blob_size(string $blob_handle, $link_identifier): int
+function fbsql_blob_size(string $blob_handle, $link_identifier = null): int
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -53,7 +53,7 @@ function fbsql_blob_size(string $blob_handle, $link_identifier): int
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_change_user(string $user, string $password, string $database, $link_identifier): void
+function fbsql_change_user(string $user, string $password, string $database = null, $link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -85,7 +85,7 @@ function fbsql_change_user(string $user, string $password, string $database, $li
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_clob_size(string $clob_handle, $link_identifier): int
+function fbsql_clob_size(string $clob_handle, $link_identifier = null): int
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -119,7 +119,7 @@ function fbsql_clob_size(string $clob_handle, $link_identifier): int
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_close($link_identifier): void
+function fbsql_close($link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -149,7 +149,7 @@ function fbsql_close($link_identifier): void
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_commit($link_identifier): void
+function fbsql_commit($link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -210,7 +210,7 @@ function fbsql_connect(string $hostname = null, string $username = null, string 
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_create_db(string $database_name, $link_identifier, string $database_options): void
+function fbsql_create_db(string $database_name, $link_identifier = null, string $database_options = null): void
 {
     error_clear_last();
     if ($database_options !== null) {
@@ -269,7 +269,7 @@ function fbsql_data_seek($result, int $row_number): void
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_db_query(string $database, string $query, $link_identifier)
+function fbsql_db_query(string $database, string $query, $link_identifier = null)
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -300,7 +300,7 @@ function fbsql_db_query(string $database, string $query, $link_identifier)
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_drop_db(string $database_name, $link_identifier): void
+function fbsql_drop_db(string $database_name, $link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -356,7 +356,7 @@ function fbsql_drop_db(string $database_name, $link_identifier): void
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_fetch_field($result, int $field_offset): object
+function fbsql_fetch_field($result, int $field_offset = null): object
 {
     error_clear_last();
     if ($field_offset !== null) {
@@ -410,7 +410,7 @@ function fbsql_fetch_lengths($result): array
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_field_seek($result, int $field_offset): void
+function fbsql_field_seek($result, int $field_offset = null): void
 {
     error_clear_last();
     if ($field_offset !== null) {
@@ -466,7 +466,7 @@ function fbsql_free_result($result): void
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_list_dbs($link_identifier)
+function fbsql_list_dbs($link_identifier = null)
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -499,7 +499,7 @@ function fbsql_list_dbs($link_identifier)
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_list_fields(string $database_name, string $table_name, $link_identifier)
+function fbsql_list_fields(string $database_name, string $table_name, $link_identifier = null)
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -532,7 +532,7 @@ function fbsql_list_fields(string $database_name, string $table_name, $link_iden
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_list_tables(string $database, $link_identifier)
+function fbsql_list_tables(string $database, $link_identifier = null)
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -601,7 +601,7 @@ function fbsql_pconnect(string $hostname = null, string $username = null, string
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_rollback($link_identifier): void
+function fbsql_rollback($link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -644,7 +644,7 @@ function fbsql_rollback($link_identifier): void
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_select_db(string $database_name, $link_identifier): void
+function fbsql_select_db(string $database_name = null, $link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -750,7 +750,7 @@ function fbsql_set_password($link_identifier, string $user, string $password, st
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_start_db(string $database_name, $link_identifier, string $database_options): void
+function fbsql_start_db(string $database_name, $link_identifier = null, string $database_options = null): void
 {
     error_clear_last();
     if ($database_options !== null) {
@@ -781,7 +781,7 @@ function fbsql_start_db(string $database_name, $link_identifier, string $databas
  * @throws Exceptions\FbsqlException
  * 
  */
-function fbsql_stop_db(string $database_name, $link_identifier): void
+function fbsql_stop_db(string $database_name, $link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {

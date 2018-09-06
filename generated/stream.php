@@ -81,7 +81,7 @@ function stream_copy_to_stream($source, $dest, int $maxlength = -1, int $offset 
  * @throws Exceptions\StreamException
  * 
  */
-function stream_filter_append($stream, string $filtername, int $read_write, $params)
+function stream_filter_append($stream, string $filtername, int $read_write = null, $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -130,7 +130,7 @@ function stream_filter_append($stream, string $filtername, int $read_write, $par
  * @throws Exceptions\StreamException
  * 
  */
-function stream_filter_prepend($stream, string $filtername, int $read_write, $params)
+function stream_filter_prepend($stream, string $filtername, int $read_write = null, $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -403,7 +403,7 @@ function stream_socket_accept($server_socket, float $timeout = null, string &$pe
  * @throws Exceptions\StreamException
  * 
  */
-function stream_socket_server(string $local_socket, int &$errno, string &$errstr, int $flags = STREAM_SERVER_BIND | STREAM_SERVER_LISTEN, $context = null)
+function stream_socket_server(string $local_socket, int &$errno = null, string &$errstr = null, int $flags = STREAM_SERVER_BIND | STREAM_SERVER_LISTEN, $context = null)
 {
     error_clear_last();
     if ($context !== null) {

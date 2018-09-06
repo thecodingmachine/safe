@@ -44,7 +44,7 @@ namespace Safe;
  * @throws Exceptions\IbmDb2Exception
  * 
  */
-function db2_autocommit($connection, bool $value)
+function db2_autocommit($connection, bool $value = null)
 {
     error_clear_last();
     if ($value !== null) {
@@ -94,7 +94,7 @@ function db2_autocommit($connection, bool $value)
  * @throws Exceptions\IbmDb2Exception
  * 
  */
-function db2_bind_param($stmt, int $parameter_number, string $variable_name, int $parameter_type, int $data_type = 0, int $precision = -1, int $scale = 0): void
+function db2_bind_param($stmt, int $parameter_number, string $variable_name, int $parameter_type = null, int $data_type = 0, int $precision = -1, int $scale = 0): void
 {
     error_clear_last();
     if ($scale !== 0) {
@@ -182,7 +182,7 @@ function db2_commit($connection): void
  * @throws Exceptions\IbmDb2Exception
  * 
  */
-function db2_execute($stmt, array $parameters): void
+function db2_execute($stmt, array $parameters = null): void
 {
     error_clear_last();
     if ($parameters !== null) {

@@ -36,7 +36,7 @@ function wddx_add_vars($packet_id, $var_name,  ...$params): void
  * @throws Exceptions\WddxException
  * 
  */
-function wddx_packet_start(string $comment)
+function wddx_packet_start(string $comment = null)
 {
     error_clear_last();
     if ($comment !== null) {
@@ -60,7 +60,7 @@ function wddx_packet_start(string $comment)
  * @throws Exceptions\WddxException
  * 
  */
-function wddx_serialize_value($var, string $comment): string
+function wddx_serialize_value($var, string $comment = null): string
 {
     error_clear_last();
     if ($comment !== null) {

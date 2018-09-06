@@ -221,7 +221,7 @@ function event_buffer_enable($bevent, int $events): void
  * @throws Exceptions\LibeventException
  * 
  */
-function event_buffer_new($stream, $readcb, $writecb, $errorcb, $arg)
+function event_buffer_new($stream, $readcb, $writecb, $errorcb, $arg = null)
 {
     error_clear_last();
     if ($arg !== null) {
@@ -269,7 +269,7 @@ function event_buffer_priority_set($bevent, int $priority): void
  * @throws Exceptions\LibeventException
  * 
  */
-function event_buffer_set_callback($event, $readcb, $writecb, $errorcb, $arg): void
+function event_buffer_set_callback($event, $readcb, $writecb, $errorcb, $arg = null): void
 {
     error_clear_last();
     if ($arg !== null) {
@@ -421,7 +421,7 @@ function event_priority_set($event, int $priority): void
  * @throws Exceptions\LibeventException
  * 
  */
-function event_set($event, $fd, int $events, $callback, $arg): void
+function event_set($event, $fd, int $events, $callback, $arg = null): void
 {
     error_clear_last();
     if ($arg !== null) {
@@ -480,7 +480,7 @@ function event_set($event, $fd, int $events, $callback, $arg): void
  * @throws Exceptions\LibeventException
  * 
  */
-function event_timer_set($event, callable $callback, $arg): void
+function event_timer_set($event, callable $callback, $arg = null): void
 {
     error_clear_last();
     if ($arg !== null) {

@@ -47,7 +47,7 @@ function cyrus_close($connection): void
  * @throws Exceptions\CyrusException
  * 
  */
-function cyrus_connect(string $host, string $port, int $flags)
+function cyrus_connect(string $host = null, string $port = null, int $flags = null)
 {
     error_clear_last();
     if ($flags !== null) {

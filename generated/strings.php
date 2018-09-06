@@ -434,7 +434,7 @@ function metaphone(string $str, int $phonemes = 0): string
  * @throws Exceptions\StringsException
  * 
  */
-function sprintf(string $format, $args,  ...$params): string
+function sprintf(string $format, $args = null,  ...$params): string
 {
     error_clear_last();
     if ($params !== null) {
@@ -501,7 +501,7 @@ function sprintf(string $format, $args,  ...$params): string
  * @throws Exceptions\StringsException
  * 
  */
-function substr(string $string, int $start, int $length): string
+function substr(string $string, int $start, int $length = null): string
 {
     error_clear_last();
     if ($length !== null) {

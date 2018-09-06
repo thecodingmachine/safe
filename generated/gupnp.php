@@ -71,7 +71,7 @@ function gupnp_context_host_path($context, string $local_path, string $server_pa
  * @throws Exceptions\GupnpException
  * 
  */
-function gupnp_context_timeout_add($context, int $timeout, $callback, $arg): void
+function gupnp_context_timeout_add($context, int $timeout, $callback, $arg = null): void
 {
     error_clear_last();
     if ($arg !== null) {
@@ -181,7 +181,7 @@ function gupnp_control_point_browse_stop($cpoint): void
  * @throws Exceptions\GupnpException
  * 
  */
-function gupnp_control_point_callback_set($cpoint, int $signal, $callback, $arg): void
+function gupnp_control_point_callback_set($cpoint, int $signal, $callback, $arg = null): void
 {
     error_clear_last();
     if ($arg !== null) {
@@ -226,7 +226,7 @@ function gupnp_control_point_callback_set($cpoint, int $signal, $callback, $arg)
  * @throws Exceptions\GupnpException
  * 
  */
-function gupnp_device_action_callback_set($root_device, int $signal, string $action_name, $callback, $arg): void
+function gupnp_device_action_callback_set($root_device, int $signal, string $action_name, $callback, $arg = null): void
 {
     error_clear_last();
     if ($arg !== null) {
@@ -352,7 +352,7 @@ function gupnp_root_device_stop($root_device): void
  * @throws Exceptions\GupnpException
  * 
  */
-function gupnp_service_action_return_error($action, int $error_code, string $error_description): void
+function gupnp_service_action_return_error($action, int $error_code, string $error_description = null): void
 {
     error_clear_last();
     if ($error_description !== null) {
@@ -672,7 +672,7 @@ function gupnp_service_proxy_action_set($proxy, string $action, string $name, $v
  * @throws Exceptions\GupnpException
  * 
  */
-function gupnp_service_proxy_add_notify($proxy, string $value, int $type, $callback, $arg): void
+function gupnp_service_proxy_add_notify($proxy, string $value, int $type, $callback, $arg = null): void
 {
     error_clear_last();
     if ($arg !== null) {
@@ -709,7 +709,7 @@ function gupnp_service_proxy_add_notify($proxy, string $value, int $type, $callb
  * @throws Exceptions\GupnpException
  * 
  */
-function gupnp_service_proxy_callback_set($proxy, int $signal, $callback, $arg): void
+function gupnp_service_proxy_callback_set($proxy, int $signal, $callback, $arg = null): void
 {
     error_clear_last();
     if ($arg !== null) {

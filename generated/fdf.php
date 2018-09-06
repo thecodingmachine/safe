@@ -148,7 +148,7 @@ function fdf_save_string($fdf_document): string
  * @throws Exceptions\FdfException
  * 
  */
-function fdf_save($fdf_document, string $filename): void
+function fdf_save($fdf_document, string $filename = null): void
 {
     error_clear_last();
     if ($filename !== null) {
@@ -224,7 +224,7 @@ function fdf_set_encoding($fdf_document, string $encoding): void
  * @throws Exceptions\FdfException
  * 
  */
-function fdf_set_file($fdf_document, string $url, string $target_frame): void
+function fdf_set_file($fdf_document, string $url, string $target_frame = null): void
 {
     error_clear_last();
     if ($target_frame !== null) {
@@ -383,7 +383,7 @@ function fdf_set_target_frame($fdf_document, string $frame_name): void
  * @throws Exceptions\FdfException
  * 
  */
-function fdf_set_value($fdf_document, string $fieldname, $value, int $isName): void
+function fdf_set_value($fdf_document, string $fieldname, $value, int $isName = null): void
 {
     error_clear_last();
     if ($isName !== null) {

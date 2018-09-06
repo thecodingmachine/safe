@@ -43,7 +43,7 @@ function kadm5_chpass_principal($handle, string $principal, string $password): v
  * @throws Exceptions\Kadm5Exception
  * 
  */
-function kadm5_create_principal($handle, string $principal, string $password, array $options): void
+function kadm5_create_principal($handle, string $principal, string $password = null, array $options = null): void
 {
     error_clear_last();
     if ($options !== null) {

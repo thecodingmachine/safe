@@ -56,7 +56,7 @@ function chroot(string $directory): void
  * @throws Exceptions\DirException
  * 
  */
-function readdir($dir_handle): string
+function readdir($dir_handle = null): string
 {
     error_clear_last();
     if ($dir_handle !== null) {
@@ -83,7 +83,7 @@ function readdir($dir_handle): string
  * @throws Exceptions\DirException
  * 
  */
-function rewinddir($dir_handle): void
+function rewinddir($dir_handle = null): void
 {
     error_clear_last();
     if ($dir_handle !== null) {

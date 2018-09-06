@@ -82,7 +82,7 @@ function bzread($bz, int $length = 1024): string
  * @throws Exceptions\Bzip2Exception
  * 
  */
-function bzwrite($bz, string $data, int $length): int
+function bzwrite($bz, string $data, int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {

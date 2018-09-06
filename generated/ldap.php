@@ -21,7 +21,7 @@ namespace Safe;
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_add($link_identifier, string $dn, array $entry, array $serverctrls): void
+function ldap_add($link_identifier, string $dn, array $entry, array $serverctrls = null): void
 {
     error_clear_last();
     if ($serverctrls !== null) {
@@ -64,7 +64,7 @@ function ldap_bind($link_identifier, string $bind_rdn = null, string $bind_passw
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_control_paged_result_response($link, $result, string &$cookie, int &$estimated): void
+function ldap_control_paged_result_response($link, $result, string &$cookie = null, int &$estimated = null): void
 {
     error_clear_last();
     if ($estimated !== null) {
@@ -133,7 +133,7 @@ function ldap_count_entries($link_identifier, $result_identifier): int
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_delete($link_identifier, string $dn, array $serverctrls): void
+function ldap_delete($link_identifier, string $dn, array $serverctrls = null): void
 {
     error_clear_last();
     if ($serverctrls !== null) {
@@ -184,7 +184,7 @@ function ldap_exop_whoami($link): string
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_exop($link, string $reqoid, string $reqdata, array $servercontrols, string &$retdata, string &$retoid)
+function ldap_exop($link, string $reqoid, string $reqdata = null, array $servercontrols = null, string &$retdata = null, string &$retoid = null)
 {
     error_clear_last();
     if ($retoid !== null) {
@@ -729,7 +729,7 @@ function ldap_get_values($link_identifier, $result_entry_identifier, string $att
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_list($link_identifier, string $base_dn, string $filter, array $attributes, int $attrsonly, int $sizelimit, int $timelimit, int $deref, array $serverctrls)
+function ldap_list($link_identifier, string $base_dn, string $filter, array $attributes = null, int $attrsonly = null, int $sizelimit = null, int $timelimit = null, int $deref = null, array $serverctrls = null)
 {
     error_clear_last();
     if ($serverctrls !== null) {
@@ -765,7 +765,7 @@ function ldap_list($link_identifier, string $base_dn, string $filter, array $att
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_mod_add($link_identifier, string $dn, array $entry, array $serverctrls): void
+function ldap_mod_add($link_identifier, string $dn, array $entry, array $serverctrls = null): void
 {
     error_clear_last();
     if ($serverctrls !== null) {
@@ -791,7 +791,7 @@ function ldap_mod_add($link_identifier, string $dn, array $entry, array $serverc
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_mod_del($link_identifier, string $dn, array $entry, array $serverctrls): void
+function ldap_mod_del($link_identifier, string $dn, array $entry, array $serverctrls = null): void
 {
     error_clear_last();
     if ($serverctrls !== null) {
@@ -816,7 +816,7 @@ function ldap_mod_del($link_identifier, string $dn, array $entry, array $serverc
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_mod_replace($link_identifier, string $dn, array $entry, array $serverctrls): void
+function ldap_mod_replace($link_identifier, string $dn, array $entry, array $serverctrls = null): void
 {
     error_clear_last();
     if ($serverctrls !== null) {
@@ -915,7 +915,7 @@ function ldap_mod_replace($link_identifier, string $dn, array $entry, array $ser
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_modify_batch($link_identifier, string $dn, array $entry, array $serverctrls): void
+function ldap_modify_batch($link_identifier, string $dn, array $entry, array $serverctrls = null): void
 {
     error_clear_last();
     if ($serverctrls !== null) {
@@ -963,7 +963,7 @@ function ldap_next_attribute($link_identifier, $result_entry_identifier): string
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_parse_exop($link, $result, string &$retdata, string &$retoid): void
+function ldap_parse_exop($link, $result, string &$retdata = null, string &$retoid = null): void
 {
     error_clear_last();
     if ($retoid !== null) {
@@ -998,7 +998,7 @@ function ldap_parse_exop($link, $result, string &$retdata, string &$retoid): voi
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_parse_result($link, $result, int &$errcode, string &$matcheddn, string &$errmsg, array &$referrals, array &$serverctrls): void
+function ldap_parse_result($link, $result, int &$errcode, string &$matcheddn = null, string &$errmsg = null, array &$referrals = null, array &$serverctrls = null): void
 {
     error_clear_last();
     if ($serverctrls !== null) {
@@ -1090,7 +1090,7 @@ function ldap_parse_result($link, $result, int &$errcode, string &$matcheddn, st
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_read($link_identifier, string $base_dn, string $filter, array $attributes, int $attrsonly, int $sizelimit, int $timelimit, int $deref, array $serverctrls)
+function ldap_read($link_identifier, string $base_dn, string $filter, array $attributes = null, int $attrsonly = null, int $sizelimit = null, int $timelimit = null, int $deref = null, array $serverctrls = null)
 {
     error_clear_last();
     if ($serverctrls !== null) {
@@ -1128,7 +1128,7 @@ function ldap_read($link_identifier, string $base_dn, string $filter, array $att
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_rename($link_identifier, string $dn, string $newrdn, string $newparent, bool $deleteoldrdn, array $serverctrls): void
+function ldap_rename($link_identifier, string $dn, string $newrdn, string $newparent, bool $deleteoldrdn, array $serverctrls = null): void
 {
     error_clear_last();
     if ($serverctrls !== null) {
@@ -1252,7 +1252,7 @@ function ldap_sasl_bind($link, string $binddn = null, string $password = null, s
  * @throws Exceptions\LdapException
  * 
  */
-function ldap_search($link_identifier, string $base_dn, string $filter, array $attributes, int $attrsonly, int $sizelimit, int $timelimit, int $deref, array $serverctrls)
+function ldap_search($link_identifier, string $base_dn, string $filter, array $attributes = null, int $attrsonly = null, int $sizelimit = null, int $timelimit = null, int $deref = null, array $serverctrls = null)
 {
     error_clear_last();
     if ($serverctrls !== null) {

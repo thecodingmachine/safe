@@ -59,7 +59,7 @@ namespace Safe;
  * @throws Exceptions\InfoException
  * 
  */
-function assert_options(int $what, $value)
+function assert_options(int $what, $value = null)
 {
     error_clear_last();
     if ($value !== null) {

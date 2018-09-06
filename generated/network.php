@@ -480,7 +480,7 @@ function openlog(string $ident, int $option, int $facility): void
  * @throws Exceptions\NetworkException
  * 
  */
-function setrawcookie(string $name, string $value, int $expire = 0, string $path = null, string $domain = null, bool $secure = false, bool $httponly = false): void
+function setrawcookie(string $name, string $value = null, int $expire = 0, string $path = null, string $domain = null, bool $secure = false, bool $httponly = false): void
 {
     error_clear_last();
     if ($httponly !== false) {

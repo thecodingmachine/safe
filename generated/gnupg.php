@@ -51,7 +51,7 @@ function gnupg_addencryptkey($identifier, string $fingerprint): void
  * @throws Exceptions\GnupgException
  * 
  */
-function gnupg_addsignkey($identifier, string $fingerprint, string $passphrase): void
+function gnupg_addsignkey($identifier, string $fingerprint, string $passphrase = null): void
 {
     error_clear_last();
     if ($passphrase !== null) {

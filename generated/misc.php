@@ -62,7 +62,7 @@ function sapi_windows_cp_set(int $cp): void
  * @throws Exceptions\MiscException
  * 
  */
-function sapi_windows_vt100_support($stream, bool $enable): void
+function sapi_windows_vt100_support($stream, bool $enable = null): void
 {
     error_clear_last();
     if ($enable !== null) {

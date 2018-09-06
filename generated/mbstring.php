@@ -31,7 +31,7 @@ function mb_check_encoding(string $var = null, string $encoding = null): void
  * @throws Exceptions\MbstringException
  * 
  */
-function mb_chr(int $cp, string $encoding): string
+function mb_chr(int $cp, string $encoding = null): string
 {
     error_clear_last();
     if ($encoding !== null) {
@@ -165,7 +165,7 @@ function mb_ereg_search_getregs(): array
  * @throws Exceptions\MbstringException
  * 
  */
-function mb_ereg_search_init(string $string, string $pattern, string $option = "msr"): void
+function mb_ereg_search_init(string $string, string $pattern = null, string $option = "msr"): void
 {
     error_clear_last();
     if ($option !== "msr") {
@@ -190,7 +190,7 @@ function mb_ereg_search_init(string $string, string $pattern, string $option = "
  * @throws Exceptions\MbstringException
  * 
  */
-function mb_ereg_search_regs(string $pattern, string $option = "ms"): array
+function mb_ereg_search_regs(string $pattern = null, string $option = "ms"): array
 {
     error_clear_last();
     if ($option !== "ms") {
@@ -311,7 +311,7 @@ function mb_internal_encoding(string $encoding = null)
  * @throws Exceptions\MbstringException
  * 
  */
-function mb_ord(string $str, string $encoding): int
+function mb_ord(string $str, string $encoding = null): int
 {
     error_clear_last();
     if ($encoding !== null) {
@@ -339,7 +339,7 @@ function mb_ord(string $str, string $encoding): int
  * @throws Exceptions\MbstringException
  * 
  */
-function mb_parse_str(string $encoded_string, array &$result): void
+function mb_parse_str(string $encoded_string, array &$result = null): void
 {
     error_clear_last();
     if ($result !== null) {

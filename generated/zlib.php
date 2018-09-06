@@ -181,7 +181,7 @@ function gzcompress(string $data, int $level = -1, int $encoding = ZLIB_ENCODING
  * @throws Exceptions\ZlibException
  * 
  */
-function gzdecode(string $data, int $length): string
+function gzdecode(string $data, int $length = null): string
 {
     error_clear_last();
     if ($length !== null) {
@@ -274,7 +274,7 @@ function gzencode(string $data, int $level = -1, int $encoding_mode = FORCE_GZIP
  * @throws Exceptions\ZlibException
  * 
  */
-function gzgets($zp, int $length): string
+function gzgets($zp, int $length = null): string
 {
     error_clear_last();
     if ($length !== null) {
@@ -303,7 +303,7 @@ function gzgets($zp, int $length): string
  * @throws Exceptions\ZlibException
  * 
  */
-function gzgetss($zp, int $length, string $allowable_tags): string
+function gzgetss($zp, int $length, string $allowable_tags = null): string
 {
     error_clear_last();
     if ($allowable_tags !== null) {
@@ -568,7 +568,7 @@ function inflate_init(int $encoding, array $options = null)
  * @throws Exceptions\ZlibException
  * 
  */
-function zlib_decode(string $data, string $max_decoded_len): string
+function zlib_decode(string $data, string $max_decoded_len = null): string
 {
     error_clear_last();
     if ($max_decoded_len !== null) {

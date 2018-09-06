@@ -54,7 +54,7 @@ function ifx_byteasvarchar(int $mode): void
  * @throws Exceptions\IfxException
  * 
  */
-function ifx_close($link_identifier): void
+function ifx_close($link_identifier = null): void
 {
     error_clear_last();
     if ($link_identifier !== null) {
@@ -87,7 +87,7 @@ function ifx_close($link_identifier): void
  * @throws Exceptions\IfxException
  * 
  */
-function ifx_connect(string $database, string $userid, string $password)
+function ifx_connect(string $database = null, string $userid = null, string $password = null)
 {
     error_clear_last();
     if ($password !== null) {
@@ -347,7 +347,7 @@ function ifx_get_char(int $bid): string
  * @throws Exceptions\IfxException
  * 
  */
-function ifx_htmltbl_result($result_id, string $html_table_options): int
+function ifx_htmltbl_result($result_id, string $html_table_options = null): int
 {
     error_clear_last();
     if ($html_table_options !== null) {
@@ -449,7 +449,7 @@ function ifx_num_rows($result_id): int
  * @throws Exceptions\IfxException
  * 
  */
-function ifx_pconnect(string $database, string $userid, string $password)
+function ifx_pconnect(string $database = null, string $userid = null, string $password = null)
 {
     error_clear_last();
     if ($password !== null) {
@@ -505,7 +505,7 @@ function ifx_pconnect(string $database, string $userid, string $password)
  * @throws Exceptions\IfxException
  * 
  */
-function ifx_prepare(string $query, $link_identifier, int $cursor_def, $blobidarray)
+function ifx_prepare(string $query, $link_identifier, int $cursor_def = null, $blobidarray = null)
 {
     error_clear_last();
     if ($blobidarray !== null) {
@@ -559,7 +559,7 @@ function ifx_prepare(string $query, $link_identifier, int $cursor_def, $blobidar
  * @throws Exceptions\IfxException
  * 
  */
-function ifx_query(string $query, $link_identifier, int $cursor_type, $blobidarray)
+function ifx_query(string $query, $link_identifier, int $cursor_type = null, $blobidarray = null)
 {
     error_clear_last();
     if ($blobidarray !== null) {

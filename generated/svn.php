@@ -40,7 +40,7 @@ function svn_add(string $path, bool $recursive = true, bool $force = false): voi
  * @throws Exceptions\SvnException
  * 
  */
-function svn_checkout(string $repos, string $targetpath, int $revision, int $flags = 0): void
+function svn_checkout(string $repos, string $targetpath, int $revision = null, int $flags = 0): void
 {
     error_clear_last();
     if ($flags !== 0) {
@@ -149,7 +149,7 @@ function svn_import(string $path, string $url, bool $nonrecursive): void
  * @throws Exceptions\SvnException
  * 
  */
-function svn_mkdir(string $path, string $log_message): void
+function svn_mkdir(string $path, string $log_message = null): void
 {
     error_clear_last();
     if ($log_message !== null) {

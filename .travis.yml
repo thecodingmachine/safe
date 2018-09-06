@@ -46,4 +46,4 @@ script:
   fi
 
 after_script:
-- travis_retry php vendor/bin/php-coveralls
+- cd generator && travis_retry php vendor/bin/php-coveralls

@@ -88,7 +88,12 @@ class DocPage
     {
         $content = \file_get_contents($this->path);
         $strpos = \strpos($content, '?>')+2;
+        if (!\file_exists(__DIR__.'/../doc/entities/generated.ent')) {
+            self::buildEntities();
+        }
         $path = \realpath(__DIR__.'/../doc/entities/generated.ent');
+
+
         $content = \substr($content, 0, $strpos)
             .'<!DOCTYPE refentry SYSTEM "'.$path.'">'
             .\substr($content, $strpos+1);

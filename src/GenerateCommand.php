@@ -71,5 +71,8 @@ class GenerateCommand extends Command
         if (\file_exists(__DIR__.'/../generated/lib.php')) {
             \unlink(__DIR__.'/../generated/lib.php');
         }
+        if (\file_exists(__DIR__.'/../doc/entities/generated.ent')) {
+            \unlink(__DIR__.'/../doc/entities/generated.ent');
+        }
     }
 }

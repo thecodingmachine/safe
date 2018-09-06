@@ -1,5 +1,5 @@
 {
-  "name": "Julien",
+  "name": "thecodingmachine/safe",
   "description": "Create a list of functional PHP functions which return false on error",
   "autoload": {
     "psr-4": {

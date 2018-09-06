@@ -3,7 +3,6 @@
 
 namespace Safe\PhpStanFunctions;
 
-
 class PhpStanParameter
 {
     /**

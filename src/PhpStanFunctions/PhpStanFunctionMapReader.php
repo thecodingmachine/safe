@@ -3,7 +3,6 @@
 
 namespace Safe\PhpStanFunctions;
 
-
 use Safe\PhpStanFunctions\PhpStanFunction;
 
 class PhpStanFunctionMapReader

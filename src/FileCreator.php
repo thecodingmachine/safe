@@ -8,7 +8,9 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class FileCreator
 {
-    public function __construct() {}
+    public function __construct()
+    {
+    }
 
     /**
      * This function generate an xls file
@@ -16,7 +18,8 @@ class FileCreator
      * @param string[] $protoFunctions
      * @param string $path
      */
-    public function generateXlsFile(array $protoFunctions, string $path): void {
+    public function generateXlsFile(array $protoFunctions, string $path): void
+    {
         $spreadsheet = new Spreadsheet();
         $numb = 1;
         $status = '';
@@ -26,10 +29,10 @@ class FileCreator
         $sheet->setCellValue('B1', 'Status');
 
         foreach ($protoFunctions as $protoFunction) {
-            if ($protoFunction){
-                if (strpos($protoFunction, '=') === FALSE && strpos($protoFunction, 'json') === FALSE) {
+            if ($protoFunction) {
+                if (strpos($protoFunction, '=') === false && strpos($protoFunction, 'json') === false) {
                     $status = 'classic';
-                } else if (strpos($protoFunction, 'json')) {
+                } elseif (strpos($protoFunction, 'json')) {
                     $status = 'json';
                 } else {
                     $status = 'opt';
@@ -48,7 +51,8 @@ class FileCreator
      * @param string[] $phpFunctions
      * @param string $path
      */
-    public function generatePhpFile(array $phpFunctions, string $path): void {
+    public function generatePhpFile(array $phpFunctions, string $path): void
+    {
         $stream = \fopen($path, 'w');
         if ($stream === false) {
             throw new \RuntimeException('Unable to write to '.$path);
@@ -70,8 +74,11 @@ namespace Safe;
      * @param Method[] $functions
      * @param string $path
      */
-    public function generateFunctionsList(array $functions, string $path): void {
-        $functionNames = array_map(function(Method $function) { return $function->getFunctionName(); }, $functions);
+    public function generateFunctionsList(array $functions, string $path): void
+    {
+        $functionNames = array_map(function (Method $function) {
+            return $function->getFunctionName();
+        }, $functions);
         $stream = fopen($path, 'w');
         if ($stream === false) {
             throw new \RuntimeException('Unable to write to '.$path);
@@ -87,8 +94,9 @@ return ".var_export($functionNames, true).";
     public function createExceptionFile(string $moduleName): void
     {
         if (!\class_exists("Safe\\Exceptions\\{$moduleName}Exception")) {
-            \file_put_contents(__DIR__.'/../generated/Exceptions/'.$moduleName.'Exception.php',
-            <<<EOF
+            \file_put_contents(
+                __DIR__.'/../generated/Exceptions/'.$moduleName.'Exception.php',
+                <<<EOF
 <?php
 namespace Safe\Exceptions;
 
@@ -97,9 +105,7 @@ class {$moduleName}Exception extends AbstractSafeException
 }
 
 EOF
-);
-
+            );
         }
     }
-
 }

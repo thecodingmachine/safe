@@ -49,7 +49,8 @@ class Parameter
     /*
      * @return string
      */
-    public function getParameter(): string {
+    public function getParameter(): string
+    {
         if ($this->isVariadic()) {
             return 'params';
         }
@@ -82,7 +83,8 @@ class Parameter
     /*
      * @return string
      */
-    public function getInitializer(): string {
+    public function getInitializer(): string
+    {
         return \str_replace(['<constant>', '</constant>'], '', $this->getInnerXml($this->parameter->initializer));
     }
 
@@ -91,7 +93,8 @@ class Parameter
         return isset($this->parameter->initializer);
     }
 
-    public function getDefaultValue(): ?string {
+    public function getDefaultValue(): ?string
+    {
         if (!$this->hasDefaultValue()) {
             return null;
         }

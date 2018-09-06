@@ -59,7 +59,9 @@ class Scanner
             if ($docPage->detectFalsyFunction()) {
                 $functionObjects = $docPage->getMethodSynopsis();
                 if (count($functionObjects) > 1) {
-                    $overloadedFunctions = array_merge($overloadedFunctions, \array_map(function($functionObject) { return $functionObject->methodname->__toString(); }, $functionObjects));
+                    $overloadedFunctions = array_merge($overloadedFunctions, \array_map(function ($functionObject) {
+                        return $functionObject->methodname->__toString();
+                    }, $functionObjects));
                     continue;
                 }
                 $rootEntity = $docPage->loadAndResolveFile();

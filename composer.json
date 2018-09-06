@@ -19,10 +19,13 @@
     "thecodingmachine/phpstan-strict-rules": "^0.10",
     "phpoffice/phpspreadsheet": "^1.4",
     "ext-json": "^1.5",
-    "symfony/console": "^4.1.4"
+    "symfony/console": "^4.1.4",
+    "squizlabs/php_codesniffer": "^3.2"
   },
   "scripts": {
-    "phpstan": "phpstan analyse src -c phpstan.neon --level=7 --no-progress -vvv"
+    "phpstan": "phpstan analyse src -c phpstan.neon --level=7 --no-progress -vvv",
+    "cs-fix": "phpcbf",
+    "cs-check": "phpcs"
   },
   "require": {
   }

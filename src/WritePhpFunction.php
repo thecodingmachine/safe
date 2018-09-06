@@ -17,11 +17,13 @@ class WritePhpFunction
     /*
      * @return string
      */
-    public function getPhpPrototypeFunction(): string {
-        if ($this->method->getFunctionName())
+    public function getPhpPrototypeFunction(): string
+    {
+        if ($this->method->getFunctionName()) {
             return 'function '.$this->method->getFunctionName().'('.$this->displayParamsWithType($this->method->getFunctionParam()).')'.': '.$this->method->getFunctionType().'{}';
-        else
+        } else {
             return '';
+        }
     }
 
     /*
@@ -38,7 +40,8 @@ class WritePhpFunction
     /*
      * return string
      */
-    private function writePhpFunction(): string {
+    private function writePhpFunction(): string
+    {
         $phpFunction = $this->method->getPhpDoc();
         if ($this->method->getFunctionType() !== 'mixed' && $this->method->getFunctionType() !== 'resource') {
             $returnType = ': ' . $this->method->getFunctionType();
@@ -116,11 +119,12 @@ class WritePhpFunction
      * @param Parameter[] $params
      * @return string
      */
-    private function displayParamsWithType(array $params): string {
+    private function displayParamsWithType(array $params): string
+    {
         $paramsAsString = [];
-        $optDetected = FALSE;
+        $optDetected = false;
 
-        foreach($params as $param) {
+        foreach ($params as $param) {
             $paramAsString = '';
             if ($param->getType() !== 'mixed' && $param->getType() !== 'resource') {
                 $paramAsString = $param->getType().' ';
@@ -138,12 +142,12 @@ class WritePhpFunction
 
 
             if ($param->hasDefaultValue()) {
-                $optDetected = TRUE;
+                $optDetected = true;
             }
             $defaultValue = $param->getDefaultValue();
             if ($defaultValue !== null) {
                 $paramAsString .= ' = '.$defaultValue;
-            } else if ($optDetected && !$param->isVariadic()) {
+            } elseif ($optDetected && !$param->isVariadic()) {
                 $paramAsString .= ' = null';
             }
             $paramsAsString[] = $paramAsString;
@@ -152,9 +156,12 @@ class WritePhpFunction
         return implode(', ', $paramsAsString);
     }
 
-    private function printFunctionCall(Method $function): string {
+    private function printFunctionCall(Method $function): string
+    {
         $functionCall = '\\'.$function->getFunctionName().'(';
-        $functionCall .= implode(', ', \array_map(function(Parameter $parameter) { return '$'.$parameter->getParameter(); }, $function->getFunctionParam()));
+        $functionCall .= implode(', ', \array_map(function (Parameter $parameter) {
+            return '$'.$parameter->getParameter();
+        }, $function->getFunctionParam()));
         $functionCall .= ');';
         return $functionCall;
     }

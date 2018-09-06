@@ -13,7 +13,8 @@ class DocPage
      * @return string
      * @parameter string
      */
-    public function __construct(string $_path) {
+    public function __construct(string $_path)
+    {
         $this->path = $_path;
     }
 
@@ -22,7 +23,8 @@ class DocPage
      *
      * @return bool
      */
-    public function detectFalsyFunction(): bool {
+    public function detectFalsyFunction(): bool
+    {
         $file = file_get_contents($this->path);
 
         if (!preg_match('/::/m', $file)) {
@@ -49,7 +51,8 @@ class DocPage
     /**
      * @return \SimpleXMLElement[]
      */
-    public function getMethodSynopsis(): array {
+    public function getMethodSynopsis(): array
+    {
         /** @var string[] $cleanedFunctions */
         $cleanedFunctions = [];
 
@@ -81,7 +84,8 @@ class DocPage
      *
      * @return \SimpleXMLElement
      */
-    public function loadAndResolveFile(): \SimpleXMLElement {
+    public function loadAndResolveFile(): \SimpleXMLElement
+    {
         $content = \file_get_contents($this->path);
         $strpos = \strpos($content, '?>')+2;
         $path = \realpath(__DIR__.'/../doc/entities/generated.ent');
@@ -128,14 +132,14 @@ class DocPage
      * @param mixed[] $array multidimensional string array
      * @return string[]
      */
-    private function arrayFlatten(array $array): array {
+    private function arrayFlatten(array $array): array
+    {
         $result = array();
 
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $result = array_merge($result, $this->arrayFlatten($value));
-            }
-            else {
+            } else {
                 $result[$key] = $value;
             }
         }
@@ -160,4 +164,3 @@ class DocPage
         return substr($content, $strpos);
     }
 }
-

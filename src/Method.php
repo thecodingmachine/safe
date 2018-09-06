@@ -28,18 +28,21 @@ class Method
      */
     private $phpStanFunctionMapReader;
 
-    public function __construct(\SimpleXMLElement $_functionObject, \SimpleXMLElement $rootEntity, string $moduleName, PhpStanFunctionMapReader $phpStanFunctionMapReader) {
+    public function __construct(\SimpleXMLElement $_functionObject, \SimpleXMLElement $rootEntity, string $moduleName, PhpStanFunctionMapReader $phpStanFunctionMapReader)
+    {
         $this->functionObject = $_functionObject;
         $this->rootEntity = $rootEntity;
         $this->moduleName = $moduleName;
         $this->phpStanFunctionMapReader = $phpStanFunctionMapReader;
     }
 
-    public function getFunctionName(): string {
+    public function getFunctionName(): string
+    {
         return $this->functionObject->methodname->__toString();
     }
 
-    public function  getFunctionType(): string {
+    public function getFunctionType(): string
+    {
         // If the function returns a boolean, since false is for error, true is for success.
         // Let's replace this with a "void".
         $type = $this->functionObject->type->__toString();
@@ -57,7 +60,8 @@ class Method
     /**
      * @return Parameter[]
      */
-    public function getFunctionParam(): array {
+    public function getFunctionParam(): array
+    {
         if ($this->params === null) {
             if (!isset($this->functionObject->methodparam)) {
                 return [];
@@ -75,7 +79,9 @@ class Method
     public function getPhpDoc(): string
     {
         $str = "/**\n".
-            implode("\n", array_map(function(string $line) { return ' * '.ltrim($line); }, \explode("\n", \strip_tags($this->getDocBlock()))))
+            implode("\n", array_map(function (string $line) {
+                return ' * '.ltrim($line);
+            }, \explode("\n", \strip_tags($this->getDocBlock()))))
             ."\n */\n";
 
         return $str;

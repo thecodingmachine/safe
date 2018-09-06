@@ -16,6 +16,9 @@ class PhpStanFunction
      */
     private $parameters = [];
 
+    /**
+     * @param mixed[] $signature
+     */
     public function __construct(array $signature)
     {
         $this->returnType = \array_shift($signature);

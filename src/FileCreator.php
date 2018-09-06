@@ -62,7 +62,8 @@ namespace Safe;
 
     public function createExceptionFile(string $moduleName): void
     {
-        \file_put_contents(__DIR__.'/../generated/Exceptions/'.$moduleName.'Exception.php',
+        if (!\class_exists("Safe\\Exceptions\\{$moduleName}Exception")) {
+            \file_put_contents(__DIR__.'/../generated/Exceptions/'.$moduleName.'Exception.php',
             <<<EOF
 <?php
 namespace Safe\Exceptions;
@@ -73,6 +74,8 @@ class {$moduleName}Exception extends AbstractSafeException
 
 EOF
 );
+
+        }
     }
 
 }

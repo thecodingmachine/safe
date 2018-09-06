@@ -112,6 +112,9 @@ class Method
     private function getStringForXPath(string $xpath): string
     {
         $paragraphs = $this->rootEntity->xpath($xpath);
+        if ($paragraphs === false) {
+            throw new \RuntimeException('Error while performing Xpath request.');
+        }
         $str = '';
         foreach ($paragraphs as $paragraph) {
             $str .= $this->getInnerXml($paragraph)."\n\n";
@@ -139,10 +142,13 @@ class Method
         return $this->phpStanFunctionMapReader->getFunction($functionName);
     }
 
-    private function getInnerXml(\SimpleXMLElement $SimpleXMLElement)
+    private function getInnerXml(\SimpleXMLElement $SimpleXMLElement): string
     {
         $element_name = $SimpleXMLElement->getName();
         $inner_xml = $SimpleXMLElement->asXML();
+        if ($inner_xml === false) {
+            throw new \RuntimeException('Unable to serialize to XML');
+        }
         $inner_xml = str_replace(['<'.$element_name.'>', '</'.$element_name.'>'], '', $inner_xml);
         $inner_xml = trim($inner_xml);
         return $inner_xml;
@@ -171,7 +177,9 @@ class Method
     public function cloneAndRemoveAParameter(): Method
     {
         $new = clone $this;
-        \array_pop($new->params);
+        $params = $this->getFunctionParam();
+        \array_pop($params);
+        $new->params = $params;
         return $new;
     }
 }

@@ -20,6 +20,8 @@ class GenerateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+
+        $this->rmGenerated();
         // Let's build the DTD necessary to load the XML files.
         DocPage::buildEntities();
         $excludedModules = [
@@ -51,6 +53,19 @@ class GenerateCommand extends Command
 
         foreach ($modules as $moduleName => $foo) {
             $fileCreator->createExceptionFile($moduleName);
+        }
+    }
+
+    private function rmGenerated(): void
+    {
+        $exceptions = \glob(__DIR__.'/../generated/Exceptions/*.php');
+
+        foreach ($exceptions as $exception) {
+            \unlink($exception);
+        }
+
+        if (\file_exists(__DIR__.'/../generated/lib.php')) {
+            \unlink(__DIR__.'/../generated/lib.php');
         }
     }
 }

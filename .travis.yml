@@ -18,7 +18,7 @@ before_script:
 - |
   if [ ! -d "doc/doc-en/en" ]; then
     cd doc
-    svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
+    svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en --quiet
     cd ..
   else
     cd doc/doc-en

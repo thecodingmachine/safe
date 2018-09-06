@@ -10,7 +10,7 @@
     <rule ref="PSR2"/>
 
     <!-- Paths to check -->
-    <file>lib</file>
+    <file>src</file>
 
     <rule ref="Generic.Files.LineLength">
         <properties>

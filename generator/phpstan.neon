@@ -1,0 +1,6 @@
+parameters:
+    ignoreErrors:
+        - "#subject of function str_replace expects array|string, string|true given#"
+        - "#createExceptionFile\\(\\) expects string, int|string given#"
+includes:
+    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon

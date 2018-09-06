@@ -8,31 +8,33 @@ matrix:
 
 cache:
   directories:
-  - doc/doc-en
+  - generator/doc/doc-en
   - vendor
+  - generator/vendor
   - $HOME/.composer
 
 before_script:
-- composer install --no-interaction
-- mkdir -p build/logs
+- cd generator && composer install --no-interaction && cd ..
 - |
-  if [ ! -d "doc/doc-en/en" ]; then
-    cd doc
-    svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en --quiet
-    cd ..
-  else
-    cd doc/doc-en
-    svn update
+  if [ ! -d "generator/doc/doc-en/en" ]; then
+    cd generator/doc
+    svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
     cd ../..
+  else
+    cd generator/doc/doc-en
+    svn update
+    cd ../../..
   fi
+- composer update
 
 script:
-- "./vendor/bin/phpunit"
-#- "./vendor/bin/composer-require-checker --config-file=composer-require-checker.json"
+- cd generator && ./vendor/bin/phpunit && cd ..
+- cd generator && composer cs-check && cd ..
+- cd generator && composer phpstan && cd ..
 - composer cs-check
 - composer phpstan
 # Now, let's regenerate all files and see if we obtain the same set of files as the ones commited:
-- ./safe.php generate
+- cd generator && ./safe.php generate && cd ..
 - |
   if output=$(git status --porcelain) && [ -z "$output" ]; then
     # all is good
@@ -42,5 +44,6 @@ script:
     echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
     exit 1;
   fi
+
 after_script:
 - travis_retry php vendor/bin/php-coveralls

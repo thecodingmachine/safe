@@ -51,13 +51,33 @@ throwing exceptions properly when an error is encountered. The "safe" functions 
 functions, except they are in the `Safe` namespace.
 
 ```php
-use Safe\file_get_contents;
-use Safe\json_decode;
+use function Safe\file_get_contents;
+use function Safe\json_decode;
 
 // This code is both safe and simple!
 $content = file_get_contents('foobar.json');
 $foobar = json_decode($content);
 ```
+
+## PHPStan integration
+
+> Yeah... but I must explicitly think about importing the "safe" variant of the function, for each and every file of my application.
+> I'm sure I will forget some "use function" statements!
+
+Fear not! thecodingmachine/safe comes with a PHPStan rule.
+
+Never heard of [PHPStan](https://github.com/phpstan/phpstan) before?
+Check it out, it's an amazing code analyzer for PHP.
+
+Simply install the Safe rule in your PHPStan setup and PHPStan will let you know each time you are using an "unsafe" function:
+
+The code below will trigger this warning:
+
+```php
+$content = file_get_contents('foobar.json');
+```
+
+> Function file_get_contents is unsafe to use. It can return FALSE instead of throwing an exception. Please add 'use function Safe\\file_get_contents;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library.
 
 ## Installation
 
@@ -67,16 +87,25 @@ Use composer to install Safe-PHP:
 $ composer require thecodingmachine/safe
 ```
 
+*Highly recommended*: install PHPStan and PHPStan extension:
+
+```bash
+$ composer require --dev thecodingmachine/phpstan-safe-rule
+```
+
+Now, edit your `phpstan.neon` file and add these rules:
+
+```yml
+includes:
+    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+```
 
 
-## TODO:
+## Work in progress
 
-- handle objects methods overloading
-- develop a PHPStan extension
-
-
+There are a number of issues withstanding [before releasing 1.0](https://github.com/thecodingmachine/safe/milestone/1)
 
 ## Contributing
 
-The `lib.php` file that contains all the functions is auto-generated from the PHP doc.
-Read the [CONTRIBUTING.md](CONTRIBUTING.md) file to learn how to regenerate it and to contribute to this library.
+The files that contains all the functions are auto-generated from the PHP doc.
+Read the [CONTRIBUTING.md](CONTRIBUTING.md) file to learn how to regenerate these files and to contribute to this library.

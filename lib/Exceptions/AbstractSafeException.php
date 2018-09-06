@@ -3,7 +3,6 @@
 
 namespace Safe\Exceptions;
 
-
 abstract class AbstractSafeException extends \ErrorException implements SafeExceptionInterface
 {
     public static function createFromPhpError(): self

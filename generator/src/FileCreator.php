@@ -48,23 +48,33 @@ class FileCreator
     /**
      * This function generate an improved php lib function in a php file
      *
-     * @param string[] $phpFunctions
+     * @param Method[] $functions
      * @param string $path
      */
-    public function generatePhpFile(array $phpFunctions, string $path): void
+    public function generatePhpFile(array $functions, string $path): void
     {
-        $stream = \fopen($path, 'w');
-        if ($stream === false) {
-            throw new \RuntimeException('Unable to write to '.$path);
+        $path = rtrim($path, '/').'/';
+        $phpFunctionsByModule = [];
+        foreach ($functions as $function) {
+            $writePhpFunction = new WritePhpFunction($function);
+            $phpFunctionsByModule[$function->getModuleName()][] = $writePhpFunction->getPhpFunctionalFunction();
         }
-        \fwrite($stream, "<?php\n
+
+        foreach ($phpFunctionsByModule as $module => $phpFunctions) {
+            $module = \lcfirst($module);
+            $stream = \fopen($path.$module.'.php', 'w');
+            if ($stream === false) {
+                throw new \RuntimeException('Unable to write to '.$path);
+            }
+            \fwrite($stream, "<?php\n
 namespace Safe;
 
 ");
-        foreach ($phpFunctions as $phpFunction) {
-            \fwrite($stream, $phpFunction."\n");
+            foreach ($phpFunctions as $phpFunction) {
+                \fwrite($stream, $phpFunction."\n");
+            }
+            \fclose($stream);
         }
-        \fclose($stream);
     }
 
 
@@ -95,7 +105,7 @@ return ".var_export($functionNames, true).";
     {
         if (!\class_exists("Safe\\Exceptions\\{$moduleName}Exception")) {
             \file_put_contents(
-                __DIR__.'/../generated/Exceptions/'.$moduleName.'Exception.php',
+                __DIR__.'/../../generated/Exceptions/'.$moduleName.'Exception.php',
                 <<<EOF
 <?php
 namespace Safe\Exceptions;

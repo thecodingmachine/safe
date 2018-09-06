@@ -15,8 +15,8 @@
     "php": ">=7.1",
     "ext-simplexml": "*",
     "phpunit/phpunit": "^7",
-    "phpstan/phpstan": "^0.10.2",
-    "thecodingmachine/phpstan-strict-rules": "^0.10",
+    "phpstan/phpstan": "^0.10.3",
+    "thecodingmachine/phpstan-strict-rules": "^0.10.3",
     "phpoffice/phpspreadsheet": "^1.4",
     "ext-json": "^1.5",
     "symfony/console": "^4.1.4",
@@ -28,6 +28,9 @@
     "cs-fix": "phpcbf",
     "cs-check": "phpcs"
   },
-  "require": {
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1-dev"
+    }
   }
 }

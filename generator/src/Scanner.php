@@ -40,6 +40,20 @@ class Scanner
         return $paths;
     }
 
+    private $functionList;
+
+    /**
+     * Returns the list of functions that must be ignored.
+     * @return string[]
+     */
+    private function getIgnoredFunctions(): array
+    {
+        if ($this->functionList === null) {
+            $this->functionList = require __DIR__.'/../config/ignoredFunctions.php';
+        }
+        return $this->functionList;
+    }
+
     /**
      * @return mixed[]
      */
@@ -49,6 +63,8 @@ class Scanner
         $overloadedFunctions = [];
         $paths = $this->getPaths();
         $phpStanFunctionMapReader = new PhpStanFunctionMapReader();
+        $ignoredFunctions = $this->getIgnoredFunctions();
+        $ignoredFunctions = \array_combine($ignoredFunctions, $ignoredFunctions);
         foreach ($paths as $path) {
             $module = \basename(\dirname($path, 2));
             if (\in_array($module, $this->excludedModules)) {
@@ -62,11 +78,18 @@ class Scanner
                     $overloadedFunctions = array_merge($overloadedFunctions, \array_map(function ($functionObject) {
                         return $functionObject->methodname->__toString();
                     }, $functionObjects));
+                    $overloadedFunctions = \array_filter($overloadedFunctions, function(string $functionName) use ($ignoredFunctions) {
+                        return !isset($ignoredFunctions[$functionName]);
+                    });
                     continue;
                 }
                 $rootEntity = $docPage->loadAndResolveFile();
                 foreach ($functionObjects as $functionObject) {
-                    $functions[] = new Method($functionObject, $rootEntity, $docPage->getModule(), $phpStanFunctionMapReader);
+                    $function = new Method($functionObject, $rootEntity, $docPage->getModule(), $phpStanFunctionMapReader);
+                    if (isset($ignoredFunctions[$function->getFunctionName()])) {
+                        continue;
+                    }
+                    $functions[] = $function;
                 }
             }
         }

@@ -70,7 +70,7 @@ function db2_autocommit($connection, bool $value = null)
  * @param int $parameter_number Specifies the 1-indexed position of the parameter in the prepared
  * statement.
  * @param string $variable_name A string specifying the name of the PHP variable to bind to the
- * parameter specified by parameter-number.
+ * parameter specified by parameter_number.
  * @param int $parameter_type A constant specifying whether the PHP variable should be bound to the
  * SQL parameter as an input parameter (DB2_PARAM_IN),
  * an output parameter (DB2_PARAM_OUT), or as a

@@ -78,7 +78,7 @@ class Scanner
                     $overloadedFunctions = array_merge($overloadedFunctions, \array_map(function ($functionObject) {
                         return $functionObject->methodname->__toString();
                     }, $functionObjects));
-                    $overloadedFunctions = \array_filter($overloadedFunctions, function(string $functionName) use ($ignoredFunctions) {
+                    $overloadedFunctions = \array_filter($overloadedFunctions, function (string $functionName) use ($ignoredFunctions) {
                         return !isset($ignoredFunctions[$functionName]);
                     });
                     continue;

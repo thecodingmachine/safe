@@ -138,8 +138,10 @@
             "generated/zlib.php"
         ]
     },
+    "require": {
+        "php": ">=7.1"
+    },
     "require-dev": {
-        "php": ">=7.1",
         "phpstan/phpstan": "^0.10.3",
         "thecodingmachine/phpstan-strict-rules": "^0.10.3",
         "squizlabs/php_codesniffer": "^3.2"

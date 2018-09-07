@@ -94,9 +94,11 @@ namespace Safe;
             throw new \RuntimeException('Unable to write to '.$path);
         }
         fwrite($stream, "<?php\n
-return ".var_export($functionNames, true).";
-
-");
+return [\n");
+        foreach ($functionNames as $functionName) {
+            fwrite($stream, '    '.\var_export($functionName, true).",\n");
+        }
+        fwrite($stream, "];\n");
         fclose($stream);
     }
 

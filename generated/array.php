@@ -3,27 +3,6 @@
 namespace Safe;
 
 /**
- * array_key_exists returns TRUE if the
- * given key is set in the array.
- * key can be any value possible
- * for an array index.
- * 
- * @param string|int $key Value to check.
- * @param array $array An array with keys to check.
- * @throws Exceptions\ArrayException
- * 
- */
-function array_key_exists($key, array $array): void
-{
-    error_clear_last();
-    $result = \array_key_exists($key, $array);
-    if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
-    }
-}
-
-
-/**
  * array_multisort can be used to sort several
  * arrays at once, or a multi-dimensional array by one or more
  * dimensions.

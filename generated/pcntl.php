@@ -6,7 +6,7 @@ use Safe\Exceptions\PcntlException;
 
 /**
  * Executes the program with the given arguments.
- * 
+ *
  * @param string $path path must be the path to a binary executable or a
  * script with a valid path pointing to an executable in the shebang (
  * #!/usr/local/bin/perl for example) as the first line.  See your system's
@@ -18,7 +18,7 @@ use Safe\Exceptions\PcntlException;
  * the key being the name of the environmental variable and the value being
  * the value of that variable.
  * @throws PcntlException
- * 
+ *
  */
 function pcntl_exec(string $path, array $args = null, array $envs = null): void
 {
@@ -27,10 +27,10 @@ function pcntl_exec(string $path, array $args = null, array $envs = null): void
         $result = \pcntl_exec($path, $args, $envs);
     } elseif ($args !== null) {
         $result = \pcntl_exec($path, $args);
-    }else {
+    } else {
         $result = \pcntl_exec($path);
     }
-    if ($result === FALSE) {
+    if ($result === false) {
         throw PcntlException::createFromPhpError();
     }
 }
@@ -41,7 +41,7 @@ function pcntl_exec(string $path, array $args = null, array $envs = null): void
  * pid. Because priority levels can differ between
  * system types and kernel versions, please see your system's getpriority(2)
  * man page for specific details.
- * 
+ *
  * @param int $pid If not specified, the pid of the current process is used.
  * @param int $process_identifier One of PRIO_PGRP, PRIO_USER
  * or PRIO_PROCESS.
@@ -49,13 +49,13 @@ function pcntl_exec(string $path, array $args = null, array $envs = null): void
  * .  A lower numerical value causes more favorable
  * scheduling.
  * @throws PcntlException
- * 
+ *
  */
 function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCESS): int
 {
     error_clear_last();
     $result = \pcntl_getpriority($pid, $process_identifier);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw PcntlException::createFromPhpError();
     }
     return $result;
@@ -65,7 +65,7 @@ function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCE
 /**
  * pcntl_setpriority sets the priority of
  * pid.
- * 
+ *
  * @param int $priority priority is generally a value in the range
  * -20 to 20. The default priority
  * is 0 while a lower numerical value causes more
@@ -76,31 +76,31 @@ function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCE
  * @param int $process_identifier One of PRIO_PGRP, PRIO_USER
  * or PRIO_PROCESS.
  * @throws PcntlException
- * 
+ *
  */
 function pcntl_setpriority(int $priority, int $pid = null, int $process_identifier = PRIO_PROCESS): void
 {
     error_clear_last();
     $result = \pcntl_setpriority($priority, $pid, $process_identifier);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw PcntlException::createFromPhpError();
     }
 }
 
 
 /**
- * The pcntl_signal_dispatch function calls the signal 
+ * The pcntl_signal_dispatch function calls the signal
  * handlers installed by pcntl_signal for each pending
  * signal.
- * 
+ *
  * @throws PcntlException
- * 
+ *
  */
 function pcntl_signal_dispatch(): void
 {
     error_clear_last();
     $result = \pcntl_signal_dispatch();
-    if ($result === FALSE) {
+    if ($result === false) {
         throw PcntlException::createFromPhpError();
     }
 }
@@ -109,53 +109,51 @@ function pcntl_signal_dispatch(): void
 /**
  * The pcntl_sigprocmask function adds, removes or sets blocked
  * signals, depending on the how parameter.
- * 
+ *
  * @param int $how Sets the behavior of pcntl_sigprocmask. Possible
- * values: 
- * 
+ * values:
+ *
  * SIG_BLOCK: Add the signals to the
  * currently blocked signals.
  * SIG_UNBLOCK: Remove the signals from the
  * currently blocked signals.
  * SIG_SETMASK: Replace the currently
  * blocked signals by the given list of signals.
- * 
+ *
  * @param array $set List of signals.
  * @param array $oldset The oldset parameter is set to an array
  * containing the list of the previously blocked signals.
  * @throws PcntlException
- * 
+ *
  */
 function pcntl_sigprocmask(int $how, array $set, array &$oldset = null): void
 {
     error_clear_last();
     if ($oldset !== null) {
         $result = \pcntl_sigprocmask($how, $set, $oldset);
-    }else {
+    } else {
         $result = \pcntl_sigprocmask($how, $set);
     }
-    if ($result === FALSE) {
+    if ($result === false) {
         throw PcntlException::createFromPhpError();
     }
 }
 
 
 /**
- * 
- * 
- * @param int $errno 
+ *
+ *
+ * @param int $errno
  * @return string Returns error description on success .
  * @throws PcntlException
- * 
+ *
  */
 function pcntl_strerror(int $errno): string
 {
     error_clear_last();
     $result = \pcntl_strerror($errno);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw PcntlException::createFromPhpError();
     }
     return $result;
 }
-
-

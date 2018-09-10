@@ -11,11 +11,12 @@
 
     <!-- Paths to check -->
     <file>lib</file>
+    <file>generated</file>
 
     <rule ref="Generic.Files.LineLength">
         <properties>
-            <property name="lineLimit" value="300"/>
-            <property name="absoluteLineLimit" value="500"/>
+            <property name="lineLimit" value="3000"/>
+            <property name="absoluteLineLimit" value="5000"/>
         </properties>
     </rule>
 </ruleset>

@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\IngresiiException;
+
 /**
  * ingres_autocommit is called before opening a
  * transaction (before the first call to
@@ -22,7 +24,7 @@ namespace Safe;
  * ensure your data is committed to the database.
  * 
  * @param resource $link The connection link identifier
- * @throws Exceptions\Ingres-iiException
+ * @throws IngresiiException
  * 
  */
 function ingres_autocommit($link): void
@@ -30,7 +32,7 @@ function ingres_autocommit($link): void
     error_clear_last();
     $result = \ingres_autocommit($link);
     if ($result === FALSE) {
-        throw Exceptions\Ingres-iiException::createFromPhpError();
+        throw IngresiiException::createFromPhpError();
     }
 }
 
@@ -44,7 +46,7 @@ function ingres_autocommit($link): void
  * are automatically closed at the end of the script.
  * 
  * @param resource $link The connection link identifier
- * @throws Exceptions\Ingres-iiException
+ * @throws IngresiiException
  * 
  */
 function ingres_close($link): void
@@ -52,7 +54,7 @@ function ingres_close($link): void
     error_clear_last();
     $result = \ingres_close($link);
     if ($result === FALSE) {
-        throw Exceptions\Ingres-iiException::createFromPhpError();
+        throw IngresiiException::createFromPhpError();
     }
 }
 
@@ -73,7 +75,7 @@ function ingres_close($link): void
  * ensure your that data is committed to the database.
  * 
  * @param resource $link The connection link identifier
- * @throws Exceptions\Ingres-iiException
+ * @throws IngresiiException
  * 
  */
 function ingres_commit($link): void
@@ -81,7 +83,7 @@ function ingres_commit($link): void
     error_clear_last();
     $result = \ingres_commit($link);
     if ($result === FALSE) {
-        throw Exceptions\Ingres-iiException::createFromPhpError();
+        throw IngresiiException::createFromPhpError();
     }
 }
 
@@ -94,7 +96,7 @@ function ingres_commit($link): void
  * @param string $types A string containing a sequence of types for the parameter values
  * passed. See the types parameter in
  * ingres_query for the list of type codes.
- * @throws Exceptions\Ingres-iiException
+ * @throws IngresiiException
  * 
  */
 function ingres_execute($result, array $params = null, string $types = null): void
@@ -108,7 +110,7 @@ function ingres_execute($result, array $params = null, string $types = null): vo
         $result = \ingres_execute($result);
     }
     if ($result === FALSE) {
-        throw Exceptions\Ingres-iiException::createFromPhpError();
+        throw IngresiiException::createFromPhpError();
     }
 }
 
@@ -135,7 +137,7 @@ function ingres_execute($result, array $params = null, string $types = null): vo
  * 1.
  * @return string Returns the name of a field
  * in a query result 
- * @throws Exceptions\Ingres-iiException
+ * @throws IngresiiException
  * 
  */
 function ingres_field_name($result, int $index): string
@@ -143,7 +145,7 @@ function ingres_field_name($result, int $index): string
     error_clear_last();
     $result = \ingres_field_name($result, $index);
     if ($result === FALSE) {
-        throw Exceptions\Ingres-iiException::createFromPhpError();
+        throw IngresiiException::createFromPhpError();
     }
     return $result;
 }
@@ -179,7 +181,7 @@ function ingres_field_name($result, int $index): string
  * IIAPI_FLT_TYPE can be a float4 or a float8. For detailed
  * information, see the Ingres OpenAPI User Guide, Appendix 
  * "Data Types" in the Ingres documentation.
- * @throws Exceptions\Ingres-iiException
+ * @throws IngresiiException
  * 
  */
 function ingres_field_type($result, int $index): string
@@ -187,7 +189,7 @@ function ingres_field_type($result, int $index): string
     error_clear_last();
     $result = \ingres_field_type($result, $index);
     if ($result === FALSE) {
-        throw Exceptions\Ingres-iiException::createFromPhpError();
+        throw IngresiiException::createFromPhpError();
     }
     return $result;
 }
@@ -197,7 +199,7 @@ function ingres_field_type($result, int $index): string
  * 
  * 
  * @param resource $result The query result identifier
- * @throws Exceptions\Ingres-iiException
+ * @throws IngresiiException
  * 
  */
 function ingres_free_result($result): void
@@ -205,7 +207,7 @@ function ingres_free_result($result): void
     error_clear_last();
     $result = \ingres_free_result($result);
     if ($result === FALSE) {
-        throw Exceptions\Ingres-iiException::createFromPhpError();
+        throw IngresiiException::createFromPhpError();
     }
 }
 
@@ -222,7 +224,7 @@ function ingres_free_result($result): void
  * @param resource $result The result identifier for a query
  * @param int $position The row to position the cursor on. If ingres.array_index_start
  * is set to 0, then the first row is 0, else it is 1
- * @throws Exceptions\Ingres-iiException
+ * @throws IngresiiException
  * 
  */
 function ingres_result_seek($result, int $position): void
@@ -230,7 +232,7 @@ function ingres_result_seek($result, int $position): void
     error_clear_last();
     $result = \ingres_result_seek($result, $position);
     if ($result === FALSE) {
-        throw Exceptions\Ingres-iiException::createFromPhpError();
+        throw IngresiiException::createFromPhpError();
     }
 }
 
@@ -244,7 +246,7 @@ function ingres_result_seek($result, int $position): void
  * query with ingres_query.
  * 
  * @param resource $link The connection link identifier
- * @throws Exceptions\Ingres-iiException
+ * @throws IngresiiException
  * 
  */
 function ingres_rollback($link): void
@@ -252,7 +254,7 @@ function ingres_rollback($link): void
     error_clear_last();
     $result = \ingres_rollback($link);
     if ($result === FALSE) {
-        throw Exceptions\Ingres-iiException::createFromPhpError();
+        throw IngresiiException::createFromPhpError();
     }
 }
 
@@ -393,7 +395,7 @@ function ingres_rollback($link): void
  * INGRES_MONEY_LEADING
  * INGRES_MONEY_TRAILING
  * 
- * @throws Exceptions\Ingres-iiException
+ * @throws IngresiiException
  * 
  */
 function ingres_set_environment($link, array $options): void
@@ -401,7 +403,7 @@ function ingres_set_environment($link, array $options): void
     error_clear_last();
     $result = \ingres_set_environment($link, $options);
     if ($result === FALSE) {
-        throw Exceptions\Ingres-iiException::createFromPhpError();
+        throw IngresiiException::createFromPhpError();
     }
 }
 

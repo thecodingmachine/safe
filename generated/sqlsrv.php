@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\SqlsrvException;
+
 /**
  * The transaction begun by sqlsrv_begin_transaction includes 
  * all statements that were executed after the call to 
@@ -13,7 +15,7 @@ namespace Safe;
  * SQLSRV Transactions.
  * 
  * @param resource $conn The connection resource returned by a call to sqlsrv_connect.
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_begin_transaction($conn): void
@@ -21,7 +23,7 @@ function sqlsrv_begin_transaction($conn): void
     error_clear_last();
     $result = \sqlsrv_begin_transaction($conn);
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
 }
 
@@ -35,7 +37,7 @@ function sqlsrv_begin_transaction($conn): void
  * consumed.
  * 
  * @param resource $stmt The statement resource to be cancelled.
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_cancel($stmt): void
@@ -43,7 +45,7 @@ function sqlsrv_cancel($stmt): void
     error_clear_last();
     $result = \sqlsrv_cancel($stmt);
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
 }
 
@@ -52,7 +54,7 @@ function sqlsrv_cancel($stmt): void
  * Closes an open connection and releases resourses associated with the connection.
  * 
  * @param resource $conn The connection to be closed.
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_close($conn): void
@@ -60,7 +62,7 @@ function sqlsrv_close($conn): void
     error_clear_last();
     $result = \sqlsrv_close($conn);
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
 }
 
@@ -76,7 +78,7 @@ function sqlsrv_close($conn): void
  * SQLSRV Transactions.
  * 
  * @param resource $conn The connection on which the transaction is to be committed.
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_commit($conn): void
@@ -84,7 +86,7 @@ function sqlsrv_commit($conn): void
     error_clear_last();
     $result = \sqlsrv_commit($conn);
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
 }
 
@@ -128,7 +130,7 @@ function sqlsrv_commit($conn): void
  * 
  * 
  * 
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_configure(string $setting, $value): void
@@ -136,7 +138,7 @@ function sqlsrv_configure(string $setting, $value): void
     error_clear_last();
     $result = \sqlsrv_configure($setting, $value);
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
 }
 
@@ -147,7 +149,7 @@ function sqlsrv_configure(string $setting, $value): void
  * different parameter values.
  * 
  * @param resource $stmt A statement resource returned by sqlsrv_prepare.
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_execute($stmt): void
@@ -155,7 +157,7 @@ function sqlsrv_execute($stmt): void
     error_clear_last();
     $result = \sqlsrv_execute($stmt);
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
 }
 
@@ -170,7 +172,7 @@ function sqlsrv_execute($stmt): void
  * @param resource $stmt The statment for which resources are freed. 
  * Note that NULL is a valid parameter value. This allows the function to be 
  * called multiple times in a script.
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_free_stmt($stmt): void
@@ -178,7 +180,7 @@ function sqlsrv_free_stmt($stmt): void
     error_clear_last();
     $result = \sqlsrv_free_stmt($stmt);
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
 }
 
@@ -190,7 +192,7 @@ function sqlsrv_free_stmt($stmt): void
  * @param resource $stmt The statment on which the next result is being called.
  * @return mixed Returns TRUE if the next result was successfully retrieved, FALSE if an error 
  * occurred, and NULL if there are no more results to retrieve.
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_next_result($stmt)
@@ -198,7 +200,7 @@ function sqlsrv_next_result($stmt)
     error_clear_last();
     $result = \sqlsrv_next_result($stmt);
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
     return $result;
 }
@@ -218,7 +220,7 @@ function sqlsrv_next_result($stmt)
  * in the Microsoft SQLSRV documentation.
  * @return mixed Returns the number of rows retrieved on success and FALSE if an error occurred. 
  * If a forward cursor (the default) or dynamic cursor is used, FALSE is returned.
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_num_rows($stmt)
@@ -226,7 +228,7 @@ function sqlsrv_num_rows($stmt)
     error_clear_last();
     $result = \sqlsrv_num_rows($stmt);
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
     return $result;
 }
@@ -250,7 +252,7 @@ function sqlsrv_num_rows($stmt)
  * @param array $options An array specifing query property options. The supported keys are described 
  * in the following table:
  * @return mixed Returns a statement resource on success and FALSE if an error occurred.
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_prepare($conn, string $sql, array $params = null, array $options = null)
@@ -264,7 +266,7 @@ function sqlsrv_prepare($conn, string $sql, array $params = null, array $options
         $result = \sqlsrv_prepare($conn, $sql);
     }
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
     return $result;
 }
@@ -287,7 +289,7 @@ function sqlsrv_prepare($conn, string $sql, array $params = null, array $options
  * @param array $options An array specifing query property options. The supported keys are described 
  * in the following table:
  * @return mixed Returns a statement resource on success and FALSE if an error occurred.
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_query($conn, string $sql, array $params = null, array $options = null)
@@ -301,7 +303,7 @@ function sqlsrv_query($conn, string $sql, array $params = null, array $options =
         $result = \sqlsrv_query($conn, $sql);
     }
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
     return $result;
 }
@@ -312,7 +314,7 @@ function sqlsrv_query($conn, string $sql, array $params = null, array $options =
  * and returns the connection to auto-commit mode.
  * 
  * @param resource $conn The connection resource returned by a call to sqlsrv_connect.
- * @throws Exceptions\SqlsrvException
+ * @throws SqlsrvException
  * 
  */
 function sqlsrv_rollback($conn): void
@@ -320,7 +322,7 @@ function sqlsrv_rollback($conn): void
     error_clear_last();
     $result = \sqlsrv_rollback($conn);
     if ($result === FALSE) {
-        throw Exceptions\SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError();
     }
 }
 

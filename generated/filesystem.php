@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\FilesystemException;
+
 /**
  * Attempts to change the group of the file filename
  * to group.
@@ -11,7 +13,7 @@ namespace Safe;
  * 
  * @param string $filename Path to the file.
  * @param string|int $group A group name or number.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function chgrp(string $filename, $group): void
@@ -19,7 +21,7 @@ function chgrp(string $filename, $group): void
     error_clear_last();
     $result = \chgrp($filename, $group);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -61,7 +63,7 @@ function chmod(string $filename, int $mode): void
     error_clear_last();
     $result = \chmod($filename, $mode);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -73,7 +75,7 @@ function chmod(string $filename, int $mode): void
  * 
  * @param string $filename Path to the file.
  * @param string|int $user A user name or number.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function chown(string $filename, $user): void
@@ -81,7 +83,7 @@ function chown(string $filename, $user): void
     error_clear_last();
     $result = \chown($filename, $user);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -100,7 +102,7 @@ function chown(string $filename, $user): void
  * If the destination file already exists, it will be overwritten.
  * @param resource $context A valid context resource created with 
  * stream_context_create.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function copy(string $source, string $dest, $context = null): void
@@ -112,7 +114,7 @@ function copy(string $source, string $dest, $context = null): void
         $result = \copy($source, $dest);
     }
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -129,7 +131,7 @@ function copy(string $source, string $dest, $context = null): void
  * PHP versions.
  * @return float Returns the number of available bytes as a float
  * .
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function disk_free_space(string $directory): float
@@ -137,7 +139,7 @@ function disk_free_space(string $directory): float
     error_clear_last();
     $result = \disk_free_space($directory);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -150,7 +152,7 @@ function disk_free_space(string $directory): float
  * @param string $directory A directory of the filesystem or disk partition.
  * @return float Returns the total number of bytes as a float
  * .
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function disk_total_space(string $directory): float
@@ -158,7 +160,7 @@ function disk_total_space(string $directory): float
     error_clear_last();
     $result = \disk_total_space($directory);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -169,7 +171,7 @@ function disk_total_space(string $directory): float
  * 
  * @param resource $handle The file pointer must be valid, and must point to a file successfully
  * opened by fopen or fsockopen.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function fclose($handle): void
@@ -177,7 +179,7 @@ function fclose($handle): void
     error_clear_last();
     $result = \fclose($handle);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -190,7 +192,7 @@ function fclose($handle): void
  * a file successfully opened by fopen or
  * fsockopen (and not yet closed by
  * fclose).
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function fflush($handle): void
@@ -198,7 +200,7 @@ function fflush($handle): void
     error_clear_last();
     $result = \fflush($handle);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -234,7 +236,7 @@ function fflush($handle): void
  * of file is reached. Note that this parameter is applied to the 
  * stream processed by the filters.
  * @return string The function returns the read data  .
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function file_get_contents(string $filename, bool $use_include_path = false, $context = null, int $offset = 0, int $maxlen = null): string
@@ -250,7 +252,7 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
         $result = \file_get_contents($filename, $use_include_path);
     }
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -262,7 +264,7 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
  * @param string $filename Path to the file.
  * @return int Returns the time the file was last accessed,  .
  * The time is returned as a Unix timestamp.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function fileatime(string $filename): int
@@ -270,7 +272,7 @@ function fileatime(string $filename): int
     error_clear_last();
     $result = \fileatime($filename);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -282,7 +284,7 @@ function fileatime(string $filename): int
  * @param string $filename Path to the file.
  * @return int Returns the time the file was last changed,  .
  * The time is returned as a Unix timestamp.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function filectime(string $filename): int
@@ -290,7 +292,7 @@ function filectime(string $filename): int
     error_clear_last();
     $result = \filectime($filename);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -301,7 +303,7 @@ function filectime(string $filename): int
  * 
  * @param string $filename Path to the file.
  * @return int Returns the inode number of the file,  .
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function fileinode(string $filename): int
@@ -309,7 +311,7 @@ function fileinode(string $filename): int
     error_clear_last();
     $result = \fileinode($filename);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -323,7 +325,7 @@ function fileinode(string $filename): int
  * @return int Returns the time the file was last modified,  .
  * The time is returned as a Unix timestamp, which is
  * suitable for the date function.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function filemtime(string $filename): int
@@ -331,7 +333,7 @@ function filemtime(string $filename): int
     error_clear_last();
     $result = \filemtime($filename);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -344,7 +346,7 @@ function filemtime(string $filename): int
  * @return int Returns the user ID of the owner of the file,  .
  * The user ID is returned in numerical format, use
  * posix_getpwuid to resolve it to a username.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function fileowner(string $filename): int
@@ -352,7 +354,7 @@ function fileowner(string $filename): int
     error_clear_last();
     $result = \fileowner($filename);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -558,7 +560,7 @@ function fileowner(string $filename): int
  * include_path, too.
  * @param resource $context 
  * @return resource Returns a file pointer resource on success, .
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function fopen(string $filename, string $mode, bool $use_include_path = false, $context = null)
@@ -570,7 +572,7 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
         $result = \fopen($filename, $mode, $use_include_path);
     }
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -593,7 +595,7 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  * @param string $escape_char The optional escape_char parameter sets the
  * escape character (one character only).
  * @return int Returns the length of the written string  .
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function fputcsv($handle, array $fields, string $delimiter = ",", string $enclosure = '"', string $escape_char = "\\"): int
@@ -601,7 +603,7 @@ function fputcsv($handle, array $fields, string $delimiter = ",", string $enclos
     error_clear_last();
     $result = \fputcsv($handle, $fields, $delimiter, $enclosure, $escape_char);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -643,7 +645,7 @@ function fputcsv($handle, array $fields, string $delimiter = ",", string $enclos
  * that is typically created using fopen.
  * @param int $length Up to length number of bytes read.
  * @return string Returns the read string  .
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function fread($handle, int $length): string
@@ -651,7 +653,7 @@ function fread($handle, int $length): string
     error_clear_last();
     $result = \fread($handle, $length);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -671,7 +673,7 @@ function fread($handle, int $length): string
  * 
  * If size is smaller than the file then the file
  * is truncated to that size.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function ftruncate($handle, int $size): void
@@ -679,7 +681,7 @@ function ftruncate($handle, int $size): void
     error_clear_last();
     $result = \ftruncate($handle, $size);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -700,7 +702,7 @@ function ftruncate($handle, int $size): void
  * configuration option will be ignored and no slashes will be
  * stripped from string.
  * @return int 
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function fwrite($handle, string $string, int $length = null): int
@@ -712,7 +714,7 @@ function fwrite($handle, string $string, int $length = null): int
         $result = \fwrite($handle, $string);
     }
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -772,7 +774,7 @@ function fwrite($handle, string $string, int $length = null): int
  * 
  * @return array Returns an array containing the matched files/directories, an empty array
  * if no file matched .
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function glob(string $pattern, int $flags = 0): array
@@ -780,7 +782,7 @@ function glob(string $pattern, int $flags = 0): array
     error_clear_last();
     $result = \glob($pattern, $flags);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -790,7 +792,7 @@ function glob(string $pattern, int $flags = 0): array
  * Tells whether the filename is executable.
  * 
  * @param string $filename Path to the file.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function is_executable(string $filename): void
@@ -798,7 +800,7 @@ function is_executable(string $filename): void
     error_clear_last();
     $result = \is_executable($filename);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -820,7 +822,7 @@ function is_executable(string $filename): void
  * file on the client's machine $_FILES['userfile']['name'] does not work.
  * 
  * @param string $filename The filename being checked.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function is_uploaded_file(string $filename): void
@@ -828,7 +830,7 @@ function is_uploaded_file(string $filename): void
     error_clear_last();
     $result = \is_uploaded_file($filename);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -843,7 +845,7 @@ function is_uploaded_file(string $filename): void
  * 
  * @param string $filename Path to the symlink.
  * @param string|int $group The group specified by name or number.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function lchgrp(string $filename, $group): void
@@ -851,7 +853,7 @@ function lchgrp(string $filename, $group): void
     error_clear_last();
     $result = \lchgrp($filename, $group);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -864,7 +866,7 @@ function lchgrp(string $filename, $group): void
  * 
  * @param string $filename Path to the file.
  * @param string|int $user User name or number.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function lchown(string $filename, $user): void
@@ -872,7 +874,7 @@ function lchown(string $filename, $user): void
     error_clear_last();
     $result = \lchown($filename, $user);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -882,7 +884,7 @@ function lchown(string $filename, $user): void
  * 
  * @param string $target Target of the link.
  * @param string $link The link name.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function link(string $target, string $link): void
@@ -890,7 +892,7 @@ function link(string $target, string $link): void
     error_clear_last();
     $result = \link($target, $link);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -912,7 +914,7 @@ function link(string $target, string $link): void
  * @param bool $recursive Allows the creation of nested directories specified in the 
  * pathname.
  * @param resource $context 
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function mkdir(string $pathname, int $mode = 0777, bool $recursive = false, $context = null): void
@@ -924,7 +926,7 @@ function mkdir(string $pathname, int $mode = 0777, bool $recursive = false, $con
         $result = \mkdir($pathname, $mode, $recursive);
     }
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -934,7 +936,7 @@ function mkdir(string $pathname, int $mode = 0777, bool $recursive = false, $con
  * 
  * @param string $path The symbolic link path.
  * @return string Returns the contents of the symbolic link path .
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function readlink(string $path): string
@@ -942,7 +944,7 @@ function readlink(string $path): string
     error_clear_last();
     $result = \readlink($path);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -963,7 +965,7 @@ function readlink(string $path): string
  * newname.
  * @param string $newname The new name.
  * @param resource $context 
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function rename(string $oldname, string $newname, $context = null): void
@@ -975,7 +977,7 @@ function rename(string $oldname, string $newname, $context = null): void
         $result = \rename($oldname, $newname);
     }
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -986,7 +988,7 @@ function rename(string $oldname, string $newname, $context = null): void
  * 
  * @param resource $handle The file pointer must be valid, and must point to a file
  * successfully opened by fopen.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function rewind($handle): void
@@ -994,7 +996,7 @@ function rewind($handle): void
     error_clear_last();
     $result = \rewind($handle);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -1006,7 +1008,7 @@ function rewind($handle): void
  * 
  * @param string $dirname Path to the directory.
  * @param resource $context 
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function rmdir(string $dirname, $context = null): void
@@ -1018,7 +1020,7 @@ function rmdir(string $dirname, $context = null): void
         $result = \rmdir($dirname);
     }
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -1030,7 +1032,7 @@ function rmdir(string $dirname, $context = null): void
  * 
  * @param string $target Target of the link.
  * @param string $link The link name.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function symlink(string $target, string $link): void
@@ -1038,7 +1040,7 @@ function symlink(string $target, string $link): void
     error_clear_last();
     $result = \symlink($target, $link);
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -1058,7 +1060,7 @@ function symlink(string $target, string $link): void
  * 
  * @return resource Returns a file handle, similar to the one returned by
  * fopen, for the new file .
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function tmpfile()
@@ -1066,7 +1068,7 @@ function tmpfile()
     error_clear_last();
     $result = \tmpfile();
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
     return $result;
 }
@@ -1088,7 +1090,7 @@ function tmpfile()
  * the value of atime. Otherwise, it is set to
  * the value passed to the time parameter.
  * If neither are present, the current system time is used.
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function touch(string $filename, int $time = null, int $atime = null): void
@@ -1100,7 +1102,7 @@ function touch(string $filename, int $time = null, int $atime = null): void
         $result = \touch($filename, $time);
     }
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 
@@ -1112,7 +1114,7 @@ function touch(string $filename, int $time = null, int $atime = null): void
  * 
  * @param string $filename Path to the file.
  * @param resource $context 
- * @throws Exceptions\FilesystemException
+ * @throws FilesystemException
  * 
  */
 function unlink(string $filename, $context = null): void
@@ -1124,7 +1126,7 @@ function unlink(string $filename, $context = null): void
         $result = \unlink($filename);
     }
     if ($result === FALSE) {
-        throw Exceptions\FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError();
     }
 }
 

@@ -102,15 +102,16 @@ class WritePhpFunction
             if (\count($params) > 0 && $params[0]->getParameter() === 'ch') {
                 return "
     if (\$result === FALSE) {
-        throw Exceptions\\CurlException::createFromCurlResource(\$ch);
+        throw CurlException::createFromCurlResource(\$ch);
     }
 ";
             }
         }
 
+        $exceptionName = FileCreator::toExceptionName($moduleName);
         return "
     if (\$result === FALSE) {
-        throw Exceptions\\{$moduleName}Exception::createFromPhpError();
+        throw {$exceptionName}::createFromPhpError();
     }
 ";
     }

@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ClassobjException;
+
 /**
  * Creates an alias named alias
  * based on the user defined class original.
@@ -10,7 +12,7 @@ namespace Safe;
  * @param string $original The original class.
  * @param string $alias The alias name for the class.
  * @param bool $autoload Whether to autoload if the original class is not found.
- * @throws Exceptions\ClassobjException
+ * @throws ClassobjException
  * 
  */
 function class_alias(string $original, string $alias, bool $autoload = true): void
@@ -18,7 +20,7 @@ function class_alias(string $original, string $alias, bool $autoload = true): vo
     error_clear_last();
     $result = \class_alias($original, $alias, $autoload);
     if ($result === FALSE) {
-        throw Exceptions\ClassobjException::createFromPhpError();
+        throw ClassobjException::createFromPhpError();
     }
 }
 

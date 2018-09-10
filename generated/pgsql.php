@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\PgsqlException;
+
 /**
  * pg_cancel_query cancels an asynchronous query sent with 
  * pg_send_query, pg_send_query_params
@@ -9,7 +11,7 @@ namespace Safe;
  * pg_query.
  * 
  * @param resource $connection PostgreSQL database connection resource.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_cancel_query($connection): void
@@ -17,7 +19,7 @@ function pg_cancel_query($connection): void
     error_clear_last();
     $result = \pg_cancel_query($connection);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -34,7 +36,7 @@ function pg_cancel_query($connection): void
  * is used. The default connection is the last connection made by 
  * pg_connect or pg_pconnect.
  * @return string The client encoding, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_client_encoding($connection = null): string
@@ -46,7 +48,7 @@ function pg_client_encoding($connection = null): string
         $result = \pg_client_encoding();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -64,7 +66,7 @@ function pg_client_encoding($connection = null): string
  * connection is not present, the default connection 
  * is used. The default connection is the last connection made by 
  * pg_connect or pg_pconnect.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_close($connection = null): void
@@ -76,7 +78,7 @@ function pg_close($connection = null): void
         $result = \pg_close();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -86,7 +88,7 @@ function pg_close($connection = null): void
  * It is useful for error recovery.
  * 
  * @param resource $connection PostgreSQL database connection resource.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_connection_reset($connection): void
@@ -94,7 +96,7 @@ function pg_connection_reset($connection): void
     error_clear_last();
     $result = \pg_connection_reset($connection);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -117,7 +119,7 @@ function pg_connection_reset($connection): void
  * PGSQL_CONV_FORCE_NULL or
  * PGSQL_CONV_IGNORE_NOT_NULL, combined.
  * @return array An array of converted values, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_convert($connection, string $table_name, array $assoc_array, int $options = 0): array
@@ -125,7 +127,7 @@ function pg_convert($connection, string $table_name, array $assoc_array, int $op
     error_clear_last();
     $result = \pg_convert($connection, $table_name, $assoc_array, $options);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -146,7 +148,7 @@ function pg_convert($connection, string $table_name, array $assoc_array, int $op
  * rows.  Default is TAB.
  * @param string $null_as How SQL NULL values are represented in the
  * rows.  Default is \N ("\\N").
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_copy_from($connection, string $table_name, array $rows, string $delimiter = null, string $null_as = null): void
@@ -160,7 +162,7 @@ function pg_copy_from($connection, string $table_name, array $rows, string $deli
         $result = \pg_copy_from($connection, $table_name, $rows);
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -176,7 +178,7 @@ function pg_copy_from($connection, string $table_name, array $rows, string $deli
  * pg_connect or pg_pconnect.
  * @return string A string containing the name of the database the 
  * connection is to, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_dbname($connection = null): string
@@ -188,7 +190,7 @@ function pg_dbname($connection = null): string
         $result = \pg_dbname();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -229,7 +231,7 @@ function pg_dbname($connection = null): string
  * or PGSQL_DML_ESCAPE is set, it does not call pg_convert internally.
  * @return mixed Returns TRUE on success .  Returns string if PGSQL_DML_STRING is passed
  * via options.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_delete($connection, string $table_name, array $assoc_array, int $options = PGSQL_DML_EXEC)
@@ -237,7 +239,7 @@ function pg_delete($connection, string $table_name, array $assoc_array, int $opt
     error_clear_last();
     $result = \pg_delete($connection, $table_name, $assoc_array, $options);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -255,7 +257,7 @@ function pg_delete($connection, string $table_name, array $assoc_array, int $opt
  * connection is not present, the default connection 
  * is used. The default connection is the last connection made by 
  * pg_connect or pg_pconnect.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_end_copy($connection = null): void
@@ -267,7 +269,7 @@ function pg_end_copy($connection = null): void
         $result = \pg_end_copy();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -303,7 +305,7 @@ function pg_end_copy($connection = null): void
  * 
  * Elements are converted to strings by calling this function.
  * @return resource A query result resource on success .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_execute($connection = null, string $stmtname = null, array $params = null)
@@ -319,7 +321,7 @@ function pg_execute($connection = null, string $stmtname = null, array $params =
         $result = \pg_execute();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -336,7 +338,7 @@ function pg_execute($connection = null, string $stmtname = null, array $params =
  * (among others).
  * @param int $field_number Field number, starting from 0.
  * @return string The field name, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_field_name($result, int $field_number): string
@@ -344,7 +346,7 @@ function pg_field_name($result, int $field_number): string
     error_clear_last();
     $result = \pg_field_name($result, $field_number);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -360,7 +362,7 @@ function pg_field_name($result, int $field_number): string
  * (among others).
  * @param int $field_number Field number, starting from 0.
  * @return string A string containing the base name of the field's type, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_field_type($result, int $field_number): string
@@ -368,7 +370,7 @@ function pg_field_type($result, int $field_number): string
     error_clear_last();
     $result = \pg_field_type($result, $field_number);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -382,7 +384,7 @@ function pg_field_type($result, int $field_number): string
  * @return mixed Returns TRUE if the flush was successful or no data was waiting to be
  * flushed, 0 if part of the pending data was flushed but
  * more remains .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_flush($connection)
@@ -390,7 +392,7 @@ function pg_flush($connection)
     error_clear_last();
     $result = \pg_flush($connection);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -407,7 +409,7 @@ function pg_flush($connection)
  * @param resource $result PostgreSQL query result resource, returned by pg_query,
  * pg_query_params or pg_execute
  * (among others).
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_free_result($result): void
@@ -415,7 +417,7 @@ function pg_free_result($result): void
     error_clear_last();
     $result = \pg_free_result($result);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -431,7 +433,7 @@ function pg_free_result($result): void
  * pg_connect or pg_pconnect.
  * @return string A string containing the name of the host the 
  * connection is to, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_host($connection = null): string
@@ -443,7 +445,7 @@ function pg_host($connection = null): string
         $result = \pg_host();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -485,7 +487,7 @@ function pg_host($connection = null): string
  * or PGSQL_DML_ESCAPE is set, it does not call pg_convert internally.
  * @return mixed Returns the connection resource on success,  . Returns string if PGSQL_DML_STRING is passed
  * via options.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_insert($connection, string $table_name, array $assoc_array, int $options = PGSQL_DML_EXEC)
@@ -493,7 +495,7 @@ function pg_insert($connection, string $table_name, array $assoc_array, int $opt
     error_clear_last();
     $result = \pg_insert($connection, $table_name, $assoc_array, $options);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -517,7 +519,7 @@ function pg_insert($connection, string $table_name, array $assoc_array, int $opt
  * pg_connect or pg_pconnect.
  * @return string A string containing the last error message on the 
  * given connection, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_last_error($connection = null): string
@@ -529,7 +531,7 @@ function pg_last_error($connection = null): string
         $result = \pg_last_error();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -563,7 +565,7 @@ function pg_last_error($connection = null): string
  * an array with PGSQL_NOTICE_ALL,
  * a boolean with PGSQL_NOTICE_CLEAR,
  * .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_last_notice($connection, int $option = PGSQL_NOTICE_LAST)
@@ -571,7 +573,7 @@ function pg_last_notice($connection, int $option = PGSQL_NOTICE_LAST)
     error_clear_last();
     $result = \pg_last_notice($connection, $option);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -603,7 +605,7 @@ function pg_last_notice($connection, int $option = PGSQL_NOTICE_LAST)
  * @return string A string containing the OID assigned to the most recently inserted
  * row in the specified connection,  or
  * no available OID.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_last_oid($result): string
@@ -611,7 +613,7 @@ function pg_last_oid($result): string
     error_clear_last();
     $result = \pg_last_oid($result);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -626,7 +628,7 @@ function pg_last_oid($result): string
  * enclose it within a transaction block.
  * 
  * @param resource $large_object PostgreSQL large object (LOB) resource, returned by pg_lo_open.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_lo_close($large_object): void
@@ -634,7 +636,7 @@ function pg_lo_close($large_object): void
     error_clear_last();
     $result = \pg_lo_close($large_object);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -654,7 +656,7 @@ function pg_lo_close($large_object): void
  * @param int $oid The OID of the large object in the database.
  * @param string $pathname The full path and file name of the file in which to write the
  * large object on the client filesystem.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_lo_export($connection = null, int $oid = null, string $pathname = null): void
@@ -670,7 +672,7 @@ function pg_lo_export($connection = null, int $oid = null, string $pathname = nu
         $result = \pg_lo_export();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -690,7 +692,7 @@ function pg_lo_export($connection = null, int $oid = null, string $pathname = nu
  * @param string $mode Can be either "r" for read-only, "w" for write only or "rw" for read and 
  * write.
  * @return resource A large object resource .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_lo_open($connection, int $oid, string $mode)
@@ -698,7 +700,7 @@ function pg_lo_open($connection, int $oid, string $mode)
     error_clear_last();
     $result = \pg_lo_open($connection, $oid, $mode);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -715,7 +717,7 @@ function pg_lo_open($connection, int $oid, string $mode)
  * 
  * @param resource $large_object PostgreSQL large object (LOB) resource, returned by pg_lo_open.
  * @return int Number of bytes read .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_lo_read_all($large_object): int
@@ -723,7 +725,7 @@ function pg_lo_read_all($large_object): int
     error_clear_last();
     $result = \pg_lo_read_all($large_object);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -741,7 +743,7 @@ function pg_lo_read_all($large_object): int
  * @param int $len An optional maximum number of bytes to return.
  * @return string A string containing len bytes from the
  * large object, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_lo_read($large_object, int $len = 8192): string
@@ -749,7 +751,7 @@ function pg_lo_read($large_object, int $len = 8192): string
     error_clear_last();
     $result = \pg_lo_read($large_object, $len);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -767,7 +769,7 @@ function pg_lo_read($large_object, int $len = 8192): string
  * @param int $whence One of the constants PGSQL_SEEK_SET (seek from object start), 
  * PGSQL_SEEK_CUR (seek from current position)
  * or PGSQL_SEEK_END (seek from object end) .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_lo_seek($large_object, int $offset, int $whence = PGSQL_SEEK_CUR): void
@@ -775,7 +777,7 @@ function pg_lo_seek($large_object, int $offset, int $whence = PGSQL_SEEK_CUR): v
     error_clear_last();
     $result = \pg_lo_seek($large_object, $offset, $whence);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -789,7 +791,7 @@ function pg_lo_seek($large_object, int $offset, int $whence = PGSQL_SEEK_CUR): v
  * 
  * @param resource $large_object PostgreSQL large object (LOB) resource, returned by pg_lo_open.
  * @param int $size The number of bytes to truncate.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_lo_truncate($large_object, int $size): void
@@ -797,7 +799,7 @@ function pg_lo_truncate($large_object, int $size): void
     error_clear_last();
     $result = \pg_lo_truncate($large_object, $size);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -814,7 +816,7 @@ function pg_lo_truncate($large_object, int $size): void
  * is used. The default connection is the last connection made by 
  * pg_connect or pg_pconnect.
  * @param int $oid The OID of the large object in the database.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_lo_unlink($connection, int $oid): void
@@ -822,7 +824,7 @@ function pg_lo_unlink($connection, int $oid): void
     error_clear_last();
     $result = \pg_lo_unlink($connection, $oid);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -842,7 +844,7 @@ function pg_lo_unlink($connection, int $oid): void
  * and no greater than the length of data.  Defaults to
  * the length of data.
  * @return int The number of bytes written to the large object, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_lo_write($large_object, string $data, int $len = null): int
@@ -854,7 +856,7 @@ function pg_lo_write($large_object, string $data, int $len = null): int
         $result = \pg_lo_write($large_object, $data);
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -868,7 +870,7 @@ function pg_lo_write($large_object, string $data, int $len = null): int
  * @param string $table_name The name of the table.
  * @param bool $extended Flag for returning extended meta data. Default to FALSE.
  * @return array An array of the table definition, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_meta_data($connection, string $table_name, bool $extended = false): array
@@ -876,7 +878,7 @@ function pg_meta_data($connection, string $table_name, bool $extended = false): 
     error_clear_last();
     $result = \pg_meta_data($connection, $table_name, $extended);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -893,7 +895,7 @@ function pg_meta_data($connection, string $table_name, bool $extended = false): 
  * pg_connect or pg_pconnect.
  * @return string A string containing the connection
  * options, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_options($connection = null): string
@@ -905,7 +907,7 @@ function pg_options($connection = null): string
         $result = \pg_options();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -919,7 +921,7 @@ function pg_options($connection = null): string
  * connection is not present, the default connection 
  * is used. The default connection is the last connection made by 
  * pg_connect or pg_pconnect.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_ping($connection = null): void
@@ -931,7 +933,7 @@ function pg_ping($connection = null): void
         $result = \pg_ping();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -948,7 +950,7 @@ function pg_ping($connection = null): void
  * @return int An int containing the port number of the database
  * server the connection is to, 
  * .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_port($connection = null): int
@@ -960,7 +962,7 @@ function pg_port($connection = null): int
         $result = \pg_port();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -998,7 +1000,7 @@ function pg_port($connection = null): int
  * (multiple statements separated by semi-colons are not allowed.)  If any parameters 
  * are used, they are referred to as $1, $2, etc.
  * @return resource A query result resource on success .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_prepare($connection = null, string $stmtname = null, string $query = null)
@@ -1014,7 +1016,7 @@ function pg_prepare($connection = null, string $stmtname = null, string $query =
         $result = \pg_prepare();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -1039,7 +1041,7 @@ function pg_prepare($connection = null, string $stmtname = null, string $query =
  * pg_connect or pg_pconnect.
  * @param string $data A line of text to be sent directly to the PostgreSQL backend.  A NULL
  * terminator is added automatically.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_put_line($connection = null, string $data = null): void
@@ -1053,7 +1055,7 @@ function pg_put_line($connection = null, string $data = null): void
         $result = \pg_put_line();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -1105,7 +1107,7 @@ function pg_put_line($connection = null, string $data = null): void
  * parameters. Use pg_escape_bytea instead, or use the
  * large object functions.
  * @return resource A query result resource on success .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_query_params($connection = null, string $query = null, array $params = null)
@@ -1121,7 +1123,7 @@ function pg_query_params($connection = null, string $query = null, array $params
         $result = \pg_query_params();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -1163,7 +1165,7 @@ function pg_query_params($connection = null, string $query = null, array $params
  * Any user-supplied data substituted directly into a query string should
  * be properly escaped.
  * @return resource A query result resource on success .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_query($connection = null, string $query = null)
@@ -1177,7 +1179,7 @@ function pg_query($connection = null, string $query = null)
         $result = \pg_query();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -1192,7 +1194,7 @@ function pg_query($connection = null, string $query = null)
  * (among others).
  * @param int $offset Row to move the internal offset to in the result resource.
  * Rows are numbered starting from zero.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_result_seek($result, int $offset): void
@@ -1200,7 +1202,7 @@ function pg_result_seek($result, int $offset): void
     error_clear_last();
     $result = \pg_result_seek($result, $offset);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -1241,7 +1243,7 @@ function pg_result_seek($result, int $offset): void
  * @param int $result_type 
  * @return mixed Returns TRUE on success .  Returns string if PGSQL_DML_STRING is passed
  * via options.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_select($connection, string $table_name, array $assoc_array, int $options = PGSQL_DML_EXEC, int $result_type = PGSQL_ASSOC)
@@ -1249,7 +1251,7 @@ function pg_select($connection, string $table_name, array $assoc_array, int $opt
     error_clear_last();
     $result = \pg_select($connection, $table_name, $assoc_array, $options, $result_type);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -1273,7 +1275,7 @@ function pg_select($connection, string $table_name, array $assoc_array, int $opt
  * @param array $params An array of parameter values to substitute for the $1, $2, etc. placeholders
  * in the original prepared query string.  The number of elements in the array
  * must match the number of placeholders.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_send_query_params($connection, string $query, array $params): void
@@ -1281,7 +1283,7 @@ function pg_send_query_params($connection, string $query, array $params): void
     error_clear_last();
     $result = \pg_send_query_params($connection, $query, $params);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -1307,7 +1309,7 @@ function pg_send_query_params($connection, string $query, array $params): void
  * @param string $query The SQL statement or statements to be executed.
  * 
  * Data inside the query should be properly escaped.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_send_query($connection, string $query): void
@@ -1315,7 +1317,7 @@ function pg_send_query($connection, string $query): void
     error_clear_last();
     $result = \pg_send_query($connection, $query);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -1326,7 +1328,7 @@ function pg_send_query($connection, string $query): void
  * 
  * @param resource $connection PostgreSQL database connection resource.
  * @return resource A socket resource on success .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_socket($connection)
@@ -1334,7 +1336,7 @@ function pg_socket($connection)
     error_clear_last();
     $result = \pg_socket($connection);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -1360,7 +1362,7 @@ function pg_socket($connection)
  * connection is not present, the default connection 
  * is used. The default connection is the last connection made by 
  * pg_connect or pg_pconnect.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_trace(string $pathname, string $mode = "w", $connection = null): void
@@ -1372,7 +1374,7 @@ function pg_trace(string $pathname, string $mode = "w", $connection = null): voi
         $result = \pg_trace($pathname, $mode);
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
 }
 
@@ -1388,7 +1390,7 @@ function pg_trace(string $pathname, string $mode = "w", $connection = null): voi
  * pg_connect or pg_pconnect.
  * @return string A string containing the debug TTY of 
  * the connection, .
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_tty($connection = null): string
@@ -1400,7 +1402,7 @@ function pg_tty($connection = null): string
         $result = \pg_tty();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -1447,7 +1449,7 @@ function pg_tty($connection = null): string
  * or PGSQL_DML_ESCAPE is set, it does not call pg_convert internally.
  * @return mixed Returns TRUE on success .  Returns string if PGSQL_DML_STRING is passed
  * via options.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_update($connection, string $table_name, array $data, array $condition, int $options = PGSQL_DML_EXEC)
@@ -1455,7 +1457,7 @@ function pg_update($connection, string $table_name, array $data, array $conditio
     error_clear_last();
     $result = \pg_update($connection, $table_name, $data, $condition, $options);
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -1475,7 +1477,7 @@ function pg_update($connection, string $table_name, array $data, array $conditio
  * @return array Returns an array with client, protocol 
  * and server keys and values (if available).  Returns
  * FALSE on error or invalid connection.
- * @throws Exceptions\PgsqlException
+ * @throws PgsqlException
  * 
  */
 function pg_version($connection = null): array
@@ -1487,7 +1489,7 @@ function pg_version($connection = null): array
         $result = \pg_version();
     }
     if ($result === FALSE) {
-        throw Exceptions\PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError();
     }
     return $result;
 }

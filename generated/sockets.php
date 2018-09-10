@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\SocketsException;
+
 /**
  * After the socket socket has been created
  * using socket_create, bound to a name with
@@ -29,7 +31,7 @@ namespace Safe;
  * socket_last_error. This error code may be passed to
  * socket_strerror to get a textual explanation of the
  * error.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_accept($socket)
@@ -37,7 +39,7 @@ function socket_accept($socket)
     error_clear_last();
     $result = \socket_accept($socket);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
     return $result;
 }
@@ -60,7 +62,7 @@ function socket_accept($socket)
  * @param int $port The port parameter is only used when
  * binding an AF_INET socket, and designates
  * the port on which to listen for connections.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_bind($socket, string $address, int $port = 0): void
@@ -68,7 +70,7 @@ function socket_bind($socket, string $address, int $port = 0): void
     error_clear_last();
     $result = \socket_bind($socket, $address, $port);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
 }
 
@@ -92,7 +94,7 @@ function socket_bind($socket, string $address, int $port = 0): void
  * socket_last_error. This code may be passed to
  * socket_strerror to get a textual explanation of the
  * error.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_create_listen(int $port, int $backlog = 128)
@@ -100,7 +102,7 @@ function socket_create_listen(int $port, int $backlog = 128)
     error_clear_last();
     $result = \socket_create_listen($port, $backlog);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
     return $result;
 }
@@ -128,7 +130,7 @@ function socket_create_listen(int $port, int $backlog = 128)
  * See socket_create for the full list of supported 
  * protocols.
  * @param resource[] $fd Reference to an array in which the two socket resources will be inserted.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_create_pair(int $domain, int $type, int $protocol, array &$fd): void
@@ -136,7 +138,7 @@ function socket_create_pair(int $domain, int $type, int $protocol, array &$fd): 
     error_clear_last();
     $result = \socket_create_pair($domain, $type, $protocol, $fd);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
 }
 
@@ -162,7 +164,7 @@ function socket_create_pair(int $domain, int $type, int $protocol, array &$fd): 
  * socket_last_error. This error code may be passed to
  * socket_strerror to get a textual explanation of the
  * error.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_create(int $domain, int $type, int $protocol)
@@ -170,7 +172,7 @@ function socket_create(int $domain, int $type, int $protocol)
     error_clear_last();
     $result = \socket_create($domain, $type, $protocol);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
     return $result;
 }
@@ -181,7 +183,7 @@ function socket_create(int $domain, int $type, int $protocol)
  * 
  * @param resource $socket 
  * @return resource Return resource .
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_export_stream($socket)
@@ -189,7 +191,7 @@ function socket_export_stream($socket)
     error_clear_last();
     $result = \socket_export_stream($socket);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
     return $result;
 }
@@ -228,7 +230,7 @@ function socket_export_stream($socket)
  * elapses. If the socket is non-blocking, 
  * socket_close will fail and return an error.
  * @return mixed Returns the value of the given option, s.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_get_option($socket, int $level, int $optname)
@@ -236,7 +238,7 @@ function socket_get_option($socket, int $level, int $optname)
     error_clear_last();
     $result = \socket_get_option($socket, $level, $optname);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
     return $result;
 }
@@ -267,7 +269,7 @@ function socket_get_option($socket, int $level, int $optname)
  * responsible for the socket will set the backlog to a maximum
  * reasonable value. There is no standard provision to
  * find out the actual backlog value on this platform.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_listen($socket, int $backlog = 0): void
@@ -275,7 +277,7 @@ function socket_listen($socket, int $backlog = 0): void
     error_clear_last();
     $result = \socket_listen($socket, $backlog);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
 }
 
@@ -314,7 +316,7 @@ function socket_listen($socket, int $backlog = 0): void
  * socket_last_error. This code may be passed to
  * socket_strerror to get a textual representation of
  * the error.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_read($socket, int $length, int $type = PHP_BINARY_READ): string
@@ -322,7 +324,7 @@ function socket_read($socket, int $length, int $type = PHP_BINARY_READ): string
     error_clear_last();
     $result = \socket_read($socket, $length, $type);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
     return $result;
 }
@@ -375,7 +377,7 @@ function socket_read($socket, int $length, int $type = PHP_BINARY_READ): string
  * 
  * 
  * @return int socket_send returns the number of bytes sent, .
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_send($socket, string $buf, int $len, int $flags): int
@@ -383,7 +385,7 @@ function socket_send($socket, string $buf, int $len, int $flags): int
     error_clear_last();
     $result = \socket_send($socket, $buf, $len, $flags);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
     return $result;
 }
@@ -396,7 +398,7 @@ function socket_send($socket, string $buf, int $len, int $flags): int
  * @param array $message 
  * @param int $flags 
  * @return int Returns the number of bytes sent,  .
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_sendmsg($socket, array $message, int $flags = 0): int
@@ -404,7 +406,7 @@ function socket_sendmsg($socket, array $message, int $flags = 0): int
     error_clear_last();
     $result = \socket_sendmsg($socket, $message, $flags);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
     return $result;
 }
@@ -461,7 +463,7 @@ function socket_sendmsg($socket, array $message, int $flags = 0): int
  * will be sent.
  * @return int socket_sendto returns the number of bytes sent to the
  * remote host, .
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_sendto($socket, string $buf, int $len, int $flags, string $addr, int $port = 0): int
@@ -469,7 +471,7 @@ function socket_sendto($socket, string $buf, int $len, int $flags, string $addr,
     error_clear_last();
     $result = \socket_sendto($socket, $buf, $len, $flags, $addr, $port);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
     return $result;
 }
@@ -486,7 +488,7 @@ function socket_sendto($socket, string $buf, int $len, int $flags, string $addr,
  * 
  * @param resource $socket A valid socket resource created with socket_create
  * or socket_accept.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_set_block($socket): void
@@ -494,7 +496,7 @@ function socket_set_block($socket): void
     error_clear_last();
     $result = \socket_set_block($socket);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
 }
 
@@ -511,7 +513,7 @@ function socket_set_block($socket): void
  * 
  * @param resource $socket A valid socket resource created with socket_create
  * or socket_accept.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_set_nonblock($socket): void
@@ -519,7 +521,7 @@ function socket_set_nonblock($socket): void
     error_clear_last();
     $result = \socket_set_nonblock($socket);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
 }
 
@@ -543,7 +545,7 @@ function socket_set_nonblock($socket): void
  * @param int $optname The available socket options are the same as those for the
  * socket_get_option function.
  * @param int|string|array $optval The option value.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_set_option($socket, int $level, int $optname, $optval): void
@@ -551,7 +553,7 @@ function socket_set_option($socket, int $level, int $optname, $optval): void
     error_clear_last();
     $result = \socket_set_option($socket, $level, $optname, $optval);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
 }
 
@@ -588,7 +590,7 @@ function socket_set_option($socket, int $level, int $optname, $optval): void
  * 
  * 
  * 
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_shutdown($socket, int $how = 2): void
@@ -596,7 +598,7 @@ function socket_shutdown($socket, int $how = 2): void
     error_clear_last();
     $result = \socket_shutdown($socket, $how);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
 }
 
@@ -617,7 +619,7 @@ function socket_shutdown($socket, int $how = 2): void
  * socket_last_error. This code may be passed to
  * socket_strerror to get a textual explanation of the
  * error.
- * @throws Exceptions\SocketsException
+ * @throws SocketsException
  * 
  */
 function socket_write($socket, string $buffer, int $length = 0): int
@@ -625,7 +627,7 @@ function socket_write($socket, string $buffer, int $length = 0): int
     error_clear_last();
     $result = \socket_write($socket, $buffer, $length);
     if ($result === FALSE) {
-        throw Exceptions\SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError();
     }
     return $result;
 }

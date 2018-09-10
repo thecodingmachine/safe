@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\MbstringException;
+
 /**
  * Checks if the specified byte stream is valid for the specified encoding.
  * It is useful to prevent so-called "Invalid Encoding Attack".
@@ -9,7 +11,7 @@ namespace Safe;
  * @param string $var The byte stream to check. If it is omitted, this function checks
  * all the input from the beginning of the request.
  * @param string $encoding The expected encoding.
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_check_encoding(string $var = null, string $encoding = null): void
@@ -17,7 +19,7 @@ function mb_check_encoding(string $var = null, string $encoding = null): void
     error_clear_last();
     $result = \mb_check_encoding($var, $encoding);
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
 }
 
@@ -28,7 +30,7 @@ function mb_check_encoding(string $var = null, string $encoding = null): void
  * @param int $cp 
  * @param string $encoding 
  * @return string Returns a specific character .
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_chr(int $cp, string $encoding = null): string
@@ -40,7 +42,7 @@ function mb_chr(int $cp, string $encoding = null): string
         $result = \mb_chr($cp);
     }
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
     return $result;
 }
@@ -52,7 +54,7 @@ function mb_chr(int $cp, string $encoding = null): string
  * @param string $encoding The encoding type being checked, for aliases.
  * @return array Returns a numerically indexed array of encoding aliases on success,
  * 
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_encoding_aliases(string $encoding): array
@@ -60,7 +62,7 @@ function mb_encoding_aliases(string $encoding): array
     error_clear_last();
     $result = \mb_encoding_aliases($encoding);
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
     return $result;
 }
@@ -95,7 +97,7 @@ function mb_encoding_aliases(string $encoding): array
  * @param string $string The string being checked.
  * @param string $option The search option. See mb_regex_set_options for explanation.
  * @return string The resultant string on success, .
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_ereg_replace_callback(string $pattern, callable $callback, string $string, string $option = "msr"): string
@@ -103,7 +105,7 @@ function mb_ereg_replace_callback(string $pattern, callable $callback, string $s
     error_clear_last();
     $result = \mb_ereg_replace_callback($pattern, $callback, $string, $option);
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
     return $result;
 }
@@ -119,7 +121,7 @@ function mb_ereg_replace_callback(string $pattern, callable $callback, string $s
  * @param string $string The string being checked.
  * @param string $option 
  * @return string The resultant string on success, .
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_ereg_replace(string $pattern, string $replacement, string $string, string $option = "msr"): string
@@ -127,7 +129,7 @@ function mb_ereg_replace(string $pattern, string $replacement, string $string, s
     error_clear_last();
     $result = \mb_ereg_replace($pattern, $replacement, $string, $option);
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
     return $result;
 }
@@ -137,7 +139,7 @@ function mb_ereg_replace(string $pattern, string $replacement, string $string, s
  * 
  * 
  * @return array 
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_ereg_search_getregs(): array
@@ -145,7 +147,7 @@ function mb_ereg_search_getregs(): array
     error_clear_last();
     $result = \mb_ereg_search_getregs();
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
     return $result;
 }
@@ -162,7 +164,7 @@ function mb_ereg_search_getregs(): array
  * @param string $string The search string.
  * @param string $pattern The search pattern.
  * @param string $option The search option. See mb_regex_set_options for explanation.
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_ereg_search_init(string $string, string $pattern = null, string $option = "msr"): void
@@ -176,7 +178,7 @@ function mb_ereg_search_init(string $string, string $pattern = null, string $opt
         $result = \mb_ereg_search_init($string);
     }
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
 }
 
@@ -187,7 +189,7 @@ function mb_ereg_search_init(string $string, string $pattern = null, string $opt
  * @param string $pattern The search pattern.
  * @param string $option The search option. See mb_regex_set_options for explanation.
  * @return array 
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_ereg_search_regs(string $pattern = null, string $option = "ms"): array
@@ -201,7 +203,7 @@ function mb_ereg_search_regs(string $pattern = null, string $option = "ms"): arr
         $result = \mb_ereg_search_regs();
     }
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
     return $result;
 }
@@ -211,7 +213,7 @@ function mb_ereg_search_regs(string $pattern = null, string $option = "ms"): arr
  * 
  * 
  * @param int $position The position to set. If it is negative, it counts from the end of the string.
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_ereg_search_setpos(int $position): void
@@ -219,7 +221,7 @@ function mb_ereg_search_setpos(int $position): void
     error_clear_last();
     $result = \mb_ereg_search_setpos($position);
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
 }
 
@@ -232,7 +234,7 @@ function mb_ereg_search_setpos(int $position): void
  * @param string $string The searched string.
  * @param string $option 
  * @return string The resultant string .
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_eregi_replace(string $pattern, string $replace, string $string, string $option = "msri"): string
@@ -240,7 +242,7 @@ function mb_eregi_replace(string $pattern, string $replace, string $string, stri
     error_clear_last();
     $result = \mb_eregi_replace($pattern, $replace, $string, $option);
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
     return $result;
 }
@@ -261,7 +263,7 @@ function mb_eregi_replace(string $pattern, string $replace, string $string, stri
  * mb_http_output returns the current HTTP output
  * character encoding. Otherwise, 
  * Returns TRUE on success .
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_http_output(string $encoding = null)
@@ -269,7 +271,7 @@ function mb_http_output(string $encoding = null)
     error_clear_last();
     $result = \mb_http_output($encoding);
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
     return $result;
 }
@@ -288,7 +290,7 @@ function mb_http_output(string $encoding = null)
  * In this case, the character encoding for multibyte regex is NOT changed.
  * If encoding is omitted, then 
  * the current character encoding name is returned.
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_internal_encoding(string $encoding = null)
@@ -296,7 +298,7 @@ function mb_internal_encoding(string $encoding = null)
     error_clear_last();
     $result = \mb_internal_encoding($encoding);
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
     return $result;
 }
@@ -308,7 +310,7 @@ function mb_internal_encoding(string $encoding = null)
  * @param string $str 
  * @param string $encoding 
  * @return int Returns a code point of character .
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_ord(string $str, string $encoding = null): int
@@ -320,7 +322,7 @@ function mb_ord(string $str, string $encoding = null): int
         $result = \mb_ord($str);
     }
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
     return $result;
 }
@@ -336,7 +338,7 @@ function mb_ord(string $str, string $encoding = null): int
  * 
  * @param string $encoded_string The URL encoded data.
  * @param array $result An array containing decoded and character encoded converted values.
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_parse_str(string $encoded_string, array &$result = null): void
@@ -348,7 +350,7 @@ function mb_parse_str(string $encoded_string, array &$result = null): void
         $result = \mb_parse_str($encoded_string);
     }
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
 }
 
@@ -360,7 +362,7 @@ function mb_parse_str(string $encoded_string, array &$result = null): void
  * parameter is the character encoding. If it is omitted, the internal character
  * encoding value will be used.
  * @return string 
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_regex_encoding(string $encoding = null)
@@ -368,7 +370,7 @@ function mb_regex_encoding(string $encoding = null)
     error_clear_last();
     $result = \mb_regex_encoding($encoding);
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
     return $result;
 }
@@ -428,7 +430,7 @@ function mb_regex_encoding(string $encoding = null)
  * sendmail configuration to prevent a 'X-Warning' header from being added
  * to the message when the envelope sender (-f) is set using this method.
  * For sendmail users, this file is /etc/mail/trusted-users.
- * @throws Exceptions\MbstringException
+ * @throws MbstringException
  * 
  */
 function mb_send_mail(string $to, string $subject, string $message, $additional_headers = null, string $additional_parameter = null): void
@@ -436,7 +438,7 @@ function mb_send_mail(string $to, string $subject, string $message, $additional_
     error_clear_last();
     $result = \mb_send_mail($to, $subject, $message, $additional_headers, $additional_parameter);
     if ($result === FALSE) {
-        throw Exceptions\MbstringException::createFromPhpError();
+        throw MbstringException::createFromPhpError();
     }
 }
 

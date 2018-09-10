@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ArrayException;
+
 /**
  * array_multisort can be used to sort several
  * arrays at once, or a multi-dimensional array by one or more
@@ -59,7 +61,7 @@ namespace Safe;
  * @param mixed $params More arrays, optionally followed by sort order and flags. Only elements
  * corresponding to equivalent elements in previous arrays are compared.
  * In other words, the sort is lexicographical.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function array_multisort(array &$array1, $array1_sort_order = SORT_ASC, $array1_sort_flags = SORT_REGULAR,  ...$params): void
@@ -71,7 +73,7 @@ function array_multisort(array &$array1, $array1_sort_order = SORT_ASC, $array1_
         $result = \array_multisort($array1, $array1_sort_order, $array1_sort_flags);
     }
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -95,7 +97,7 @@ function array_multisort(array &$array1, $array1_sort_order = SORT_ASC, $array1_
  * @param mixed $userdata If the optional userdata parameter is supplied,
  * it will be passed as the third parameter to the
  * callback.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function array_walk_recursive(array &$array, callable $callback, $userdata = null): void
@@ -103,7 +105,7 @@ function array_walk_recursive(array &$array, callable $callback, $userdata = nul
     error_clear_last();
     $result = \array_walk_recursive($array, $callback, $userdata);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -119,7 +121,7 @@ function array_walk_recursive(array &$array, callable $callback, $userdata = nul
  * @param int $sort_flags You may modify the behavior of the sort using the optional parameter
  * sort_flags, for details see
  * sort.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function arsort(array &$array, int $sort_flags = SORT_REGULAR): void
@@ -127,7 +129,7 @@ function arsort(array &$array, int $sort_flags = SORT_REGULAR): void
     error_clear_last();
     $result = \arsort($array, $sort_flags);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -142,7 +144,7 @@ function arsort(array &$array, int $sort_flags = SORT_REGULAR): void
  * @param int $sort_flags You may modify the behavior of the sort using the optional
  * parameter sort_flags, for details
  * see sort.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function asort(array &$array, int $sort_flags = SORT_REGULAR): void
@@ -150,7 +152,7 @@ function asort(array &$array, int $sort_flags = SORT_REGULAR): void
     error_clear_last();
     $result = \asort($array, $sort_flags);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -163,7 +165,7 @@ function asort(array &$array, int $sort_flags = SORT_REGULAR): void
  * @param int $sort_flags You may modify the behavior of the sort using the optional parameter
  * sort_flags, for details see
  * sort.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function krsort(array &$array, int $sort_flags = SORT_REGULAR): void
@@ -171,7 +173,7 @@ function krsort(array &$array, int $sort_flags = SORT_REGULAR): void
     error_clear_last();
     $result = \krsort($array, $sort_flags);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -184,7 +186,7 @@ function krsort(array &$array, int $sort_flags = SORT_REGULAR): void
  * @param int $sort_flags You may modify the behavior of the sort using the optional
  * parameter sort_flags, for details
  * see sort.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function ksort(array &$array, int $sort_flags = SORT_REGULAR): void
@@ -192,7 +194,7 @@ function ksort(array &$array, int $sort_flags = SORT_REGULAR): void
     error_clear_last();
     $result = \ksort($array, $sort_flags);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -206,7 +208,7 @@ function ksort(array &$array, int $sort_flags = SORT_REGULAR): void
  * key/value associations.  This is described as a "natural ordering".
  * 
  * @param array $array The input array.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function natcasesort(array &$array): void
@@ -214,7 +216,7 @@ function natcasesort(array &$array): void
     error_clear_last();
     $result = \natcasesort($array);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -227,7 +229,7 @@ function natcasesort(array &$array): void
  * (used in sort) can be seen in the example below.
  * 
  * @param array $array The input array.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function natsort(array &$array): void
@@ -235,7 +237,7 @@ function natsort(array &$array): void
     error_clear_last();
     $result = \natsort($array);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -247,7 +249,7 @@ function natsort(array &$array): void
  * @param int $sort_flags You may modify the behavior of the sort using the optional
  * parameter sort_flags, for details see
  * sort.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function rsort(array &$array, int $sort_flags = SORT_REGULAR): void
@@ -255,7 +257,7 @@ function rsort(array &$array, int $sort_flags = SORT_REGULAR): void
     error_clear_last();
     $result = \rsort($array, $sort_flags);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -266,7 +268,7 @@ function rsort(array &$array, int $sort_flags = SORT_REGULAR): void
  * cryptographic purposes.
  * 
  * @param array $array The array.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function shuffle(array &$array): void
@@ -274,7 +276,7 @@ function shuffle(array &$array): void
     error_clear_last();
     $result = \shuffle($array);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -321,7 +323,7 @@ function shuffle(array &$array): void
  * 
  * 
  * 
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function sort(array &$array, int $sort_flags = SORT_REGULAR): void
@@ -329,7 +331,7 @@ function sort(array &$array, int $sort_flags = SORT_REGULAR): void
     error_clear_last();
     $result = \sort($array, $sort_flags);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -345,7 +347,7 @@ function sort(array &$array, int $sort_flags = SORT_REGULAR): void
  * @param array $array The input array.
  * @param callable $value_compare_func See usort and uksort for
  * examples of user-defined comparison functions.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function uasort(array &$array, callable $value_compare_func): void
@@ -353,7 +355,7 @@ function uasort(array &$array, callable $value_compare_func): void
     error_clear_last();
     $result = \uasort($array, $value_compare_func);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -367,7 +369,7 @@ function uasort(array &$array, callable $value_compare_func): void
  * @param array $array The input array.
  * @param callable $key_compare_func The comparison function must return an integer less than, equal to, or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than the second.
  * Note that before PHP 7.0.0 this integer had to be in the range from -2147483648 to 2147483647.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function uksort(array &$array, callable $key_compare_func): void
@@ -375,7 +377,7 @@ function uksort(array &$array, callable $key_compare_func): void
     error_clear_last();
     $result = \uksort($array, $key_compare_func);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 
@@ -394,7 +396,7 @@ function uksort(array &$array, callable $key_compare_func): void
  * integer of the callback's return value. So values such as
  * 0.99 and 0.1 will both be cast to an integer value of 0, which will
  * compare such values as equal.
- * @throws Exceptions\ArrayException
+ * @throws ArrayException
  * 
  */
 function usort(array &$array, callable $value_compare_func): void
@@ -402,7 +404,7 @@ function usort(array &$array, callable $value_compare_func): void
     error_clear_last();
     $result = \usort($array, $value_compare_func);
     if ($result === FALSE) {
-        throw Exceptions\ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError();
     }
 }
 

@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\PosixException;
+
 /**
  * posix_access checks the user's permission of a file.
  * 
@@ -15,7 +17,7 @@ namespace Safe;
  * exists and has read, write and execute permissions, respectively.
  * POSIX_F_OK just requests checking for the
  * existence of the file.
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_access(string $file, int $mode = POSIX_F_OK): void
@@ -23,7 +25,7 @@ function posix_access(string $file, int $mode = POSIX_F_OK): void
     error_clear_last();
     $result = \posix_access($file, $mode);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
 }
 
@@ -78,7 +80,7 @@ function posix_access(string $file, int $mode = POSIX_F_OK): void
  * 
  * 
  * 
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_getgrnam(string $name): array
@@ -86,7 +88,7 @@ function posix_getgrnam(string $name): array
     error_clear_last();
     $result = \posix_getgrnam($name);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
     return $result;
 }
@@ -98,7 +100,7 @@ function posix_getgrnam(string $name): array
  * 
  * @param int $pid The process id.
  * @return int Returns the identifier, as an integer.
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_getpgid(int $pid): int
@@ -106,7 +108,7 @@ function posix_getpgid(int $pid): int
     error_clear_last();
     $result = \posix_getpgid($pid);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
     return $result;
 }
@@ -117,7 +119,7 @@ function posix_getpgid(int $pid): int
  * 
  * @param string $name The user to calculate the list for.
  * @param int $base_group_id Typically the group number from the password file.
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_initgroups(string $name, int $base_group_id): void
@@ -125,7 +127,7 @@ function posix_initgroups(string $name, int $base_group_id): void
     error_clear_last();
     $result = \posix_initgroups($name, $base_group_id);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
 }
 
@@ -136,7 +138,7 @@ function posix_initgroups(string $name, int $base_group_id): void
  * 
  * @param int $pid The process identifier.
  * @param int $sig One of the PCNTL signals constants.
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_kill(int $pid, int $sig): void
@@ -144,7 +146,7 @@ function posix_kill(int $pid, int $sig): void
     error_clear_last();
     $result = \posix_kill($pid, $sig);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
 }
 
@@ -160,7 +162,7 @@ function posix_kill(int $pid, int $sig): void
  * FIFO also depends on the setting of the current
  * umask. The permissions of the created file are
  * (mode &amp; ~umask).
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_mkfifo(string $pathname, int $mode): void
@@ -168,7 +170,7 @@ function posix_mkfifo(string $pathname, int $mode): void
     error_clear_last();
     $result = \posix_mkfifo($pathname, $mode);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
 }
 
@@ -185,7 +187,7 @@ function posix_mkfifo(string $pathname, int $mode): void
  * @param int $major The major device kernel identifier (required to pass when using
  * S_IFCHR or S_IFBLK).
  * @param int $minor The minor device kernel identifier.
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_mknod(string $pathname, int $mode, int $major = 0, int $minor = 0): void
@@ -193,7 +195,7 @@ function posix_mknod(string $pathname, int $mode, int $major = 0, int $minor = 0
     error_clear_last();
     $result = \posix_mknod($pathname, $mode, $major, $minor);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
 }
 
@@ -204,7 +206,7 @@ function posix_mknod(string $pathname, int $mode, int $major = 0, int $minor = 0
  * root) on the system to be able to perform this function.
  * 
  * @param int $gid The group id.
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_setegid(int $gid): void
@@ -212,7 +214,7 @@ function posix_setegid(int $gid): void
     error_clear_last();
     $result = \posix_setegid($gid);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
 }
 
@@ -223,7 +225,7 @@ function posix_setegid(int $gid): void
  * the system to be able to perform this function.
  * 
  * @param int $uid The user id.
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_seteuid(int $uid): void
@@ -231,7 +233,7 @@ function posix_seteuid(int $uid): void
     error_clear_last();
     $result = \posix_seteuid($uid);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
 }
 
@@ -245,7 +247,7 @@ function posix_seteuid(int $uid): void
  * posix_setuid last.
  * 
  * @param int $gid The group id.
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_setgid(int $gid): void
@@ -253,7 +255,7 @@ function posix_setgid(int $gid): void
     error_clear_last();
     $result = \posix_setgid($gid);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
 }
 
@@ -264,7 +266,7 @@ function posix_setgid(int $gid): void
  * 
  * @param int $pid The process id.
  * @param int $pgid The process group id.
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_setpgid(int $pid, int $pgid): void
@@ -272,7 +274,7 @@ function posix_setpgid(int $pid, int $pgid): void
     error_clear_last();
     $result = \posix_setpgid($pid, $pgid);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
 }
 
@@ -295,7 +297,7 @@ function posix_setpgid(int $pid, int $pgid): void
  * POSIX_RLIMIT_INFINITY.
  * @param int $hardlimit The hard limit, in whatever unit the resource limit requires, or
  * POSIX_RLIMIT_INFINITY.
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_setrlimit(int $resource, int $softlimit, int $hardlimit): void
@@ -303,7 +305,7 @@ function posix_setrlimit(int $resource, int $softlimit, int $hardlimit): void
     error_clear_last();
     $result = \posix_setrlimit($resource, $softlimit, $hardlimit);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
 }
 
@@ -314,7 +316,7 @@ function posix_setrlimit(int $resource, int $softlimit, int $hardlimit): void
  * the system to be able to perform this function.
  * 
  * @param int $uid The user id.
- * @throws Exceptions\PosixException
+ * @throws PosixException
  * 
  */
 function posix_setuid(int $uid): void
@@ -322,7 +324,7 @@ function posix_setuid(int $uid): void
     error_clear_last();
     $result = \posix_setuid($uid);
     if ($result === FALSE) {
-        throw Exceptions\PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError();
     }
 }
 

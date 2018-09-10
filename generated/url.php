@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\UrlException;
+
 /**
  * Decodes a base64 encoded data.
  * 
@@ -12,7 +14,7 @@ namespace Safe;
  * alphabet. Otherwise invalid characters will be silently discarded.
  * @return string Returns the decoded data . The returned data may be
  * binary.
- * @throws Exceptions\UrlException
+ * @throws UrlException
  * 
  */
 function base64_decode(string $data, bool $strict = false): string
@@ -20,7 +22,7 @@ function base64_decode(string $data, bool $strict = false): string
     error_clear_last();
     $result = \base64_decode($data, $strict);
     if ($result === FALSE) {
-        throw Exceptions\UrlException::createFromPhpError();
+        throw UrlException::createFromPhpError();
     }
     return $result;
 }
@@ -37,7 +39,7 @@ function base64_decode(string $data, bool $strict = false): string
  * 
  * @param string $data The data to encode.
  * @return string The encoded data, as a string .
- * @throws Exceptions\UrlException
+ * @throws UrlException
  * 
  */
 function base64_encode(string $data): string
@@ -45,7 +47,7 @@ function base64_encode(string $data): string
     error_clear_last();
     $result = \base64_encode($data);
     if ($result === FALSE) {
-        throw Exceptions\UrlException::createFromPhpError();
+        throw UrlException::createFromPhpError();
     }
     return $result;
 }

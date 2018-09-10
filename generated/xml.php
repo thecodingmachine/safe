@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\XmlException;
+
 /**
  * This function allows to use parser inside
  * object. All callback functions could be set with
@@ -10,7 +12,7 @@ namespace Safe;
  * 
  * @param resource $parser A reference to the XML parser to use inside the object.
  * @param object $object The object where to use the XML parser.
- * @throws Exceptions\XmlException
+ * @throws XmlException
  * 
  */
 function xml_set_object($parser, object &$object): void
@@ -18,7 +20,7 @@ function xml_set_object($parser, object &$object): void
     error_clear_last();
     $result = \xml_set_object($parser, $object);
     if ($result === FALSE) {
-        throw Exceptions\XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError();
     }
 }
 

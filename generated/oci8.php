@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\Oci8Exception;
+
 /**
  * Binds the PHP array var_array to the Oracle
  * placeholder name, which points to an Oracle PL/SQL
@@ -96,7 +98,7 @@ namespace Safe;
  * SQLT_LVC - for arrays of LONG VARCHAR.
  * 
  * SQLT_ODT - for arrays of DATE.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_bind_array_by_name($statement, string $name, array &$var_array, int $max_table_length, int $max_item_length = -1, int $type = SQLT_AFC): void
@@ -104,7 +106,7 @@ function oci_bind_array_by_name($statement, string $name, array &$var_array, int
     error_clear_last();
     $result = \oci_bind_array_by_name($statement, $name, $var_array, $max_table_length, $max_item_length, $type);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -302,7 +304,7 @@ function oci_bind_array_by_name($statement, string $name, array &$var_array, int
  * 
  * SQLT_BOL or OCI_B_BOL
  * - for PL/SQL BOOLEANs (Requires OCI8 2.0.7 and Oracle Database 12c)
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_bind_by_name($statement, string $bv_name, &$variable, int $maxlength = -1, int $type = SQLT_CHR): void
@@ -310,7 +312,7 @@ function oci_bind_by_name($statement, string $bv_name, &$variable, int $maxlengt
     error_clear_last();
     $result = \oci_bind_by_name($statement, $bv_name, $variable, $maxlength, $type);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -320,7 +322,7 @@ function oci_bind_by_name($statement, string $bv_name, &$variable, int $maxlengt
  * ability to read from it.
  * 
  * @param resource $statement An OCI statement.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_cancel($statement): void
@@ -328,7 +330,7 @@ function oci_cancel($statement): void
     error_clear_last();
     $result = \oci_cancel($statement);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -345,7 +347,7 @@ function oci_cancel($statement): void
  * @param resource $connection An Oracle connection identifier returned by 
  * oci_connect, oci_pconnect,
  * or oci_new_connect.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_close($connection): void
@@ -353,7 +355,7 @@ function oci_close($connection): void
     error_clear_last();
     $result = \oci_close($connection);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -377,7 +379,7 @@ function oci_close($connection): void
  * 
  * @param resource $connection An Oracle connection identifier, returned by
  * oci_connect, oci_pconnect, or oci_new_connect.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_commit($connection): void
@@ -385,7 +387,7 @@ function oci_commit($connection): void
     error_clear_last();
     $result = \oci_commit($connection);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -484,7 +486,7 @@ function oci_commit($connection): void
  * OCI_CRED_EXT is not supported on Windows for
  * security reasons.
  * @return resource Returns a connection identifier .
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_connect(string $username, string $password, string $connection_string = null, string $character_set = null, int $session_mode = null)
@@ -500,7 +502,7 @@ function oci_connect(string $username, string $password, string $connection_stri
         $result = \oci_connect($username, $password);
     }
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -529,7 +531,7 @@ function oci_connect(string $username, string $password, string $connection_stri
  * 
  * You can optionally use oci_new_descriptor
  * to allocate LOB/ROWID/BFILE descriptors.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_define_by_name($statement, string $column_name, &$variable, int $type = SQLT_CHR): void
@@ -537,7 +539,7 @@ function oci_define_by_name($statement, string $column_name, &$variable, int $ty
     error_clear_last();
     $result = \oci_define_by_name($statement, $column_name, $variable, $type);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -616,7 +618,7 @@ function oci_define_by_name($statement, string $column_name, &$variable, int $ty
  * consistency for the application when
  * using oci_execute with different modes in
  * the same script.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_execute($statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
@@ -624,7 +626,7 @@ function oci_execute($statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
     error_clear_last();
     $result = \oci_execute($statement, $mode);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -718,7 +720,7 @@ function oci_execute($statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
  * will appear in an associative array.
  * @return int Returns the number of rows in output, which
  * may be 0 or more,  .
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_fetch_all($statement, array &$output, int $skip = 0, int $maxrows = -1, int $flags = OCI_FETCHSTATEMENT_BY_COLUMN + OCI_ASSOC): int
@@ -726,7 +728,7 @@ function oci_fetch_all($statement, array &$output, int $skip = 0, int $maxrows =
     error_clear_last();
     $result = \oci_fetch_all($statement, $output, $skip, $maxrows, $flags);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -738,7 +740,7 @@ function oci_fetch_all($statement, array &$output, int $skip = 0, int $maxrows =
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
  * @return string Returns the name as a string, s.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_field_name($statement, $field): string
@@ -746,7 +748,7 @@ function oci_field_name($statement, $field): string
     error_clear_last();
     $result = \oci_field_name($statement, $field);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -762,7 +764,7 @@ function oci_field_name($statement, $field): string
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
  * @return int Returns the precision as an integer, s.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_field_precision($statement, $field): int
@@ -770,7 +772,7 @@ function oci_field_precision($statement, $field): int
     error_clear_last();
     $result = \oci_field_precision($statement, $field);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -786,7 +788,7 @@ function oci_field_precision($statement, $field): int
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
  * @return int Returns the scale as an integer, s.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_field_scale($statement, $field): int
@@ -794,7 +796,7 @@ function oci_field_scale($statement, $field): int
     error_clear_last();
     $result = \oci_field_scale($statement, $field);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -806,7 +808,7 @@ function oci_field_scale($statement, $field): int
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
  * @return int Returns the size of a field in bytes, s.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_field_size($statement, $field): int
@@ -814,7 +816,7 @@ function oci_field_size($statement, $field): int
     error_clear_last();
     $result = \oci_field_size($statement, $field);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -828,7 +830,7 @@ function oci_field_size($statement, $field): int
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
  * @return int Returns Oracle's raw data type as a number, s.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_field_type_raw($statement, $field): int
@@ -836,7 +838,7 @@ function oci_field_type_raw($statement, $field): int
     error_clear_last();
     $result = \oci_field_type_raw($statement, $field);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -848,7 +850,7 @@ function oci_field_type_raw($statement, $field): int
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
  * @return mixed Returns the field data type as a string, s.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_field_type($statement, $field)
@@ -856,7 +858,7 @@ function oci_field_type($statement, $field)
     error_clear_last();
     $result = \oci_field_type($statement, $field);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -868,7 +870,7 @@ function oci_field_type($statement, $field)
  * from Oracle.
  * 
  * @param resource $statement A valid OCI statement identifier.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_free_statement($statement): void
@@ -876,7 +878,7 @@ function oci_free_statement($statement): void
     error_clear_last();
     $result = \oci_free_statement($statement);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -890,7 +892,7 @@ function oci_free_statement($statement): void
  * @param string $schema Should point to the scheme, where the named type was created. The name
  * of the current user is the default value.
  * @return OCI-Collection Returns a new OCICollection object .
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_new_collection($connection, string $tdo, string $schema = null)
@@ -898,7 +900,7 @@ function oci_new_collection($connection, string $tdo, string $schema = null)
     error_clear_last();
     $result = \oci_new_collection($connection, $tdo, $schema);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -989,7 +991,7 @@ function oci_new_collection($connection, string $tdo, string $schema = null)
  * OCI_CRED_EXT is not supported on Windows for
  * security reasons.
  * @return resource Returns a connection identifier .
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_new_connect(string $username, string $password, string $connection_string = null, string $character_set = null, int $session_mode = null)
@@ -1005,7 +1007,7 @@ function oci_new_connect(string $username, string $password, string $connection_
         $result = \oci_new_connect($username, $password);
     }
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -1017,7 +1019,7 @@ function oci_new_connect(string $username, string $password, string $connection_
  * @param resource $connection An Oracle connection identifier, returned by 
  * oci_connect or oci_pconnect.
  * @return resource Returns a new statement handle, .
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_new_cursor($connection)
@@ -1025,7 +1027,7 @@ function oci_new_cursor($connection)
     error_clear_last();
     $result = \oci_new_cursor($connection);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -1040,7 +1042,7 @@ function oci_new_cursor($connection)
  * OCI_DTYPE_FILE, OCI_DTYPE_LOB and
  * OCI_DTYPE_ROWID.
  * @return OCI-Lob Returns a new LOB or FILE descriptor on success, FALSE on error.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_new_descriptor($connection, int $type = OCI_DTYPE_LOB)
@@ -1048,7 +1050,7 @@ function oci_new_descriptor($connection, int $type = OCI_DTYPE_LOB)
     error_clear_last();
     $result = \oci_new_descriptor($connection, $type);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -1059,7 +1061,7 @@ function oci_new_descriptor($connection, int $type = OCI_DTYPE_LOB)
  * 
  * @param resource $statement A valid OCI statement identifier.
  * @return int Returns the number of columns as an integer, s.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_num_fields($statement): int
@@ -1067,7 +1069,7 @@ function oci_num_fields($statement): int
     error_clear_last();
     $result = \oci_num_fields($statement);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -1078,7 +1080,7 @@ function oci_num_fields($statement): int
  * 
  * @param resource $statement A valid OCI statement identifier.
  * @return int Returns the number of rows affected as an integer, s.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_num_rows($statement): int
@@ -1086,7 +1088,7 @@ function oci_num_rows($statement): int
     error_clear_last();
     $result = \oci_num_rows($statement);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -1111,7 +1113,7 @@ function oci_num_rows($statement): int
  * statements should end with a semi-colon
  * (";").
  * @return resource Returns a statement handle on success, .
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_parse($connection, string $sql_text)
@@ -1119,7 +1121,7 @@ function oci_parse($connection, string $sql_text)
     error_clear_last();
     $result = \oci_parse($connection, $sql_text);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -1210,7 +1212,7 @@ function oci_parse($connection, string $sql_text)
  * OCI_CRED_EXT is not supported on Windows for
  * security reasons.
  * @return resource Returns a connection identifier .
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_pconnect(string $username, string $password, string $connection_string = null, string $character_set = null, int $session_mode = null)
@@ -1226,7 +1228,7 @@ function oci_pconnect(string $username, string $password, string $connection_str
         $result = \oci_pconnect($username, $password);
     }
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -1247,7 +1249,7 @@ function oci_pconnect(string $username, string $password, string $connection_str
  * case insensitively.
  * @return string Returns everything as strings except for abstract types (ROWIDs, LOBs and
  * FILEs). Returns FALSE on error.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_result($statement, $field)
@@ -1255,7 +1257,7 @@ function oci_result($statement, $field)
     error_clear_last();
     $result = \oci_result($statement, $field);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -1281,7 +1283,7 @@ function oci_result($statement, $field)
  * @param resource $connection An Oracle connection identifier, returned by
  * oci_connect, oci_pconnect
  * or oci_new_connect.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_rollback($connection): void
@@ -1289,7 +1291,7 @@ function oci_rollback($connection): void
     error_clear_last();
     $result = \oci_rollback($connection);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -1299,7 +1301,7 @@ function oci_rollback($connection): void
  * 
  * @param resource $connection 
  * @return string Returns the version information as a string .
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_server_version($connection): string
@@ -1307,7 +1309,7 @@ function oci_server_version($connection): string
     error_clear_last();
     $result = \oci_server_version($connection);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -1331,7 +1333,7 @@ function oci_server_version($connection): string
  * returned by oci_connect, oci_pconnect,
  * or oci_new_connect.
  * @param string $action_name User chosen string up to 32 bytes long.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_set_action($connection, string $action_name): void
@@ -1339,7 +1341,7 @@ function oci_set_action($connection, string $action_name): void
     error_clear_last();
     $result = \oci_set_action($connection, $action_name);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -1366,7 +1368,7 @@ function oci_set_action($connection, string $action_name): void
  * returned by oci_connect, oci_pconnect,
  * or oci_new_connect.
  * @param string $client_identifier User chosen string up to 64 bytes long.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_set_client_identifier($connection, string $client_identifier): void
@@ -1374,7 +1376,7 @@ function oci_set_client_identifier($connection, string $client_identifier): void
     error_clear_last();
     $result = \oci_set_client_identifier($connection, $client_identifier);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -1395,7 +1397,7 @@ function oci_set_client_identifier($connection, string $client_identifier): void
  * returned by oci_connect, oci_pconnect,
  * or oci_new_connect.
  * @param string $client_info User chosen string up to 64 bytes long.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_set_client_info($connection, string $client_info): void
@@ -1403,7 +1405,7 @@ function oci_set_client_info($connection, string $client_info): void
     error_clear_last();
     $result = \oci_set_client_info($connection, $client_info);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -1429,7 +1431,7 @@ function oci_set_client_info($connection, string $client_info): void
  * 
  * @param string $edition Oracle Database edition name previously created with the SQL
  * "CREATE EDITION" command.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_set_edition(string $edition): void
@@ -1437,7 +1439,7 @@ function oci_set_edition(string $edition): void
     error_clear_last();
     $result = \oci_set_edition($edition);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -1460,7 +1462,7 @@ function oci_set_edition(string $edition): void
  * returned by oci_connect, oci_pconnect,
  * or oci_new_connect.
  * @param string $module_name User chosen string up to 48 bytes long.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_set_module_name($connection, string $module_name): void
@@ -1468,7 +1470,7 @@ function oci_set_module_name($connection, string $module_name): void
     error_clear_last();
     $result = \oci_set_module_name($connection, $module_name);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -1524,7 +1526,7 @@ function oci_set_module_name($connection, string $module_name): void
  * by oci_execute, or a REF
  * CURSOR statement identifier.
  * @param int $rows The number of rows to be prefetched, &gt;= 0
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_set_prefetch($statement, int $rows): void
@@ -1532,7 +1534,7 @@ function oci_set_prefetch($statement, int $rows): void
     error_clear_last();
     $result = \oci_set_prefetch($statement, $rows);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 
@@ -1603,7 +1605,7 @@ function oci_set_prefetch($statement, int $rows): void
  * 
  * 
  * Returns FALSE on error.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_statement_type($statement): string
@@ -1611,7 +1613,7 @@ function oci_statement_type($statement): string
     error_clear_last();
     $result = \oci_statement_type($statement);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
     return $result;
 }
@@ -1624,7 +1626,7 @@ function oci_statement_type($statement): string
  * for information.
  * 
  * @param resource $connection An Oracle connection identifier.
- * @throws Exceptions\Oci8Exception
+ * @throws Oci8Exception
  * 
  */
 function oci_unregister_taf_callback($connection): void
@@ -1632,7 +1634,7 @@ function oci_unregister_taf_callback($connection): void
     error_clear_last();
     $result = \oci_unregister_taf_callback($connection);
     if ($result === FALSE) {
-        throw Exceptions\Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError();
     }
 }
 

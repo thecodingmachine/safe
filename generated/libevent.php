@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\LibeventException;
+
 /**
  * event_add schedules the execution of the event
  * when the event specified in event_set occurs or in at least the time
@@ -14,7 +16,7 @@ namespace Safe;
  * 
  * @param resource $event Valid event resource.
  * @param int $timeout Optional timeout (in microseconds).
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_add($event, int $timeout = -1): void
@@ -22,7 +24,7 @@ function event_add($event, int $timeout = -1): void
     error_clear_last();
     $result = \event_add($event, $timeout);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -32,7 +34,7 @@ function event_add($event, int $timeout = -1): void
  * break statement.
  * 
  * @param resource $event_base Valid event base resource.
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_base_loopbreak($event_base): void
@@ -40,7 +42,7 @@ function event_base_loopbreak($event_base): void
     error_clear_last();
     $result = \event_base_loopbreak($event_base);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -51,7 +53,7 @@ function event_base_loopbreak($event_base): void
  * 
  * @param resource $event_base Valid event base resource.
  * @param int $timeout Optional timeout parameter (in microseconds).
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_base_loopexit($event_base, int $timeout = -1): void
@@ -59,7 +61,7 @@ function event_base_loopexit($event_base, int $timeout = -1): void
     error_clear_last();
     $result = \event_base_loopexit($event_base, $timeout);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -70,7 +72,7 @@ function event_base_loopexit($event_base, int $timeout = -1): void
  * 
  * @return resource event_base_new returns valid event base resource on
  * success .
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_base_new()
@@ -78,7 +80,7 @@ function event_base_new()
     error_clear_last();
     $result = \event_base_new();
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
     return $result;
 }
@@ -94,7 +96,7 @@ function event_base_new()
  * 
  * @param resource $event_base Valid event base resource.
  * @param int $npriorities The number of event priority levels.
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_base_priority_init($event_base, int $npriorities): void
@@ -102,7 +104,7 @@ function event_base_priority_init($event_base, int $npriorities): void
     error_clear_last();
     $result = \event_base_priority_init($event_base, $npriorities);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -113,7 +115,7 @@ function event_base_priority_init($event_base, int $npriorities): void
  * function.
  * 
  * @param resource $event_base Valid event base resource that needs to be re-initialized.
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_base_reinit($event_base): void
@@ -121,7 +123,7 @@ function event_base_reinit($event_base): void
     error_clear_last();
     $result = \event_base_reinit($event_base);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -132,7 +134,7 @@ function event_base_reinit($event_base): void
  * 
  * @param resource $event Valid event resource.
  * @param resource $event_base Valid event base resource.
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_base_set($event, $event_base): void
@@ -140,7 +142,7 @@ function event_base_set($event, $event_base): void
     error_clear_last();
     $result = \event_base_set($event, $event_base);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -151,7 +153,7 @@ function event_base_set($event, $event_base): void
  * 
  * @param resource $bevent Valid buffered event resource.
  * @param resource $event_base Valid event base resource.
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_buffer_base_set($bevent, $event_base): void
@@ -159,7 +161,7 @@ function event_buffer_base_set($bevent, $event_base): void
     error_clear_last();
     $result = \event_buffer_base_set($bevent, $event_base);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -170,7 +172,7 @@ function event_buffer_base_set($bevent, $event_base): void
  * @param resource $bevent Valid buffered event resource.
  * @param int $events Any combination of EV_READ and
  * EV_WRITE.
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_buffer_disable($bevent, int $events): void
@@ -178,7 +180,7 @@ function event_buffer_disable($bevent, int $events): void
     error_clear_last();
     $result = \event_buffer_disable($bevent, $events);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -189,7 +191,7 @@ function event_buffer_disable($bevent, int $events): void
  * @param resource $bevent Valid buffered event resource.
  * @param int $events Any combination of EV_READ and
  * EV_WRITE.
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_buffer_enable($bevent, int $events): void
@@ -197,7 +199,7 @@ function event_buffer_enable($bevent, int $events): void
     error_clear_last();
     $result = \event_buffer_enable($bevent, $events);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -218,7 +220,7 @@ function event_buffer_enable($bevent, int $events): void
  * @param mixed $arg An argument that will be passed to each of the callbacks (optional).
  * @return resource event_buffer_new returns new buffered event resource
  * on success .
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_buffer_new($stream, $readcb, $writecb, $errorcb, $arg = null)
@@ -230,7 +232,7 @@ function event_buffer_new($stream, $readcb, $writecb, $errorcb, $arg = null)
         $result = \event_buffer_new($stream, $readcb, $writecb, $errorcb);
     }
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
     return $result;
 }
@@ -242,7 +244,7 @@ function event_buffer_new($stream, $readcb, $writecb, $errorcb, $arg = null)
  * @param resource $bevent Valid buffered event resource.
  * @param int $priority Priority level. Cannot be less than zero and cannot exceed maximum
  * priority level of the event base (see event_base_priority_init).
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_buffer_priority_set($bevent, int $priority): void
@@ -250,7 +252,7 @@ function event_buffer_priority_set($bevent, int $priority): void
     error_clear_last();
     $result = \event_buffer_priority_set($bevent, $priority);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -266,7 +268,7 @@ function event_buffer_priority_set($bevent, int $priority): void
  * @param mixed $errorcb Callback to invoke where there is an error on the descriptor, cannot be
  * NULL.
  * @param mixed $arg An argument that will be passed to each of the callbacks (optional).
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_buffer_set_callback($event, $readcb, $writecb, $errorcb, $arg = null): void
@@ -278,7 +280,7 @@ function event_buffer_set_callback($event, $readcb, $writecb, $errorcb, $arg = n
         $result = \event_buffer_set_callback($event, $readcb, $writecb, $errorcb);
     }
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -292,7 +294,7 @@ function event_buffer_set_callback($event, $readcb, $writecb, $errorcb, $arg = n
  * @param string $data The data to be written.
  * @param int $data_size Optional size parameter. event_buffer_write writes
  * all the data by default.
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_buffer_write($bevent, string $data, int $data_size = -1): void
@@ -300,7 +302,7 @@ function event_buffer_write($bevent, string $data, int $data_size = -1): void
     error_clear_last();
     $result = \event_buffer_write($bevent, $data, $data_size);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -309,7 +311,7 @@ function event_buffer_write($bevent, string $data, int $data_size = -1): void
  * Cancels the event.
  * 
  * @param resource $event Valid event resource.
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_del($event): void
@@ -317,7 +319,7 @@ function event_del($event): void
     error_clear_last();
     $result = \event_del($event);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -326,7 +328,7 @@ function event_del($event): void
  * Creates and returns a new event resource.
  * 
  * @return resource event_new returns a new event resource on success .
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_new()
@@ -334,7 +336,7 @@ function event_new()
     error_clear_last();
     $result = \event_new();
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
     return $result;
 }
@@ -347,7 +349,7 @@ function event_new()
  * @param int $priority Priority level. Cannot be less than zero and cannot exceed maximum
  * priority level of the event base (see
  * event_base_priority_init).
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_priority_set($event, int $priority): void
@@ -355,7 +357,7 @@ function event_priority_set($event, int $priority): void
     error_clear_last();
     $result = \event_priority_set($event, $priority);
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -418,7 +420,7 @@ function event_priority_set($event, int $priority): void
  * the callback is invoked only once.
  * @param mixed $callback Callback function to be called when the matching event occurs.
  * @param mixed $arg Optional callback parameter.
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_set($event, $fd, int $events, $callback, $arg = null): void
@@ -430,7 +432,7 @@ function event_set($event, $fd, int $events, $callback, $arg = null): void
         $result = \event_set($event, $fd, $events, $callback);
     }
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 
@@ -477,7 +479,7 @@ function event_set($event, $fd, int $events, $callback, $arg = null): void
  * @param resource $event Valid event resource.
  * @param callable $callback Callback function to be called when the matching event occurs.
  * @param mixed $arg Optional callback parameter.
- * @throws Exceptions\LibeventException
+ * @throws LibeventException
  * 
  */
 function event_timer_set($event, callable $callback, $arg = null): void
@@ -489,7 +491,7 @@ function event_timer_set($event, callable $callback, $arg = null): void
         $result = \event_timer_set($event, $callback);
     }
     if ($result === FALSE) {
-        throw Exceptions\LibeventException::createFromPhpError();
+        throw LibeventException::createFromPhpError();
     }
 }
 

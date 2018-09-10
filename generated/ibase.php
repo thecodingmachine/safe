@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\IbaseException;
+
 /**
  * 
  * 
@@ -11,7 +13,7 @@ namespace Safe;
  * @param string $first_name The first name of the new database user.
  * @param string $middle_name The middle name of the new database user.
  * @param string $last_name The last name of the new database user.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_add_user($service_handle, string $user_name, string $password, string $first_name = null, string $middle_name = null, string $last_name = null): void
@@ -27,7 +29,7 @@ function ibase_add_user($service_handle, string $user_name, string $password, st
         $result = \ibase_add_user($service_handle, $user_name, $password);
     }
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -37,7 +39,7 @@ function ibase_add_user($service_handle, string $user_name, string $password, st
  * ibase_blob_close.
  * 
  * @param resource $blob_handle A BLOB handle opened with ibase_blob_create.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_blob_cancel($blob_handle): void
@@ -45,7 +47,7 @@ function ibase_blob_cancel($blob_handle): void
     error_clear_last();
     $result = \ibase_blob_cancel($blob_handle);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -58,7 +60,7 @@ function ibase_blob_cancel($blob_handle): void
  * assumed.
  * @return resource Returns a BLOB handle for later use with
  * ibase_blob_add .
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_blob_create($link_identifier = null)
@@ -66,7 +68,7 @@ function ibase_blob_create($link_identifier = null)
     error_clear_last();
     $result = \ibase_blob_create($link_identifier);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
     return $result;
 }
@@ -81,7 +83,7 @@ function ibase_blob_create($link_identifier = null)
  * @param resource $connection_id An InterBase link identifier returned from
  * ibase_connect. If omitted, the last opened link
  * is assumed.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_close($connection_id = null): void
@@ -89,7 +91,7 @@ function ibase_close($connection_id = null): void
     error_clear_last();
     $result = \ibase_close($connection_id);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -104,7 +106,7 @@ function ibase_close($connection_id = null): void
  * corresponding transaction will be committed. The transaction context
  * will be retained, so statements executed from within this transaction
  * will not be invalidated.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_commit_ret($link_or_trans_identifier = null): void
@@ -112,7 +114,7 @@ function ibase_commit_ret($link_or_trans_identifier = null): void
     error_clear_last();
     $result = \ibase_commit_ret($link_or_trans_identifier);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -125,7 +127,7 @@ function ibase_commit_ret($link_or_trans_identifier = null): void
  * identifier, the default transaction of the corresponding connection
  * will be committed. If the argument is a transaction identifier, the
  * corresponding transaction will be committed.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_commit($link_or_trans_identifier = null): void
@@ -133,7 +135,7 @@ function ibase_commit($link_or_trans_identifier = null): void
     error_clear_last();
     $result = \ibase_commit($link_or_trans_identifier);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -168,7 +170,7 @@ function ibase_commit($link_or_trans_identifier = null): void
  * @param string $role Functional only with InterBase 5 and up.
  * @param int $sync 
  * @return resource Returns an Firebird/InterBase link identifier on success, .
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_connect(string $database = null, string $username = null, string $password = null, string $charset = null, int $buffers = null, int $dialect = null, string $role = null, int $sync = null)
@@ -194,7 +196,7 @@ function ibase_connect(string $database = null, string $username = null, string 
         $result = \ibase_connect();
     }
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
     return $result;
 }
@@ -205,7 +207,7 @@ function ibase_connect(string $database = null, string $username = null, string 
  * 
  * @param resource $service_handle The handle on the database server service.
  * @param string $user_name The login name of the user you want to delete from the database.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_delete_user($service_handle, string $user_name): void
@@ -213,7 +215,7 @@ function ibase_delete_user($service_handle, string $user_name): void
     error_clear_last();
     $result = \ibase_delete_user($service_handle, $user_name);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -224,7 +226,7 @@ function ibase_delete_user($service_handle, string $user_name): void
  * 
  * @param resource $connection An InterBase link identifier. If omitted, the last opened link is
  * assumed.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_drop_db($connection = null): void
@@ -232,7 +234,7 @@ function ibase_drop_db($connection = null): void
     error_clear_last();
     $result = \ibase_drop_db($connection);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -244,7 +246,7 @@ function ibase_drop_db($connection = null): void
  * 
  * @param resource $event An event resource, created by
  * ibase_set_event_handler.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_free_event_handler($event): void
@@ -252,7 +254,7 @@ function ibase_free_event_handler($event): void
     error_clear_last();
     $result = \ibase_free_event_handler($event);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -261,7 +263,7 @@ function ibase_free_event_handler($event): void
  * Frees a prepared query.
  * 
  * @param resource $query A query prepared with ibase_prepare.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_free_query($query): void
@@ -269,7 +271,7 @@ function ibase_free_query($query): void
     error_clear_last();
     $result = \ibase_free_query($query);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -279,7 +281,7 @@ function ibase_free_query($query): void
  * 
  * @param resource $result_identifier A result set created by ibase_query or
  * ibase_execute.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_free_result($result_identifier): void
@@ -287,7 +289,7 @@ function ibase_free_result($result_identifier): void
     error_clear_last();
     $result = \ibase_free_result($result_identifier);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -299,7 +301,7 @@ function ibase_free_result($result_identifier): void
  * @param string $db 
  * @param int $action 
  * @param int $argument 
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_maintain_db($service_handle, string $db, int $action, int $argument = 0): void
@@ -307,7 +309,7 @@ function ibase_maintain_db($service_handle, string $db, int $action, int $argume
     error_clear_last();
     $result = \ibase_maintain_db($service_handle, $db, $action, $argument);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -321,7 +323,7 @@ function ibase_maintain_db($service_handle, string $db, int $action, int $argume
  * @param string $first_name The user's new first name.
  * @param string $middle_name The user's new middle name.
  * @param string $last_name The user's new last name.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_modify_user($service_handle, string $user_name, string $password, string $first_name = null, string $middle_name = null, string $last_name = null): void
@@ -337,7 +339,7 @@ function ibase_modify_user($service_handle, string $user_name, string $password,
         $result = \ibase_modify_user($service_handle, $user_name, $password);
     }
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -348,7 +350,7 @@ function ibase_modify_user($service_handle, string $user_name, string $password,
  * 
  * @param resource $result An InterBase result set.
  * @param string $name The name to be assigned.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_name_result($result, string $name): void
@@ -356,7 +358,7 @@ function ibase_name_result($result, string $name): void
     error_clear_last();
     $result = \ibase_name_result($result, $name);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -398,7 +400,7 @@ function ibase_name_result($result, string $name): void
  * @param string $role Functional only with InterBase 5 and up.
  * @param int $sync 
  * @return resource Returns an InterBase link identifier on success, .
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_pconnect(string $database = null, string $username = null, string $password = null, string $charset = null, int $buffers = null, int $dialect = null, string $role = null, int $sync = null)
@@ -424,7 +426,7 @@ function ibase_pconnect(string $database = null, string $username = null, string
         $result = \ibase_pconnect();
     }
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
     return $result;
 }
@@ -440,7 +442,7 @@ function ibase_pconnect(string $database = null, string $username = null, string
  * corresponding transaction will be rolled back. The transaction context
  * will be retained, so statements executed from within this transaction
  * will not be invalidated.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_rollback_ret($link_or_trans_identifier = null): void
@@ -448,7 +450,7 @@ function ibase_rollback_ret($link_or_trans_identifier = null): void
     error_clear_last();
     $result = \ibase_rollback_ret($link_or_trans_identifier);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -461,7 +463,7 @@ function ibase_rollback_ret($link_or_trans_identifier = null): void
  * identifier, the default transaction of the corresponding connection
  * will be rolled back. If the argument is a transaction identifier, the
  * corresponding transaction will be rolled back.
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_rollback($link_or_trans_identifier = null): void
@@ -469,7 +471,7 @@ function ibase_rollback($link_or_trans_identifier = null): void
     error_clear_last();
     $result = \ibase_rollback($link_or_trans_identifier);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 
@@ -478,7 +480,7 @@ function ibase_rollback($link_or_trans_identifier = null): void
  * 
  * 
  * @param resource $service_handle 
- * @throws Exceptions\IbaseException
+ * @throws IbaseException
  * 
  */
 function ibase_service_detach($service_handle): void
@@ -486,7 +488,7 @@ function ibase_service_detach($service_handle): void
     error_clear_last();
     $result = \ibase_service_detach($service_handle);
     if ($result === FALSE) {
-        throw Exceptions\IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError();
     }
 }
 

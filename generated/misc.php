@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\MiscException;
+
 /**
  * Defines a named constant at runtime.
  * 
@@ -19,7 +21,7 @@ namespace Safe;
  * different values.
  * 
  * Case-insensitive constants are stored as lower-case.
- * @throws Exceptions\MiscException
+ * @throws MiscException
  * 
  */
 function define(string $name, $value, bool $case_insensitive = false): void
@@ -27,7 +29,7 @@ function define(string $name, $value, bool $case_insensitive = false): void
     error_clear_last();
     $result = \define($name, $value, $case_insensitive);
     if ($result === FALSE) {
-        throw Exceptions\MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError();
     }
 }
 
@@ -36,7 +38,7 @@ function define(string $name, $value, bool $case_insensitive = false): void
  * Set the codepage of the current process.
  * 
  * @param int $cp A codepage identifier.
- * @throws Exceptions\MiscException
+ * @throws MiscException
  * 
  */
 function sapi_windows_cp_set(int $cp): void
@@ -44,7 +46,7 @@ function sapi_windows_cp_set(int $cp): void
     error_clear_last();
     $result = \sapi_windows_cp_set($cp);
     if ($result === FALSE) {
-        throw Exceptions\MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError();
     }
 }
 
@@ -59,7 +61,7 @@ function sapi_windows_cp_set(int $cp): void
  * 
  * @param resource $stream The stream on which the function will operate.
  * @param bool $enable If specified, the VT100 feature will be enabled (if TRUE) or disabled (if FALSE).
- * @throws Exceptions\MiscException
+ * @throws MiscException
  * 
  */
 function sapi_windows_vt100_support($stream, bool $enable = null): void
@@ -71,7 +73,7 @@ function sapi_windows_vt100_support($stream, bool $enable = null): void
         $result = \sapi_windows_vt100_support($stream);
     }
     if ($result === FALSE) {
-        throw Exceptions\MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError();
     }
 }
 
@@ -88,7 +90,7 @@ function sapi_windows_vt100_support($stream, bool $enable = null): void
  * WAIT_IO_COMPLETION constant within the Windows API).
  * On other platforms, the return value will be the number of seconds left to
  * sleep.
- * @throws Exceptions\MiscException
+ * @throws MiscException
  * 
  */
 function sleep(int $seconds): int
@@ -96,7 +98,7 @@ function sleep(int $seconds): int
     error_clear_last();
     $result = \sleep($seconds);
     if ($result === FALSE) {
-        throw Exceptions\MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError();
     }
     return $result;
 }
@@ -126,7 +128,7 @@ function sleep(int $seconds): int
  * 
  * 
  * 
- * @throws Exceptions\MiscException
+ * @throws MiscException
  * 
  */
 function time_nanosleep(int $seconds, int $nanoseconds)
@@ -134,7 +136,7 @@ function time_nanosleep(int $seconds, int $nanoseconds)
     error_clear_last();
     $result = \time_nanosleep($seconds, $nanoseconds);
     if ($result === FALSE) {
-        throw Exceptions\MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError();
     }
     return $result;
 }
@@ -145,7 +147,7 @@ function time_nanosleep(int $seconds, int $nanoseconds)
  * timestamp.
  * 
  * @param float $timestamp The timestamp when the script should wake.
- * @throws Exceptions\MiscException
+ * @throws MiscException
  * 
  */
 function time_sleep_until(float $timestamp): void
@@ -153,7 +155,7 @@ function time_sleep_until(float $timestamp): void
     error_clear_last();
     $result = \time_sleep_until($timestamp);
     if ($result === FALSE) {
-        throw Exceptions\MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError();
     }
 }
 

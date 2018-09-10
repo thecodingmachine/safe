@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\PcntlException;
+
 /**
  * Executes the program with the given arguments.
  * 
@@ -15,7 +17,7 @@ namespace Safe;
  * environment to the program.  The array is in the format of name =&gt; value,
  * the key being the name of the environmental variable and the value being
  * the value of that variable.
- * @throws Exceptions\PcntlException
+ * @throws PcntlException
  * 
  */
 function pcntl_exec(string $path, array $args = null, array $envs = null): void
@@ -29,7 +31,7 @@ function pcntl_exec(string $path, array $args = null, array $envs = null): void
         $result = \pcntl_exec($path);
     }
     if ($result === FALSE) {
-        throw Exceptions\PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError();
     }
 }
 
@@ -46,7 +48,7 @@ function pcntl_exec(string $path, array $args = null, array $envs = null): void
  * @return int pcntl_getpriority returns the priority of the process
  * .  A lower numerical value causes more favorable
  * scheduling.
- * @throws Exceptions\PcntlException
+ * @throws PcntlException
  * 
  */
 function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCESS): int
@@ -54,7 +56,7 @@ function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCE
     error_clear_last();
     $result = \pcntl_getpriority($pid, $process_identifier);
     if ($result === FALSE) {
-        throw Exceptions\PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError();
     }
     return $result;
 }
@@ -73,7 +75,7 @@ function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCE
  * @param int $pid If not specified, the pid of the current process is used.
  * @param int $process_identifier One of PRIO_PGRP, PRIO_USER
  * or PRIO_PROCESS.
- * @throws Exceptions\PcntlException
+ * @throws PcntlException
  * 
  */
 function pcntl_setpriority(int $priority, int $pid = null, int $process_identifier = PRIO_PROCESS): void
@@ -81,7 +83,7 @@ function pcntl_setpriority(int $priority, int $pid = null, int $process_identifi
     error_clear_last();
     $result = \pcntl_setpriority($priority, $pid, $process_identifier);
     if ($result === FALSE) {
-        throw Exceptions\PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError();
     }
 }
 
@@ -91,7 +93,7 @@ function pcntl_setpriority(int $priority, int $pid = null, int $process_identifi
  * handlers installed by pcntl_signal for each pending
  * signal.
  * 
- * @throws Exceptions\PcntlException
+ * @throws PcntlException
  * 
  */
 function pcntl_signal_dispatch(): void
@@ -99,7 +101,7 @@ function pcntl_signal_dispatch(): void
     error_clear_last();
     $result = \pcntl_signal_dispatch();
     if ($result === FALSE) {
-        throw Exceptions\PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError();
     }
 }
 
@@ -121,7 +123,7 @@ function pcntl_signal_dispatch(): void
  * @param array $set List of signals.
  * @param array $oldset The oldset parameter is set to an array
  * containing the list of the previously blocked signals.
- * @throws Exceptions\PcntlException
+ * @throws PcntlException
  * 
  */
 function pcntl_sigprocmask(int $how, array $set, array &$oldset = null): void
@@ -133,7 +135,7 @@ function pcntl_sigprocmask(int $how, array $set, array &$oldset = null): void
         $result = \pcntl_sigprocmask($how, $set);
     }
     if ($result === FALSE) {
-        throw Exceptions\PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError();
     }
 }
 
@@ -143,7 +145,7 @@ function pcntl_sigprocmask(int $how, array $set, array &$oldset = null): void
  * 
  * @param int $errno 
  * @return string Returns error description on success .
- * @throws Exceptions\PcntlException
+ * @throws PcntlException
  * 
  */
 function pcntl_strerror(int $errno): string
@@ -151,7 +153,7 @@ function pcntl_strerror(int $errno): string
     error_clear_last();
     $result = \pcntl_strerror($errno);
     if ($result === FALSE) {
-        throw Exceptions\PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError();
     }
     return $result;
 }

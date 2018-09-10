@@ -2,13 +2,15 @@
 
 namespace Safe;
 
+use Safe\Exceptions\Bzip2Exception;
+
 /**
  * Closes the given bzip2 file pointer.
  * 
  * @param resource $bz The file pointer. It must be valid and must point to a file 
  * successfully opened by bzopen.
  * @return int Returns TRUE on success .
- * @throws Exceptions\Bzip2Exception
+ * @throws Bzip2Exception
  * 
  */
 function bzclose($bz): int
@@ -16,7 +18,7 @@ function bzclose($bz): int
     error_clear_last();
     $result = \bzclose($bz);
     if ($result === FALSE) {
-        throw Exceptions\Bzip2Exception::createFromPhpError();
+        throw Bzip2Exception::createFromPhpError();
     }
     return $result;
 }
@@ -29,7 +31,7 @@ function bzclose($bz): int
  * @param resource $bz The file pointer. It must be valid and must point to a file 
  * successfully opened by bzopen.
  * @return int Returns TRUE on success .
- * @throws Exceptions\Bzip2Exception
+ * @throws Bzip2Exception
  * 
  */
 function bzflush($bz): void
@@ -37,7 +39,7 @@ function bzflush($bz): void
     error_clear_last();
     $result = \bzflush($bz);
     if ($result === FALSE) {
-        throw Exceptions\Bzip2Exception::createFromPhpError();
+        throw Bzip2Exception::createFromPhpError();
     }
 }
 
@@ -54,7 +56,7 @@ function bzflush($bz): void
  * (uncompressed) bytes at a time. A maximum of 8192
  * uncompressed bytes will be read at a time.
  * @return string Returns the uncompressed data, .
- * @throws Exceptions\Bzip2Exception
+ * @throws Bzip2Exception
  * 
  */
 function bzread($bz, int $length = 1024): string
@@ -62,7 +64,7 @@ function bzread($bz, int $length = 1024): string
     error_clear_last();
     $result = \bzread($bz, $length);
     if ($result === FALSE) {
-        throw Exceptions\Bzip2Exception::createFromPhpError();
+        throw Bzip2Exception::createFromPhpError();
     }
     return $result;
 }
@@ -79,7 +81,7 @@ function bzread($bz, int $length = 1024): string
  * (uncompressed) bytes have been written or the end of 
  * data is reached, whichever comes first.
  * @return int Returns the number of bytes written, .
- * @throws Exceptions\Bzip2Exception
+ * @throws Bzip2Exception
  * 
  */
 function bzwrite($bz, string $data, int $length = null): int
@@ -91,7 +93,7 @@ function bzwrite($bz, string $data, int $length = null): int
         $result = \bzwrite($bz, $data);
     }
     if ($result === FALSE) {
-        throw Exceptions\Bzip2Exception::createFromPhpError();
+        throw Bzip2Exception::createFromPhpError();
     }
     return $result;
 }

@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\CurlException;
+
 /**
  * This function URL encodes the given string according to RFC 3986.
  * 
@@ -9,7 +11,7 @@ namespace Safe;
  * curl_init.
  * @param string $str The string to be encoded.
  * @return string Returns escaped string .
- * @throws Exceptions\CurlException
+ * @throws CurlException
  * 
  */
 function curl_escape($ch, string $str): string
@@ -17,7 +19,7 @@ function curl_escape($ch, string $str): string
     error_clear_last();
     $result = \curl_escape($ch, $str);
     if ($result === FALSE) {
-        throw Exceptions\CurlException::createFromCurlResource($ch);
+        throw CurlException::createFromCurlResource($ch);
     }
     return $result;
 }
@@ -34,7 +36,7 @@ function curl_escape($ch, string $str): string
  * @return bool|string Returns TRUE on success . However, if the CURLOPT_RETURNTRANSFER
  * option is set, it will return
  * the result on success, FALSE on failure.
- * @throws Exceptions\CurlException
+ * @throws CurlException
  * 
  */
 function curl_exec($ch)
@@ -42,7 +44,7 @@ function curl_exec($ch)
     error_clear_last();
     $result = \curl_exec($ch);
     if ($result === FALSE) {
-        throw Exceptions\CurlException::createFromCurlResource($ch);
+        throw CurlException::createFromCurlResource($ch);
     }
     return $result;
 }
@@ -60,7 +62,7 @@ function curl_exec($ch)
  * The file protocol is disabled by cURL if
  * open_basedir is set.
  * @return resource Returns a cURL handle on success, FALSE on errors.
- * @throws Exceptions\CurlException
+ * @throws CurlException
  * 
  */
 function curl_init(string $url = null)
@@ -68,7 +70,7 @@ function curl_init(string $url = null)
     error_clear_last();
     $result = \curl_init($url);
     if ($result === FALSE) {
-        throw Exceptions\CurlException::createFromPhpError();
+        throw CurlException::createFromPhpError();
     }
     return $result;
 }
@@ -81,7 +83,7 @@ function curl_init(string $url = null)
  * curl_multi_init.
  * @return int Return an integer containing the last multi curl error number,
  * .
- * @throws Exceptions\CurlException
+ * @throws CurlException
  * 
  */
 function curl_multi_errno($mh): int
@@ -89,7 +91,7 @@ function curl_multi_errno($mh): int
     error_clear_last();
     $result = \curl_multi_errno($mh);
     if ($result === FALSE) {
-        throw Exceptions\CurlException::createFromPhpError();
+        throw CurlException::createFromPhpError();
     }
     return $result;
 }
@@ -1950,7 +1952,7 @@ function curl_multi_errno($mh): int
  * 
  * 
  * 
- * @throws Exceptions\CurlException
+ * @throws CurlException
  * 
  */
 function curl_setopt($ch, int $option, $value): void
@@ -1958,7 +1960,7 @@ function curl_setopt($ch, int $option, $value): void
     error_clear_last();
     $result = \curl_setopt($ch, $option, $value);
     if ($result === FALSE) {
-        throw Exceptions\CurlException::createFromCurlResource($ch);
+        throw CurlException::createFromCurlResource($ch);
     }
 }
 
@@ -1969,7 +1971,7 @@ function curl_setopt($ch, int $option, $value): void
  * @param resource $sh A cURL share handle returned by curl_share_init.
  * @return int Returns an integer containing the last share curl error number,
  * .
- * @throws Exceptions\CurlException
+ * @throws CurlException
  * 
  */
 function curl_share_errno($sh): int
@@ -1977,7 +1979,7 @@ function curl_share_errno($sh): int
     error_clear_last();
     $result = \curl_share_errno($sh);
     if ($result === FALSE) {
-        throw Exceptions\CurlException::createFromPhpError();
+        throw CurlException::createFromPhpError();
     }
     return $result;
 }
@@ -2045,7 +2047,7 @@ function curl_share_errno($sh): int
  * 
  * 
  * 
- * @throws Exceptions\CurlException
+ * @throws CurlException
  * 
  */
 function curl_share_setopt($sh, int $option, string $value): void
@@ -2053,7 +2055,7 @@ function curl_share_setopt($sh, int $option, string $value): void
     error_clear_last();
     $result = \curl_share_setopt($sh, $option, $value);
     if ($result === FALSE) {
-        throw Exceptions\CurlException::createFromPhpError();
+        throw CurlException::createFromPhpError();
     }
 }
 
@@ -2065,7 +2067,7 @@ function curl_share_setopt($sh, int $option, string $value): void
  * curl_init.
  * @param string $str The URL encoded string to be decoded.
  * @return string Returns decoded string  .
- * @throws Exceptions\CurlException
+ * @throws CurlException
  * 
  */
 function curl_unescape($ch, string $str): string
@@ -2073,7 +2075,7 @@ function curl_unescape($ch, string $str): string
     error_clear_last();
     $result = \curl_unescape($ch, $str);
     if ($result === FALSE) {
-        throw Exceptions\CurlException::createFromCurlResource($ch);
+        throw CurlException::createFromCurlResource($ch);
     }
     return $result;
 }

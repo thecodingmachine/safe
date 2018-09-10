@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\VarException;
+
 /**
  * Imports GET/POST/Cookie variables into the global scope. It is useful if
  * you disabled register_globals,
@@ -31,7 +33,7 @@ namespace Safe;
  * error if you specify no prefix, or specify an empty string as a
  * prefix. This is a possible security hazard. Notice level errors are
  * not displayed using the default error reporting level.
- * @throws Exceptions\VarException
+ * @throws VarException
  * 
  */
 function import_request_variables(string $types, string $prefix = null): void
@@ -43,7 +45,7 @@ function import_request_variables(string $types, string $prefix = null): void
         $result = \import_request_variables($types);
     }
     if ($result === FALSE) {
-        throw Exceptions\VarException::createFromPhpError();
+        throw VarException::createFromPhpError();
     }
 }
 
@@ -91,7 +93,7 @@ function import_request_variables(string $types, string $prefix = null): void
  * 
  * 
  * 
- * @throws Exceptions\VarException
+ * @throws VarException
  * 
  */
 function settype(&$var, string $type): void
@@ -99,7 +101,7 @@ function settype(&$var, string $type): void
     error_clear_last();
     $result = \settype($var, $type);
     if ($result === FALSE) {
-        throw Exceptions\VarException::createFromPhpError();
+        throw VarException::createFromPhpError();
     }
 }
 

@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\PasswordException;
+
 /**
  * password_hash creates a new password hash using a strong one-way hashing
  * algorithm. password_hash is compatible with crypt.
@@ -99,7 +101,7 @@ namespace Safe;
  * all information that's needed to verify the hash is included in it. This allows
  * the password_verify function to verify the hash without
  * needing separate storage for the salt or algorithm information.
- * @throws Exceptions\PasswordException
+ * @throws PasswordException
  * 
  */
 function password_hash(string $password, int $algo, array $options = null): string
@@ -111,7 +113,7 @@ function password_hash(string $password, int $algo, array $options = null): stri
         $result = \password_hash($password, $algo);
     }
     if ($result === FALSE) {
-        throw Exceptions\PasswordException::createFromPhpError();
+        throw PasswordException::createFromPhpError();
     }
     return $result;
 }

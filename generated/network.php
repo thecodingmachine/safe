@@ -2,11 +2,13 @@
 
 namespace Safe;
 
+use Safe\Exceptions\NetworkException;
+
 /**
  * closelog closes the descriptor being used to write to
  * the system logger.  The use of closelog is optional.
  * 
- * @throws Exceptions\NetworkException
+ * @throws NetworkException
  * 
  */
 function closelog(): void
@@ -14,7 +16,7 @@ function closelog(): void
     error_clear_last();
     $result = \closelog();
     if ($result === FALSE) {
-        throw Exceptions\NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError();
     }
 }
 
@@ -237,7 +239,7 @@ function closelog(): void
  * 
  * 
  * 
- * @throws Exceptions\NetworkException
+ * @throws NetworkException
  * 
  */
 function dns_get_record(string $hostname, int $type = DNS_ANY, array &$authns = null, array &$addtl = null, bool $raw = false): array
@@ -253,7 +255,7 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, array &$authns = 
         $result = \dns_get_record($hostname, $type);
     }
     if ($result === FALSE) {
-        throw Exceptions\NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError();
     }
     return $result;
 }
@@ -266,7 +268,7 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, array &$authns = 
  * 
  * @param string $name The protocol name.
  * @return int Returns the protocol number,  .
- * @throws Exceptions\NetworkException
+ * @throws NetworkException
  * 
  */
 function getprotobyname(string $name): int
@@ -274,7 +276,7 @@ function getprotobyname(string $name): int
     error_clear_last();
     $result = \getprotobyname($name);
     if ($result === FALSE) {
-        throw Exceptions\NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError();
     }
     return $result;
 }
@@ -287,7 +289,7 @@ function getprotobyname(string $name): int
  * 
  * @param int $number The protocol number.
  * @return string Returns the protocol name as a string,  .
- * @throws Exceptions\NetworkException
+ * @throws NetworkException
  * 
  */
 function getprotobynumber(int $number): string
@@ -295,7 +297,7 @@ function getprotobynumber(int $number): string
     error_clear_last();
     $result = \getprotobynumber($number);
     if ($result === FALSE) {
-        throw Exceptions\NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError();
     }
     return $result;
 }
@@ -310,7 +312,7 @@ function getprotobynumber(int $number): string
  * 
  * @param callable $callback Function called just before the headers are sent. It gets no parameters
  * and the return value is ignored.
- * @throws Exceptions\NetworkException
+ * @throws NetworkException
  * 
  */
 function header_register_callback(callable $callback): void
@@ -318,7 +320,7 @@ function header_register_callback(callable $callback): void
     error_clear_last();
     $result = \header_register_callback($callback);
     if ($result === FALSE) {
-        throw Exceptions\NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError();
     }
 }
 
@@ -452,7 +454,7 @@ function header_register_callback(callable $callback): void
  * 
  * LOG_USER is the only valid log type under Windows
  * operating systems
- * @throws Exceptions\NetworkException
+ * @throws NetworkException
  * 
  */
 function openlog(string $ident, int $option, int $facility): void
@@ -460,7 +462,7 @@ function openlog(string $ident, int $option, int $facility): void
     error_clear_last();
     $result = \openlog($ident, $option, $facility);
     if ($result === FALSE) {
-        throw Exceptions\NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError();
     }
 }
 
@@ -477,7 +479,7 @@ function openlog(string $ident, int $option, int $facility): void
  * @param string $domain 
  * @param bool $secure 
  * @param bool $httponly 
- * @throws Exceptions\NetworkException
+ * @throws NetworkException
  * 
  */
 function setrawcookie(string $name, string $value = null, int $expire = 0, string $path = null, string $domain = null, bool $secure = false, bool $httponly = false): void
@@ -499,7 +501,7 @@ function setrawcookie(string $name, string $value = null, int $expire = 0, strin
         $result = \setrawcookie($name);
     }
     if ($result === FALSE) {
-        throw Exceptions\NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError();
     }
 }
 
@@ -566,7 +568,7 @@ function setrawcookie(string $name, string $value = null, int $expire = 0, strin
  * %m will be replaced by the error message string
  * (strerror) corresponding to the present value of
  * errno.
- * @throws Exceptions\NetworkException
+ * @throws NetworkException
  * 
  */
 function syslog(int $priority, string $message): void
@@ -574,7 +576,7 @@ function syslog(int $priority, string $message): void
     error_clear_last();
     $result = \syslog($priority, $message);
     if ($result === FALSE) {
-        throw Exceptions\NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError();
     }
 }
 

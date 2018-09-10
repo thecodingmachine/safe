@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ImapException;
+
 /**
  * Appends a string message to the specified mailbox.
  * 
@@ -17,7 +19,7 @@ namespace Safe;
  * @param string $options If provided, the options will also be written
  * to the mailbox
  * @param string $internal_date If this parameter is set, it will set the INTERNALDATE on the appended message.  The parameter should be a date string that conforms to the rfc2060 specifications for a date_time value.
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_append($imap_stream, string $mailbox, string $message, string $options = null, string $internal_date = null): void
@@ -25,7 +27,7 @@ function imap_append($imap_stream, string $mailbox, string $message, string $opt
     error_clear_last();
     $result = \imap_append($imap_stream, $mailbox, $message, $options, $internal_date);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -52,7 +54,7 @@ function imap_append($imap_stream, string $mailbox, string $message, string $opt
  * 
  * 
  * 
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_clearflag_full($imap_stream, string $sequence, string $flag, int $options = 0): void
@@ -60,7 +62,7 @@ function imap_clearflag_full($imap_stream, string $sequence, string $flag, int $
     error_clear_last();
     $result = \imap_clearflag_full($imap_stream, $sequence, $flag, $options);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -74,7 +76,7 @@ function imap_clearflag_full($imap_stream, string $sequence, string $flag, int $
  * expunge the mailbox before closing, removing all messages marked for
  * deletion. You can achieve the same thing by using
  * imap_expunge
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_close($imap_stream, int $flag = 0): void
@@ -82,7 +84,7 @@ function imap_close($imap_stream, int $flag = 0): void
     error_clear_last();
     $result = \imap_close($imap_stream, $flag);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -95,7 +97,7 @@ function imap_close($imap_stream, int $flag = 0): void
  * @param string $mailbox The mailbox name, see imap_open for more
  * information. Names containing international characters should be
  * encoded by imap_utf7_encode
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_createmailbox($imap_stream, string $mailbox): void
@@ -103,7 +105,7 @@ function imap_createmailbox($imap_stream, string $mailbox): void
     error_clear_last();
     $result = \imap_createmailbox($imap_stream, $mailbox);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -115,7 +117,7 @@ function imap_createmailbox($imap_stream, string $mailbox): void
  * imap_open.
  * @param string $mailbox The mailbox name, see imap_open for more
  * information
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_deletemailbox($imap_stream, string $mailbox): void
@@ -123,7 +125,7 @@ function imap_deletemailbox($imap_stream, string $mailbox): void
     error_clear_last();
     $result = \imap_deletemailbox($imap_stream, $mailbox);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -138,7 +140,7 @@ function imap_deletemailbox($imap_stream, string $mailbox): void
  * IMAP_GC_ELT (message cache elements), 
  * IMAP_GC_ENV (envelope and bodies),
  * IMAP_GC_TEXTS (texts).
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_gc($imap_stream, int $caches): void
@@ -146,7 +148,7 @@ function imap_gc($imap_stream, int $caches): void
     error_clear_last();
     $result = \imap_gc($imap_stream, $caches);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -364,7 +366,7 @@ function imap_gc($imap_stream, int $caches): void
  * 
  * 
  * 
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_headerinfo($imap_stream, int $msg_number, int $fromlength = 0, int $subjectlength = 0, string $defaulthost = null): object
@@ -372,7 +374,7 @@ function imap_headerinfo($imap_stream, int $msg_number, int $fromlength = 0, int
     error_clear_last();
     $result = \imap_headerinfo($imap_stream, $msg_number, $fromlength, $subjectlength, $defaulthost);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
     return $result;
 }
@@ -402,7 +404,7 @@ function imap_headerinfo($imap_stream, int $msg_number, int $fromlength = 0, int
  * 
  * 
  * 
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_mail_copy($imap_stream, string $msglist, string $mailbox, int $options = 0): void
@@ -410,7 +412,7 @@ function imap_mail_copy($imap_stream, string $msglist, string $mailbox, int $opt
     error_clear_last();
     $result = \imap_mail_copy($imap_stream, $msglist, $mailbox, $options);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -433,7 +435,7 @@ function imap_mail_copy($imap_stream, string $msglist, string $mailbox, int $opt
  * 
  * 
  * 
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_mail_move($imap_stream, string $msglist, string $mailbox, int $options = 0): void
@@ -441,7 +443,7 @@ function imap_mail_move($imap_stream, string $msglist, string $mailbox, int $opt
     error_clear_last();
     $result = \imap_mail_move($imap_stream, $msglist, $mailbox, $options);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -463,7 +465,7 @@ function imap_mail_move($imap_stream, string $msglist, string $mailbox, int $opt
  * mail, but are excluded from the headers.
  * @param string $rpath Use this parameter to specify return path upon mail delivery failure.
  * This is useful when using PHP as a mail client for multiple users.
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_mail(string $to, string $subject, string $message, string $additional_headers = null, string $cc = null, string $bcc = null, string $rpath = null): void
@@ -471,7 +473,7 @@ function imap_mail(string $to, string $subject, string $message, string $additio
     error_clear_last();
     $result = \imap_mail($to, $subject, $message, $additional_headers, $cc, $bcc, $rpath);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -482,7 +484,7 @@ function imap_mail(string $to, string $subject, string $message, string $additio
  * @param string $in A string encoded in modified UTF-7.
  * @return string Returns in converted to UTF-8,
  * .
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_mutf7_to_utf8(string $in): string
@@ -490,7 +492,7 @@ function imap_mutf7_to_utf8(string $in): string
     error_clear_last();
     $result = \imap_mutf7_to_utf8($in);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
     return $result;
 }
@@ -502,7 +504,7 @@ function imap_mutf7_to_utf8(string $in): string
  * @param resource $imap_stream An IMAP stream returned by
  * imap_open.
  * @return int Return the number of messages in the current mailbox, as an integer, .
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_num_msg($imap_stream): int
@@ -510,7 +512,7 @@ function imap_num_msg($imap_stream): int
     error_clear_last();
     $result = \imap_num_msg($imap_stream);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
     return $result;
 }
@@ -717,7 +719,7 @@ function imap_num_msg($imap_stream): int
  * 
  * 
  * @return resource Returns an IMAP stream on success .
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_open(string $mailbox, string $username, string $password, int $options = 0, int $n_retries = 0, array $params = null)
@@ -725,7 +727,7 @@ function imap_open(string $mailbox, string $username, string $password, int $opt
     error_clear_last();
     $result = \imap_open($mailbox, $username, $password, $options, $n_retries, $params);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
     return $result;
 }
@@ -742,7 +744,7 @@ function imap_open(string $mailbox, string $username, string $password, int $opt
  * information
  * @param string $new_mbox The new mailbox name, see imap_open for more
  * information
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_renamemailbox($imap_stream, string $old_mbox, string $new_mbox): void
@@ -750,7 +752,7 @@ function imap_renamemailbox($imap_stream, string $old_mbox, string $new_mbox): v
     error_clear_last();
     $result = \imap_renamemailbox($imap_stream, $old_mbox, $new_mbox);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -785,7 +787,7 @@ function imap_renamemailbox($imap_stream, string $old_mbox, string $new_mbox): v
  * 
  * 
  * 
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_savebody($imap_stream, $file, int $msg_number, string $part_number = "", int $options = 0): void
@@ -793,7 +795,7 @@ function imap_savebody($imap_stream, $file, int $msg_number, string $part_number
     error_clear_last();
     $result = \imap_savebody($imap_stream, $file, $msg_number, $part_number, $options);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -806,7 +808,7 @@ function imap_savebody($imap_stream, $file, int $msg_number, string $part_number
  * @param string $quota_root The mailbox to have a quota set. This should follow the IMAP standard
  * format for a mailbox: user.name.
  * @param int $quota_limit The maximum size (in KB) for the quota_root
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_set_quota($imap_stream, string $quota_root, int $quota_limit): void
@@ -814,7 +816,7 @@ function imap_set_quota($imap_stream, string $quota_root, int $quota_limit): voi
     error_clear_last();
     $result = \imap_set_quota($imap_stream, $quota_root, $quota_limit);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -829,7 +831,7 @@ function imap_set_quota($imap_stream, string $quota_root, int $quota_limit): voi
  * @param string $id The user to give the rights to.
  * @param string $rights The rights to give to the user. Passing an empty string will delete
  * acl.
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_setacl($imap_stream, string $mailbox, string $id, string $rights): void
@@ -837,7 +839,7 @@ function imap_setacl($imap_stream, string $mailbox, string $id, string $rights):
     error_clear_last();
     $result = \imap_setacl($imap_stream, $mailbox, $id, $rights);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -865,7 +867,7 @@ function imap_setacl($imap_stream, string $mailbox, string $id, string $rights):
  * 
  * 
  * 
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_setflag_full($imap_stream, string $sequence, string $flag, int $options = NIL): void
@@ -873,7 +875,7 @@ function imap_setflag_full($imap_stream, string $sequence, string $flag, int $op
     error_clear_last();
     $result = \imap_setflag_full($imap_stream, $sequence, $flag, $options);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -885,7 +887,7 @@ function imap_setflag_full($imap_stream, string $sequence, string $flag, int $op
  * imap_open.
  * @param string $mailbox The mailbox name, see imap_open for more
  * information
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_subscribe($imap_stream, string $mailbox): void
@@ -893,7 +895,7 @@ function imap_subscribe($imap_stream, string $mailbox): void
     error_clear_last();
     $result = \imap_subscribe($imap_stream, $mailbox);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -920,7 +922,7 @@ function imap_subscribe($imap_stream, string $mailbox): void
  * $thread["XX.branch"]
  * 
  * 
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_thread($imap_stream, int $options = SE_FREE): array
@@ -928,7 +930,7 @@ function imap_thread($imap_stream, int $options = SE_FREE): array
     error_clear_last();
     $result = \imap_thread($imap_stream, $options);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
     return $result;
 }
@@ -942,7 +944,7 @@ function imap_thread($imap_stream, int $options = SE_FREE): array
  * imap_open.
  * @param int $msg_number The message number
  * @param int $flags 
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_undelete($imap_stream, int $msg_number, int $flags = 0): void
@@ -950,7 +952,7 @@ function imap_undelete($imap_stream, int $msg_number, int $flags = 0): void
     error_clear_last();
     $result = \imap_undelete($imap_stream, $msg_number, $flags);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -962,7 +964,7 @@ function imap_undelete($imap_stream, int $msg_number, int $flags = 0): void
  * imap_open.
  * @param string $mailbox The mailbox name, see imap_open for more
  * information
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_unsubscribe($imap_stream, string $mailbox): void
@@ -970,7 +972,7 @@ function imap_unsubscribe($imap_stream, string $mailbox): void
     error_clear_last();
     $result = \imap_unsubscribe($imap_stream, $mailbox);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
 }
 
@@ -981,7 +983,7 @@ function imap_unsubscribe($imap_stream, string $mailbox): void
  * @param string $in A UTF-8 encoded string.
  * @return string Returns in converted to modified UTF-7,
  * .
- * @throws Exceptions\ImapException
+ * @throws ImapException
  * 
  */
 function imap_utf8_to_mutf7(string $in): string
@@ -989,7 +991,7 @@ function imap_utf8_to_mutf7(string $in): string
     error_clear_last();
     $result = \imap_utf8_to_mutf7($in);
     if ($result === FALSE) {
-        throw Exceptions\ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError();
     }
     return $result;
 }

@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\PcreException;
+
 /**
  * Searches subject for all matches to the regular
  * expression given in pattern and puts them in
@@ -343,7 +345,7 @@ namespace Safe;
  * The above example will output:
  * @return int Returns the number of full pattern matches (which might be zero),
  * .
- * @throws Exceptions\PcreException
+ * @throws PcreException
  * 
  */
 function preg_match_all(string $pattern, string $subject, array &$matches = null, int $flags = PREG_PATTERN_ORDER, int $offset = 0): int
@@ -359,7 +361,7 @@ function preg_match_all(string $pattern, string $subject, array &$matches = null
         $result = \preg_match_all($pattern, $subject);
     }
     if ($result === FALSE) {
-        throw Exceptions\PcreException::createFromPhpError();
+        throw PcreException::createFromPhpError();
     }
     return $result;
 }
@@ -588,7 +590,7 @@ function preg_match_all(string $pattern, string $subject, array &$matches = null
  * The above example will output:
  * @return int preg_match returns 1 if the pattern
  * matches given subject, 0 if it does not, .
- * @throws Exceptions\PcreException
+ * @throws PcreException
  * 
  */
 function preg_match(string $pattern, string $subject, array &$matches = null, int $flags = 0, int $offset = 0): int
@@ -604,7 +606,7 @@ function preg_match(string $pattern, string $subject, array &$matches = null, in
         $result = \preg_match($pattern, $subject);
     }
     if ($result === FALSE) {
-        throw Exceptions\PcreException::createFromPhpError();
+        throw PcreException::createFromPhpError();
     }
     return $result;
 }
@@ -662,7 +664,7 @@ function preg_match(string $pattern, string $subject, array &$matches = null, in
  * into subject at offset 1.
  * @return array Returns an array containing substrings of subject
  * split along boundaries matched by pattern,  .
- * @throws Exceptions\PcreException
+ * @throws PcreException
  * 
  */
 function preg_split(string $pattern, string $subject, int $limit = -1, int $flags = 0): array
@@ -670,7 +672,7 @@ function preg_split(string $pattern, string $subject, int $limit = -1, int $flag
     error_clear_last();
     $result = \preg_split($pattern, $subject, $limit, $flags);
     if ($result === FALSE) {
-        throw Exceptions\PcreException::createFromPhpError();
+        throw PcreException::createFromPhpError();
     }
     return $result;
 }

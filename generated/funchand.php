@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\FunchandException;
+
 /**
  * Creates an anonymous function from the parameters passed, and
  * returns a unique name for it.
@@ -9,7 +11,7 @@ namespace Safe;
  * @param string $args The function arguments.
  * @param string $code The function code.
  * @return string Returns a unique function name as a string, .
- * @throws Exceptions\FunchandException
+ * @throws FunchandException
  * 
  */
 function create_function(string $args, string $code): string
@@ -17,7 +19,7 @@ function create_function(string $args, string $code): string
     error_clear_last();
     $result = \create_function($args, $code);
     if ($result === FALSE) {
-        throw Exceptions\FunchandException::createFromPhpError();
+        throw FunchandException::createFromPhpError();
     }
     return $result;
 }
@@ -33,7 +35,7 @@ function create_function(string $args, string $code): string
  * @param int $arg_num The argument offset. Function arguments are counted starting from
  * zero.
  * @return mixed Returns the specified argument, .
- * @throws Exceptions\FunchandException
+ * @throws FunchandException
  * 
  */
 function func_get_arg(int $arg_num)
@@ -41,7 +43,7 @@ function func_get_arg(int $arg_num)
     error_clear_last();
     $result = \func_get_arg($arg_num);
     if ($result === FALSE) {
-        throw Exceptions\FunchandException::createFromPhpError();
+        throw FunchandException::createFromPhpError();
     }
     return $result;
 }
@@ -54,7 +56,7 @@ function func_get_arg(int $arg_num)
  * a method.
  * @param mixed $arg 
  * @param mixed $params 
- * @throws Exceptions\FunchandException
+ * @throws FunchandException
  * 
  */
 function register_tick_function(callable $function, $arg = null,  ...$params): void
@@ -68,7 +70,7 @@ function register_tick_function(callable $function, $arg = null,  ...$params): v
         $result = \register_tick_function($function);
     }
     if ($result === FALSE) {
-        throw Exceptions\FunchandException::createFromPhpError();
+        throw FunchandException::createFromPhpError();
     }
 }
 

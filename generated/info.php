@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\InfoException;
+
 /**
  * Set the various assert control options or just query
  * their current settings.
@@ -56,7 +58,7 @@ namespace Safe;
  * 
  * @param mixed $value An optional new value for the option.
  * @return mixed Returns the original setting of any option s.
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function assert_options(int $what, $value = null)
@@ -68,7 +70,7 @@ function assert_options(int $what, $value = null)
         $result = \assert_options($what);
     }
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
     return $result;
 }
@@ -80,7 +82,7 @@ function assert_options(int $what, $value = null)
  * CLI mode.
  * 
  * @param string $title The new title.
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function cli_set_process_title(string $title): void
@@ -88,7 +90,7 @@ function cli_set_process_title(string $title): void
     error_clear_last();
     $result = \cli_set_process_title($title);
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
 }
 
@@ -151,7 +153,7 @@ function cli_set_process_title(string $title): void
  * and execution is stopped. If dl fails because the
  * specified library couldn't be loaded, in addition to FALSE an
  * E_WARNING message is emitted.
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function dl(string $library): void
@@ -159,7 +161,7 @@ function dl(string $library): void
     error_clear_last();
     $result = \dl($library);
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
 }
 
@@ -173,7 +175,7 @@ function dl(string $library): void
  * @return int Returns the time of the last modification of the current
  * page. The value returned is a Unix timestamp, suitable for
  * feeding to date. Returns FALSE on error.
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function getlastmod(): int
@@ -181,7 +183,7 @@ function getlastmod(): int
     error_clear_last();
     $result = \getlastmod();
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
     return $result;
 }
@@ -191,7 +193,7 @@ function getlastmod(): int
  * 
  * 
  * @return int Returns the group ID of the current script, .
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function getmygid(): int
@@ -199,7 +201,7 @@ function getmygid(): int
     error_clear_last();
     $result = \getmygid();
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
     return $result;
 }
@@ -209,7 +211,7 @@ function getmygid(): int
  * Gets the inode of the current script.
  * 
  * @return int Returns the current script's inode as an integer, .
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function getmyinode(): int
@@ -217,7 +219,7 @@ function getmyinode(): int
     error_clear_last();
     $result = \getmyinode();
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
     return $result;
 }
@@ -227,7 +229,7 @@ function getmyinode(): int
  * Gets the current PHP process ID.
  * 
  * @return int Returns the current PHP process ID, .
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function getmypid(): int
@@ -235,7 +237,7 @@ function getmypid(): int
     error_clear_last();
     $result = \getmypid();
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
     return $result;
 }
@@ -245,7 +247,7 @@ function getmypid(): int
  * 
  * 
  * @return int Returns the user ID of the current script, .
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function getmyuid(): int
@@ -253,7 +255,7 @@ function getmyuid(): int
     error_clear_last();
     $result = \getmyuid();
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
     return $result;
 }
@@ -325,7 +327,7 @@ function getmyuid(): int
  * 
  * 
  * 
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function phpcredits(int $flag = CREDITS_ALL): void
@@ -333,7 +335,7 @@ function phpcredits(int $flag = CREDITS_ALL): void
     error_clear_last();
     $result = \phpcredits($flag);
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
 }
 
@@ -435,7 +437,7 @@ function phpcredits(int $flag = CREDITS_ALL): void
  * 
  * 
  * 
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function phpinfo(int $what = INFO_ALL): void
@@ -443,7 +445,7 @@ function phpinfo(int $what = INFO_ALL): void
     error_clear_last();
     $result = \phpinfo($what);
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
 }
 
@@ -470,7 +472,7 @@ function phpinfo(int $what = INFO_ALL): void
  * to allow to change them.
  * 
  * @param string $setting The setting, like "FOO=BAR"
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function putenv(string $setting): void
@@ -478,7 +480,7 @@ function putenv(string $setting): void
     error_clear_last();
     $result = \putenv($setting);
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
 }
 
@@ -490,7 +492,7 @@ function putenv(string $setting): void
  * @param string $new_include_path The new value for the include_path
  * @return string Returns the old include_path on
  * success .
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function set_include_path(string $new_include_path): string
@@ -498,7 +500,7 @@ function set_include_path(string $new_include_path): string
     error_clear_last();
     $result = \set_include_path($new_include_path);
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
     return $result;
 }
@@ -508,7 +510,7 @@ function set_include_path(string $new_include_path): string
  * Set the current active configuration setting of magic_quotes_runtime.
  * 
  * @param bool $new_setting FALSE for off, TRUE for on.
- * @throws Exceptions\InfoException
+ * @throws InfoException
  * 
  */
 function set_magic_quotes_runtime(bool $new_setting): void
@@ -516,7 +518,7 @@ function set_magic_quotes_runtime(bool $new_setting): void
     error_clear_last();
     $result = \set_magic_quotes_runtime($new_setting);
     if ($result === FALSE) {
-        throw Exceptions\InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError();
     }
 }
 

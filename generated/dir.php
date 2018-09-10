@@ -2,12 +2,14 @@
 
 namespace Safe;
 
+use Safe\Exceptions\DirException;
+
 /**
  * Changes PHP's current directory to 
  * directory.
  * 
  * @param string $directory The new current directory
- * @throws Exceptions\DirException
+ * @throws DirException
  * 
  */
 function chdir(string $directory): void
@@ -15,7 +17,7 @@ function chdir(string $directory): void
     error_clear_last();
     $result = \chdir($directory);
     if ($result === FALSE) {
-        throw Exceptions\DirException::createFromPhpError();
+        throw DirException::createFromPhpError();
     }
 }
 
@@ -30,7 +32,7 @@ function chdir(string $directory): void
  * requires root privileges.
  * 
  * @param string $directory The path to change the root directory to.
- * @throws Exceptions\DirException
+ * @throws DirException
  * 
  */
 function chroot(string $directory): void
@@ -38,7 +40,7 @@ function chroot(string $directory): void
     error_clear_last();
     $result = \chroot($directory);
     if ($result === FALSE) {
-        throw Exceptions\DirException::createFromPhpError();
+        throw DirException::createFromPhpError();
     }
 }
 
@@ -53,7 +55,7 @@ function chroot(string $directory): void
  * not specified, the last link opened by opendir 
  * is assumed.
  * @return string Returns the entry name on success .
- * @throws Exceptions\DirException
+ * @throws DirException
  * 
  */
 function readdir($dir_handle = null): string
@@ -65,7 +67,7 @@ function readdir($dir_handle = null): string
         $result = \readdir();
     }
     if ($result === FALSE) {
-        throw Exceptions\DirException::createFromPhpError();
+        throw DirException::createFromPhpError();
     }
     return $result;
 }
@@ -80,7 +82,7 @@ function readdir($dir_handle = null): string
  * with opendir. If the directory handle is 
  * not specified, the last link opened by opendir 
  * is assumed.
- * @throws Exceptions\DirException
+ * @throws DirException
  * 
  */
 function rewinddir($dir_handle = null): void
@@ -92,7 +94,7 @@ function rewinddir($dir_handle = null): void
         $result = \rewinddir();
     }
     if ($result === FALSE) {
-        throw Exceptions\DirException::createFromPhpError();
+        throw DirException::createFromPhpError();
     }
 }
 

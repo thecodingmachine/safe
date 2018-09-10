@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\MysqlException;
+
 /**
  * mysql_close closes the non-persistent connection to 
  * the MySQL server that's associated with the specified link identifier. If 
@@ -21,7 +23,7 @@ namespace Safe;
  * mysql_connect is assumed. If no connection is found or
  * established, an E_WARNING level error is
  * generated.
- * @throws Exceptions\MysqlException
+ * @throws MysqlException
  * 
  */
 function mysql_close($link_identifier = NULL): void
@@ -29,7 +31,7 @@ function mysql_close($link_identifier = NULL): void
     error_clear_last();
     $result = \mysql_close($link_identifier);
     if ($result === FALSE) {
-        throw Exceptions\MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError();
     }
 }
 
@@ -48,7 +50,7 @@ function mysql_close($link_identifier = NULL): void
  * will try to create one as if mysql_connect had been called
  * with no arguments. If no connection is found or established, an
  * E_WARNING level error is generated.
- * @throws Exceptions\MysqlException
+ * @throws MysqlException
  * 
  */
 function mysql_drop_db(string $database_name, $link_identifier = NULL): void
@@ -56,7 +58,7 @@ function mysql_drop_db(string $database_name, $link_identifier = NULL): void
     error_clear_last();
     $result = \mysql_drop_db($database_name, $link_identifier);
     if ($result === FALSE) {
-        throw Exceptions\MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError();
     }
 }
 
@@ -71,7 +73,7 @@ function mysql_drop_db(string $database_name, $link_identifier = NULL): void
  * with no arguments. If no connection is found or established, an
  * E_WARNING level error is generated.
  * @return int Returns the MySQL protocol on success .
- * @throws Exceptions\MysqlException
+ * @throws MysqlException
  * 
  */
 function mysql_get_proto_info($link_identifier = NULL): int
@@ -79,7 +81,7 @@ function mysql_get_proto_info($link_identifier = NULL): int
     error_clear_last();
     $result = \mysql_get_proto_info($link_identifier);
     if ($result === FALSE) {
-        throw Exceptions\MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError();
     }
     return $result;
 }
@@ -95,7 +97,7 @@ function mysql_get_proto_info($link_identifier = NULL): int
  * with no arguments. If no connection is found or established, an
  * E_WARNING level error is generated.
  * @return resource A result pointer resource on success .
- * @throws Exceptions\MysqlException
+ * @throws MysqlException
  * 
  */
 function mysql_list_processes($link_identifier = NULL)
@@ -103,7 +105,7 @@ function mysql_list_processes($link_identifier = NULL)
     error_clear_last();
     $result = \mysql_list_processes($link_identifier);
     if ($result === FALSE) {
-        throw Exceptions\MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError();
     }
     return $result;
 }
@@ -128,7 +130,7 @@ function mysql_list_processes($link_identifier = NULL)
  * Use the mysql_tablename function to
  * traverse this result pointer, or any function for result tables,
  * such as mysql_fetch_array.
- * @throws Exceptions\MysqlException
+ * @throws MysqlException
  * 
  */
 function mysql_list_tables(string $database, $link_identifier = NULL)
@@ -136,7 +138,7 @@ function mysql_list_tables(string $database, $link_identifier = NULL)
     error_clear_last();
     $result = \mysql_list_tables($database, $link_identifier);
     if ($result === FALSE) {
-        throw Exceptions\MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError();
     }
     return $result;
 }
@@ -152,7 +154,7 @@ function mysql_list_tables(string $database, $link_identifier = NULL)
  * will try to create one as if mysql_connect had been called
  * with no arguments. If no connection is found or established, an
  * E_WARNING level error is generated.
- * @throws Exceptions\MysqlException
+ * @throws MysqlException
  * 
  */
 function mysql_set_charset(string $charset, $link_identifier = NULL): void
@@ -160,7 +162,7 @@ function mysql_set_charset(string $charset, $link_identifier = NULL): void
     error_clear_last();
     $result = \mysql_set_charset($charset, $link_identifier);
     if ($result === FALSE) {
-        throw Exceptions\MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError();
     }
 }
 
@@ -180,7 +182,7 @@ function mysql_set_charset(string $charset, $link_identifier = NULL): void
  * Use the mysql_tablename function to
  * traverse this result pointer, or any function for result tables,
  * such as mysql_fetch_array.
- * @throws Exceptions\MysqlException
+ * @throws MysqlException
  * 
  */
 function mysql_tablename($result, int $i): string
@@ -188,7 +190,7 @@ function mysql_tablename($result, int $i): string
     error_clear_last();
     $result = \mysql_tablename($result, $i);
     if ($result === FALSE) {
-        throw Exceptions\MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError();
     }
     return $result;
 }
@@ -206,7 +208,7 @@ function mysql_tablename($result, int $i): string
  * with no arguments. If no connection is found or established, an
  * E_WARNING level error is generated.
  * @return int The thread ID on success .
- * @throws Exceptions\MysqlException
+ * @throws MysqlException
  * 
  */
 function mysql_thread_id($link_identifier = NULL): int
@@ -214,7 +216,7 @@ function mysql_thread_id($link_identifier = NULL): int
     error_clear_last();
     $result = \mysql_thread_id($link_identifier);
     if ($result === FALSE) {
-        throw Exceptions\MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError();
     }
     return $result;
 }
@@ -250,7 +252,7 @@ function mysql_thread_id($link_identifier = NULL): int
  * For other type of SQL statements, UPDATE, DELETE, DROP, etc,
  * mysql_unbuffered_query returns TRUE on success
  * .
- * @throws Exceptions\MysqlException
+ * @throws MysqlException
  * 
  */
 function mysql_unbuffered_query(string $query, $link_identifier = NULL)
@@ -258,7 +260,7 @@ function mysql_unbuffered_query(string $query, $link_identifier = NULL)
     error_clear_last();
     $result = \mysql_unbuffered_query($query, $link_identifier);
     if ($result === FALSE) {
-        throw Exceptions\MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError();
     }
     return $result;
 }

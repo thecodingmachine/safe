@@ -2,11 +2,13 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ZipException;
+
 /**
  * Closes the specified directory entry.
  * 
  * @param resource $zip_entry A directory entry previously opened zip_entry_open.
- * @throws Exceptions\ZipException
+ * @throws ZipException
  * 
  */
 function zip_entry_close($zip_entry): void
@@ -14,7 +16,7 @@ function zip_entry_close($zip_entry): void
     error_clear_last();
     $result = \zip_entry_close($zip_entry);
     if ($result === FALSE) {
-        throw Exceptions\ZipException::createFromPhpError();
+        throw ZipException::createFromPhpError();
     }
 }
 
@@ -30,7 +32,7 @@ function zip_entry_close($zip_entry): void
  * Currently, mode is ignored and is always
  * "rb". This is due to the fact that zip support
  * in PHP is read only access.
- * @throws Exceptions\ZipException
+ * @throws ZipException
  * 
  */
 function zip_entry_open($zip, $zip_entry, string $mode = null): void
@@ -42,7 +44,7 @@ function zip_entry_open($zip, $zip_entry, string $mode = null): void
         $result = \zip_entry_open($zip, $zip_entry);
     }
     if ($result === FALSE) {
-        throw Exceptions\ZipException::createFromPhpError();
+        throw ZipException::createFromPhpError();
     }
 }
 
@@ -55,7 +57,7 @@ function zip_entry_open($zip, $zip_entry, string $mode = null): void
  * 
  * This should be the uncompressed length you wish to read.
  * @return string Returns the data read, empty string on end of a file, .
- * @throws Exceptions\ZipException
+ * @throws ZipException
  * 
  */
 function zip_entry_read($zip_entry, int $length = 1024): string
@@ -63,7 +65,7 @@ function zip_entry_read($zip_entry, int $length = 1024): string
     error_clear_last();
     $result = \zip_entry_read($zip_entry, $length);
     if ($result === FALSE) {
-        throw Exceptions\ZipException::createFromPhpError();
+        throw ZipException::createFromPhpError();
     }
     return $result;
 }

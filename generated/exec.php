@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ExecException;
+
 /**
  * proc_nice changes the priority of the current
  * process by the amount specified in increment. A
@@ -19,7 +21,7 @@ namespace Safe;
  * 
  * For Windows the increment parameter have the 
  * following meanings:
- * @throws Exceptions\ExecException
+ * @throws ExecException
  * 
  */
 function proc_nice(int $increment): void
@@ -27,7 +29,7 @@ function proc_nice(int $increment): void
     error_clear_last();
     $result = \proc_nice($increment);
     if ($result === FALSE) {
-        throw Exceptions\ExecException::createFromPhpError();
+        throw ExecException::createFromPhpError();
     }
 }
 

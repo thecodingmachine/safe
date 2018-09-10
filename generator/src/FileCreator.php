@@ -2,6 +2,7 @@
 
 namespace Safe;
 
+use function array_merge;
 use Complex\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -89,6 +90,8 @@ namespace Safe;
         $functionNames = array_map(function (Method $function) {
             return $function->getFunctionName();
         }, $functions);
+        $specialCases = require __DIR__.'/../config/specialCasesFunctions.php';
+        $functionNames = array_merge($functionNames, $specialCases);
         $stream = fopen($path, 'w');
         if ($stream === false) {
             throw new \RuntimeException('Unable to write to '.$path);

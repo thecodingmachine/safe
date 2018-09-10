@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\YamlException;
+
 /**
  * Convert all or part of a YAML document stream read from a file to a PHP variable.
  * 
@@ -18,7 +20,7 @@ namespace Safe;
  * PHP type . If pos is -1 an
  * array will be returned with one entry for each document found
  * in the stream.
- * @throws Exceptions\YamlException
+ * @throws YamlException
  * 
  */
 function yaml_parse_file(string $filename, int $pos = 0, int &$ndocs = null, array $callbacks = null)
@@ -32,7 +34,7 @@ function yaml_parse_file(string $filename, int $pos = 0, int &$ndocs = null, arr
         $result = \yaml_parse_file($filename, $pos);
     }
     if ($result === FALSE) {
-        throw Exceptions\YamlException::createFromPhpError();
+        throw YamlException::createFromPhpError();
     }
     return $result;
 }
@@ -57,7 +59,7 @@ function yaml_parse_file(string $filename, int $pos = 0, int &$ndocs = null, arr
  * PHP type . If pos is
  * -1 an array will be returned with one entry
  * for each document found in the stream.
- * @throws Exceptions\YamlException
+ * @throws YamlException
  * 
  */
 function yaml_parse_url(string $url, int $pos = 0, int &$ndocs = null, array $callbacks = null)
@@ -71,7 +73,7 @@ function yaml_parse_url(string $url, int $pos = 0, int &$ndocs = null, array $ca
         $result = \yaml_parse_url($url, $pos);
     }
     if ($result === FALSE) {
-        throw Exceptions\YamlException::createFromPhpError();
+        throw YamlException::createFromPhpError();
     }
     return $result;
 }
@@ -93,7 +95,7 @@ function yaml_parse_url(string $url, int $pos = 0, int &$ndocs = null, array $ca
  * PHP type . If pos is -1 an
  * array will be returned with one entry for each document found
  * in the stream.
- * @throws Exceptions\YamlException
+ * @throws YamlException
  * 
  */
 function yaml_parse(string $input, int $pos = 0, int &$ndocs = null, array $callbacks = null)
@@ -107,7 +109,7 @@ function yaml_parse(string $input, int $pos = 0, int &$ndocs = null, array $call
         $result = \yaml_parse($input, $pos);
     }
     if ($result === FALSE) {
-        throw Exceptions\YamlException::createFromPhpError();
+        throw YamlException::createFromPhpError();
     }
     return $result;
 }

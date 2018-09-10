@@ -2,12 +2,14 @@
 
 namespace Safe;
 
+use Safe\Exceptions\PspellException;
+
 /**
  * 
  * 
  * @param int $dictionary_link 
  * @param string $word The added word.
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_add_to_personal(int $dictionary_link, string $word): void
@@ -15,7 +17,7 @@ function pspell_add_to_personal(int $dictionary_link, string $word): void
     error_clear_last();
     $result = \pspell_add_to_personal($dictionary_link, $word);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -25,7 +27,7 @@ function pspell_add_to_personal(int $dictionary_link, string $word): void
  * 
  * @param int $dictionary_link 
  * @param string $word The added word.
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_add_to_session(int $dictionary_link, string $word): void
@@ -33,7 +35,7 @@ function pspell_add_to_session(int $dictionary_link, string $word): void
     error_clear_last();
     $result = \pspell_add_to_session($dictionary_link, $word);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -42,7 +44,7 @@ function pspell_add_to_session(int $dictionary_link, string $word): void
  * 
  * 
  * @param int $dictionary_link 
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_clear_session(int $dictionary_link): void
@@ -50,7 +52,7 @@ function pspell_clear_session(int $dictionary_link): void
     error_clear_last();
     $result = \pspell_clear_session($dictionary_link);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -85,7 +87,7 @@ function pspell_clear_session(int $dictionary_link): void
  * 32'. This parameter is largely untested, so be careful when
  * using.
  * @return int Retuns a pspell config identifier, .
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_config_create(string $language, string $spelling = null, string $jargon = null, string $encoding = null): int
@@ -101,7 +103,7 @@ function pspell_config_create(string $language, string $spelling = null, string 
         $result = \pspell_config_create($language);
     }
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
     return $result;
 }
@@ -114,7 +116,7 @@ function pspell_config_create(string $language, string $spelling = null, string 
  * 
  * @param int $conf 
  * @param string $directory 
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_config_data_dir(int $conf, string $directory): void
@@ -122,7 +124,7 @@ function pspell_config_data_dir(int $conf, string $directory): void
     error_clear_last();
     $result = \pspell_config_data_dir($conf, $directory);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -134,7 +136,7 @@ function pspell_config_data_dir(int $conf, string $directory): void
  * 
  * @param int $conf 
  * @param string $directory 
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_config_dict_dir(int $conf, string $directory): void
@@ -142,7 +144,7 @@ function pspell_config_dict_dir(int $conf, string $directory): void
     error_clear_last();
     $result = \pspell_config_dict_dir($conf, $directory);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -152,7 +154,7 @@ function pspell_config_dict_dir(int $conf, string $directory): void
  * 
  * @param int $dictionary_link 
  * @param int $n Words less than n characters will be skipped.
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_config_ignore(int $dictionary_link, int $n): void
@@ -160,7 +162,7 @@ function pspell_config_ignore(int $dictionary_link, int $n): void
     error_clear_last();
     $result = \pspell_config_ignore($dictionary_link, $n);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -190,7 +192,7 @@ function pspell_config_ignore(int $dictionary_link, int $n): void
  * 
  * 
  * 
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_config_mode(int $dictionary_link, int $mode): void
@@ -198,7 +200,7 @@ function pspell_config_mode(int $dictionary_link, int $mode): void
     error_clear_last();
     $result = \pspell_config_mode($dictionary_link, $mode);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -215,7 +217,7 @@ function pspell_config_mode(int $dictionary_link, int $mode): void
  * @param int $dictionary_link 
  * @param string $file The personal wordlist. If the file does not exist, it will be created.
  * The file should be writable by whoever PHP runs as (e.g. nobody).
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_config_personal(int $dictionary_link, string $file): void
@@ -223,7 +225,7 @@ function pspell_config_personal(int $dictionary_link, string $file): void
     error_clear_last();
     $result = \pspell_config_personal($dictionary_link, $file);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -242,7 +244,7 @@ function pspell_config_personal(int $dictionary_link, string $file): void
  * 
  * @param int $dictionary_link 
  * @param string $file The file should be writable by whoever PHP runs as (e.g. nobody).
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_config_repl(int $dictionary_link, string $file): void
@@ -250,7 +252,7 @@ function pspell_config_repl(int $dictionary_link, string $file): void
     error_clear_last();
     $result = \pspell_config_repl($dictionary_link, $file);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -268,7 +270,7 @@ function pspell_config_repl(int $dictionary_link, string $file): void
  * @param int $dictionary_link 
  * @param bool $flag TRUE if run-together words should be treated as legal compounds,
  * FALSE otherwise.
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_config_runtogether(int $dictionary_link, bool $flag): void
@@ -276,7 +278,7 @@ function pspell_config_runtogether(int $dictionary_link, bool $flag): void
     error_clear_last();
     $result = \pspell_config_runtogether($dictionary_link, $flag);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -295,7 +297,7 @@ function pspell_config_runtogether(int $dictionary_link, bool $flag): void
  * 
  * @param int $dictionary_link 
  * @param bool $flag TRUE if replacement pairs should be saved, FALSE otherwise.
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_config_save_repl(int $dictionary_link, bool $flag): void
@@ -303,7 +305,7 @@ function pspell_config_save_repl(int $dictionary_link, bool $flag): void
     error_clear_last();
     $result = \pspell_config_save_repl($dictionary_link, $flag);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -367,7 +369,7 @@ function pspell_config_save_repl(int $dictionary_link, bool $flag): void
  * PSPELL_BAD_SPELLERS are mutually exclusive, so you
  * should select only one of them.
  * @return int Returns the dictionary link identifier on success .
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_new(string $language, string $spelling = null, string $jargon = null, string $encoding = null, int $mode = 0): int
@@ -385,7 +387,7 @@ function pspell_new(string $language, string $spelling = null, string $jargon = 
         $result = \pspell_new($language);
     }
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
     return $result;
 }
@@ -396,7 +398,7 @@ function pspell_new(string $language, string $spelling = null, string $jargon = 
  * 
  * @param int $dictionary_link A dictionary link identifier opened with
  * pspell_new_personal.
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_save_wordlist(int $dictionary_link): void
@@ -404,7 +406,7 @@ function pspell_save_wordlist(int $dictionary_link): void
     error_clear_last();
     $result = \pspell_save_wordlist($dictionary_link);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 
@@ -416,7 +418,7 @@ function pspell_save_wordlist(int $dictionary_link): void
  * pspell_new_personal
  * @param string $misspelled The misspelled word.
  * @param string $correct The fixed spelling for the misspelled word.
- * @throws Exceptions\PspellException
+ * @throws PspellException
  * 
  */
 function pspell_store_replacement(int $dictionary_link, string $misspelled, string $correct): void
@@ -424,7 +426,7 @@ function pspell_store_replacement(int $dictionary_link, string $misspelled, stri
     error_clear_last();
     $result = \pspell_store_replacement($dictionary_link, $misspelled, $correct);
     if ($result === FALSE) {
-        throw Exceptions\PspellException::createFromPhpError();
+        throw PspellException::createFromPhpError();
     }
 }
 

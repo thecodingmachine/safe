@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\MysqlndQcException;
+
 /**
  * Flush all cache contents.
  * 
@@ -14,7 +16,7 @@ namespace Safe;
  * 
  * User-defined storage handler may or may not support the operation.
  * 
- * @throws Exceptions\MysqlndQcException
+ * @throws MysqlndQcException
  * 
  */
 function mysqlnd_qc_clear_cache(): void
@@ -22,7 +24,7 @@ function mysqlnd_qc_clear_cache(): void
     error_clear_last();
     $result = \mysqlnd_qc_clear_cache();
     if ($result === FALSE) {
-        throw Exceptions\MysqlndQcException::createFromPhpError();
+        throw MysqlndQcException::createFromPhpError();
     }
 }
 
@@ -56,7 +58,7 @@ function mysqlnd_qc_clear_cache(): void
  * 
  * @param string $callback 
  * @return mixed Returns TRUE on success .
- * @throws Exceptions\MysqlndQcException
+ * @throws MysqlndQcException
  * 
  */
 function mysqlnd_qc_set_is_select(string $callback)
@@ -64,7 +66,7 @@ function mysqlnd_qc_set_is_select(string $callback)
     error_clear_last();
     $result = \mysqlnd_qc_set_is_select($callback);
     if ($result === FALSE) {
-        throw Exceptions\MysqlndQcException::createFromPhpError();
+        throw MysqlndQcException::createFromPhpError();
     }
     return $result;
 }
@@ -88,7 +90,7 @@ function mysqlnd_qc_set_is_select(string $callback)
  * APC,
  * MEMCACHE,
  * sqlite.
- * @throws Exceptions\MysqlndQcException
+ * @throws MysqlndQcException
  * 
  */
 function mysqlnd_qc_set_storage_handler(string $handler): void
@@ -96,7 +98,7 @@ function mysqlnd_qc_set_storage_handler(string $handler): void
     error_clear_last();
     $result = \mysqlnd_qc_set_storage_handler($handler);
     if ($result === FALSE) {
-        throw Exceptions\MysqlndQcException::createFromPhpError();
+        throw MysqlndQcException::createFromPhpError();
     }
 }
 

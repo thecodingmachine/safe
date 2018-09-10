@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ErrorfuncException;
+
 /**
  * Sends an error message to the web server's error log or to a file.
  * 
@@ -61,7 +63,7 @@ namespace Safe;
  * parameter is set to 1.
  * This message type uses the same internal function as 
  * mail does.
- * @throws Exceptions\ErrorfuncException
+ * @throws ErrorfuncException
  * 
  */
 function error_log(string $message, int $message_type = 0, string $destination = null, string $extra_headers = null): void
@@ -75,7 +77,7 @@ function error_log(string $message, int $message_type = 0, string $destination =
         $result = \error_log($message, $message_type);
     }
     if ($result === FALSE) {
-        throw Exceptions\ErrorfuncException::createFromPhpError();
+        throw ErrorfuncException::createFromPhpError();
     }
 }
 

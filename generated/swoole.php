@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\SwooleException;
+
 /**
  * 
  * 
@@ -9,7 +11,7 @@ namespace Safe;
  * @param string $content The content writing to the file.
  * @param int $offset The offset.
  * @param callable $callback 
- * @throws Exceptions\SwooleException
+ * @throws SwooleException
  * 
  */
 function swoole_async_write(string $filename, string $content, integer $offset = null, callable $callback = null): void
@@ -23,7 +25,7 @@ function swoole_async_write(string $filename, string $content, integer $offset =
         $result = \swoole_async_write($filename, $content);
     }
     if ($result === FALSE) {
-        throw Exceptions\SwooleException::createFromPhpError();
+        throw SwooleException::createFromPhpError();
     }
 }
 
@@ -35,7 +37,7 @@ function swoole_async_write(string $filename, string $content, integer $offset =
  * @param string $content The content writing to the file.
  * @param string $callback 
  * @param int $flags 
- * @throws Exceptions\SwooleException
+ * @throws SwooleException
  * 
  */
 function swoole_async_writefile(string $filename, string $content, callable $callback = null, int $flags = 0): void
@@ -49,7 +51,7 @@ function swoole_async_writefile(string $filename, string $content, callable $cal
         $result = \swoole_async_writefile($filename, $content);
     }
     if ($result === FALSE) {
-        throw Exceptions\SwooleException::createFromPhpError();
+        throw SwooleException::createFromPhpError();
     }
 }
 
@@ -58,7 +60,7 @@ function swoole_async_writefile(string $filename, string $content, callable $cal
  * 
  * 
  * @param callable $callback 
- * @throws Exceptions\SwooleException
+ * @throws SwooleException
  * 
  */
 function swoole_event_defer(callable $callback): void
@@ -66,7 +68,7 @@ function swoole_event_defer(callable $callback): void
     error_clear_last();
     $result = \swoole_event_defer($callback);
     if ($result === FALSE) {
-        throw Exceptions\SwooleException::createFromPhpError();
+        throw SwooleException::createFromPhpError();
     }
 }
 
@@ -75,7 +77,7 @@ function swoole_event_defer(callable $callback): void
  * 
  * 
  * @param int $fd 
- * @throws Exceptions\SwooleException
+ * @throws SwooleException
  * 
  */
 function swoole_event_del(int $fd): void
@@ -83,7 +85,7 @@ function swoole_event_del(int $fd): void
     error_clear_last();
     $result = \swoole_event_del($fd);
     if ($result === FALSE) {
-        throw Exceptions\SwooleException::createFromPhpError();
+        throw SwooleException::createFromPhpError();
     }
 }
 
@@ -93,7 +95,7 @@ function swoole_event_del(int $fd): void
  * 
  * @param int $fd 
  * @param string $data 
- * @throws Exceptions\SwooleException
+ * @throws SwooleException
  * 
  */
 function swoole_event_write(int $fd, string $data): void
@@ -101,7 +103,7 @@ function swoole_event_write(int $fd, string $data): void
     error_clear_last();
     $result = \swoole_event_write($fd, $data);
     if ($result === FALSE) {
-        throw Exceptions\SwooleException::createFromPhpError();
+        throw SwooleException::createFromPhpError();
     }
 }
 

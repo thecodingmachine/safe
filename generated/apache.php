@@ -2,11 +2,13 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ApacheException;
+
 /**
  * Fetch the Apache version.
  * 
  * @return string Returns the Apache version on success .
- * @throws Exceptions\ApacheException
+ * @throws ApacheException
  * 
  */
 function apache_get_version(): string
@@ -14,7 +16,7 @@ function apache_get_version(): string
     error_clear_last();
     $result = \apache_get_version();
     if ($result === FALSE) {
-        throw Exceptions\ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError();
     }
     return $result;
 }
@@ -29,7 +31,7 @@ function apache_get_version(): string
  * 
  * This function requires Apache 1.
  * 
- * @throws Exceptions\ApacheException
+ * @throws ApacheException
  * 
  */
 function apache_reset_timeout(): void
@@ -37,7 +39,7 @@ function apache_reset_timeout(): void
     error_clear_last();
     $result = \apache_reset_timeout();
     if ($result === FALSE) {
-        throw Exceptions\ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError();
     }
 }
 
@@ -46,7 +48,7 @@ function apache_reset_timeout(): void
  * Fetch all HTTP response headers.
  * 
  * @return array An array of all Apache response headers on success .
- * @throws Exceptions\ApacheException
+ * @throws ApacheException
  * 
  */
 function apache_response_headers(): array
@@ -54,7 +56,7 @@ function apache_response_headers(): array
     error_clear_last();
     $result = \apache_response_headers();
     if ($result === FALSE) {
-        throw Exceptions\ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError();
     }
     return $result;
 }
@@ -68,7 +70,7 @@ function apache_response_headers(): array
  * @param string $variable The environment variable that's being set.
  * @param string $value The new variable value.
  * @param bool $walk_to_top Whether to set the top-level variable available to all Apache layers.
- * @throws Exceptions\ApacheException
+ * @throws ApacheException
  * 
  */
 function apache_setenv(string $variable, string $value, bool $walk_to_top = false): void
@@ -76,7 +78,7 @@ function apache_setenv(string $variable, string $value, bool $walk_to_top = fals
     error_clear_last();
     $result = \apache_setenv($variable, $value, $walk_to_top);
     if ($result === FALSE) {
-        throw Exceptions\ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError();
     }
 }
 

@@ -50,9 +50,17 @@ class GenerateCommand extends Command
             $fileCreator->createExceptionFile($moduleName);
         }
 
-        // Finally, let's require the generated file to check there is no error.
+        // Let's require the generated file to check there is no error.
         $files = \glob(__DIR__.'/../../generated/*.php');
 
+        foreach ($files as $file) {
+            require($file);
+        }
+
+        $files = \glob(__DIR__.'/../../generated/Exceptions/*.php');
+
+        require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
+        require_once __DIR__.'/../../lib/Exceptions/AbstractSafeException.php';
         foreach ($files as $file) {
             require($file);
         }

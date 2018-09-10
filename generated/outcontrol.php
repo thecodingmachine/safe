@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\OutcontrolException;
+
 /**
  * This function discards the contents of the topmost output buffer and turns
  * off this output buffering. If you want to further process the buffer's
@@ -14,7 +16,7 @@ namespace Safe;
  * and PHP_OUTPUT_HANDLER_REMOVABLE
  * flags. Otherwise ob_end_clean will not work.
  * 
- * @throws Exceptions\OutcontrolException
+ * @throws OutcontrolException
  * 
  */
 function ob_end_clean(): void
@@ -22,7 +24,7 @@ function ob_end_clean(): void
     error_clear_last();
     $result = \ob_end_clean();
     if ($result === FALSE) {
-        throw Exceptions\OutcontrolException::createFromPhpError();
+        throw OutcontrolException::createFromPhpError();
     }
 }
 
@@ -40,7 +42,7 @@ function ob_end_clean(): void
  * and PHP_OUTPUT_HANDLER_REMOVABLE
  * flags. Otherwise ob_end_flush will not work.
  * 
- * @throws Exceptions\OutcontrolException
+ * @throws OutcontrolException
  * 
  */
 function ob_end_flush(): void
@@ -48,7 +50,7 @@ function ob_end_flush(): void
     error_clear_last();
     $result = \ob_end_flush();
     if ($result === FALSE) {
-        throw Exceptions\OutcontrolException::createFromPhpError();
+        throw OutcontrolException::createFromPhpError();
     }
 }
 
@@ -65,7 +67,7 @@ function ob_end_flush(): void
  * 
  * @param string $name The variable name.
  * @param string $value The variable value.
- * @throws Exceptions\OutcontrolException
+ * @throws OutcontrolException
  * 
  */
 function output_add_rewrite_var(string $name, string $value): void
@@ -73,7 +75,7 @@ function output_add_rewrite_var(string $name, string $value): void
     error_clear_last();
     $result = \output_add_rewrite_var($name, $value);
     if ($result === FALSE) {
-        throw Exceptions\OutcontrolException::createFromPhpError();
+        throw OutcontrolException::createFromPhpError();
     }
 }
 
@@ -83,7 +85,7 @@ function output_add_rewrite_var(string $name, string $value): void
  * variables previously set by the output_add_rewrite_var
  * function.
  * 
- * @throws Exceptions\OutcontrolException
+ * @throws OutcontrolException
  * 
  */
 function output_reset_rewrite_vars(): void
@@ -91,7 +93,7 @@ function output_reset_rewrite_vars(): void
     error_clear_last();
     $result = \output_reset_rewrite_vars();
     if ($result === FALSE) {
-        throw Exceptions\OutcontrolException::createFromPhpError();
+        throw OutcontrolException::createFromPhpError();
     }
 }
 

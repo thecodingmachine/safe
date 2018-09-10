@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\OpensslException;
+
 /**
  * openssl_csr_export_to_file takes the Certificate
  * Signing Request represented by csr and saves it
@@ -14,7 +16,7 @@ namespace Safe;
  * the verbosity of the output; if it is FALSE, then additional human-readable
  * information is included in the output. The default value of
  * notext is TRUE.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_csr_export_to_file($csr, string $outfilename, bool $notext = true): void
@@ -22,7 +24,7 @@ function openssl_csr_export_to_file($csr, string $outfilename, bool $notext = tr
     error_clear_last();
     $result = \openssl_csr_export_to_file($csr, $outfilename, $notext);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -40,7 +42,7 @@ function openssl_csr_export_to_file($csr, string $outfilename, bool $notext = tr
  * the verbosity of the output; if it is FALSE, then additional human-readable
  * information is included in the output. The default value of
  * notext is TRUE.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_csr_export($csr, string &$out, bool $notext = true): void
@@ -48,7 +50,7 @@ function openssl_csr_export($csr, string &$out, bool $notext = true): void
     error_clear_last();
     $result = \openssl_csr_export($csr, $out, $notext);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -64,7 +66,7 @@ function openssl_csr_export($csr, string &$out, bool $notext = true): void
  * fields will be indexed with the short name form, otherwise, the long name
  * form will be used - e.g.: CN is the shortname form of commonName.
  * @return array Returns TRUE on success .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_csr_get_subject($csr, bool $use_shortnames = true): array
@@ -72,7 +74,7 @@ function openssl_csr_get_subject($csr, bool $use_shortnames = true): array
     error_clear_last();
     $result = \openssl_csr_get_subject($csr, $use_shortnames);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -185,7 +187,7 @@ function openssl_csr_get_subject($csr, bool $use_shortnames = true): array
  * extraattribs are associative arrays whose keys are
  * converted to OIDs and applied to the relevant part of the request.
  * @return resource Returns the CSR .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_csr_new(array $dn, &$privkey, array $configargs = null, array $extraattribs = null)
@@ -199,7 +201,7 @@ function openssl_csr_new(array $dn, &$privkey, array $configargs = null, array $
         $result = \openssl_csr_new($dn, $privkey);
     }
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -219,7 +221,7 @@ function openssl_csr_new(array $dn, &$privkey, array $configargs = null, array $
  * @param string $tag The authentication tag in AEAD cipher mode. If it is incorrect, the authentication fails and the function returns FALSE.
  * @param string $aad Additional authentication data.
  * @return string The decrypted string on success .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_decrypt(string $data, string $method, string $key, int $options = 0, string $iv = "", string $tag = "", string $aad = ""): string
@@ -227,7 +229,7 @@ function openssl_decrypt(string $data, string $method, string $key, int $options
     error_clear_last();
     $result = \openssl_decrypt($data, $method, $key, $options, $iv, $tag, $aad);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -241,7 +243,7 @@ function openssl_decrypt(string $data, string $method, string $key, int $options
  * @param string $pub_key DH Public key of the remote party.
  * @param resource $dh_key A local DH private key, corresponding to the public key to be shared with the remote party.
  * @return string Returns shared secret on success .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_dh_compute_key(string $pub_key, $dh_key): string
@@ -249,7 +251,7 @@ function openssl_dh_compute_key(string $pub_key, $dh_key): string
     error_clear_last();
     $result = \openssl_dh_compute_key($pub_key, $dh_key);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -264,7 +266,7 @@ function openssl_dh_compute_key(string $pub_key, $dh_key): string
  * @param bool $raw_output Setting to TRUE will return as raw output data, otherwise the return
  * value is binhex encoded.
  * @return string Returns the digested hash value on success .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_digest(string $data, string $method, bool $raw_output = false): string
@@ -272,7 +274,7 @@ function openssl_digest(string $data, string $method, bool $raw_output = false):
     error_clear_last();
     $result = \openssl_digest($data, $method, $raw_output);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -293,7 +295,7 @@ function openssl_digest(string $data, string $method, bool $raw_output = false):
  * @param string $aad Additional authentication data.
  * @param int $tag_length The length of the authentication tag. Its value can be between 4 and 16 for GCM mode.
  * @return string Returns the encrypted string on success .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_encrypt(string $data, string $method, string $key, int $options = 0, string $iv = "", string &$tag = NULL, string $aad = "", int $tag_length = 16): string
@@ -301,7 +303,7 @@ function openssl_encrypt(string $data, string $method, string $key, int $options
     error_clear_last();
     $result = \openssl_encrypt($data, $method, $key, $options, $iv, $tag, $aad, $tag_length);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -324,7 +326,7 @@ function openssl_encrypt(string $data, string $method, string $key, int $options
  * @param string|array|resource $priv_key_id 
  * @param string $method The cipher method.
  * @param string $iv The initialization vector.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_open(string $sealed_data, string &$open_data, string $env_key, $priv_key_id, string $method = "RC4", string $iv = null): void
@@ -336,7 +338,7 @@ function openssl_open(string $sealed_data, string &$open_data, string $env_key, 
         $result = \openssl_open($sealed_data, $open_data, $env_key, $priv_key_id, $method);
     }
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -352,7 +354,7 @@ function openssl_open(string $sealed_data, string &$open_data, string $env_key, 
  * recommends at least 10,000.
  * @param string $digest_algorithm Optional hash or digest algorithm from openssl_get_md_methods.  Defaults to SHA-1.
  * @return string Returns raw binary string .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pbkdf2(string $password, string $salt, int $key_length, int $iterations, string $digest_algorithm = "sha1"): string
@@ -360,7 +362,7 @@ function openssl_pbkdf2(string $password, string $salt, int $key_length, int $it
     error_clear_last();
     $result = \openssl_pbkdf2($password, $salt, $key_length, $iterations, $digest_algorithm);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -397,7 +399,7 @@ function openssl_pbkdf2(string $password, string $salt, int $key_length, int $it
  * 
  * 
  * 
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkcs12_export_to_file($x509, string $filename, $priv_key, string $pass, array $args = null): void
@@ -409,7 +411,7 @@ function openssl_pkcs12_export_to_file($x509, string $filename, $priv_key, strin
         $result = \openssl_pkcs12_export_to_file($x509, $filename, $priv_key, $pass);
     }
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -445,7 +447,7 @@ function openssl_pkcs12_export_to_file($x509, string $filename, $priv_key, strin
  * 
  * 
  * 
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkcs12_export($x509, string &$out, $priv_key, string $pass, array $args = null): void
@@ -457,7 +459,7 @@ function openssl_pkcs12_export($x509, string &$out, $priv_key, string $pass, arr
         $result = \openssl_pkcs12_export($x509, $out, $priv_key, $pass);
     }
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -470,7 +472,7 @@ function openssl_pkcs12_export($x509, string &$out, $priv_key, string $pass, arr
  * @param string $pkcs12 The certificate store contents, not its file name.
  * @param array $certs On success, this will hold the Certificate Store Data.
  * @param string $pass Encryption password for unlocking the PKCS#12 file.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkcs12_read(string $pkcs12, array &$certs, string $pass): void
@@ -478,7 +480,7 @@ function openssl_pkcs12_read(string $pkcs12, array &$certs, string $pass): void
     error_clear_last();
     $result = \openssl_pkcs12_read($pkcs12, $certs, $pass);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -494,7 +496,7 @@ function openssl_pkcs12_read(string $pkcs12, array &$certs, string $pass): void
  * outfilename.
  * @param string|resource $recipcert 
  * @param string|resource|array $recipkey 
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkcs7_decrypt(string $infilename, string $outfilename, $recipcert, $recipkey = null): void
@@ -506,7 +508,7 @@ function openssl_pkcs7_decrypt(string $infilename, string $outfilename, $recipce
         $result = \openssl_pkcs7_decrypt($infilename, $outfilename, $recipcert);
     }
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -530,7 +532,7 @@ function openssl_pkcs7_decrypt(string $infilename, string $outfilename, $recipce
  * the encoding process - see PKCS7
  * constants.
  * @param int $cipherid One of cipher constants.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkcs7_encrypt(string $infile, string $outfile, $recipcerts, array $headers, int $flags = 0, int $cipherid = OPENSSL_CIPHER_RC2_40): void
@@ -538,7 +540,7 @@ function openssl_pkcs7_encrypt(string $infile, string $outfile, $recipcerts, arr
     error_clear_last();
     $result = \openssl_pkcs7_encrypt($infile, $outfile, $recipcerts, $headers, $flags, $cipherid);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -548,7 +550,7 @@ function openssl_pkcs7_encrypt(string $infile, string $outfile, $recipcerts, arr
  * 
  * @param string $infilename 
  * @param array $certs 
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkcs7_read(string $infilename, array &$certs): void
@@ -556,7 +558,7 @@ function openssl_pkcs7_read(string $infilename, array &$certs): void
     error_clear_last();
     $result = \openssl_pkcs7_read($infilename, $certs);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -582,7 +584,7 @@ function openssl_pkcs7_read(string $infilename, array &$certs): void
  * @param string $extracerts extracerts specifies the name of a file containing
  * a bunch of extra certificates to include in the signature which can for
  * example be used to help the recipient to verify the certificate that you used.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkcs7_sign(string $infilename, string $outfilename, $signcert, $privkey, array $headers, int $flags = PKCS7_DETACHED, string $extracerts = null): void
@@ -594,7 +596,7 @@ function openssl_pkcs7_sign(string $infilename, string $outfilename, $signcert, 
         $result = \openssl_pkcs7_sign($infilename, $outfilename, $signcert, $privkey, $headers, $flags);
     }
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -612,7 +614,7 @@ function openssl_pkcs7_sign(string $infilename, string $outfilename, $signcert, 
  * process by specifying and/or overriding options for the openssl
  * configuration file. See openssl_csr_new for more
  * information about configargs.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkey_export_to_file($key, string $outfilename, string $passphrase = null, array $configargs = null): void
@@ -626,7 +628,7 @@ function openssl_pkey_export_to_file($key, string $outfilename, string $passphra
         $result = \openssl_pkey_export_to_file($key, $outfilename);
     }
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -643,7 +645,7 @@ function openssl_pkey_export_to_file($key, string $outfilename, string $passphra
  * process by specifying and/or overriding options for the openssl
  * configuration file.  See openssl_csr_new for more
  * information about configargs.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkey_export($key, string &$out, string $passphrase = null, array $configargs = null): void
@@ -657,7 +659,7 @@ function openssl_pkey_export($key, string &$out, string $passphrase = null, arra
         $result = \openssl_pkey_export($key, $out);
     }
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -678,7 +680,7 @@ function openssl_pkey_export($key, string &$out, string $passphrase = null, arra
  * @param string $passphrase The optional parameter passphrase must be used
  * if the specified key is encrypted (protected by a passphrase).
  * @return resource Returns a positive key resource identifier on success, .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkey_get_private($key, string $passphrase = "")
@@ -686,7 +688,7 @@ function openssl_pkey_get_private($key, string $passphrase = "")
     error_clear_last();
     $result = \openssl_pkey_get_private($key, $passphrase);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -708,7 +710,7 @@ function openssl_pkey_get_private($key, string $passphrase = "")
  * A PEM formatted public key.
  * 
  * @return resource Returns a positive key resource identifier on success, .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkey_get_public($certificate)
@@ -716,7 +718,7 @@ function openssl_pkey_get_public($certificate)
     error_clear_last();
     $result = \openssl_pkey_get_public($certificate);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -732,7 +734,7 @@ function openssl_pkey_get_public($certificate)
  * openssl_csr_new for more information about
  * configargs.
  * @return resource Returns a resource identifier for the pkey on success, .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_pkey_new(array $configargs = null)
@@ -744,7 +746,7 @@ function openssl_pkey_new(array $configargs = null)
         $result = \openssl_pkey_new();
     }
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -767,7 +769,7 @@ function openssl_pkey_new(array $configargs = null)
  * OPENSSL_SSLV23_PADDING,
  * OPENSSL_PKCS1_OAEP_PADDING,
  * OPENSSL_NO_PADDING.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_private_decrypt(string $data, string &$decrypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
@@ -775,7 +777,7 @@ function openssl_private_decrypt(string $data, string &$decrypted, $key, int $pa
     error_clear_last();
     $result = \openssl_private_decrypt($data, $decrypted, $key, $padding);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -795,7 +797,7 @@ function openssl_private_decrypt(string $data, string &$decrypted, $key, int $pa
  * @param int $padding padding can be one of
  * OPENSSL_PKCS1_PADDING,
  * OPENSSL_NO_PADDING.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_private_encrypt(string $data, string &$crypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
@@ -803,7 +805,7 @@ function openssl_private_encrypt(string $data, string &$crypted, $key, int $padd
     error_clear_last();
     $result = \openssl_private_encrypt($data, $crypted, $key, $padding);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -824,7 +826,7 @@ function openssl_private_encrypt(string $data, string &$crypted, $key, int $padd
  * @param int $padding padding can be one of
  * OPENSSL_PKCS1_PADDING,
  * OPENSSL_NO_PADDING.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_public_decrypt(string $data, string &$decrypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
@@ -832,7 +834,7 @@ function openssl_public_decrypt(string $data, string &$decrypted, $key, int $pad
     error_clear_last();
     $result = \openssl_public_decrypt($data, $decrypted, $key, $padding);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -855,7 +857,7 @@ function openssl_public_decrypt(string $data, string &$decrypted, $key, int $pad
  * OPENSSL_SSLV23_PADDING,
  * OPENSSL_PKCS1_OAEP_PADDING,
  * OPENSSL_NO_PADDING.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_public_encrypt(string $data, string &$crypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
@@ -863,7 +865,7 @@ function openssl_public_encrypt(string $data, string &$crypted, $key, int $paddi
     error_clear_last();
     $result = \openssl_public_encrypt($data, $crypted, $key, $padding);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -882,7 +884,7 @@ function openssl_public_encrypt(string $data, string &$crypted, $key, int $paddi
  * if the algorithm used was "cryptographically strong", e.g., safe for usage with GPG, 
  * passwords, etc. TRUE if it did, otherwise FALSE
  * @return string Returns the generated string of bytes on success,  .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_random_pseudo_bytes(int $length, bool &$crypto_strong = null): string
@@ -894,7 +896,7 @@ function openssl_random_pseudo_bytes(int $length, bool &$crypto_strong = null): 
         $result = \openssl_random_pseudo_bytes($length);
     }
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -921,7 +923,7 @@ function openssl_random_pseudo_bytes(int $length, bool &$crypto_strong = null): 
  * If successful the sealed data is returned in
  * sealed_data, and the envelope keys in
  * env_keys.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_seal(string $data, string &$sealed_data, array &$env_keys, array $pub_key_ids, string $method = "RC4", string &$iv = null): int
@@ -933,7 +935,7 @@ function openssl_seal(string $data, string &$sealed_data, array &$env_keys, arra
         $result = \openssl_seal($data, $sealed_data, $env_keys, $pub_key_ids, $method);
     }
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }
@@ -955,7 +957,7 @@ function openssl_seal(string $data, string &$sealed_data, array &$env_keys, arra
  * @param int|string $signature_alg int - one of these Signature Algorithms.
  * 
  * string - a valid string returned by openssl_get_md_methods example, "sha256WithRSAEncryption" or "sha384".
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_sign(string $data, string &$signature, $priv_key_id, $signature_alg = OPENSSL_ALGO_SHA1): void
@@ -963,7 +965,7 @@ function openssl_sign(string $data, string &$signature, $priv_key_id, $signature
     error_clear_last();
     $result = \openssl_sign($data, $signature, $priv_key_id, $signature_alg);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -980,7 +982,7 @@ function openssl_sign(string $data, string &$signature, $priv_key_id, $signature
  * the verbosity of the output; if it is FALSE, then additional human-readable
  * information is included in the output. The default value of
  * notext is TRUE.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_x509_export_to_file($x509, string $outfilename, bool $notext = true): void
@@ -988,7 +990,7 @@ function openssl_x509_export_to_file($x509, string $outfilename, bool $notext = 
     error_clear_last();
     $result = \openssl_x509_export_to_file($x509, $outfilename, $notext);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -1005,7 +1007,7 @@ function openssl_x509_export_to_file($x509, string $outfilename, bool $notext = 
  * the verbosity of the output; if it is FALSE, then additional human-readable
  * information is included in the output. The default value of
  * notext is TRUE.
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_x509_export($x509, string &$output, bool $notext = true): void
@@ -1013,7 +1015,7 @@ function openssl_x509_export($x509, string &$output, bool $notext = true): void
     error_clear_last();
     $result = \openssl_x509_export($x509, $output, $notext);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
 }
 
@@ -1025,7 +1027,7 @@ function openssl_x509_export($x509, string &$output, bool $notext = true): void
  * 
  * @param string|resource $x509certdata X509 certificate. See Key/Certificate parameters for a list of valid values.
  * @return resource Returns a resource identifier on success .
- * @throws Exceptions\OpensslException
+ * @throws OpensslException
  * 
  */
 function openssl_x509_read($x509certdata)
@@ -1033,7 +1035,7 @@ function openssl_x509_read($x509certdata)
     error_clear_last();
     $result = \openssl_x509_read($x509certdata);
     if ($result === FALSE) {
-        throw Exceptions\OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError();
     }
     return $result;
 }

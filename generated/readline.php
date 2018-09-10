@@ -2,11 +2,13 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ReadlineException;
+
 /**
  * This function adds a line to the command line history.
  * 
  * @param string $line The line to be added in the history.
- * @throws Exceptions\ReadlineException
+ * @throws ReadlineException
  * 
  */
 function readline_add_history(string $line): void
@@ -14,7 +16,7 @@ function readline_add_history(string $line): void
     error_clear_last();
     $result = \readline_add_history($line);
     if ($result === FALSE) {
-        throw Exceptions\ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError();
     }
 }
 
@@ -65,7 +67,7 @@ function readline_add_history(string $line): void
  * @param string $prompt The prompt message.
  * @param callable $callback The callback function takes one parameter; the
  * user input returned.
- * @throws Exceptions\ReadlineException
+ * @throws ReadlineException
  * 
  */
 function readline_callback_handler_install(string $prompt, callable $callback): void
@@ -73,7 +75,7 @@ function readline_callback_handler_install(string $prompt, callable $callback): 
     error_clear_last();
     $result = \readline_callback_handler_install($prompt, $callback);
     if ($result === FALSE) {
-        throw Exceptions\ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError();
     }
 }
 
@@ -81,7 +83,7 @@ function readline_callback_handler_install(string $prompt, callable $callback): 
 /**
  * This function clears the entire command line history.
  * 
- * @throws Exceptions\ReadlineException
+ * @throws ReadlineException
  * 
  */
 function readline_clear_history(): void
@@ -89,7 +91,7 @@ function readline_clear_history(): void
     error_clear_last();
     $result = \readline_clear_history();
     if ($result === FALSE) {
-        throw Exceptions\ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError();
     }
 }
 
@@ -100,7 +102,7 @@ function readline_clear_history(): void
  * 
  * @param callable $function You must supply the name of an existing function which accepts a
  * partial command line and returns an array of possible matches.
- * @throws Exceptions\ReadlineException
+ * @throws ReadlineException
  * 
  */
 function readline_completion_function(callable $function): void
@@ -108,7 +110,7 @@ function readline_completion_function(callable $function): void
     error_clear_last();
     $result = \readline_completion_function($function);
     if ($result === FALSE) {
-        throw Exceptions\ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError();
     }
 }
 
@@ -117,7 +119,7 @@ function readline_completion_function(callable $function): void
  * This function reads a command history from a file.
  * 
  * @param string $filename Path to the filename containing the command history.
- * @throws Exceptions\ReadlineException
+ * @throws ReadlineException
  * 
  */
 function readline_read_history(string $filename = null): void
@@ -129,7 +131,7 @@ function readline_read_history(string $filename = null): void
         $result = \readline_read_history();
     }
     if ($result === FALSE) {
-        throw Exceptions\ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError();
     }
 }
 
@@ -138,7 +140,7 @@ function readline_read_history(string $filename = null): void
  * This function writes the command history to a file.
  * 
  * @param string $filename Path to the saved file.
- * @throws Exceptions\ReadlineException
+ * @throws ReadlineException
  * 
  */
 function readline_write_history(string $filename = null): void
@@ -150,7 +152,7 @@ function readline_write_history(string $filename = null): void
         $result = \readline_write_history();
     }
     if ($result === FALSE) {
-        throw Exceptions\ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError();
     }
 }
 

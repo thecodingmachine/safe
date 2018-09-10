@@ -2,13 +2,15 @@
 
 namespace Safe;
 
+use Safe\Exceptions\DatetimeException;
+
 /**
  * 
  * 
  * @param string $date Date in format accepted by strtotime.
  * @return array Returns array with information about the parsed date
  * on success .
- * @throws Exceptions\DatetimeException
+ * @throws DatetimeException
  * 
  */
 function date_parse(string $date): array
@@ -16,7 +18,7 @@ function date_parse(string $date): array
     error_clear_last();
     $result = \date_parse($date);
     if ($result === FALSE) {
-        throw Exceptions\DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError();
     }
     return $result;
 }
@@ -114,7 +116,7 @@ function date_parse(string $date): array
  * The values of the array elements are either UNIX timestamps, FALSE if the
  * sun is below the respective zenith for the whole day, or TRUE if the sun is
  * above the respective zenith for the whole day.
- * @throws Exceptions\DatetimeException
+ * @throws DatetimeException
  * 
  */
 function date_sun_info(int $time, float $latitude, float $longitude): array
@@ -122,7 +124,7 @@ function date_sun_info(int $time, float $latitude, float $longitude): array
     error_clear_last();
     $result = \date_sun_info($time, $latitude, $longitude);
     if ($result === FALSE) {
-        throw Exceptions\DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError();
     }
     return $result;
 }
@@ -207,7 +209,7 @@ function date_sun_info(int $time, float $latitude, float $longitude): array
  * success . One potential reason for failure is that the
  * sun does not rise at all, which happens inside the polar circles for part of
  * the year.
- * @throws Exceptions\DatetimeException
+ * @throws DatetimeException
  * 
  */
 function date_sunrise(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $latitude = null, float $longitude = null, float $zenith = null, float $gmt_offset = 0)
@@ -215,7 +217,7 @@ function date_sunrise(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $
     error_clear_last();
     $result = \date_sunrise($timestamp, $format, $latitude, $longitude, $zenith, $gmt_offset);
     if ($result === FALSE) {
-        throw Exceptions\DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError();
     }
     return $result;
 }
@@ -300,7 +302,7 @@ function date_sunrise(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $
  * success . One potential reason for failure is that the
  * sun does not set at all, which happens inside the polar circles for part of
  * the year.
- * @throws Exceptions\DatetimeException
+ * @throws DatetimeException
  * 
  */
 function date_sunset(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $latitude = null, float $longitude = null, float $zenith = null, float $gmt_offset = 0)
@@ -308,7 +310,7 @@ function date_sunset(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $l
     error_clear_last();
     $result = \date_sunset($timestamp, $format, $latitude, $longitude, $zenith, $gmt_offset);
     if ($result === FALSE) {
-        throw Exceptions\DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError();
     }
     return $result;
 }
@@ -367,7 +369,7 @@ function date_sunset(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $l
  * given.
  * If the arguments are invalid, the function returns FALSE (before PHP 5.1
  * it returned -1).
- * @throws Exceptions\DatetimeException
+ * @throws DatetimeException
  * 
  */
 function mktime(int $hour = null, int $minute = null, int $second = null, int $month = null, int $day = null, int $year = null, int $is_dst = -1): int
@@ -375,7 +377,7 @@ function mktime(int $hour = null, int $minute = null, int $second = null, int $m
     error_clear_last();
     $result = \mktime($hour, $minute, $second, $month, $day, $year, $is_dst);
     if ($result === FALSE) {
-        throw Exceptions\DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError();
     }
     return $result;
 }
@@ -399,7 +401,7 @@ function mktime(int $hour = null, int $minute = null, int $second = null, int $m
  * searched solely by the gmtOffset and
  * isdst.
  * @return string Returns time zone name on success .
- * @throws Exceptions\DatetimeException
+ * @throws DatetimeException
  * 
  */
 function timezone_name_from_abbr(string $abbr, int $gmtOffset = -1, int $isdst = -1): string
@@ -407,7 +409,7 @@ function timezone_name_from_abbr(string $abbr, int $gmtOffset = -1, int $isdst =
     error_clear_last();
     $result = \timezone_name_from_abbr($abbr, $gmtOffset, $isdst);
     if ($result === FALSE) {
-        throw Exceptions\DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError();
     }
     return $result;
 }

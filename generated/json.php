@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\JsonException;
+
 /**
  * Returns a string containing the JSON representation of the supplied
  * value.
@@ -32,7 +34,7 @@ namespace Safe;
  * JSON constants page.
  * @param int $depth Set the maximum depth. Must be greater than zero.
  * @return string Returns a JSON encoded string on success  .
- * @throws Exceptions\JsonException
+ * @throws JsonException
  * 
  */
 function json_encode($value, int $options = 0, int $depth = 512): string
@@ -40,7 +42,7 @@ function json_encode($value, int $options = 0, int $depth = 512): string
     error_clear_last();
     $result = \json_encode($value, $options, $depth);
     if ($result === FALSE) {
-        throw Exceptions\JsonException::createFromPhpError();
+        throw JsonException::createFromPhpError();
     }
     return $result;
 }
@@ -51,7 +53,7 @@ function json_encode($value, int $options = 0, int $depth = 512): string
  * 
  * @return string Returns the error message on success, "No error" if no
  * error has occurred,  .
- * @throws Exceptions\JsonException
+ * @throws JsonException
  * 
  */
 function json_last_error_msg(): string
@@ -59,7 +61,7 @@ function json_last_error_msg(): string
     error_clear_last();
     $result = \json_last_error_msg();
     if ($result === FALSE) {
-        throw Exceptions\JsonException::createFromPhpError();
+        throw JsonException::createFromPhpError();
     }
     return $result;
 }

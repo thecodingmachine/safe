@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\SimplexmlException;
+
 /**
  * This function takes a node of a DOM
  * document and makes it into a SimpleXML node. This new object can
@@ -13,7 +15,7 @@ namespace Safe;
  * the specified class. That class should extend the 
  * SimpleXMLElement class.
  * @return SimpleXMLElement Returns a SimpleXMLElement .
- * @throws Exceptions\SimplexmlException
+ * @throws SimplexmlException
  * 
  */
 function simplexml_import_dom(DOMNode $node, string $class_name = "SimpleXMLElement"): SimpleXMLElement
@@ -21,7 +23,7 @@ function simplexml_import_dom(DOMNode $node, string $class_name = "SimpleXMLElem
     error_clear_last();
     $result = \simplexml_import_dom($node, $class_name);
     if ($result === FALSE) {
-        throw Exceptions\SimplexmlException::createFromPhpError();
+        throw SimplexmlException::createFromPhpError();
     }
     return $result;
 }

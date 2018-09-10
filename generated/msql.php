@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\MsqlException;
+
 /**
  * Returns number of affected rows by the last SELECT, UPDATE or DELETE
  * query associated with result.
@@ -10,7 +12,7 @@ namespace Safe;
  * is being evaluated. This result comes from a call to
  * msql_query.
  * @return int Returns the number of affected rows on success, .
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_affected_rows($result): int
@@ -18,7 +20,7 @@ function msql_affected_rows($result): int
     error_clear_last();
     $result = \msql_affected_rows($result);
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -36,7 +38,7 @@ function msql_affected_rows($result): int
  * If not specified, the last link opened by msql_connect
  * is assumed. If no such link is found, the function will try to establish a
  * link as if msql_connect was called, and use it.
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_close($link_identifier = null): void
@@ -48,7 +50,7 @@ function msql_close($link_identifier = null): void
         $result = \msql_close();
     }
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
 }
 
@@ -76,7 +78,7 @@ function msql_close($link_identifier = null): void
  * host/port separator, a comma (,) is the preferred
  * method.
  * @return resource Returns a positive mSQL link identifier on success, .
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_connect(string $hostname = null)
@@ -88,7 +90,7 @@ function msql_connect(string $hostname = null)
         $result = \msql_connect();
     }
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -103,7 +105,7 @@ function msql_connect(string $hostname = null)
  * If not specified, the last link opened by msql_connect
  * is assumed. If no such link is found, the function will try to establish a
  * link as if msql_connect was called, and use it.
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_create_db(string $database_name, $link_identifier = null): void
@@ -115,7 +117,7 @@ function msql_create_db(string $database_name, $link_identifier = null): void
         $result = \msql_create_db($database_name);
     }
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
 }
 
@@ -131,7 +133,7 @@ function msql_create_db(string $database_name, $link_identifier = null): void
  * is being evaluated. This result comes from a call to
  * msql_query.
  * @param int $row_number The seeked row number.
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_data_seek($result, int $row_number): void
@@ -139,7 +141,7 @@ function msql_data_seek($result, int $row_number): void
     error_clear_last();
     $result = \msql_data_seek($result, $row_number);
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
 }
 
@@ -155,7 +157,7 @@ function msql_data_seek($result, int $row_number): void
  * is assumed. If no such link is found, the function will try to establish a
  * link as if msql_connect was called, and use it.
  * @return resource Returns a positive mSQL query identifier to the query result, .
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_db_query(string $database, string $query, $link_identifier = null)
@@ -167,7 +169,7 @@ function msql_db_query(string $database, string $query, $link_identifier = null)
         $result = \msql_db_query($database, $query);
     }
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -182,7 +184,7 @@ function msql_db_query(string $database, string $query, $link_identifier = null)
  * If not specified, the last link opened by msql_connect
  * is assumed. If no such link is found, the function will try to establish a
  * link as if msql_connect was called, and use it.
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_drop_db(string $database_name, $link_identifier = null): void
@@ -194,7 +196,7 @@ function msql_drop_db(string $database_name, $link_identifier = null): void
         $result = \msql_drop_db($database_name);
     }
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
 }
 
@@ -209,7 +211,7 @@ function msql_drop_db(string $database_name, $link_identifier = null): void
  * @param int $field_offset The numerical field offset. The
  * field_offset starts at 1.
  * @return int Returns the length of the specified field .
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_field_len($result, int $field_offset): int
@@ -217,7 +219,7 @@ function msql_field_len($result, int $field_offset): int
     error_clear_last();
     $result = \msql_field_len($result, $field_offset);
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -233,7 +235,7 @@ function msql_field_len($result, int $field_offset): int
  * @param int $field_offset The numerical field offset. The
  * field_offset starts at 1.
  * @return string The name of the field .
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_field_name($result, int $field_offset): string
@@ -241,7 +243,7 @@ function msql_field_name($result, int $field_offset): string
     error_clear_last();
     $result = \msql_field_name($result, $field_offset);
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -257,7 +259,7 @@ function msql_field_name($result, int $field_offset): string
  * msql_query.
  * @param int $field_offset The numerical field offset. The
  * field_offset starts at 1.
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_field_seek($result, int $field_offset): void
@@ -265,7 +267,7 @@ function msql_field_seek($result, int $field_offset): void
     error_clear_last();
     $result = \msql_field_seek($result, $field_offset);
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
 }
 
@@ -279,7 +281,7 @@ function msql_field_seek($result, int $field_offset): void
  * @param int $field_offset The numerical field offset. The
  * field_offset starts at 1.
  * @return int The name of the table on success .
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_field_table($result, int $field_offset): int
@@ -287,7 +289,7 @@ function msql_field_table($result, int $field_offset): int
     error_clear_last();
     $result = \msql_field_table($result, $field_offset);
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -303,7 +305,7 @@ function msql_field_table($result, int $field_offset): int
  * @param resource $result The result resource that
  * is being evaluated. This result comes from a call to
  * msql_query.
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_free_result($result): void
@@ -311,7 +313,7 @@ function msql_free_result($result): void
     error_clear_last();
     $result = \msql_free_result($result);
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
 }
 
@@ -337,7 +339,7 @@ function msql_free_result($result): void
  * domain socket, being more efficient than a localhost TCP socket 
  * connection.
  * @return resource Returns a positive mSQL link identifier on success, .
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_pconnect(string $hostname = null)
@@ -349,7 +351,7 @@ function msql_pconnect(string $hostname = null)
         $result = \msql_pconnect();
     }
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -366,7 +368,7 @@ function msql_pconnect(string $hostname = null)
  * is assumed. If no such link is found, the function will try to establish a
  * link as if msql_connect was called, and use it.
  * @return resource Returns a positive mSQL query identifier on success, .
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_query(string $query, $link_identifier = null)
@@ -378,7 +380,7 @@ function msql_query(string $query, $link_identifier = null)
         $result = \msql_query($query);
     }
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
     return $result;
 }
@@ -397,7 +399,7 @@ function msql_query(string $query, $link_identifier = null)
  * If not specified, the last link opened by msql_connect
  * is assumed. If no such link is found, the function will try to establish a
  * link as if msql_connect was called, and use it.
- * @throws Exceptions\MsqlException
+ * @throws MsqlException
  * 
  */
 function msql_select_db(string $database_name, $link_identifier = null): void
@@ -409,7 +411,7 @@ function msql_select_db(string $database_name, $link_identifier = null): void
         $result = \msql_select_db($database_name);
     }
     if ($result === FALSE) {
-        throw Exceptions\MsqlException::createFromPhpError();
+        throw MsqlException::createFromPhpError();
     }
 }
 

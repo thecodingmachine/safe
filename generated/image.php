@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ImageException;
+
 /**
  * image2wbmp outputs or save a WBMP
  * version of the given image.
@@ -13,7 +15,7 @@ namespace Safe;
  * @param int $foreground You can set the foreground color with this parameter by setting an
  * identifier obtained from imagecolorallocate.
  * The default foreground color is black.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function image2wbmp($image, string $filename = null, int $foreground = null): void
@@ -27,7 +29,7 @@ function image2wbmp($image, string $filename = null, int $foreground = null): vo
         $result = \image2wbmp($image);
     }
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -40,7 +42,7 @@ function image2wbmp($image, string $filename = null, int $foreground = null): vo
  * @param array $affine Array with keys 0 to 5.
  * @param array $clip Array with keys "x", "y", "width" and "height".
  * @return resource Return affined image resource on success .
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imageaffine($image, array $affine, array $clip = null)
@@ -52,7 +54,7 @@ function imageaffine($image, array $affine, array $clip = null)
         $result = \imageaffine($image, $affine);
     }
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -70,7 +72,7 @@ function imageaffine($image, array $affine, array $clip = null)
  * @return array An affine transformation matrix (an array with keys
  * 0 to 5 and float values)
  * .
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imageaffinematrixconcat(array $m1, array $m2): array
@@ -78,7 +80,7 @@ function imageaffinematrixconcat(array $m1, array $m2): array
     error_clear_last();
     $result = \imageaffinematrixconcat($m1, $m2);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -99,7 +101,7 @@ function imageaffinematrixconcat(array $m1, array $m2): array
  * @return array An affine transformation matrix (an array with keys
  * 0 to 5 and float values)
  * .
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imageaffinematrixget(int $type, $options = null): array
@@ -111,7 +113,7 @@ function imageaffinematrixget(int $type, $options = null): array
         $result = \imageaffinematrixget($type);
     }
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -133,7 +135,7 @@ function imageaffinematrixget(int $type, $options = null): array
  * such as imagecreatetruecolor.
  * @param bool $blendmode Whether to enable the blending mode or not. On true color images 
  * the default value is TRUE otherwise the default value is FALSE
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagealphablending($image, bool $blendmode): void
@@ -141,7 +143,7 @@ function imagealphablending($image, bool $blendmode): void
     error_clear_last();
     $result = \imagealphablending($image, $blendmode);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -161,7 +163,7 @@ function imagealphablending($image, bool $blendmode): void
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param bool $enabled Whether to enable antialiasing or not.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imageantialias($image, bool $enabled): void
@@ -169,7 +171,7 @@ function imageantialias($image, bool $enabled): void
     error_clear_last();
     $result = \imageantialias($image, $enabled);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -189,7 +191,7 @@ function imageantialias($image, bool $enabled): void
  * 0° is located at the three-o'clock position, and the arc is drawn
  * clockwise.
  * @param int $color A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagearc($image, int $cx, int $cy, int $width, int $height, int $start, int $end, int $color): void
@@ -197,7 +199,7 @@ function imagearc($image, int $cx, int $cy, int $width, int $height, int $start,
     error_clear_last();
     $result = \imagearc($image, $cx, $cy, $width, $height, $start, $end, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -212,7 +214,7 @@ function imagearc($image, int $cx, int $cy, int $width, int $height, int $start,
  * NULL is invalid if the compressed arguments is
  * not used.
  * @param bool $compressed Whether the BMP should be compressed with run-length encoding (RLE), or not.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagebmp($image, $to = null, bool $compressed = true): void
@@ -220,7 +222,7 @@ function imagebmp($image, $to = null, bool $compressed = true): void
     error_clear_last();
     $result = \imagebmp($image, $to, $compressed);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -241,7 +243,7 @@ function imagebmp($image, $to = null, bool $compressed = true): void
  * @param int $y y-coordinate of the start.
  * @param string $c The character to draw.
  * @param int $color A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagechar($image, int $font, int $x, int $y, string $c, int $color): void
@@ -249,7 +251,7 @@ function imagechar($image, int $font, int $x, int $y, string $c, int $color): vo
     error_clear_last();
     $result = \imagechar($image, $font, $x, $y, $c, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -267,7 +269,7 @@ function imagechar($image, int $font, int $x, int $y, string $c, int $color): vo
  * @param int $y y-coordinate of the start.
  * @param string $c The character to draw.
  * @param int $color A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagecharup($image, int $font, int $x, int $y, string $c, int $color): void
@@ -275,7 +277,7 @@ function imagecharup($image, int $font, int $x, int $y, string $c, int $color): 
     error_clear_last();
     $result = \imagecharup($image, $font, $x, $y, $c, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -294,7 +296,7 @@ function imagecharup($image, int $font, int $x, int $y, string $c, int $color): 
  * @param int $x x-coordinate of the point.
  * @param int $y y-coordinate of the point.
  * @return int Returns the index of the color  .
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagecolorat($image, int $x, int $y): int
@@ -302,7 +304,7 @@ function imagecolorat($image, int $x, int $y): int
     error_clear_last();
     $result = \imagecolorat($image, $x, $y);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -316,7 +318,7 @@ function imagecolorat($image, int $x, int $y): int
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param int $color The color identifier.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagecolordeallocate($image, int $color): void
@@ -324,7 +326,7 @@ function imagecolordeallocate($image, int $color): void
     error_clear_last();
     $result = \imagecolordeallocate($image, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -335,7 +337,7 @@ function imagecolordeallocate($image, int $color): void
  * @param resource $image1 A truecolor image link resource.
  * @param resource $image2 A palette image link resource pointing to an image that has the same
  * size as image1.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagecolormatch($image1, $image2): void
@@ -343,7 +345,7 @@ function imagecolormatch($image1, $image2): void
     error_clear_last();
     $result = \imagecolormatch($image1, $image2);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -358,7 +360,7 @@ function imagecolormatch($image1, $image2): void
  * @param float $div The divisor of the result of the convolution, used for normalization.
  * @param float $offset Color offset.
  * @return resource Returns TRUE on success .
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imageconvolution($image, array $matrix, float $div, float $offset): void
@@ -366,7 +368,7 @@ function imageconvolution($image, array $matrix, float $div, float $offset): voi
     error_clear_last();
     $result = \imageconvolution($image, $matrix, $div, $offset);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -388,7 +390,7 @@ function imageconvolution($image, array $matrix, float $div, float $offset): voi
  * @param int $src_y y-coordinate of source point.
  * @param int $src_w Source width.
  * @param int $src_h Source height.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagecopy($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x, int $src_y, int $src_w, int $src_h): void
@@ -396,7 +398,7 @@ function imagecopy($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x, int $sr
     error_clear_last();
     $result = \imagecopy($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -424,7 +426,7 @@ function imagecopy($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x, int $sr
  * to imagecopy for pallete images, except for
  * ignoring alpha components, while it implements alpha transparency
  * for true colour images.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagecopymerge($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x, int $src_y, int $src_w, int $src_h, int $pct): void
@@ -432,7 +434,7 @@ function imagecopymerge($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x, in
     error_clear_last();
     $result = \imagecopymerge($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -464,7 +466,7 @@ function imagecopymerge($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x, in
  * identically to imagecopy for pallete images, except for
  * ignoring alpha components, while
  * it implements alpha transparency for true colour images.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagecopymergegray($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x, int $src_y, int $src_w, int $src_h, int $pct): void
@@ -472,7 +474,7 @@ function imagecopymergegray($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x
     error_clear_last();
     $result = \imagecopymergegray($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -509,7 +511,7 @@ function imagecopymergegray($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x
  * @param int $dst_h Destination height.
  * @param int $src_w Source width.
  * @param int $src_h Source height.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagecopyresampled($dst_image, $src_image, int $dst_x, int $dst_y, int $src_x, int $src_y, int $dst_w, int $dst_h, int $src_w, int $src_h): void
@@ -517,7 +519,7 @@ function imagecopyresampled($dst_image, $src_image, int $dst_x, int $dst_y, int 
     error_clear_last();
     $result = \imagecopyresampled($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -554,7 +556,7 @@ function imagecopyresampled($dst_image, $src_image, int $dst_x, int $dst_y, int 
  * @param int $dst_h Destination height.
  * @param int $src_w Source width.
  * @param int $src_h Source height.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagecopyresized($dst_image, $src_image, int $dst_x, int $dst_y, int $src_x, int $src_y, int $dst_w, int $dst_h, int $src_w, int $src_h): void
@@ -562,7 +564,7 @@ function imagecopyresized($dst_image, $src_image, int $dst_x, int $dst_y, int $s
     error_clear_last();
     $result = \imagecopyresized($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -577,7 +579,7 @@ function imagecopyresized($dst_image, $src_image, int $dst_x, int $dst_y, int $s
  * x, y, width and
  * height.
  * @return resource Return cropped image resource on success .
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagecrop($image, array $rect)
@@ -585,7 +587,7 @@ function imagecrop($image, array $rect)
     error_clear_last();
     $result = \imagecrop($image, $rect);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -603,7 +605,7 @@ function imagecrop($image, array $rect)
  * @return resource Returns a cropped image resource on success .
  * If no cropping would occur, or the complete image would be cropped, that is
  * treated as failure, i.e. imagecrop returns FALSE.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagecropauto($image, int $mode = -1, float $threshold = .5, int $color = -1)
@@ -611,7 +613,7 @@ function imagecropauto($image, int $mode = -1, float $threshold = .5, int $color
     error_clear_last();
     $result = \imagecropauto($image, $mode, $threshold, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -629,7 +631,7 @@ function imagecropauto($image, int $mode = -1, float $threshold = .5, int $color
  * @param int $x2 Bottom right x coordinate.
  * @param int $y2 Bottom right y coordinate.
  * @param int $color The fill color. A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagedashedline($image, int $x1, int $y1, int $x2, int $y2, int $color): void
@@ -637,7 +639,7 @@ function imagedashedline($image, int $x1, int $y1, int $x2, int $y2, int $color)
     error_clear_last();
     $result = \imagedashedline($image, $x1, $y1, $x2, $y2, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -648,7 +650,7 @@ function imagedashedline($image, int $x1, int $y1, int $x2, int $y2, int $color)
  * 
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagedestroy($image): void
@@ -656,7 +658,7 @@ function imagedestroy($image): void
     error_clear_last();
     $result = \imagedestroy($image);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -671,7 +673,7 @@ function imagedestroy($image): void
  * @param int $width The ellipse width.
  * @param int $height The ellipse height.
  * @param int $color The color of the ellipse. A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imageellipse($image, int $cx, int $cy, int $width, int $height, int $color): void
@@ -679,7 +681,7 @@ function imageellipse($image, int $cx, int $cy, int $width, int $height, int $co
     error_clear_last();
     $result = \imageellipse($image, $cx, $cy, $width, $height, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -694,7 +696,7 @@ function imageellipse($image, int $cx, int $cy, int $width, int $height, int $co
  * @param int $x x-coordinate of start point.
  * @param int $y y-coordinate of start point.
  * @param int $color The fill color. A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagefill($image, int $x, int $y, int $color): void
@@ -702,7 +704,7 @@ function imagefill($image, int $x, int $y, int $color): void
     error_clear_last();
     $result = \imagefill($image, $x, $y, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -738,7 +740,7 @@ function imagefill($image, int $x, int $y, int $color): void
  * used together with IMG_ARC_NOFILL, indicates that the
  * beginning and ending angles should be connected to the center - this is a
  * good way to outline (rather than fill) a 'pie slice'.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagefilledarc($image, int $cx, int $cy, int $width, int $height, int $start, int $end, int $color, int $style): void
@@ -746,7 +748,7 @@ function imagefilledarc($image, int $cx, int $cy, int $width, int $height, int $
     error_clear_last();
     $result = \imagefilledarc($image, $cx, $cy, $width, $height, $start, $end, $color, $style);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -762,7 +764,7 @@ function imagefilledarc($image, int $cx, int $cy, int $width, int $height, int $
  * @param int $width The ellipse width.
  * @param int $height The ellipse height.
  * @param int $color The fill color. A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagefilledellipse($image, int $cx, int $cy, int $width, int $height, int $color): void
@@ -770,7 +772,7 @@ function imagefilledellipse($image, int $cx, int $cy, int $width, int $height, i
     error_clear_last();
     $result = \imagefilledellipse($image, $cx, $cy, $width, $height, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -785,7 +787,7 @@ function imagefilledellipse($image, int $cx, int $cy, int $width, int $height, i
  * coordinates of the polygons vertices consecutively.
  * @param int $num_points Total number of vertices, which must be at least 3.
  * @param int $color A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagefilledpolygon($image, array $points, int $num_points, int $color): void
@@ -793,7 +795,7 @@ function imagefilledpolygon($image, array $points, int $num_points, int $color):
     error_clear_last();
     $result = \imagefilledpolygon($image, $points, $num_points, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -810,7 +812,7 @@ function imagefilledpolygon($image, array $points, int $num_points, int $color):
  * @param int $x2 x-coordinate for point 2.
  * @param int $y2 y-coordinate for point 2.
  * @param int $color The fill color. A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagefilledrectangle($image, int $x1, int $y1, int $x2, int $y2, int $color): void
@@ -818,7 +820,7 @@ function imagefilledrectangle($image, int $x1, int $y1, int $x2, int $y2, int $c
     error_clear_last();
     $result = \imagefilledrectangle($image, $x1, $y1, $x2, $y2, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -836,7 +838,7 @@ function imagefilledrectangle($image, int $x1, int $y1, int $x2, int $y2, int $c
  * @param int $y y-coordinate of start.
  * @param int $border The border color. A color identifier created with imagecolorallocate.
  * @param int $color The fill color. A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagefilltoborder($image, int $x, int $y, int $border, int $color): void
@@ -844,7 +846,7 @@ function imagefilltoborder($image, int $x, int $y, int $border, int $color): voi
     error_clear_last();
     $result = \imagefilltoborder($image, $x, $y, $border, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -995,7 +997,7 @@ function imagefilltoborder($image, int $x, int $y, int $border, int $color): voi
  * 
  * 
  * 
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagefilter($image, int $filtertype, int $arg1 = null, int $arg2 = null, int $arg3 = null, int $arg4 = null): void
@@ -1013,7 +1015,7 @@ function imagefilter($image, int $filtertype, int $arg1 = null, int $arg2 = null
         $result = \imagefilter($image, $filtertype);
     }
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1056,7 +1058,7 @@ function imagefilter($image, int $filtertype, int $arg1 = null, int $arg2 = null
  * 
  * 
  * 
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imageflip($image, int $mode): void
@@ -1064,7 +1066,7 @@ function imageflip($image, int $mode): void
     error_clear_last();
     $result = \imageflip($image, $mode);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1077,7 +1079,7 @@ function imageflip($image, int $mode): void
  * such as imagecreatetruecolor.
  * @param float $inputgamma The input gamma.
  * @param float $outputgamma The output gamma.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagegammacorrect($image, float $inputgamma, float $outputgamma): void
@@ -1085,7 +1087,7 @@ function imagegammacorrect($image, float $inputgamma, float $outputgamma): void
     error_clear_last();
     $result = \imagegammacorrect($image, $inputgamma, $outputgamma);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1096,7 +1098,7 @@ function imagegammacorrect($image, float $inputgamma, float $outputgamma): void
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagegd($image, $to = NULL): void
@@ -1104,7 +1106,7 @@ function imagegd($image, $to = NULL): void
     error_clear_last();
     $result = \imagegd($image, $to);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1119,7 +1121,7 @@ function imagegd($image, $to = NULL): void
  * @param int $type Either IMG_GD2_RAW or 
  * IMG_GD2_COMPRESSED. Default is 
  * IMG_GD2_RAW.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagegd2($image, $to = NULL, int $chunk_size = 128, int $type = IMG_GD2_RAW): void
@@ -1127,7 +1129,7 @@ function imagegd2($image, $to = NULL, int $chunk_size = 128, int $type = IMG_GD2
     error_clear_last();
     $result = \imagegd2($image, $to, $chunk_size, $type);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1147,7 +1149,7 @@ function imagegd2($image, $to = NULL, int $chunk_size = 128, int $type = IMG_GD2
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagegif($image, $to = null): void
@@ -1159,7 +1161,7 @@ function imagegif($image, $to = null): void
         $result = \imagegif($image);
     }
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1177,7 +1179,7 @@ function imagegif($image, $to = null): void
  * @param int $quality quality is optional, and ranges from 0 (worst
  * quality, smaller file) to 100 (best quality, biggest file). The 
  * default is the default IJG quality value (about 75).
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagejpeg($image, $to = null, int $quality = null): void
@@ -1191,7 +1193,7 @@ function imagejpeg($image, $to = null, int $quality = null): void
         $result = \imagejpeg($image);
     }
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1248,7 +1250,7 @@ function imagejpeg($image, $to = null, int $quality = null): void
  * 
  * 
  * 
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagelayereffect($image, int $effect): void
@@ -1256,7 +1258,7 @@ function imagelayereffect($image, int $effect): void
     error_clear_last();
     $result = \imagelayereffect($image, $effect);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1271,7 +1273,7 @@ function imagelayereffect($image, int $effect): void
  * @param int $x2 x-coordinate for second point.
  * @param int $y2 y-coordinate for second point.
  * @param int $color The line color. A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imageline($image, int $x1, int $y1, int $x2, int $y2, int $color): void
@@ -1279,7 +1281,7 @@ function imageline($image, int $x1, int $y1, int $x2, int $y2, int $color): void
     error_clear_last();
     $result = \imageline($image, $x1, $y1, $x2, $y2, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1338,7 +1340,7 @@ function imageline($image, int $x1, int $y1, int $x2, int $y2, int $color): void
  * 
  * @return int The font identifier which is always bigger than 5 to avoid conflicts with
  * built-in fonts s.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imageloadfont(string $file): int
@@ -1346,7 +1348,7 @@ function imageloadfont(string $file): int
     error_clear_last();
     $result = \imageloadfont($file);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -1384,7 +1386,7 @@ function imageloadfont(string $file): int
  * 
  * @param int $num_points Total number of points (vertices).
  * @param int $color A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imageopenpolygon($image, array $points, int $num_points, int $color): void
@@ -1392,7 +1394,7 @@ function imageopenpolygon($image, array $points, int $num_points, int $color): v
     error_clear_last();
     $result = \imageopenpolygon($image, $points, $num_points, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1414,7 +1416,7 @@ function imageopenpolygon($image, array $points, int $num_points, int $color): v
  * constants. PNG_NO_FILTER or 
  * PNG_ALL_FILTERS may also be used to respectively
  * disable or activate all filters.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagepng($image, $to = null, int $quality = null, int $filters = null): void
@@ -1430,7 +1432,7 @@ function imagepng($image, $to = null, int $quality = null, int $filters = null):
         $result = \imagepng($image);
     }
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1466,7 +1468,7 @@ function imagepng($image, $to = null, int $quality = null, int $filters = null):
  * 
  * @param int $num_points Total number of points (vertices).
  * @param int $color A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagepolygon($image, array $points, int $num_points, int $color): void
@@ -1474,7 +1476,7 @@ function imagepolygon($image, array $points, int $num_points, int $color): void
     error_clear_last();
     $result = \imagepolygon($image, $points, $num_points, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1496,7 +1498,7 @@ function imagepolygon($image, array $points, int $num_points, int $color): void
  * T1lib comes with two ready-to-use files, 
  * IsoLatin1.enc and 
  * IsoLatin2.enc.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagepsencodefont($font_index, string $encodingfile): void
@@ -1504,7 +1506,7 @@ function imagepsencodefont($font_index, string $encodingfile): void
     error_clear_last();
     $result = \imagepsencodefont($font_index, $encodingfile);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1516,7 +1518,7 @@ function imagepsencodefont($font_index, string $encodingfile): void
  * 
  * @param resource $font_index A font resource, returned by imagepsloadfont.
  * @param float $extend Extension value, must be greater than 0.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagepsextendfont($font_index, float $extend): void
@@ -1524,7 +1526,7 @@ function imagepsextendfont($font_index, float $extend): void
     error_clear_last();
     $result = \imagepsextendfont($font_index, $extend);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1534,7 +1536,7 @@ function imagepsextendfont($font_index, float $extend): void
  * Type 1 font.
  * 
  * @param resource $font_index A font resource, returned by imagepsloadfont.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagepsfreefont($font_index): void
@@ -1542,7 +1544,7 @@ function imagepsfreefont($font_index): void
     error_clear_last();
     $result = \imagepsfreefont($font_index);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1552,7 +1554,7 @@ function imagepsfreefont($font_index): void
  * 
  * @param resource $font_index A font resource, returned by imagepsloadfont.
  * @param float $slant Slant level.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagepsslantfont($font_index, float $slant): void
@@ -1560,7 +1562,7 @@ function imagepsslantfont($font_index, float $slant): void
     error_clear_last();
     $result = \imagepsslantfont($font_index, $slant);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1577,7 +1579,7 @@ function imagepsslantfont($font_index, float $slant): void
  * @param int $x2 Bottom right x coordinate.
  * @param int $y2 Bottom right y coordinate.
  * @param int $color A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color): void
@@ -1585,7 +1587,7 @@ function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color):
     error_clear_last();
     $result = \imagerectangle($image, $x1, $y1, $x2, $y2, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1612,7 +1614,7 @@ function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color):
  * When used as setter (that is with one or both optional parameters given),
  * it returns an indexed array of the horizontal and vertical resolution on
  * success,  .
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imageresolution($image, int $res_x = null, int $res_y = null)
@@ -1626,7 +1628,7 @@ function imageresolution($image, int $res_x = null, int $res_y = null)
         $result = \imageresolution($image);
     }
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -1646,7 +1648,7 @@ function imageresolution($image, int $res_x = null, int $res_y = null)
  * @param int $bgd_color Specifies the color of the uncovered zone after the rotation
  * @param int $ignore_transparent If set and non-zero, transparent colors are ignored (otherwise kept).
  * @return resource Returns an image resource for the rotated image,  .
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagerotate($image, float $angle, int $bgd_color, int $ignore_transparent = 0)
@@ -1654,7 +1656,7 @@ function imagerotate($image, float $angle, int $bgd_color, int $ignore_transpare
     error_clear_last();
     $result = \imagerotate($image, $angle, $bgd_color, $ignore_transparent);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -1675,7 +1677,7 @@ function imagerotate($image, float $angle, int $bgd_color, int $ignore_transpare
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param bool $saveflag Whether to save the alpha channel or not. Default to FALSE.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagesavealpha($image, bool $saveflag): void
@@ -1683,7 +1685,7 @@ function imagesavealpha($image, bool $saveflag): void
     error_clear_last();
     $result = \imagesavealpha($image, $saveflag);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1711,7 +1713,7 @@ function imagesavealpha($image, bool $saveflag): void
  * 
  * 
  * @return resource Return the scaled image resource on success .
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagescale($image, int $new_width, int $new_height = -1, int $mode = IMG_BILINEAR_FIXED)
@@ -1719,7 +1721,7 @@ function imagescale($image, int $new_width, int $new_height = -1, int $mode = IM
     error_clear_last();
     $result = \imagescale($image, $new_width, $new_height, $mode);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -1735,7 +1737,7 @@ function imagescale($image, int $new_width, int $new_height = -1, int $mode = IM
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param resource $brush An image resource.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagesetbrush($image, $brush): void
@@ -1743,7 +1745,7 @@ function imagesetbrush($image, $brush): void
     error_clear_last();
     $result = \imagesetbrush($image, $brush);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1758,7 +1760,7 @@ function imagesetbrush($image, $brush): void
  * @param int $y1 The y-coordinate of the upper left corner.
  * @param int $x2 The x-coordinate of the lower right corner.
  * @param int $y2 The y-coordinate of the lower right corner.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagesetclip($im, int $x1, int $y1, int $x2, int $y2): void
@@ -1766,7 +1768,7 @@ function imagesetclip($im, int $x1, int $y1, int $x2, int $y2): void
     error_clear_last();
     $result = \imagesetclip($im, $x1, $y1, $x2, $y2);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1885,7 +1887,7 @@ function imagesetclip($im, int $x1, int $y1, int $x2, int $y2): void
  * 
  * 
  * 
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagesetinterpolation($image, int $method = IMG_BILINEAR_FIXED): void
@@ -1893,7 +1895,7 @@ function imagesetinterpolation($image, int $method = IMG_BILINEAR_FIXED): void
     error_clear_last();
     $result = \imagesetinterpolation($image, $method);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1907,7 +1909,7 @@ function imagesetinterpolation($image, int $method = IMG_BILINEAR_FIXED): void
  * @param int $x x-coordinate.
  * @param int $y y-coordinate.
  * @param int $color A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagesetpixel($image, int $x, int $y, int $color): void
@@ -1915,7 +1917,7 @@ function imagesetpixel($image, int $x, int $y, int $color): void
     error_clear_last();
     $result = \imagesetpixel($image, $x, $y, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1933,7 +1935,7 @@ function imagesetpixel($image, int $x, int $y, int $color): void
  * IMG_COLOR_TRANSPARENT constant to add a 
  * transparent pixel.
  * Note that style must not be an empty array.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagesetstyle($image, array $style): void
@@ -1941,7 +1943,7 @@ function imagesetstyle($image, array $style): void
     error_clear_last();
     $result = \imagesetstyle($image, $style);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1954,7 +1956,7 @@ function imagesetstyle($image, array $style): void
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param int $thickness Thickness, in pixels.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagesetthickness($image, int $thickness): void
@@ -1962,7 +1964,7 @@ function imagesetthickness($image, int $thickness): void
     error_clear_last();
     $result = \imagesetthickness($image, $thickness);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -1981,7 +1983,7 @@ function imagesetthickness($image, int $thickness): void
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param resource $tile The image resource to be used as a tile.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagesettile($image, $tile): void
@@ -1989,7 +1991,7 @@ function imagesettile($image, $tile): void
     error_clear_last();
     $result = \imagesettile($image, $tile);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -2006,7 +2008,7 @@ function imagesettile($image, $tile): void
  * @param int $y y-coordinate of the upper left corner.
  * @param string $string The string to be written.
  * @param int $color A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagestring($image, int $font, int $x, int $y, string $string, int $color): void
@@ -2014,7 +2016,7 @@ function imagestring($image, int $font, int $x, int $y, string $string, int $col
     error_clear_last();
     $result = \imagestring($image, $font, $x, $y, $string, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -2032,7 +2034,7 @@ function imagestring($image, int $font, int $x, int $y, string $string, int $col
  * @param int $y y-coordinate of the bottom left corner.
  * @param string $string The string to be written.
  * @param int $color A color identifier created with imagecolorallocate.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagestringup($image, int $font, int $x, int $y, string $string, int $color): void
@@ -2040,7 +2042,7 @@ function imagestringup($image, int $font, int $x, int $y, string $string, int $c
     error_clear_last();
     $result = \imagestringup($image, $font, $x, $y, $string, $color);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -2051,7 +2053,7 @@ function imagestringup($image, int $font, int $x, int $y, string $string, int $c
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @return int Return the width of the image s.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagesx($image): int
@@ -2059,7 +2061,7 @@ function imagesx($image): int
     error_clear_last();
     $result = \imagesx($image);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -2071,7 +2073,7 @@ function imagesx($image): int
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @return int Return the height of the image s.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagesy($image): int
@@ -2079,7 +2081,7 @@ function imagesy($image): int
     error_clear_last();
     $result = \imagesy($image);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -2101,7 +2103,7 @@ function imagesy($image): int
  * dithering will be used which will result in a more speckled image but
  * with better color approximation.
  * @param int $ncolors Sets the maximum number of colors that should be retained in the palette.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagetruecolortopalette($image, bool $dither, int $ncolors): void
@@ -2109,7 +2111,7 @@ function imagetruecolortopalette($image, bool $dither, int $ncolors): void
     error_clear_last();
     $result = \imagetruecolortopalette($image, $dither, $ncolors);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -2195,7 +2197,7 @@ function imagetruecolortopalette($image, bool $dither, int $ncolors): void
  * The points are relative to the text regardless of the
  * angle, so "upper left" means in the top left-hand 
  * corner seeing the text horizontally.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagettfbbox(float $size, float $angle, string $fontfile, string $text): array
@@ -2203,7 +2205,7 @@ function imagettfbbox(float $size, float $angle, string $fontfile, string $text)
     error_clear_last();
     $result = \imagettfbbox($size, $angle, $fontfile, $text);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -2272,7 +2274,7 @@ function imagettfbbox(float $size, float $angle, string $fontfile, string $text)
  * regardless of the angle, so "upper left" means in the top left-hand 
  * corner when you see the text horizontally.
  * Returns FALSE on error.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagettftext($image, float $size, float $angle, int $x, int $y, int $color, string $fontfile, string $text): array
@@ -2280,7 +2282,7 @@ function imagettftext($image, float $size, float $angle, int $x, int $y, int $co
     error_clear_last();
     $result = \imagettftext($image, $size, $angle, $x, $y, $color, $fontfile, $text);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -2296,7 +2298,7 @@ function imagettftext($image, float $size, float $angle, int $x, int $y, int $co
  * @param int $foreground You can set the foreground color with this parameter by setting an
  * identifier obtained from imagecolorallocate.
  * The default foreground color is black.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagewbmp($image, $to = null, int $foreground = null): void
@@ -2310,7 +2312,7 @@ function imagewbmp($image, $to = null, int $foreground = null): void
         $result = \imagewbmp($image);
     }
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -2323,7 +2325,7 @@ function imagewbmp($image, $to = null, int $foreground = null): void
  * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @param int $quality quality ranges from 0 (worst
  * quality, smaller file) to 100 (best quality, biggest file).
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagewebp($image, $to = null, int $quality = 80): void
@@ -2331,7 +2333,7 @@ function imagewebp($image, $to = null, int $quality = 80): void
     error_clear_last();
     $result = \imagewebp($image, $to, $quality);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -2353,7 +2355,7 @@ function imagewebp($image, $to = null, int $quality = 80): void
  * identifier obtained from imagecolorallocate.
  * The default foreground color is black. All other colors are treated as
  * background.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function imagexbm($image, string $filename, int $foreground = null): void
@@ -2365,7 +2367,7 @@ function imagexbm($image, string $filename, int $foreground = null): void
         $result = \imagexbm($image, $filename);
     }
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -2380,7 +2382,7 @@ function imagexbm($image, string $filename, int $foreground = null): void
  * @return array If spool is less than 2, the JPEG will be returned,
  * . Otherwise returns TRUE on success
  * .
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function iptcembed(string $iptcdata, string $jpeg_file_name, int $spool = 0)
@@ -2388,7 +2390,7 @@ function iptcembed(string $iptcdata, string $jpeg_file_name, int $spool = 0)
     error_clear_last();
     $result = \iptcembed($iptcdata, $jpeg_file_name, $spool);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -2400,7 +2402,7 @@ function iptcembed(string $iptcdata, string $jpeg_file_name, int $spool = 0)
  * @param string $iptcblock A binary IPTC block.
  * @return array Returns an array using the tagmarker as an index and the value as the
  * value. It returns FALSE on error or if no IPTC data was found.
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function iptcparse(string $iptcblock): array
@@ -2408,7 +2410,7 @@ function iptcparse(string $iptcblock): array
     error_clear_last();
     $result = \iptcparse($iptcblock);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
     return $result;
 }
@@ -2422,7 +2424,7 @@ function iptcparse(string $iptcblock): array
  * @param int $dest_height Destination image height.
  * @param int $dest_width Destination image width.
  * @param int $threshold Threshold value, between 0 and 8 (inclusive).
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function jpeg2wbmp(string $jpegname, string $wbmpname, int $dest_height, int $dest_width, int $threshold): void
@@ -2430,7 +2432,7 @@ function jpeg2wbmp(string $jpegname, string $wbmpname, int $dest_height, int $de
     error_clear_last();
     $result = \jpeg2wbmp($jpegname, $wbmpname, $dest_height, $dest_width, $threshold);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 
@@ -2443,7 +2445,7 @@ function jpeg2wbmp(string $jpegname, string $wbmpname, int $dest_height, int $de
  * @param int $dest_height Destination image height.
  * @param int $dest_width Destination image width.
  * @param int $threshold Threshold value, between 0 and 8 (inclusive).
- * @throws Exceptions\ImageException
+ * @throws ImageException
  * 
  */
 function png2wbmp(string $pngname, string $wbmpname, int $dest_height, int $dest_width, int $threshold): void
@@ -2451,7 +2453,7 @@ function png2wbmp(string $pngname, string $wbmpname, int $dest_height, int $dest
     error_clear_last();
     $result = \png2wbmp($pngname, $wbmpname, $dest_height, $dest_width, $threshold);
     if ($result === FALSE) {
-        throw Exceptions\ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError();
     }
 }
 

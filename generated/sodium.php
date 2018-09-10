@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\SodiumException;
+
 /**
  * 
  * 
@@ -17,7 +19,7 @@ namespace Safe;
  * all information needed to verify the hash is included. This allows
  * the password_verify function to verify the hash without
  * needing separate storage for the salt or algorithm information.
- * @throws Exceptions\SodiumException
+ * @throws SodiumException
  * 
  */
 function sodium_crypto_pwhash(int $length, string $password, string $salt, int $opslimit, int $memlimit, int $alg = null): string
@@ -29,7 +31,7 @@ function sodium_crypto_pwhash(int $length, string $password, string $salt, int $
         $result = \sodium_crypto_pwhash($length, $password, $salt, $opslimit, $memlimit);
     }
     if ($result === FALSE) {
-        throw Exceptions\SodiumException::createFromPhpError();
+        throw SodiumException::createFromPhpError();
     }
     return $result;
 }

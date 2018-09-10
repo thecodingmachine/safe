@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\GmpException;
+
 /**
  * Export a GMP number to a binary string
  * 
@@ -9,7 +11,7 @@ namespace Safe;
  * @param int $word_size Default value is 1. The number of bytes in each chunk of binary data. This is mainly used in conjunction with the options parameter.
  * @param int $options Default value is GMP_MSW_FIRST | GMP_NATIVE_ENDIAN.
  * @return string Returns a string .
- * @throws Exceptions\GmpException
+ * @throws GmpException
  * 
  */
 function gmp_export(GMP $gmpnumber, int $word_size = 1, int $options = GMP_MSW_FIRST | GMP_NATIVE_ENDIAN): string
@@ -17,7 +19,7 @@ function gmp_export(GMP $gmpnumber, int $word_size = 1, int $options = GMP_MSW_F
     error_clear_last();
     $result = \gmp_export($gmpnumber, $word_size, $options);
     if ($result === FALSE) {
-        throw Exceptions\GmpException::createFromPhpError();
+        throw GmpException::createFromPhpError();
     }
     return $result;
 }
@@ -30,7 +32,7 @@ function gmp_export(GMP $gmpnumber, int $word_size = 1, int $options = GMP_MSW_F
  * @param int $word_size Default value is 1. The number of bytes in each chunk of binary data. This is mainly used in conjunction with the options parameter.
  * @param int $options Default value is GMP_MSW_FIRST | GMP_NATIVE_ENDIAN.
  * @return GMP Returns a GMP number .
- * @throws Exceptions\GmpException
+ * @throws GmpException
  * 
  */
 function gmp_import(string $data, int $word_size = 1, int $options = GMP_MSW_FIRST | GMP_NATIVE_ENDIAN): GMP
@@ -38,7 +40,7 @@ function gmp_import(string $data, int $word_size = 1, int $options = GMP_MSW_FIR
     error_clear_last();
     $result = \gmp_import($data, $word_size, $options);
     if ($result === FALSE) {
-        throw Exceptions\GmpException::createFromPhpError();
+        throw GmpException::createFromPhpError();
     }
     return $result;
 }
@@ -53,7 +55,7 @@ function gmp_import(string $data, int $word_size = 1, int $options = GMP_MSW_FIR
  * 
  * Either a GMP number resource in PHP 5.5 and earlier, a GMP object in PHP 5.6 and later, or a numeric string provided that it is possible to convert the latter to a number.
  * @return GMP Returns NULL on success .
- * @throws Exceptions\GmpException
+ * @throws GmpException
  * 
  */
 function gmp_random_seed($seed): void
@@ -61,7 +63,7 @@ function gmp_random_seed($seed): void
     error_clear_last();
     $result = \gmp_random_seed($seed);
     if ($result === FALSE) {
-        throw Exceptions\GmpException::createFromPhpError();
+        throw GmpException::createFromPhpError();
     }
 }
 

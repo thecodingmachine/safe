@@ -2,11 +2,13 @@
 
 namespace Safe;
 
+use Safe\Exceptions\SemException;
+
 /**
  * Checks whether the message queue key exists.
  * 
  * @param int $key Queue key.
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function msg_queue_exists(int $key): void
@@ -14,7 +16,7 @@ function msg_queue_exists(int $key): void
     error_clear_last();
     $result = \msg_queue_exists($key);
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
 }
 
@@ -87,7 +89,7 @@ function msg_queue_exists(int $key): void
  * 
  * @param int $errorcode If the function fails, the optional errorcode
  * will be set to the value of the system errno variable.
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function msg_receive($queue, int $desiredmsgtype, int &$msgtype, int $maxsize, &$message, bool $unserialize = true, int $flags = 0, int &$errorcode = null): void
@@ -99,7 +101,7 @@ function msg_receive($queue, int $desiredmsgtype, int &$msgtype, int $maxsize, &
         $result = \msg_receive($queue, $desiredmsgtype, $msgtype, $maxsize, $message, $unserialize, $flags);
     }
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
 }
 
@@ -111,7 +113,7 @@ function msg_receive($queue, int $desiredmsgtype, int &$msgtype, int $maxsize, &
  * release the system resources held by it.
  * 
  * @param resource $queue Message queue resource handle
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function msg_remove_queue($queue): void
@@ -119,7 +121,7 @@ function msg_remove_queue($queue): void
     error_clear_last();
     $result = \msg_remove_queue($queue);
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
 }
 
@@ -150,7 +152,7 @@ function msg_remove_queue($queue): void
  * indicating that you should try to send your message again a little
  * later on.
  * @param int $errorcode 
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function msg_send($queue, int $msgtype, $message, bool $serialize = true, bool $blocking = true, int &$errorcode = null): void
@@ -162,7 +164,7 @@ function msg_send($queue, int $msgtype, $message, bool $serialize = true, bool $
         $result = \msg_send($queue, $msgtype, $message, $serialize, $blocking);
     }
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
 }
 
@@ -181,7 +183,7 @@ function msg_send($queue, int $msgtype, $message, bool $serialize = true, bool $
  * @param resource $queue Message queue resource handle
  * @param array $data You specify the values you require by setting the value of the keys
  * that you require in the data array.
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function msg_set_queue($queue, array $data): void
@@ -189,7 +191,7 @@ function msg_set_queue($queue, array $data): void
     error_clear_last();
     $result = \msg_set_queue($queue, $data);
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
 }
 
@@ -210,7 +212,7 @@ function msg_set_queue($queue, array $data): void
  * If set to true, the call will return
  * false immediately if a semaphore cannot be immediately
  * acquired.
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function sem_acquire($sem_identifier, bool $nowait = false): void
@@ -218,7 +220,7 @@ function sem_acquire($sem_identifier, bool $nowait = false): void
     error_clear_last();
     $result = \sem_acquire($sem_identifier, $nowait);
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
 }
 
@@ -240,7 +242,7 @@ function sem_acquire($sem_identifier, bool $nowait = false): void
  * @param int $auto_release Specifies if the semaphore should be automatically released on request
  * shutdown.
  * @return resource Returns a positive semaphore identifier on success, .
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function sem_get(int $key, int $max_acquire = 1, int $perm = 0666, int $auto_release = 1)
@@ -248,7 +250,7 @@ function sem_get(int $key, int $max_acquire = 1, int $perm = 0666, int $auto_rel
     error_clear_last();
     $result = \sem_get($key, $max_acquire, $perm, $auto_release);
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
     return $result;
 }
@@ -264,7 +266,7 @@ function sem_get(int $key, int $max_acquire = 1, int $perm = 0666, int $auto_rel
  * 
  * @param resource $sem_identifier A Semaphore resource handle as returned by
  * sem_get.
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function sem_release($sem_identifier): void
@@ -272,7 +274,7 @@ function sem_release($sem_identifier): void
     error_clear_last();
     $result = \sem_release($sem_identifier);
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
 }
 
@@ -284,7 +286,7 @@ function sem_release($sem_identifier): void
  * 
  * @param resource $sem_identifier A semaphore resource identifier as returned
  * by sem_get.
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function sem_remove($sem_identifier): void
@@ -292,7 +294,7 @@ function sem_remove($sem_identifier): void
     error_clear_last();
     $result = \sem_remove($sem_identifier);
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
 }
 
@@ -314,7 +316,7 @@ function sem_remove($sem_identifier): void
  * that serialize supports may be used: generally
  * this means all types except for resources and some internal objects
  * that cannot be serialized.
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function shm_put_var($shm_identifier, int $variable_key, $variable): void
@@ -322,7 +324,7 @@ function shm_put_var($shm_identifier, int $variable_key, $variable): void
     error_clear_last();
     $result = \shm_put_var($shm_identifier, $variable_key, $variable);
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
 }
 
@@ -334,7 +336,7 @@ function shm_put_var($shm_identifier, int $variable_key, $variable): void
  * @param resource $shm_identifier The shared memory identifier as returned by
  * shm_attach
  * @param int $variable_key The variable key.
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function shm_remove_var($shm_identifier, int $variable_key): void
@@ -342,7 +344,7 @@ function shm_remove_var($shm_identifier, int $variable_key): void
     error_clear_last();
     $result = \shm_remove_var($shm_identifier, $variable_key);
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
 }
 
@@ -353,7 +355,7 @@ function shm_remove_var($shm_identifier, int $variable_key): void
  * 
  * @param resource $shm_identifier The shared memory identifier as returned by
  * shm_attach
- * @throws Exceptions\SemException
+ * @throws SemException
  * 
  */
 function shm_remove($shm_identifier): void
@@ -361,7 +363,7 @@ function shm_remove($shm_identifier): void
     error_clear_last();
     $result = \shm_remove($shm_identifier);
     if ($result === FALSE) {
-        throw Exceptions\SemException::createFromPhpError();
+        throw SemException::createFromPhpError();
     }
 }
 

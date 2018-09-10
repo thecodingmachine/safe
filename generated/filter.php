@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\FilterException;
+
 /**
  * 
  * 
@@ -9,7 +11,7 @@ namespace Safe;
  * INPUT_COOKIE, INPUT_SERVER, or
  * INPUT_ENV.
  * @param string $variable_name Name of a variable to check.
- * @throws Exceptions\FilterException
+ * @throws FilterException
  * 
  */
 function filter_has_var(int $type, string $variable_name): void
@@ -17,7 +19,7 @@ function filter_has_var(int $type, string $variable_name): void
     error_clear_last();
     $result = \filter_has_var($type, $variable_name);
     if ($result === FALSE) {
-        throw Exceptions\FilterException::createFromPhpError();
+        throw FilterException::createFromPhpError();
     }
 }
 

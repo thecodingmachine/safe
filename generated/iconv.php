@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\IconvException;
+
 /**
  * Retrieve internal configuration variables of iconv extension.
  * 
@@ -18,7 +20,7 @@ namespace Safe;
  * If type is omitted or set to "all",
  * iconv_get_encoding returns an array that
  * stores all these variables.
- * @throws Exceptions\IconvException
+ * @throws IconvException
  * 
  */
 function iconv_get_encoding(string $type = "all")
@@ -26,7 +28,7 @@ function iconv_get_encoding(string $type = "all")
     error_clear_last();
     $result = \iconv_get_encoding($type);
     if ($result === FALSE) {
-        throw Exceptions\IconvException::createFromPhpError();
+        throw IconvException::createFromPhpError();
     }
     return $result;
 }
@@ -43,7 +45,7 @@ function iconv_get_encoding(string $type = "all")
  * internal_encoding
  * 
  * @param string $charset The character set.
- * @throws Exceptions\IconvException
+ * @throws IconvException
  * 
  */
 function iconv_set_encoding(string $type, string $charset): void
@@ -51,7 +53,7 @@ function iconv_set_encoding(string $type, string $charset): void
     error_clear_last();
     $result = \iconv_set_encoding($type, $charset);
     if ($result === FALSE) {
-        throw Exceptions\IconvException::createFromPhpError();
+        throw IconvException::createFromPhpError();
     }
 }
 
@@ -80,7 +82,7 @@ function iconv_set_encoding(string $type, string $charset): void
  * the out_charset.
  * @param string $str The string to be converted.
  * @return string Returns the converted string .
- * @throws Exceptions\IconvException
+ * @throws IconvException
  * 
  */
 function iconv(string $in_charset, string $out_charset, string $str): string
@@ -88,7 +90,7 @@ function iconv(string $in_charset, string $out_charset, string $str): string
     error_clear_last();
     $result = \iconv($in_charset, $out_charset, $str);
     if ($result === FALSE) {
-        throw Exceptions\IconvException::createFromPhpError();
+        throw IconvException::createFromPhpError();
     }
     return $result;
 }

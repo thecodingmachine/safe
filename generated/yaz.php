@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\YazException;
+
 /**
  * This function invokes a CCL parser. It converts a given CCL FIND query to
  * an RPN query which may be passed to the yaz_search 
@@ -42,7 +44,7 @@ namespace Safe;
  * 
  * errorpos - approximate position in query of failure
  * (integer is character position)
- * @throws Exceptions\YazException
+ * @throws YazException
  * 
  */
 function yaz_ccl_parse($id, string $query, array &$result): void
@@ -50,7 +52,7 @@ function yaz_ccl_parse($id, string $query, array &$result): void
     error_clear_last();
     $result = \yaz_ccl_parse($id, $query, $result);
     if ($result === FALSE) {
-        throw Exceptions\YazException::createFromPhpError();
+        throw YazException::createFromPhpError();
     }
 }
 
@@ -59,7 +61,7 @@ function yaz_ccl_parse($id, string $query, array &$result): void
  * Closes the connection given by parameter id.
  * 
  * @param resource $id The connection resource returned by yaz_connect.
- * @throws Exceptions\YazException
+ * @throws YazException
  * 
  */
 function yaz_close($id): void
@@ -67,7 +69,7 @@ function yaz_close($id): void
     error_clear_last();
     $result = \yaz_close($id);
     if ($result === FALSE) {
-        throw Exceptions\YazException::createFromPhpError();
+        throw YazException::createFromPhpError();
     }
 }
 
@@ -260,7 +262,7 @@ function yaz_close($id): void
  * 
  * This option is supported in PECL YAZ 1.0.5 or later.
  * @return mixed A connection resource on success, FALSE on error.
- * @throws Exceptions\YazException
+ * @throws YazException
  * 
  */
 function yaz_connect(string $zurl, $options = null)
@@ -272,7 +274,7 @@ function yaz_connect(string $zurl, $options = null)
         $result = \yaz_connect($zurl);
     }
     if ($result === FALSE) {
-        throw Exceptions\YazException::createFromPhpError();
+        throw YazException::createFromPhpError();
     }
     return $result;
 }
@@ -287,7 +289,7 @@ function yaz_connect(string $zurl, $options = null)
  * @param resource $id The connection resource returned by yaz_connect.
  * @param string $databases A string containing one or more databases. Multiple databases are 
  * separated by a plus sign +.
- * @throws Exceptions\YazException
+ * @throws YazException
  * 
  */
 function yaz_database($id, string $databases): void
@@ -295,7 +297,7 @@ function yaz_database($id, string $databases): void
     error_clear_last();
     $result = \yaz_database($id, $databases);
     if ($result === FALSE) {
-        throw Exceptions\YazException::createFromPhpError();
+        throw YazException::createFromPhpError();
     }
 }
 
@@ -310,7 +312,7 @@ function yaz_database($id, string $databases): void
  * @param resource $id The connection resource returned by yaz_connect.
  * @param string $elementset Most servers support F (for full records) and
  * B (for brief records).
- * @throws Exceptions\YazException
+ * @throws YazException
  * 
  */
 function yaz_element($id, string $elementset): void
@@ -318,7 +320,7 @@ function yaz_element($id, string $elementset): void
     error_clear_last();
     $result = \yaz_element($id, $elementset);
     if ($result === FALSE) {
-        throw Exceptions\YazException::createFromPhpError();
+        throw YazException::createFromPhpError();
     }
 }
 
@@ -330,7 +332,7 @@ function yaz_element($id, string $elementset): void
  * function to specify the range of records to be retrieved.
  * 
  * @param resource $id The connection resource returned by yaz_connect.
- * @throws Exceptions\YazException
+ * @throws YazException
  * 
  */
 function yaz_present($id): void
@@ -338,7 +340,7 @@ function yaz_present($id): void
     error_clear_last();
     $result = \yaz_present($id);
     if ($result === FALSE) {
-        throw Exceptions\YazException::createFromPhpError();
+        throw YazException::createFromPhpError();
     }
 }
 
@@ -370,7 +372,7 @@ function yaz_present($id): void
  * If you would like to use a more friendly notation,
  * use the CCL parser - functions yaz_ccl_conf and 
  * yaz_ccl_parse.
- * @throws Exceptions\YazException
+ * @throws YazException
  * 
  */
 function yaz_search($id, string $type, string $query): void
@@ -378,7 +380,7 @@ function yaz_search($id, string $type, string $query): void
     error_clear_last();
     $result = \yaz_search($id, $type, $query);
     if ($result === FALSE) {
-        throw Exceptions\YazException::createFromPhpError();
+        throw YazException::createFromPhpError();
     }
 }
 
@@ -422,7 +424,7 @@ function yaz_search($id, string $type, string $query): void
  * A boolean.
  * @return mixed Returns TRUE on success .
  * In event mode, returns resource  .
- * @throws Exceptions\YazException
+ * @throws YazException
  * 
  */
 function yaz_wait(array &$options = null)
@@ -434,7 +436,7 @@ function yaz_wait(array &$options = null)
         $result = \yaz_wait();
     }
     if ($result === FALSE) {
-        throw Exceptions\YazException::createFromPhpError();
+        throw YazException::createFromPhpError();
     }
     return $result;
 }

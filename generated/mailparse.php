@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\MailparseException;
+
 /**
  * Extracts/decodes a message section from the supplied filename.
  * 
@@ -23,7 +25,7 @@ namespace Safe;
  * extracted section as a string.
  * 
  * Returns FALSE on error.
- * @throws Exceptions\MailparseException
+ * @throws MailparseException
  * 
  */
 function mailparse_msg_extract_part_file($mimemail, $filename, callable $callbackfunc = null): string
@@ -35,7 +37,7 @@ function mailparse_msg_extract_part_file($mimemail, $filename, callable $callbac
         $result = \mailparse_msg_extract_part_file($mimemail, $filename);
     }
     if ($result === FALSE) {
-        throw Exceptions\MailparseException::createFromPhpError();
+        throw MailparseException::createFromPhpError();
     }
     return $result;
 }
@@ -47,7 +49,7 @@ function mailparse_msg_extract_part_file($mimemail, $filename, callable $callbac
  * @param resource $mimemail A valid MIME resource allocated by
  * mailparse_msg_create or 
  * mailparse_msg_parse_file.
- * @throws Exceptions\MailparseException
+ * @throws MailparseException
  * 
  */
 function mailparse_msg_free($mimemail): void
@@ -55,7 +57,7 @@ function mailparse_msg_free($mimemail): void
     error_clear_last();
     $result = \mailparse_msg_free($mimemail);
     if ($result === FALSE) {
-        throw Exceptions\MailparseException::createFromPhpError();
+        throw MailparseException::createFromPhpError();
     }
 }
 
@@ -67,7 +69,7 @@ function mailparse_msg_free($mimemail): void
  * @param string $filename Path to the file holding the message.
  * The file is opened and streamed through the parser.
  * @return resource Returns a MIME resource representing the structure, .
- * @throws Exceptions\MailparseException
+ * @throws MailparseException
  * 
  */
 function mailparse_msg_parse_file(string $filename)
@@ -75,7 +77,7 @@ function mailparse_msg_parse_file(string $filename)
     error_clear_last();
     $result = \mailparse_msg_parse_file($filename);
     if ($result === FALSE) {
-        throw Exceptions\MailparseException::createFromPhpError();
+        throw MailparseException::createFromPhpError();
     }
     return $result;
 }
@@ -89,7 +91,7 @@ function mailparse_msg_parse_file(string $filename)
  * 
  * @param resource $mimemail A valid MIME resource.
  * @param string $data 
- * @throws Exceptions\MailparseException
+ * @throws MailparseException
  * 
  */
 function mailparse_msg_parse($mimemail, string $data): void
@@ -97,7 +99,7 @@ function mailparse_msg_parse($mimemail, string $data): void
     error_clear_last();
     $result = \mailparse_msg_parse($mimemail, $data);
     if ($result === FALSE) {
-        throw Exceptions\MailparseException::createFromPhpError();
+        throw MailparseException::createFromPhpError();
     }
 }
 
@@ -110,7 +112,7 @@ function mailparse_msg_parse($mimemail, string $data): void
  * @param resource $destfp The destination file handle in which the encoded data will be written.
  * @param string $encoding One of the character encodings supported by the
  * mbstring module.
- * @throws Exceptions\MailparseException
+ * @throws MailparseException
  * 
  */
 function mailparse_stream_encode($sourcefp, $destfp, string $encoding): void
@@ -118,7 +120,7 @@ function mailparse_stream_encode($sourcefp, $destfp, string $encoding): void
     error_clear_last();
     $result = \mailparse_stream_encode($sourcefp, $destfp, $encoding);
     if ($result === FALSE) {
-        throw Exceptions\MailparseException::createFromPhpError();
+        throw MailparseException::createFromPhpError();
     }
 }
 

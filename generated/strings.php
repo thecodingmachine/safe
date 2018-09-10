@@ -2,12 +2,14 @@
 
 namespace Safe;
 
+use Safe\Exceptions\StringsException;
+
 /**
  * convert_uudecode decodes a uuencoded string.
  * 
  * @param string $data The uuencoded data.
  * @return string Returns the decoded data as a string  .
- * @throws Exceptions\StringsException
+ * @throws StringsException
  * 
  */
 function convert_uudecode(string $data): string
@@ -15,7 +17,7 @@ function convert_uudecode(string $data): string
     error_clear_last();
     $result = \convert_uudecode($data);
     if ($result === FALSE) {
-        throw Exceptions\StringsException::createFromPhpError();
+        throw StringsException::createFromPhpError();
     }
     return $result;
 }
@@ -31,7 +33,7 @@ function convert_uudecode(string $data): string
  * 
  * @param string $data The data to be encoded.
  * @return string Returns the uuencoded data  .
- * @throws Exceptions\StringsException
+ * @throws StringsException
  * 
  */
 function convert_uuencode(string $data): string
@@ -39,7 +41,7 @@ function convert_uuencode(string $data): string
     error_clear_last();
     $result = \convert_uuencode($data);
     if ($result === FALSE) {
-        throw Exceptions\StringsException::createFromPhpError();
+        throw StringsException::createFromPhpError();
     }
     return $result;
 }
@@ -50,7 +52,7 @@ function convert_uuencode(string $data): string
  * 
  * @param string $data Hexadecimal representation of data.
  * @return string Returns the binary representation of the given data  .
- * @throws Exceptions\StringsException
+ * @throws StringsException
  * 
  */
 function hex2bin(string $data): string
@@ -58,7 +60,7 @@ function hex2bin(string $data): string
     error_clear_last();
     $result = \hex2bin($data);
     if ($result === FALSE) {
-        throw Exceptions\StringsException::createFromPhpError();
+        throw StringsException::createFromPhpError();
     }
     return $result;
 }
@@ -82,7 +84,7 @@ function hex2bin(string $data): string
  * phonemes characters in length.
  * The default value of 0 means no restriction.
  * @return string Returns the metaphone key as a string,  .
- * @throws Exceptions\StringsException
+ * @throws StringsException
  * 
  */
 function metaphone(string $str, int $phonemes = 0): string
@@ -90,7 +92,7 @@ function metaphone(string $str, int $phonemes = 0): string
     error_clear_last();
     $result = \metaphone($str, $phonemes);
     if ($result === FALSE) {
-        throw Exceptions\StringsException::createFromPhpError();
+        throw StringsException::createFromPhpError();
     }
     return $result;
 }
@@ -431,7 +433,7 @@ function metaphone(string $str, int $phonemes = 0): string
  * @param mixed $params 
  * @return string Returns a string produced according to the formatting string
  * format,  .
- * @throws Exceptions\StringsException
+ * @throws StringsException
  * 
  */
 function sprintf(string $format, $args = null,  ...$params): string
@@ -445,7 +447,7 @@ function sprintf(string $format, $args = null,  ...$params): string
         $result = \sprintf($format);
     }
     if ($result === FALSE) {
-        throw Exceptions\StringsException::createFromPhpError();
+        throw StringsException::createFromPhpError();
     }
     return $result;
 }
@@ -498,7 +500,7 @@ function sprintf(string $format, $args = null,  ...$params): string
  * returned.
  * @return string Returns the extracted part of string;  , or
  * an empty string.
- * @throws Exceptions\StringsException
+ * @throws StringsException
  * 
  */
 function substr(string $string, int $start, int $length = null): string
@@ -510,7 +512,7 @@ function substr(string $string, int $start, int $length = null): string
         $result = \substr($string, $start);
     }
     if ($result === FALSE) {
-        throw Exceptions\StringsException::createFromPhpError();
+        throw StringsException::createFromPhpError();
     }
     return $result;
 }

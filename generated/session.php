@@ -2,11 +2,13 @@
 
 namespace Safe;
 
+use Safe\Exceptions\SessionException;
+
 /**
  * session_abort finishes session without saving
  * data. Thus the original values in session data are kept.
  * 
- * @throws Exceptions\SessionException
+ * @throws SessionException
  * 
  */
 function session_abort(): void
@@ -14,7 +16,7 @@ function session_abort(): void
     error_clear_last();
     $result = \session_abort();
     if ($result === FALSE) {
-        throw Exceptions\SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError();
     }
 }
 
@@ -28,7 +30,7 @@ function session_abort(): void
  * The serialization method can be set using session.serialize_handler.
  * 
  * @param string $data The encoded data to be stored.
- * @throws Exceptions\SessionException
+ * @throws SessionException
  * 
  */
 function session_decode(string $data): void
@@ -36,7 +38,7 @@ function session_decode(string $data): void
     error_clear_last();
     $result = \session_decode($data);
     if ($result === FALSE) {
-        throw Exceptions\SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError();
     }
 }
 
@@ -54,7 +56,7 @@ function session_decode(string $data): void
  * Enabling session.use_strict_mode
  * is recommended for all sites.
  * 
- * @throws Exceptions\SessionException
+ * @throws SessionException
  * 
  */
 function session_destroy(): void
@@ -62,7 +64,7 @@ function session_destroy(): void
     error_clear_last();
     $result = \session_destroy();
     if ($result === FALSE) {
-        throw Exceptions\SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError();
     }
 }
 
@@ -79,7 +81,7 @@ function session_destroy(): void
  * You should not delete old session if you need to avoid
  * races caused by deletion or detect/avoid session hijack
  * attacks.
- * @throws Exceptions\SessionException
+ * @throws SessionException
  * 
  */
 function session_regenerate_id(bool $delete_old_session = false): void
@@ -87,7 +89,7 @@ function session_regenerate_id(bool $delete_old_session = false): void
     error_clear_last();
     $result = \session_regenerate_id($delete_old_session);
     if ($result === FALSE) {
-        throw Exceptions\SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError();
     }
 }
 
@@ -116,7 +118,7 @@ function session_regenerate_id(bool $delete_old_session = false): void
  * @param mixed $name A string holding the name of a variable or an array consisting of
  * variable names or other arrays.
  * @param mixed $params 
- * @throws Exceptions\SessionException
+ * @throws SessionException
  * 
  */
 function session_register($name,  ...$params): void
@@ -128,7 +130,7 @@ function session_register($name,  ...$params): void
         $result = \session_register($name);
     }
     if ($result === FALSE) {
-        throw Exceptions\SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError();
     }
 }
 
@@ -138,7 +140,7 @@ function session_register($name,  ...$params): void
  * original values stored in session storage. This function requires an active session and
  * discards changes in $_SESSION.
  * 
- * @throws Exceptions\SessionException
+ * @throws SessionException
  * 
  */
 function session_reset(): void
@@ -146,7 +148,7 @@ function session_reset(): void
     error_clear_last();
     $result = \session_reset();
     if ($result === FALSE) {
-        throw Exceptions\SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError();
     }
 }
 
@@ -173,7 +175,7 @@ function session_reset(): void
  * @param bool $httponly If set to TRUE then PHP will attempt to send the
  * httponly
  * flag when setting the session cookie.
- * @throws Exceptions\SessionException
+ * @throws SessionException
  * 
  */
 function session_set_cookie_params(int $lifetime, string $path = null, string $domain = null, bool $secure = false, bool $httponly = false): void
@@ -191,7 +193,7 @@ function session_set_cookie_params(int $lifetime, string $path = null, string $d
         $result = \session_set_cookie_params($lifetime);
     }
     if ($result === FALSE) {
-        throw Exceptions\SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError();
     }
 }
 
@@ -201,7 +203,7 @@ function session_set_cookie_params(int $lifetime, string $path = null, string $d
  * named name from the current session.
  * 
  * @param string $name The variable name.
- * @throws Exceptions\SessionException
+ * @throws SessionException
  * 
  */
 function session_unregister(string $name): void
@@ -209,7 +211,7 @@ function session_unregister(string $name): void
     error_clear_last();
     $result = \session_unregister($name);
     if ($result === FALSE) {
-        throw Exceptions\SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError();
     }
 }
 
@@ -218,7 +220,7 @@ function session_unregister(string $name): void
  * The session_unset function frees all session variables
  * currently registered.
  * 
- * @throws Exceptions\SessionException
+ * @throws SessionException
  * 
  */
 function session_unset(): void
@@ -226,7 +228,7 @@ function session_unset(): void
     error_clear_last();
     $result = \session_unset();
     if ($result === FALSE) {
-        throw Exceptions\SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError();
     }
 }
 
@@ -242,7 +244,7 @@ function session_unset(): void
  * reduce the time needed to load all the frames by ending the session as
  * soon as all changes to session variables are done.
  * 
- * @throws Exceptions\SessionException
+ * @throws SessionException
  * 
  */
 function session_write_close(): void
@@ -250,7 +252,7 @@ function session_write_close(): void
     error_clear_last();
     $result = \session_write_close();
     if ($result === FALSE) {
-        throw Exceptions\SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError();
     }
 }
 

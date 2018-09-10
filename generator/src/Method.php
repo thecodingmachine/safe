@@ -104,7 +104,7 @@ class Method
             $str .= '@return '.$bestReturnType. ' ' .$this->getReturnDoc()."\n";
         }
 
-        $str .= '@throws Exceptions\\'.$this->getModuleName(). "Exception\n";
+        $str .= '@throws '.FileCreator::toExceptionName($this->getModuleName()). "\n";
 
         return $str;
     }

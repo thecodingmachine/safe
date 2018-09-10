@@ -6,6 +6,7 @@ use function array_merge;
 use Complex\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use function ucfirst;
 
 class FileCreator
 {
@@ -62,15 +63,17 @@ class FileCreator
         }
 
         foreach ($phpFunctionsByModule as $module => $phpFunctions) {
-            $module = \lcfirst($module);
-            $stream = \fopen($path.$module.'.php', 'w');
+            $lcModule = \lcfirst($module);
+            $stream = \fopen($path.$lcModule.'.php', 'w');
             if ($stream === false) {
                 throw new \RuntimeException('Unable to write to '.$path);
             }
             \fwrite($stream, "<?php\n
 namespace Safe;
 
-");
+use Safe\\Exceptions\\".self::toExceptionName($module). ';
+
+');
             foreach ($phpFunctions as $phpFunction) {
                 \fwrite($stream, $phpFunction."\n");
             }
@@ -108,19 +111,31 @@ return [\n");
 
     public function createExceptionFile(string $moduleName): void
     {
-        if (!\class_exists("Safe\\Exceptions\\{$moduleName}Exception")) {
+        $exceptionName = self::toExceptionName($moduleName);
+        if (!\class_exists("Safe\\Exceptions\\{$exceptionName}")) {
             \file_put_contents(
-                __DIR__.'/../../generated/Exceptions/'.$moduleName.'Exception.php',
+                __DIR__.'/../../generated/Exceptions/'.$exceptionName.'.php',
                 <<<EOF
 <?php
 namespace Safe\Exceptions;
 
-class {$moduleName}Exception extends AbstractSafeException
+class {$exceptionName} extends AbstractSafeException
 {
 }
 
 EOF
             );
         }
+    }
+
+    /**
+     * Generates the name of the exception class
+     *
+     * @param string $moduleName
+     * @return string
+     */
+    public static function toExceptionName(string $moduleName): string
+    {
+        return str_replace('-', '', \ucfirst($moduleName)).'Exception';
     }
 }

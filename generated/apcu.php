@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ApcuException;
+
 /**
  * apcu_cas updates an already existing integer value if the 
  * old parameter matches the currently stored value 
@@ -10,7 +12,7 @@ namespace Safe;
  * @param string $key The key of the value being updated.
  * @param int $old The old value (the value currently stored).
  * @param int $new The new value to update to.
- * @throws Exceptions\ApcuException
+ * @throws ApcuException
  * 
  */
 function apcu_cas(string $key, int $old, int $new): void
@@ -18,7 +20,7 @@ function apcu_cas(string $key, int $old, int $new): void
     error_clear_last();
     $result = \apcu_cas($key, $old, $new);
     if ($result === FALSE) {
-        throw Exceptions\ApcuException::createFromPhpError();
+        throw ApcuException::createFromPhpError();
     }
 }
 
@@ -32,7 +34,7 @@ function apcu_cas(string $key, int $old, int $new): void
  * this referenced variable.
  * @return int Returns the current value of key's value on success,
  * 
- * @throws Exceptions\ApcuException
+ * @throws ApcuException
  * 
  */
 function apcu_dec(string $key, int $step = 1, bool &$success = null): int
@@ -44,7 +46,7 @@ function apcu_dec(string $key, int $step = 1, bool &$success = null): int
         $result = \apcu_dec($key, $step);
     }
     if ($result === FALSE) {
-        throw Exceptions\ApcuException::createFromPhpError();
+        throw ApcuException::createFromPhpError();
     }
     return $result;
 }
@@ -58,7 +60,7 @@ function apcu_dec(string $key, int $step = 1, bool &$success = null): int
  * or as an array of strings for several keys,
  * or as an APCUIterator object.
  * @return bool|array Returns TRUE on success .
- * @throws Exceptions\ApcuException
+ * @throws ApcuException
  * 
  */
 function apcu_delete($key): void
@@ -66,7 +68,7 @@ function apcu_delete($key): void
     error_clear_last();
     $result = \apcu_delete($key);
     if ($result === FALSE) {
-        throw Exceptions\ApcuException::createFromPhpError();
+        throw ApcuException::createFromPhpError();
     }
 }
 
@@ -80,7 +82,7 @@ function apcu_delete($key): void
  * this referenced variable.
  * @return int Returns the current value of key's value on success,
  * 
- * @throws Exceptions\ApcuException
+ * @throws ApcuException
  * 
  */
 function apcu_inc(string $key, int $step = 1, bool &$success = null): int
@@ -92,7 +94,7 @@ function apcu_inc(string $key, int $step = 1, bool &$success = null): int
         $result = \apcu_inc($key, $step);
     }
     if ($result === FALSE) {
-        throw Exceptions\ApcuException::createFromPhpError();
+        throw ApcuException::createFromPhpError();
     }
     return $result;
 }

@@ -6,6 +6,7 @@ namespace Safe;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Process\Process;
 
 class GenerateCommand extends Command
 {
@@ -50,6 +51,8 @@ class GenerateCommand extends Command
             $fileCreator->createExceptionFile($moduleName);
         }
 
+        $this->runCsFix($output);
+
         // Let's require the generated file to check there is no error.
         $files = \glob(__DIR__.'/../../generated/*.php');
 
@@ -66,6 +69,7 @@ class GenerateCommand extends Command
         }
 
         // Finally, let's edit the composer.json file
+        $output->writeln('Editing composer.json');
         ComposerJsonEditor::editFiles(\array_values($modules));
     }
 
@@ -86,5 +90,17 @@ class GenerateCommand extends Command
         if (\file_exists(__DIR__.'/../doc/entities/generated.ent')) {
             \unlink(__DIR__.'/../doc/entities/generated.ent');
         }
+    }
+
+    private function runCsFix(OutputInterface $output): void
+    {
+        $process = new Process('vendor/bin/phpcbf', __DIR__.'/../..');
+        $process->run(function ($type, $buffer) use ($output) {
+            if (Process::ERR === $type) {
+                echo $output->write('<error>'.$buffer.'</error>');
+            } else {
+                echo $output->write($buffer);
+            }
+        });
     }
 }

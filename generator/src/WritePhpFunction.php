@@ -101,7 +101,7 @@ class WritePhpFunction
             $params = $method->getFunctionParam();
             if (\count($params) > 0 && $params[0]->getParameter() === 'ch') {
                 return "
-    if (\$result === FALSE) {
+    if (\$result === false) {
         throw CurlException::createFromCurlResource(\$ch);
     }
 ";
@@ -110,7 +110,7 @@ class WritePhpFunction
 
         $exceptionName = FileCreator::toExceptionName($moduleName);
         return "
-    if (\$result === FALSE) {
+    if (\$result === false) {
         throw {$exceptionName}::createFromPhpError();
     }
 ";

@@ -6,20 +6,20 @@ use Safe\Exceptions\StreamException;
 
 /**
  * Sets parameters on the specified context.
- * 
+ *
  * @param resource $stream_or_context The stream or context to apply the parameters too.
  * @param array $params An array of parameters to set.
- * 
+ *
  * params should be an associative array of the structure:
  * $params['paramname'] = "paramvalue";.
  * @throws StreamException
- * 
+ *
  */
 function stream_context_set_params($stream_or_context, array $params): void
 {
     error_clear_last();
     $result = \stream_context_set_params($stream_or_context, $params);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
@@ -32,20 +32,20 @@ function stream_context_set_params($stream_or_context, array $params): void
  * source to dest. If
  * maxlength is not specified, all remaining content in
  * source will be copied.
- * 
+ *
  * @param resource $source The source stream
  * @param resource $dest The destination stream
  * @param int $maxlength Maximum bytes to copy
  * @param int $offset The offset where to start to copy data
  * @return int Returns the total count of bytes copied,  .
  * @throws StreamException
- * 
+ *
  */
 function stream_copy_to_stream($source, $dest, int $maxlength = -1, int $offset = 0): int
 {
     error_clear_last();
     $result = \stream_copy_to_stream($source, $dest, $maxlength, $offset);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
     return $result;
@@ -55,7 +55,7 @@ function stream_copy_to_stream($source, $dest, int $maxlength = -1, int $offset 
 /**
  * Adds filtername to the list of filters
  * attached to stream.
- * 
+ *
  * @param resource $stream The target stream.
  * @param string $filtername The filter name.
  * @param int $read_write By default, stream_filter_append will
@@ -69,7 +69,7 @@ function stream_copy_to_stream($source, $dest, int $maxlength = -1, int $offset 
  * STREAM_FILTER_WRITE, and/or
  * STREAM_FILTER_ALL can also be passed to the
  * read_write parameter to override this behavior.
- * @param mixed $params This filter will be added with the specified 
+ * @param mixed $params This filter will be added with the specified
  * params to the end of
  * the list and will therefore be called last during stream operations.
  * To add a filter to the beginning of the list, use
@@ -77,11 +77,11 @@ function stream_copy_to_stream($source, $dest, int $maxlength = -1, int $offset 
  * @return resource Returns a resource on success . The resource can be
  * used to refer to this filter instance during a call to
  * stream_filter_remove.
- * 
+ *
  * FALSE is returned if stream is not a resource or
  * if filtername cannot be located.
  * @throws StreamException
- * 
+ *
  */
 function stream_filter_append($stream, string $filtername, int $read_write = null, $params = null)
 {
@@ -90,10 +90,10 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
         $result = \stream_filter_append($stream, $filtername, $read_write, $params);
     } elseif ($read_write !== null) {
         $result = \stream_filter_append($stream, $filtername, $read_write);
-    }else {
+    } else {
         $result = \stream_filter_append($stream, $filtername);
     }
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
     return $result;
@@ -103,7 +103,7 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
 /**
  * Adds filtername to the list of filters
  * attached to stream.
- * 
+ *
  * @param resource $stream The target stream.
  * @param string $filtername The filter name.
  * @param int $read_write By default, stream_filter_prepend will
@@ -126,11 +126,11 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
  * @return resource Returns a resource on success . The resource can be
  * used to refer to this filter instance during a call to
  * stream_filter_remove.
- * 
+ *
  * FALSE is returned if stream is not a resource or
  * if filtername cannot be located.
  * @throws StreamException
- * 
+ *
  */
 function stream_filter_prepend($stream, string $filtername, int $read_write = null, $params = null)
 {
@@ -139,10 +139,10 @@ function stream_filter_prepend($stream, string $filtername, int $read_write = nu
         $result = \stream_filter_prepend($stream, $filtername, $read_write, $params);
     } elseif ($read_write !== null) {
         $result = \stream_filter_prepend($stream, $filtername, $read_write);
-    }else {
+    } else {
         $result = \stream_filter_prepend($stream, $filtername);
     }
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
     return $result;
@@ -154,7 +154,7 @@ function stream_filter_prepend($stream, string $filtername, int $read_write = nu
  * your own filter on any registered stream used with all the other
  * filesystem functions (such as fopen,
  * fread etc.).
- * 
+ *
  * @param string $filtername The filter name to be registered.
  * @param string $classname To implement a filter, you need to define a class as an extension of
  * php_user_filter with a number of member
@@ -165,13 +165,13 @@ function stream_filter_prepend($stream, string $filtername, int $read_write = nu
  * exactly as described in php_user_filter - doing
  * otherwise will lead to undefined behaviour.
  * @throws StreamException
- * 
+ *
  */
 function stream_filter_register(string $filtername, string $classname): void
 {
     error_clear_last();
     $result = \stream_filter_register($filtername, $classname);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
@@ -183,16 +183,16 @@ function stream_filter_register(string $filtername, string $classname): void
  * stream_filter_append.  Any data remaining in the
  * filter's internal buffer will be flushed through to the next filter before
  * removing it.
- * 
+ *
  * @param resource $stream_filter The stream filter to be removed.
  * @throws StreamException
- * 
+ *
  */
 function stream_filter_remove($stream_filter): void
 {
     error_clear_last();
     $result = \stream_filter_remove($stream_filter);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
@@ -204,7 +204,7 @@ function stream_filter_remove($stream_filter): void
  * stream resource and returns the remaining contents in a string, up to
  * maxlength bytes and starting at the specified
  * offset.
- * 
+ *
  * @param resource $handle A stream resource (e.g. returned from fopen)
  * @param int $maxlength The maximum bytes to read. Defaults to -1 (read all the remaining
  * buffer).
@@ -212,13 +212,13 @@ function stream_filter_remove($stream_filter): void
  * no seeking will occur and reading will start from the current position.
  * @return string Returns a string .
  * @throws StreamException
- * 
+ *
  */
 function stream_get_contents($handle, int $maxlength = -1, int $offset = -1): string
 {
     error_clear_last();
     $result = \stream_get_contents($handle, $maxlength, $offset);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
     return $result;
@@ -227,16 +227,16 @@ function stream_get_contents($handle, int $maxlength = -1, int $offset = -1): st
 
 /**
  * Checks if a stream, or a URL, is a local one or not.
- * 
+ *
  * @param mixed $stream_or_url The stream resource or URL to check.
  * @throws StreamException
- * 
+ *
  */
 function stream_is_local($stream_or_url): void
 {
     error_clear_last();
     $result = \stream_is_local($stream_or_url);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
@@ -245,16 +245,16 @@ function stream_is_local($stream_or_url): void
 /**
  * Determines if stream stream refers to a valid terminal type device.
  * This is a more portable version of posix_isatty, since it works on Windows systems too.
- * 
- * @param resource $stream 
+ *
+ * @param resource $stream
  * @throws StreamException
- * 
+ *
  */
 function stream_isatty($stream): void
 {
     error_clear_last();
     $result = \stream_isatty($stream);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
@@ -262,17 +262,17 @@ function stream_isatty($stream): void
 
 /**
  * Resolve filename against the include path according to the same rules as fopen/include.
- * 
+ *
  * @param string $filename The filename to resolve.
  * @return string Returns a string containing the resolved absolute filename,  .
  * @throws StreamException
- * 
+ *
  */
 function stream_resolve_include_path(string $filename): string
 {
     error_clear_last();
     $result = \stream_resolve_include_path($filename);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
     return $result;
@@ -281,10 +281,10 @@ function stream_resolve_include_path(string $filename): string
 
 /**
  * Sets blocking or non-blocking mode on a stream.
- * 
+ *
  * This function works for any stream that supports non-blocking mode
  * (currently, regular files and socket streams).
- * 
+ *
  * @param resource $stream The stream.
  * @param bool $mode If mode is FALSE, the given stream
  * will be switched to non-blocking mode, and if TRUE, it
@@ -295,13 +295,13 @@ function stream_resolve_include_path(string $filename): string
  * while in blocking mode it will wait for data to become available
  * on the stream.
  * @throws StreamException
- * 
+ *
  */
 function stream_set_blocking($stream, bool $mode): void
 {
     error_clear_last();
     $result = \stream_set_blocking($stream, $mode);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
@@ -311,22 +311,22 @@ function stream_set_blocking($stream, bool $mode): void
  * Sets the timeout value on stream,
  * expressed in the sum of seconds and
  * microseconds.
- * 
+ *
  * When the stream times out, the 'timed_out' key of the array returned by
  * stream_get_meta_data is set to TRUE, although no
  * error/warning is generated.
- * 
+ *
  * @param resource $stream The target stream.
  * @param int $seconds The seconds part of the timeout to be set.
  * @param int $microseconds The microseconds part of the timeout to be set.
  * @throws StreamException
- * 
+ *
  */
 function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
 {
     error_clear_last();
     $result = \stream_set_timeout($stream, $seconds, $microseconds);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
@@ -335,28 +335,28 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
 /**
  * Accept a connection on a socket previously created by
  * stream_socket_server.
- * 
+ *
  * @param resource $server_socket The server socket to accept a connection from.
  * @param float $timeout Override the default socket accept timeout. Time should be given in
  * seconds.
  * @param string $peername Will be set to the name (address) of the client which connected, if
  * included and available from the selected transport.
- * 
+ *
  * Can also be determined later using
  * stream_socket_get_name.
  * @return resource Returns a stream to the accepted socket connection .
  * @throws StreamException
- * 
+ *
  */
 function stream_socket_accept($server_socket, float $timeout = null, string &$peername = null)
 {
     error_clear_last();
     if ($peername !== null) {
         $result = \stream_socket_accept($server_socket, $timeout, $peername);
-    }else {
+    } else {
         $result = \stream_socket_accept($server_socket, $timeout);
     }
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
     return $result;
@@ -366,20 +366,20 @@ function stream_socket_accept($server_socket, float $timeout = null, string &$pe
 /**
  * Creates a stream or datagram socket on the specified
  * local_socket.
- * 
+ *
  * This function only creates a socket, to begin accepting connections
  * use stream_socket_accept.
- * 
+ *
  * @param string $local_socket The type of socket created is determined by the transport specified
  * using standard URL formatting: transport://target.
- * 
+ *
  * For Internet Domain sockets (AF_INET) such as TCP and UDP, the
- * target portion of the 
+ * target portion of the
  * remote_socket parameter should consist of a
  * hostname or IP address followed by a colon and a port number.  For
  * Unix domain sockets, the target portion should
  * point to the socket file on the filesystem.
- * 
+ *
  * Depending on the environment, Unix domain sockets may not be available.
  * A list of available transports can be retrieved using
  * stream_get_transports. See
@@ -388,22 +388,22 @@ function stream_socket_accept($server_socket, float $timeout = null, string &$pe
  * arguments are present they will be set to indicate the actual system
  * level error that occurred in the system-level socket(),
  * bind(), and listen() calls. If
- * the value returned in errno is 
+ * the value returned in errno is
  * 0 and the function returned FALSE, it is an
  * indication that the error occurred before the bind()
- * call. This is most likely due to a problem initializing the socket. 
+ * call. This is most likely due to a problem initializing the socket.
  * Note that the errno and
  * errstr arguments will always be passed by reference.
  * @param string $errstr See errno description.
  * @param int $flags A bitmask field which may be set to any combination of socket creation
  * flags.
- * 
+ *
  * For UDP sockets, you must use STREAM_SERVER_BIND as
  * the flags parameter.
- * @param resource $context 
+ * @param resource $context
  * @return resource Returns the created stream, .
  * @throws StreamException
- * 
+ *
  */
 function stream_socket_server(string $local_socket, int &$errno = null, string &$errstr = null, int $flags = STREAM_SERVER_BIND | STREAM_SERVER_LISTEN, $context = null)
 {
@@ -416,10 +416,10 @@ function stream_socket_server(string $local_socket, int &$errno = null, string &
         $result = \stream_socket_server($local_socket, $errno, $errstr);
     } elseif ($errno !== null) {
         $result = \stream_socket_server($local_socket, $errno);
-    }else {
+    } else {
         $result = \stream_socket_server($local_socket);
     }
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
     return $result;
@@ -428,7 +428,7 @@ function stream_socket_server(string $local_socket, int &$errno = null, string &
 
 /**
  * Shutdowns (partially or not) a full-duplex connection.
- * 
+ *
  * @param resource $stream An open stream (opened with stream_socket_client,
  * for example)
  * @param int $how One of the following constants: STREAM_SHUT_RD
@@ -437,31 +437,31 @@ function stream_socket_server(string $local_socket, int &$errno = null, string &
  * STREAM_SHUT_RDWR (disable further receptions and
  * transmissions).
  * @throws StreamException
- * 
+ *
  */
 function stream_socket_shutdown($stream, int $how): void
 {
     error_clear_last();
     $result = \stream_socket_shutdown($stream, $how);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
 
 
 /**
- * Tells whether the stream supports locking through 
+ * Tells whether the stream supports locking through
  * flock.
- * 
+ *
  * @param resource $stream The stream to check.
  * @throws StreamException
- * 
+ *
  */
 function stream_supports_lock($stream): void
 {
     error_clear_last();
     $result = \stream_supports_lock($stream);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
@@ -471,20 +471,20 @@ function stream_supports_lock($stream): void
  * Allows you to implement your own protocol handlers and streams for use
  * with all the other filesystem functions (such as fopen,
  * fread etc.).
- * 
+ *
  * @param string $protocol The wrapper name to be registered.
  * @param string $classname The classname which implements the protocol.
  * @param int $flags Should be set to STREAM_IS_URL if
  * protocol is a URL protocol. Default is 0, local
  * stream.
  * @throws StreamException
- * 
+ *
  */
 function stream_wrapper_register(string $protocol, string $classname, int $flags = 0): void
 {
     error_clear_last();
     $result = \stream_wrapper_register($protocol, $classname, $flags);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
@@ -493,16 +493,16 @@ function stream_wrapper_register(string $protocol, string $classname, int $flags
 /**
  * Restores a built-in wrapper previously unregistered with
  * stream_wrapper_unregister.
- * 
- * @param string $protocol 
+ *
+ * @param string $protocol
  * @throws StreamException
- * 
+ *
  */
 function stream_wrapper_restore(string $protocol): void
 {
     error_clear_last();
     $result = \stream_wrapper_restore($protocol);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
@@ -513,18 +513,16 @@ function stream_wrapper_restore(string $protocol): void
  * has been disabled you may override it with a user-defined wrapper using
  * stream_wrapper_register or reenable it later on with
  * stream_wrapper_restore.
- * 
- * @param string $protocol 
+ *
+ * @param string $protocol
  * @throws StreamException
- * 
+ *
  */
 function stream_wrapper_unregister(string $protocol): void
 {
     error_clear_last();
     $result = \stream_wrapper_unregister($protocol);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw StreamException::createFromPhpError();
     }
 }
-
-

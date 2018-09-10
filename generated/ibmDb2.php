@@ -6,55 +6,55 @@ use Safe\Exceptions\IbmDb2Exception;
 
 /**
  * Sets or gets the AUTOCOMMIT behavior of the specified connection resource.
- * 
+ *
  * @param resource $connection A valid database connection resource variable as returned from
  * db2_connect or db2_pconnect.
- * @param bool $value One of the following constants: 
- * 
- * 
+ * @param bool $value One of the following constants:
+ *
+ *
  * DB2_AUTOCOMMIT_OFF
- * 
- * 
+ *
+ *
  * Turns AUTOCOMMIT off.
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  * DB2_AUTOCOMMIT_ON
- * 
- * 
+ *
+ *
  * Turns AUTOCOMMIT on.
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
  * Turns AUTOCOMMIT off.
- * 
+ *
  * Turns AUTOCOMMIT on.
  * @return mixed When db2_autocommit receives only the
  * connection parameter, it returns the current state
  * of AUTOCOMMIT for the requested connection as an integer value. A value of
  * 0 indicates that AUTOCOMMIT is off, while a value of 1 indicates that
  * AUTOCOMMIT is on.
- * 
+ *
  * When db2_autocommit receives both the
  * connection parameter and
  * autocommit parameter, it attempts to set the
  * AUTOCOMMIT state of the requested connection to the corresponding state.
  * Returns TRUE on success .
  * @throws IbmDb2Exception
- * 
+ *
  */
 function db2_autocommit($connection, bool $value = null)
 {
     error_clear_last();
     if ($value !== null) {
         $result = \db2_autocommit($connection, $value);
-    }else {
+    } else {
         $result = \db2_autocommit($connection);
     }
-    if ($result === FALSE) {
+    if ($result === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
     return $result;
@@ -67,7 +67,7 @@ function db2_autocommit($connection, bool $value = null)
  * control over the parameter type, data type, precision, and scale for the
  * parameter than simply passing the variable as part of the optional input
  * array to db2_execute.
- * 
+ *
  * @param resource $stmt A prepared statement returned from db2_prepare.
  * @param int $parameter_number Specifies the 1-indexed position of the parameter in the prepared
  * statement.
@@ -86,15 +86,15 @@ function db2_autocommit($connection, bool $value = null)
  * DB2_CHAR, DB2_DOUBLE, or
  * DB2_LONG .
  * @param int $precision Specifies the precision with which the variable should be bound to the
- * database. This parameter can also be used for retrieving XML output values 
- * from stored procedures. A non-negative value specifies the maximum size of 
- * the XML data that will be retrieved from the database. If this parameter 
- * is not used, a default of 1MB will be assumed for retrieving the XML 
+ * database. This parameter can also be used for retrieving XML output values
+ * from stored procedures. A non-negative value specifies the maximum size of
+ * the XML data that will be retrieved from the database. If this parameter
+ * is not used, a default of 1MB will be assumed for retrieving the XML
  * output value from the stored procedure.
  * @param int $scale Specifies the scale with which the variable should be bound to the
  * database.
  * @throws IbmDb2Exception
- * 
+ *
  */
 function db2_bind_param($stmt, int $parameter_number, string $variable_name, int $parameter_type = null, int $data_type = 0, int $precision = -1, int $scale = 0): void
 {
@@ -107,10 +107,10 @@ function db2_bind_param($stmt, int $parameter_number, string $variable_name, int
         $result = \db2_bind_param($stmt, $parameter_number, $variable_name, $parameter_type, $data_type);
     } elseif ($parameter_type !== null) {
         $result = \db2_bind_param($stmt, $parameter_number, $variable_name, $parameter_type);
-    }else {
+    } else {
         $result = \db2_bind_param($stmt, $parameter_number, $variable_name);
     }
-    if ($result === FALSE) {
+    if ($result === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
 }
@@ -120,20 +120,20 @@ function db2_bind_param($stmt, int $parameter_number, string $variable_name, int
  * This function closes a DB2 client connection created with
  * db2_connect and returns the corresponding
  * resources to the database server.
- * 
+ *
  * If you attempt to close a persistent DB2 client connection created with
  * db2_pconnect, the close request is ignored and the
  * persistent DB2 client connection remains available for the next caller.
- * 
+ *
  * @param resource $connection Specifies an active DB2 client connection.
  * @throws IbmDb2Exception
- * 
+ *
  */
 function db2_close($connection): void
 {
     error_clear_last();
     $result = \db2_close($connection);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
 }
@@ -144,17 +144,17 @@ function db2_close($connection): void
  * begins a new transaction. PHP applications normally default to AUTOCOMMIT
  * mode, so db2_commit is not necessary unless AUTOCOMMIT
  * has been turned off for the connection resource.
- * 
+ *
  * @param resource $connection A valid database connection resource variable as returned from
  * db2_connect or db2_pconnect.
  * @throws IbmDb2Exception
- * 
+ *
  */
 function db2_commit($connection): void
 {
     error_clear_last();
     $result = \db2_commit($connection);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
 }
@@ -163,7 +163,7 @@ function db2_commit($connection): void
 /**
  * db2_execute executes an SQL statement that was
  * prepared by db2_prepare.
- * 
+ *
  * If the SQL statement returns a result set, for example, a SELECT statement
  * or a CALL to a stored procedure that returns one or more result sets, you
  * can retrieve a row as an array from the stmt resource
@@ -173,26 +173,26 @@ function db2_commit($connection): void
  * db2_fetch_row to move the result set pointer to the
  * next row and fetch a column at a time from that row with
  * db2_result.
- * 
+ *
  * Refer to db2_prepare for a brief discussion of the
  * advantages of using db2_prepare and
  * db2_execute rather than db2_exec.
- * 
+ *
  * @param resource $stmt A prepared statement returned from db2_prepare.
  * @param array $parameters An array of input parameters matching any parameter markers contained
  * in the prepared statement.
  * @throws IbmDb2Exception
- * 
+ *
  */
 function db2_execute($stmt, array $parameters = null): void
 {
     error_clear_last();
     if ($parameters !== null) {
         $result = \db2_execute($stmt, $parameters);
-    }else {
+    } else {
         $result = \db2_execute($stmt);
     }
-    if ($result === FALSE) {
+    if ($result === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
 }
@@ -203,16 +203,16 @@ function db2_execute($stmt, array $parameters = null): void
  * set. These resources are freed implicitly when a script finishes, but you
  * can call db2_free_result to explicitly free the result
  * set resources before the end of the script.
- * 
+ *
  * @param resource $stmt A valid statement resource.
  * @throws IbmDb2Exception
- * 
+ *
  */
 function db2_free_result($stmt): void
 {
     error_clear_last();
     $result = \db2_free_result($stmt);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
 }
@@ -223,177 +223,177 @@ function db2_free_result($stmt): void
  * resource. These resources are freed implicitly when a script finishes, but
  * you can call db2_free_stmt to explicitly free the
  * statement resources before the end of the script.
- * 
+ *
  * @param resource $stmt A valid statement resource.
  * @throws IbmDb2Exception
- * 
+ *
  */
 function db2_free_stmt($stmt): void
 {
     error_clear_last();
     $result = \db2_free_stmt($stmt);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
 }
 
 
 /**
- * Retrieves the value of a specified option value for a statement resource 
+ * Retrieves the value of a specified option value for a statement resource
  * or a connection resource.
- * 
+ *
  * @param resource $resource A valid statement resource as returned from
  * db2_prepare or a valid connection resource as
  * returned from db2_connect or
  * db2_pconnect.
- * @param string $option A valid statement or connection options. The following new options are available 
- * as of ibm_db2 version 1.6.0. They provide useful tracking information 
+ * @param string $option A valid statement or connection options. The following new options are available
+ * as of ibm_db2 version 1.6.0. They provide useful tracking information
  * that can be set during execution with db2_get_option.
- * 
- * 
+ *
+ *
  * Prior versions of ibm_db2 do not support these new options.
- * 
- * 
- * When the value in each option is being set, some servers might not handle 
+ *
+ *
+ * When the value in each option is being set, some servers might not handle
  * the entire length provided and might truncate the value.
- * 
- * 
- * To ensure that the data specified in each option is converted correctly 
- * when transmitted to a host system, use only the characters A through Z, 
+ *
+ *
+ * To ensure that the data specified in each option is converted correctly
+ * when transmitted to a host system, use only the characters A through Z,
  * 0 through 9, and the underscore (_) or period (.).
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  * userid
- * 
- * 
- * SQL_ATTR_INFO_USERID - A pointer to a null-terminated 
- * character string used to identify the client user ID sent to the host 
+ *
+ *
+ * SQL_ATTR_INFO_USERID - A pointer to a null-terminated
+ * character string used to identify the client user ID sent to the host
  * database server when using DB2 Connect.
- * 
- * 
- * DB2 for z/OS and OS/390 servers support up to a length of 16 characters. 
- * This user-id is not to be confused with the authentication user-id, it is for 
+ *
+ *
+ * DB2 for z/OS and OS/390 servers support up to a length of 16 characters.
+ * This user-id is not to be confused with the authentication user-id, it is for
  * identification purposes only and is not used for any authorization.
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
  * acctstr
- * 
- * 
- * SQL_ATTR_INFO_ACCTSTR - A pointer to a null-terminated 
- * character string used to identify the client accounting string sent to the 
+ *
+ *
+ * SQL_ATTR_INFO_ACCTSTR - A pointer to a null-terminated
+ * character string used to identify the client accounting string sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 200 characters.
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
  * applname
- * 
- * 
- * SQL_ATTR_INFO_APPLNAME - A pointer to a null-terminated 
- * character string used to identify the client application name sent to the 
+ *
+ *
+ * SQL_ATTR_INFO_APPLNAME - A pointer to a null-terminated
+ * character string used to identify the client application name sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 32 characters.
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
  * wrkstnname
- * 
- * 
- * SQL_ATTR_INFO_WRKSTNNAME - A pointer to a null-terminated 
- * character string used to identify the client workstation name sent to the 
+ *
+ *
+ * SQL_ATTR_INFO_WRKSTNNAME - A pointer to a null-terminated
+ * character string used to identify the client workstation name sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 18 characters.
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  * Prior versions of ibm_db2 do not support these new options.
- * 
- * When the value in each option is being set, some servers might not handle 
+ *
+ * When the value in each option is being set, some servers might not handle
  * the entire length provided and might truncate the value.
- * 
- * To ensure that the data specified in each option is converted correctly 
- * when transmitted to a host system, use only the characters A through Z, 
+ *
+ * To ensure that the data specified in each option is converted correctly
+ * when transmitted to a host system, use only the characters A through Z,
  * 0 through 9, and the underscore (_) or period (.).
- * 
- * SQL_ATTR_INFO_USERID - A pointer to a null-terminated 
- * character string used to identify the client user ID sent to the host 
+ *
+ * SQL_ATTR_INFO_USERID - A pointer to a null-terminated
+ * character string used to identify the client user ID sent to the host
  * database server when using DB2 Connect.
- * 
- * 
- * DB2 for z/OS and OS/390 servers support up to a length of 16 characters. 
- * This user-id is not to be confused with the authentication user-id, it is for 
+ *
+ *
+ * DB2 for z/OS and OS/390 servers support up to a length of 16 characters.
+ * This user-id is not to be confused with the authentication user-id, it is for
  * identification purposes only and is not used for any authorization.
- * 
- * 
- * 
- * DB2 for z/OS and OS/390 servers support up to a length of 16 characters. 
- * This user-id is not to be confused with the authentication user-id, it is for 
+ *
+ *
+ *
+ * DB2 for z/OS and OS/390 servers support up to a length of 16 characters.
+ * This user-id is not to be confused with the authentication user-id, it is for
  * identification purposes only and is not used for any authorization.
- * 
- * SQL_ATTR_INFO_ACCTSTR - A pointer to a null-terminated 
- * character string used to identify the client accounting string sent to the 
+ *
+ * SQL_ATTR_INFO_ACCTSTR - A pointer to a null-terminated
+ * character string used to identify the client accounting string sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 200 characters.
- * 
- * 
- * 
+ *
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 200 characters.
- * 
- * SQL_ATTR_INFO_APPLNAME - A pointer to a null-terminated 
- * character string used to identify the client application name sent to the 
+ *
+ * SQL_ATTR_INFO_APPLNAME - A pointer to a null-terminated
+ * character string used to identify the client application name sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 32 characters.
- * 
- * 
- * 
+ *
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 32 characters.
- * 
- * SQL_ATTR_INFO_WRKSTNNAME - A pointer to a null-terminated 
- * character string used to identify the client workstation name sent to the 
+ *
+ * SQL_ATTR_INFO_WRKSTNNAME - A pointer to a null-terminated
+ * character string used to identify the client workstation name sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 18 characters.
- * 
- * 
- * 
+ *
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 18 characters.
- * @return string Returns the current setting of the connection attribute provided on success 
+ * @return string Returns the current setting of the connection attribute provided on success
  * .
  * @throws IbmDb2Exception
- * 
+ *
  */
 function db2_get_option($resource, string $option): string
 {
     error_clear_last();
     $result = \db2_get_option($resource, $option);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
     return $result;
@@ -401,32 +401,32 @@ function db2_get_option($resource, string $option): string
 
 
 /**
- * This function closes a DB2 client connection created with 
- * db2_pconnect and returns the corresponding resources 
- * to the database server.  
- * 
- * 
- * This function is only available on i5/OS in response to i5/OS system 
+ * This function closes a DB2 client connection created with
+ * db2_pconnect and returns the corresponding resources
+ * to the database server.
+ *
+ *
+ * This function is only available on i5/OS in response to i5/OS system
  * administration requests.
- * 
- * 
- * 
- * If you have a persistent DB2 client connection created with 
- * db2_pconnect, you may use this function to close the 
- * connection. To avoid substantial connection performance penalties, this 
- * function should only be used in rare cases when the persistent connection 
- * has become unresponsive or the persistent connection will not be needed for 
+ *
+ *
+ *
+ * If you have a persistent DB2 client connection created with
+ * db2_pconnect, you may use this function to close the
+ * connection. To avoid substantial connection performance penalties, this
+ * function should only be used in rare cases when the persistent connection
+ * has become unresponsive or the persistent connection will not be needed for
  * a long period of time.
- * 
+ *
  * @param resource $resource Specifies an active DB2 client connection.
  * @throws IbmDb2Exception
- * 
+ *
  */
 function db2_pclose($resource): void
 {
     error_clear_last();
     $result = \db2_pclose($resource);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
 }
@@ -437,17 +437,17 @@ function db2_pclose($resource): void
  * begins a new transaction. PHP applications normally default to AUTOCOMMIT
  * mode, so db2_rollback normally has no effect unless
  * AUTOCOMMIT has been turned off for the connection resource.
- * 
+ *
  * @param resource $connection A valid database connection resource variable as returned from
  * db2_connect or db2_pconnect.
  * @throws IbmDb2Exception
- * 
+ *
  */
 function db2_rollback($connection): void
 {
     error_clear_last();
     $result = \db2_rollback($connection);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
 }
@@ -456,7 +456,7 @@ function db2_rollback($connection): void
 /**
  * Sets options for a statement resource or a connection resource. You
  * cannot set options for result set resources.
- * 
+ *
  * @param resource $resource A valid statement resource as returned from
  * db2_prepare or a valid connection resource as
  * returned from db2_connect or
@@ -466,377 +466,375 @@ function db2_rollback($connection): void
  * cursor types (scrollable or forward), and to specify the case of
  * the column names (lower, upper, or natural) that will appear in a
  * result set.
- * 
- * 
+ *
+ *
  * autocommit
- * 
- * 
+ *
+ *
  * Passing DB2_AUTOCOMMIT_ON turns
  * autocommit on for the specified connection resource.
- * 
- * 
+ *
+ *
  * Passing DB2_AUTOCOMMIT_OFF turns
  * autocommit off for the specified connection resource.
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  * cursor
- * 
- * 
+ *
+ *
  * Passing DB2_FORWARD_ONLY specifies a
  * forward-only cursor for a statement resource. This is the
  * default cursor type, and is supported by all database
  * servers.
- * 
- * 
+ *
+ *
  * Passing DB2_SCROLLABLE specifies a
  * scrollable cursor for a statement resource. Scrollable
  * cursors enable result set rows to be accessed in
  * non-sequential order, but are only supported by
  * IBM DB2 Universal Database databases.
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  * binmode
- * 
- * 
+ *
+ *
  * Passing DB2_BINARY specifies that
  * binary data will be returned as is. This is the default
  * mode. This is the equivalent of setting
  * ibm_db2.binmode=1 in php.ini.
- * 
- * 
+ *
+ *
  * Passing DB2_CONVERT specifies that
  * binary data will be converted to hexadecimal encoding,
  * and will be returned as such. This is the equivalent of
  * setting ibm_db2.binmode=2 in php.ini.
- * 
- * 
+ *
+ *
  * Passing DB2_PASSTHRU specifies that
  * binary data will be converted to NULL. This is the
  * equivalent of setting ibm_db2.binmode=3
  * in php.ini.
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  * db2_attr_case
- * 
- * 
+ *
+ *
  * Passing DB2_CASE_LOWER specifies that
  * column names of the result set are returned in lower case.
- * 
- * 
+ *
+ *
  * Passing DB2_CASE_UPPER specifies that
  * column names of the result set are returned in upper case.
- * 
- * 
+ *
+ *
  * Passing DB2_CASE_NATURAL specifies that
  * column names of the result set are returned in natural
  * case.
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  * deferred_prepare
- * 
- * 
- * Passing DB2_DEFERRED_PREPARE_ON turns deferred 
+ *
+ *
+ * Passing DB2_DEFERRED_PREPARE_ON turns deferred
  * prepare on for the specified statement resource.
- * 
- * 
- * Passing DB2_DEFERRED_PREPARE_OFF turns deferred 
+ *
+ *
+ * Passing DB2_DEFERRED_PREPARE_OFF turns deferred
  * prepare off for the specified statement resource.
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
  * Passing DB2_AUTOCOMMIT_ON turns
  * autocommit on for the specified connection resource.
- * 
+ *
  * Passing DB2_AUTOCOMMIT_OFF turns
  * autocommit off for the specified connection resource.
- * 
+ *
  * Passing DB2_FORWARD_ONLY specifies a
  * forward-only cursor for a statement resource. This is the
  * default cursor type, and is supported by all database
  * servers.
- * 
+ *
  * Passing DB2_SCROLLABLE specifies a
  * scrollable cursor for a statement resource. Scrollable
  * cursors enable result set rows to be accessed in
  * non-sequential order, but are only supported by
  * IBM DB2 Universal Database databases.
- * 
+ *
  * Passing DB2_BINARY specifies that
  * binary data will be returned as is. This is the default
  * mode. This is the equivalent of setting
  * ibm_db2.binmode=1 in php.ini.
- * 
+ *
  * Passing DB2_CONVERT specifies that
  * binary data will be converted to hexadecimal encoding,
  * and will be returned as such. This is the equivalent of
  * setting ibm_db2.binmode=2 in php.ini.
- * 
+ *
  * Passing DB2_PASSTHRU specifies that
  * binary data will be converted to NULL. This is the
  * equivalent of setting ibm_db2.binmode=3
  * in php.ini.
- * 
+ *
  * Passing DB2_CASE_LOWER specifies that
  * column names of the result set are returned in lower case.
- * 
+ *
  * Passing DB2_CASE_UPPER specifies that
  * column names of the result set are returned in upper case.
- * 
+ *
  * Passing DB2_CASE_NATURAL specifies that
  * column names of the result set are returned in natural
  * case.
- * 
- * Passing DB2_DEFERRED_PREPARE_ON turns deferred 
+ *
+ * Passing DB2_DEFERRED_PREPARE_ON turns deferred
  * prepare on for the specified statement resource.
- * 
- * Passing DB2_DEFERRED_PREPARE_OFF turns deferred 
+ *
+ * Passing DB2_DEFERRED_PREPARE_OFF turns deferred
  * prepare off for the specified statement resource.
- * 
- * The following new i5/OS options are available in ibm_db2 version 1.5.1 
+ *
+ * The following new i5/OS options are available in ibm_db2 version 1.5.1
  * and later. These options apply only when running PHP and ibm_db2 natively on i5 systems.
- * 
- * 
+ *
+ *
  * i5_fetch_only
- * 
- * 
- * DB2_I5_FETCH_ON - Cursors are read-only 
- * and cannot be used for positioned updates or deletes. This 
- * is the default unless SQL_ATTR_FOR_FETCH_ONLY 
+ *
+ *
+ * DB2_I5_FETCH_ON - Cursors are read-only
+ * and cannot be used for positioned updates or deletes. This
+ * is the default unless SQL_ATTR_FOR_FETCH_ONLY
  * environment has been set to SQL_FALSE.
- * 
- * 
- * DB2_I5_FETCH_OFF - Cursors can be used 
+ *
+ *
+ * DB2_I5_FETCH_OFF - Cursors can be used
  * for positioned updates and deletes.
- * 
- * 
- * 
- * 
- * 
- * DB2_I5_FETCH_ON - Cursors are read-only 
- * and cannot be used for positioned updates or deletes. This 
- * is the default unless SQL_ATTR_FOR_FETCH_ONLY 
+ *
+ *
+ *
+ *
+ *
+ * DB2_I5_FETCH_ON - Cursors are read-only
+ * and cannot be used for positioned updates or deletes. This
+ * is the default unless SQL_ATTR_FOR_FETCH_ONLY
  * environment has been set to SQL_FALSE.
- * 
- * DB2_I5_FETCH_OFF - Cursors can be used 
+ *
+ * DB2_I5_FETCH_OFF - Cursors can be used
  * for positioned updates and deletes.
- * 
+ *
  * The following new option is available in ibm_db2 version 1.8.0 and later.
- * 
- * 
+ *
+ *
  * rowcount
- * 
- * 
- * DB2_ROWCOUNT_PREFETCH_ON - Client can request 
- * the full row count prior to fetching, which means that 
- * db2_num_rows returns the number of rows selected 
+ *
+ *
+ * DB2_ROWCOUNT_PREFETCH_ON - Client can request
+ * the full row count prior to fetching, which means that
+ * db2_num_rows returns the number of rows selected
  * even when a ROLLFORWARD_ONLY cursor is used.
- * 
- * 
+ *
+ *
  * DB2_ROWCOUNT_PREFETCH_OFF - Client cannot request
  * the full row count prior to fetching.
- * 
- * 
- * 
- * 
- * 
- * DB2_ROWCOUNT_PREFETCH_ON - Client can request 
- * the full row count prior to fetching, which means that 
- * db2_num_rows returns the number of rows selected 
+ *
+ *
+ *
+ *
+ *
+ * DB2_ROWCOUNT_PREFETCH_ON - Client can request
+ * the full row count prior to fetching, which means that
+ * db2_num_rows returns the number of rows selected
  * even when a ROLLFORWARD_ONLY cursor is used.
- * 
+ *
  * DB2_ROWCOUNT_PREFETCH_OFF - Client cannot request
  * the full row count prior to fetching.
- * 
+ *
  * The following new options are available in ibm_db2 version 1.7.0 and later.
- * 
- * 
+ *
+ *
  * trusted_user
- * 
- * 
- * To switch the user to a trusted user, pass the User ID (String) 
- * of the trusted user as the value of this key. This option can 
+ *
+ *
+ * To switch the user to a trusted user, pass the User ID (String)
+ * of the trusted user as the value of this key. This option can
  * be set on a connection resource only. To use this option, trusted
  * context must be enabled on the connection resource.
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  * trusted_password
- * 
- * 
+ *
+ *
  * The password (String) that corresponds to the user specified
  * by the trusted_user key.
- * 
- * 
- * 
- * 
- * 
- * To switch the user to a trusted user, pass the User ID (String) 
- * of the trusted user as the value of this key. This option can 
+ *
+ *
+ *
+ *
+ *
+ * To switch the user to a trusted user, pass the User ID (String)
+ * of the trusted user as the value of this key. This option can
  * be set on a connection resource only. To use this option, trusted
  * context must be enabled on the connection resource.
- * 
+ *
  * The password (String) that corresponds to the user specified
  * by the trusted_user key.
- * 
- * The following new options are available in ibm_db2 version 1.6.0 and later. 
- * These options provide useful tracking information that can be accessed during 
+ *
+ * The following new options are available in ibm_db2 version 1.6.0 and later.
+ * These options provide useful tracking information that can be accessed during
  * execution with db2_get_option.
- * 
- * 
- * When the value in each option is being set, some servers might not handle 
+ *
+ *
+ * When the value in each option is being set, some servers might not handle
  * the entire length provided and might truncate the value.
- * 
- * 
- * To ensure that the data specified in each option is converted correctly 
- * when transmitted to a host system, use only the characters A through Z, 
+ *
+ *
+ * To ensure that the data specified in each option is converted correctly
+ * when transmitted to a host system, use only the characters A through Z,
  * 0 through 9, and the underscore (_) or period (.).
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  * userid
- * 
- * 
- * SQL_ATTR_INFO_USERID - A pointer to a null-terminated 
- * character string used to identify the client user ID sent to the host 
+ *
+ *
+ * SQL_ATTR_INFO_USERID - A pointer to a null-terminated
+ * character string used to identify the client user ID sent to the host
  * database server when using DB2 Connect.
- * 
- * 
- * DB2 for z/OS and OS/390 servers support up to a length of 16 characters. 
- * This user-id is not to be confused with the authentication user-id, it is for 
+ *
+ *
+ * DB2 for z/OS and OS/390 servers support up to a length of 16 characters.
+ * This user-id is not to be confused with the authentication user-id, it is for
  * identification purposes only and is not used for any authorization.
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
  * acctstr
- * 
- * 
- * SQL_ATTR_INFO_ACCTSTR - A pointer to a null-terminated 
- * character string used to identify the client accounting string sent to the 
+ *
+ *
+ * SQL_ATTR_INFO_ACCTSTR - A pointer to a null-terminated
+ * character string used to identify the client accounting string sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 200 characters.
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
  * applname
- * 
- * 
- * SQL_ATTR_INFO_APPLNAME - A pointer to a null-terminated 
- * character string used to identify the client application name sent to the 
+ *
+ *
+ * SQL_ATTR_INFO_APPLNAME - A pointer to a null-terminated
+ * character string used to identify the client application name sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 32 characters.
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
  * wrkstnname
- * 
- * 
- * SQL_ATTR_INFO_WRKSTNNAME - A pointer to a null-terminated 
- * character string used to identify the client workstation name sent to the 
+ *
+ *
+ * SQL_ATTR_INFO_WRKSTNNAME - A pointer to a null-terminated
+ * character string used to identify the client workstation name sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 18 characters.
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * When the value in each option is being set, some servers might not handle 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * When the value in each option is being set, some servers might not handle
  * the entire length provided and might truncate the value.
- * 
- * To ensure that the data specified in each option is converted correctly 
- * when transmitted to a host system, use only the characters A through Z, 
+ *
+ * To ensure that the data specified in each option is converted correctly
+ * when transmitted to a host system, use only the characters A through Z,
  * 0 through 9, and the underscore (_) or period (.).
- * 
- * SQL_ATTR_INFO_USERID - A pointer to a null-terminated 
- * character string used to identify the client user ID sent to the host 
+ *
+ * SQL_ATTR_INFO_USERID - A pointer to a null-terminated
+ * character string used to identify the client user ID sent to the host
  * database server when using DB2 Connect.
- * 
- * 
- * DB2 for z/OS and OS/390 servers support up to a length of 16 characters. 
- * This user-id is not to be confused with the authentication user-id, it is for 
+ *
+ *
+ * DB2 for z/OS and OS/390 servers support up to a length of 16 characters.
+ * This user-id is not to be confused with the authentication user-id, it is for
  * identification purposes only and is not used for any authorization.
- * 
- * 
- * 
- * DB2 for z/OS and OS/390 servers support up to a length of 16 characters. 
- * This user-id is not to be confused with the authentication user-id, it is for 
+ *
+ *
+ *
+ * DB2 for z/OS and OS/390 servers support up to a length of 16 characters.
+ * This user-id is not to be confused with the authentication user-id, it is for
  * identification purposes only and is not used for any authorization.
- * 
- * SQL_ATTR_INFO_ACCTSTR - A pointer to a null-terminated 
- * character string used to identify the client accounting string sent to the 
+ *
+ * SQL_ATTR_INFO_ACCTSTR - A pointer to a null-terminated
+ * character string used to identify the client accounting string sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 200 characters.
- * 
- * 
- * 
+ *
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 200 characters.
- * 
- * SQL_ATTR_INFO_APPLNAME - A pointer to a null-terminated 
- * character string used to identify the client application name sent to the 
+ *
+ * SQL_ATTR_INFO_APPLNAME - A pointer to a null-terminated
+ * character string used to identify the client application name sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 32 characters.
- * 
- * 
- * 
+ *
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 32 characters.
- * 
- * SQL_ATTR_INFO_WRKSTNNAME - A pointer to a null-terminated 
- * character string used to identify the client workstation name sent to the 
+ *
+ * SQL_ATTR_INFO_WRKSTNNAME - A pointer to a null-terminated
+ * character string used to identify the client workstation name sent to the
  * host database server when using DB2 Connect.
- * 
- * 
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 18 characters.
- * 
- * 
- * 
+ *
+ *
+ *
  * DB2 for z/OS and OS/390 servers support up to a length of 18 characters.
  * @param int $type Passing DB2_AUTOCOMMIT_ON turns
  * autocommit on for the specified connection resource.
- * 
+ *
  * Passing DB2_AUTOCOMMIT_OFF turns
  * autocommit off for the specified connection resource.
  * @throws IbmDb2Exception
- * 
+ *
  */
 function db2_set_option($resource, array $options, int $type): void
 {
     error_clear_last();
     $result = \db2_set_option($resource, $options, $type);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
 }
-
-

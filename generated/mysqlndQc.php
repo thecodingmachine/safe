@@ -6,24 +6,24 @@ use Safe\Exceptions\MysqlndQcException;
 
 /**
  * Flush all cache contents.
- * 
+ *
  * Flushing the cache is a storage handler responsibility.
  * All built-in storage handler but the
  * memcache storage
  * handler support flushing the cache. The
  * memcache
  * storage handler cannot flush its cache contents.
- * 
+ *
  * User-defined storage handler may or may not support the operation.
- * 
+ *
  * @throws MysqlndQcException
- * 
+ *
  */
 function mysqlnd_qc_clear_cache(): void
 {
     error_clear_last();
     $result = \mysqlnd_qc_clear_cache();
-    if ($result === FALSE) {
+    if ($result === false) {
         throw MysqlndQcException::createFromPhpError();
     }
 }
@@ -31,7 +31,7 @@ function mysqlnd_qc_clear_cache(): void
 
 /**
  * Installs a callback which decides whether a statement is cached.
- * 
+ *
  * There are several ways of hinting PELC/mysqlnd_qc to cache a query.
  * By default, PECL/mysqlnd_qc attempts to cache a if caching of all statements
  * is enabled or the query string begins with a certain SQL hint.
@@ -42,7 +42,7 @@ function mysqlnd_qc_clear_cache(): void
  * with the callback, the callback gains full control. The callback is free
  * to ignore the configuration setting mysqlnd_qc.cache_by_default
  * and SQL hints.
- * 
+ *
  * The callback is invoked for every statement inspected by the plugin.
  * It is given the statements string as a parameter. The callback returns
  * FALSE if the statement shall not be cached. It returns TRUE to
@@ -51,21 +51,21 @@ function mysqlnd_qc_clear_cache(): void
  * PHP configuration directive mysqlnd_qc.ttl.
  * If a different TTL shall be used, the callback returns a numeric
  * value to be used as the TTL.
- * 
+ *
  * The internal is_select function is part of the internal
  * cache storage handler interface. Thus, a user-defined storage handler
  * offers the same capabilities.
- * 
- * @param string $callback 
+ *
+ * @param string $callback
  * @return mixed Returns TRUE on success .
  * @throws MysqlndQcException
- * 
+ *
  */
 function mysqlnd_qc_set_is_select(string $callback)
 {
     error_clear_last();
     $result = \mysqlnd_qc_set_is_select($callback);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw MysqlndQcException::createFromPhpError();
     }
     return $result;
@@ -81,7 +81,7 @@ function mysqlnd_qc_set_is_select(string $callback)
  * default storage handler is always available.
  * All other storage handler must be enabled explicitly when building the
  * extension.
- * 
+ *
  * @param string $handler Handler can be of type string representing the name of a
  * built-in storage handler or an object of type
  * mysqlnd_qc_handler_default.
@@ -91,15 +91,13 @@ function mysqlnd_qc_set_is_select(string $callback)
  * MEMCACHE,
  * sqlite.
  * @throws MysqlndQcException
- * 
+ *
  */
 function mysqlnd_qc_set_storage_handler(string $handler): void
 {
     error_clear_last();
     $result = \mysqlnd_qc_set_storage_handler($handler);
-    if ($result === FALSE) {
+    if ($result === false) {
         throw MysqlndQcException::createFromPhpError();
     }
 }
-
-

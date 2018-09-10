@@ -16,6 +16,7 @@ class ComposerJsonEditor
         $files = \array_map(function (string $module) {
             return 'generated/'.lcfirst($module).'.php';
         }, $modules);
+        $files[] = 'lib/special_cases.php';
         $composerContent = file_get_contents(__DIR__.'/../../composer.json');
         if ($composerContent === false) {
             throw new \RuntimeException('Error while loading composer.json file for edition.');

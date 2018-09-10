@@ -931,4 +931,5 @@ return [
     'inflate_add',
     'inflate_init',
     'zlib_decode',
+    'json_decode',
 ];

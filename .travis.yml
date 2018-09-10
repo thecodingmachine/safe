@@ -31,6 +31,7 @@ script:
 - cd generator && ./vendor/bin/phpunit && cd ..
 - cd generator && composer cs-check && cd ..
 - cd generator && composer phpstan && cd ..
+- composer dump-autoload
 - composer cs-check
 - composer phpstan
 # Now, let's regenerate all files and see if we obtain the same set of files as the ones commited:

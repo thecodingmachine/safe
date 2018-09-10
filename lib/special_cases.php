@@ -22,7 +22,7 @@ use Safe\Exceptions\JsonException;
  * @throws JsonException if the JSON cannot be decoded.
  * @link http://www.php.net/manual/en/function.json-decode.php
  */
-function json_decode($json, $assoc = false, $depth = 512, $options = 0)
+function json_decode(string $json, bool $assoc = false, int $depth = 512, int $options = 0)
 {
     $data = \json_decode($json, $assoc, $depth, $options);
     if (JSON_ERROR_NONE !== json_last_error()) {

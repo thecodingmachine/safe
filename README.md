@@ -35,7 +35,7 @@ if ($content === false) {
     throw new FileLoadingException('Could not load file foobar.json');
 }
 $foobar = json_decode($content);
-if ($foobar === false) {
+if ($foobar === null) {
     throw new FileLoadingException('foobar.json does not contain valid JSON: '.json_last_error());
 }
 ```

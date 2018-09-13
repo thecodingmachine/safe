@@ -71,8 +71,12 @@ class WritePhpFunction
                 } else {
                     $phpFunction .= '    ';
                 }
-                $defaultValue = $lastParameter->getDefaultValue();
-                $defaultValueToString = ($defaultValue === null) ? 'null' : $defaultValue;
+                if ($lastParameter->isVariadic()) {
+                    $defaultValueToString = '[]';
+                } else {
+                    $defaultValue = $lastParameter->getDefaultValue();
+                    $defaultValueToString = ($defaultValue === null) ? 'null' : $defaultValue;
+                }
                 $phpFunction .= 'if ($'.$lastParameter->getParameter().' !== '.$defaultValueToString.') {'."\n";
                 $phpFunction .= '        $result = '.$this->printFunctionCall($method)."\n";
                 $phpFunction .= '    }';
@@ -161,7 +165,11 @@ class WritePhpFunction
     {
         $functionCall = '\\'.$function->getFunctionName().'(';
         $functionCall .= implode(', ', \array_map(function (Parameter $parameter) {
-            return '$'.$parameter->getParameter();
+            $str = '';
+            if ($parameter->isVariadic()) {
+                $str = '...';
+            }
+            return $str.'$'.$parameter->getParameter();
         }, $function->getFunctionParam()));
         $functionCall .= ');';
         return $functionCall;

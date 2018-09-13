@@ -439,8 +439,8 @@ function metaphone(string $str, int $phonemes = 0): string
 function sprintf(string $format, $args = null, ...$params): string
 {
     error_clear_last();
-    if ($params !== null) {
-        $result = \sprintf($format, $args, $params);
+    if ($params !== []) {
+        $result = \sprintf($format, $args, ...$params);
     } elseif ($args !== null) {
         $result = \sprintf($format, $args);
     } else {

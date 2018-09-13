@@ -62,8 +62,8 @@ function func_get_arg(int $arg_num)
 function register_tick_function(callable $function, $arg = null, ...$params): void
 {
     error_clear_last();
-    if ($params !== null) {
-        $result = \register_tick_function($function, $arg, $params);
+    if ($params !== []) {
+        $result = \register_tick_function($function, $arg, ...$params);
     } elseif ($arg !== null) {
         $result = \register_tick_function($function, $arg);
     } else {

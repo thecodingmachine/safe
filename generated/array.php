@@ -67,8 +67,8 @@ use Safe\Exceptions\ArrayException;
 function array_multisort(array &$array1, $array1_sort_order = SORT_ASC, $array1_sort_flags = SORT_REGULAR, ...$params): void
 {
     error_clear_last();
-    if ($params !== null) {
-        $result = \array_multisort($array1, $array1_sort_order, $array1_sort_flags, $params);
+    if ($params !== []) {
+        $result = \array_multisort($array1, $array1_sort_order, $array1_sort_flags, ...$params);
     } else {
         $result = \array_multisort($array1, $array1_sort_order, $array1_sort_flags);
     }

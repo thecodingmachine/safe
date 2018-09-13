@@ -124,8 +124,8 @@ function session_regenerate_id(bool $delete_old_session = false): void
 function session_register($name, ...$params): void
 {
     error_clear_last();
-    if ($params !== null) {
-        $result = \session_register($name, $params);
+    if ($params !== []) {
+        $result = \session_register($name, ...$params);
     } else {
         $result = \session_register($name);
     }

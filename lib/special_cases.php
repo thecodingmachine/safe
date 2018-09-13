@@ -1,7 +1,7 @@
 <?php
 /**
  * This file contains all the functions that could not be dealt with automatically using the code generator.
- * If you add a function in this list, do not forget to add it in the generator/config/speicalCasesFunctions.php
+ * If you add a function in this list, do not forget to add it in the generator/config/specialCasesFunctions.php
  *
  */
 

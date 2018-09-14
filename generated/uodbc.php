@@ -5,6 +5,37 @@ namespace Safe;
 use Safe\Exceptions\UodbcException;
 
 /**
+ * Toggles autocommit behaviour.
+ *
+ * By default, auto-commit is on for a connection.  Disabling
+ * auto-commit is equivalent with starting a transaction.
+ *
+ * @param resource $connection_id The ODBC connection identifier,
+ * see odbc_connect for details.
+ * @param bool $OnOff If OnOff is TRUE, auto-commit is enabled, if
+ * it is FALSE auto-commit is disabled.
+ * @return mixed Without the OnOff parameter, this function returns
+ * auto-commit status for connection_id. Non-zero is
+ * returned if auto-commit is on, 0 if it is off, or FALSE if an error
+ * occurs.
+ *
+ * If OnOff is set, this function returns TRUE on
+ * success and FALSE on failure.
+ * @throws UodbcException
+ *
+ */
+function odbc_autocommit($connection_id, bool $OnOff = false)
+{
+    error_clear_last();
+    $result = \odbc_autocommit($connection_id, $OnOff);
+    if ($result === false) {
+        throw UodbcException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Enables handling of binary column data. ODBC SQL types affected are
  * BINARY, VARBINARY, and
  * LONGVARBINARY.
@@ -486,6 +517,53 @@ function odbc_foreignkeys($connection_id, string $pk_qualifier, string $pk_owner
 
 
 /**
+ * Retrieves information about data types supported by the data source.
+ *
+ * @param resource $connection_id The ODBC connection identifier,
+ * see odbc_connect for details.
+ * @param int $data_type The data type, which can be used to restrict the information to a
+ * single data type.
+ * @return resource Returns an ODBC result identifier .
+ *
+ * The result set has the following columns:
+ *
+ * TYPE_NAME
+ * DATA_TYPE
+ * PRECISION
+ * LITERAL_PREFIX
+ * LITERAL_SUFFIX
+ * CREATE_PARAMS
+ * NULLABLE
+ * CASE_SENSITIVE
+ * SEARCHABLE
+ * UNSIGNED_ATTRIBUTE
+ * MONEY
+ * AUTO_INCREMENT
+ * LOCAL_TYPE_NAME
+ * MINIMUM_SCALE
+ * MAXIMUM_SCALE
+ *
+ *
+ * The result set is ordered by DATA_TYPE and TYPE_NAME.
+ * @throws UodbcException
+ *
+ */
+function odbc_gettypeinfo($connection_id, int $data_type = null)
+{
+    error_clear_last();
+    if ($data_type !== null) {
+        $result = \odbc_gettypeinfo($connection_id, $data_type);
+    } else {
+        $result = \odbc_gettypeinfo($connection_id);
+    }
+    if ($result === false) {
+        throw UodbcException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Enables handling of LONG and LONGVARBINARY columns.
  *
  * @param int $result_id The result identifier.
@@ -670,6 +748,45 @@ function odbc_setoption($id, int $function, int $option, int $param): void
     if ($result === false) {
         throw UodbcException::createFromPhpError();
     }
+}
+
+
+/**
+ * Retrieves either the optimal set of columns that uniquely identifies a
+ * row in the table, or columns that are automatically updated when any
+ * value in the row is updated by a transaction.
+ *
+ * @param resource $connection_id The ODBC connection identifier,
+ * see odbc_connect for details.
+ * @param int $type
+ * @param string $qualifier The qualifier.
+ * @param string $table The table.
+ * @param int $scope The scope, which orders the result set.
+ * @param int $nullable The nullable option.
+ * @return resource Returns an ODBC result identifier .
+ *
+ * The result set has the following columns:
+ *
+ * SCOPE
+ * COLUMN_NAME
+ * DATA_TYPE
+ * TYPE_NAME
+ * PRECISION
+ * LENGTH
+ * SCALE
+ * PSEUDO_COLUMN
+ *
+ * @throws UodbcException
+ *
+ */
+function odbc_specialcolumns($connection_id, int $type, string $qualifier, string $table, int $scope, int $nullable)
+{
+    error_clear_last();
+    $result = \odbc_specialcolumns($connection_id, $type, $qualifier, $table, $scope, $nullable);
+    if ($result === false) {
+        throw UodbcException::createFromPhpError();
+    }
+    return $result;
 }
 
 

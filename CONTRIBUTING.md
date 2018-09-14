@@ -23,7 +23,7 @@ $ svn update
 
 ### Generating the functions
 
-Generating the functions can be done with a simple command line.
+Generating the functions can be done with a simple command.
 
 ```bash
 $ cd generator

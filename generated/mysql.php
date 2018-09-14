@@ -37,6 +37,30 @@ function mysql_close($link_identifier = null): void
 
 
 /**
+ * Retrieve the database name from a call to
+ * mysql_list_dbs.
+ *
+ * @param resource $result The result pointer from a call to mysql_list_dbs.
+ * @param int $row The index into the result set.
+ * @param mixed $field The field name.
+ * @return string Returns the database name on success, and FALSE on failure. If FALSE
+ * is returned, use mysql_error to determine the nature
+ * of the error.
+ * @throws MysqlException
+ *
+ */
+function mysql_db_name($result, int $row, $field = null): string
+{
+    error_clear_last();
+    $result = \mysql_db_name($result, $row, $field);
+    if ($result === false) {
+        throw MysqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * mysql_drop_db attempts to drop (remove) an
  * entire database from the server associated with the specified
  * link identifier. This function is deprecated, it is preferable to use
@@ -80,6 +104,94 @@ function mysql_get_proto_info($link_identifier = null): int
 {
     error_clear_last();
     $result = \mysql_get_proto_info($link_identifier);
+    if ($result === false) {
+        throw MysqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Returns detailed information about the last query.
+ *
+ * @param resource $link_identifier The MySQL connection. If the
+ * link identifier is not specified, the last link opened by
+ * mysql_connect is assumed. If no such link is found, it
+ * will try to create one as if mysql_connect had been called
+ * with no arguments. If no connection is found or established, an
+ * E_WARNING level error is generated.
+ * @return string Returns information about the statement on success, . See the example below for which statements provide information,
+ * and what the returned value may look like. Statements that are not listed
+ * will return FALSE.
+ * @throws MysqlException
+ *
+ */
+function mysql_info($link_identifier = null): string
+{
+    error_clear_last();
+    $result = \mysql_info($link_identifier);
+    if ($result === false) {
+        throw MysqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Returns a result pointer containing the databases available from the
+ * current mysql daemon.
+ *
+ * @param resource $link_identifier The MySQL connection. If the
+ * link identifier is not specified, the last link opened by
+ * mysql_connect is assumed. If no such link is found, it
+ * will try to create one as if mysql_connect had been called
+ * with no arguments. If no connection is found or established, an
+ * E_WARNING level error is generated.
+ * @return resource Returns a result pointer resource on success, . Use the mysql_tablename function to traverse
+ * this result pointer, or any function for result tables, such as
+ * mysql_fetch_array.
+ * @throws MysqlException
+ *
+ */
+function mysql_list_dbs($link_identifier = null)
+{
+    error_clear_last();
+    $result = \mysql_list_dbs($link_identifier);
+    if ($result === false) {
+        throw MysqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Retrieves information about the given table name.
+ *
+ * This function is deprecated. It is preferable to use
+ * mysql_query to issue an SQL SHOW COLUMNS FROM
+ * table [LIKE 'name'] statement instead.
+ *
+ * @param string $database_name The name of the database that's being queried.
+ * @param string $table_name The name of the table that's being queried.
+ * @param resource $link_identifier The MySQL connection. If the
+ * link identifier is not specified, the last link opened by
+ * mysql_connect is assumed. If no such link is found, it
+ * will try to create one as if mysql_connect had been called
+ * with no arguments. If no connection is found or established, an
+ * E_WARNING level error is generated.
+ * @return resource A result pointer resource on success, .
+ *
+ * The returned result can be used with mysql_field_flags,
+ * mysql_field_len,
+ * mysql_field_name and
+ * mysql_field_type.
+ * @throws MysqlException
+ *
+ */
+function mysql_list_fields(string $database_name, string $table_name, $link_identifier = null)
+{
+    error_clear_last();
+    $result = \mysql_list_fields($database_name, $table_name, $link_identifier);
     if ($result === false) {
         throw MysqlException::createFromPhpError();
     }

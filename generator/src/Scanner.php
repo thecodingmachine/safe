@@ -2,6 +2,7 @@
 
 namespace Safe;
 
+use function array_merge;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
 
 class Scanner
@@ -49,7 +50,10 @@ class Scanner
     private function getIgnoredFunctions(): array
     {
         if ($this->ignoredFunctions === null) {
-            $this->ignoredFunctions = require __DIR__.'/../config/ignoredFunctions.php';
+            $ignoredFunctions = require __DIR__.'/../config/ignoredFunctions.php';
+            $specialCaseFunctions = require __DIR__.'/../config/specialCasesFunctions.php';
+
+            $this->ignoredFunctions = array_merge($ignoredFunctions, $specialCaseFunctions);
         }
         return $this->ignoredFunctions;
     }

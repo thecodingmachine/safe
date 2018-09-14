@@ -360,6 +360,104 @@ function stream_socket_accept($server_socket, float $timeout = null, string &$pe
 
 
 /**
+ * Initiates a stream or datagram connection to the destination specified
+ * by remote_socket.  The type of socket created
+ * is determined by the transport specified using standard URL formatting:
+ * transport://target.  For Internet Domain sockets
+ * (AF_INET) such as TCP and UDP, the target portion
+ * of the remote_socket parameter should consist of
+ * a hostname or IP address followed by a colon and a port number.  For Unix
+ * domain sockets, the target portion should point
+ * to the socket file on the filesystem.
+ *
+ * @param string $remote_socket Address to the socket to connect to.
+ * @param int $errno Will be set to the system level error number if connection fails.
+ * @param string $errstr Will be set to the system level error message if the connection fails.
+ * @param float $timeout Number of seconds until the connect() system call
+ * should timeout.
+ *
+ *
+ * This parameter only applies when not making asynchronous
+ * connection attempts.
+ *
+ *
+ *
+ *
+ * To set a timeout for reading/writing data over the socket, use the
+ * stream_set_timeout, as the
+ * timeout only applies while making connecting
+ * the socket.
+ *
+ *
+ *
+ * To set a timeout for reading/writing data over the socket, use the
+ * stream_set_timeout, as the
+ * timeout only applies while making connecting
+ * the socket.
+ * @param int $flags Bitmask field which may be set to any combination of connection flags.
+ * Currently the select of connection flags is limited to
+ * STREAM_CLIENT_CONNECT (default),
+ * STREAM_CLIENT_ASYNC_CONNECT and
+ * STREAM_CLIENT_PERSISTENT.
+ * @param resource $context A valid context resource created with stream_context_create.
+ * @return resource On success a stream resource is returned which may
+ * be used together with the other file functions (such as
+ * fgets, fgetss,
+ * fwrite, fclose, and
+ * feof), FALSE on failure.
+ * @throws StreamException
+ *
+ */
+function stream_socket_client(string $remote_socket, int &$errno = null, string &$errstr = null, float $timeout = null, int $flags = STREAM_CLIENT_CONNECT, $context = null)
+{
+    error_clear_last();
+    if ($context !== null) {
+        $result = \stream_socket_client($remote_socket, $errno, $errstr, $timeout, $flags, $context);
+    } else {
+        $result = \stream_socket_client($remote_socket, $errno, $errstr, $timeout, $flags);
+    }
+    if ($result === false) {
+        throw StreamException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * stream_socket_pair creates a pair of connected,
+ * indistinguishable socket streams. This function is commonly used in IPC
+ * (Inter-Process Communication).
+ *
+ * @param int $domain The protocol family to be used: STREAM_PF_INET,
+ * STREAM_PF_INET6 or
+ * STREAM_PF_UNIX
+ * @param int $type The type of communication to be used:
+ * STREAM_SOCK_DGRAM,
+ * STREAM_SOCK_RAW,
+ * STREAM_SOCK_RDM,
+ * STREAM_SOCK_SEQPACKET or
+ * STREAM_SOCK_STREAM
+ * @param int $protocol The protocol to be used: STREAM_IPPROTO_ICMP,
+ * STREAM_IPPROTO_IP,
+ * STREAM_IPPROTO_RAW,
+ * STREAM_IPPROTO_TCP or
+ * STREAM_IPPROTO_UDP
+ * @return resource[] Returns an array with the two socket resources on success, .
+ * @throws StreamException
+ *
+ */
+function stream_socket_pair(int $domain, int $type, int $protocol): array
+{
+    error_clear_last();
+    $result = \stream_socket_pair($domain, $type, $protocol);
+    if ($result === false) {
+        throw StreamException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Creates a stream or datagram socket on the specified
  * local_socket.
  *

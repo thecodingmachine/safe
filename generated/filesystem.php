@@ -259,6 +259,95 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
 
 
 /**
+ * This function is identical to calling fopen,
+ * fwrite and fclose successively
+ * to write data to a file.
+ *
+ * If filename does not exist, the file is created.
+ * Otherwise, the existing file is overwritten, unless the
+ * FILE_APPEND flag is set.
+ *
+ * @param string $filename Path to the file where to write the data.
+ * @param mixed $data The data to write. Can be either a string, an
+ * array or a stream resource.
+ *
+ * If data is a stream resource, the
+ * remaining buffer of that stream will be copied to the specified file.
+ * This is similar with using stream_copy_to_stream.
+ *
+ * You can also specify the data parameter as a single
+ * dimension array. This is equivalent to
+ * file_put_contents($filename, implode('', $array)).
+ * @param int $flags The value of flags can be any combination of
+ * the following flags, joined with the binary OR (|)
+ * operator.
+ *
+ *
+ * Available flags
+ *
+ *
+ *
+ * Flag
+ * Description
+ *
+ *
+ *
+ *
+ *
+ * FILE_USE_INCLUDE_PATH
+ *
+ *
+ * Search for filename in the include directory.
+ * See include_path for more
+ * information.
+ *
+ *
+ *
+ *
+ * FILE_APPEND
+ *
+ *
+ * If file filename already exists, append
+ * the data to the file instead of overwriting it.
+ *
+ *
+ *
+ *
+ * LOCK_EX
+ *
+ *
+ * Acquire an exclusive lock on the file while proceeding to the
+ * writing. In other words, a flock call happens
+ * between the fopen call and the
+ * fwrite call. This is not identical to an
+ * fopen call with mode "x".
+ *
+ *
+ *
+ *
+ *
+ * @param resource $context A valid context resource created with
+ * stream_context_create.
+ * @return int This function returns the number of bytes that were written to the file, .
+ * @throws FilesystemException
+ *
+ */
+function file_put_contents(string $filename, $data, int $flags = 0, $context = null): int
+{
+    error_clear_last();
+    if ($context !== null) {
+        $result = \file_put_contents($filename, $data, $flags, $context);
+    } else {
+        $result = \file_put_contents($filename, $data, $flags);
+    }
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  *
  *
  * @param string $filename Path to the file.
@@ -932,6 +1021,83 @@ function mkdir(string $pathname, int $mode = 0777, bool $recursive = false, $con
 
 
 /**
+ * parse_ini_file loads in the
+ * ini file specified in filename,
+ * and returns the settings in it in an associative array.
+ *
+ * The structure of the ini file is the same as the php.ini's.
+ *
+ * @param string $filename The filename of the ini file being parsed.
+ * @param bool $process_sections By setting the process_sections
+ * parameter to TRUE, you get a multidimensional array, with
+ * the section names and settings included. The default
+ * for process_sections is FALSE
+ * @param int $scanner_mode Can either be INI_SCANNER_NORMAL (default) or
+ * INI_SCANNER_RAW. If INI_SCANNER_RAW
+ * is supplied, then option values will not be parsed.
+ *
+ *
+ * As of PHP 5.6.1 can also be specified as INI_SCANNER_TYPED.
+ * In this mode boolean, null and integer types are preserved when possible.
+ * String values "true", "on" and "yes"
+ * are converted to TRUE. "false", "off", "no"
+ * and "none" are considered FALSE. "null" is converted to NULL
+ * in typed mode. Also, all numeric strings are converted to integer type if it is possible.
+ * @return array The settings are returned as an associative array on success,
+ * and FALSE on failure.
+ * @throws FilesystemException
+ *
+ */
+function parse_ini_file(string $filename, bool $process_sections = false, int $scanner_mode = INI_SCANNER_NORMAL): array
+{
+    error_clear_last();
+    $result = \parse_ini_file($filename, $process_sections, $scanner_mode);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * parse_ini_string returns the settings in string
+ * ini in an associative array.
+ *
+ * The structure of the ini string is the same as the php.ini's.
+ *
+ * @param string $ini The contents of the ini file being parsed.
+ * @param bool $process_sections By setting the process_sections
+ * parameter to TRUE, you get a multidimensional array, with
+ * the section names and settings included. The default
+ * for process_sections is FALSE
+ * @param int $scanner_mode Can either be INI_SCANNER_NORMAL (default) or
+ * INI_SCANNER_RAW. If INI_SCANNER_RAW
+ * is supplied, then option values will not be parsed.
+ *
+ *
+ * As of PHP 5.6.1 can also be specified as INI_SCANNER_TYPED.
+ * In this mode boolean, null and integer types are preserved when possible.
+ * String values "true", "on" and "yes"
+ * are converted to TRUE. "false", "off", "no"
+ * and "none" are considered FALSE. "null" is converted to NULL
+ * in typed mode. Also, all numeric strings are converted to integer type if it is possible.
+ * @return array The settings are returned as an associative array on success,
+ * and FALSE on failure.
+ * @throws FilesystemException
+ *
+ */
+function parse_ini_string(string $ini, bool $process_sections = false, int $scanner_mode = INI_SCANNER_NORMAL): array
+{
+    error_clear_last();
+    $result = \parse_ini_string($ini, $process_sections, $scanner_mode);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * readlink does the same as the readlink C function.
  *
  * @param string $path The symbolic link path.
@@ -943,6 +1109,42 @@ function readlink(string $path): string
 {
     error_clear_last();
     $result = \readlink($path);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * realpath expands all symbolic links and
+ * resolves references to /./, /../ and extra / characters in
+ * the input path and returns the canonicalized
+ * absolute pathname.
+ *
+ * @param string $path The path being checked.
+ *
+ *
+ * Whilst a path must be supplied, the value can be blank or NULL
+ * In these cases, the value is interpreted as the current directory.
+ *
+ *
+ *
+ * Whilst a path must be supplied, the value can be blank or NULL
+ * In these cases, the value is interpreted as the current directory.
+ * @return string Returns the canonicalized absolute pathname on success. The resulting path
+ * will have no symbolic link, /./ or /../ components. Trailing delimiters,
+ * such as \ and /, are also removed.
+ *
+ * realpath returns FALSE on failure, e.g. if
+ * the file does not exist.
+ * @throws FilesystemException
+ *
+ */
+function realpath(string $path): string
+{
+    error_clear_last();
+    $result = \realpath($path);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -1042,6 +1244,29 @@ function symlink(string $target, string $link): void
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
+}
+
+
+/**
+ * Creates a file with a unique filename, with access permission set to 0600, in the specified directory.
+ * If the directory does not exist or is not writable, tempnam may
+ * generate a file in the system's temporary directory, and return
+ * the full path to that file, including its name.
+ *
+ * @param string $dir The directory where the temporary filename will be created.
+ * @param string $prefix The prefix of the generated temporary filename.
+ * @return string Returns the new temporary filename (with path), .
+ * @throws FilesystemException
+ *
+ */
+function tempnam(string $dir, string $prefix): string
+{
+    error_clear_last();
+    $result = \tempnam($dir, $prefix);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
 }
 
 

@@ -1,4 +1,7 @@
 parameters:
     ignoreErrors:
+        # A lot of functions are in extensions so it is ok not to find those
+        - "#Function .* not found#"
+        - "#Undefined variable: \\$success#"
 includes:
     - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon

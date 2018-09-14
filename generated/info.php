@@ -262,6 +262,30 @@ function getmyuid(): int
 
 
 /**
+ * Sets the value of the given configuration option.  The configuration option
+ * will keep this new value during the script's execution, and will be restored
+ * at the script's ending.
+ *
+ * @param string $varname Not all the available options can be changed using
+ * ini_set. There is a list of all available options
+ * in the appendix.
+ * @param string|int|float|bool $newvalue The new value for the option.
+ * @return string Returns the old value on success, FALSE on failure.
+ * @throws InfoException
+ *
+ */
+function ini_set(string $varname, string $newvalue): string
+{
+    error_clear_last();
+    $result = \ini_set($varname, $newvalue);
+    if ($result === false) {
+        throw InfoException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * This function prints out the credits listing the PHP developers,
  * modules, etc. It generates the appropriate HTML codes to insert
  * the information in a page.
@@ -517,6 +541,33 @@ function set_magic_quotes_runtime(bool $new_setting): void
 {
     error_clear_last();
     $result = \set_magic_quotes_runtime($new_setting);
+    if ($result === false) {
+        throw InfoException::createFromPhpError();
+    }
+}
+
+
+/**
+ * Set the number of seconds a script is allowed to run. If this is reached,
+ * the script returns a fatal error. The default limit is 30 seconds or, if
+ * it exists, the max_execution_time value defined in the
+ * php.ini.
+ *
+ * When called, set_time_limit restarts the timeout
+ * counter from zero. In other words, if the timeout is the default 30
+ * seconds, and 25 seconds into script execution a call such as
+ * set_time_limit(20) is made, the script will run for a
+ * total of 45 seconds before timing out.
+ *
+ * @param int $seconds The maximum execution time, in seconds. If set to zero, no time limit
+ * is imposed.
+ * @throws InfoException
+ *
+ */
+function set_time_limit(int $seconds): void
+{
+    error_clear_last();
+    $result = \set_time_limit($seconds);
     if ($result === false) {
         throw InfoException::createFromPhpError();
     }

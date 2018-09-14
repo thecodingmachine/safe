@@ -90,3 +90,23 @@ function apcu_inc(string $key, int $step = 1, bool &$success = null): int
     }
     return $result;
 }
+
+
+/**
+ * Retrieves APCu Shared Memory Allocation information.
+ *
+ * @param bool $limited When set to FALSE (default) apcu_sma_info will
+ * return a detailed information about each segment.
+ * @return array Array of Shared Memory Allocation data; FALSE on failure.
+ * @throws ApcuException
+ *
+ */
+function apcu_sma_info(bool $limited = false): array
+{
+    error_clear_last();
+    $result = \apcu_sma_info($limited);
+    if ($result === false) {
+        throw ApcuException::createFromPhpError();
+    }
+    return $result;
+}

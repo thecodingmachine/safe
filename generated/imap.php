@@ -33,6 +33,56 @@ function imap_append($imap_stream, string $mailbox, string $message, string $opt
 
 
 /**
+ * Checks information about the current mailbox.
+ *
+ * @param resource $imap_stream An IMAP stream returned by
+ * imap_open.
+ * @return object Returns the information in an object with following properties:
+ *
+ *
+ *
+ * Date - current system time formatted according to RFC2822
+ *
+ *
+ *
+ *
+ * Driver - protocol used to access this mailbox:
+ * POP3, IMAP, NNTP
+ *
+ *
+ *
+ *
+ * Mailbox - the mailbox name
+ *
+ *
+ *
+ *
+ * Nmsgs - number of messages in the mailbox
+ *
+ *
+ *
+ *
+ * Recent - number of recent messages in the mailbox
+ *
+ *
+ *
+ *
+ * Returns FALSE on failure.
+ * @throws ImapException
+ *
+ */
+function imap_check($imap_stream): object
+{
+    error_clear_last();
+    $result = \imap_check($imap_stream);
+    if ($result === false) {
+        throw ImapException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * This function causes a store to delete the specified
  * flag to the flags set for the
  * messages in the specified sequence.
@@ -475,6 +525,70 @@ function imap_mail(string $to, string $subject, string $message, string $additio
     if ($result === false) {
         throw ImapException::createFromPhpError();
     }
+}
+
+
+/**
+ * Checks the current mailbox status on the server. It is similar to
+ * imap_status, but will additionally sum up the size of
+ * all messages in the mailbox, which will take some additional time to
+ * execute.
+ *
+ * @param resource $imap_stream An IMAP stream returned by
+ * imap_open.
+ * @return object Returns the information in an object with following properties:
+ *
+ * Mailbox properties
+ *
+ *
+ *
+ * Date
+ * date of last change (current datetime)
+ *
+ *
+ * Driver
+ * driver
+ *
+ *
+ * Mailbox
+ * name of the mailbox
+ *
+ *
+ * Nmsgs
+ * number of messages
+ *
+ *
+ * Recent
+ * number of recent messages
+ *
+ *
+ * Unread
+ * number of unread messages
+ *
+ *
+ * Deleted
+ * number of deleted messages
+ *
+ *
+ * Size
+ * mailbox size
+ *
+ *
+ *
+ *
+ *
+ * Returns FALSE on failure.
+ * @throws ImapException
+ *
+ */
+function imap_mailboxmsginfo($imap_stream): object
+{
+    error_clear_last();
+    $result = \imap_mailboxmsginfo($imap_stream);
+    if ($result === false) {
+        throw ImapException::createFromPhpError();
+    }
+    return $result;
 }
 
 
@@ -929,6 +1043,35 @@ function imap_thread($imap_stream, int $options = SE_FREE): array
 {
     error_clear_last();
     $result = \imap_thread($imap_stream, $options);
+    if ($result === false) {
+        throw ImapException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Sets or fetches the imap timeout.
+ *
+ * @param int $timeout_type One of the following:
+ * IMAP_OPENTIMEOUT,
+ * IMAP_READTIMEOUT,
+ * IMAP_WRITETIMEOUT, or
+ * IMAP_CLOSETIMEOUT.
+ * @param int $timeout The timeout, in seconds.
+ * @return mixed If the timeout parameter is set, this function
+ * returns TRUE on success and FALSE on failure.
+ *
+ * If timeout  is not provided or evaluates to -1,
+ * the current timeout value of timeout_type is
+ * returned as an integer.
+ * @throws ImapException
+ *
+ */
+function imap_timeout(int $timeout_type, int $timeout = -1)
+{
+    error_clear_last();
+    $result = \imap_timeout($timeout_type, $timeout);
     if ($result === false) {
         throw ImapException::createFromPhpError();
     }

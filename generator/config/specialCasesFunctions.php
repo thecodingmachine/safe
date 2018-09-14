@@ -4,5 +4,7 @@
  * They are declared in lib/special_cases.php
  */
 return [
-    'json_decode'
+    'json_decode',
+    'apc_fetch',
+    'apcu_fetch'
 ];

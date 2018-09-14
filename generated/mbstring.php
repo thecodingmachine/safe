@@ -49,6 +49,46 @@ function mb_chr(int $cp, string $encoding = null): string
 
 
 /**
+ * Sets the automatic character
+ * encoding detection order to encoding_list.
+ *
+ * @param mixed $encoding_list encoding_list is an array or
+ * comma separated list of character encoding. See supported encodings.
+ *
+ * If encoding_list is omitted, it returns
+ * the current character encoding detection order as array.
+ *
+ * This setting affects mb_detect_encoding and
+ * mb_send_mail.
+ *
+ * mbstring currently implements the following
+ * encoding detection filters. If there is an invalid byte sequence
+ * for the following encodings, encoding detection will fail.
+ *
+ * For ISO-8859-*, mbstring
+ * always detects as ISO-8859-*.
+ *
+ * For UTF-16, UTF-32,
+ * UCS2 and UCS4, encoding
+ * detection will fail always.
+ * @return bool|array When setting the encoding detection order, TRUE is returned on success .
+ *
+ * When getting the encoding detection order, an ordered array of the encodings is returned.
+ * @throws MbstringException
+ *
+ */
+function mb_detect_order($encoding_list = null)
+{
+    error_clear_last();
+    $result = \mb_detect_order($encoding_list);
+    if ($result === false) {
+        throw MbstringException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Returns an array of aliases for a known encoding type.
  *
  * @param string $encoding The encoding type being checked, for aliases.

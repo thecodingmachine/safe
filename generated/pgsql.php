@@ -84,6 +84,68 @@ function pg_close($connection = null): void
 
 
 /**
+ * pg_connect opens a connection to a
+ * PostgreSQL database specified by the
+ * connection_string.
+ *
+ * If a second call is made to pg_connect with
+ * the same connection_string as an existing connection, the
+ * existing connection will be returned unless you pass
+ * PGSQL_CONNECT_FORCE_NEW as
+ * connect_type.
+ *
+ * The old syntax with multiple parameters
+ * $conn = pg_connect("host", "port", "options", "tty", "dbname")
+ * has been deprecated.
+ *
+ * @param string $connection_string The connection_string can be empty to use all default parameters, or it
+ * can contain one or more parameter settings separated by whitespace.
+ * Each parameter setting is in the form keyword = value. Spaces around
+ * the equal sign are optional. To write an empty value or a value
+ * containing spaces, surround it with single quotes, e.g., keyword =
+ * 'a value'. Single quotes and backslashes within the value must be
+ * escaped with a backslash, i.e., \' and \\.
+ *
+ * The currently recognized parameter keywords are:
+ * host, hostaddr, port,
+ * dbname (defaults to value of user),
+ * user,
+ * password, connect_timeout,
+ * options, tty (ignored), sslmode,
+ * requiressl (deprecated in favor of sslmode), and
+ * service.  Which of these arguments exist depends
+ * on your PostgreSQL version.
+ *
+ * The options parameter can be used to set command line parameters
+ * to be invoked by the server.
+ * @param int $connect_type If PGSQL_CONNECT_FORCE_NEW is passed, then a new connection
+ * is created, even if the connection_string is identical to
+ * an existing connection.
+ *
+ * If PGSQL_CONNECT_ASYNC is given, then the
+ * connection is established asynchronously. The state of the connection
+ * can then be checked via pg_connect_poll or
+ * pg_connection_status.
+ * @return resource PostgreSQL connection resource on success, FALSE on failure.
+ * @throws PgsqlException
+ *
+ */
+function pg_connect(string $connection_string, int $connect_type = null)
+{
+    error_clear_last();
+    if ($connect_type !== null) {
+        $result = \pg_connect($connection_string, $connect_type);
+    } else {
+        $result = \pg_connect($connection_string);
+    }
+    if ($result === false) {
+        throw PgsqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * pg_connection_reset resets the connection.
  * It is useful for error recovery.
  *
@@ -164,6 +226,39 @@ function pg_copy_from($connection, string $table_name, array $rows, string $deli
     if ($result === false) {
         throw PgsqlException::createFromPhpError();
     }
+}
+
+
+/**
+ * pg_copy_to copies a table to an array. It
+ * issues COPY TO SQL command internally to
+ * retrieve records.
+ *
+ * @param resource $connection PostgreSQL database connection resource.
+ * @param string $table_name Name of the table from which to copy the data into rows.
+ * @param string $delimiter The token that separates values for each field in each element of
+ * rows.  Default is TAB.
+ * @param string $null_as How SQL NULL values are represented in the
+ * rows.  Default is \N ("\\N").
+ * @return array An array with one element for each line of COPY data.
+ * It returns FALSE on failure.
+ * @throws PgsqlException
+ *
+ */
+function pg_copy_to($connection, string $table_name, string $delimiter = null, string $null_as = null): array
+{
+    error_clear_last();
+    if ($null_as !== null) {
+        $result = \pg_copy_to($connection, $table_name, $delimiter, $null_as);
+    } elseif ($delimiter !== null) {
+        $result = \pg_copy_to($connection, $table_name, $delimiter);
+    } else {
+        $result = \pg_copy_to($connection, $table_name);
+    }
+    if ($result === false) {
+        throw PgsqlException::createFromPhpError();
+    }
+    return $result;
 }
 
 
@@ -345,6 +440,32 @@ function pg_field_name($result, int $field_number): string
 {
     error_clear_last();
     $result = \pg_field_name($result, $field_number);
+    if ($result === false) {
+        throw PgsqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * pg_field_table returns the name of the table that field
+ * belongs to, or the table's oid if oid_only is TRUE.
+ *
+ * @param resource $result PostgreSQL query result resource, returned by pg_query,
+ * pg_query_params or pg_execute
+ * (among others).
+ * @param int $field_number Field number, starting from 0.
+ * @param bool $oid_only By default the tables name that field belongs to is returned but
+ * if oid_only is set to TRUE, then the
+ * oid will instead be returned.
+ * @return mixed On success either the fields table name or oid. Or, FALSE on failure.
+ * @throws PgsqlException
+ *
+ */
+function pg_field_table($result, int $field_number, bool $oid_only = false)
+{
+    error_clear_last();
+    $result = \pg_field_table($result, $field_number, $oid_only);
     if ($result === false) {
         throw PgsqlException::createFromPhpError();
     }
@@ -678,6 +799,48 @@ function pg_lo_export($connection = null, int $oid = null, string $pathname = nu
 
 
 /**
+ * pg_lo_import creates a new large object
+ * in the database using a file on the filesystem as its data
+ * source.
+ *
+ * To use the large object interface, it is necessary to
+ * enclose it within a transaction block.
+ *
+ * @param resource $connection PostgreSQL database connection resource.  When
+ * connection is not present, the default connection
+ * is used. The default connection is the last connection made by
+ * pg_connect or pg_pconnect.
+ * @param string $pathname The full path and file name of the file on the client
+ * filesystem from which to read the large object data.
+ * @param mixed $object_id If an object_id is given the function
+ * will try to create a large object with this id, else a free
+ * object id is assigned by the server. The parameter
+ * was added in PHP 5.3 and relies on functionality that first
+ * appeared in PostgreSQL 8.1.
+ * @return int The OID of the newly created large object, .
+ * @throws PgsqlException
+ *
+ */
+function pg_lo_import($connection = null, string $pathname = null, $object_id = null): int
+{
+    error_clear_last();
+    if ($object_id !== null) {
+        $result = \pg_lo_import($connection, $pathname, $object_id);
+    } elseif ($pathname !== null) {
+        $result = \pg_lo_import($connection, $pathname);
+    } elseif ($connection !== null) {
+        $result = \pg_lo_import($connection);
+    } else {
+        $result = \pg_lo_import();
+    }
+    if ($result === false) {
+        throw PgsqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * pg_lo_open opens a large object in the database
  * and returns large object resource so that it can be manipulated.
  *
@@ -905,6 +1068,120 @@ function pg_options($connection = null): string
         $result = \pg_options($connection);
     } else {
         $result = \pg_options();
+    }
+    if ($result === false) {
+        throw PgsqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Looks up a current parameter setting of the server.
+ *
+ * Certain parameter values are reported by the server automatically at
+ * connection startup or whenever their values change. pg_parameter_status can be
+ * used to interrogate these settings. It returns the current value of a
+ * parameter if known, or FALSE if the parameter is not known.
+ *
+ * Parameters reported as of PostgreSQL 8.0 include server_version,
+ * server_encoding, client_encoding,
+ * is_superuser, session_authorization,
+ * DateStyle, TimeZone, and integer_datetimes.
+ * (server_encoding, TimeZone, and
+ * integer_datetimes were not reported by releases before 8.0.) Note that
+ * server_version, server_encoding and integer_datetimes
+ * cannot change after PostgreSQL startup.
+ *
+ * PostgreSQL 7.3 or lower servers do not report parameter settings,
+ * pg_parameter_status
+ * includes logic to obtain values for server_version and
+ * client_encoding
+ * anyway. Applications are encouraged to use pg_parameter_status rather than ad
+ * hoc code to determine these values.
+ *
+ * @param resource $connection PostgreSQL database connection resource.  When
+ * connection is not present, the default connection
+ * is used. The default connection is the last connection made by
+ * pg_connect or pg_pconnect.
+ * @param string $param_name Possible param_name values include server_version,
+ * server_encoding, client_encoding,
+ * is_superuser, session_authorization,
+ * DateStyle, TimeZone, and
+ * integer_datetimes.
+ * @return string A string containing the value of the parameter, FALSE on failure or invalid
+ * param_name.
+ * @throws PgsqlException
+ *
+ */
+function pg_parameter_status($connection = null, string $param_name = null): string
+{
+    error_clear_last();
+    if ($param_name !== null) {
+        $result = \pg_parameter_status($connection, $param_name);
+    } elseif ($connection !== null) {
+        $result = \pg_parameter_status($connection);
+    } else {
+        $result = \pg_parameter_status();
+    }
+    if ($result === false) {
+        throw PgsqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * pg_pconnect opens a connection to a
+ * PostgreSQL database. It returns a connection resource that is
+ * needed by other PostgreSQL functions.
+ *
+ * If a second call is made to pg_pconnect with
+ * the same connection_string as an existing connection, the
+ * existing connection will be returned unless you pass
+ * PGSQL_CONNECT_FORCE_NEW as
+ * connect_type.
+ *
+ * To enable persistent connection, the pgsql.allow_persistent
+ * php.ini directive must be set to "On" (which is the default).
+ * The maximum number of persistent connection can be defined with the pgsql.max_persistent
+ * php.ini directive (defaults to -1 for no limit). The total number
+ * of connections can be set with the pgsql.max_links
+ * php.ini directive.
+ *
+ * pg_close will not close persistent links
+ * generated by pg_pconnect.
+ *
+ * @param string $connection_string The connection_string can be empty to use all default parameters, or it
+ * can contain one or more parameter settings separated by whitespace.
+ * Each parameter setting is in the form keyword = value. Spaces around
+ * the equal sign are optional. To write an empty value or a value
+ * containing spaces, surround it with single quotes, e.g., keyword =
+ * 'a value'. Single quotes and backslashes within the value must be
+ * escaped with a backslash, i.e., \' and \\.
+ *
+ * The currently recognized parameter keywords are:
+ * host, hostaddr, port,
+ * dbname, user,
+ * password, connect_timeout,
+ * options, tty (ignored), sslmode,
+ * requiressl (deprecated in favor of sslmode), and
+ * service.  Which of these arguments exist depends
+ * on your PostgreSQL version.
+ * @param int $connect_type If PGSQL_CONNECT_FORCE_NEW is passed, then a new connection
+ * is created, even if the connection_string is identical to
+ * an existing connection.
+ * @return resource PostgreSQL connection resource on success, FALSE on failure.
+ * @throws PgsqlException
+ *
+ */
+function pg_pconnect(string $connection_string, int $connect_type = null)
+{
+    error_clear_last();
+    if ($connect_type !== null) {
+        $result = \pg_pconnect($connection_string, $connect_type);
+    } else {
+        $result = \pg_pconnect($connection_string);
     }
     if ($result === false) {
         throw PgsqlException::createFromPhpError();
@@ -1186,6 +1463,46 @@ function pg_query($connection = null, string $query = null)
 
 
 /**
+ * pg_result_error_field returns one of the detailed error message
+ * fields associated with result resource. It is only available
+ * against a PostgreSQL 7.4 or above server.  The error field is specified by
+ * the fieldcode.
+ *
+ * Because pg_query and pg_query_params return FALSE if the query fails,
+ * you must use pg_send_query and
+ * pg_get_result to get the result handle.
+ *
+ * If you need to get additional error information from failed pg_query queries,
+ * use pg_set_error_verbosity and pg_last_error
+ * and then parse the result.
+ *
+ * @param resource $result A PostgreSQL query result resource from a previously executed
+ * statement.
+ * @param int $fieldcode Possible fieldcode values are: PGSQL_DIAG_SEVERITY,
+ * PGSQL_DIAG_SQLSTATE, PGSQL_DIAG_MESSAGE_PRIMARY,
+ * PGSQL_DIAG_MESSAGE_DETAIL,
+ * PGSQL_DIAG_MESSAGE_HINT, PGSQL_DIAG_STATEMENT_POSITION,
+ * PGSQL_DIAG_INTERNAL_POSITION (PostgreSQL 8.0+ only),
+ * PGSQL_DIAG_INTERNAL_QUERY (PostgreSQL 8.0+ only),
+ * PGSQL_DIAG_CONTEXT, PGSQL_DIAG_SOURCE_FILE,
+ * PGSQL_DIAG_SOURCE_LINE or
+ * PGSQL_DIAG_SOURCE_FUNCTION.
+ * @return string|?false A string containing the contents of the error field, NULL if the field does not exist .
+ * @throws PgsqlException
+ *
+ */
+function pg_result_error_field($result, int $fieldcode): string
+{
+    error_clear_last();
+    $result = \pg_result_error_field($result, $fieldcode);
+    if ($result === false) {
+        throw PgsqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * pg_result_seek sets the internal row offset in
  * a result resource.
  *
@@ -1254,6 +1571,75 @@ function pg_select($connection, string $table_name, array $assoc_array, int $opt
         throw PgsqlException::createFromPhpError();
     }
     return $result;
+}
+
+
+/**
+ * Sends a request to execute a prepared statement with given parameters,
+ * without waiting for the result(s).
+ *
+ * This is similar to pg_send_query_params, but the command to be executed is specified
+ * by naming a previously-prepared statement, instead of giving a query string. The
+ * function's parameters are handled identically to pg_execute.
+ * Like pg_execute, it will not work on pre-7.4 versions of
+ * PostgreSQL.
+ *
+ * @param resource $connection PostgreSQL database connection resource.  When
+ * connection is not present, the default connection
+ * is used. The default connection is the last connection made by
+ * pg_connect or pg_pconnect.
+ * @param string $stmtname The name of the prepared statement to execute.  if
+ * "" is specified, then the unnamed statement is executed.  The name must have
+ * been previously prepared using pg_prepare,
+ * pg_send_prepare or a PREPARE SQL
+ * command.
+ * @param array $params An array of parameter values to substitute for the $1, $2, etc. placeholders
+ * in the original prepared query string.  The number of elements in the array
+ * must match the number of placeholders.
+ * @throws PgsqlException
+ *
+ */
+function pg_send_execute($connection, string $stmtname, array $params): void
+{
+    error_clear_last();
+    $result = \pg_send_execute($connection, $stmtname, $params);
+    if ($result === false) {
+        throw PgsqlException::createFromPhpError();
+    }
+}
+
+
+/**
+ * Sends a request to create a prepared statement with the given parameters,
+ * without waiting for completion.
+ *
+ * This is an asynchronous version of pg_prepare: it returns TRUE if it was able to
+ * dispatch the request, and FALSE if not. After a successful call, call
+ * pg_get_result to determine whether the server successfully created the
+ * prepared statement. The function's parameters are handled identically to
+ * pg_prepare. Like pg_prepare, it will not work
+ * on pre-7.4 versions of PostgreSQL.
+ *
+ * @param resource $connection PostgreSQL database connection resource.  When
+ * connection is not present, the default connection
+ * is used. The default connection is the last connection made by
+ * pg_connect or pg_pconnect.
+ * @param string $stmtname The name to give the prepared statement.  Must be unique per-connection.  If
+ * "" is specified, then an unnamed statement is created, overwriting any
+ * previously defined unnamed statement.
+ * @param string $query The parameterized SQL statement.  Must contain only a single statement.
+ * (multiple statements separated by semi-colons are not allowed.)  If any parameters
+ * are used, they are referred to as $1, $2, etc.
+ * @throws PgsqlException
+ *
+ */
+function pg_send_prepare($connection, string $stmtname, string $query): void
+{
+    error_clear_last();
+    $result = \pg_send_prepare($connection, $stmtname, $query);
+    if ($result === false) {
+        throw PgsqlException::createFromPhpError();
+    }
 }
 
 

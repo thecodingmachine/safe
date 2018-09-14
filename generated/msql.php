@@ -296,6 +296,33 @@ function msql_field_table($result, int $field_offset): int
 
 
 /**
+ * msql_field_type gets the type of the specified field
+ * index.
+ *
+ * @param resource $result The result resource that
+ * is being evaluated. This result comes from a call to
+ * msql_query.
+ * @param int $field_offset The numerical field offset. The
+ * field_offset starts at 1.
+ * @return string The type of the field. One of int,
+ * char, real, ident,
+ * null or unknown. This functions will
+ * return FALSE on failure.
+ * @throws MsqlException
+ *
+ */
+function msql_field_type($result, int $field_offset): string
+{
+    error_clear_last();
+    $result = \msql_field_type($result, $field_offset);
+    if ($result === false) {
+        throw MsqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * msql_free_result frees the memory associated
  * with query_identifier.  When PHP completes a
  * request, this memory is freed automatically, so you only need to

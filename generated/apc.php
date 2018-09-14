@@ -188,3 +188,23 @@ function apc_load_constants(string $key, bool $case_sensitive = true): void
         throw ApcException::createFromPhpError();
     }
 }
+
+
+/**
+ * Retrieves APC's Shared Memory Allocation information.
+ *
+ * @param bool $limited When set to FALSE (default) apc_sma_info will
+ * return a detailed information about each segment.
+ * @return array Array of Shared Memory Allocation data; FALSE on failure.
+ * @throws ApcException
+ *
+ */
+function apc_sma_info(bool $limited = false): array
+{
+    error_clear_last();
+    $result = \apc_sma_info($limited);
+    if ($result === false) {
+        throw ApcException::createFromPhpError();
+    }
+    return $result;
+}

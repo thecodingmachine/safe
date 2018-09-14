@@ -878,53 +878,6 @@ function glob(string $pattern, int $flags = 0): array
 
 
 /**
- * Tells whether the filename is executable.
- *
- * @param string $filename Path to the file.
- * @throws FilesystemException
- *
- */
-function is_executable(string $filename): void
-{
-    error_clear_last();
-    $result = \is_executable($filename);
-    if ($result === false) {
-        throw FilesystemException::createFromPhpError();
-    }
-}
-
-
-/**
- * Returns TRUE if the file named by filename was
- * uploaded via HTTP POST. This is useful to help ensure that a
- * malicious user hasn't tried to trick the script into working on
- * files upon which it should not be working--for instance,
- * /etc/passwd.
- *
- * This sort of check is especially important if there is any chance
- * that anything done with uploaded files could reveal their
- * contents to the user, or even to other users on the same
- * system.
- *
- * For proper working, the function is_uploaded_file needs
- * an argument like $_FILES['userfile']['tmp_name'], - the name of the uploaded
- * file on the client's machine $_FILES['userfile']['name'] does not work.
- *
- * @param string $filename The filename being checked.
- * @throws FilesystemException
- *
- */
-function is_uploaded_file(string $filename): void
-{
-    error_clear_last();
-    $result = \is_uploaded_file($filename);
-    if ($result === false) {
-        throw FilesystemException::createFromPhpError();
-    }
-}
-
-
-/**
  * Attempts to change the group of the symlink filename
  * to group.
  *

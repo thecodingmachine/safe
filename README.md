@@ -36,7 +36,7 @@ if ($content === false) {
 }
 $foobar = json_decode($content);
 if (json_last_error() !== JSON_ERROR_NONE) {
-    throw new FileLoadingException('foobar.json does not contain valid JSON: '.json_last_error());
+    throw new FileLoadingException('foobar.json does not contain valid JSON: '.json_last_error_msg());
 }
 ```
 

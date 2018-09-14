@@ -51,6 +51,393 @@ function curl_exec($ch)
 
 
 /**
+ * Gets information about the last transfer.
+ *
+ * @param resource $ch A cURL handle returned by
+ * curl_init.
+ * @param int $opt This may be one of the following constants:
+ *
+ *
+ *
+ * CURLINFO_EFFECTIVE_URL - Last effective URL
+ *
+ *
+ *
+ *
+ * CURLINFO_HTTP_CODE -  The last response code.
+ * As of PHP 5.5.0 and cURL 7.10.8, this is a legacy alias of
+ * CURLINFO_RESPONSE_CODE
+ *
+ *
+ *
+ *
+ * CURLINFO_FILETIME - Remote time of the retrieved document, with the CURLOPT_FILETIME enabled; if -1 is returned the time of the document is unknown
+ *
+ *
+ *
+ *
+ * CURLINFO_TOTAL_TIME - Total transaction time in seconds for last transfer
+ *
+ *
+ *
+ *
+ * CURLINFO_NAMELOOKUP_TIME - Time in seconds until name resolving was complete
+ *
+ *
+ *
+ *
+ * CURLINFO_CONNECT_TIME - Time in seconds it took to establish the connection
+ *
+ *
+ *
+ *
+ * CURLINFO_PRETRANSFER_TIME - Time in seconds from start until just before file transfer begins
+ *
+ *
+ *
+ *
+ * CURLINFO_STARTTRANSFER_TIME - Time in seconds until the first byte is about to be transferred
+ *
+ *
+ *
+ *
+ * CURLINFO_REDIRECT_COUNT - Number of redirects, with the CURLOPT_FOLLOWLOCATION option enabled
+ *
+ *
+ *
+ *
+ * CURLINFO_REDIRECT_TIME - Time in seconds of all redirection steps before final transaction was started, with the CURLOPT_FOLLOWLOCATION option enabled
+ *
+ *
+ *
+ *
+ * CURLINFO_REDIRECT_URL - With the CURLOPT_FOLLOWLOCATION option disabled: redirect URL found in the last transaction, that should be requested manually next. With the CURLOPT_FOLLOWLOCATION option enabled: this is empty. The redirect URL in this case is available in CURLINFO_EFFECTIVE_URL
+ *
+ *
+ *
+ *
+ * CURLINFO_PRIMARY_IP - IP address of the most recent connection
+ *
+ *
+ *
+ *
+ * CURLINFO_PRIMARY_PORT - Destination port of the most recent connection
+ *
+ *
+ *
+ *
+ * CURLINFO_LOCAL_IP - Local (source) IP address of the most recent connection
+ *
+ *
+ *
+ *
+ * CURLINFO_LOCAL_PORT - Local (source) port of the most recent connection
+ *
+ *
+ *
+ *
+ * CURLINFO_SIZE_UPLOAD - Total number of bytes uploaded
+ *
+ *
+ *
+ *
+ * CURLINFO_SIZE_DOWNLOAD - Total number of bytes downloaded
+ *
+ *
+ *
+ *
+ * CURLINFO_SPEED_DOWNLOAD - Average download speed
+ *
+ *
+ *
+ *
+ * CURLINFO_SPEED_UPLOAD - Average upload speed
+ *
+ *
+ *
+ *
+ * CURLINFO_HEADER_SIZE - Total size of all headers received
+ *
+ *
+ *
+ *
+ * CURLINFO_HEADER_OUT - The request string sent. For this to
+ * work, add the CURLINFO_HEADER_OUT option to the handle by calling
+ * curl_setopt
+ *
+ *
+ *
+ *
+ * CURLINFO_REQUEST_SIZE - Total size of issued requests, currently only for HTTP requests
+ *
+ *
+ *
+ *
+ * CURLINFO_SSL_VERIFYRESULT - Result of SSL certification verification requested by setting CURLOPT_SSL_VERIFYPEER
+ *
+ *
+ *
+ *
+ * CURLINFO_CONTENT_LENGTH_DOWNLOAD - Content length of download, read from Content-Length: field
+ *
+ *
+ *
+ *
+ * CURLINFO_CONTENT_LENGTH_UPLOAD - Specified size of upload
+ *
+ *
+ *
+ *
+ * CURLINFO_CONTENT_TYPE - Content-Type: of the requested document. NULL indicates server did not send valid Content-Type: header
+ *
+ *
+ *
+ *
+ * CURLINFO_PRIVATE - Private data associated with this cURL handle, previously set with the CURLOPT_PRIVATE option of curl_setopt
+ *
+ *
+ *
+ *
+ * CURLINFO_RESPONSE_CODE - The last response code
+ *
+ *
+ *
+ *
+ * CURLINFO_HTTP_CONNECTCODE - The CONNECT response code
+ *
+ *
+ *
+ *
+ * CURLINFO_HTTPAUTH_AVAIL - Bitmask indicating the authentication method(s) available according to the previous response
+ *
+ *
+ *
+ *
+ * CURLINFO_PROXYAUTH_AVAIL - Bitmask indicating the proxy authentication method(s) available according to the previous response
+ *
+ *
+ *
+ *
+ * CURLINFO_OS_ERRNO - Errno from a connect failure. The number is OS and system specific.
+ *
+ *
+ *
+ *
+ * CURLINFO_NUM_CONNECTS - Number of connections curl had to create to achieve the previous transfer
+ *
+ *
+ *
+ *
+ * CURLINFO_SSL_ENGINES - OpenSSL crypto-engines supported
+ *
+ *
+ *
+ *
+ * CURLINFO_COOKIELIST - All known cookies
+ *
+ *
+ *
+ *
+ * CURLINFO_FTP_ENTRY_PATH - Entry path in FTP server
+ *
+ *
+ *
+ *
+ * CURLINFO_APPCONNECT_TIME - Time in seconds it took from the start until the SSL/SSH connect/handshake to the remote host was completed
+ *
+ *
+ *
+ *
+ * CURLINFO_CERTINFO - TLS certificate chain
+ *
+ *
+ *
+ *
+ * CURLINFO_CONDITION_UNMET - Info on unmet time conditional
+ *
+ *
+ *
+ *
+ * CURLINFO_RTSP_CLIENT_CSEQ - Next RTSP client CSeq
+ *
+ *
+ *
+ *
+ * CURLINFO_RTSP_CSEQ_RECV - Recently received CSeq
+ *
+ *
+ *
+ *
+ * CURLINFO_RTSP_SERVER_CSEQ - Next RTSP server CSeq
+ *
+ *
+ *
+ *
+ * CURLINFO_RTSP_SESSION_ID - RTSP session ID
+ *
+ *
+ *
+ * @return mixed If opt is given, returns its value.
+ * Otherwise, returns an associative array with the following elements
+ * (which correspond to opt), :
+ *
+ *
+ *
+ * "url"
+ *
+ *
+ *
+ *
+ * "content_type"
+ *
+ *
+ *
+ *
+ * "http_code"
+ *
+ *
+ *
+ *
+ * "header_size"
+ *
+ *
+ *
+ *
+ * "request_size"
+ *
+ *
+ *
+ *
+ * "filetime"
+ *
+ *
+ *
+ *
+ * "ssl_verify_result"
+ *
+ *
+ *
+ *
+ * "redirect_count"
+ *
+ *
+ *
+ *
+ * "total_time"
+ *
+ *
+ *
+ *
+ * "namelookup_time"
+ *
+ *
+ *
+ *
+ * "connect_time"
+ *
+ *
+ *
+ *
+ * "pretransfer_time"
+ *
+ *
+ *
+ *
+ * "size_upload"
+ *
+ *
+ *
+ *
+ * "size_download"
+ *
+ *
+ *
+ *
+ * "speed_download"
+ *
+ *
+ *
+ *
+ * "speed_upload"
+ *
+ *
+ *
+ *
+ * "download_content_length"
+ *
+ *
+ *
+ *
+ * "upload_content_length"
+ *
+ *
+ *
+ *
+ * "starttransfer_time"
+ *
+ *
+ *
+ *
+ * "redirect_time"
+ *
+ *
+ *
+ *
+ * "certinfo"
+ *
+ *
+ *
+ *
+ * "primary_ip"
+ *
+ *
+ *
+ *
+ * "primary_port"
+ *
+ *
+ *
+ *
+ * "local_ip"
+ *
+ *
+ *
+ *
+ * "local_port"
+ *
+ *
+ *
+ *
+ * "redirect_url"
+ *
+ *
+ *
+ *
+ * "request_header" (This is only set if the CURLINFO_HEADER_OUT
+ * is set by a previous call to curl_setopt)
+ *
+ *
+ *
+ * Note that private data is not included in the associative array and must be retrieved individually with the CURLINFO_PRIVATE option.
+ * @throws CurlException
+ *
+ */
+function curl_getinfo($ch, int $opt = null)
+{
+    error_clear_last();
+    if ($opt !== null) {
+        $result = \curl_getinfo($ch, $opt);
+    } else {
+        $result = \curl_getinfo($ch);
+    }
+    if ($result === false) {
+        throw CurlException::createFromCurlResource($ch);
+    }
+    return $result;
+}
+
+
+/**
  * Initializes a new session and return a cURL handle for use with the
  * curl_setopt, curl_exec,
  * and curl_close functions.
@@ -90,6 +477,80 @@ function curl_multi_errno($mh): int
 {
     error_clear_last();
     $result = \curl_multi_errno($mh);
+    if ($result === false) {
+        throw CurlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Ask the multi handle if there are any messages or information from the individual transfers.
+ * Messages may include information such as an error code from the transfer or just the fact
+ * that a transfer is completed.
+ *
+ * Repeated calls to this function will return a new result each time, until a FALSE is returned
+ * as a signal that there is no more to get at this point. The integer pointed to with
+ * msgs_in_queue will contain the number of remaining messages after this
+ * function was called.
+ *
+ * @param resource $mh A cURL multi handle returned by
+ * curl_multi_init.
+ * @param int $msgs_in_queue Number of messages that are still in the queue
+ * @return array On success, returns an associative array for the message, FALSE on failure.
+ *
+ *
+ * Contents of the returned array
+ *
+ *
+ *
+ * Key:
+ * Value:
+ *
+ *
+ *
+ *
+ * msg
+ * The CURLMSG_DONE constant. Other return values
+ * are currently not available.
+ *
+ *
+ * result
+ * One of the CURLE_* constants. If everything is
+ * OK, the CURLE_OK will be the result.
+ *
+ *
+ * handle
+ * Resource of type curl indicates the handle which it concerns.
+ *
+ *
+ *
+ *
+ * @throws CurlException
+ *
+ */
+function curl_multi_info_read($mh, int &$msgs_in_queue = null): array
+{
+    error_clear_last();
+    $result = \curl_multi_info_read($mh, $msgs_in_queue);
+    if ($result === false) {
+        throw CurlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Allows the processing of multiple cURL handles asynchronously.
+ *
+ * @return resource Returns a cURL multi handle resource on success, FALSE on failure.
+ * @throws CurlException
+ *
+ */
+function curl_multi_init()
+{
+    error_clear_last();
+    $result = \curl_multi_init();
     if ($result === false) {
         throw CurlException::createFromPhpError();
     }

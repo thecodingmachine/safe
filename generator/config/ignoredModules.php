@@ -45,6 +45,7 @@ return [
     'sybase',
     'tidy',
     'wddx',
+    'win32ps',
     'wincache',
     'xattr',
 ];

@@ -35,6 +35,60 @@ function define(string $name, $value, bool $case_insensitive = false): void
 
 
 /**
+ * Prints out or returns a syntax highlighted version of the code contained
+ * in filename using the colors defined in the
+ * built-in syntax highlighter for PHP.
+ *
+ * Many servers are configured to automatically highlight files
+ * with a phps extension. For example,
+ * example.phps when viewed will show the
+ * syntax highlighted source of the file. To enable this, add this
+ * line to the httpd.conf:
+ *
+ * @param string $filename Path to the PHP file to be highlighted.
+ * @param bool $return Set this parameter to TRUE to make this function return the
+ * highlighted code.
+ * @return string If return is set to TRUE, returns the highlighted
+ * code as a string instead of printing it out. Otherwise, it will return
+ * TRUE on success, FALSE on failure.
+ * @throws MiscException
+ *
+ */
+function highlight_file(string $filename, bool $return = false)
+{
+    error_clear_last();
+    $result = \highlight_file($filename, $return);
+    if ($result === false) {
+        throw MiscException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ *
+ *
+ * @param string $str The PHP code to be highlighted. This should include the opening tag.
+ * @param bool $return Set this parameter to TRUE to make this function return the
+ * highlighted code.
+ * @return string If return is set to TRUE, returns the highlighted
+ * code as a string instead of printing it out. Otherwise, it will return
+ * TRUE on success, FALSE on failure.
+ * @throws MiscException
+ *
+ */
+function highlight_string(string $str, bool $return = false)
+{
+    error_clear_last();
+    $result = \highlight_string($str, $return);
+    if ($result === false) {
+        throw MiscException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Set the codepage of the current process.
  *
  * @param int $cp A codepage identifier.

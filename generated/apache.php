@@ -23,6 +23,47 @@ function apache_get_version(): string
 
 
 /**
+ * Retrieve an Apache environment variable specified by
+ * variable.
+ *
+ * This function requires Apache 2 otherwise it's undefined.
+ *
+ * @param string $variable The Apache environment variable
+ * @param bool $walk_to_top Whether to get the top-level variable available to all Apache layers.
+ * @return string The value of the Apache environment variable on success,
+ * @throws ApacheException
+ *
+ */
+function apache_getenv(string $variable, bool $walk_to_top = false): string
+{
+    error_clear_last();
+    $result = \apache_getenv($variable, $walk_to_top);
+    if ($result === false) {
+        throw ApacheException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Fetches all HTTP request headers from the current request.
+ *
+ * @return array An associative array of all the HTTP headers in the current request, .
+ * @throws ApacheException
+ *
+ */
+function apache_request_headers(): array
+{
+    error_clear_last();
+    $result = \apache_request_headers();
+    if ($result === false) {
+        throw ApacheException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * apache_reset_timeout resets the Apache write timer,
  * which defaults to 300 seconds. With set_time_limit(0);
  * ignore_user_abort(true) and periodic
@@ -77,6 +118,55 @@ function apache_setenv(string $variable, string $value, bool $walk_to_top = fals
 {
     error_clear_last();
     $result = \apache_setenv($variable, $value, $walk_to_top);
+    if ($result === false) {
+        throw ApacheException::createFromPhpError();
+    }
+}
+
+
+/**
+ * Fetches all HTTP headers from the current request.
+ *
+ * This function is an alias for apache_request_headers.
+ * Please read the apache_request_headers
+ * documentation for more information on how this function works.
+ *
+ * @return array An associative array of all the HTTP headers in the current request, .
+ * @throws ApacheException
+ *
+ */
+function getallheaders(): array
+{
+    error_clear_last();
+    $result = \getallheaders();
+    if ($result === false) {
+        throw ApacheException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * virtual is an Apache-specific function which
+ * is similar to &lt;!--#include virtual...--&gt; in
+ * mod_include.
+ * It performs an Apache sub-request.  It is useful for including
+ * CGI scripts or .shtml files, or anything else that you would
+ * parse through Apache. Note that for a CGI script, the script
+ * must generate valid CGI headers.  At the minimum that means it
+ * must generate a Content-Type header.
+ *
+ * To run the sub-request, all buffers are terminated and flushed to the
+ * browser, pending headers are sent too.
+ *
+ * @param string $filename The file that the virtual command will be performed on.
+ * @throws ApacheException
+ *
+ */
+function virtual(string $filename): void
+{
+    error_clear_last();
+    $result = \virtual($filename);
     if ($result === false) {
         throw ApacheException::createFromPhpError();
     }

@@ -75,6 +75,27 @@ function ibase_blob_create($link_identifier = null)
 
 
 /**
+ * This function returns at most len bytes from a BLOB
+ * that has been opened for reading by ibase_blob_open.
+ *
+ * @param resource $blob_handle A BLOB handle opened with ibase_blob_open.
+ * @param int $len Size of returned data.
+ * @return string Returns at most len bytes from the BLOB, .
+ * @throws IbaseException
+ *
+ */
+function ibase_blob_get($blob_handle, int $len): string
+{
+    error_clear_last();
+    $result = \ibase_blob_get($blob_handle, $len);
+    if ($result === false) {
+        throw IbaseException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Closes the link to an InterBase database that's associated with
  * a connection id returned from ibase_connect.
  * Default transaction on link is committed, other transactions are

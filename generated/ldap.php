@@ -144,6 +144,40 @@ function ldap_delete($link_identifier, string $dn, array $serverctrls = null): v
 
 
 /**
+ * Performs a PASSWD extended operation.
+ *
+ * @param resource $link An LDAP link identifier, returned by ldap_connect.
+ * @param string $user dn of the user to change the password of.
+ * @param string $oldpw The old password of this user. May be ommited depending of server configuration.
+ * @param string $newpw The new password for this user. May be omitted or empty to have a generated password.
+ * @param array $serverctrls
+ * @return mixed Returns the generated password if newpw is empty or omitted.
+ * Otherwise returns TRUE on success and FALSE on failure.
+ * @throws LdapException
+ *
+ */
+function ldap_exop_passwd($link, string $user = null, string $oldpw = null, string $newpw = null, array &$serverctrls = null)
+{
+    error_clear_last();
+    if ($serverctrls !== null) {
+        $result = \ldap_exop_passwd($link, $user, $oldpw, $newpw, $serverctrls);
+    } elseif ($newpw !== null) {
+        $result = \ldap_exop_passwd($link, $user, $oldpw, $newpw);
+    } elseif ($oldpw !== null) {
+        $result = \ldap_exop_passwd($link, $user, $oldpw);
+    } elseif ($user !== null) {
+        $result = \ldap_exop_passwd($link, $user);
+    } else {
+        $result = \ldap_exop_passwd($link);
+    }
+    if ($result === false) {
+        throw LdapException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Performs a WHOAMI extended operation and returns the data.
  *
  * @param resource $link An LDAP link identifier, returned by ldap_connect.

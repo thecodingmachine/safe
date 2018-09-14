@@ -7,6 +7,8 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ApcException;
+use Safe\Exceptions\ApcuException;
 use Safe\Exceptions\JsonException;
 
 /**
@@ -29,4 +31,45 @@ function json_decode(string $json, bool $assoc = false, int $depth = 512, int $o
         throw JsonException::createFromPhpError();
     }
     return $data;
+}
+
+
+/**
+ * Fetchs a stored variable from the cache.
+ *
+ * @param mixed $key The key used to store the value (with
+ * apc_store). If an array is passed then each
+ * element is fetched and returned.
+ * @return mixed The stored variable or array of variables on success; FALSE on failure
+ * @throws ApcException
+ *
+ */
+function apc_fetch($key)
+{
+    error_clear_last();
+    $result = \apc_fetch($key, $success);
+    if ($success === false) {
+        throw ApcException::createFromPhpError();
+    }
+    return $result;
+}
+
+/**
+ * Fetchs an entry from the cache.
+ *
+ * @param string|string[] $key The key used to store the value (with
+ * apcu_store). If an array is passed then each
+ * element is fetched and returned.
+ * @return mixed The stored variable or array of variables on success; FALSE on failure
+ * @throws ApcuException
+ *
+ */
+function apcu_fetch($key)
+{
+    error_clear_last();
+    $result = \apcu_fetch($key, $success);
+    if ($success === false) {
+        throw ApcuException::createFromPhpError();
+    }
+    return $result;
 }

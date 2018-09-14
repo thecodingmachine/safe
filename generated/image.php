@@ -1167,6 +1167,44 @@ function imagegif($image, $to = null): void
 
 
 /**
+ * Grabs a screenshot of the whole screen.
+ *
+ * @return resource Returns an image resource identifier on success, FALSE on failure.
+ * @throws ImageException
+ *
+ */
+function imagegrabscreen()
+{
+    error_clear_last();
+    $result = \imagegrabscreen();
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Grabs a window or its client area using a windows handle (HWND property in COM instance)
+ *
+ * @param int $window_handle The HWND window ID.
+ * @param int $client_area Include the client area of the application window.
+ * @return resource Returns an image resource identifier on success, FALSE on failure.
+ * @throws ImageException
+ *
+ */
+function imagegrabwindow(int $window_handle, int $client_area = 0)
+{
+    error_clear_last();
+    $result = \imagegrabwindow($window_handle, $client_area);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * imagejpeg creates a JPEG file from
  * the given image.
  *

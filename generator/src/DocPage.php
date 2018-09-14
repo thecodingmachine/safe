@@ -31,6 +31,9 @@ class DocPage
             if (preg_match('/&false;\s+on\s+error/m', $file)) {
                 return true;
             }
+            if (preg_match('/&false;\s+on\s+failure/m', $file)) {
+                return true;
+            }
             if (preg_match('/&false;\s+if\s+an\s+error\s+occurred/m', $file)) {
                 return true;
             }

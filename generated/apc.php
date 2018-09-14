@@ -61,11 +61,7 @@ function apc_compile_file(string $filename, bool $atomic = true)
 function apc_dec(string $key, int $step = 1, bool &$success = null): int
 {
     error_clear_last();
-    if ($success !== null) {
-        $result = \apc_dec($key, $step, $success);
-    } else {
-        $result = \apc_dec($key, $step);
-    }
+    $result = \apc_dec($key, $step, $success);
     if ($result === false) {
         throw ApcException::createFromPhpError();
     }
@@ -164,11 +160,7 @@ function apc_delete(string $key)
 function apc_inc(string $key, int $step = 1, bool &$success = null): int
 {
     error_clear_last();
-    if ($success !== null) {
-        $result = \apc_inc($key, $step, $success);
-    } else {
-        $result = \apc_inc($key, $step);
-    }
+    $result = \apc_inc($key, $step, $success);
     if ($result === false) {
         throw ApcException::createFromPhpError();
     }

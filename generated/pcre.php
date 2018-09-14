@@ -351,15 +351,7 @@ use Safe\Exceptions\PcreException;
 function preg_match_all(string $pattern, string $subject, array &$matches = null, int $flags = PREG_PATTERN_ORDER, int $offset = 0): int
 {
     error_clear_last();
-    if ($offset !== 0) {
-        $result = \preg_match_all($pattern, $subject, $matches, $flags, $offset);
-    } elseif ($flags !== PREG_PATTERN_ORDER) {
-        $result = \preg_match_all($pattern, $subject, $matches, $flags);
-    } elseif ($matches !== null) {
-        $result = \preg_match_all($pattern, $subject, $matches);
-    } else {
-        $result = \preg_match_all($pattern, $subject);
-    }
+    $result = \preg_match_all($pattern, $subject, $matches, $flags, $offset);
     if ($result === false) {
         throw PcreException::createFromPhpError();
     }
@@ -596,15 +588,7 @@ function preg_match_all(string $pattern, string $subject, array &$matches = null
 function preg_match(string $pattern, string $subject, array &$matches = null, int $flags = 0, int $offset = 0): int
 {
     error_clear_last();
-    if ($offset !== 0) {
-        $result = \preg_match($pattern, $subject, $matches, $flags, $offset);
-    } elseif ($flags !== 0) {
-        $result = \preg_match($pattern, $subject, $matches, $flags);
-    } elseif ($matches !== null) {
-        $result = \preg_match($pattern, $subject, $matches);
-    } else {
-        $result = \preg_match($pattern, $subject);
-    }
+    $result = \preg_match($pattern, $subject, $matches, $flags, $offset);
     if ($result === false) {
         throw PcreException::createFromPhpError();
     }

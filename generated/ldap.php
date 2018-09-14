@@ -69,13 +69,7 @@ function ldap_bind($link_identifier, string $bind_rdn = null, string $bind_passw
 function ldap_control_paged_result_response($link, $result, string &$cookie = null, int &$estimated = null): void
 {
     error_clear_last();
-    if ($estimated !== null) {
-        $result = \ldap_control_paged_result_response($link, $result, $cookie, $estimated);
-    } elseif ($cookie !== null) {
-        $result = \ldap_control_paged_result_response($link, $result, $cookie);
-    } else {
-        $result = \ldap_control_paged_result_response($link, $result);
-    }
+    $result = \ldap_control_paged_result_response($link, $result, $cookie, $estimated);
     if ($result === false) {
         throw LdapException::createFromPhpError();
     }
@@ -968,13 +962,7 @@ function ldap_next_attribute($link_identifier, $result_entry_identifier): string
 function ldap_parse_exop($link, $result, string &$retdata = null, string &$retoid = null): void
 {
     error_clear_last();
-    if ($retoid !== null) {
-        $result = \ldap_parse_exop($link, $result, $retdata, $retoid);
-    } elseif ($retdata !== null) {
-        $result = \ldap_parse_exop($link, $result, $retdata);
-    } else {
-        $result = \ldap_parse_exop($link, $result);
-    }
+    $result = \ldap_parse_exop($link, $result, $retdata, $retoid);
     if ($result === false) {
         throw LdapException::createFromPhpError();
     }
@@ -1003,17 +991,7 @@ function ldap_parse_exop($link, $result, string &$retdata = null, string &$retoi
 function ldap_parse_result($link, $result, int &$errcode, string &$matcheddn = null, string &$errmsg = null, array &$referrals = null, array &$serverctrls = null): void
 {
     error_clear_last();
-    if ($serverctrls !== null) {
-        $result = \ldap_parse_result($link, $result, $errcode, $matcheddn, $errmsg, $referrals, $serverctrls);
-    } elseif ($referrals !== null) {
-        $result = \ldap_parse_result($link, $result, $errcode, $matcheddn, $errmsg, $referrals);
-    } elseif ($errmsg !== null) {
-        $result = \ldap_parse_result($link, $result, $errcode, $matcheddn, $errmsg);
-    } elseif ($matcheddn !== null) {
-        $result = \ldap_parse_result($link, $result, $errcode, $matcheddn);
-    } else {
-        $result = \ldap_parse_result($link, $result, $errcode);
-    }
+    $result = \ldap_parse_result($link, $result, $errcode, $matcheddn, $errmsg, $referrals, $serverctrls);
     if ($result === false) {
         throw LdapException::createFromPhpError();
     }

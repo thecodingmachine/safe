@@ -32,4 +32,19 @@ class GeneratedFilesTest extends TestCase
             restore_error_handler();
         }
     }
+
+    public function testPregMatch()
+    {
+        require_once __DIR__.'/../../generated/pcre.php';
+        require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
+        require_once __DIR__.'/../../lib/Exceptions/AbstractSafeException.php';
+        require_once __DIR__.'/../../generated/Exceptions/PcreException.php';
+
+
+        $url = 'https://open.spotify.com/track/0nCqpKBrvDchO1BIvt7DTR?si=iLUKDfkLSy-IpnLA7qImnw';
+        $spotifyRegex = "/https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:track\/|\?uri=spotify:track:)((\w|-){22})/";
+        preg_match($spotifyRegex, $url, $matches);
+        \preg_match($spotifyRegex, $url, $originalMatches);
+        $this->assertSame($originalMatches, $matches);
+    }
 }

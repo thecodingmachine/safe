@@ -3,7 +3,9 @@
 namespace Safe;
 
 use function array_merge;
+use function iterator_to_array;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
+use Symfony\Component\Finder\Finder;
 
 class Scanner
 {
@@ -32,13 +34,10 @@ class Scanner
      */
     public function getPaths(): array
     {
-        $incompletePaths = glob($this->path, GLOB_ONLYDIR);
+        $finder = new Finder();
+        $finder->in($this->path.'*/functions/')->name('*.xml')->sortByName();
 
-        $paths = [];
-        foreach ($incompletePaths as $incompletePath) {
-            $paths = array_merge($paths, glob($incompletePath.'/functions/*.xml'));
-        }
-        return $paths;
+        return iterator_to_array($finder);
     }
 
     private $ignoredFunctions;

@@ -27,7 +27,7 @@ class GenerateCommand extends Command
         $excludedModules = [
             'snmp'
         ];
-        $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/*', $excludedModules);
+        $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/', $excludedModules);
 
         [
             'functions' => $functions,

@@ -2,7 +2,7 @@
 
 Safe-PHP code is generated automatically from the PHP doc.
 
-## How to generate Safe-PHP code
+## How to install Safe-PHP development environment
 
 The first step is to download the PHP documentation project locally.
 You will need Subversion (svn) installed on your computer.
@@ -20,7 +20,6 @@ $ cd generator/doc/doc-en
 $ svn update
 ```
 
-
 ### Generating the functions
 
 Generating the functions can be done with a simple command.
@@ -29,3 +28,11 @@ Generating the functions can be done with a simple command.
 $ cd generator
 $ php ./safe.php generate
 ```
+
+### Submitting a PR
+
+The continuous integration hooks will regenerate all the functions and check that the result is exactly what has been
+committed. Therefore, before submitting a PR, please:
+
+- Perform a "svn update"
+- Regenerate the files using `php ./safe.php generate`

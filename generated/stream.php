@@ -226,23 +226,6 @@ function stream_get_contents($handle, int $maxlength = -1, int $offset = -1): st
 
 
 /**
- * Checks if a stream, or a URL, is a local one or not.
- *
- * @param mixed $stream_or_url The stream resource or URL to check.
- * @throws StreamException
- *
- */
-function stream_is_local($stream_or_url): void
-{
-    error_clear_last();
-    $result = \stream_is_local($stream_or_url);
-    if ($result === false) {
-        throw StreamException::createFromPhpError();
-    }
-}
-
-
-/**
  * Determines if stream stream refers to a valid terminal type device.
  * This is a more portable version of posix_isatty, since it works on Windows systems too.
  *

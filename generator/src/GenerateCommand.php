@@ -95,6 +95,7 @@ class GenerateCommand extends Command
     private function runCsFix(OutputInterface $output): void
     {
         $process = new Process('vendor/bin/phpcbf', __DIR__.'/../..');
+        $process->setTimeout(600);
         $process->run(function ($type, $buffer) use ($output) {
             if (Process::ERR === $type) {
                 echo $output->write('<error>'.$buffer.'</error>');

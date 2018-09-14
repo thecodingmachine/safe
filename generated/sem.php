@@ -31,7 +31,7 @@ function msg_queue_exists(int $key): void
  * of the queue is returned. If desiredmsgtype is
  * greater than 0, then the first message of that type is returned.
  * If desiredmsgtype is less than 0, the first
- * message on the queue with the lowest type less than or equal to the
+ * message on the queue with a type less than or equal to the
  * absolute value of desiredmsgtype will be read.
  * If no messages match the criteria, your script will wait until a suitable
  * message arrives on the queue.  You can prevent the script from blocking

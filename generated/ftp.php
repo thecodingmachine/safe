@@ -18,11 +18,7 @@ use Safe\Exceptions\FtpException;
 function ftp_alloc($ftp_stream, int $filesize, string &$result = null): void
 {
     error_clear_last();
-    if ($result !== null) {
-        $result = \ftp_alloc($ftp_stream, $filesize, $result);
-    } else {
-        $result = \ftp_alloc($ftp_stream, $filesize);
-    }
+    $result = \ftp_alloc($ftp_stream, $filesize, $result);
     if ($result === false) {
         throw FtpException::createFromPhpError();
     }

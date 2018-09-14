@@ -430,11 +430,7 @@ function yaz_search($id, string $type, string $query): void
 function yaz_wait(array &$options = null)
 {
     error_clear_last();
-    if ($options !== null) {
-        $result = \yaz_wait($options);
-    } else {
-        $result = \yaz_wait();
-    }
+    $result = \yaz_wait($options);
     if ($result === false) {
         throw YazException::createFromPhpError();
     }

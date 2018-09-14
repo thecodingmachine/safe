@@ -351,11 +351,7 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
 function stream_socket_accept($server_socket, float $timeout = null, string &$peername = null)
 {
     error_clear_last();
-    if ($peername !== null) {
-        $result = \stream_socket_accept($server_socket, $timeout, $peername);
-    } else {
-        $result = \stream_socket_accept($server_socket, $timeout);
-    }
+    $result = \stream_socket_accept($server_socket, $timeout, $peername);
     if ($result === false) {
         throw StreamException::createFromPhpError();
     }
@@ -410,14 +406,8 @@ function stream_socket_server(string $local_socket, int &$errno = null, string &
     error_clear_last();
     if ($context !== null) {
         $result = \stream_socket_server($local_socket, $errno, $errstr, $flags, $context);
-    } elseif ($flags !== STREAM_SERVER_BIND | STREAM_SERVER_LISTEN) {
-        $result = \stream_socket_server($local_socket, $errno, $errstr, $flags);
-    } elseif ($errstr !== null) {
-        $result = \stream_socket_server($local_socket, $errno, $errstr);
-    } elseif ($errno !== null) {
-        $result = \stream_socket_server($local_socket, $errno);
     } else {
-        $result = \stream_socket_server($local_socket);
+        $result = \stream_socket_server($local_socket, $errno, $errstr, $flags);
     }
     if ($result === false) {
         throw StreamException::createFromPhpError();

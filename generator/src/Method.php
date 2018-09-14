@@ -189,14 +189,14 @@ class Method
     }
 
     /**
-     * The function is overloaded if at least one parameter optional with no default value.
+     * The function is overloaded if at least one parameter is optional with no default value and this parameter is not by reference.
      *
      * @return bool
      */
     public function isOverloaded(): bool
     {
         foreach ($this->getFunctionParam() as $parameter) {
-            if ($parameter->isOptionalWithNoDefault()) {
+            if ($parameter->isOptionalWithNoDefault() && !$parameter->isByReference()) {
                 return true;
             }
         }

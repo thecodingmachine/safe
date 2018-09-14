@@ -129,11 +129,7 @@ function pcntl_signal_dispatch(): void
 function pcntl_sigprocmask(int $how, array $set, array &$oldset = null): void
 {
     error_clear_last();
-    if ($oldset !== null) {
-        $result = \pcntl_sigprocmask($how, $set, $oldset);
-    } else {
-        $result = \pcntl_sigprocmask($how, $set);
-    }
+    $result = \pcntl_sigprocmask($how, $set, $oldset);
     if ($result === false) {
         throw PcntlException::createFromPhpError();
     }

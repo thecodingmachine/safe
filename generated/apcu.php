@@ -40,11 +40,7 @@ function apcu_cas(string $key, int $old, int $new): void
 function apcu_dec(string $key, int $step = 1, bool &$success = null): int
 {
     error_clear_last();
-    if ($success !== null) {
-        $result = \apcu_dec($key, $step, $success);
-    } else {
-        $result = \apcu_dec($key, $step);
-    }
+    $result = \apcu_dec($key, $step, $success);
     if ($result === false) {
         throw ApcuException::createFromPhpError();
     }
@@ -88,11 +84,7 @@ function apcu_delete($key): void
 function apcu_inc(string $key, int $step = 1, bool &$success = null): int
 {
     error_clear_last();
-    if ($success !== null) {
-        $result = \apcu_inc($key, $step, $success);
-    } else {
-        $result = \apcu_inc($key, $step);
-    }
+    $result = \apcu_inc($key, $step, $success);
     if ($result === false) {
         throw ApcuException::createFromPhpError();
     }

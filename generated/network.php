@@ -245,15 +245,7 @@ function closelog(): void
 function dns_get_record(string $hostname, int $type = DNS_ANY, array &$authns = null, array &$addtl = null, bool $raw = false): array
 {
     error_clear_last();
-    if ($raw !== false) {
-        $result = \dns_get_record($hostname, $type, $authns, $addtl, $raw);
-    } elseif ($addtl !== null) {
-        $result = \dns_get_record($hostname, $type, $authns, $addtl);
-    } elseif ($authns !== null) {
-        $result = \dns_get_record($hostname, $type, $authns);
-    } else {
-        $result = \dns_get_record($hostname, $type);
-    }
+    $result = \dns_get_record($hostname, $type, $authns, $addtl, $raw);
     if ($result === false) {
         throw NetworkException::createFromPhpError();
     }

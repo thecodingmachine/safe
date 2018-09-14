@@ -890,11 +890,7 @@ function openssl_public_encrypt(string $data, string &$crypted, $key, int $paddi
 function openssl_random_pseudo_bytes(int $length, bool &$crypto_strong = null): string
 {
     error_clear_last();
-    if ($crypto_strong !== null) {
-        $result = \openssl_random_pseudo_bytes($length, $crypto_strong);
-    } else {
-        $result = \openssl_random_pseudo_bytes($length);
-    }
+    $result = \openssl_random_pseudo_bytes($length, $crypto_strong);
     if ($result === false) {
         throw OpensslException::createFromPhpError();
     }
@@ -929,11 +925,7 @@ function openssl_random_pseudo_bytes(int $length, bool &$crypto_strong = null): 
 function openssl_seal(string $data, string &$sealed_data, array &$env_keys, array $pub_key_ids, string $method = "RC4", string &$iv = null): int
 {
     error_clear_last();
-    if ($iv !== null) {
-        $result = \openssl_seal($data, $sealed_data, $env_keys, $pub_key_ids, $method, $iv);
-    } else {
-        $result = \openssl_seal($data, $sealed_data, $env_keys, $pub_key_ids, $method);
-    }
+    $result = \openssl_seal($data, $sealed_data, $env_keys, $pub_key_ids, $method, $iv);
     if ($result === false) {
         throw OpensslException::createFromPhpError();
     }

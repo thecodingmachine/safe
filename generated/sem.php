@@ -95,11 +95,7 @@ function msg_queue_exists(int $key): void
 function msg_receive($queue, int $desiredmsgtype, int &$msgtype, int $maxsize, &$message, bool $unserialize = true, int $flags = 0, int &$errorcode = null): void
 {
     error_clear_last();
-    if ($errorcode !== null) {
-        $result = \msg_receive($queue, $desiredmsgtype, $msgtype, $maxsize, $message, $unserialize, $flags, $errorcode);
-    } else {
-        $result = \msg_receive($queue, $desiredmsgtype, $msgtype, $maxsize, $message, $unserialize, $flags);
-    }
+    $result = \msg_receive($queue, $desiredmsgtype, $msgtype, $maxsize, $message, $unserialize, $flags, $errorcode);
     if ($result === false) {
         throw SemException::createFromPhpError();
     }
@@ -158,11 +154,7 @@ function msg_remove_queue($queue): void
 function msg_send($queue, int $msgtype, $message, bool $serialize = true, bool $blocking = true, int &$errorcode = null): void
 {
     error_clear_last();
-    if ($errorcode !== null) {
-        $result = \msg_send($queue, $msgtype, $message, $serialize, $blocking, $errorcode);
-    } else {
-        $result = \msg_send($queue, $msgtype, $message, $serialize, $blocking);
-    }
+    $result = \msg_send($queue, $msgtype, $message, $serialize, $blocking, $errorcode);
     if ($result === false) {
         throw SemException::createFromPhpError();
     }

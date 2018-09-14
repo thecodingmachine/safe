@@ -23,6 +23,13 @@ before_script:
   else
     cd generator/doc/doc-en
     svn update
+    if [ $? -ne 0 ];
+    then
+      cd ..
+      rm -rf doc-en
+      svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
+      cd doc-en
+    fi
     cd ../../..
   fi
 - composer update

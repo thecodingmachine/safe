@@ -105,6 +105,11 @@ includes:
 
 There are a number of issues withstanding [before releasing 1.0](https://github.com/thecodingmachine/safe/milestone/1)
 
+## Learn more
+
+Read [the release article on TheCodingMachine's blog](https://thecodingmachine.io/introducing-safe-php) if you want to 
+learn more about what triggered the development of Safe-PHP.
+
 ## Contributing
 
 The files that contains all the functions are auto-generated from the PHP doc.

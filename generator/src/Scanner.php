@@ -15,14 +15,9 @@ class Scanner
      */
     private $path;
 
-    /**
-     * Scanner constructor.
-     * @param string $_path
-     * @param string[] $excludedModules
-     */
-    public function __construct(string $_path)
+    public function __construct(string $path)
     {
-        $this->path = $_path;
+        $this->path = $path;
     }
 
     /**

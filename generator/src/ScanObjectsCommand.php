@@ -35,6 +35,5 @@ class ScanObjectsCommand extends Command
         }
 
         $output->writeln('These methods are overloaded: '.\implode(', ', $overloadedFunctions));
-
     }
 }

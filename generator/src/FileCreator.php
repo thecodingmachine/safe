@@ -81,6 +81,19 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';
         }
     }
 
+    /**
+     * @param Method[] $functions
+     * @return string[]
+     */
+    private function getFunctionsNameList(array $functions): array
+    {
+        $functionNames = array_map(function (Method $function) {
+            return $function->getFunctionName();
+        }, $functions);
+        $specialCases = require __DIR__.'/../config/specialCasesFunctions.php';
+        return array_merge($functionNames, $specialCases);
+    }
+
 
     /**
      * This function generate a PHP file containing the list of functions we can handle.
@@ -90,11 +103,7 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';
      */
     public function generateFunctionsList(array $functions, string $path): void
     {
-        $functionNames = array_map(function (Method $function) {
-            return $function->getFunctionName();
-        }, $functions);
-        $specialCases = require __DIR__.'/../config/specialCasesFunctions.php';
-        $functionNames = array_merge($functionNames, $specialCases);
+        $functionNames = $this->getFunctionsNameList($functions);
         $stream = fopen($path, 'w');
         if ($stream === false) {
             throw new \RuntimeException('Unable to write to '.$path);
@@ -105,6 +114,30 @@ return [\n");
             fwrite($stream, '    '.\var_export($functionName, true).",\n");
         }
         fwrite($stream, "];\n");
+        fclose($stream);
+    }
+
+    /**
+     * This function generate a rector yml file containing a replacer for all functions
+     *
+     * @param Method[] $functions
+     * @param string $path
+     */
+    public function generateRectorFile(array $functions, string $path): void
+    {
+        $functionNames = $this->getFunctionsNameList($functions);
+        $stream = fopen($path, 'w');
+        if ($stream === false) {
+            throw new \RuntimeException('Unable to write to '.$path);
+        }
+        fwrite($stream, "# This rector file is replacing all core PHP functions with the equivalent \"safe\" functions 
+services:
+  Rector\Rector\Function_\FunctionReplaceRector:
+    \$oldFunctionToNewFunction:
+");
+        foreach ($functionNames as $functionName) {
+            fwrite($stream, '      '.$functionName.": 'Safe\\".$functionName."'\n");
+        }
         fclose($stream);
     }
 

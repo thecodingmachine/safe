@@ -39,6 +39,7 @@ class GenerateCommand extends Command
         //$fileCreator->generateXlsFile($protoFunctions, __DIR__ . '/../generated/lib.xls');
         $fileCreator->generatePhpFile($functions, __DIR__ . '/../../generated/');
         $fileCreator->generateFunctionsList($functions, __DIR__ . '/../../generated/functionsList.php');
+        $fileCreator->generateRectorFile($functions, __DIR__ . '/../../rector-migrate.yml');
 
 
         $modules = [];

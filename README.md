@@ -100,6 +100,57 @@ includes:
     - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
 ```
 
+## Automated refactoring
+
+You have a large legacy codebase and want to use "Safe-PHP" functions through all you project? PHPStan will help you 
+finding these functions but changing the namespace of the functions one function at a time might be a tedious work.
+
+Hopefully, Safe comes bundled with a "Rector" configuration file. [Rector](https://github.com/rectorphp/rector) is a command-line 
+tool that performs instant refactoring of your application.
+
+First, you need to install Rector:
+
+```bash
+$ composer require --dev rector/rector ^0.3
+```
+
+Now, you simply need to run Rector with this command:
+
+```bash
+vendor/bin/rector process src/ --config vendor/thecodingmachine/safe/rector-migrate.yml
+```
+
+*Note:* do not forget to replace "src/" with the path to your source directory.
+
+**Important:** the refactoring is only performing a "dumb" replacement of functions. It will not modify the way 
+"false" return values are handled. So if your code was already performing error handling, you will have to deal
+with it manually.
+
+Especially, you should look for error handling that was already performed, like:
+
+```php
+if (!mkdir($dirPath)) {
+    // Do something on error
+}
+```
+
+This code will be refactored by Rector to:
+
+```php
+if (!\Safe\mkdir($dirPath)) {
+    // Do something on error
+}
+```
+
+You should then (manually) refactor it to:
+
+```php
+try {
+    \Safe\mkdir($dirPath));
+} catch (\Safe\FilesystemException $e) {
+    // Do something on error
+}
+```
 
 ## Work in progress
 

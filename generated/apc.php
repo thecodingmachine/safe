@@ -5,6 +5,37 @@ namespace Safe;
 use Safe\Exceptions\ApcException;
 
 /**
+ * Retrieves cached information and meta-data from APC's data store.
+ *
+ * @param string $cache_type If cache_type is "user",
+ * information about the user cache will be returned.
+ *
+ * If cache_type is "filehits",
+ * information about which files have been served from the bytecode cache
+ * for the current request will be returned. This feature must be enabled at
+ * compile time using --enable-filehits.
+ *
+ * If an invalid or no cache_type is specified, information about
+ * the system cache (cached files) will be returned.
+ * @param bool $limited If limited is TRUE, the
+ * return value will exclude the individual list of cache entries.  This
+ * is useful when trying to optimize calls for statistics gathering.
+ * @return array Array of cached data (and meta-data)
+ * @throws ApcException
+ *
+ */
+function apc_cache_info(string $cache_type = '', bool $limited = false): array
+{
+    error_clear_last();
+    $result = \apc_cache_info($cache_type, $limited);
+    if ($result === false) {
+        throw ApcException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * apc_cas updates an already existing integer value if the
  * old parameter matches the currently stored value
  * with the value of the new parameter.

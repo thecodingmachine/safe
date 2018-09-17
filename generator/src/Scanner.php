@@ -3,7 +3,10 @@
 namespace Safe;
 
 use function array_merge;
+use function iterator_to_array;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
+use Symfony\Component\Finder\Finder;
+use SplFileInfo;
 
 class Scanner
 {
@@ -11,34 +14,32 @@ class Scanner
      * @var string
      */
     private $path;
-    /**
-     * @var array
-     */
-    private $excludedModules;
 
-    /**
-     * Scanner constructor.
-     * @param string $_path
-     * @param string[] $excludedModules
-     */
-    public function __construct(string $_path, array $excludedModules)
+    public function __construct(string $path)
     {
-        $this->path = $_path;
-        $this->excludedModules = $excludedModules;
+        $this->path = $path;
     }
 
     /**
-     * @return string[]
+     * @return array<string, SplFileInfo>
      */
-    public function getPaths(): array
+    public function getFunctionsPaths(): array
     {
-        $incompletePaths = glob($this->path, GLOB_ONLYDIR);
+        $finder = new Finder();
+        $finder->in($this->path.'*/functions/')->name('*.xml')->sortByName();
 
-        $paths = [];
-        foreach ($incompletePaths as $incompletePath) {
-            $paths = array_merge($paths, glob($incompletePath.'/functions/*.xml'));
-        }
-        return $paths;
+        return iterator_to_array($finder);
+    }
+
+    /**
+     * @return array<string, SplFileInfo>
+     */
+    public function getMethodsPaths(): array
+    {
+        $finder = new Finder();
+        $finder->in($this->path)->notPath('functions')->name('*.xml')->sortByName();
+
+        return iterator_to_array($finder);
     }
 
     private $ignoredFunctions;
@@ -73,13 +74,14 @@ class Scanner
     }
 
     /**
-     * @return mixed[]
+     * @param SplFileInfo[] $paths
+     * @return mixed[] Structure: ['functions'=>Method[], 'overloadedFunctions'=>string[]]
      */
-    public function getMethods(): array
+    public function getMethods(array $paths): array
     {
         $functions = [];
         $overloadedFunctions = [];
-        $paths = $this->getPaths();
+
         $phpStanFunctionMapReader = new PhpStanFunctionMapReader();
         $ignoredFunctions = $this->getIgnoredFunctions();
         $ignoredFunctions = \array_combine($ignoredFunctions, $ignoredFunctions);
@@ -87,7 +89,7 @@ class Scanner
         $ignoredModules = \array_combine($ignoredModules, $ignoredModules);
         foreach ($paths as $path) {
             $module = \basename(\dirname($path, 2));
-            if (\in_array($module, $this->excludedModules)) {
+            if (isset($ignoredModules[$module])) {
                 continue;
             }
 
@@ -107,9 +109,6 @@ class Scanner
                 foreach ($functionObjects as $functionObject) {
                     $function = new Method($functionObject, $rootEntity, $docPage->getModule(), $phpStanFunctionMapReader);
                     if (isset($ignoredFunctions[$function->getFunctionName()])) {
-                        continue;
-                    }
-                    if (isset($ignoredModules[lcfirst($function->getModuleName())])) {
                         continue;
                     }
                     $functions[] = $function;

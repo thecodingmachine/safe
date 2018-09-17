@@ -31,4 +31,14 @@ class MethodTest extends TestCase
         $this->assertEquals('string', $params[0]->getType());
         $this->assertEquals('pattern', $params[0]->getParameter());
     }
+
+    public function testGetInitializer() {
+        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/apc/functions/apc-cache-info.xml');
+        $xmlObject = $docPage->getMethodSynopsis();
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader());
+
+        $params = $method->getFunctionParam();
+        $this->assertEquals('', $params[0]->getDefaultValue());
+    }
+
 }

@@ -152,7 +152,7 @@ function ldap_delete($link_identifier, string $dn, array $serverctrls = null): v
  * @param string $newpw The new password for this user. May be omitted or empty to have a generated password.
  * @param array $serverctrls
  * @return mixed Returns the generated password if newpw is empty or omitted.
- * Otherwise returns TRUE on success and FALSE on failure.
+ * Otherwise returns TRUE on success .
  * @throws LdapException
  *
  */

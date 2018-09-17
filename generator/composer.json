@@ -12,7 +12,8 @@
     "phpoffice/phpspreadsheet": "^1.4",
     "ext-json": "^1.5",
     "symfony/console": "^4.1.4",
-    "symfony/process": "^4.1"
+    "symfony/process": "^4.1",
+    "symfony/finder": "^4.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^7",

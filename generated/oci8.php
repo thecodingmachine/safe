@@ -865,6 +865,23 @@ function oci_field_type($statement, $field)
 
 
 /**
+ * Frees a descriptor allocated by oci_new_descriptor.
+ *
+ * @param resource $descriptor
+ * @throws Oci8Exception
+ *
+ */
+function oci_free_descriptor($descriptor): void
+{
+    error_clear_last();
+    $result = \oci_free_descriptor($descriptor);
+    if ($result === false) {
+        throw Oci8Exception::createFromPhpError();
+    }
+}
+
+
+/**
  * Frees resources associated with Oracle's cursor or statement, which was
  * received from as a result of oci_parse or obtained
  * from Oracle.

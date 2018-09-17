@@ -5,6 +5,27 @@ namespace Safe;
 use Safe\Exceptions\ApcuException;
 
 /**
+ * Retrieves cached information and meta-data from APC's data store.
+ *
+ * @param bool $limited If limited is TRUE, the
+ * return value will exclude the individual list of cache entries.  This
+ * is useful when trying to optimize calls for statistics gathering.
+ * @return array Array of cached data (and meta-data)
+ * @throws ApcuException
+ *
+ */
+function apcu_cache_info(bool $limited = false): array
+{
+    error_clear_last();
+    $result = \apcu_cache_info($limited);
+    if ($result === false) {
+        throw ApcuException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * apcu_cas updates an already existing integer value if the
  * old parameter matches the currently stored value
  * with the value of the new parameter.

@@ -27,26 +27,28 @@ class DocPage
     {
         $file = file_get_contents($this->path);
 
-        if (!preg_match('/::/m', $file)) {
-            if (preg_match('/&false;\s+on\s+error/m', $file)) {
-                return true;
-            }
-            if (preg_match('/&false;\s+on\s+failure/m', $file)) {
-                return true;
-            }
-            if (preg_match('/&false;\s+if\s+an\s+error\s+occurred/m', $file)) {
-                return true;
-            }
-            if (preg_match('/&return.success;/m', $file)) {
-                return true;
-            }
-            if (preg_match('/&return.nullorfalse;/m', $file)) {
-                return true;
-            }
-            if (preg_match('/&return.falseforfailure;/m', $file)) {
-                return true;
-            }
+        if (preg_match('/&false;\s+on\s+error/m', $file)) {
+            return true;
         }
+        if (preg_match('/&false;\s+on\s+failure/m', $file)) {
+            return true;
+        }
+        if (preg_match('/&false;\s+if\s+an\s+error\s+occurred/m', $file)) {
+            return true;
+        }
+        if (preg_match('/&return.success;/m', $file)) {
+            return true;
+        }
+        if (preg_match('/&return.nullorfalse;/m', $file)) {
+            return true;
+        }
+        if (preg_match('/&return.falseforfailure;/m', $file)) {
+            return true;
+        }
+        if (preg_match('/&date.datetime.return.modifiedobjectorfalseforfailure;/m', $file)) {
+            return true;
+        }
+
         return false;
     }
 

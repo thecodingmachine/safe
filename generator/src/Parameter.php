@@ -116,7 +116,7 @@ class Parameter
         if ($inner_xml === false) {
             throw new \RuntimeException('Unable to serialize to XML');
         }
-        $inner_xml = str_replace(['<'.$element_name.'>', '</'.$element_name.'>'], '', $inner_xml);
+        $inner_xml = str_replace(['<'.$element_name.'>', '</'.$element_name.'>', '<'.$element_name.'/>'], '', $inner_xml);
         $inner_xml = trim($inner_xml);
         return $inner_xml;
     }

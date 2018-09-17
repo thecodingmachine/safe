@@ -1060,7 +1060,7 @@ function imap_thread($imap_stream, int $options = SE_FREE): array
  * IMAP_CLOSETIMEOUT.
  * @param int $timeout The timeout, in seconds.
  * @return mixed If the timeout parameter is set, this function
- * returns TRUE on success and FALSE on failure.
+ * returns TRUE on success .
  *
  * If timeout  is not provided or evaluates to -1,
  * the current timeout value of timeout_type is

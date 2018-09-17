@@ -2,6 +2,10 @@
 
 namespace Safe;
 
+use function is_numeric;
+use function strtolower;
+use function var_export;
+
 class WritePhpFunction
 {
     /**
@@ -75,7 +79,7 @@ class WritePhpFunction
                     $defaultValueToString = '[]';
                 } else {
                     $defaultValue = $lastParameter->getDefaultValue();
-                    $defaultValueToString = ($defaultValue === null) ? 'null' : $defaultValue;
+                    $defaultValueToString = $this->defaultValueToString($defaultValue);
                 }
                 $phpFunction .= 'if ($'.$lastParameter->getParameter().' !== '.$defaultValueToString.') {'."\n";
                 $phpFunction .= '        $result = '.$this->printFunctionCall($method)."\n";
@@ -151,7 +155,7 @@ class WritePhpFunction
             }
             $defaultValue = $param->getDefaultValue();
             if ($defaultValue !== null) {
-                $paramAsString .= ' = '.$defaultValue;
+                $paramAsString .= ' = '.$this->defaultValueToString($defaultValue);
             } elseif ($optDetected && !$param->isVariadic()) {
                 $paramAsString .= ' = null';
             }
@@ -173,5 +177,16 @@ class WritePhpFunction
         }, $function->getFunctionParam()));
         $functionCall .= ');';
         return $functionCall;
+    }
+
+    private function defaultValueToString(?string $defaultValue): string
+    {
+        if ($defaultValue === null) {
+            return 'null';
+        }
+        if ($defaultValue === '') {
+            return "''";
+        }
+        return $defaultValue;
     }
 }

@@ -24,15 +24,14 @@ class GenerateCommand extends Command
         $this->rmGenerated();
         // Let's build the DTD necessary to load the XML files.
         DocPage::buildEntities();
-        $excludedModules = [
-            'snmp'
-        ];
-        $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/', $excludedModules);
+        $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/');
+
+        $paths = $scanner->getFunctionsPaths();
 
         [
             'functions' => $functions,
             'overloadedFunctions' => $overloadedFunctions
-        ] = $scanner->getMethods();
+        ] = $scanner->getMethods($paths);
 
         $output->writeln('These functions have been ignored and must be dealt with manually: '.\implode(', ', $overloadedFunctions));
 

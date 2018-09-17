@@ -5,6 +5,26 @@ namespace Safe;
 use Safe\Exceptions\DatetimeException;
 
 /**
+ * Returns associative array with detailed info about given date.
+ *
+ * @param string $format Format accepted by DateTime::createFromFormat.
+ * @param string $date String representing the date.
+ * @return array Returns associative array with detailed info about given date.
+ * @throws DatetimeException
+ *
+ */
+function date_parse_from_format(string $format, string $date): array
+{
+    error_clear_last();
+    $result = \date_parse_from_format($format, $date);
+    if ($result === false) {
+        throw DatetimeException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  *
  *
  * @param string $date Date in format accepted by strtotime.
@@ -376,6 +396,115 @@ function mktime(int $hour = null, int $minute = null, int $second = null, int $m
 {
     error_clear_last();
     $result = \mktime($hour, $minute, $second, $month, $day, $year, $is_dst);
+    if ($result === false) {
+        throw DatetimeException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * strptime returns an array with the
+ * date parsed, .
+ *
+ * Month and weekday names and other language dependent strings respect the
+ * current locale set with setlocale (LC_TIME).
+ *
+ * @param string $date The string to parse (e.g. returned from strftime).
+ * @param string $format The format used in date (e.g. the same as
+ * used in strftime). Note that some of the format
+ * options available to strftime may not have any
+ * effect within strptime; the exact subset that are
+ * supported will vary based on the operating system and C library in
+ * use.
+ *
+ * For more information about the format options, read the
+ * strftime page.
+ * @return array Returns an array .
+ *
+ *
+ * The following parameters are returned in the array
+ *
+ *
+ *
+ * parameters
+ * Description
+ *
+ *
+ *
+ *
+ * "tm_sec"
+ * Seconds after the minute (0-61)
+ *
+ *
+ * "tm_min"
+ * Minutes after the hour (0-59)
+ *
+ *
+ * "tm_hour"
+ * Hour since midnight (0-23)
+ *
+ *
+ * "tm_mday"
+ * Day of the month (1-31)
+ *
+ *
+ * "tm_mon"
+ * Months since January (0-11)
+ *
+ *
+ * "tm_year"
+ * Years since 1900
+ *
+ *
+ * "tm_wday"
+ * Days since Sunday (0-6)
+ *
+ *
+ * "tm_yday"
+ * Days since January 1 (0-365)
+ *
+ *
+ * "unparsed"
+ * the date part which was not
+ * recognized using the specified format
+ *
+ *
+ *
+ *
+ * @throws DatetimeException
+ *
+ */
+function strptime(string $date, string $format): array
+{
+    error_clear_last();
+    $result = \strptime($date, $format);
+    if ($result === false) {
+        throw DatetimeException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Each parameter of this function uses the default time zone unless a
+ * time zone is specified in that parameter.  Be careful not to use
+ * different time zones in each parameter unless that is intended.
+ * See date_default_timezone_get on the various
+ * ways to define the default time zone.
+ *
+ * @param string $time A date/time string. Valid formats are explained in Date and Time Formats.
+ * @param int $now The timestamp which is used as a base for the calculation of relative
+ * dates.
+ * @return int Returns a timestamp on success, FALSE otherwise. Previous to PHP 5.1.0,
+ * this function would return -1 on failure.
+ * @throws DatetimeException
+ *
+ */
+function strtotime(string $time, int $now = null): int
+{
+    error_clear_last();
+    $result = \strtotime($time, $now);
     if ($result === false) {
         throw DatetimeException::createFromPhpError();
     }

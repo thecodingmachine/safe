@@ -450,6 +450,59 @@ function fileowner(string $filename): int
 
 
 /**
+ * flock allows you to perform a simple reader/writer
+ * model which can be used on virtually every platform (including most Unix
+ * derivatives and even Windows).
+ *
+ * On versions of PHP before 5.3.2, the lock is released also by
+ * fclose (which is also called automatically when script
+ * finished).
+ *
+ * PHP supports a portable way of locking complete files in an advisory way
+ * (which means all accessing programs have to use the same way of locking
+ * or it will not work). By default, this function will block until the
+ * requested lock is acquired; this may be controlled with the LOCK_NB option documented below.
+ *
+ * @param resource $handle A file system pointer resource
+ * that is typically created using fopen.
+ * @param int $operation operation is one of the following:
+ *
+ *
+ *
+ * LOCK_SH to acquire a shared lock (reader).
+ *
+ *
+ *
+ *
+ * LOCK_EX to acquire an exclusive lock (writer).
+ *
+ *
+ *
+ *
+ * LOCK_UN to release a lock (shared or exclusive).
+ *
+ *
+ *
+ *
+ * It is also possible to add LOCK_NB as a bitmask to one
+ * of the above operations if you don't want flock to
+ * block while locking.
+ * @param int $wouldblock The optional third argument is set to 1 if the lock would block
+ * (EWOULDBLOCK errno condition).
+ * @throws FilesystemException
+ *
+ */
+function flock($handle, int $operation, int &$wouldblock = null): void
+{
+    error_clear_last();
+    $result = \flock($handle, $operation, $wouldblock);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+}
+
+
+/**
  * fopen binds a named resource, specified by
  * filename, to a stream.
  *
@@ -997,7 +1050,7 @@ function mkdir(string $pathname, int $mode = 0777, bool $recursive = false, $con
  * and "none" are considered FALSE. "null" is converted to NULL
  * in typed mode. Also, all numeric strings are converted to integer type if it is possible.
  * @return array The settings are returned as an associative array on success,
- * and FALSE on failure.
+ * .
  * @throws FilesystemException
  *
  */
@@ -1035,7 +1088,7 @@ function parse_ini_file(string $filename, bool $process_sections = false, int $s
  * and "none" are considered FALSE. "null" is converted to NULL
  * in typed mode. Also, all numeric strings are converted to integer type if it is possible.
  * @return array The settings are returned as an associative array on success,
- * and FALSE on failure.
+ * .
  * @throws FilesystemException
  *
  */

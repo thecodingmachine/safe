@@ -318,6 +318,25 @@ function header_register_callback(callable $callback): void
 
 
 /**
+ *
+ *
+ * @param string $in_addr A 32bit IPv4, or 128bit IPv6 address.
+ * @return string Returns a string representation of the address .
+ * @throws NetworkException
+ *
+ */
+function inet_ntop(string $in_addr): string
+{
+    error_clear_last();
+    $result = \inet_ntop($in_addr);
+    if ($result === false) {
+        throw NetworkException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * openlog opens a connection to the system
  * logger for a program.
  *

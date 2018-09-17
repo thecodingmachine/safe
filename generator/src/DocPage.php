@@ -27,7 +27,7 @@ class DocPage
     {
         $file = file_get_contents($this->path);
 
-        if (!preg_match('/::/m', $file)) {
+        //if (!preg_match('/::/m', $file)) {
             if (preg_match('/&false;\s+on\s+error/m', $file)) {
                 return true;
             }
@@ -46,7 +46,10 @@ class DocPage
             if (preg_match('/&return.falseforfailure;/m', $file)) {
                 return true;
             }
-        }
+            if (preg_match('/&date.datetime.return.modifiedobjectorfalseforfailure;/m', $file)) {
+                return true;
+            }
+        //}
         return false;
     }
 

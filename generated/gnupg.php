@@ -140,3 +140,29 @@ function gnupg_setarmor($identifier, int $armor): void
         throw GnupgException::createFromPhpError();
     }
 }
+
+
+/**
+ * Sets the mode for signing.
+ *
+ * @param resource $identifier The gnupg identifier, from a call to
+ * gnupg_init or gnupg.
+ * @param int $signmode The mode for signing.
+ *
+ * signmode takes a constant indicating what type of
+ * signature should be produced. The possible values are
+ * GNUPG_SIG_MODE_NORMAL,
+ * GNUPG_SIG_MODE_DETACH and
+ * GNUPG_SIG_MODE_CLEAR.
+ * By default GNUPG_SIG_MODE_CLEAR is used.
+ * @throws GnupgException
+ *
+ */
+function gnupg_setsignmode($identifier, int $signmode): void
+{
+    error_clear_last();
+    $result = \gnupg_setsignmode($identifier, $signmode);
+    if ($result === false) {
+        throw GnupgException::createFromPhpError();
+    }
+}

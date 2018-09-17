@@ -20,7 +20,7 @@ use Safe\Exceptions\UodbcException;
  * occurs.
  *
  * If OnOff is set, this function returns TRUE on
- * success and FALSE on failure.
+ * success .
  * @throws UodbcException
  *
  */

@@ -76,6 +76,36 @@ function socket_bind($socket, string $address, int $port = 0): void
 
 
 /**
+ * Initiate a connection to address using the socket resource
+ * socket, which must be a valid socket
+ * resource created with socket_create.
+ *
+ * @param resource $socket
+ * @param string $address The address parameter is either an IPv4 address
+ * in dotted-quad notation (e.g. 127.0.0.1) if
+ * socket is AF_INET, a valid
+ * IPv6 address (e.g. ::1) if IPv6 support is enabled and
+ * socket is AF_INET6
+ * or the pathname of a Unix domain socket, if the socket family is
+ * AF_UNIX.
+ * @param int $port The port parameter is only used and is mandatory
+ * when connecting to an AF_INET or an
+ * AF_INET6 socket, and designates
+ * the port on the remote host to which a connection should be made.
+ * @throws SocketsException
+ *
+ */
+function socket_connect($socket, string $address, int $port = 0): void
+{
+    error_clear_last();
+    $result = \socket_connect($socket, $address, $port);
+    if ($result === false) {
+        throw SocketsException::createFromPhpError();
+    }
+}
+
+
+/**
  * socket_create_listen creates a new socket resource of
  * type AF_INET listening on all
  * local interfaces on the given port waiting for new connections.
@@ -241,6 +271,69 @@ function socket_get_option($socket, int $level, int $optname)
         throw SocketsException::createFromPhpError();
     }
     return $result;
+}
+
+
+/**
+ * Queries the remote side of the given socket which may either result in
+ * host/port or in a Unix filesystem path, dependent on its type.
+ *
+ * @param resource $socket A valid socket resource created with socket_create
+ * or socket_accept.
+ * @param string $address If the given socket is of type AF_INET or
+ * AF_INET6, socket_getpeername
+ * will return the peers (remote) IP address in
+ * appropriate notation (e.g. 127.0.0.1 or
+ * fe80::1) in the address
+ * parameter and, if the optional port parameter is
+ * present, also the associated port.
+ *
+ * If the given socket is of type AF_UNIX,
+ * socket_getpeername will return the Unix filesystem
+ * path (e.g. /var/run/daemon.sock) in the
+ * address parameter.
+ * @param int $port If given, this will hold the port associated to
+ * address.
+ * @throws SocketsException
+ *
+ */
+function socket_getpeername($socket, string &$address, int &$port = null): void
+{
+    error_clear_last();
+    $result = \socket_getpeername($socket, $address, $port);
+    if ($result === false) {
+        throw SocketsException::createFromPhpError();
+    }
+}
+
+
+/**
+ *
+ *
+ * @param resource $socket A valid socket resource created with socket_create
+ * or socket_accept.
+ * @param string $addr If the given socket is of type AF_INET
+ * or AF_INET6, socket_getsockname
+ * will return the local IP address in appropriate notation (e.g.
+ * 127.0.0.1 or fe80::1) in the
+ * address parameter and, if the optional
+ * port parameter is present, also the associated port.
+ *
+ * If the given socket is of type AF_UNIX,
+ * socket_getsockname will return the Unix filesystem
+ * path (e.g. /var/run/daemon.sock) in the
+ * address parameter.
+ * @param int $port If provided, this will hold the associated port.
+ * @throws SocketsException
+ *
+ */
+function socket_getsockname($socket, string &$addr, int &$port = null): void
+{
+    error_clear_last();
+    $result = \socket_getsockname($socket, $addr, $port);
+    if ($result === false) {
+        throw SocketsException::createFromPhpError();
+    }
 }
 
 

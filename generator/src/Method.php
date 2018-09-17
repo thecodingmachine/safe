@@ -119,6 +119,7 @@ class Method
     {
         $string = \strip_tags($string);
         $string = $this->removeString($string, 'or FALSE on failure');
+        $string = $this->removeString($string, 'and FALSE on failure');
         $string = $this->removeString($string, 'on success, or FALSE otherwise');
         $string = $this->removeString($string, 'or FALSE on error');
         $string = $this->removeString($string, 'or FALSE if an error occurred');

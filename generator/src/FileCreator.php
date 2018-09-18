@@ -4,6 +4,7 @@ namespace Safe;
 
 use function array_merge;
 use Complex\Exception;
+use function file_exists;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use function ucfirst;
@@ -145,7 +146,7 @@ services:
     public function createExceptionFile(string $moduleName): void
     {
         $exceptionName = self::toExceptionName($moduleName);
-        if (!\class_exists("Safe\\Exceptions\\{$exceptionName}")) {
+        if (!file_exists(__DIR__.'/../../lib/Exceptions/'.$exceptionName.'.php')) {
             \file_put_contents(
                 __DIR__.'/../../generated/Exceptions/'.$exceptionName.'.php',
                 <<<EOF

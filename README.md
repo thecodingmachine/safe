@@ -69,7 +69,7 @@ Fear not! thecodingmachine/safe comes with a PHPStan rule.
 Never heard of [PHPStan](https://github.com/phpstan/phpstan) before?
 Check it out, it's an amazing code analyzer for PHP.
 
-Simply install the Safe rule in your PHPStan setup and PHPStan will let you know each time you are using an "unsafe" function:
+Simply install the Safe rule in your PHPStan setup (explained in the "Installation" section) and PHPStan will let you know each time you are using an "unsafe" function.
 
 The code below will trigger this warning:
 

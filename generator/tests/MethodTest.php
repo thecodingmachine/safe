@@ -19,7 +19,7 @@ class MethodTest extends TestCase
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader());
-        $type = $method->getFunctionType();
+        $type = $method->getReturnType();
         $this->assertEquals('int', $type);
     }
 
@@ -27,7 +27,7 @@ class MethodTest extends TestCase
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader());
-        $params = $method->getFunctionParam();
+        $params = $method->getParams();
         $this->assertEquals('string', $params[0]->getType());
         $this->assertEquals('pattern', $params[0]->getParameter());
     }
@@ -37,7 +37,7 @@ class MethodTest extends TestCase
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader());
 
-        $params = $method->getFunctionParam();
+        $params = $method->getParams();
         $this->assertEquals('', $params[0]->getDefaultValue());
     }
 

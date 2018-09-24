@@ -3,6 +3,8 @@
 
 namespace Safe\PhpStanFunctions;
 
+use Safe\Type;
+
 class PhpStanParameter
 {
     /**
@@ -63,7 +65,7 @@ class PhpStanParameter
      */
     public function getType(): string
     {
-        return $this->type;
+        return Type::toRootNamespace($this->type);
     }
 
     /**

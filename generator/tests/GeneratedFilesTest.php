@@ -2,6 +2,7 @@
 
 namespace Safe;
 
+use DOMDocument;
 use PHPUnit\Framework\TestCase;
 use function restore_error_handler;
 use Safe\Exceptions\StringsException;
@@ -66,5 +67,10 @@ XML;
         $movies = simplexml_load_string($xmlStr);
 
         $this->assertInstanceOf(SimpleXMLElement::class, $movies);
+
+
+        $doc = DOMDocument::loadXML('<node>foobar</node>');
+        $xmlElem = simplexml_import_dom($doc);
+        $this->assertInstanceOf(SimpleXMLElement::class, $xmlElem);
     }
 }

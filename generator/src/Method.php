@@ -41,7 +41,7 @@ class Method
         return $this->functionObject->methodname->__toString();
     }
 
-    public function getFunctionType(): string
+    public function getReturnType(): string
     {
         // If the function returns a boolean, since false is for error, true is for success.
         // Let's replace this with a "void".
@@ -54,13 +54,13 @@ class Method
             return 'mixed';
         }
 
-        return $type;
+        return Type::toRootNamespace($type);
     }
 
     /**
      * @return Parameter[]
      */
-    public function getFunctionParam(): array
+    public function getParams(): array
     {
         if ($this->params === null) {
             if (!isset($this->functionObject->methodparam)) {
@@ -93,7 +93,7 @@ class Method
         $str .= "\n\n";
 
         $i=1;
-        foreach ($this->getFunctionParam() as $parameter) {
+        foreach ($this->getParams() as $parameter) {
             $str .= '@param '.$parameter->getBestType().' $'.$parameter->getParameter().' ';
             $str .= $this->getStringForXPath("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[$i]//docbook:para")."\n";
             $i++;
@@ -157,9 +157,9 @@ class Method
         $phpStanFunction = $this->getPhpStanData();
         // Get the type from PhpStan database first, then from the php doc.
         if ($phpStanFunction !== null) {
-            return $phpStanFunction->getReturnType();
+            return Type::toRootNamespace($phpStanFunction->getReturnType());
         } else {
-            return $this->getFunctionType();
+            return Type::toRootNamespace($this->getReturnType());
         }
     }
 
@@ -196,7 +196,7 @@ class Method
      */
     public function isOverloaded(): bool
     {
-        foreach ($this->getFunctionParam() as $parameter) {
+        foreach ($this->getParams() as $parameter) {
             if ($parameter->isOptionalWithNoDefault() && !$parameter->isByReference()) {
                 return true;
             }
@@ -207,7 +207,7 @@ class Method
     public function cloneAndRemoveAParameter(): Method
     {
         $new = clone $this;
-        $params = $this->getFunctionParam();
+        $params = $this->getParams();
         \array_pop($params);
         $new->params = $params;
         return $new;

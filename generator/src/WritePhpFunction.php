@@ -2,8 +2,10 @@
 
 namespace Safe;
 
+use function in_array;
 use function is_numeric;
 use function strtolower;
+use function strtoupper;
 use function var_export;
 
 class WritePhpFunction
@@ -24,7 +26,7 @@ class WritePhpFunction
     public function getPhpPrototypeFunction(): string
     {
         if ($this->method->getFunctionName()) {
-            return 'function '.$this->method->getFunctionName().'('.$this->displayParamsWithType($this->method->getFunctionParam()).')'.': '.$this->method->getFunctionType().'{}';
+            return 'function '.$this->method->getFunctionName().'('.$this->displayParamsWithType($this->method->getParams()).')'.': '.$this->method->getReturnType().'{}';
         } else {
             return '';
         }
@@ -47,18 +49,18 @@ class WritePhpFunction
     private function writePhpFunction(): string
     {
         $phpFunction = $this->method->getPhpDoc();
-        if ($this->method->getFunctionType() !== 'mixed' && $this->method->getFunctionType() !== 'resource') {
-            $returnType = ': ' . $this->method->getFunctionType();
+        if ($this->method->getReturnType() !== 'mixed' && $this->method->getReturnType() !== 'resource') {
+            $returnType = ': ' . $this->method->getReturnType();
         } else {
             $returnType = '';
         }
         $returnStatement = '';
-        if ($this->method->getFunctionType() !== 'void') {
+        if ($this->method->getReturnType() !== 'void') {
             $returnStatement = "    return \$result;\n";
         }
         $moduleName = $this->method->getModuleName();
 
-        $phpFunction .= "function {$this->method->getFunctionName()}({$this->displayParamsWithType($this->method->getFunctionParam())}){$returnType}
+        $phpFunction .= "function {$this->method->getFunctionName()}({$this->displayParamsWithType($this->method->getParams())}){$returnType}
 {
     error_clear_last();
 ";
@@ -69,7 +71,7 @@ class WritePhpFunction
             $method = $this->method;
             $inElse = false;
             do {
-                $lastParameter = $method->getFunctionParam()[count($method->getFunctionParam())-1];
+                $lastParameter = $method->getParams()[count($method->getParams())-1];
                 if ($inElse) {
                     $phpFunction .= ' else';
                 } else {
@@ -106,7 +108,7 @@ class WritePhpFunction
     {
         // Special case for CURL: we need the first argument of the method if this is a resource.
         if ($moduleName === 'Curl') {
-            $params = $method->getFunctionParam();
+            $params = $method->getParams();
             if (\count($params) > 0 && $params[0]->getParameter() === 'ch') {
                 return "
     if (\$result === false) {
@@ -174,7 +176,7 @@ class WritePhpFunction
                 $str = '...';
             }
             return $str.'$'.$parameter->getParameter();
-        }, $function->getFunctionParam()));
+        }, $function->getParams()));
         $functionCall .= ');';
         return $functionCall;
     }

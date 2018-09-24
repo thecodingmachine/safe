@@ -479,45 +479,6 @@ function openlog(string $ident, int $option, int $facility): void
 
 
 /**
- * setrawcookie is exactly the same as
- * setcookie except that the cookie value will not be
- * automatically urlencoded when sent to the browser.
- *
- * @param string $name
- * @param string $value
- * @param int $expire
- * @param string $path
- * @param string $domain
- * @param bool $secure
- * @param bool $httponly
- * @throws NetworkException
- *
- */
-function setrawcookie(string $name, string $value = null, int $expire = 0, string $path = null, string $domain = null, bool $secure = false, bool $httponly = false): void
-{
-    error_clear_last();
-    if ($httponly !== false) {
-        $result = \setrawcookie($name, $value, $expire, $path, $domain, $secure, $httponly);
-    } elseif ($secure !== false) {
-        $result = \setrawcookie($name, $value, $expire, $path, $domain, $secure);
-    } elseif ($domain !== null) {
-        $result = \setrawcookie($name, $value, $expire, $path, $domain);
-    } elseif ($path !== null) {
-        $result = \setrawcookie($name, $value, $expire, $path);
-    } elseif ($expire !== 0) {
-        $result = \setrawcookie($name, $value, $expire);
-    } elseif ($value !== null) {
-        $result = \setrawcookie($name, $value);
-    } else {
-        $result = \setrawcookie($name);
-    }
-    if ($result === false) {
-        throw NetworkException::createFromPhpError();
-    }
-}
-
-
-/**
  * syslog generates a log message that will be
  * distributed by the system logger.
  *

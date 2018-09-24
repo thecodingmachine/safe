@@ -45,13 +45,13 @@ function hash_hkdf(string $algo, string $ikm, int $length = 0, string $info = ''
 /**
  *
  *
- * @param HashContext $hcontext Hashing context returned by hash_init.
+ * @param \HashContext $hcontext Hashing context returned by hash_init.
  * @param string $filename URL describing location of file to be hashed; Supports fopen wrappers.
- * @param HashContext|null $scontext Stream context as returned by stream_context_create.
+ * @param \HashContext|null $scontext Stream context as returned by stream_context_create.
  * @throws HashException
  *
  */
-function hash_update_file(HashContext $hcontext, string $filename, $scontext = null): void
+function hash_update_file(\HashContext $hcontext, string $filename, $scontext = null): void
 {
     error_clear_last();
     $result = \hash_update_file($hcontext, $filename, $scontext);

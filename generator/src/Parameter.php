@@ -27,7 +27,8 @@ class Parameter
      */
     public function getType(): string
     {
-        return $this->parameter->type->__toString();
+        $type = $this->parameter->type->__toString();
+        return Type::toRootNamespace($type);
     }
 
     /**

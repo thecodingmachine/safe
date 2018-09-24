@@ -29,7 +29,7 @@ function shmop_delete($shmid): void
  * shmop_open
  * @param int $start Offset from which to start reading
  * @param int $count The number of bytes to read.
- * 0 reads shmop_size($shmId) - $offset bytes.
+ * 0 reads shmop_size($shmid) - $start bytes.
  * @return string Returns the data .
  * @throws ShmopException
  *

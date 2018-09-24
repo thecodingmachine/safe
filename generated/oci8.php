@@ -908,7 +908,7 @@ function oci_free_statement($statement): void
  * @param string $tdo Should be a valid named type (uppercase).
  * @param string $schema Should point to the scheme, where the named type was created. The name
  * of the current user is the default value.
- * @return OCI-Collection Returns a new OCICollection object .
+ * @return \OCI-Collection Returns a new OCICollection object .
  * @throws Oci8Exception
  *
  */
@@ -1058,7 +1058,7 @@ function oci_new_cursor($connection)
  * @param int $type Valid values for type are:
  * OCI_DTYPE_FILE, OCI_DTYPE_LOB and
  * OCI_DTYPE_ROWID.
- * @return OCI-Lob Returns a new LOB or FILE descriptor on success, FALSE on error.
+ * @return \OCI-Lob Returns a new LOB or FILE descriptor on success, FALSE on error.
  * @throws Oci8Exception
  *
  */

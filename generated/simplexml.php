@@ -9,16 +9,16 @@ use Safe\Exceptions\SimplexmlException;
  * document and makes it into a SimpleXML node. This new object can
  * then be used as a native SimpleXML element.
  *
- * @param DOMNode $node A DOM Element node
+ * @param \DOMNode $node A DOM Element node
  * @param string $class_name You may use this optional parameter so that
  * simplexml_import_dom will return an object of
  * the specified class. That class should extend the
  * SimpleXMLElement class.
- * @return SimpleXMLElement Returns a SimpleXMLElement .
+ * @return \SimpleXMLElement Returns a SimpleXMLElement .
  * @throws SimplexmlException
  *
  */
-function simplexml_import_dom(DOMNode $node, string $class_name = "SimpleXMLElement"): SimpleXMLElement
+function simplexml_import_dom(\DOMNode $node, string $class_name = "SimpleXMLElement"): \SimpleXMLElement
 {
     error_clear_last();
     $result = \simplexml_import_dom($node, $class_name);
@@ -49,12 +49,12 @@ function simplexml_import_dom(DOMNode $node, string $class_name = "SimpleXMLElem
  * @param string $ns Namespace prefix or URI.
  * @param bool $is_prefix TRUE if ns is a prefix, FALSE if it's a URI;
  * defaults to FALSE.
- * @return SimpleXMLElement Returns an object of class SimpleXMLElement with
+ * @return \SimpleXMLElement Returns an object of class SimpleXMLElement with
  * properties containing the data held within the XML document, .
  * @throws SimplexmlException
  *
  */
-function simplexml_load_file(string $filename, string $class_name = "SimpleXMLElement", int $options = 0, string $ns = "", bool $is_prefix = false): SimpleXMLElement
+function simplexml_load_file(string $filename, string $class_name = "SimpleXMLElement", int $options = 0, string $ns = "", bool $is_prefix = false): \SimpleXMLElement
 {
     error_clear_last();
     $result = \simplexml_load_file($filename, $class_name, $options, $ns, $is_prefix);
@@ -78,12 +78,12 @@ function simplexml_load_file(string $filename, string $class_name = "SimpleXMLEl
  * @param string $ns Namespace prefix or URI.
  * @param bool $is_prefix TRUE if ns is a prefix, FALSE if it's a URI;
  * defaults to FALSE.
- * @return SimpleXMLElement Returns an object of class SimpleXMLElement with
+ * @return \SimpleXMLElement Returns an object of class SimpleXMLElement with
  * properties containing the data held within the xml document, .
  * @throws SimplexmlException
  *
  */
-function simplexml_load_string(string $data, string $class_name = "SimpleXMLElement", int $options = 0, string $ns = "", bool $is_prefix = false): SimpleXMLElement
+function simplexml_load_string(string $data, string $class_name = "SimpleXMLElement", int $options = 0, string $ns = "", bool $is_prefix = false): \SimpleXMLElement
 {
     error_clear_last();
     $result = \simplexml_load_string($data, $class_name, $options, $ns, $is_prefix);

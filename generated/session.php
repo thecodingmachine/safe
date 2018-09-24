@@ -154,51 +154,6 @@ function session_reset(): void
 
 
 /**
- * Set cookie parameters defined in the php.ini file. The effect of this
- * function only lasts for the duration of the script. Thus, you need to
- * call session_set_cookie_params for every request and
- * before session_start is called.
- *
- * This function updates the runtime ini values of the corresponding PHP ini configuration
- * keys which can be retrieved with the ini_get.
- *
- * @param int $lifetime Lifetime of the
- * session cookie, defined in seconds.
- * @param string $path Path on the domain where
- * the cookie will work. Use a single slash ('/') for all paths on the
- * domain.
- * @param string|null $domain Cookie domain, for
- * example 'www.php.net'. To make cookies visible on all subdomains then
- * the domain must be prefixed with a dot like '.php.net'.
- * @param bool $secure If TRUE cookie will only be sent over
- * secure connections.
- * @param bool $httponly If set to TRUE then PHP will attempt to send the
- * httponly
- * flag when setting the session cookie.
- * @throws SessionException
- *
- */
-function session_set_cookie_params(int $lifetime, string $path = null, string $domain = null, bool $secure = false, bool $httponly = false): void
-{
-    error_clear_last();
-    if ($httponly !== false) {
-        $result = \session_set_cookie_params($lifetime, $path, $domain, $secure, $httponly);
-    } elseif ($secure !== false) {
-        $result = \session_set_cookie_params($lifetime, $path, $domain, $secure);
-    } elseif ($domain !== null) {
-        $result = \session_set_cookie_params($lifetime, $path, $domain);
-    } elseif ($path !== null) {
-        $result = \session_set_cookie_params($lifetime, $path);
-    } else {
-        $result = \session_set_cookie_params($lifetime);
-    }
-    if ($result === false) {
-        throw SessionException::createFromPhpError();
-    }
-}
-
-
-/**
  * session_unregister unregisters the global variable
  * named name from the current session.
  *

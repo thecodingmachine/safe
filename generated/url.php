@@ -29,31 +29,6 @@ function base64_decode(string $data, bool $strict = false): string
 
 
 /**
- * Encodes the given data with base64.
- *
- * This encoding is designed to make binary data survive transport through
- * transport layers that are not 8-bit clean, such as mail bodies.
- *
- * Base64-encoded data takes about 33% more space than the original
- * data.
- *
- * @param string $data The data to encode.
- * @return string The encoded data, as a string .
- * @throws UrlException
- *
- */
-function base64_encode(string $data): string
-{
-    error_clear_last();
-    $result = \base64_encode($data);
-    if ($result === false) {
-        throw UrlException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * get_headers returns an array with the headers sent
  * by the server in response to a HTTP request.
  *

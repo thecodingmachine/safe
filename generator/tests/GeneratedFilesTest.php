@@ -2,11 +2,10 @@
 
 namespace Safe;
 
-use const E_WARNING;
-use function error_reporting;
 use PHPUnit\Framework\TestCase;
 use function restore_error_handler;
 use Safe\Exceptions\StringsException;
+use SimpleXMLElement;
 
 /**
  * This test must be called AFTER generation of files has occurred
@@ -46,5 +45,26 @@ class GeneratedFilesTest extends TestCase
         preg_match($spotifyRegex, $url, $matches);
         \preg_match($spotifyRegex, $url, $originalMatches);
         $this->assertSame($originalMatches, $matches);
+    }
+
+    public function testObjects()
+    {
+        require_once __DIR__.'/../../generated/simplexml.php';
+        require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
+        require_once __DIR__.'/../../lib/Exceptions/AbstractSafeException.php';
+        require_once __DIR__.'/../../generated/Exceptions/SimplexmlException.php';
+
+        $xmlStr = <<<XML
+<?xml version='1.0' standalone='yes'?>
+<movies>
+ <movie>
+  <title>PHP: Behind the Parser</title>
+ </movie>
+</movies>
+XML;
+
+        $movies = simplexml_load_string($xmlStr);
+
+        $this->assertInstanceOf(SimpleXMLElement::class, $movies);
     }
 }

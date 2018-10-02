@@ -14,7 +14,7 @@ A set of core PHP functions rewritten to throw exceptions instead of returning `
 
 ## The problem
 
-Most PHP core functions have been written before exception handling was added to the language. Therefore, most PHP functions
+Most PHP core functions were written before exception handling was added to the language. Therefore, most PHP functions
 do not throw exceptions. Instead, they return `false` in case of error.
 
 But most of us are too lazy to check explicitly for every single return of every core PHP function.
@@ -44,10 +44,10 @@ Obviously, while this snippet is correct, it is less easy to read.
 
 ## The solution
 
-Enters *thecodingmachine/safe* aka Safe-PHP.
+Enter *thecodingmachine/safe* aka Safe-PHP.
 
-Safe-PHP redeclares all core PHP functions. The new PHP functions are acting exactly as the old ones, except they are
-throwing exceptions properly when an error is encountered. The "safe" functions have the same name as the core PHP
+Safe-PHP redeclares all core PHP functions. The new PHP functions act exactly as the old ones, except they
+throw exceptions properly when an error is encountered. The "safe" functions have the same name as the core PHP
 functions, except they are in the `Safe` namespace.
 
 ```php
@@ -102,10 +102,10 @@ includes:
 
 ## Automated refactoring
 
-You have a large legacy codebase and want to use "Safe-PHP" functions through all you project? PHPStan will help you 
-finding these functions but changing the namespace of the functions one function at a time might be a tedious work.
+You have a large legacy codebase and want to use "Safe-PHP" functions throughout your project? PHPStan will help you
+find these functions but changing the namespace of the functions one function at a time might be a tedious task.
 
-Hopefully, Safe comes bundled with a "Rector" configuration file. [Rector](https://github.com/rectorphp/rector) is a command-line 
+Fortunately, Safe comes bundled with a "Rector" configuration file. [Rector](https://github.com/rectorphp/rector) is a command-line
 tool that performs instant refactoring of your application.
 
 First, you need to install Rector:
@@ -122,7 +122,7 @@ vendor/bin/rector process src/ --config vendor/thecodingmachine/safe/rector-migr
 
 *Note:* do not forget to replace "src/" with the path to your source directory.
 
-**Important:** the refactoring is only performing a "dumb" replacement of functions. It will not modify the way 
+**Important:** the refactoring only performs a "dumb" replacement of functions. It will not modify the way
 "false" return values are handled. So if your code was already performing error handling, you will have to deal
 with it manually.
 
@@ -154,14 +154,14 @@ try {
 
 ## Work in progress
 
-There are a number of issues withstanding [before releasing 1.0](https://github.com/thecodingmachine/safe/milestone/1)
+There are a number of pending issues [before releasing 1.0](https://github.com/thecodingmachine/safe/milestone/1)
 
 ## Learn more
 
-Read [the release article on TheCodingMachine's blog](https://thecodingmachine.io/introducing-safe-php) if you want to 
+Read [the release article on TheCodingMachine's blog](https://thecodingmachine.io/introducing-safe-php) if you want to
 learn more about what triggered the development of Safe-PHP.
 
 ## Contributing
 
-The files that contains all the functions are auto-generated from the PHP doc.
+The files that contain all the functions are auto-generated from the PHP doc.
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) file to learn how to regenerate these files and to contribute to this library.

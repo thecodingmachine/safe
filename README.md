@@ -102,7 +102,7 @@ includes:
 
 ## Automated refactoring
 
-You have a large legacy codebase and want to use "Safe-PHP" functions through all you project? PHPStan will help you 
+You have a large legacy codebase and want to use "Safe-PHP" functions through all your project? PHPStan will help you 
 finding these functions but changing the namespace of the functions one function at a time might be a tedious work.
 
 Hopefully, Safe comes bundled with a "Rector" configuration file. [Rector](https://github.com/rectorphp/rector) is a command-line 
@@ -163,5 +163,5 @@ learn more about what triggered the development of Safe-PHP.
 
 ## Contributing
 
-The files that contains all the functions are auto-generated from the PHP doc.
+The files that contain all the functions are auto-generated from the PHP doc.
 Read the [CONTRIBUTING.md](CONTRIBUTING.md) file to learn how to regenerate these files and to contribute to this library.

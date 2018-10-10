@@ -1131,13 +1131,13 @@ function readlink(string $path): string
  * @param string $path The path being checked.
  *
  *
- * Whilst a path must be supplied, the value can be blank or NULL
- * In these cases, the value is interpreted as the current directory.
+ * Whilst a path must be supplied, the value can be an empty string.
+ * In this case, the value is interpreted as the current directory.
  *
  *
  *
- * Whilst a path must be supplied, the value can be blank or NULL
- * In these cases, the value is interpreted as the current directory.
+ * Whilst a path must be supplied, the value can be an empty string.
+ * In this case, the value is interpreted as the current directory.
  * @return string Returns the canonicalized absolute pathname on success. The resulting path
  * will have no symbolic link, /./ or /../ components. Trailing delimiters,
  * such as \ and /, are also removed.

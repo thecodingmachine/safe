@@ -1,0 +1,19 @@
+version: '3.3'
+services:
+  php:
+    image: thecodingmachine/php:7.2-v1-apache
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8888:80"
+    environment:
+      PHP_EXTENSION_BLACKFIRE: 1
+  blackfire:
+    image: blackfire/blackfire
+    environment:
+    # Exposes the host BLACKFIRE_SERVER_ID and TOKEN environment variables.
+    - BLACKFIRE_SERVER_ID
+    - BLACKFIRE_SERVER_TOKEN
+    # You can also use global environment credentials :
+    # BLACKFIRE_SERVER_ID: SERVER-ID
+    # BLACKFIRE_SERVER_TOKEN: SERVER-TOKEN

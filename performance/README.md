@@ -1,8 +1,8 @@
 Performance
 ===========
 
-Composer's autoloader need to [require all Safe files](https://github.com/thecodingmachine/safe/blob/05925e1d2abe0c0fee2095c1d569a1302a1a209e/composer.json#L13-L97)
-on each request (since there is no autoloader for functions in PHP).
+Composer's `vendor/autoload.php` file [requires all Safe files](https://github.com/thecodingmachine/safe/blob/05925e1d2abe0c0fee2095c1d569a1302a1a209e/composer.json#L13-L97)
+on each request (since there is [no autoloading for functions in PHP](https://wiki.php.net/rfc/function_autoloading)).
 
 "Requiring" those ~84 files in PHP has a performance impact. We used [Blackfire](http://blackfire.io/) to time precisely the impact of loading the PHP files.
 

@@ -152,6 +152,13 @@ try {
 }
 ```
 
+## Performance impact
+
+Safe is loading 1000+ functions from ~85 files on each request. Yet, the performance impact of this loading is quite low.
+
+In case you worry, using Safe will "cost" you ~700µs on each request. The [performance section](performance/README.md) 
+contains more information regarding the way we tested the performance impact of Safe. 
+
 ## Work in progress
 
 There are a number of pending issues [before releasing 1.0](https://github.com/thecodingmachine/safe/milestone/1)

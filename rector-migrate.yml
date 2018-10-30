@@ -146,6 +146,7 @@ services:
       fileinode: 'Safe\fileinode'
       filemtime: 'Safe\filemtime'
       fileowner: 'Safe\fileowner'
+      filesize: 'Safe\filesize'
       flock: 'Safe\flock'
       fopen: 'Safe\fopen'
       fputcsv: 'Safe\fputcsv'

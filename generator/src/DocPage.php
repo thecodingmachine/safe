@@ -48,6 +48,9 @@ class DocPage
         if (preg_match('/&date.datetime.return.modifiedobjectorfalseforfailure;/m', $file)) {
             return true;
         }
+        if (preg_match('/ or &false; \\(and generates an error/m', $file)) {
+            return true;
+        }
 
         return false;
     }

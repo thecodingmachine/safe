@@ -145,6 +145,7 @@ return [
     'fileinode',
     'filemtime',
     'fileowner',
+    'filesize',
     'flock',
     'fopen',
     'fputcsv',

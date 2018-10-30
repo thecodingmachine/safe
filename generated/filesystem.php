@@ -450,6 +450,26 @@ function fileowner(string $filename): int
 
 
 /**
+ * Gets the size for the given file.
+ *
+ * @param string $filename Path to the file.
+ * @return int Returns the size of the file in bytes, or FALSE (and generates an error
+ * of level E_WARNING) in case of an error.
+ * @throws FilesystemException
+ *
+ */
+function filesize(string $filename): int
+{
+    error_clear_last();
+    $result = \filesize($filename);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * flock allows you to perform a simple reader/writer
  * model which can be used on virtually every platform (including most Unix
  * derivatives and even Windows).

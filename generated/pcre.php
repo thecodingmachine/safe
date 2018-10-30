@@ -377,7 +377,7 @@ function preg_match_all(string $pattern, string $subject, array &$matches = null
  *
  *
  * If this flag is passed, for every occurring match the appendant string
- * offset will also be returned. Note that this changes the value of
+ * offset (in bytes) will also be returned. Note that this changes the value of
  * matches into an array where every element is an
  * array consisting of the matched string at offset 0
  * and its string offset into subject at offset
@@ -461,7 +461,7 @@ function preg_match_all(string $pattern, string $subject, array &$matches = null
  *
  *
  * If this flag is passed, for every occurring match the appendant string
- * offset will also be returned. Note that this changes the value of
+ * offset (in bytes) will also be returned. Note that this changes the value of
  * matches into an array where every element is an
  * array consisting of the matched string at offset 0
  * and its string offset into subject at offset
@@ -538,7 +538,7 @@ function preg_match_all(string $pattern, string $subject, array &$matches = null
  *
  * The above example will output:
  * @param int $offset If this flag is passed, for every occurring match the appendant string
- * offset will also be returned. Note that this changes the value of
+ * offset (in bytes) will also be returned. Note that this changes the value of
  * matches into an array where every element is an
  * array consisting of the matched string at offset 0
  * and its string offset into subject at offset

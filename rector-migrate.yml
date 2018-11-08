@@ -200,7 +200,6 @@ services:
       create_function: 'Safe\create_function'
       forward_static_call_array: 'Safe\forward_static_call_array'
       forward_static_call: 'Safe\forward_static_call'
-      func_get_arg: 'Safe\func_get_arg'
       register_tick_function: 'Safe\register_tick_function'
       gmp_binomial: 'Safe\gmp_binomial'
       gmp_export: 'Safe\gmp_export'

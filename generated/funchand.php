@@ -111,30 +111,6 @@ function forward_static_call(callable $function, $parameter = null, ...$params)
 
 
 /**
- * Gets the specified argument from a user-defined function's argument list.
- *
- * This function may be used in conjunction with
- * func_get_args and func_num_args
- * to allow user-defined functions to accept variable-length argument lists.
- *
- * @param int $arg_num The argument offset. Function arguments are counted starting from
- * zero.
- * @return mixed Returns the specified argument, .
- * @throws FunchandException
- *
- */
-function func_get_arg(int $arg_num)
-{
-    error_clear_last();
-    $result = \func_get_arg($arg_num);
-    if ($result === false) {
-        throw FunchandException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  *
  *
  * @param callable $function The function name as a string, or an array consisting of an object and

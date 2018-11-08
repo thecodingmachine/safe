@@ -199,7 +199,6 @@ return [
     'create_function',
     'forward_static_call_array',
     'forward_static_call',
-    'func_get_arg',
     'register_tick_function',
     'gmp_binomial',
     'gmp_export',

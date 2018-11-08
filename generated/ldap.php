@@ -46,7 +46,7 @@ function ldap_add($link_identifier, string $dn, array $entry, array $serverctrls
  * @throws LdapException
  *
  */
-function ldap_bind($link_identifier, string $bind_rdn = null, string $bind_password = null): void
+function ldap_bind($link_identifier, ?string $bind_rdn = null, ?string $bind_password = null): void
 {
     error_clear_last();
     $result = \ldap_bind($link_identifier, $bind_rdn, $bind_password);

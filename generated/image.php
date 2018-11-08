@@ -18,7 +18,7 @@ use Safe\Exceptions\ImageException;
  * @throws ImageException
  *
  */
-function image2wbmp($image, string $filename = null, int $foreground = null): void
+function image2wbmp($image, ?string $filename = null, int $foreground = null): void
 {
     error_clear_last();
     if ($foreground !== null) {
@@ -2396,7 +2396,7 @@ function imagewebp($image, $to = null, int $quality = 80): void
  * @throws ImageException
  *
  */
-function imagexbm($image, string $filename, int $foreground = null): void
+function imagexbm($image, ?string $filename, int $foreground = null): void
 {
     error_clear_last();
     if ($foreground !== null) {

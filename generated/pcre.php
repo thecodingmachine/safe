@@ -651,7 +651,7 @@ function preg_match(string $pattern, string $subject, array &$matches = null, in
  * @throws PcreException
  *
  */
-function preg_split(string $pattern, string $subject, int $limit = -1, int $flags = 0): array
+function preg_split(string $pattern, string $subject, ?int $limit = -1, int $flags = 0): array
 {
     error_clear_last();
     $result = \preg_split($pattern, $subject, $limit, $flags);

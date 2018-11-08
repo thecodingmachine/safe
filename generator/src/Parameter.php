@@ -80,6 +80,16 @@ class Parameter
         return $this->parameter->parameter->__toString() === '...';
     }
 
+    public function isNullable(): bool
+    {
+        if ($this->phpStanFunction !== null) {
+            $phpStanParameter = $this->phpStanFunction->getParameter($this->getParameter());
+            if ($phpStanParameter) {
+                return $phpStanParameter->isNullable();
+            }
+        }
+        return $this->hasDefaultValue() && $this->getDefaultValue() === 'null';
+    }
 
     /*
      * @return string

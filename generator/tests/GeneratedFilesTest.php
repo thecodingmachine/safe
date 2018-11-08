@@ -73,4 +73,19 @@ XML;
         $xmlElem = simplexml_import_dom($doc);
         $this->assertInstanceOf(SimpleXMLElement::class, $xmlElem);
     }
+
+    /**
+     * Tests that the limit parameter is nullable.
+     * See https://github.com/thecodingmachine/safe/issues/56
+     */
+    public function testPregSplit()
+    {
+        require_once __DIR__.'/../../generated/pcre.php';
+        require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
+        require_once __DIR__.'/../../lib/Exceptions/AbstractSafeException.php';
+        require_once __DIR__.'/../../generated/Exceptions/PcreException.php';
+
+        $keywords = preg_split("/[\s,]+/", "hypertext language, programming", null);
+        $this->assertSame(['hypertext', 'language', 'programming'], $keywords);
+    }
 }

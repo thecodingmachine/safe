@@ -7,4 +7,5 @@ return [
     'is_soap_fault',
     # Type hints to object OCI-Lob (weird class that has a dash in its name!)
     'oci_lob_copy',
+    'func_get_arg'
 ];

@@ -8,6 +8,10 @@ use Safe\Exceptions\MiscException;
  * Defines a named constant at runtime.
  *
  * @param string $name The name of the constant.
+ *
+ * It is possible to define constants with reserved or
+ * even invalid names, whose value can (only) be retrieved with
+ * constant. However, doing so is not recommended.
  * @param mixed $value The value of the constant. In PHP 5, value must
  * be a scalar value (integer,
  * float, string, boolean, or
@@ -106,7 +110,7 @@ function sapi_windows_cp_set(int $cp): void
 
 
 /**
- * If enable is omitted, the function return TRUE if the stream stream has has VT100 control codes enabled, FALSE otherwise.
+ * If enable is omitted, the function return TRUE if the stream stream has VT100 control codes enabled, FALSE otherwise.
  *
  * If enable is specified, the function will try to enable or disable the VT100 features of the stream stream.
  * If the feature has been successfully enabled (or disabled), .

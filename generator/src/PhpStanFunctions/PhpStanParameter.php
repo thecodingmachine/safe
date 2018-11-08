@@ -28,6 +28,10 @@ class PhpStanParameter
      * @var bool
      */
     private $byReference = false;
+    /**
+     * @var bool
+     */
+    private $nullable = false;
 
     public function __construct(string $name, string $type)
     {
@@ -47,6 +51,7 @@ class PhpStanParameter
 
         if (\strpos($type, '?') !== false) {
             $type = \str_replace('?', '', $type).'|null';
+            $this->nullable = true;
         }
 
         $this->type = $type;
@@ -90,5 +95,13 @@ class PhpStanParameter
     public function isByReference(): bool
     {
         return $this->byReference;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNullable(): bool
+    {
+        return $this->nullable;
     }
 }

@@ -25,6 +25,7 @@ return [
     'apcu_delete',
     'apcu_inc',
     'apcu_sma_info',
+    'array_combine',
     'array_multisort',
     'array_walk_recursive',
     'arsort',

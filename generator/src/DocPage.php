@@ -51,6 +51,9 @@ class DocPage
         if (preg_match('/ or &false; \\(and generates an error/m', $file)) {
             return true;
         }
+        if (preg_match('/&false;\s+if\s+the\s+number\s+of\s+elements\s+for\s+each\s+array\s+isn\'t\s+equal/m', $file)) {
+            return true;
+        }
 
         return false;
     }

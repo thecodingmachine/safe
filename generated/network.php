@@ -389,7 +389,7 @@ function inet_ntop(string $in_addr): string
  *
  *
  *
- * You can use one or more of this options. When using multiple options
+ * You can use one or more of these options. When using multiple options
  * you need to OR them, i.e. to open the connection
  * immediately, write to the console and include the PID in each message,
  * you will use: LOG_CONS | LOG_NDELAY | LOG_PID

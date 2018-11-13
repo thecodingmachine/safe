@@ -558,23 +558,6 @@ function set_include_path(string $new_include_path): string
 
 
 /**
- * Set the current active configuration setting of magic_quotes_runtime.
- *
- * @param bool $new_setting FALSE for off, TRUE for on.
- * @throws InfoException
- *
- */
-function set_magic_quotes_runtime(bool $new_setting): void
-{
-    error_clear_last();
-    $result = \set_magic_quotes_runtime($new_setting);
-    if ($result === false) {
-        throw InfoException::createFromPhpError();
-    }
-}
-
-
-/**
  * Set the number of seconds a script is allowed to run. If this is reached,
  * the script returns a fatal error. The default limit is 30 seconds or, if
  * it exists, the max_execution_time value defined in the

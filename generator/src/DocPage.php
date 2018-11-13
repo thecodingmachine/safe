@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use function explode;
+
 class DocPage
 {
     /*
@@ -26,6 +28,23 @@ class DocPage
     public function detectFalsyFunction(): bool
     {
         $file = file_get_contents($this->path);
+
+        if (preg_match('/&warn\.deprecated\.function-(\d+-\d+-\d+)\.removed-(\d+-\d+-\d+)/', $file, $matches)) {
+            $removedVersion = $matches[2];
+            [$major, $minor, $fix] = explode('-', $removedVersion);
+            if ($major < 7 || ($major == 7 && $minor == 0)) {
+                // Ignore function if it was removed before PHP 7.1
+                return false;
+            }
+        }
+        if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches)) {
+            $removedVersion = $matches[2];
+            [$major, $minor, $fix] = explode('-', $removedVersion);
+            if ($major < 7 || ($major == 7 && $minor == 0)) {
+                // Ignore function if it was removed before PHP 7.1
+                return false;
+            }
+        }
 
         if (preg_match('/&false;\s+on\s+error/m', $file)) {
             return true;

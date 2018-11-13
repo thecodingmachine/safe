@@ -12,11 +12,15 @@ class DocPageTest extends TestCase
         $getCwd = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/dir/functions/getcwd.xml');
         $setTime = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/datetime/datetime/settime.xml');
         $filesize = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/filesystem/functions/filesize.xml');
+        $sessionRegister = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/session/functions/session-register.xml');
+        $mcryptDecrypt = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/mcrypt/functions/mcrypt-decrypt.xml');
 
         $this->assertTrue($pregMatch->detectFalsyFunction());
         $this->assertFalse($implode->detectFalsyFunction());
         $this->assertTrue($getCwd->detectFalsyFunction());
         $this->assertTrue($setTime->detectFalsyFunction());
         $this->assertTrue($filesize->detectFalsyFunction());
+        $this->assertFalse($sessionRegister->detectFalsyFunction());
+        $this->assertTrue($mcryptDecrypt->detectFalsyFunction());
     }
 }

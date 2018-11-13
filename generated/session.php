@@ -95,47 +95,6 @@ function session_regenerate_id(bool $delete_old_session = false): void
 
 
 /**
- * session_register accepts a variable number of
- * arguments, any of which can be either a string holding the name of a
- * variable or an array consisting of variable names or other arrays. For
- * each name, session_register registers the global
- * variable with that name in the current session.
- *
- * You can also create a session variable by simply setting the
- * appropriate member of the $_SESSION array.
- *
- *
- *
- * ]]>
- *
- *
- *
- * If session_start was not called before this function
- * is called, an implicit call to session_start with no
- * parameters will be made.  $_SESSION does not mimic
- * this behavior and requires session_start before use.
- *
- * @param mixed $name A string holding the name of a variable or an array consisting of
- * variable names or other arrays.
- * @param mixed $params
- * @throws SessionException
- *
- */
-function session_register($name, ...$params): void
-{
-    error_clear_last();
-    if ($params !== []) {
-        $result = \session_register($name, ...$params);
-    } else {
-        $result = \session_register($name);
-    }
-    if ($result === false) {
-        throw SessionException::createFromPhpError();
-    }
-}
-
-
-/**
  * session_reset reinitializes a session with
  * original values stored in session storage. This function requires an active session and
  * discards changes in $_SESSION.
@@ -147,24 +106,6 @@ function session_reset(): void
 {
     error_clear_last();
     $result = \session_reset();
-    if ($result === false) {
-        throw SessionException::createFromPhpError();
-    }
-}
-
-
-/**
- * session_unregister unregisters the global variable
- * named name from the current session.
- *
- * @param string $name The variable name.
- * @throws SessionException
- *
- */
-function session_unregister(string $name): void
-{
-    error_clear_last();
-    $result = \session_unregister($name);
     if ($result === false) {
         throw SessionException::createFromPhpError();
     }

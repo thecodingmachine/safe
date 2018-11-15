@@ -68,7 +68,20 @@ class Method
             }
             $phpStanFunction = $this->getPhpStanData();
             $params = [];
+            $i=1;
             foreach ($this->functionObject->methodparam as $param) {
+                $notes = $this->stripReturnFalseText($this->getStringForXPath("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[$i]//docbook:note//docbook:para"));
+                $i++;
+
+                if (preg_match('/This parameter has been removed in PHP (\d+\.\d+\.\d+)/', $notes, $matches)) {
+                    $removedVersion = $matches[1];
+                    [$major, $minor, $fix] = explode('.', $removedVersion);
+                    if ($major < 7 || ($major == 7 && $minor == 0)) {
+                        // Ignore parameter if it was removed before PHP 7.1
+                        continue;
+                    }
+                }
+
                 $params[] = new Parameter($param, $phpStanFunction);
             }
             $this->params = $params;

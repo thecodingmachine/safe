@@ -85,6 +85,7 @@
             "generated/swoole.php",
             "generated/uodbc.php",
             "generated/uopz.php",
+            "generated/unserialize.php",
             "generated/url.php",
             "generated/var.php",
             "generated/xdiff.php",

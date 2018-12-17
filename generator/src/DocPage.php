@@ -31,7 +31,7 @@ class DocPage
 
         if (preg_match('/&warn\.deprecated\.function-(\d+-\d+-\d+)\.removed-(\d+-\d+-\d+)/', $file, $matches)) {
             $removedVersion = $matches[2];
-            [$major, $minor, $fix] = explode('-', $removedVersion);
+            [$major, $minor] = explode('-', $removedVersion);
             if ($major < 7 || ($major == 7 && $minor == 0)) {
                 // Ignore function if it was removed before PHP 7.1
                 return false;
@@ -39,7 +39,7 @@ class DocPage
         }
         if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches)) {
             $removedVersion = $matches[2];
-            [$major, $minor, $fix] = explode('-', $removedVersion);
+            [$major, $minor] = explode('-', $removedVersion);
             if ($major < 7 || ($major == 7 && $minor == 0)) {
                 // Ignore function if it was removed before PHP 7.1
                 return false;

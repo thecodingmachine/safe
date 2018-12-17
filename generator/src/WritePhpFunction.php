@@ -2,12 +2,6 @@
 
 namespace Safe;
 
-use function in_array;
-use function is_numeric;
-use function strtolower;
-use function strtoupper;
-use function var_export;
-
 class WritePhpFunction
 {
     /**
@@ -27,9 +21,8 @@ class WritePhpFunction
     {
         if ($this->method->getFunctionName()) {
             return 'function '.$this->method->getFunctionName().'('.$this->displayParamsWithType($this->method->getParams()).')'.': '.$this->method->getReturnType().'{}';
-        } else {
-            return '';
         }
+        return '';
     }
 
     /*

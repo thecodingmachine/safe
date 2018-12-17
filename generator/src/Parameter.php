@@ -2,7 +2,6 @@
 namespace Safe;
 
 use Safe\PhpStanFunctions\PhpStanFunction;
-use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
 
 class Parameter
 {

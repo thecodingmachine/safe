@@ -1,6 +1,7 @@
 <?php
 namespace Safe;
 
+use RuntimeException;
 use Safe\PhpStanFunctions\PhpStanFunction;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
 
@@ -41,7 +42,11 @@ class Parameter
         if ($this->phpStanFunction !== null) {
             $phpStanParameter = $this->phpStanFunction->getParameter($this->getParameter());
             if ($phpStanParameter) {
-                return $phpStanParameter->getType();
+                try {
+                    return $phpStanParameter->getType();
+                } catch (RuntimeException $e) {
+                    // Do nothing
+                }
             }
         }
         return $this->getType();

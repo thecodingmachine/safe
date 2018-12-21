@@ -30,7 +30,13 @@ use Safe\Exceptions\PasswordException;
  *
  *
  * PASSWORD_ARGON2I - Use the Argon2i hashing algorithm to create the hash.
- * This algorithm is only available if PHP has been compiled with Argon2i support.
+ * This algorithm is only available if PHP has been compiled with Argon2 support.
+ *
+ *
+ *
+ *
+ * PASSWORD_ARGON2ID - Use the Argon2id hashing algorithm to create the hash.
+ * This algorithm is only available if PHP has been compiled with Argon2 support.
  *
  *
  *

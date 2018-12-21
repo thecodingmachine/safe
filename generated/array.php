@@ -103,6 +103,42 @@ function array_multisort(array &$array1, $array1_sort_order = SORT_ASC, $array1_
 
 
 /**
+ * Searches haystack for needle.
+ *
+ * @param mixed $needle The searched value.
+ *
+ * If needle is a string, the comparison is done
+ * in a case-sensitive manner.
+ * @param array $haystack The array.
+ * @param bool $strict If the third parameter strict is set to TRUE
+ * then the array_search function will search for
+ * identical elements in the
+ * haystack. This means it will also perform a
+ * strict type comparison of the
+ * needle in the haystack,
+ * and objects must be the same instance.
+ * @return int|string Returns the key for needle if it is found in the
+ * array, FALSE otherwise.
+ *
+ * If needle is found in haystack
+ * more than once, the first matching key is returned. To return the keys for
+ * all matching values, use array_keys with the optional
+ * search_value parameter instead.
+ * @throws ArrayException
+ *
+ */
+function array_search($needle, array $haystack, bool $strict = false)
+{
+    error_clear_last();
+    $result = \array_search($needle, $haystack, $strict);
+    if ($result === false) {
+        throw ArrayException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Applies the user-defined callback function to each
  * element of the array. This function will recurse
  * into deeper arrays.

@@ -755,7 +755,8 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  * @param string $enclosure The optional enclosure parameter sets the field
  * enclosure (one character only).
  * @param string $escape_char The optional escape_char parameter sets the
- * escape character (one character only).
+ * escape character (at most one character).
+ * An empty string ("") disables the proprietary escape mechanism.
  * @return int Returns the length of the written string  .
  * @throws FilesystemException
  *

@@ -1500,6 +1500,92 @@ function imagepolygon($image, array $points, int $num_points, int $color): void
 
 
 /**
+ * Loads a character encoding vector from a file and changes the fonts
+ * encoding vector to it. As a PostScript fonts default vector lacks most of
+ * the character positions above 127, you'll definitely want to change this
+ * if you use a language other than English.
+ *
+ * If you find yourself using this function all the time, a much
+ * better way to define the encoding is to set ps.default_encoding in
+ * the configuration file
+ * to point to the right encoding file and all fonts you load will
+ * automatically have the right encoding.
+ *
+ * @param resource $font_index A font resource, returned by imagepsloadfont.
+ * @param string $encodingfile The exact format of this file is described in T1libs documentation.
+ * T1lib comes with two ready-to-use files,
+ * IsoLatin1.enc and
+ * IsoLatin2.enc.
+ * @throws ImageException
+ *
+ */
+function imagepsencodefont($font_index, string $encodingfile): void
+{
+    error_clear_last();
+    $result = \imagepsencodefont($font_index, $encodingfile);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+}
+
+
+/**
+ * Extend or condense a font (font_index), if
+ * the value of the extend parameter is less
+ * than one you will be condensing the font.
+ *
+ * @param resource $font_index A font resource, returned by imagepsloadfont.
+ * @param float $extend Extension value, must be greater than 0.
+ * @throws ImageException
+ *
+ */
+function imagepsextendfont($font_index, float $extend): void
+{
+    error_clear_last();
+    $result = \imagepsextendfont($font_index, $extend);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+}
+
+
+/**
+ * imagepsfreefont frees memory used by a PostScript
+ * Type 1 font.
+ *
+ * @param resource $font_index A font resource, returned by imagepsloadfont.
+ * @throws ImageException
+ *
+ */
+function imagepsfreefont($font_index): void
+{
+    error_clear_last();
+    $result = \imagepsfreefont($font_index);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+}
+
+
+/**
+ * Slant a given font.
+ *
+ * @param resource $font_index A font resource, returned by imagepsloadfont.
+ * @param float $slant Slant level.
+ * @throws ImageException
+ *
+ */
+function imagepsslantfont($font_index, float $slant): void
+{
+    error_clear_last();
+    $result = \imagepsslantfont($font_index, $slant);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+}
+
+
+/**
  * imagerectangle creates a rectangle starting at
  * the specified coordinates.
  *

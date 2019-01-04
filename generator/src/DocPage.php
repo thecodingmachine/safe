@@ -3,6 +3,7 @@
 namespace Safe;
 
 use function explode;
+use function strpos;
 
 class DocPage
 {
@@ -37,7 +38,7 @@ class DocPage
                 return false;
             }
         }
-        if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches)) {
+        if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches) && isset($matches[2])) {
             $removedVersion = $matches[2];
             [$major, $minor, $fix] = explode('-', $removedVersion);
             if ($major < 7 || ($major == 7 && $minor == 0)) {
@@ -50,6 +51,9 @@ class DocPage
             return true;
         }
         if (preg_match('/&false;\s+on\s+failure/m', $file)) {
+            return true;
+        }
+        if (preg_match('/&false;\s+otherwise/m', $file) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $file)) {
             return true;
         }
         if (preg_match('/&false;\s+if\s+an\s+error\s+occurred/m', $file)) {

@@ -47,7 +47,6 @@ class Parameter
                     // If the type is empty in PHPStan, let's fallback to documentation.
                     return $this->getType();
                 }
-
             }
         }
         return $this->getType();

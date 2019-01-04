@@ -5,6 +5,25 @@ namespace Safe;
 use Safe\Exceptions\LibxmlException;
 
 /**
+ * Retrieve last error from libxml.
+ *
+ * @return object Returns a LibXMLError object if there is any error in the
+ * buffer, FALSE otherwise.
+ * @throws LibxmlException
+ *
+ */
+function libxml_get_last_error(): \LibXMLError
+{
+    error_clear_last();
+    $result = \libxml_get_last_error();
+    if ($result === false) {
+        throw LibxmlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Changes the default external entity loader.
  *
  * @param callable $resolver_function A callable that takes three arguments. Two strings, a public id

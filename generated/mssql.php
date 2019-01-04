@@ -185,6 +185,27 @@ function mssql_field_name($result, int $offset = -1): string
 
 
 /**
+ * Seeks to the specified field offset.  If the next call to
+ * mssql_fetch_field won't include a field
+ * offset, this field would be returned.
+ *
+ * @param resource $result The result resource that is being evaluated. This result comes from a
+ * call to mssql_query.
+ * @param int $field_offset The field offset, starts at 0.
+ * @throws MssqlException
+ *
+ */
+function mssql_field_seek($result, int $field_offset): void
+{
+    error_clear_last();
+    $result = \mssql_field_seek($result, $field_offset);
+    if ($result === false) {
+        throw MssqlException::createFromPhpError();
+    }
+}
+
+
+/**
  * Returns the type of field no. offset in
  * result.
  *

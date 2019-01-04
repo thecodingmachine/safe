@@ -87,19 +87,16 @@ function forward_static_call_array(callable $function, array $parameters)
  * @param callable $function The function or method to be called. This parameter may be an array,
  * with the name of the class, and the method, or a string, with a function
  * name.
- * @param mixed $parameter Zero or more parameters to be passed to the function.
- * @param mixed $params
+ * @param mixed $params Zero or more parameters to be passed to the function.
  * @return mixed Returns the function result, .
  * @throws FunchandException
  *
  */
-function forward_static_call(callable $function, $parameter = null, ...$params)
+function forward_static_call(callable $function, ...$params)
 {
     error_clear_last();
     if ($params !== []) {
-        $result = \forward_static_call($function, $parameter, ...$params);
-    } elseif ($parameter !== null) {
-        $result = \forward_static_call($function, $parameter);
+        $result = \forward_static_call($function, ...$params);
     } else {
         $result = \forward_static_call($function);
     }
@@ -115,18 +112,15 @@ function forward_static_call(callable $function, $parameter = null, ...$params)
  *
  * @param callable $function The function name as a string, or an array consisting of an object and
  * a method.
- * @param mixed $arg
  * @param mixed $params
  * @throws FunchandException
  *
  */
-function register_tick_function(callable $function, $arg = null, ...$params): void
+function register_tick_function(callable $function, ...$params): void
 {
     error_clear_last();
     if ($params !== []) {
-        $result = \register_tick_function($function, $arg, ...$params);
-    } elseif ($arg !== null) {
-        $result = \register_tick_function($function, $arg);
+        $result = \register_tick_function($function, ...$params);
     } else {
         $result = \register_tick_function($function);
     }

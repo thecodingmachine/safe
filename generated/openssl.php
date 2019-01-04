@@ -187,7 +187,7 @@ function openssl_csr_get_subject($csr, bool $use_shortnames = true): array
  * string
  * none
  *
- * PHP 7.1+, One of openssl_get_curve_names.
+ * One of openssl_get_curve_names.
  *
  *
  *

@@ -41,7 +41,12 @@ class Parameter
         if ($this->phpStanFunction !== null) {
             $phpStanParameter = $this->phpStanFunction->getParameter($this->getParameter());
             if ($phpStanParameter) {
-                return $phpStanParameter->getType();
+                try {
+                    return $phpStanParameter->getType();
+                } catch (EmptyTypeException $e) {
+                    // If the type is empty in PHPStan, let's fallback to documentation.
+                    return $this->getType();
+                }
             }
         }
         return $this->getType();

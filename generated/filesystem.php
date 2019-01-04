@@ -755,7 +755,8 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  * @param string $enclosure The optional enclosure parameter sets the field
  * enclosure (one character only).
  * @param string $escape_char The optional escape_char parameter sets the
- * escape character (one character only).
+ * escape character (at most one character).
+ * An empty string ("") disables the proprietary escape mechanism.
  * @return int Returns the length of the written string  .
  * @throws FilesystemException
  *
@@ -1304,10 +1305,6 @@ function tempnam(string $dir, string $prefix): string
  * fclose, or when there are no remaining references to
  * the file handle returned by tmpfile), or when the
  * script ends.
- *
- * For details, consult your system documentation on the
- * tmpfile(3) function, as well as the
- * stdio.h header file.
  *
  * @return resource Returns a file handle, similar to the one returned by
  * fopen, for the new file .

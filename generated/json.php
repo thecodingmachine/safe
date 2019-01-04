@@ -30,6 +30,7 @@ use Safe\Exceptions\JsonException;
  * JSON_PRESERVE_ZERO_FRACTION,
  * JSON_UNESCAPED_UNICODE,
  * JSON_PARTIAL_OUTPUT_ON_ERROR,
+ * JSON_UNESCAPED_LINE_TERMINATORS,
  * JSON_THROW_ON_ERROR. The behaviour of these
  * constants is described on the
  * JSON constants page.

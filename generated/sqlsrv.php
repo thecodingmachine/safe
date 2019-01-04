@@ -51,6 +51,55 @@ function sqlsrv_cancel($stmt): void
 
 
 /**
+ * Returns information about the client and specified connection
+ *
+ * @param resource $conn The connection about which information is returned.
+ * @return array Returns an associative array with keys described in the table below.
+ * Returns FALSE otherwise.
+ *
+ * Array returned by sqlsrv_client_info
+ *
+ *
+ *
+ * Key
+ * Description
+ *
+ *
+ *
+ *
+ * DriverDllName
+ * SQLNCLI10.DLL
+ *
+ *
+ * DriverODBCVer
+ * ODBC version (xx.yy)
+ *
+ *
+ * DriverVer
+ * SQL Server Native Client DLL version (10.5.xxx)
+ *
+ *
+ * ExtensionVer
+ * php_sqlsrv.dll version (2.0.xxx.x)
+ *
+ *
+ *
+ *
+ * @throws SqlsrvException
+ *
+ */
+function sqlsrv_client_info($conn): array
+{
+    error_clear_last();
+    $result = \sqlsrv_client_info($conn);
+    if ($result === false) {
+        throw SqlsrvException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Closes an open connection and releases resourses associated with the connection.
  *
  * @param resource $conn The connection to be closed.
@@ -186,6 +235,39 @@ function sqlsrv_free_stmt($stmt): void
 
 
 /**
+ * Gets field data from the currently selected row. Fields must be accessed in
+ * order. Field indices start at 0.
+ *
+ * @param resource $stmt A statement resource returned by sqlsrv_query or
+ * sqlsrv_execute.
+ * @param int $fieldIndex The index of the field to be retrieved. Field indices start at 0. Fields
+ * must be accessed in order. i.e. If you access field index 1, then field
+ * index 0 will not be available.
+ * @param int $getAsType The PHP data type for the returned field data. If this parameter is not
+ * set, the field data will be returned as its default PHP data type.
+ * For information about default PHP data types, see
+ * Default PHP Data Types
+ * in the Microsoft SQLSRV documentation.
+ * @return mixed Returns data from the specified field on success. Returns FALSE otherwise.
+ * @throws SqlsrvException
+ *
+ */
+function sqlsrv_get_field($stmt, int $fieldIndex, int $getAsType = null)
+{
+    error_clear_last();
+    if ($getAsType !== null) {
+        $result = \sqlsrv_get_field($stmt, $fieldIndex, $getAsType);
+    } else {
+        $result = \sqlsrv_get_field($stmt, $fieldIndex);
+    }
+    if ($result === false) {
+        throw SqlsrvException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Makes the next result of the specified statement active. Results include result
  * sets, row counts, and output parameters.
  *
@@ -199,6 +281,27 @@ function sqlsrv_next_result($stmt)
 {
     error_clear_last();
     $result = \sqlsrv_next_result($stmt);
+    if ($result === false) {
+        throw SqlsrvException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Retrieves the number of fields (columns) on a statement.
+ *
+ * @param resource $stmt The statment for which the number of fields is returned.
+ * sqlsrv_num_fields can be called on a statement before
+ * or after statement execution.
+ * @return mixed Returns the number of fields on success. Returns FALSE otherwise.
+ * @throws SqlsrvException
+ *
+ */
+function sqlsrv_num_fields($stmt)
+{
+    error_clear_last();
+    $result = \sqlsrv_num_fields($stmt);
     if ($result === false) {
         throw SqlsrvException::createFromPhpError();
     }

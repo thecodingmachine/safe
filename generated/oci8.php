@@ -1336,7 +1336,7 @@ function oci_server_version($connection): string
  * Sets the action name for Oracle tracing.
  *
  * The action name is registered with the database when the next
- * 'roundtrip' from PHP to the database occurs, typically when an SQL
+ * 'round-trip' from PHP to the database occurs, typically when an SQL
  * statement is executed.
  *
  * The action name can subsequently be queried from database administration
@@ -1364,12 +1364,54 @@ function oci_set_action($connection, string $action_name): void
 
 
 /**
+ * Sets a timeout limiting the maxium time a database round-trip using this connection may take.
+ *
+ * Each OCI8 operation may make zero or more calls to Oracle's client
+ * library.  These internal calls may then may make zero or more
+ * round-trips to Oracle Database.  If any one of those round-trips
+ * takes more than time_out milliseconds, then the
+ * operation is cancelled and an error is returned to the application.
+ *
+ * The time_out value applies to each round-trip
+ * individually, not to the sum of all round-trips.  Time spent
+ * processing in PHP OCI8 before or after the completion of each
+ * round-trip is not counted.
+ *
+ * When a call is interrupted, Oracle will attempt to clean up the
+ * connection for reuse.  This operation is allowed to run for
+ * another time_out period.  Depending on the
+ * outcome of the cleanup, the connection may or may not be reusable.
+ *
+ * When persistent connections are used, the timeout value will be
+ * retained across PHP requests.
+ *
+ * The oci_set_call_timeout function is available
+ * when OCI8 uses Oracle 18 (or later) Client libraries.
+ *
+ * @param resource $connection An Oracle connection identifier,
+ * returned by oci_connect, oci_pconnect,
+ * or oci_new_connect.
+ * @param int $time_out The maximum time in milliseconds that any single round-trip between PHP and Oracle Database may take.
+ * @throws Oci8Exception
+ *
+ */
+function oci_set_call_timeout($connection, int $time_out): void
+{
+    error_clear_last();
+    $result = \oci_set_call_timeout($connection, $time_out);
+    if ($result === false) {
+        throw Oci8Exception::createFromPhpError();
+    }
+}
+
+
+/**
  * Sets the client identifier used by various database components to
  * identify lightweight application users who authenticate as the same
  * database user.
  *
  * The client identifier is registered with the database when the next
- * 'roundtrip' from PHP to the database occurs, typically when an SQL
+ * 'round-trip' from PHP to the database occurs, typically when an SQL
  * statement is executed.
  *
  * The identifier can subsequently be queried, for example
@@ -1402,7 +1444,7 @@ function oci_set_client_identifier($connection, string $client_identifier): void
  * Sets the client information for Oracle tracing.
  *
  * The client information is registered with the database when the next
- * 'roundtrip' from PHP to the database occurs, typically when an SQL
+ * 'round-trip' from PHP to the database occurs, typically when an SQL
  * statement is executed.
  *
  * The client information can subsequently be queried from database
@@ -1421,6 +1463,36 @@ function oci_set_client_info($connection, string $client_info): void
 {
     error_clear_last();
     $result = \oci_set_client_info($connection, $client_info);
+    if ($result === false) {
+        throw Oci8Exception::createFromPhpError();
+    }
+}
+
+
+/**
+ * Sets the DBOP for Oracle tracing.
+ *
+ * The database operation name is registered with the database when the next
+ * 'round-trip' from PHP to the database occurs, typically when a SQL
+ * statement is executed.
+ *
+ * The database operation can subsequently be queried from database administration
+ * views such as V$SQL_MONITOR.
+ *
+ * The oci_set_db_operation function is available
+ * when OCI8 uses Oracle 12 (or later) Client libraries and Oracle Database 12 (or later).
+ *
+ * @param resource $connection An Oracle connection identifier,
+ * returned by oci_connect, oci_pconnect,
+ * or oci_new_connect.
+ * @param string $dbop User chosen string.
+ * @throws Oci8Exception
+ *
+ */
+function oci_set_db_operation($connection, string $dbop): void
+{
+    error_clear_last();
+    $result = \oci_set_db_operation($connection, $dbop);
     if ($result === false) {
         throw Oci8Exception::createFromPhpError();
     }
@@ -1465,7 +1537,7 @@ function oci_set_edition(string $edition): void
  * Sets the module name for Oracle tracing.
  *
  * The module name is registered with the database when the next
- * 'roundtrip' from PHP to the database occurs, typically when an SQL
+ * 'round-trip' from PHP to the database occurs, typically when an SQL
  * statement is executed.
  *
  * The name can subsequently be queried from database administration

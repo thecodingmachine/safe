@@ -67,6 +67,31 @@ function hex2bin(string $data): string
 
 
 /**
+ * Calculates the MD5 hash of the file specified by the
+ * filename parameter using the
+ * RSA Data Security, Inc.
+ * MD5 Message-Digest Algorithm, and returns that hash.
+ * The hash is a 32-character hexadecimal number.
+ *
+ * @param string $filename The filename
+ * @param bool $raw_output When TRUE, returns the digest in raw binary format with a length of
+ * 16.
+ * @return string Returns a string on success, FALSE otherwise.
+ * @throws StringsException
+ *
+ */
+function md5_file(string $filename, bool $raw_output = false): string
+{
+    error_clear_last();
+    $result = \md5_file($filename, $raw_output);
+    if ($result === false) {
+        throw StringsException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Calculates the metaphone key of str.
  *
  * Similar to soundex metaphone creates the same key for
@@ -91,6 +116,27 @@ function metaphone(string $str, int $phonemes = 0): string
 {
     error_clear_last();
     $result = \metaphone($str, $phonemes);
+    if ($result === false) {
+        throw StringsException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ *
+ *
+ * @param string $filename The filename of the file to hash.
+ * @param bool $raw_output When TRUE, returns the digest in raw binary format with a length of
+ * 20.
+ * @return string Returns a string on success, FALSE otherwise.
+ * @throws StringsException
+ *
+ */
+function sha1_file(string $filename, bool $raw_output = false): string
+{
+    error_clear_last();
+    $result = \sha1_file($filename, $raw_output);
     if ($result === false) {
         throw StringsException::createFromPhpError();
     }
@@ -429,20 +475,17 @@ function metaphone(string $str, int $phonemes = 0): string
  * sprintf generating warnings.
  *
  * The c type specifier ignores padding and width
- * @param string|int|float $args
  * @param mixed $params
  * @return string Returns a string produced according to the formatting string
  * format,  .
  * @throws StringsException
  *
  */
-function sprintf(string $format, $args = null, ...$params): string
+function sprintf(string $format, ...$params): string
 {
     error_clear_last();
     if ($params !== []) {
-        $result = \sprintf($format, $args, ...$params);
-    } elseif ($args !== null) {
-        $result = \sprintf($format, $args);
+        $result = \sprintf($format, ...$params);
     } else {
         $result = \sprintf($format);
     }

@@ -370,21 +370,6 @@ function date_sunset(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $l
  * most common today, the valid range for year
  * is somewhere between 1901 and 2038. However, before PHP 5.1.0 this
  * range was limited from 1970 to 2038 on some systems (e.g. Windows).
- * @param int $is_dst This parameter can be set to 1 if the time is during daylight savings time (DST),
- * 0 if it is not, or -1 (the default) if it is unknown whether the time is within
- * daylight savings time or not. If it's unknown, PHP tries to figure it out itself.
- * This can cause unexpected (but not incorrect) results.
- * Some times are invalid if DST is enabled on the system PHP is running on or
- * is_dst is set to 1. If DST is enabled in e.g. 2:00, all times
- * between 2:00 and 3:00 are invalid and mktime returns an undefined
- * (usually negative) value.
- * Some systems (e.g. Solaris 8) enable DST at midnight so time 0:30 of the day when DST
- * is enabled is evaluated as 23:30 of the previous day.
- *
- * As of PHP 5.1.0, this parameter became deprecated. As a result, the
- * new timezone handling features should be used instead.
- *
- * This parameter has been removed in PHP 7.0.0.
  * @return int mktime returns the Unix timestamp of the arguments
  * given.
  * If the arguments are invalid, the function returns FALSE (before PHP 5.1
@@ -392,10 +377,10 @@ function date_sunset(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $l
  * @throws DatetimeException
  *
  */
-function mktime(int $hour = null, int $minute = null, int $second = null, int $month = null, int $day = null, int $year = null, int $is_dst = -1): int
+function mktime(int $hour = null, int $minute = null, int $second = null, int $month = null, int $day = null, int $year = null): int
 {
     error_clear_last();
-    $result = \mktime($hour, $minute, $second, $month, $day, $year, $is_dst);
+    $result = \mktime($hour, $minute, $second, $month, $day, $year);
     if ($result === false) {
         throw DatetimeException::createFromPhpError();
     }

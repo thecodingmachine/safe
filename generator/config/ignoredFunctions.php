@@ -5,7 +5,8 @@ return [
     'is_uploaded_file',
     'stream_is_local',
     'is_soap_fault',
-    # Type hints to object OCI-Lob (weird class that has a dash in its name!)
+    // Type hints to object OCI-Lob (weird class that has a dash in its name!)
     'oci_lob_copy',
-    'func_get_arg'
+    'func_get_arg',
+    //'mktime', // 7th parameter has been removed in PHP 7
 ];

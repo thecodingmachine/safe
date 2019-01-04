@@ -603,12 +603,11 @@ function imagecrop($image, array $rect)
  * @param float $threshold
  * @param int $color
  * @return resource Returns a cropped image resource on success .
- * If no cropping would occur, or the complete image would be cropped, that is
- * treated as failure, i.e. imagecrop returns FALSE.
+ * If the complete image was cropped, imagecrop returns FALSE.
  * @throws ImageException
  *
  */
-function imagecropauto($image, int $mode = -1, float $threshold = .5, int $color = -1)
+function imagecropauto($image, int $mode = IMG_CROP_DEFAULT, float $threshold = .5, int $color = -1)
 {
     error_clear_last();
     $result = \imagecropauto($image, $mode, $threshold, $color);
@@ -1155,11 +1154,7 @@ function imagegd2($image, $to = null, int $chunk_size = 128, int $type = IMG_GD2
 function imagegif($image, $to = null): void
 {
     error_clear_last();
-    if ($to !== null) {
-        $result = \imagegif($image, $to);
-    } else {
-        $result = \imagegif($image);
-    }
+    $result = \imagegif($image, $to);
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
@@ -1211,25 +1206,16 @@ function imagegrabwindow(int $window_handle, int $client_area = 0)
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
- *
- * To skip this argument in order to provide the
- * quality parameter, use NULL.
  * @param int $quality quality is optional, and ranges from 0 (worst
  * quality, smaller file) to 100 (best quality, biggest file). The
- * default is the default IJG quality value (about 75).
+ * default (-1) uses the default IJG quality value (about 75).
  * @throws ImageException
  *
  */
-function imagejpeg($image, $to = null, int $quality = null): void
+function imagejpeg($image, $to = null, int $quality = -1): void
 {
     error_clear_last();
-    if ($quality !== null) {
-        $result = \imagejpeg($image, $to, $quality);
-    } elseif ($to !== null) {
-        $result = \imagejpeg($image, $to);
-    } else {
-        $result = \imagejpeg($image);
-    }
+    $result = \imagejpeg($image, $to, $quality);
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
@@ -1447,28 +1433,22 @@ function imageopenpolygon($image, array $points, int $num_points, int $color): v
  *
  * NULL is invalid if the quality and
  * filters arguments are not used.
- * @param int $quality Compression level: from 0 (no compression) to 9. The current default is 6.
+ * @param int $quality Compression level: from 0 (no compression) to 9.
+ * The default (-1) uses the zlib compression default.
  * For more information see the zlib manual.
  * @param int $filters Allows reducing the PNG file size. It is a bitmask field which may be
  * set to any combination of the PNG_FILTER_XXX
  * constants. PNG_NO_FILTER or
  * PNG_ALL_FILTERS may also be used to respectively
  * disable or activate all filters.
+ * The default value (-1) disables filtering.
  * @throws ImageException
  *
  */
-function imagepng($image, $to = null, int $quality = null, int $filters = null): void
+function imagepng($image, $to = null, int $quality = -1, int $filters = -1): void
 {
     error_clear_last();
-    if ($filters !== null) {
-        $result = \imagepng($image, $to, $quality, $filters);
-    } elseif ($quality !== null) {
-        $result = \imagepng($image, $to, $quality);
-    } elseif ($to !== null) {
-        $result = \imagepng($image, $to);
-    } else {
-        $result = \imagepng($image);
-    }
+    $result = \imagepng($image, $to, $quality, $filters);
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
@@ -1541,48 +1521,6 @@ function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color):
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
-}
-
-
-/**
- * imageresolution allows to set and get the resolution of
- * an image in DPI (dots per inch). If none of the optional parameters is given,
- * the current resolution is returned as indexed array. If only
- * res_x is given, the horizontal and vertical resolution
- * are set to this value. If both optional parameters are given, the horizontal
- * and vertical resolution are set to these values, respectively.
- *
- * The resolution is only used as meta information when images are read from and
- * written to formats supporting this kind of information (curently PNG and
- * JPEG). It does not affect any drawing operations. The default resolution
- * for new images is 96 DPI.
- *
- * @param resource $image An image resource, returned by one of the image creation functions,
- * such as imagecreatetruecolor.
- * @param int $res_x The horizontal resolution in DPI.
- * @param int $res_y The vertical resolution in DPI.
- * @return mixed When used as getter (that is without the optional parameters), it returns
- * TRUE on success,  .
- * When used as setter (that is with one or both optional parameters given),
- * it returns an indexed array of the horizontal and vertical resolution on
- * success,  .
- * @throws ImageException
- *
- */
-function imageresolution($image, int $res_x = null, int $res_y = null)
-{
-    error_clear_last();
-    if ($res_y !== null) {
-        $result = \imageresolution($image, $res_x, $res_y);
-    } elseif ($res_x !== null) {
-        $result = \imageresolution($image, $res_x);
-    } else {
-        $result = \imageresolution($image);
-    }
-    if ($result === false) {
-        throw ImageException::createFromPhpError();
-    }
-    return $result;
 }
 
 
@@ -2258,10 +2196,8 @@ function imagewbmp($image, $to = null, int $foreground = null): void
     error_clear_last();
     if ($foreground !== null) {
         $result = \imagewbmp($image, $to, $foreground);
-    } elseif ($to !== null) {
-        $result = \imagewbmp($image, $to);
     } else {
-        $result = \imagewbmp($image);
+        $result = \imagewbmp($image, $to);
     }
     if ($result === false) {
         throw ImageException::createFromPhpError();
@@ -2310,7 +2246,7 @@ function imagewebp($image, $to = null, int $quality = 80): void
  * @throws ImageException
  *
  */
-function imagexbm($image, ?string $filename, int $foreground = null): void
+function imagexbm($image, ?string $filename = null, int $foreground = null): void
 {
     error_clear_last();
     if ($foreground !== null) {

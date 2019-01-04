@@ -429,20 +429,17 @@ function metaphone(string $str, int $phonemes = 0): string
  * sprintf generating warnings.
  *
  * The c type specifier ignores padding and width
- * @param string|int|float $args
  * @param mixed $params
  * @return string Returns a string produced according to the formatting string
  * format,  .
  * @throws StringsException
  *
  */
-function sprintf(string $format, $args = null, ...$params): string
+function sprintf(string $format, ...$params): string
 {
     error_clear_last();
     if ($params !== []) {
-        $result = \sprintf($format, $args, ...$params);
-    } elseif ($args !== null) {
-        $result = \sprintf($format, $args);
+        $result = \sprintf($format, ...$params);
     } else {
         $result = \sprintf($format);
     }

@@ -14,7 +14,7 @@ class Type
     private static function isClass(string $type): bool
     {
         if ($type === '') {
-            throw new \RuntimeException('Empty type passed');
+            throw new EmptyTypeException('Empty type passed');
         }
         if ($type === 'stdClass') {
             return true;

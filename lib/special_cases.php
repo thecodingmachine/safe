@@ -156,9 +156,7 @@ function preg_replace($pattern, $replacement, $subject, int $limit = -1, int &$c
 {
     error_clear_last();
     $result = \preg_replace($pattern, $replacement, $subject, $limit, $count);
-    var_dump($result);
     if (preg_last_error() !== PREG_NO_ERROR) {
-        // TODO: PcreException should use code here: http://php.net/manual/en/function.preg-last-error.php
         throw PcreException::createFromPhpError();
     }
     return $result;

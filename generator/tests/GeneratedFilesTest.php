@@ -37,7 +37,7 @@ class GeneratedFilesTest extends TestCase
         require_once __DIR__.'/../../generated/pcre.php';
         require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
         require_once __DIR__.'/../../lib/Exceptions/AbstractSafeException.php';
-        require_once __DIR__.'/../../generated/Exceptions/PcreException.php';
+        require_once __DIR__.'/../../lib/Exceptions/PcreException.php';
 
 
         $url = 'https://open.spotify.com/track/0nCqpKBrvDchO1BIvt7DTR?si=iLUKDfkLSy-IpnLA7qImnw';
@@ -83,7 +83,7 @@ XML;
         require_once __DIR__.'/../../generated/pcre.php';
         require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
         require_once __DIR__.'/../../lib/Exceptions/AbstractSafeException.php';
-        require_once __DIR__.'/../../generated/Exceptions/PcreException.php';
+        require_once __DIR__.'/../../lib/Exceptions/PcreException.php';
 
         $keywords = preg_split("/[\s,]+/", "hypertext language, programming", null);
         $this->assertSame(['hypertext', 'language', 'programming'], $keywords);

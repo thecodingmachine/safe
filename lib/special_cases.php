@@ -12,7 +12,6 @@ use Safe\Exceptions\ApcException;
 use Safe\Exceptions\ApcuException;
 use Safe\Exceptions\JsonException;
 use Safe\Exceptions\PcreException;
-use function var_dump;
 
 /**
  * Wrapper for json_decode that throws when an error occurs.

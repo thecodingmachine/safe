@@ -6,5 +6,6 @@
 return [
     'json_decode',
     'apc_fetch',
-    'apcu_fetch'
+    'apcu_fetch',
+    'preg_replace',
 ];

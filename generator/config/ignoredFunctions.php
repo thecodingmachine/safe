@@ -9,4 +9,5 @@ return [
     'oci_lob_copy',
     'func_get_arg',
     //'mktime', // 7th parameter has been removed in PHP 7
+    'call_user_func_array',
 ];

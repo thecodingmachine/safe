@@ -198,7 +198,6 @@ return [
     'ftp_site',
     'ftp_ssl_connect',
     'ftp_systype',
-    'call_user_func_array',
     'create_function',
     'forward_static_call_array',
     'forward_static_call',

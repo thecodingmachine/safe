@@ -5,27 +5,6 @@ namespace Safe;
 use Safe\Exceptions\FunchandException;
 
 /**
- * Calls the callback given by the first parameter with
- * the parameters in param_arr.
- *
- * @param callable $callback The callable to be called.
- * @param array $param_arr The parameters to be passed to the callback, as an indexed array.
- * @return mixed Returns the return value of the callback, .
- * @throws FunchandException
- *
- */
-function call_user_func_array(callable $callback, array $param_arr)
-{
-    error_clear_last();
-    $result = \call_user_func_array($callback, $param_arr);
-    if ($result === false) {
-        throw FunchandException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Creates an anonymous function from the parameters passed, and
  * returns a unique name for it.
  *

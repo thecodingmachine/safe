@@ -199,7 +199,6 @@ services:
       ftp_site: 'Safe\ftp_site'
       ftp_ssl_connect: 'Safe\ftp_ssl_connect'
       ftp_systype: 'Safe\ftp_systype'
-      call_user_func_array: 'Safe\call_user_func_array'
       create_function: 'Safe\create_function'
       forward_static_call_array: 'Safe\forward_static_call_array'
       forward_static_call: 'Safe\forward_static_call'

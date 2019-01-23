@@ -77,6 +77,9 @@ class DocPage
         if (preg_match('/&false;\s+if\s+the\s+number\s+of\s+elements\s+for\s+each\s+array\s+isn\'t\s+equal/m', $file)) {
             return true;
         }
+        if (preg_match('/If\s+the\s+call\s+fails,\s+it\s+will\s+return\s+&false;/m', $file)) {
+            return true;
+        }
 
         return false;
     }

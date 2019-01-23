@@ -139,7 +139,7 @@ function apcu_fetch($key)
  * -1 (no limit).
  * @param int $count If specified, this variable will be filled with the number of
  * replacements done.
- * @return string|array|null preg_replace returns an array if the
+ * @return string|array preg_replace returns an array if the
  * subject parameter is an array, or a string
  * otherwise.
  *
@@ -147,7 +147,6 @@ function apcu_fetch($key)
  * be returned, otherwise subject will be
  * returned unchanged.
  *
- * Returns a file pointer resource on success, .
  * @throws PcreException
  *
  */

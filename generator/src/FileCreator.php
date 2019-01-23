@@ -7,14 +7,9 @@ use Complex\Exception;
 use function file_exists;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use function ucfirst;
 
 class FileCreator
 {
-    public function __construct()
-    {
-    }
-
     /**
      * This function generate an xls file
      *
@@ -25,7 +20,6 @@ class FileCreator
     {
         $spreadsheet = new Spreadsheet();
         $numb = 1;
-        $status = '';
 
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('A1', 'Function name');

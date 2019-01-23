@@ -548,6 +548,7 @@ return [
     'mysqlnd_qc_set_storage_handler',
     'closelog',
     'dns_get_record',
+    'fsockopen',
     'getprotobyname',
     'getprotobynumber',
     'header_register_callback',

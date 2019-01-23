@@ -549,6 +549,7 @@ services:
       mysqlnd_qc_set_storage_handler: 'Safe\mysqlnd_qc_set_storage_handler'
       closelog: 'Safe\closelog'
       dns_get_record: 'Safe\dns_get_record'
+      fsockopen: 'Safe\fsockopen'
       getprotobyname: 'Safe\getprotobyname'
       getprotobynumber: 'Safe\getprotobynumber'
       header_register_callback: 'Safe\header_register_callback'

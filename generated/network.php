@@ -254,6 +254,65 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, array &$authns = 
 
 
 /**
+ * Initiates a socket connection to the resource specified by
+ * hostname.
+ *
+ * PHP supports targets in the Internet and Unix domains as described in
+ * .  A list of supported transports can also be
+ * retrieved using stream_get_transports.
+ *
+ * The socket will by default be opened in blocking mode.  You can
+ * switch it to non-blocking mode by using
+ * stream_set_blocking.
+ *
+ * The function stream_socket_client is similar but
+ * provides a richer set of options, including non-blocking connection and the
+ * ability to provide a stream context.
+ *
+ * @param string $hostname If OpenSSL support is
+ * installed, you may prefix the hostname
+ * with either ssl:// or tls:// to
+ * use an SSL or TLS client connection over TCP/IP to connect to the
+ * remote host.
+ * @param int $port The port number. This can be omitted and skipped with
+ * -1 for transports that do not use ports, such as
+ * unix://.
+ * @param int $errno If provided, holds the system level error number that occurred in the
+ * system-level connect() call.
+ *
+ * If the value returned in errno is
+ * 0 and the function returned FALSE, it is an
+ * indication that the error occurred before the
+ * connect() call. This is most likely due to a
+ * problem initializing the socket.
+ * @param string $errstr The error message as a string.
+ * @param float $timeout The connection timeout, in seconds.
+ *
+ * If you need to set a timeout for reading/writing data over the
+ * socket, use stream_set_timeout, as the
+ * timeout parameter to
+ * fsockopen only applies while connecting the
+ * socket.
+ * @return resource fsockopen returns a file pointer which may be used
+ * together with the other file functions (such as
+ * fgets, fgetss,
+ * fwrite, fclose, and
+ * feof). If the call fails, it will return FALSE
+ * @throws NetworkException
+ *
+ */
+function fsockopen(string $hostname, int $port = -1, int &$errno = null, string &$errstr = null, float $timeout = null)
+{
+    error_clear_last();
+    $result = \fsockopen($hostname, $port, $errno, $errstr, $timeout);
+    if ($result === false) {
+        throw NetworkException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * getprotobyname returns the protocol number
  * associated with the protocol name as per
  * /etc/protocols.

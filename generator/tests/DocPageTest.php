@@ -14,6 +14,7 @@ class DocPageTest extends TestCase
         $filesize = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/filesystem/functions/filesize.xml');
         $sessionRegister = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/session/functions/session-register.xml');
         $mcryptDecrypt = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/mcrypt/functions/mcrypt-decrypt.xml');
+        $fsockopen = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/network/functions/fsockopen.xml');
 
         $this->assertTrue($pregMatch->detectFalsyFunction());
         $this->assertFalse($implode->detectFalsyFunction());
@@ -22,5 +23,6 @@ class DocPageTest extends TestCase
         $this->assertTrue($filesize->detectFalsyFunction());
         $this->assertFalse($sessionRegister->detectFalsyFunction());
         $this->assertTrue($mcryptDecrypt->detectFalsyFunction());
+        $this->assertTrue($fsockopen->detectFalsyFunction());
     }
 }

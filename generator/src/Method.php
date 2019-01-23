@@ -75,7 +75,7 @@ class Method
 
                 if (preg_match('/This parameter has been removed in PHP (\d+\.\d+\.\d+)/', $notes, $matches)) {
                     $removedVersion = $matches[1];
-                    [$major, $minor, $fix] = explode('.', $removedVersion);
+                    [$major, $minor] = explode('.', $removedVersion);
                     if ($major < 7 || ($major == 7 && $minor == 0)) {
                         // Ignore parameter if it was removed before PHP 7.1
                         continue;

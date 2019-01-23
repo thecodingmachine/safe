@@ -32,7 +32,7 @@ class DocPage
 
         if (preg_match('/&warn\.deprecated\.function-(\d+-\d+-\d+)\.removed-(\d+-\d+-\d+)/', $file, $matches)) {
             $removedVersion = $matches[2];
-            [$major, $minor, $fix] = explode('-', $removedVersion);
+            [$major, $minor] = explode('-', $removedVersion);
             if ($major < 7 || ($major == 7 && $minor == 0)) {
                 // Ignore function if it was removed before PHP 7.1
                 return false;
@@ -40,7 +40,7 @@ class DocPage
         }
         if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches) && isset($matches[2])) {
             $removedVersion = $matches[2];
-            [$major, $minor, $fix] = explode('-', $removedVersion);
+            [$major, $minor] = explode('-', $removedVersion);
             if ($major < 7 || ($major == 7 && $minor == 0)) {
                 // Ignore function if it was removed before PHP 7.1
                 return false;
@@ -75,6 +75,9 @@ class DocPage
             return true;
         }
         if (preg_match('/&false;\s+if\s+the\s+number\s+of\s+elements\s+for\s+each\s+array\s+isn\'t\s+equal/m', $file)) {
+            return true;
+        }
+        if (preg_match('/If\s+the\s+call\s+fails,\s+it\s+will\s+return\s+&false;/m', $file)) {
             return true;
         }
 

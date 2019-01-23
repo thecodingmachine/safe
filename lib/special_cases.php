@@ -154,7 +154,7 @@ function preg_replace($pattern, $replacement, $subject, int $limit = -1, int &$c
 {
     error_clear_last();
     $result = \preg_replace($pattern, $replacement, $subject, $limit, $count);
-    if (preg_last_error() !== PREG_NO_ERROR) {
+    if (preg_last_error() !== PREG_NO_ERROR || $result === null) {
         throw PcreException::createFromPhpError();
     }
     return $result;

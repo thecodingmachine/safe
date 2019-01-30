@@ -10,4 +10,6 @@ return [
     'func_get_arg',
     //'mktime', // 7th parameter has been removed in PHP 7
     'call_user_func_array',
+    'mb_check_encoding',
+    'array_search',
 ];

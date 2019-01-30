@@ -5,30 +5,6 @@ namespace Safe;
 use Safe\Exceptions\MbstringException;
 
 /**
- * Checks if the specified byte stream is valid for the specified encoding.
- * It is useful to prevent so-called "Invalid Encoding Attack".
- *
- * @param string $var The byte stream to check. If it is omitted, this function checks
- * all the input from the beginning of the request.
- * @param string $encoding The expected encoding.
- * @throws MbstringException
- *
- */
-function mb_check_encoding(string $var = null, string $encoding = null): void
-{
-    error_clear_last();
-    if ($encoding !== null) {
-        $result = \mb_check_encoding($var, $encoding);
-    } else {
-        $result = \mb_check_encoding($var);
-    }
-    if ($result === false) {
-        throw MbstringException::createFromPhpError();
-    }
-}
-
-
-/**
  *
  *
  * @param int $cp

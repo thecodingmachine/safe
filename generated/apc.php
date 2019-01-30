@@ -89,7 +89,7 @@ function apc_compile_file(string $filename, bool $atomic = true)
  * @throws ApcException
  *
  */
-function apc_dec(string $key, int $step = 1, bool &$success = null): int
+function apc_dec(string $key, int $step = 1, ?bool &$success = null): int
 {
     error_clear_last();
     $result = \apc_dec($key, $step, $success);
@@ -188,7 +188,7 @@ function apc_delete(string $key)
  * @throws ApcException
  *
  */
-function apc_inc(string $key, int $step = 1, bool &$success = null): int
+function apc_inc(string $key, int $step = 1, ?bool &$success = null): int
 {
     error_clear_last();
     $result = \apc_inc($key, $step, $success);

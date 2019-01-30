@@ -58,7 +58,7 @@ function apcu_cas(string $key, int $old, int $new): void
  * @throws ApcuException
  *
  */
-function apcu_dec(string $key, int $step = 1, bool &$success = null): int
+function apcu_dec(string $key, int $step = 1, ?bool &$success = null): int
 {
     error_clear_last();
     $result = \apcu_dec($key, $step, $success);
@@ -102,7 +102,7 @@ function apcu_delete($key): void
  * @throws ApcuException
  *
  */
-function apcu_inc(string $key, int $step = 1, bool &$success = null): int
+function apcu_inc(string $key, int $step = 1, ?bool &$success = null): int
 {
     error_clear_last();
     $result = \apcu_inc($key, $step, $success);

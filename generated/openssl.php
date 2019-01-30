@@ -64,7 +64,7 @@ function openssl_csr_export_to_file($csr, string $outfilename, bool $notext = tr
  * @throws OpensslException
  *
  */
-function openssl_csr_export($csr, string &$out, bool $notext = true): void
+function openssl_csr_export($csr, ?string &$out, bool $notext = true): void
 {
     error_clear_last();
     $result = \openssl_csr_export($csr, $out, $notext);
@@ -389,7 +389,7 @@ function openssl_encrypt(string $data, string $method, string $key, int $options
  * @throws OpensslException
  *
  */
-function openssl_open(string $sealed_data, string &$open_data, string $env_key, $priv_key_id, string $method = "RC4", string $iv = null): void
+function openssl_open(string $sealed_data, ?string &$open_data, string $env_key, $priv_key_id, string $method = "RC4", string $iv = null): void
 {
     error_clear_last();
     if ($iv !== null) {
@@ -510,7 +510,7 @@ function openssl_pkcs12_export_to_file($x509, string $filename, $priv_key, strin
  * @throws OpensslException
  *
  */
-function openssl_pkcs12_export($x509, string &$out, $priv_key, string $pass, array $args = null): void
+function openssl_pkcs12_export($x509, ?string &$out, $priv_key, string $pass, array $args = null): void
 {
     error_clear_last();
     if ($args !== null) {
@@ -535,7 +535,7 @@ function openssl_pkcs12_export($x509, string &$out, $priv_key, string $pass, arr
  * @throws OpensslException
  *
  */
-function openssl_pkcs12_read(string $pkcs12, array &$certs, string $pass): void
+function openssl_pkcs12_read(string $pkcs12, ?array &$certs, string $pass): void
 {
     error_clear_last();
     $result = \openssl_pkcs12_read($pkcs12, $certs, $pass);
@@ -708,7 +708,7 @@ function openssl_pkey_export_to_file($key, string $outfilename, string $passphra
  * @throws OpensslException
  *
  */
-function openssl_pkey_export($key, string &$out, string $passphrase = null, array $configargs = null): void
+function openssl_pkey_export($key, ?string &$out, string $passphrase = null, array $configargs = null): void
 {
     error_clear_last();
     if ($configargs !== null) {
@@ -832,7 +832,7 @@ function openssl_pkey_new(array $configargs = null)
  * @throws OpensslException
  *
  */
-function openssl_private_decrypt(string $data, string &$decrypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
+function openssl_private_decrypt(string $data, ?string &$decrypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
 {
     error_clear_last();
     $result = \openssl_private_decrypt($data, $decrypted, $key, $padding);
@@ -860,7 +860,7 @@ function openssl_private_decrypt(string $data, string &$decrypted, $key, int $pa
  * @throws OpensslException
  *
  */
-function openssl_private_encrypt(string $data, string &$crypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
+function openssl_private_encrypt(string $data, ?string &$crypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
 {
     error_clear_last();
     $result = \openssl_private_encrypt($data, $crypted, $key, $padding);
@@ -889,7 +889,7 @@ function openssl_private_encrypt(string $data, string &$crypted, $key, int $padd
  * @throws OpensslException
  *
  */
-function openssl_public_decrypt(string $data, string &$decrypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
+function openssl_public_decrypt(string $data, ?string &$decrypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
 {
     error_clear_last();
     $result = \openssl_public_decrypt($data, $decrypted, $key, $padding);
@@ -920,7 +920,7 @@ function openssl_public_decrypt(string $data, string &$decrypted, $key, int $pad
  * @throws OpensslException
  *
  */
-function openssl_public_encrypt(string $data, string &$crypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
+function openssl_public_encrypt(string $data, ?string &$crypted, $key, int $padding = OPENSSL_PKCS1_PADDING): void
 {
     error_clear_last();
     $result = \openssl_public_encrypt($data, $crypted, $key, $padding);
@@ -947,7 +947,7 @@ function openssl_public_encrypt(string $data, string &$crypted, $key, int $paddi
  * @throws OpensslException
  *
  */
-function openssl_random_pseudo_bytes(int $length, bool &$crypto_strong = null): string
+function openssl_random_pseudo_bytes(int $length, ?bool &$crypto_strong = null): string
 {
     error_clear_last();
     $result = \openssl_random_pseudo_bytes($length, $crypto_strong);
@@ -982,7 +982,7 @@ function openssl_random_pseudo_bytes(int $length, bool &$crypto_strong = null): 
  * @throws OpensslException
  *
  */
-function openssl_seal(string $data, string &$sealed_data, array &$env_keys, array $pub_key_ids, string $method = "RC4", string &$iv = null): int
+function openssl_seal(string $data, ?string &$sealed_data, array &$env_keys, array $pub_key_ids, string $method = "RC4", string &$iv = null): int
 {
     error_clear_last();
     $result = \openssl_seal($data, $sealed_data, $env_keys, $pub_key_ids, $method, $iv);
@@ -1012,7 +1012,7 @@ function openssl_seal(string $data, string &$sealed_data, array &$env_keys, arra
  * @throws OpensslException
  *
  */
-function openssl_sign(string $data, string &$signature, $priv_key_id, $signature_alg = OPENSSL_ALGO_SHA1): void
+function openssl_sign(string $data, ?string &$signature, $priv_key_id, $signature_alg = OPENSSL_ALGO_SHA1): void
 {
     error_clear_last();
     $result = \openssl_sign($data, $signature, $priv_key_id, $signature_alg);
@@ -1062,7 +1062,7 @@ function openssl_x509_export_to_file($x509, string $outfilename, bool $notext = 
  * @throws OpensslException
  *
  */
-function openssl_x509_export($x509, string &$output, bool $notext = true): void
+function openssl_x509_export($x509, ?string &$output, bool $notext = true): void
 {
     error_clear_last();
     $result = \openssl_x509_export($x509, $output, $notext);

@@ -350,7 +350,7 @@ function odbc_execute($result_id, array $parameters_array = null): void
  * @throws UodbcException
  *
  */
-function odbc_fetch_into($result_id, array &$result_array, int $rownumber = null): int
+function odbc_fetch_into($result_id, ?array &$result_array, int $rownumber = null): int
 {
     error_clear_last();
     if ($rownumber !== null) {

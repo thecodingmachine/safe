@@ -92,7 +92,7 @@ function msg_queue_exists(int $key): void
  * @throws SemException
  *
  */
-function msg_receive($queue, int $desiredmsgtype, int &$msgtype, int $maxsize, &$message, bool $unserialize = true, int $flags = 0, int &$errorcode = null): void
+function msg_receive($queue, int $desiredmsgtype, ?int &$msgtype, int $maxsize, &$message, bool $unserialize = true, int $flags = 0, ?int &$errorcode = null): void
 {
     error_clear_last();
     $result = \msg_receive($queue, $desiredmsgtype, $msgtype, $maxsize, $message, $unserialize, $flags, $errorcode);
@@ -151,7 +151,7 @@ function msg_remove_queue($queue): void
  * @throws SemException
  *
  */
-function msg_send($queue, int $msgtype, $message, bool $serialize = true, bool $blocking = true, int &$errorcode = null): void
+function msg_send($queue, int $msgtype, $message, bool $serialize = true, bool $blocking = true, ?int &$errorcode = null): void
 {
     error_clear_last();
     $result = \msg_send($queue, $msgtype, $message, $serialize, $blocking, $errorcode);

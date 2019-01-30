@@ -27,7 +27,17 @@ class Parameter
     public function getType(): string
     {
         $type = $this->parameter->type->__toString();
-        return Type::toRootNamespace($type);
+        $strType = Type::toRootNamespace($type);
+        if ($strType !== 'mixed' && $strType !== 'resource' && $this->phpStanFunction !== null) {
+            $phpStanParameter = $this->phpStanFunction->getParameter($this->getParameter());
+            if ($phpStanParameter) {
+                // Let's make the parameter nullable if it is by reference and is used only for writing.
+                if ($phpStanParameter->isWriteOnly()) {
+                    $strType = '?'.$strType;
+                }
+            }
+        }
+        return $strType;
     }
 
     /**

@@ -311,6 +311,26 @@ function pspell_config_save_repl(int $dictionary_link, bool $flag): void
 
 
 /**
+ *
+ *
+ * @param int $config The config parameter is the one returned by
+ * pspell_config_create when the config was created.
+ * @return int Returns a dictionary link identifier on success,  .
+ * @throws PspellException
+ *
+ */
+function pspell_new_config(int $config): int
+{
+    error_clear_last();
+    $result = \pspell_new_config($config);
+    if ($result === false) {
+        throw PspellException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * pspell_new opens up a new dictionary and
  * returns the dictionary link identifier for use in other pspell
  * functions.

@@ -860,6 +860,7 @@ return [
     'pspell_config_repl',
     'pspell_config_runtogether',
     'pspell_config_save_repl',
+    'pspell_new_config',
     'pspell_new',
     'pspell_save_wordlist',
     'pspell_store_replacement',

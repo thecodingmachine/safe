@@ -102,4 +102,20 @@ XML;
 
         $this->assertSame(\strtotime('+1 day'), strtotime('+1 day'));
     }
+
+    /**
+     * Tests that parameters signature can be not passed. See https://github.com/thecodingmachine/safe/issues/86
+     */
+    public function testOpenSslSign()
+    {
+        require_once __DIR__.'/../../generated/openssl.php';
+        require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
+        require_once __DIR__.'/../../lib/Exceptions/AbstractSafeException.php';
+        require_once __DIR__.'/../../generated/Exceptions/OpensslException.php';
+
+        \openssl_sign('foo', $signature, file_get_contents(__DIR__.'/fixtures/id_rsa'));
+        openssl_sign('foo', $signatureSafe, file_get_contents(__DIR__.'/fixtures/id_rsa'));
+
+        $this->assertSame($signature, $signatureSafe);
+    }
 }

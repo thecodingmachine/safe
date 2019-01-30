@@ -512,7 +512,7 @@ function filesize(string $filename): int
  * @throws FilesystemException
  *
  */
-function flock($handle, int $operation, int &$wouldblock = null): void
+function flock($handle, int $operation, ?int &$wouldblock = null): void
 {
     error_clear_last();
     $result = \flock($handle, $operation, $wouldblock);

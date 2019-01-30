@@ -331,7 +331,7 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
  * @throws StreamException
  *
  */
-function stream_socket_accept($server_socket, float $timeout = null, string &$peername = null)
+function stream_socket_accept($server_socket, float $timeout = null, ?string &$peername = null)
 {
     error_clear_last();
     if ($peername !== null) {

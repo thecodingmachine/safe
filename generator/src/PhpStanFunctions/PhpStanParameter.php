@@ -32,6 +32,11 @@ class PhpStanParameter
      * @var bool
      */
     private $nullable = false;
+    /**
+     * Whether the parameter is "write only" (applies only to "by reference" parameters)
+     * @var bool
+     */
+    private $writeOnly = false;
 
     public function __construct(string $name, string $type)
     {
@@ -43,6 +48,9 @@ class PhpStanParameter
         }
         if (\strpos($name, '&') !== false) {
             $this->byReference = true;
+        }
+        if (\strpos($name, '&w_') !== false) {
+            $this->writeOnly = true;
         }
         $name = \str_replace(['&rw_', '&w_'], '', $name);
         $name = trim($name, '=.&');
@@ -95,6 +103,15 @@ class PhpStanParameter
     public function isByReference(): bool
     {
         return $this->byReference;
+    }
+
+    /**
+     * Whether the parameter is "write only" (applies only to "by reference" parameters)
+     * @return bool
+     */
+    public function isWriteOnly(): bool
+    {
+        return $this->writeOnly;
     }
 
     /**

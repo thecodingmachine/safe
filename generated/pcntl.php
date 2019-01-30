@@ -138,7 +138,7 @@ function pcntl_signal_dispatch(): void
  * @throws PcntlException
  *
  */
-function pcntl_sigprocmask(int $how, array $set, array &$oldset = null): void
+function pcntl_sigprocmask(int $how, array $set, ?array &$oldset = null): void
 {
     error_clear_last();
     $result = \pcntl_sigprocmask($how, $set, $oldset);

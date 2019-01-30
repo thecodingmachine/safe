@@ -723,7 +723,7 @@ function oci_execute($statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
  * @throws Oci8Exception
  *
  */
-function oci_fetch_all($statement, array &$output, int $skip = 0, int $maxrows = -1, int $flags = OCI_FETCHSTATEMENT_BY_COLUMN + OCI_ASSOC): int
+function oci_fetch_all($statement, ?array &$output, int $skip = 0, int $maxrows = -1, int $flags = OCI_FETCHSTATEMENT_BY_COLUMN + OCI_ASSOC): int
 {
     error_clear_last();
     $result = \oci_fetch_all($statement, $output, $skip, $maxrows, $flags);

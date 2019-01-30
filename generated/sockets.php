@@ -163,7 +163,7 @@ function socket_create_listen(int $port, int $backlog = 128)
  * @throws SocketsException
  *
  */
-function socket_create_pair(int $domain, int $type, int $protocol, array &$fd): void
+function socket_create_pair(int $domain, int $type, int $protocol, ?array &$fd): void
 {
     error_clear_last();
     $result = \socket_create_pair($domain, $type, $protocol, $fd);
@@ -297,7 +297,7 @@ function socket_get_option($socket, int $level, int $optname)
  * @throws SocketsException
  *
  */
-function socket_getpeername($socket, string &$address, int &$port = null): void
+function socket_getpeername($socket, string &$address, ?int &$port = null): void
 {
     error_clear_last();
     $result = \socket_getpeername($socket, $address, $port);
@@ -327,7 +327,7 @@ function socket_getpeername($socket, string &$address, int &$port = null): void
  * @throws SocketsException
  *
  */
-function socket_getsockname($socket, string &$addr, int &$port = null): void
+function socket_getsockname($socket, ?string &$addr, ?int &$port = null): void
 {
     error_clear_last();
     $result = \socket_getsockname($socket, $addr, $port);

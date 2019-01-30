@@ -105,7 +105,7 @@ function ldap_bind($link_identifier, ?string $bind_rdn = null, ?string $bind_pas
  * @throws LdapException
  *
  */
-function ldap_control_paged_result_response($link, $result, string &$cookie = null, int &$estimated = null): void
+function ldap_control_paged_result_response($link, $result, ?string &$cookie = null, ?int &$estimated = null): void
 {
     error_clear_last();
     $result = \ldap_control_paged_result_response($link, $result, $cookie, $estimated);

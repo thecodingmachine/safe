@@ -334,7 +334,13 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
 function stream_socket_accept($server_socket, float $timeout = null, string &$peername = null)
 {
     error_clear_last();
-    $result = \stream_socket_accept($server_socket, $timeout, $peername);
+    if ($peername !== null) {
+        $result = \stream_socket_accept($server_socket, $timeout, $peername);
+    } elseif ($timeout !== null) {
+        $result = \stream_socket_accept($server_socket, $timeout);
+    } else {
+        $result = \stream_socket_accept($server_socket);
+    }
     if ($result === false) {
         throw StreamException::createFromPhpError();
     }
@@ -396,8 +402,12 @@ function stream_socket_client(string $remote_socket, int &$errno = null, string 
     error_clear_last();
     if ($context !== null) {
         $result = \stream_socket_client($remote_socket, $errno, $errstr, $timeout, $flags, $context);
-    } else {
+    } elseif ($flags !== STREAM_CLIENT_CONNECT) {
         $result = \stream_socket_client($remote_socket, $errno, $errstr, $timeout, $flags);
+    } elseif ($timeout !== null) {
+        $result = \stream_socket_client($remote_socket, $errno, $errstr, $timeout);
+    } else {
+        $result = \stream_socket_client($remote_socket, $errno, $errstr);
     }
     if ($result === false) {
         throw StreamException::createFromPhpError();

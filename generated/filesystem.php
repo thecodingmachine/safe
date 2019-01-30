@@ -1346,8 +1346,10 @@ function touch(string $filename, int $time = null, int $atime = null): void
     error_clear_last();
     if ($atime !== null) {
         $result = \touch($filename, $time, $atime);
-    } else {
+    } elseif ($time !== null) {
         $result = \touch($filename, $time);
+    } else {
+        $result = \touch($filename);
     }
     if ($result === false) {
         throw FilesystemException::createFromPhpError();

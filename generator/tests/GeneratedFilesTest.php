@@ -88,4 +88,18 @@ XML;
         $keywords = preg_split("/[\s,]+/", "hypertext language, programming", null);
         $this->assertSame(['hypertext', 'language', 'programming'], $keywords);
     }
+
+
+    /**
+     * Tests that parameters with "time()" default value are correctly handled.
+     */
+    public function testStrtotime()
+    {
+        require_once __DIR__.'/../../generated/datetime.php';
+        require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
+        require_once __DIR__.'/../../lib/Exceptions/AbstractSafeException.php';
+        require_once __DIR__.'/../../generated/Exceptions/DatetimeException.php';
+
+        $this->assertSame(\strtotime('+1 day'), strtotime('+1 day'));
+    }
 }

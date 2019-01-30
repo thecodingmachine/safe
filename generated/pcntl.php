@@ -54,7 +54,13 @@ function pcntl_exec(string $path, array $args = null, array $envs = null): void
 function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCESS): int
 {
     error_clear_last();
-    $result = \pcntl_getpriority($pid, $process_identifier);
+    if ($process_identifier !== PRIO_PROCESS) {
+        $result = \pcntl_getpriority($pid, $process_identifier);
+    } elseif ($pid !== null) {
+        $result = \pcntl_getpriority($pid);
+    } else {
+        $result = \pcntl_getpriority();
+    }
     if ($result === false) {
         throw PcntlException::createFromPhpError();
     }
@@ -81,7 +87,13 @@ function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCE
 function pcntl_setpriority(int $priority, int $pid = null, int $process_identifier = PRIO_PROCESS): void
 {
     error_clear_last();
-    $result = \pcntl_setpriority($priority, $pid, $process_identifier);
+    if ($process_identifier !== PRIO_PROCESS) {
+        $result = \pcntl_setpriority($priority, $pid, $process_identifier);
+    } elseif ($pid !== null) {
+        $result = \pcntl_setpriority($priority, $pid);
+    } else {
+        $result = \pcntl_setpriority($priority);
+    }
     if ($result === false) {
         throw PcntlException::createFromPhpError();
     }

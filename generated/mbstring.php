@@ -17,7 +17,11 @@ use Safe\Exceptions\MbstringException;
 function mb_check_encoding(string $var = null, string $encoding = null): void
 {
     error_clear_last();
-    $result = \mb_check_encoding($var, $encoding);
+    if ($encoding !== null) {
+        $result = \mb_check_encoding($var, $encoding);
+    } else {
+        $result = \mb_check_encoding($var);
+    }
     if ($result === false) {
         throw MbstringException::createFromPhpError();
     }
@@ -80,7 +84,11 @@ function mb_chr(int $cp, string $encoding = null): string
 function mb_detect_order($encoding_list = null)
 {
     error_clear_last();
-    $result = \mb_detect_order($encoding_list);
+    if ($encoding_list !== null) {
+        $result = \mb_detect_order($encoding_list);
+    } else {
+        $result = \mb_detect_order();
+    }
     if ($result === false) {
         throw MbstringException::createFromPhpError();
     }
@@ -309,7 +317,11 @@ function mb_eregi_replace(string $pattern, string $replace, string $string, stri
 function mb_http_output(string $encoding = null)
 {
     error_clear_last();
-    $result = \mb_http_output($encoding);
+    if ($encoding !== null) {
+        $result = \mb_http_output($encoding);
+    } else {
+        $result = \mb_http_output();
+    }
     if ($result === false) {
         throw MbstringException::createFromPhpError();
     }
@@ -336,7 +348,11 @@ function mb_http_output(string $encoding = null)
 function mb_internal_encoding(string $encoding = null)
 {
     error_clear_last();
-    $result = \mb_internal_encoding($encoding);
+    if ($encoding !== null) {
+        $result = \mb_internal_encoding($encoding);
+    } else {
+        $result = \mb_internal_encoding();
+    }
     if ($result === false) {
         throw MbstringException::createFromPhpError();
     }
@@ -404,7 +420,11 @@ function mb_parse_str(string $encoded_string, array &$result = null): void
 function mb_regex_encoding(string $encoding = null)
 {
     error_clear_last();
-    $result = \mb_regex_encoding($encoding);
+    if ($encoding !== null) {
+        $result = \mb_regex_encoding($encoding);
+    } else {
+        $result = \mb_regex_encoding();
+    }
     if ($result === false) {
         throw MbstringException::createFromPhpError();
     }

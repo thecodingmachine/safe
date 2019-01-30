@@ -76,7 +76,19 @@ function mysql_close($link_identifier = null): void
 function mysql_connect(string $server = null, string $username = null, string $password = null, bool $new_link = false, int $client_flags = 0)
 {
     error_clear_last();
-    $result = \mysql_connect($server, $username, $password, $new_link, $client_flags);
+    if ($client_flags !== 0) {
+        $result = \mysql_connect($server, $username, $password, $new_link, $client_flags);
+    } elseif ($new_link !== false) {
+        $result = \mysql_connect($server, $username, $password, $new_link);
+    } elseif ($password !== null) {
+        $result = \mysql_connect($server, $username, $password);
+    } elseif ($username !== null) {
+        $result = \mysql_connect($server, $username);
+    } elseif ($server !== null) {
+        $result = \mysql_connect($server);
+    } else {
+        $result = \mysql_connect();
+    }
     if ($result === false) {
         throw MysqlException::createFromPhpError();
     }

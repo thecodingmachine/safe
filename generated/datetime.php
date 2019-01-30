@@ -235,7 +235,17 @@ function date_sun_info(int $time, float $latitude, float $longitude): array
 function date_sunrise(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $latitude = null, float $longitude = null, float $zenith = null, float $gmt_offset = 0)
 {
     error_clear_last();
-    $result = \date_sunrise($timestamp, $format, $latitude, $longitude, $zenith, $gmt_offset);
+    if ($gmt_offset !== 0) {
+        $result = \date_sunrise($timestamp, $format, $latitude, $longitude, $zenith, $gmt_offset);
+    } elseif ($zenith !== null) {
+        $result = \date_sunrise($timestamp, $format, $latitude, $longitude, $zenith);
+    } elseif ($longitude !== null) {
+        $result = \date_sunrise($timestamp, $format, $latitude, $longitude);
+    } elseif ($latitude !== null) {
+        $result = \date_sunrise($timestamp, $format, $latitude);
+    } else {
+        $result = \date_sunrise($timestamp, $format);
+    }
     if ($result === false) {
         throw DatetimeException::createFromPhpError();
     }
@@ -328,7 +338,17 @@ function date_sunrise(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $
 function date_sunset(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $latitude = null, float $longitude = null, float $zenith = null, float $gmt_offset = 0)
 {
     error_clear_last();
-    $result = \date_sunset($timestamp, $format, $latitude, $longitude, $zenith, $gmt_offset);
+    if ($gmt_offset !== 0) {
+        $result = \date_sunset($timestamp, $format, $latitude, $longitude, $zenith, $gmt_offset);
+    } elseif ($zenith !== null) {
+        $result = \date_sunset($timestamp, $format, $latitude, $longitude, $zenith);
+    } elseif ($longitude !== null) {
+        $result = \date_sunset($timestamp, $format, $latitude, $longitude);
+    } elseif ($latitude !== null) {
+        $result = \date_sunset($timestamp, $format, $latitude);
+    } else {
+        $result = \date_sunset($timestamp, $format);
+    }
     if ($result === false) {
         throw DatetimeException::createFromPhpError();
     }
@@ -380,7 +400,21 @@ function date_sunset(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $l
 function mktime(int $hour = null, int $minute = null, int $second = null, int $month = null, int $day = null, int $year = null): int
 {
     error_clear_last();
-    $result = \mktime($hour, $minute, $second, $month, $day, $year);
+    if ($year !== null) {
+        $result = \mktime($hour, $minute, $second, $month, $day, $year);
+    } elseif ($day !== null) {
+        $result = \mktime($hour, $minute, $second, $month, $day);
+    } elseif ($month !== null) {
+        $result = \mktime($hour, $minute, $second, $month);
+    } elseif ($second !== null) {
+        $result = \mktime($hour, $minute, $second);
+    } elseif ($minute !== null) {
+        $result = \mktime($hour, $minute);
+    } elseif ($hour !== null) {
+        $result = \mktime($hour);
+    } else {
+        $result = \mktime();
+    }
     if ($result === false) {
         throw DatetimeException::createFromPhpError();
     }
@@ -489,7 +523,11 @@ function strptime(string $date, string $format): array
 function strtotime(string $time, int $now = null): int
 {
     error_clear_last();
-    $result = \strtotime($time, $now);
+    if ($now !== null) {
+        $result = \strtotime($time, $now);
+    } else {
+        $result = \strtotime($time);
+    }
     if ($result === false) {
         throw DatetimeException::createFromPhpError();
     }

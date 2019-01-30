@@ -800,7 +800,21 @@ function ldap_get_values($link_identifier, $result_entry_identifier, string $att
 function ldap_list($link_identifier, string $base_dn, string $filter, array $attributes = null, int $attrsonly = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, array $serverctrls = null)
 {
     error_clear_last();
-    $result = \ldap_list($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit, $deref, $serverctrls);
+    if ($serverctrls !== null) {
+        $result = \ldap_list($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit, $deref, $serverctrls);
+    } elseif ($deref !== LDAP_DEREF_NEVER) {
+        $result = \ldap_list($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit, $deref);
+    } elseif ($timelimit !== -1) {
+        $result = \ldap_list($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit);
+    } elseif ($sizelimit !== -1) {
+        $result = \ldap_list($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit);
+    } elseif ($attrsonly !== 0) {
+        $result = \ldap_list($link_identifier, $base_dn, $filter, $attributes, $attrsonly);
+    } elseif ($attributes !== null) {
+        $result = \ldap_list($link_identifier, $base_dn, $filter, $attributes);
+    } else {
+        $result = \ldap_list($link_identifier, $base_dn, $filter);
+    }
     if ($result === false) {
         throw LdapException::createFromPhpError();
     }
@@ -1181,7 +1195,21 @@ function ldap_parse_result($link, $result, int &$errcode, string &$matcheddn = n
 function ldap_read($link_identifier, string $base_dn, string $filter, array $attributes = null, int $attrsonly = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, array $serverctrls = null)
 {
     error_clear_last();
-    $result = \ldap_read($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit, $deref, $serverctrls);
+    if ($serverctrls !== null) {
+        $result = \ldap_read($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit, $deref, $serverctrls);
+    } elseif ($deref !== LDAP_DEREF_NEVER) {
+        $result = \ldap_read($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit, $deref);
+    } elseif ($timelimit !== -1) {
+        $result = \ldap_read($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit);
+    } elseif ($sizelimit !== -1) {
+        $result = \ldap_read($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit);
+    } elseif ($attrsonly !== 0) {
+        $result = \ldap_read($link_identifier, $base_dn, $filter, $attributes, $attrsonly);
+    } elseif ($attributes !== null) {
+        $result = \ldap_read($link_identifier, $base_dn, $filter, $attributes);
+    } else {
+        $result = \ldap_read($link_identifier, $base_dn, $filter);
+    }
     if ($result === false) {
         throw LdapException::createFromPhpError();
     }
@@ -1349,7 +1377,21 @@ function ldap_sasl_bind($link, string $binddn = null, string $password = null, s
 function ldap_search($link_identifier, string $base_dn, string $filter, array $attributes = null, int $attrsonly = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, array $serverctrls = null)
 {
     error_clear_last();
-    $result = \ldap_search($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit, $deref, $serverctrls);
+    if ($serverctrls !== null) {
+        $result = \ldap_search($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit, $deref, $serverctrls);
+    } elseif ($deref !== LDAP_DEREF_NEVER) {
+        $result = \ldap_search($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit, $deref);
+    } elseif ($timelimit !== -1) {
+        $result = \ldap_search($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit, $timelimit);
+    } elseif ($sizelimit !== -1) {
+        $result = \ldap_search($link_identifier, $base_dn, $filter, $attributes, $attrsonly, $sizelimit);
+    } elseif ($attrsonly !== 0) {
+        $result = \ldap_search($link_identifier, $base_dn, $filter, $attributes, $attrsonly);
+    } elseif ($attributes !== null) {
+        $result = \ldap_search($link_identifier, $base_dn, $filter, $attributes);
+    } else {
+        $result = \ldap_search($link_identifier, $base_dn, $filter);
+    }
     if ($result === false) {
         throw LdapException::createFromPhpError();
     }

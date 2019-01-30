@@ -304,7 +304,11 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, array &$authns = 
 function fsockopen(string $hostname, int $port = -1, int &$errno = null, string &$errstr = null, float $timeout = null)
 {
     error_clear_last();
-    $result = \fsockopen($hostname, $port, $errno, $errstr, $timeout);
+    if ($timeout !== null) {
+        $result = \fsockopen($hostname, $port, $errno, $errstr, $timeout);
+    } else {
+        $result = \fsockopen($hostname, $port, $errno, $errstr);
+    }
     if ($result === false) {
         throw NetworkException::createFromPhpError();
     }

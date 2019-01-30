@@ -76,7 +76,19 @@ class Parameter
      */
     public function isOptionalWithNoDefault(): bool
     {
-        return ((string)$this->parameter['choice']) === 'opt' && !$this->hasDefaultValue();
+        if (((string)$this->parameter['choice']) !== 'opt') {
+            return false;
+        }
+        if (!$this->hasDefaultValue()) {
+            return true;
+        }
+
+        $initializer = $this->getInitializer();
+        // Some default value have weird values. For instance, first parameter of "mb_internal_encoding" has default value "mb_internal_encoding()"
+        if ($initializer !== 'array()' && strpos($initializer, '(') !== false) {
+            return true;
+        }
+        return false;
     }
 
     public function isVariadic(): bool

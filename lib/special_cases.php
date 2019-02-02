@@ -159,3 +159,36 @@ function preg_replace($pattern, $replacement, $subject, int $limit = -1, int &$c
     }
     return $result;
 }
+
+/**
+ * Encrypts given data with given method and key, returns a raw
+ * or base64 encoded string
+ *
+ * @param string $data The plaintext message data to be encrypted.
+ * @param string $method The cipher method. For a list of available cipher methods, use openssl_get_cipher_methods.
+ * @param string $key The key.
+ * @param int $options options is a bitwise disjunction of the flags
+ * OPENSSL_RAW_DATA and
+ * OPENSSL_ZERO_PADDING.
+ * @param string $iv A non-NULL Initialization Vector.
+ * @param string $tag The authentication tag passed by reference when using AEAD cipher mode (GCM or CCM).
+ * @param string $aad Additional authentication data.
+ * @param int $tag_length The length of the authentication tag. Its value can be between 4 and 16 for GCM mode.
+ * @return string Returns the encrypted string.
+ * @throws OpensslException
+ *
+ */
+function openssl_encrypt(string $data, string $method, string $key, int $options = 0, string $iv = "", string &$tag = null, string $aad = "", int $tag_length = 16): string
+{
+    error_clear_last();
+    // The $tag parameter is handled in a weird way by openssl_encrypt. It cannot be provided unless encoding is AEAD
+    if (func_num_args() <= 5) {
+        $result = \openssl_encrypt($data, $method, $key, $options, $iv);
+    } else {
+        $result = \openssl_encrypt($data, $method, $key, $options, $iv, $tag, $aad, $tag_length);
+    }
+    if ($result === false) {
+        throw OpensslException::createFromPhpError();
+    }
+    return $result;
+}

@@ -602,7 +602,6 @@ return [
     'openssl_decrypt',
     'openssl_dh_compute_key',
     'openssl_digest',
-    'openssl_encrypt',
     'openssl_open',
     'openssl_pbkdf2',
     'openssl_pkcs12_export_to_file',
@@ -1074,4 +1073,5 @@ return [
     'apc_fetch',
     'apcu_fetch',
     'preg_replace',
+    'openssl_encrypt',
 ];

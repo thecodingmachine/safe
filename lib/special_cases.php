@@ -172,14 +172,14 @@ function preg_replace($pattern, $replacement, $subject, int $limit = -1, int &$c
  * OPENSSL_RAW_DATA and
  * OPENSSL_ZERO_PADDING.
  * @param string $iv A non-NULL Initialization Vector.
- * @param string|null $tag The authentication tag passed by reference when using AEAD cipher mode (GCM or CCM).
+ * @param string $tag The authentication tag passed by reference when using AEAD cipher mode (GCM or CCM).
  * @param string $aad Additional authentication data.
  * @param int $tag_length The length of the authentication tag. Its value can be between 4 and 16 for GCM mode.
  * @return string Returns the encrypted string.
  * @throws OpensslException
  *
  */
-function openssl_encrypt(string $data, string $method, string $key, int $options = 0, string $iv = "", string &$tag = null, string $aad = "", int $tag_length = 16): string
+function openssl_encrypt(string $data, string $method, string $key, int $options = 0, string $iv = "", string &$tag, string $aad = "", int $tag_length = 16): string
 {
     error_clear_last();
     // The $tag parameter is handled in a weird way by openssl_encrypt. It cannot be provided unless encoding is AEAD

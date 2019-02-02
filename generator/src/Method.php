@@ -149,7 +149,11 @@ class Method
     private function removeString(string $string, string $search): string
     {
         $search = str_replace(' ', '\s+', $search);
-        return preg_replace('/'.$search.'/m', '', $string);
+        $result = preg_replace('/'.$search.'/m', '', $string);
+        if ($result === null) {
+            throw new \RuntimeException('An error occured while calling preg_replace');
+        }
+        return $result;
     }
 
     private function getStringForXPath(string $xpath): string

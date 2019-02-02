@@ -11,6 +11,7 @@ use const PREG_NO_ERROR;
 use Safe\Exceptions\ApcException;
 use Safe\Exceptions\ApcuException;
 use Safe\Exceptions\JsonException;
+use Safe\Exceptions\OpensslException;
 use Safe\Exceptions\PcreException;
 
 /**
@@ -171,7 +172,7 @@ function preg_replace($pattern, $replacement, $subject, int $limit = -1, int &$c
  * OPENSSL_RAW_DATA and
  * OPENSSL_ZERO_PADDING.
  * @param string $iv A non-NULL Initialization Vector.
- * @param string $tag The authentication tag passed by reference when using AEAD cipher mode (GCM or CCM).
+ * @param string|null $tag The authentication tag passed by reference when using AEAD cipher mode (GCM or CCM).
  * @param string $aad Additional authentication data.
  * @param int $tag_length The length of the authentication tag. Its value can be between 4 and 16 for GCM mode.
  * @return string Returns the encrypted string.

@@ -179,7 +179,7 @@ function preg_replace($pattern, $replacement, $subject, int $limit = -1, int &$c
  * @throws OpensslException
  *
  */
-function openssl_encrypt(string $data, string $method, string $key, int $options = 0, string $iv = "", string &$tag, string $aad = "", int $tag_length = 16): string
+function openssl_encrypt(string $data, string $method, string $key, int $options = 0, string $iv = "", string &$tag = "", string $aad = "", int $tag_length = 16): string
 {
     error_clear_last();
     // The $tag parameter is handled in a weird way by openssl_encrypt. It cannot be provided unless encoding is AEAD

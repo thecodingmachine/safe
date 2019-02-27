@@ -1639,20 +1639,16 @@ function imagerotate($image, float $angle, int $bgd_color, int $ignore_transpare
 
 
 /**
- * imagesavealpha sets the flag to attempt to save
+ * imagesavealpha sets the flag which determines whether to retain
  * full alpha channel information (as opposed to single-color transparency)
  * when saving PNG images.
  *
- * You have to unset alphablending
- * (imagealphablending($im, false)), to use it.
- *
- * Alpha channel is not supported by all browsers, if you have problem with
- * your browser, try to load your script with an alpha channel compliant
- * browser, e.g. latest Mozilla.
+ * Alphablending has to be disabled (imagealphablending($im, false))
+ * to retain the alpha-channel in the first place.
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param bool $saveflag Whether to save the alpha channel or not. Default to FALSE.
+ * @param bool $saveflag Whether to save the alpha channel or not. Defaults to FALSE.
  * @throws ImageException
  *
  */

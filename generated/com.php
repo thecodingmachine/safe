@@ -86,16 +86,16 @@ function com_event_sink(variant $comobject, object $sinkobject, $sinkinterface =
  *
  * The type library name, e.g. Microsoft OLE DB ActiveX Data
  * Objects 1.0 Library.
- * @param int $case_insensitive The case_insensitive behaves in the same way as
- * the parameter with the same name in the define
+ * @param bool $case_sensitive The case_sensitive behaves inversely to
+ * the parameter $case_insensitive in the define
  * function.
  * @throws ComException
  *
  */
-function com_load_typelib(string $typelib_name, bool $case_insensitive = true): void
+function com_load_typelib(string $typelib_name, bool $case_sensitive = true): void
 {
     error_clear_last();
-    $result = \com_load_typelib($typelib_name, $case_insensitive);
+    $result = \com_load_typelib($typelib_name, $case_sensitive);
     if ($result === false) {
         throw ComException::createFromPhpError();
     }

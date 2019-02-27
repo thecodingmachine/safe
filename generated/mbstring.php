@@ -451,7 +451,7 @@ function mb_regex_encoding(string $encoding = null)
  *
  * This parameter is escaped by escapeshellcmd internally
  * to prevent command execution. escapeshellcmd prevents
- * command execution, but allows to add addtional parameters. For security reason,
+ * command execution, but allows to add additional parameters. For security reason,
  * this parameter should be validated.
  *
  * Since escapeshellcmd is applied automatically, some characters

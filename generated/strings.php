@@ -253,7 +253,7 @@ function sha1_file(string $filename, bool $raw_output = false): string
  *
  *
  * G - shorter of %E and
- * %f.
+ * %F.
  *
  *
  * o - the argument is treated as an
@@ -328,7 +328,7 @@ function sha1_file(string $filename, bool $raw_output = false): string
  *
  *
  * G - shorter of %E and
- * %f.
+ * %F.
  *
  *
  * o - the argument is treated as an

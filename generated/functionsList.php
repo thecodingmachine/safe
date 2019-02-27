@@ -1026,6 +1026,7 @@ return [
     'uopz_implement',
     'base64_decode',
     'get_headers',
+    'parse_url',
     'settype',
     'xdiff_file_bdiff',
     'xdiff_file_bpatch',

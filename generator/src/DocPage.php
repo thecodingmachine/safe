@@ -56,6 +56,9 @@ class DocPage
         if (preg_match('/&false;\s+otherwise/m', $file) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $file)) {
             return true;
         }
+        if (preg_match('/may\s+return\s+&false;/m', $file) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $file)) {
+            return true;
+        }
         if (preg_match('/&false;\s+if\s+an\s+error\s+occurred/m', $file)) {
             return true;
         }

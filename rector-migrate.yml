@@ -1027,6 +1027,7 @@ services:
       uopz_implement: 'Safe\uopz_implement'
       base64_decode: 'Safe\base64_decode'
       get_headers: 'Safe\get_headers'
+      parse_url: 'Safe\parse_url'
       settype: 'Safe\settype'
       xdiff_file_bdiff: 'Safe\xdiff_file_bdiff'
       xdiff_file_bpatch: 'Safe\xdiff_file_bpatch'

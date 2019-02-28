@@ -596,8 +596,7 @@ function imap_mailboxmsginfo($imap_stream): object
  * Decode a modified UTF-7 (as specified in RFC 2060, section 5.1.3) string to UTF-8.
  *
  * @param string $in A string encoded in modified UTF-7.
- * @return string Returns in converted to UTF-8,
- * .
+ * @return string Returns in converted to UTF-8.
  * @throws ImapException
  *
  */
@@ -617,7 +616,7 @@ function imap_mutf7_to_utf8(string $in): string
  *
  * @param resource $imap_stream An IMAP stream returned by
  * imap_open.
- * @return int Return the number of messages in the current mailbox, as an integer, .
+ * @return int Return the number of messages in the current mailbox, as an integer.
  * @throws ImapException
  *
  */
@@ -832,7 +831,7 @@ function imap_num_msg($imap_stream): int
  *
  *
  *
- * @return resource Returns an IMAP stream on success .
+ * @return resource Returns an IMAP stream on success.
  * @throws ImapException
  *
  */
@@ -1021,7 +1020,7 @@ function imap_subscribe($imap_stream, string $mailbox): void
  * imap_open.
  * @param int $options
  * @return array imap_thread returns an associative array containing
- * a tree of messages threaded by REFERENCES, .
+ * a tree of messages threaded by REFERENCES.
  *
  * Every message in the current mailbox will be represented by three entries
  * in the resulting array:
@@ -1060,7 +1059,7 @@ function imap_thread($imap_stream, int $options = SE_FREE): array
  * IMAP_CLOSETIMEOUT.
  * @param int $timeout The timeout, in seconds.
  * @return mixed If the timeout parameter is set, this function
- * returns TRUE on success .
+ * returns TRUE on success.
  *
  * If timeout  is not provided or evaluates to -1,
  * the current timeout value of timeout_type is
@@ -1124,8 +1123,7 @@ function imap_unsubscribe($imap_stream, string $mailbox): void
  * Encode a UTF-8 string to modified UTF-7 (as specified in RFC 2060, section 5.1.3).
  *
  * @param string $in A UTF-8 encoded string.
- * @return string Returns in converted to modified UTF-7,
- * .
+ * @return string Returns in converted to modified UTF-7.
  * @throws ImapException
  *
  */

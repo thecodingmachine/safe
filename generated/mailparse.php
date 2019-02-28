@@ -68,7 +68,7 @@ function mailparse_msg_free($mimemail): void
  *
  * @param string $filename Path to the file holding the message.
  * The file is opened and streamed through the parser.
- * @return resource Returns a MIME resource representing the structure, .
+ * @return resource Returns a MIME resource representing the structure.
  * @throws MailparseException
  *
  */

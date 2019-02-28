@@ -29,7 +29,7 @@ function date_parse_from_format(string $format, string $date): array
  *
  * @param string $date Date in format accepted by strtotime.
  * @return array Returns array with information about the parsed date
- * on success .
+ * on success.
  * @throws DatetimeException
  *
  */
@@ -50,7 +50,7 @@ function date_parse(string $date): array
  * @param int $time Timestamp.
  * @param float $latitude Latitude in degrees.
  * @param float $longitude Longitude in degrees.
- * @return array Returns array on success .
+ * @return array Returns array on success.
  * The structure of the array is detailed in the following list:
  *
  *
@@ -226,7 +226,7 @@ function date_sun_info(int $time, float $latitude, float $longitude): array
  * format is
  * SUNFUNCS_RET_TIMESTAMP.
  * @return mixed Returns the sunrise time in a specified format on
- * success . One potential reason for failure is that the
+ * success. One potential reason for failure is that the
  * sun does not rise at all, which happens inside the polar circles for part of
  * the year.
  * @throws DatetimeException
@@ -329,7 +329,7 @@ function date_sunrise(int $timestamp, int $format = SUNFUNCS_RET_STRING, float $
  * format is
  * SUNFUNCS_RET_TIMESTAMP.
  * @return mixed Returns the sunset time in a specified format on
- * success . One potential reason for failure is that the
+ * success. One potential reason for failure is that the
  * sun does not set at all, which happens inside the polar circles for part of
  * the year.
  * @throws DatetimeException
@@ -424,7 +424,7 @@ function mktime(int $hour = null, int $minute = null, int $second = null, int $m
 
 /**
  * strptime returns an array with the
- * date parsed, .
+ * date parsed.
  *
  * Month and weekday names and other language dependent strings respect the
  * current locale set with setlocale (LC_TIME).
@@ -439,7 +439,7 @@ function mktime(int $hour = null, int $minute = null, int $second = null, int $m
  *
  * For more information about the format options, read the
  * strftime page.
- * @return array Returns an array .
+ * @return array Returns an array.
  *
  *
  * The following parameters are returned in the array
@@ -552,7 +552,7 @@ function strtotime(string $time, int $now = null): int
  * abbr doesn't exist then the time zone is
  * searched solely by the gmtOffset and
  * isdst.
- * @return string Returns time zone name on success .
+ * @return string Returns time zone name on success.
  * @throws DatetimeException
  *
  */

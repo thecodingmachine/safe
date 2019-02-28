@@ -58,8 +58,7 @@ function closelog(): void
  * Additional Records.
  * @param bool $raw In case of raw mode, we query only the requested type instead of looping
  * type by type before going with the additional info stuff.
- * @return array This function returns an array of associative arrays,
- * . Each associative array contains
+ * @return array This function returns an array of associative arrays. Each associative array contains
  * at minimum the following keys:
  *
  * Basic DNS attributes
@@ -322,7 +321,7 @@ function fsockopen(string $hostname, int $port = -1, ?int &$errno = null, ?strin
  * /etc/protocols.
  *
  * @param string $name The protocol name.
- * @return int Returns the protocol number,  .
+ * @return int Returns the protocol number.
  * @throws NetworkException
  *
  */
@@ -343,7 +342,7 @@ function getprotobyname(string $name): int
  * /etc/protocols.
  *
  * @param int $number The protocol number.
- * @return string Returns the protocol name as a string,  .
+ * @return string Returns the protocol name as a string.
  * @throws NetworkException
  *
  */
@@ -384,7 +383,7 @@ function header_register_callback(callable $callback): void
  *
  *
  * @param string $in_addr A 32bit IPv4, or 128bit IPv6 address.
- * @return string Returns a string representation of the address .
+ * @return string Returns a string representation of the address.
  * @throws NetworkException
  *
  */

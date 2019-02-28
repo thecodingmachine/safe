@@ -57,7 +57,7 @@ use Safe\Exceptions\InfoException;
  *
  *
  * @param mixed $value An optional new value for the option.
- * @return mixed Returns the original setting of any option s.
+ * @return mixed Returns the original setting of any options.
  * @throws InfoException
  *
  */
@@ -146,7 +146,7 @@ function cli_set_process_title(string $title): void
  * /usr/local/php/lib/php/extensions/debug-non-zts-20010901
  * or
  * /usr/local/php/lib/php/extensions/no-debug-zts-20010901.
- * @return int Returns TRUE on success . If the functionality of loading modules is not available
+ * @return int Returns TRUE on success. If the functionality of loading modules is not available
  * or has been disabled (either by setting
  * enable_dl off or by enabling safe mode
  * in php.ini) an E_ERROR is emitted
@@ -192,7 +192,7 @@ function getlastmod(): int
 /**
  *
  *
- * @return int Returns the group ID of the current script, .
+ * @return int Returns the group ID of the current script.
  * @throws InfoException
  *
  */
@@ -210,7 +210,7 @@ function getmygid(): int
 /**
  * Gets the inode of the current script.
  *
- * @return int Returns the current script's inode as an integer, .
+ * @return int Returns the current script's inode as an integer.
  * @throws InfoException
  *
  */
@@ -228,7 +228,7 @@ function getmyinode(): int
 /**
  * Gets the current PHP process ID.
  *
- * @return int Returns the current PHP process ID, .
+ * @return int Returns the current PHP process ID.
  * @throws InfoException
  *
  */
@@ -246,7 +246,7 @@ function getmypid(): int
 /**
  *
  *
- * @return int Returns the user ID of the current script, .
+ * @return int Returns the user ID of the current script.
  * @throws InfoException
  *
  */
@@ -267,7 +267,7 @@ function getmyuid(): int
  * @param string $options
  * @param array $longopts
  * @param int $optind
- * @return array|array|array This function will return an array of option / argument pairs,  .
+ * @return array|array|array This function will return an array of option / argument pairs.
  * @throws InfoException
  *
  */
@@ -542,7 +542,7 @@ function putenv(string $setting): void
  *
  * @param string $new_include_path The new value for the include_path
  * @return string Returns the old include_path on
- * success .
+ * success.
  * @throws InfoException
  *
  */

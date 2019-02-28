@@ -11,7 +11,7 @@ use Safe\Exceptions\SplException;
  * @param mixed $class An object (class instance) or a string (class or interface name).
  * @param bool $autoload Whether to allow this function to load the class automatically through
  * the __autoload magic method.
- * @return array An array on success, .
+ * @return array An array on success.
  * @throws SplException
  *
  */
@@ -33,7 +33,7 @@ function class_implements($class, bool $autoload = true): array
  * @param mixed $class An object (class instance) or a string (class name).
  * @param bool $autoload Whether to allow this function to load the class automatically through
  * the __autoload magic method.
- * @return array An array on success, .
+ * @return array An array on success.
  * @throws SplException
  *
  */
@@ -56,7 +56,7 @@ function class_parents($class, bool $autoload = true): array
  * @param mixed $class An object (class instance) or a string (class name).
  * @param bool $autoload Whether to allow this function to load the class automatically through
  * the __autoload magic method.
- * @return array An array on success, .
+ * @return array An array on success.
  * @throws SplException
  *
  */

@@ -129,8 +129,7 @@ function copy(string $source, string $dest, $context = null): void
  * Given a file name instead of a directory, the behaviour of the
  * function is unspecified and may differ between operating systems and
  * PHP versions.
- * @return float Returns the number of available bytes as a float
- * .
+ * @return float Returns the number of available bytes as a float.
  * @throws FilesystemException
  *
  */
@@ -150,8 +149,7 @@ function disk_free_space(string $directory): float
  * number of bytes on the corresponding filesystem or disk partition.
  *
  * @param string $directory A directory of the filesystem or disk partition.
- * @return float Returns the total number of bytes as a float
- * .
+ * @return float Returns the total number of bytes as a float.
  * @throws FilesystemException
  *
  */
@@ -235,7 +233,7 @@ function fflush($handle): void
  * @param int $maxlen Maximum length of data read. The default is to read until end
  * of file is reached. Note that this parameter is applied to the
  * stream processed by the filters.
- * @return string The function returns the read data  .
+ * @return string The function returns the read data.
  * @throws FilesystemException
  *
  */
@@ -328,7 +326,7 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
  *
  * @param resource $context A valid context resource created with
  * stream_context_create.
- * @return int This function returns the number of bytes that were written to the file, .
+ * @return int This function returns the number of bytes that were written to the file.
  * @throws FilesystemException
  *
  */
@@ -351,7 +349,7 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  *
  *
  * @param string $filename Path to the file.
- * @return int Returns the time the file was last accessed,  .
+ * @return int Returns the time the file was last accessed.
  * The time is returned as a Unix timestamp.
  * @throws FilesystemException
  *
@@ -371,7 +369,7 @@ function fileatime(string $filename): int
  * Gets the inode change time of a file.
  *
  * @param string $filename Path to the file.
- * @return int Returns the time the file was last changed,  .
+ * @return int Returns the time the file was last changed.
  * The time is returned as a Unix timestamp.
  * @throws FilesystemException
  *
@@ -391,7 +389,7 @@ function filectime(string $filename): int
  * Gets the file inode.
  *
  * @param string $filename Path to the file.
- * @return int Returns the inode number of the file,  .
+ * @return int Returns the inode number of the file.
  * @throws FilesystemException
  *
  */
@@ -411,7 +409,7 @@ function fileinode(string $filename): int
  * written to, that is, the time when the content of the file was changed.
  *
  * @param string $filename Path to the file.
- * @return int Returns the time the file was last modified,  .
+ * @return int Returns the time the file was last modified.
  * The time is returned as a Unix timestamp, which is
  * suitable for the date function.
  * @throws FilesystemException
@@ -432,7 +430,7 @@ function filemtime(string $filename): int
  * Gets the file owner.
  *
  * @param string $filename Path to the file.
- * @return int Returns the user ID of the owner of the file,  .
+ * @return int Returns the user ID of the owner of the file.
  * The user ID is returned in numerical format, use
  * posix_getpwuid to resolve it to a username.
  * @throws FilesystemException
@@ -721,7 +719,7 @@ function flock($handle, int $operation, ?int &$wouldblock = null): void
  * can be set to '1' or TRUE if you want to search for the file in the
  * include_path, too.
  * @param resource $context
- * @return resource Returns a file pointer resource on success, .
+ * @return resource Returns a file pointer resource on success.
  * @throws FilesystemException
  *
  */
@@ -757,7 +755,7 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  * @param string $escape_char The optional escape_char parameter sets the
  * escape character (at most one character).
  * An empty string ("") disables the proprietary escape mechanism.
- * @return int Returns the length of the written string  .
+ * @return int Returns the length of the written string.
  * @throws FilesystemException
  *
  */
@@ -807,7 +805,7 @@ function fputcsv($handle, array $fields, string $delimiter = ",", string $enclos
  * @param resource $handle A file system pointer resource
  * that is typically created using fopen.
  * @param int $length Up to length number of bytes read.
- * @return string Returns the read string  .
+ * @return string Returns the read string.
  * @throws FilesystemException
  *
  */
@@ -936,7 +934,7 @@ function fwrite($handle, string $string, int $length = null): int
  *
  *
  * @return array Returns an array containing the matched files/directories, an empty array
- * if no file matched .
+ * if no file matched.
  * @throws FilesystemException
  *
  */
@@ -1070,8 +1068,7 @@ function mkdir(string $pathname, int $mode = 0777, bool $recursive = false, $con
  * are converted to TRUE. "false", "off", "no"
  * and "none" are considered FALSE. "null" is converted to NULL
  * in typed mode. Also, all numeric strings are converted to integer type if it is possible.
- * @return array The settings are returned as an associative array on success,
- * .
+ * @return array The settings are returned as an associative array on success.
  * @throws FilesystemException
  *
  */
@@ -1108,8 +1105,7 @@ function parse_ini_file(string $filename, bool $process_sections = false, int $s
  * are converted to TRUE. "false", "off", "no"
  * and "none" are considered FALSE. "null" is converted to NULL
  * in typed mode. Also, all numeric strings are converted to integer type if it is possible.
- * @return array The settings are returned as an associative array on success,
- * .
+ * @return array The settings are returned as an associative array on success.
  * @throws FilesystemException
  *
  */
@@ -1128,7 +1124,7 @@ function parse_ini_string(string $ini, bool $process_sections = false, int $scan
  * readlink does the same as the readlink C function.
  *
  * @param string $path The symbolic link path.
- * @return string Returns the contents of the symbolic link path .
+ * @return string Returns the contents of the symbolic link path.
  * @throws FilesystemException
  *
  */
@@ -1282,7 +1278,7 @@ function symlink(string $target, string $link): void
  *
  * @param string $dir The directory where the temporary filename will be created.
  * @param string $prefix The prefix of the generated temporary filename.
- * @return string Returns the new temporary filename (with path), .
+ * @return string Returns the new temporary filename (with path).
  * @throws FilesystemException
  *
  */
@@ -1307,7 +1303,7 @@ function tempnam(string $dir, string $prefix): string
  * script ends.
  *
  * @return resource Returns a file handle, similar to the one returned by
- * fopen, for the new file .
+ * fopen, for the new file.
  * @throws FilesystemException
  *
  */

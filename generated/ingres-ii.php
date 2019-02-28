@@ -436,7 +436,7 @@ function ingres_field_name($result, int $index): string
  * and ingres_num_fields -
  * 1.
  * @return string ingres_field_type returns the type of a
- * field in a query result .  Examples of
+ * field in a query result.  Examples of
  * types returned are IIAPI_BYTE_TYPE,
  * IIAPI_CHA_TYPE, IIAPI_DTE_TYPE,
  * IIAPI_FLT_TYPE, IIAPI_INT_TYPE,

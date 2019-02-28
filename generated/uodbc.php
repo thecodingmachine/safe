@@ -20,7 +20,7 @@ use Safe\Exceptions\UodbcException;
  * occurs.
  *
  * If OnOff is set, this function returns TRUE on
- * success .
+ * success.
  * @throws UodbcException
  *
  */
@@ -152,7 +152,7 @@ function odbc_binmode($result_id, int $mode): void
  * @param string $owner The owner.
  * @param string $table_name The table name.
  * @param string $column_name The column name.
- * @return resource Returns an ODBC result identifier .
+ * @return resource Returns an ODBC result identifier.
  * This result identifier can be used to fetch a list of columns and
  * associated privileges.
  *
@@ -192,7 +192,7 @@ function odbc_columnprivileges($connection_id, string $qualifier, string $owner,
  * @param string $schema The owner.
  * @param string $table_name The table name.
  * @param string $column_name The column name.
- * @return resource Returns an ODBC result identifier .
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -287,7 +287,7 @@ function odbc_data_source($connection_id, int $fetch_type): array
  * @param string $query_string The SQL statement.
  * @param int $flags This parameter is currently not used.
  * @return resource Returns an ODBC result identifier if the SQL command was executed
- * successfully, .
+ * successfully.
  * @throws UodbcException
  *
  */
@@ -371,7 +371,7 @@ function odbc_fetch_into($result_id, ?array &$result_array, int $rownumber = nul
  *
  * @param resource $result_id The result identifier.
  * @param int $field_number The field number. Field numbering starts at 1.
- * @return int Returns the field length, .
+ * @return int Returns the field length.
  * @throws UodbcException
  *
  */
@@ -392,7 +392,7 @@ function odbc_field_len($result_id, int $field_number): int
  *
  * @param resource $result_id The result identifier.
  * @param int $field_number The field number. Field numbering starts at 1.
- * @return string Returns the field name as a string, .
+ * @return string Returns the field name as a string.
  * @throws UodbcException
  *
  */
@@ -413,7 +413,7 @@ function odbc_field_name($result_id, int $field_number): string
  *
  * @param resource $result_id The result identifier.
  * @param string $field_name The field name.
- * @return int Returns the field number as a integer, .
+ * @return int Returns the field number as a integer.
  * Field numbering starts at 1.
  * @throws UodbcException
  *
@@ -435,7 +435,7 @@ function odbc_field_num($result_id, string $field_name): int
  *
  * @param resource $result_id The result identifier.
  * @param int $field_number The field number. Field numbering starts at 1.
- * @return int Returns the field scale as a integer, .
+ * @return int Returns the field scale as a integer.
  * @throws UodbcException
  *
  */
@@ -456,7 +456,7 @@ function odbc_field_scale($result_id, int $field_number): int
  *
  * @param resource $result_id The result identifier.
  * @param int $field_number The field number. Field numbering starts at 1.
- * @return string Returns the field type as a string, .
+ * @return string Returns the field type as a string.
  * @throws UodbcException
  *
  */
@@ -484,7 +484,7 @@ function odbc_field_type($result_id, int $field_number): string
  * @param string $fk_qualifier The foreign key qualifier.
  * @param string $fk_owner The foreign key owner.
  * @param string $fk_table The foreign key table.
- * @return resource Returns an ODBC result identifier .
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -523,7 +523,7 @@ function odbc_foreignkeys($connection_id, string $pk_qualifier, string $pk_owner
  * see odbc_connect for details.
  * @param int $data_type The data type, which can be used to restrict the information to a
  * single data type.
- * @return resource Returns an ODBC result identifier .
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -620,7 +620,7 @@ function odbc_prepare($connection_id, string $query_string)
  * @param string $qualifier
  * @param string $owner
  * @param string $table
- * @return resource Returns an ODBC result identifier .
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -651,7 +651,7 @@ function odbc_primarykeys($connection_id, string $qualifier, string $owner, stri
  *
  * @param resource $result_id The result identifier.
  * @param string $format Additional overall table formatting.
- * @return int Returns the number of rows in the result .
+ * @return int Returns the number of rows in the result.
  * @throws UodbcException
  *
  */
@@ -763,7 +763,7 @@ function odbc_setoption($id, int $function, int $option, int $param): void
  * @param string $table The table.
  * @param int $scope The scope, which orders the result set.
  * @param int $nullable The nullable option.
- * @return resource Returns an ODBC result identifier .
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -800,7 +800,7 @@ function odbc_specialcolumns($connection_id, int $type, string $qualifier, strin
  * @param string $table_name The table name.
  * @param int $unique The unique attribute.
  * @param int $accuracy The accuracy.
- * @return resource Returns an ODBC result identifier .
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -843,7 +843,7 @@ function odbc_statistics($connection_id, string $qualifier, string $owner, strin
  * ('%' to match zero or more characters and '_' to match a single character)
  * @param string $name The name. Accepts the following search patterns:
  * ('%' to match zero or more characters and '_' to match a single character)
- * @return resource An ODBC result identifier .
+ * @return resource An ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -924,8 +924,7 @@ function odbc_tableprivileges($connection_id, string $qualifier, string $owner, 
  * data source does not support a specified table type,
  * odbc_tables does not return any results for
  * that type.
- * @return resource Returns an ODBC result identifier containing the information
- * .
+ * @return resource Returns an ODBC result identifier containing the information.
  *
  * The result set has the following columns:
  *

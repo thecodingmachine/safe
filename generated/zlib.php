@@ -18,7 +18,7 @@ use Safe\Exceptions\ZlibException;
  * maximize compression, and ZLIB_FINISH to terminate
  * with the last chunk of data. See the zlib manual for a
  * detailed description of these constants.
- * @return string Returns a chunk of compressed data,  .
+ * @return string Returns a chunk of compressed data.
  * @throws ZlibException
  *
  */
@@ -111,7 +111,7 @@ function deflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH):
  * A string or an array of strings
  * of the preset dictionary (default: no preset dictionary).
  * @return resource Returns a deflate context resource (zlib.deflate) on
- * success,  .
+ * success.
  * @throws ZlibException
  *
  */
@@ -158,7 +158,7 @@ function gzclose($zp): void
  *
  * If -1 is used, the default compression of the zlib library is used which is 6.
  * @param int $encoding One of ZLIB_ENCODING_* constants.
- * @return string The compressed string .
+ * @return string The compressed string.
  * @throws ZlibException
  *
  */
@@ -179,7 +179,7 @@ function gzcompress(string $data, int $level = -1, int $encoding = ZLIB_ENCODING
  *
  * @param string $data The data to decode, encoded by gzencode.
  * @param int $length The maximum length of data to decode.
- * @return string The decoded string, .
+ * @return string The decoded string.
  * @throws ZlibException
  *
  */
@@ -211,7 +211,7 @@ function gzdecode(string $data, int $length = null): string
  * for maximum compression. If not given, the default compression level will
  * be the default compression level of the zlib library.
  * @param int $encoding One of ZLIB_ENCODING_* constants.
- * @return string The deflated string .
+ * @return string The deflated string.
  * @throws ZlibException
  *
  */
@@ -249,7 +249,7 @@ function gzdeflate(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_
  * In PHP 5.4.0 and later, FORCE_DEFLATE generates
  * RFC 1950 compliant output, consisting of a zlib header, the deflated
  * data, and an Adler checksum.
- * @return string The encoded string, .
+ * @return string The encoded string.
  * @throws ZlibException
  *
  */
@@ -272,7 +272,7 @@ function gzencode(string $data, int $level = -1, int $encoding_mode = FORCE_GZIP
  * @param resource $zp The gz-file pointer. It must be valid, and must point to a file
  * successfully opened by gzopen.
  * @param int $length The length of data to get.
- * @return string The uncompressed string, .
+ * @return string The uncompressed string.
  * @throws ZlibException
  *
  */
@@ -301,7 +301,7 @@ function gzgets($zp, int $length = null): string
  * @param int $length The length of data to get.
  * @param string $allowable_tags You can use this optional parameter to specify tags which should not
  * be stripped.
- * @return string The uncompressed and stripped string, .
+ * @return string The uncompressed and stripped string.
  * @throws ZlibException
  *
  */
@@ -325,7 +325,7 @@ function gzgetss($zp, int $length, string $allowable_tags = null): string
  *
  * @param string $data The data compressed by gzdeflate.
  * @param int $length The maximum length of data to decode.
- * @return string The original uncompressed data .
+ * @return string The original uncompressed data.
  *
  * The function will return an error if the uncompressed data is more than
  * 32768 times the length of the compressed input data
@@ -351,7 +351,7 @@ function gzinflate(string $data, int $length = 0): string
  * @param resource $zp The gz-file pointer. It must be valid, and must point to a file
  * successfully opened by gzopen.
  * @return int The number of uncompressed characters read from gz
- * and passed through to the input, .
+ * and passed through to the input.
  * @throws ZlibException
  *
  */
@@ -390,7 +390,7 @@ function gzrewind($zp): void
  *
  * @param string $data The data compressed by gzcompress.
  * @param int $length The maximum length of data to decode.
- * @return string The original uncompressed data .
+ * @return string The original uncompressed data.
  *
  * The function will return an error if the uncompressed data is more than
  * 32768 times the length of the compressed input data
@@ -413,7 +413,7 @@ function gzuncompress(string $data, int $length = 0): string
  *
  *
  * @param resource $resource
- * @return int Returns number of bytes read so far .
+ * @return int Returns number of bytes read so far.
  * @throws ZlibException
  *
  */
@@ -432,7 +432,7 @@ function inflate_get_read_len($resource): int
  * Usually returns either ZLIB_OK or ZLIB_STREAM_END.
  *
  * @param resource $resource
- * @return int Returns decompression status .
+ * @return int Returns decompression status.
  * @throws ZlibException
  *
  */
@@ -464,7 +464,7 @@ function inflate_get_status($resource): int
  * maximize compression, and ZLIB_FINISH to terminate
  * with the last chunk of data. See the zlib manual for a
  * detailed description of these constants.
- * @return string Returns a chunk of uncompressed data,  .
+ * @return string Returns a chunk of uncompressed data.
  * @throws ZlibException
  *
  */
@@ -546,7 +546,7 @@ function inflate_add($context, string $encoded_data, int $flush_mode = ZLIB_SYNC
  * A string or an array of strings
  * of the preset dictionary (default: no preset dictionary).
  * @return resource Returns an inflate context resource (zlib.inflate) on
- * success,  .
+ * success.
  * @throws ZlibException
  *
  */
@@ -566,7 +566,7 @@ function inflate_init(int $encoding, array $options = null)
  *
  * @param string $data
  * @param int $max_decoded_len
- * @return string Returns the uncompressed data,  .
+ * @return string Returns the uncompressed data.
  * @throws ZlibException
  *
  */

@@ -7,7 +7,7 @@ use Safe\Exceptions\ApacheException;
 /**
  * Fetch the Apache version.
  *
- * @return string Returns the Apache version on success .
+ * @return string Returns the Apache version on success.
  * @throws ApacheException
  *
  */
@@ -30,7 +30,7 @@ function apache_get_version(): string
  *
  * @param string $variable The Apache environment variable
  * @param bool $walk_to_top Whether to get the top-level variable available to all Apache layers.
- * @return string The value of the Apache environment variable on success,
+ * @return string The value of the Apache environment variable on success
  * @throws ApacheException
  *
  */
@@ -48,7 +48,7 @@ function apache_getenv(string $variable, bool $walk_to_top = false): string
 /**
  * Fetches all HTTP request headers from the current request.
  *
- * @return array An associative array of all the HTTP headers in the current request, .
+ * @return array An associative array of all the HTTP headers in the current request.
  * @throws ApacheException
  *
  */
@@ -88,7 +88,7 @@ function apache_reset_timeout(): void
 /**
  * Fetch all HTTP response headers.
  *
- * @return array An array of all Apache response headers on success .
+ * @return array An array of all Apache response headers on success.
  * @throws ApacheException
  *
  */
@@ -131,7 +131,7 @@ function apache_setenv(string $variable, string $value, bool $walk_to_top = fals
  * Please read the apache_request_headers
  * documentation for more information on how this function works.
  *
- * @return array An associative array of all the HTTP headers in the current request, .
+ * @return array An associative array of all the HTTP headers in the current request.
  * @throws ApacheException
  *
  */

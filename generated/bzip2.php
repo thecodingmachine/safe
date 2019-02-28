@@ -9,7 +9,7 @@ use Safe\Exceptions\Bzip2Exception;
  *
  * @param resource $bz The file pointer. It must be valid and must point to a file
  * successfully opened by bzopen.
- * @return int Returns TRUE on success .
+ * @return int Returns TRUE on success.
  * @throws Bzip2Exception
  *
  */
@@ -30,7 +30,7 @@ function bzclose($bz): int
  *
  * @param resource $bz The file pointer. It must be valid and must point to a file
  * successfully opened by bzopen.
- * @return int Returns TRUE on success .
+ * @return int Returns TRUE on success.
  * @throws Bzip2Exception
  *
  */
@@ -55,7 +55,7 @@ function bzflush($bz): void
  * @param int $length If not specified, bzread will read 1024
  * (uncompressed) bytes at a time. A maximum of 8192
  * uncompressed bytes will be read at a time.
- * @return string Returns the uncompressed data, .
+ * @return string Returns the uncompressed data.
  * @throws Bzip2Exception
  *
  */
@@ -80,7 +80,7 @@ function bzread($bz, int $length = 1024): string
  * @param int $length If supplied, writing will stop after length
  * (uncompressed) bytes have been written or the end of
  * data is reached, whichever comes first.
- * @return int Returns the number of bytes written, .
+ * @return int Returns the number of bytes written.
  * @throws Bzip2Exception
  *
  */

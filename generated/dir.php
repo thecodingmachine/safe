@@ -48,7 +48,7 @@ function chroot(string $directory): void
 /**
  * Gets the current working directory.
  *
- * @return string Returns the current working directory on success, .
+ * @return string Returns the current working directory on success.
  *
  * On some Unix variants, getcwd will return
  * FALSE if any one of the parent directories does not have the
@@ -78,7 +78,7 @@ function getcwd(): string
  * @param resource $context For a description of the context parameter,
  * refer to the streams section of
  * the manual.
- * @return resource Returns a directory handle resource on success, .
+ * @return resource Returns a directory handle resource on success.
  *
  * If path is not a valid directory or the
  * directory can not be opened due to permission restrictions or
@@ -115,7 +115,7 @@ function opendir(string $path, $context = null)
  * with opendir. If the directory handle is
  * not specified, the last link opened by opendir
  * is assumed.
- * @return string Returns the entry name on success .
+ * @return string Returns the entry name on success.
  * @throws DirException
  *
  */
@@ -173,7 +173,7 @@ function rewinddir($dir_handle = null): void
  * @param resource $context For a description of the context parameter,
  * refer to the streams section of
  * the manual.
- * @return array Returns an array of filenames on success, . If directory is not a directory, then
+ * @return array Returns an array of filenames on success. If directory is not a directory, then
  * boolean FALSE is returned, and an error of level
  * E_WARNING is generated.
  * @throws DirException

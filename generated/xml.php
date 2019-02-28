@@ -18,7 +18,7 @@ use Safe\Exceptions\XmlException;
  * @param string $separator With a namespace aware parser tag parameters passed to the various
  * handler functions will consist of namespace and tag name separated by
  * the string specified in separator.
- * @return resource Returns a resource handle for the new XML parser,  .
+ * @return resource Returns a resource handle for the new XML parser.
  * @throws XmlException
  *
  */
@@ -55,7 +55,7 @@ function xml_parser_create_ns(string $encoding = null, string $separator = ":")
  * ISO-8859-1, while in PHP 5.0.2 and upper is UTF-8. The supported
  * encodings are ISO-8859-1, UTF-8 and
  * US-ASCII.
- * @return resource Returns a resource handle for the new XML parser,  .
+ * @return resource Returns a resource handle for the new XML parser.
  * @throws XmlException
  *
  */

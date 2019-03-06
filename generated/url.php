@@ -77,7 +77,7 @@ function get_headers(string $url, int $format = 0, $context = null): array
  * URL component as a string (except when
  * PHP_URL_PORT is given, in which case the return
  * value will be an integer).
- * @return mixed On seriously malformed URLs, parse_url .
+ * @return mixed On seriously malformed URLs, parse_url.
  *
  * If the component parameter is omitted, an
  * associative array is returned. At least one element will be

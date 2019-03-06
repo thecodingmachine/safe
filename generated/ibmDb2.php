@@ -35,7 +35,7 @@ use Safe\Exceptions\IbmDb2Exception;
  * @return mixed When db2_autocommit receives only the
  * connection parameter, it returns the current state
  * of AUTOCOMMIT for the requested connection as an integer value. A value of
- * 0 indicates that AUTOCOMMIT is off, while a value of 1 indicates that
+ * DB2_AUTOCOMMIT_OFF indicates that AUTOCOMMIT is off, while a value of DB2_AUTOCOMMIT_ON indicates that
  * AUTOCOMMIT is on.
  *
  * When db2_autocommit receives both the

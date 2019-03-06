@@ -9,7 +9,7 @@ use Safe\Exceptions\MbstringException;
  *
  * @param int $cp
  * @param string $encoding
- * @return string Returns a specific character .
+ * @return string Returns a specific character.
  * @throws MbstringException
  *
  */
@@ -51,7 +51,7 @@ function mb_chr(int $cp, string $encoding = null): string
  * For UTF-16, UTF-32,
  * UCS2 and UCS4, encoding
  * detection will fail always.
- * @return bool|array When setting the encoding detection order, TRUE is returned on success .
+ * @return bool|array When setting the encoding detection order, TRUE is returned on success.
  *
  * When getting the encoding detection order, an ordered array of the encodings is returned.
  * @throws MbstringException
@@ -76,8 +76,7 @@ function mb_detect_order($encoding_list = null)
  * Returns an array of aliases for a known encoding type.
  *
  * @param string $encoding The encoding type being checked, for aliases.
- * @return array Returns a numerically indexed array of encoding aliases on success,
- *
+ * @return array Returns a numerically indexed array of encoding aliases on success
  * @throws MbstringException
  *
  */
@@ -120,7 +119,7 @@ function mb_encoding_aliases(string $encoding): array
  * not used anywhere else.
  * @param string $string The string being checked.
  * @param string $option The search option. See mb_regex_set_options for explanation.
- * @return string The resultant string on success, .
+ * @return string The resultant string on success.
  * @throws MbstringException
  *
  */
@@ -144,7 +143,7 @@ function mb_ereg_replace_callback(string $pattern, callable $callback, string $s
  * @param string $replacement The replacement text.
  * @param string $string The string being checked.
  * @param string $option
- * @return string The resultant string on success, .
+ * @return string The resultant string on success.
  * @throws MbstringException
  *
  */
@@ -257,7 +256,7 @@ function mb_ereg_search_setpos(int $position): void
  * @param string $replace The replacement text.
  * @param string $string The searched string.
  * @param string $option
- * @return string The resultant string .
+ * @return string The resultant string.
  * @throws MbstringException
  *
  */
@@ -286,7 +285,7 @@ function mb_eregi_replace(string $pattern, string $replace, string $string, stri
  * @return string If encoding is omitted,
  * mb_http_output returns the current HTTP output
  * character encoding. Otherwise,
- * Returns TRUE on success .
+ * Returns TRUE on success.
  * @throws MbstringException
  *
  */
@@ -314,7 +313,7 @@ function mb_http_output(string $encoding = null)
  * for string functions defined by the mbstring module.
  * You should notice that the internal encoding is totally different from the one for multibyte regex.
  * @return string If encoding is set, then
- * Returns TRUE on success .
+ * Returns TRUE on success.
  * In this case, the character encoding for multibyte regex is NOT changed.
  * If encoding is omitted, then
  * the current character encoding name is returned.
@@ -341,7 +340,7 @@ function mb_internal_encoding(string $encoding = null)
  *
  * @param string $str
  * @param string $encoding
- * @return int Returns a code point of character .
+ * @return int Returns a code point of character.
  * @throws MbstringException
  *
  */
@@ -451,7 +450,7 @@ function mb_regex_encoding(string $encoding = null)
  *
  * This parameter is escaped by escapeshellcmd internally
  * to prevent command execution. escapeshellcmd prevents
- * command execution, but allows to add addtional parameters. For security reason,
+ * command execution, but allows to add additional parameters. For security reason,
  * this parameter should be validated.
  *
  * Since escapeshellcmd is applied automatically, some characters

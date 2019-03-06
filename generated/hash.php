@@ -27,7 +27,7 @@ use Safe\Exceptions\HashException;
  *
  * While optional, adding random salt significantly improves the strength of HKDF.
  * @return string Returns a string containing a raw binary representation of the derived key
- * (also known as output keying material - OKM); .
+ * (also known as output keying material - OKM);.
  * @throws HashException
  *
  */

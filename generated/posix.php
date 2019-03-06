@@ -34,7 +34,7 @@ function posix_access(string $file, int $mode = POSIX_F_OK): void
  * Gets information about a group provided its name.
  *
  * @param string $name The name of the group
- * @return array Returns an array on success,  .
+ * @return array Returns an array on success.
  * The array elements returned are:
  *
  * The group information array
@@ -96,7 +96,7 @@ function posix_getgrnam(string $name): array
 
 /**
  * Returns the process group identifier of the process
- * pid .
+ * pid.
  *
  * @param int $pid The process id.
  * @return int Returns the identifier, as an integer.

@@ -39,7 +39,7 @@ function finfo_close($finfo): void
  * Passing NULL or an empty string will be equivalent to the default
  * value.
  * @return resource (Procedural style only)
- * Returns a magic database resource on success .
+ * Returns a magic database resource on success.
  * @throws FileinfoException
  *
  */
@@ -60,8 +60,7 @@ function finfo_open(int $options = FILEINFO_NONE, ?string $magic_file = null)
  *
  * @param string $filename Path to the tested file.
  * @return string Returns the content type in MIME format, like
- * text/plain or application/octet-stream,
- * .
+ * text/plain or application/octet-stream.
  * @throws FileinfoException
  *
  */

@@ -343,8 +343,7 @@ use Safe\Exceptions\PcreException;
  *
  *
  * The above example will output:
- * @return int Returns the number of full pattern matches (which might be zero),
- * .
+ * @return int Returns the number of full pattern matches (which might be zero).
  * @throws PcreException
  *
  */
@@ -581,7 +580,7 @@ function preg_match_all(string $pattern, string $subject, array &$matches = null
  *
  * The above example will output:
  * @return int preg_match returns 1 if the pattern
- * matches given subject, 0 if it does not, .
+ * matches given subject, 0 if it does not.
  * @throws PcreException
  *
  */
@@ -647,7 +646,7 @@ function preg_match(string $pattern, string $subject, array &$matches = null, in
  * matched string at offset 0 and its string offset
  * into subject at offset 1.
  * @return array Returns an array containing substrings of subject
- * split along boundaries matched by pattern,  .
+ * split along boundaries matched by pattern.
  * @throws PcreException
  *
  */

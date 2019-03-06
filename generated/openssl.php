@@ -8,7 +8,7 @@ use Safe\Exceptions\OpensslException;
  * Gets the cipher initialization vector (iv) length.
  *
  * @param string $method The cipher method, see openssl_get_cipher_methods for a list of potential values.
- * @return int Returns the cipher length on success, .
+ * @return int Returns the cipher length on success.
  * @throws OpensslException
  *
  */
@@ -84,7 +84,7 @@ function openssl_csr_export($csr, ?string &$out, bool $notext = true): void
  * array - if shortnames is TRUE (the default) then
  * fields will be indexed with the short name form, otherwise, the long name
  * form will be used - e.g.: CN is the shortname form of commonName.
- * @return array Returns TRUE on success .
+ * @return array Returns TRUE on success.
  * @throws OpensslException
  *
  */
@@ -205,7 +205,7 @@ function openssl_csr_get_subject($csr, bool $use_shortnames = true): array
  * configuration options for the CSR.  Both dn and
  * extraattribs are associative arrays whose keys are
  * converted to OIDs and applied to the relevant part of the request.
- * @return resource Returns the CSR .
+ * @return resource Returns the CSR.
  * @throws OpensslException
  *
  */
@@ -280,7 +280,7 @@ function openssl_csr_sign($csr, $cacert, $priv_key, int $days, array $configargs
  * @param string $iv A non-NULL Initialization Vector.
  * @param string $tag The authentication tag in AEAD cipher mode. If it is incorrect, the authentication fails and the function returns FALSE.
  * @param string $aad Additional authentication data.
- * @return string The decrypted string on success .
+ * @return string The decrypted string on success.
  * @throws OpensslException
  *
  */
@@ -302,7 +302,7 @@ function openssl_decrypt(string $data, string $method, string $key, int $options
  *
  * @param string $pub_key DH Public key of the remote party.
  * @param resource $dh_key A local DH private key, corresponding to the public key to be shared with the remote party.
- * @return string Returns shared secret on success .
+ * @return string Returns shared secret on success.
  * @throws OpensslException
  *
  */
@@ -325,7 +325,7 @@ function openssl_dh_compute_key(string $pub_key, $dh_key): string
  * @param string $method The digest method to use, e.g. "sha256", see openssl_get_md_methods for a list of available digest methods.
  * @param bool $raw_output Setting to TRUE will return as raw output data, otherwise the return
  * value is binhex encoded.
- * @return string Returns the digested hash value on success .
+ * @return string Returns the digested hash value on success.
  * @throws OpensslException
  *
  */
@@ -354,7 +354,7 @@ function openssl_digest(string $data, string $method, bool $raw_output = false):
  * @param string $tag The authentication tag passed by reference when using AEAD cipher mode (GCM or CCM).
  * @param string $aad Additional authentication data.
  * @param int $tag_length The length of the authentication tag. Its value can be between 4 and 16 for GCM mode.
- * @return string Returns the encrypted string on success .
+ * @return string Returns the encrypted string on success.
  * @throws OpensslException
  *
  */
@@ -413,7 +413,7 @@ function openssl_open(string $sealed_data, ?string &$open_data, string $env_key,
  * @param int $iterations The number of iterations desired. NIST
  * recommends at least 10,000.
  * @param string $digest_algorithm Optional hash or digest algorithm from openssl_get_md_methods.  Defaults to SHA-1.
- * @return string Returns raw binary string .
+ * @return string Returns raw binary string.
  * @throws OpensslException
  *
  */
@@ -739,7 +739,7 @@ function openssl_pkey_export($key, ?string &$out, string $passphrase = null, arr
  *
  * @param string $passphrase The optional parameter passphrase must be used
  * if the specified key is encrypted (protected by a passphrase).
- * @return resource Returns a positive key resource identifier on success, .
+ * @return resource Returns a positive key resource identifier on success.
  * @throws OpensslException
  *
  */
@@ -769,7 +769,7 @@ function openssl_pkey_get_private($key, string $passphrase = "")
  *
  * A PEM formatted public key.
  *
- * @return resource Returns a positive key resource identifier on success, .
+ * @return resource Returns a positive key resource identifier on success.
  * @throws OpensslException
  *
  */
@@ -793,7 +793,7 @@ function openssl_pkey_get_public($certificate)
  * bits) using configargs.  See
  * openssl_csr_new for more information about
  * configargs.
- * @return resource Returns a resource identifier for the pkey on success, .
+ * @return resource Returns a resource identifier for the pkey on success.
  * @throws OpensslException
  *
  */
@@ -943,7 +943,7 @@ function openssl_public_encrypt(string $data, ?string &$crypted, $key, int $padd
  * @param bool $crypto_strong If passed into the function, this will hold a boolean value that determines
  * if the algorithm used was "cryptographically strong", e.g., safe for usage with GPG,
  * passwords, etc. TRUE if it did, otherwise FALSE
- * @return string Returns the generated string of bytes on success,  .
+ * @return string Returns the generated string of bytes on success.
  * @throws OpensslException
  *
  */
@@ -975,7 +975,7 @@ function openssl_random_pseudo_bytes(int $length, ?bool &$crypto_strong = null):
  * @param array $pub_key_ids Array of public key resource identifiers.
  * @param string $method The cipher method.
  * @param string $iv The initialization vector.
- * @return int Returns the length of the sealed data on success, .
+ * @return int Returns the length of the sealed data on success.
  * If successful the sealed data is returned in
  * sealed_data, and the envelope keys in
  * env_keys.
@@ -1102,7 +1102,7 @@ function openssl_x509_fingerprint($x509, string $hash_algorithm = "sha1", bool $
  * it.
  *
  * @param string|resource $x509certdata X509 certificate. See Key/Certificate parameters for a list of valid values.
- * @return resource Returns a resource identifier on success .
+ * @return resource Returns a resource identifier on success.
  * @throws OpensslException
  *
  */

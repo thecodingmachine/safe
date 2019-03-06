@@ -158,7 +158,7 @@ function xdiff_file_rabdiff(string $old_file, string $new_file, string $dest): v
  *
  * @param string $str The original binary string.
  * @param string $patch The binary patch string.
- * @return string Returns the patched string, .
+ * @return string Returns the patched string.
  * @throws XdiffException
  *
  */
@@ -182,7 +182,7 @@ function xdiff_string_bpatch(string $str, string $patch): string
  *
  * @param string $str The original binary string.
  * @param string $patch The binary patch string.
- * @return string Returns the patched string, .
+ * @return string Returns the patched string.
  * @throws XdiffException
  *
  */
@@ -215,7 +215,7 @@ function xdiff_string_patch_binary(string $str, string $patch): string
  * Starting from version 1.5.0, you can also use binary OR to enable
  * XDIFF_PATCH_IGNORESPACE flag.
  * @param string $error If provided then rejected parts are stored inside this variable.
- * @return string Returns the patched string, .
+ * @return string Returns the patched string.
  * @throws XdiffException
  *
  */

@@ -41,7 +41,7 @@ function image2wbmp($image, ?string $filename = null, int $foreground = null): v
  * such as imagecreatetruecolor.
  * @param array $affine Array with keys 0 to 5.
  * @param array $clip Array with keys "x", "y", "width" and "height".
- * @return resource Return affined image resource on success .
+ * @return resource Return affined image resource on success.
  * @throws ImageException
  *
  */
@@ -70,8 +70,7 @@ function imageaffine($image, array $affine, array $clip = null)
  * @param array $m2 An affine transformation matrix (an array with keys
  * 0 to 5 and float values).
  * @return array An affine transformation matrix (an array with keys
- * 0 to 5 and float values)
- * .
+ * 0 to 5 and float values).
  * @throws ImageException
  *
  */
@@ -99,8 +98,7 @@ function imageaffinematrixconcat(array $m1, array $m2): array
  * IMG_AFFINE_SHEAR_HORIZONTAL or IMG_AFFINE_SHEAR_VERTICAL,
  * options has to be a float specifying the angle.
  * @return array An affine transformation matrix (an array with keys
- * 0 to 5 and float values)
- * .
+ * 0 to 5 and float values).
  * @throws ImageException
  *
  */
@@ -295,7 +293,7 @@ function imagecharup($image, int $font, int $x, int $y, string $c, int $color): 
  * such as imagecreatetruecolor.
  * @param int $x x-coordinate of the point.
  * @param int $y y-coordinate of the point.
- * @return int Returns the index of the color  .
+ * @return int Returns the index of the color.
  * @throws ImageException
  *
  */
@@ -359,7 +357,7 @@ function imagecolormatch($image1, $image2): void
  * @param array $matrix A 3x3 matrix: an array of three arrays of three floats.
  * @param float $div The divisor of the result of the convolution, used for normalization.
  * @param float $offset Color offset.
- * @return resource Returns TRUE on success .
+ * @return resource Returns TRUE on success.
  * @throws ImageException
  *
  */
@@ -578,7 +576,7 @@ function imagecopyresized($dst_image, $src_image, int $dst_x, int $dst_y, int $s
  * @param array $rect The cropping rectangle as array with keys
  * x, y, width and
  * height.
- * @return resource Return cropped image resource on success .
+ * @return resource Return cropped image resource on success.
  * @throws ImageException
  *
  */
@@ -602,7 +600,7 @@ function imagecrop($image, array $rect)
  * @param int $mode One of the following constants:
  * @param float $threshold
  * @param int $color
- * @return resource Returns a cropped image resource on success .
+ * @return resource Returns a cropped image resource on success.
  * If the complete image was cropped, imagecrop returns FALSE.
  * @throws ImageException
  *
@@ -1363,7 +1361,7 @@ function imageline($image, int $x1, int $y1, int $x2, int $y2, int $color): void
  *
  *
  * @return int The font identifier which is always bigger than 5 to avoid conflicts with
- * built-in fonts s.
+ * built-in fontss.
  * @throws ImageException
  *
  */
@@ -1623,7 +1621,7 @@ function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color):
  * number of degrees to rotate the image anticlockwise.
  * @param int $bgd_color Specifies the color of the uncovered zone after the rotation
  * @param int $ignore_transparent If set and non-zero, transparent colors are ignored (otherwise kept).
- * @return resource Returns an image resource for the rotated image,  .
+ * @return resource Returns an image resource for the rotated image.
  * @throws ImageException
  *
  */
@@ -1639,20 +1637,16 @@ function imagerotate($image, float $angle, int $bgd_color, int $ignore_transpare
 
 
 /**
- * imagesavealpha sets the flag to attempt to save
+ * imagesavealpha sets the flag which determines whether to retain
  * full alpha channel information (as opposed to single-color transparency)
  * when saving PNG images.
  *
- * You have to unset alphablending
- * (imagealphablending($im, false)), to use it.
- *
- * Alpha channel is not supported by all browsers, if you have problem with
- * your browser, try to load your script with an alpha channel compliant
- * browser, e.g. latest Mozilla.
+ * Alphablending has to be disabled (imagealphablending($im, false))
+ * to retain the alpha-channel in the first place.
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param bool $saveflag Whether to save the alpha channel or not. Default to FALSE.
+ * @param bool $saveflag Whether to save the alpha channel or not. Defaults to FALSE.
  * @throws ImageException
  *
  */
@@ -1688,7 +1682,7 @@ function imagesavealpha($image, bool $saveflag): void
  * IMG_WEIGHTED4 is not yet supported.
  *
  *
- * @return resource Return the scaled image resource on success .
+ * @return resource Return the scaled image resource on success.
  * @throws ImageException
  *
  */
@@ -2028,7 +2022,7 @@ function imagestringup($image, int $font, int $x, int $y, string $string, int $c
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @return int Return the width of the image s.
+ * @return int Return the width of the images.
  * @throws ImageException
  *
  */
@@ -2048,7 +2042,7 @@ function imagesx($image): int
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @return int Return the height of the image s.
+ * @return int Return the height of the images.
  * @throws ImageException
  *
  */
@@ -2353,9 +2347,7 @@ function imagexbm($image, ?string $filename = null, int $foreground = null): voi
  * @param string $jpeg_file_name Path to the JPEG image.
  * @param int $spool Spool flag. If the spool flag is less than 2 then the JPEG will be
  * returned as a string. Otherwise the JPEG will be printed to STDOUT.
- * @return array If spool is less than 2, the JPEG will be returned,
- * . Otherwise returns TRUE on success
- * .
+ * @return array If spool is less than 2, the JPEG will be returned. Otherwise returns TRUE on success.
  * @throws ImageException
  *
  */

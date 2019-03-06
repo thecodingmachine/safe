@@ -150,7 +150,7 @@ class Method
     private function removeString(string $string, string $search): string
     {
         $search = str_replace(' ', '\s+', $search);
-        return preg_replace('/'.$search.'/m', '', $string);
+        return preg_replace('/[\s\,]*'.$search.'/m', '', $string);
     }
 
     private function getStringForXPath(string $xpath): string

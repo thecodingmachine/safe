@@ -10,7 +10,7 @@ use Safe\Exceptions\FunchandException;
  *
  * @param string $args The function arguments.
  * @param string $code The function code.
- * @return string Returns a unique function name as a string, .
+ * @return string Returns a unique function name as a string.
  * @throws FunchandException
  *
  */
@@ -41,7 +41,7 @@ function create_function(string $args, string $code): string
  *
  * Note that the parameters for forward_static_call_array are
  * not passed by reference.
- * @return mixed Returns the function result, .
+ * @return mixed Returns the function result.
  * @throws FunchandException
  *
  */
@@ -67,7 +67,7 @@ function forward_static_call_array(callable $function, array $parameters)
  * with the name of the class, and the method, or a string, with a function
  * name.
  * @param mixed $params Zero or more parameters to be passed to the function.
- * @return mixed Returns the function result, .
+ * @return mixed Returns the function result.
  * @throws FunchandException
  *
  */
@@ -89,8 +89,7 @@ function forward_static_call(callable $function, ...$params)
 /**
  *
  *
- * @param callable $function The function name as a string, or an array consisting of an object and
- * a method.
+ * @param callable $function The function to register.
  * @param mixed $params
  * @throws FunchandException
  *

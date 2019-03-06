@@ -10,7 +10,7 @@ use Safe\Exceptions\SqlsrvException;
  * sqlsrv_begin_transaction and before calls to
  * sqlsrv_rollback or sqlsrv_commit.
  * Explicit transactions should be started and committed or rolled back using
- * these functions instead of executing SQL statements that begin and committ/roll
+ * these functions instead of executing SQL statements that begin and commit/roll
  * back transactions. For more information, see
  * SQLSRV Transactions.
  *
@@ -122,7 +122,7 @@ function sqlsrv_close($conn): void
  * is called. The transaction that is committed includes all statements that were
  * executed after the call to sqlsrv_begin_transaction.
  * Explicit transactions should be started and committed or rolled back using these
- * functions instead of executing SQL statements that begin and committ/roll back
+ * functions instead of executing SQL statements that begin and commit/roll back
  * transactions. For more information, see
  * SQLSRV Transactions.
  *
@@ -218,7 +218,7 @@ function sqlsrv_execute($stmt): void
  * that alters server state, statement execution is terminated and the statement
  * is rolled back.
  *
- * @param resource $stmt The statment for which resources are freed.
+ * @param resource $stmt The statement for which resources are freed.
  * Note that NULL is a valid parameter value. This allows the function to be
  * called multiple times in a script.
  * @throws SqlsrvException
@@ -271,7 +271,7 @@ function sqlsrv_get_field($stmt, int $fieldIndex, int $getAsType = null)
  * Makes the next result of the specified statement active. Results include result
  * sets, row counts, and output parameters.
  *
- * @param resource $stmt The statment on which the next result is being called.
+ * @param resource $stmt The statement on which the next result is being called.
  * @return mixed Returns TRUE if the next result was successfully retrieved, FALSE if an error
  * occurred, and NULL if there are no more results to retrieve.
  * @throws SqlsrvException
@@ -291,7 +291,7 @@ function sqlsrv_next_result($stmt)
 /**
  * Retrieves the number of fields (columns) on a statement.
  *
- * @param resource $stmt The statment for which the number of fields is returned.
+ * @param resource $stmt The statement for which the number of fields is returned.
  * sqlsrv_num_fields can be called on a statement before
  * or after statement execution.
  * @return mixed Returns the number of fields on success. Returns FALSE otherwise.
@@ -311,12 +311,12 @@ function sqlsrv_num_fields($stmt)
 
 /**
  * Retrieves the number of rows in a result set. This function requires that the
- * statment resource be created with a static or keyset cursor. For more information,
+ * statement resource be created with a static or keyset cursor. For more information,
  * see sqlsrv_query, sqlsrv_prepare,
  * or Specifying a Cursor Type and Selecting Rows
  * in the Microsoft SQLSRV documentation.
  *
- * @param resource $stmt The statement for which the row count is returned. The statment resource
+ * @param resource $stmt The statement for which the row count is returned. The statement resource
  * must be created with a static or keyset cursor. For more information, see
  * sqlsrv_query, sqlsrv_prepare, or
  * Specifying a Cursor Type and Selecting Rows
@@ -352,7 +352,7 @@ function sqlsrv_num_rows($stmt)
  * array($value [, $direction [, $phpType [, $sqlType]]])
  *
  * The following table describes the elements in the array structure above:
- * @param array $options An array specifing query property options. The supported keys are described
+ * @param array $options An array specifying query property options. The supported keys are described
  * in the following table:
  * @return mixed Returns a statement resource on success and FALSE if an error occurred.
  * @throws SqlsrvException
@@ -389,7 +389,7 @@ function sqlsrv_prepare($conn, string $sql, array $params = null, array $options
  * array($value [, $direction [, $phpType [, $sqlType]]])
  *
  * The following table describes the elements in the array structure above:
- * @param array $options An array specifing query property options. The supported keys are described
+ * @param array $options An array specifying query property options. The supported keys are described
  * in the following table:
  * @return mixed Returns a statement resource on success and FALSE if an error occurred.
  * @throws SqlsrvException

@@ -42,7 +42,7 @@ use Safe\Exceptions\IbmDb2Exception;
  * connection parameter and
  * autocommit parameter, it attempts to set the
  * AUTOCOMMIT state of the requested connection to the corresponding state.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  * @throws IbmDb2Exception
  *
  */
@@ -504,8 +504,7 @@ function db2_free_stmt($stmt): void
  *
  *
  * DB2 for z/OS and OS/390 servers support up to a length of 18 characters.
- * @return string Returns the current setting of the connection attribute provided on success
- * .
+ * @return string Returns the current setting of the connection attribute provided on success.
  * @throws IbmDb2Exception
  *
  */

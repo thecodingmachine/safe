@@ -10,7 +10,7 @@ use Safe\Exceptions\CurlException;
  * @param resource $ch A cURL handle returned by
  * curl_init.
  * @param string $str The string to be encoded.
- * @return string Returns escaped string .
+ * @return string Returns escaped string.
  * @throws CurlException
  *
  */
@@ -33,7 +33,7 @@ function curl_escape($ch, string $str): string
  *
  * @param resource $ch A cURL handle returned by
  * curl_init.
- * @return bool|string Returns TRUE on success . However, if the CURLOPT_RETURNTRANSFER
+ * @return bool|string Returns TRUE on success. However, if the CURLOPT_RETURNTRANSFER
  * option is set, it will return
  * the result on success, FALSE on failure.
  * @throws CurlException
@@ -279,7 +279,7 @@ function curl_exec($ch)
  *
  * @return mixed If opt is given, returns its value.
  * Otherwise, returns an associative array with the following elements
- * (which correspond to opt), :
+ * (which correspond to opt):
  *
  *
  *
@@ -468,8 +468,7 @@ function curl_init(string $url = null)
  *
  * @param resource $mh A cURL multi handle returned by
  * curl_multi_init.
- * @return int Return an integer containing the last multi curl error number,
- * .
+ * @return int Return an integer containing the last multi curl error number.
  * @throws CurlException
  *
  */
@@ -2430,8 +2429,7 @@ function curl_setopt($ch, int $option, $value): void
  * Return an integer containing the last share curl error number.
  *
  * @param resource $sh A cURL share handle returned by curl_share_init.
- * @return int Returns an integer containing the last share curl error number,
- * .
+ * @return int Returns an integer containing the last share curl error number.
  * @throws CurlException
  *
  */
@@ -2527,7 +2525,7 @@ function curl_share_setopt($sh, int $option, string $value): void
  * @param resource $ch A cURL handle returned by
  * curl_init.
  * @param string $str The URL encoded string to be decoded.
- * @return string Returns decoded string  .
+ * @return string Returns decoded string.
  * @throws CurlException
  *
  */

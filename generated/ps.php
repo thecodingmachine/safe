@@ -309,7 +309,7 @@ function ps_begin_page($psdoc, float $width, float $height): void
  * @param float $ystep The distance in pixel of placements of the pattern in
  * vertical direction.
  * @param int $painttype Must be 1 or 2.
- * @return int The identifier of the pattern  .
+ * @return int The identifier of the pattern.
  * @throws PsException
  *
  */
@@ -336,7 +336,7 @@ function ps_begin_pattern($psdoc, float $width, float $height, float $xstep, flo
  * as returned by ps_new.
  * @param float $width The width of the template in pixel.
  * @param float $height The height of the template in pixel.
- * @return int Returns TRUE on success .
+ * @return int Returns TRUE on success.
  * @throws PsException
  *
  */
@@ -774,7 +774,7 @@ function ps_fill($psdoc): void
  * @param float $modifier An identifier needed if a parameter of a resource is requested,
  * e.g. the size of an image. In such a case the resource id is
  * passed.
- * @return string Returns the value of the parameter  .
+ * @return string Returns the value of the parameter.
  * @throws PsException
  *
  */
@@ -810,7 +810,7 @@ function ps_get_parameter($psdoc, string $name, float $modifier = null): string
  * interger numbers. Each number is the position of the char in
  * text after which a hyphenation can take place.
  * @return array An array of integers indicating the position of possible breaks in
- * the text  .
+ * the text.
  * @throws PsException
  *
  */
@@ -897,7 +897,7 @@ function ps_moveto($psdoc, float $x, float $y): void
  * followed by a call of ps_open_file to actually create
  * the postscript document.
  *
- * @return resource Resource of PostScript document . The return value
+ * @return resource Resource of PostScript document. The return value
  * is passed to all other functions as the first argument.
  * @throws PsException
  *
@@ -1578,7 +1578,7 @@ function ps_setpolydash($psdoc, float $arr): void
  * @param int $shadingid The identifier of a shading previously created with
  * ps_shading.
  * @param string $optlist This argument is not currently used.
- * @return int The identifier of the pattern  .
+ * @return int The identifier of the pattern.
  * @throws PsException
  *
  */
@@ -1623,7 +1623,7 @@ function ps_shading_pattern($psdoc, int $shadingid, string $optlist): int
  * @param float $c3
  * @param float $c4
  * @param string $optlist
- * @return int Returns the identifier of the pattern  .
+ * @return int Returns the identifier of the pattern.
  * @throws PsException
  *
  */

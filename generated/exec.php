@@ -10,7 +10,7 @@ use Safe\Exceptions\ExecException;
  *
  * @param resource $process The proc_open resource that will
  * be evaluated.
- * @return array An array of collected information on success, . The returned array contains the following elements:
+ * @return array An array of collected information on success. The returned array contains the following elements:
  *
  *
  *
@@ -144,7 +144,7 @@ function proc_nice(int $increment): void
  * @param int $return_var If the return_var argument is present, then the
  * return status of the executed command will be written to this
  * variable.
- * @return string Returns the last line of the command output on success, .
+ * @return string Returns the last line of the command output on success.
  * @throws ExecException
  *
  */

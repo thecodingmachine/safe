@@ -110,12 +110,15 @@ function sapi_windows_cp_set(int $cp): void
 
 
 /**
- * If enable is omitted, the function return TRUE if the stream stream has VT100 control codes enabled, FALSE otherwise.
+ * If enable is omitted, the function returns TRUE if the stream stream has VT100 control codes enabled, FALSE otherwise.
  *
  * If enable is specified, the function will try to enable or disable the VT100 features of the stream stream.
  * If the feature has been successfully enabled (or disabled), .
  *
  * At startup, PHP tries to enable the VT100 feature of the STDOUT/STDERR streams. By the way, if those streams are redirected to a file, the VT100 features may not be enabled.
+ *
+ * If VT100 support is enabled, it is possible to use control sequences as they are known from the VT100 terminal.
+ * They allow the modification of the terminal's output. On Windows these sequences are called Console Virtual Terminal Sequences.
  *
  * @param resource $stream The stream on which the function will operate.
  * @param bool $enable If specified, the VT100 feature will be enabled (if TRUE) or disabled (if FALSE).

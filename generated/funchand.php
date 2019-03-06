@@ -89,8 +89,7 @@ function forward_static_call(callable $function, ...$params)
 /**
  *
  *
- * @param callable $function The function name as a string, or an array consisting of an object and
- * a method.
+ * @param callable $function The function to register.
  * @param mixed $params
  * @throws FunchandException
  *

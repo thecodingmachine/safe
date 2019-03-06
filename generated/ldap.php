@@ -11,7 +11,7 @@ use Safe\Exceptions\LdapException;
  * @param string $dn
  * @param array $entry
  * @param array $serverctrls
- * @return resource Returns an LDAP result identifier .
+ * @return resource Returns an LDAP result identifier.
  * @throws LdapException
  *
  */
@@ -61,7 +61,7 @@ function ldap_add($link_identifier, string $dn, array $entry, array $serverctrls
  * @param resource $link_identifier
  * @param string $bind_rdn
  * @param string $bind_password
- * @return resource Returns an LDAP result identifier .
+ * @return resource Returns an LDAP result identifier.
  * @throws LdapException
  *
  */
@@ -144,7 +144,7 @@ function ldap_control_paged_result($link, int $pagesize, bool $iscritical = fals
  *
  * @param resource $link_identifier An LDAP link identifier, returned by ldap_connect.
  * @param resource $result_identifier The internal LDAP result.
- * @return int Returns number of entries in the result .
+ * @return int Returns number of entries in the result.
  * @throws LdapException
  *
  */
@@ -165,7 +165,7 @@ function ldap_count_entries($link_identifier, $result_identifier): int
  * @param resource $link_identifier
  * @param string $dn
  * @param array $serverctrls
- * @return resource Returns an LDAP result identifier .
+ * @return resource Returns an LDAP result identifier.
  * @throws LdapException
  *
  */
@@ -210,7 +210,7 @@ function ldap_delete($link_identifier, string $dn, array $serverctrls = null): v
  * filled with an array of LDAP Controls
  * returned with the request.
  * @return mixed Returns the generated password if newpw is empty or omitted.
- * Otherwise returns TRUE on success .
+ * Otherwise returns TRUE on success.
  * @throws LdapException
  *
  */
@@ -229,7 +229,7 @@ function ldap_exop_passwd($link, string $user = "", string $oldpw = "", string $
  * Performs a WHOAMI extended operation and returns the data.
  *
  * @param resource $link An LDAP link identifier, returned by ldap_connect.
- * @return string The data returned by the server, .
+ * @return string The data returned by the server.
  * @throws LdapException
  *
  */
@@ -257,8 +257,8 @@ function ldap_exop_whoami($link): string
  * If not provided you may use ldap_parse_exop on the result object
  * later to get this data.
  * @param string $retoid Will be filled with the response OID if provided, usually equal to the request OID.
- * @return mixed When used with retdata, returns TRUE on success .
- * When used without retdata, returns a result identifier .
+ * @return mixed When used with retdata, returns TRUE on success.
+ * When used without retdata, returns a result identifier.
  * @throws LdapException
  *
  */
@@ -283,7 +283,7 @@ function ldap_exop($link, string $reqoid, string $reqdata = null, ?array $server
  * attributes as well.  To get RDNs with the attributes (i.e. in
  * attribute=value format) set with_attrib to 0
  * and to get only values set it to 1.
- * @return array Returns an array of all DN components,  .
+ * @return array Returns an array of all DN components.
  * The first element in the array has count key and
  * represents the number of returned values, next elements are numerically
  * indexed DN components.
@@ -793,7 +793,7 @@ function ldap_get_values($link_identifier, $result_entry_identifier, string $att
  *
  *
  * @param array $serverctrls Array of LDAP Controls to send with the request.
- * @return resource Returns a search result identifier .
+ * @return resource Returns a search result identifier.
  * @throws LdapException
  *
  */
@@ -829,7 +829,7 @@ function ldap_list($link_identifier, string $base_dn, string $filter, array $att
  * @param string $dn
  * @param array $entry
  * @param array $serverctrls
- * @return resource Returns an LDAP result identifier .
+ * @return resource Returns an LDAP result identifier.
  * @throws LdapException
  *
  */
@@ -872,7 +872,7 @@ function ldap_mod_add($link_identifier, string $dn, array $entry, array $serverc
  * @param string $dn
  * @param array $entry
  * @param array $serverctrls
- * @return resource Returns an LDAP result identifier .
+ * @return resource Returns an LDAP result identifier.
  * @throws LdapException
  *
  */
@@ -916,7 +916,7 @@ function ldap_mod_del($link_identifier, string $dn, array $entry, array $serverc
  * @param string $dn
  * @param array $entry
  * @param array $serverctrls
- * @return resource Returns an LDAP result identifier .
+ * @return resource Returns an LDAP result identifier.
  * @throws LdapException
  *
  */
@@ -1188,7 +1188,7 @@ function ldap_parse_result($link, $result, int &$errcode, string &$matcheddn = n
  *
  *
  * @param array $serverctrls Array of LDAP Controls to send with the request.
- * @return resource Returns a search result identifier .
+ * @return resource Returns a search result identifier.
  * @throws LdapException
  *
  */
@@ -1226,7 +1226,7 @@ function ldap_read($link_identifier, string $base_dn, string $filter, array $att
  * @param string $newparent
  * @param bool $deleteoldrdn
  * @param array $serverctrls
- * @return resource Returns an LDAP result identifier .
+ * @return resource Returns an LDAP result identifier.
  * @throws LdapException
  *
  */
@@ -1370,7 +1370,7 @@ function ldap_sasl_bind($link, string $binddn = null, string $password = null, s
  *
  *
  * @param array $serverctrls Array of LDAP Controls to send with the request.
- * @return resource Returns a search result identifier .
+ * @return resource Returns a search result identifier.
  * @throws LdapException
  *
  */

@@ -93,7 +93,7 @@ function mssql_close($link_identifier = null): void
  * modifies this behavior and makes mssql_connect
  * always open a new link, even if mssql_connect was
  * called before with the same parameters.
- * @return resource Returns a MS SQL link identifier on success, .
+ * @return resource Returns a MS SQL link identifier on success.
  * @throws MssqlException
  *
  */
@@ -147,7 +147,7 @@ function mssql_data_seek($result_identifier, int $row_number): void
  * @param resource $result The result resource that is being evaluated. This result comes from a
  * call to mssql_query.
  * @param int $offset The field offset, starts at 0. If omitted, the current field is used.
- * @return int The length of the specified field index on success .
+ * @return int The length of the specified field index on success.
  * @throws MssqlException
  *
  */
@@ -169,7 +169,7 @@ function mssql_field_length($result, int $offset = -1): int
  * @param resource $result The result resource that is being evaluated. This result comes from a
  * call to mssql_query.
  * @param int $offset The field offset, starts at 0. If omitted, the current field is used.
- * @return string The name of the specified field index on success .
+ * @return string The name of the specified field index on success.
  * @throws MssqlException
  *
  */
@@ -212,7 +212,7 @@ function mssql_field_seek($result, int $field_offset): void
  * @param resource $result The result resource that is being evaluated. This result comes from a
  * call to mssql_query.
  * @param int $offset The field offset, starts at 0. If omitted, the current field is used.
- * @return string The type of the specified field index on success .
+ * @return string The type of the specified field index on success.
  * @throws MssqlException
  *
  */
@@ -280,8 +280,7 @@ function mssql_free_statement($stmt): void
  * @param resource $link_identifier A MS SQL link identifier, returned by
  * mssql_connect.
  * @return resource Returns a resource identifier "statement", used in subsequent calls to
- * mssql_bind and mssql_execute,
- * s.
+ * mssql_bind and mssql_executes.
  * @throws MssqlException
  *
  */
@@ -327,7 +326,7 @@ function mssql_init(string $sp_name, $link_identifier = null)
  * mssql_pconnect always open a new link, even if
  * mssql_pconnect was called before with the same
  * parameters.
- * @return resource Returns a positive MS SQL persistent link identifier on success, .
+ * @return resource Returns a positive MS SQL persistent link identifier on success.
  * @throws MssqlException
  *
  */
@@ -367,7 +366,7 @@ function mssql_pconnect(string $servername = null, string $username = null, stri
  * as if mssql_connect was called, and use it.
  * @param int $batch_size The number of records to batch in the buffer.
  * @return mixed Returns a MS SQL result resource on success, TRUE if no rows were
- * returned, .
+ * returned.
  * @throws MssqlException
  *
  */

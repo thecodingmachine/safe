@@ -422,8 +422,8 @@ function yaz_search($id, string $type, string $query): void
  * returns. The default value for timeout is 15 seconds.
  *
  * A boolean.
- * @return mixed Returns TRUE on success .
- * In event mode, returns resource  .
+ * @return mixed Returns TRUE on success.
+ * In event mode, returns resource.
  * @throws YazException
  *
  */

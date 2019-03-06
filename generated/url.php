@@ -12,7 +12,7 @@ use Safe\Exceptions\UrlException;
  * then the base64_decode function will return
  * FALSE if the input contains character from outside the base64
  * alphabet. Otherwise invalid characters will be silently discarded.
- * @return string Returns the decoded data . The returned data may be
+ * @return string Returns the decoded data. The returned data may be
  * binary.
  * @throws UrlException
  *
@@ -38,7 +38,7 @@ function base64_decode(string $data, bool $strict = false): string
  * array's keys.
  * @param resource $context A valid context resource created with
  * stream_context_create.
- * @return array Returns an indexed or associative array with the headers, .
+ * @return array Returns an indexed or associative array with the headers.
  * @throws UrlException
  *
  */

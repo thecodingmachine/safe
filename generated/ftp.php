@@ -87,7 +87,7 @@ function ftp_chdir($ftp_stream, string $directory): void
  * @param resource $ftp_stream The link identifier of the FTP connection.
  * @param int $mode The new permissions, given as an octal value.
  * @param string $filename The remote file.
- * @return int Returns the new file permissions on success .
+ * @return int Returns the new file permissions on success.
  * @throws FtpException
  *
  */
@@ -132,7 +132,7 @@ function ftp_close($ftp_stream): void
  * If omitted, the default value is 90 seconds. The timeout can be changed and
  * queried at any time with ftp_set_option and
  * ftp_get_option.
- * @return resource Returns a FTP stream on success .
+ * @return resource Returns a FTP stream on success.
  * @throws FtpException
  *
  */
@@ -259,7 +259,7 @@ function ftp_login($ftp_stream, string $username, string $password): void
  *
  * @param resource $ftp_stream The link identifier of the FTP connection.
  * @param string $directory The name of the directory that will be created.
- * @return string Returns the newly created directory name on success .
+ * @return string Returns the newly created directory name on success.
  * @throws FtpException
  *
  */
@@ -279,7 +279,7 @@ function ftp_mkdir($ftp_stream, string $directory): string
  *
  * @param resource $ftp_stream The link identifier of the FTP connection.
  * @param string $directory The directory to be listed.
- * @return array Returns an array of arrays with file infos from the specified directory on success .
+ * @return array Returns an array of arrays with file infos from the specified directory on success.
  * @throws FtpException
  *
  */
@@ -302,7 +302,7 @@ function ftp_mlsd($ftp_stream, string $directory): array
  * ftp_nlist($conn_id, "-la /your/dir");
  * Note that this parameter isn't escaped so there may be some issues with
  * filenames containing spaces and other characters.
- * @return array Returns an array of filenames from the specified directory on success .
+ * @return array Returns an array of filenames from the specified directory on success.
  * @throws FtpException
  *
  */
@@ -367,7 +367,7 @@ function ftp_put($ftp_stream, string $remote_file, string $local_file, int $mode
  *
  *
  * @param resource $ftp_stream The link identifier of the FTP connection.
- * @return string Returns the current directory name .
+ * @return string Returns the current directory name.
  * @throws FtpException
  *
  */
@@ -462,7 +462,7 @@ function ftp_site($ftp_stream, string $command): void
  * If omitted, the default value is 90 seconds. The timeout can be changed and
  * queried at any time with ftp_set_option and
  * ftp_get_option.
- * @return resource Returns a SSL-FTP stream on success .
+ * @return resource Returns a SSL-FTP stream on success.
  * @throws FtpException
  *
  */
@@ -481,7 +481,7 @@ function ftp_ssl_connect(string $host, int $port = 21, int $timeout = 90)
  * Returns the system type identifier of the remote FTP server.
  *
  * @param resource $ftp_stream The link identifier of the FTP connection.
- * @return string Returns the remote system type, .
+ * @return string Returns the remote system type.
  * @throws FtpException
  *
  */

@@ -45,8 +45,7 @@ function pcntl_exec(string $path, array $args = null, array $envs = null): void
  * @param int $pid If not specified, the pid of the current process is used.
  * @param int $process_identifier One of PRIO_PGRP, PRIO_USER
  * or PRIO_PROCESS.
- * @return int pcntl_getpriority returns the priority of the process
- * .  A lower numerical value causes more favorable
+ * @return int pcntl_getpriority returns the priority of the process.  A lower numerical value causes more favorable
  * scheduling.
  * @throws PcntlException
  *
@@ -152,7 +151,7 @@ function pcntl_sigprocmask(int $how, array $set, ?array &$oldset = null): void
  *
  *
  * @param int $errno
- * @return string Returns error description on success .
+ * @return string Returns error description on success.
  * @throws PcntlException
  *
  */

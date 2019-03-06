@@ -485,7 +485,7 @@ function oci_commit($connection): void
  *
  * OCI_CRED_EXT is not supported on Windows for
  * security reasons.
- * @return resource Returns a connection identifier .
+ * @return resource Returns a connection identifier.
  * @throws Oci8Exception
  *
  */
@@ -719,7 +719,7 @@ function oci_execute($statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
  * should use column aliases.  Otherwise only one of the columns
  * will appear in an associative array.
  * @return int Returns the number of rows in output, which
- * may be 0 or more,  .
+ * may be 0 or more.
  * @throws Oci8Exception
  *
  */
@@ -739,7 +739,7 @@ function oci_fetch_all($statement, ?array &$output, int $skip = 0, int $maxrows 
  *
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
- * @return string Returns the name as a string, s.
+ * @return string Returns the name as a strings.
  * @throws Oci8Exception
  *
  */
@@ -763,7 +763,7 @@ function oci_field_name($statement, $field): string
  *
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
- * @return int Returns the precision as an integer, s.
+ * @return int Returns the precision as an integers.
  * @throws Oci8Exception
  *
  */
@@ -787,7 +787,7 @@ function oci_field_precision($statement, $field): int
  *
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
- * @return int Returns the scale as an integer, s.
+ * @return int Returns the scale as an integers.
  * @throws Oci8Exception
  *
  */
@@ -807,7 +807,7 @@ function oci_field_scale($statement, $field): int
  *
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
- * @return int Returns the size of a field in bytes, s.
+ * @return int Returns the size of a field in bytess.
  * @throws Oci8Exception
  *
  */
@@ -829,7 +829,7 @@ function oci_field_size($statement, $field): int
  *
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
- * @return int Returns Oracle's raw data type as a number, s.
+ * @return int Returns Oracle's raw data type as a numbers.
  * @throws Oci8Exception
  *
  */
@@ -849,7 +849,7 @@ function oci_field_type_raw($statement, $field): int
  *
  * @param resource $statement A valid OCI statement identifier.
  * @param mixed $field Can be the field's index (1-based) or name.
- * @return mixed Returns the field data type as a string, s.
+ * @return mixed Returns the field data type as a strings.
  * @throws Oci8Exception
  *
  */
@@ -908,7 +908,7 @@ function oci_free_statement($statement): void
  * @param string $tdo Should be a valid named type (uppercase).
  * @param string $schema Should point to the scheme, where the named type was created. The name
  * of the current user is the default value.
- * @return \OCI-Collection Returns a new OCICollection object .
+ * @return \OCI-Collection Returns a new OCICollection object.
  * @throws Oci8Exception
  *
  */
@@ -1007,7 +1007,7 @@ function oci_new_collection($connection, string $tdo, string $schema = null)
  *
  * OCI_CRED_EXT is not supported on Windows for
  * security reasons.
- * @return resource Returns a connection identifier .
+ * @return resource Returns a connection identifier.
  * @throws Oci8Exception
  *
  */
@@ -1035,7 +1035,7 @@ function oci_new_connect(string $username, string $password, string $connection_
  *
  * @param resource $connection An Oracle connection identifier, returned by
  * oci_connect or oci_pconnect.
- * @return resource Returns a new statement handle, .
+ * @return resource Returns a new statement handle.
  * @throws Oci8Exception
  *
  */
@@ -1077,7 +1077,7 @@ function oci_new_descriptor($connection, int $type = OCI_DTYPE_LOB)
  * Gets the number of columns in the given statement.
  *
  * @param resource $statement A valid OCI statement identifier.
- * @return int Returns the number of columns as an integer, s.
+ * @return int Returns the number of columns as an integers.
  * @throws Oci8Exception
  *
  */
@@ -1096,7 +1096,7 @@ function oci_num_fields($statement): int
  * Gets the number of rows affected during statement execution.
  *
  * @param resource $statement A valid OCI statement identifier.
- * @return int Returns the number of rows affected as an integer, s.
+ * @return int Returns the number of rows affected as an integers.
  * @throws Oci8Exception
  *
  */
@@ -1129,7 +1129,7 @@ function oci_num_rows($statement): int
  * semi-colon (";").  PL/SQL
  * statements should end with a semi-colon
  * (";").
- * @return resource Returns a statement handle on success, .
+ * @return resource Returns a statement handle on success.
  * @throws Oci8Exception
  *
  */
@@ -1228,7 +1228,7 @@ function oci_parse($connection, string $sql_text)
  *
  * OCI_CRED_EXT is not supported on Windows for
  * security reasons.
- * @return resource Returns a connection identifier .
+ * @return resource Returns a connection identifier.
  * @throws Oci8Exception
  *
  */
@@ -1317,7 +1317,7 @@ function oci_rollback($connection): void
  * Returns a string with the Oracle Database version and available options
  *
  * @param resource $connection
- * @return string Returns the version information as a string .
+ * @return string Returns the version information as a string.
  * @throws Oci8Exception
  *
  */

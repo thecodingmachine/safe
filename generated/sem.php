@@ -233,7 +233,7 @@ function sem_acquire($sem_identifier, bool $nowait = false): void
  * attached to the semaphore.
  * @param int $auto_release Specifies if the semaphore should be automatically released on request
  * shutdown.
- * @return resource Returns a positive semaphore identifier on success, .
+ * @return resource Returns a positive semaphore identifier on success.
  * @throws SemException
  *
  */

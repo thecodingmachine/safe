@@ -59,7 +59,7 @@ function ibase_blob_cancel($blob_handle): void
  * @param resource $link_identifier An InterBase link identifier. If omitted, the last opened link is
  * assumed.
  * @return resource Returns a BLOB handle for later use with
- * ibase_blob_add .
+ * ibase_blob_add.
  * @throws IbaseException
  *
  */
@@ -80,7 +80,7 @@ function ibase_blob_create($link_identifier = null)
  *
  * @param resource $blob_handle A BLOB handle opened with ibase_blob_open.
  * @param int $len Size of returned data.
- * @return string Returns at most len bytes from the BLOB, .
+ * @return string Returns at most len bytes from the BLOB.
  * @throws IbaseException
  *
  */
@@ -190,7 +190,7 @@ function ibase_commit($link_or_trans_identifier = null): void
  * one supported by client libraries.
  * @param string $role Functional only with InterBase 5 and up.
  * @param int $sync
- * @return resource Returns an Firebird/InterBase link identifier on success, .
+ * @return resource Returns an Firebird/InterBase link identifier on success.
  * @throws IbaseException
  *
  */
@@ -420,7 +420,7 @@ function ibase_name_result($result, string $name): void
  * and up.
  * @param string $role Functional only with InterBase 5 and up.
  * @param int $sync
- * @return resource Returns an InterBase link identifier on success, .
+ * @return resource Returns an InterBase link identifier on success.
  * @throws IbaseException
  *
  */

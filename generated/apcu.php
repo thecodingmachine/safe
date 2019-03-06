@@ -53,8 +53,7 @@ function apcu_cas(string $key, int $old, int $new): void
  * @param int $step The step, or value to decrease.
  * @param bool $success Optionally pass the success or fail boolean value to
  * this referenced variable.
- * @return int Returns the current value of key's value on success,
- *
+ * @return int Returns the current value of key's value on success
  * @throws ApcuException
  *
  */
@@ -76,7 +75,7 @@ function apcu_dec(string $key, int $step = 1, ?bool &$success = null): int
  * string for a single key,
  * or as an array of strings for several keys,
  * or as an APCUIterator object.
- * @return bool|array Returns TRUE on success .
+ * @return bool|array Returns TRUE on success.
  * @throws ApcuException
  *
  */
@@ -97,8 +96,7 @@ function apcu_delete($key): void
  * @param int $step The step, or value to increase.
  * @param bool $success Optionally pass the success or fail boolean value to
  * this referenced variable.
- * @return int Returns the current value of key's value on success,
- *
+ * @return int Returns the current value of key's value on success
  * @throws ApcuException
  *
  */

@@ -24,7 +24,7 @@ use Safe\Exceptions\PasswordException;
  *
  * PASSWORD_BCRYPT - Use the CRYPT_BLOWFISH algorithm to
  * create the hash. This will produce a standard crypt compatible hash using
- * the "$2y$" identifier. The result will always be a 60 character string,  .
+ * the "$2y$" identifier. The result will always be a 60 character string.
  *
  *
  *
@@ -102,7 +102,7 @@ use Safe\Exceptions\PasswordException;
  *
  * If omitted, a random salt will be created and the default cost will be
  * used.
- * @return string Returns the hashed password,  .
+ * @return string Returns the hashed password.
  *
  * The used algorithm, cost and salt are returned as part of the hash. Therefore,
  * all information that's needed to verify the hash is included in it. This allows

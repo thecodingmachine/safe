@@ -71,7 +71,7 @@ function event_base_loopexit($event_base, int $timeout = -1): void
  * event_base_loop and other functions.
  *
  * @return resource event_base_new returns valid event base resource on
- * success .
+ * success.
  * @throws LibeventException
  *
  */
@@ -219,7 +219,7 @@ function event_buffer_enable($bevent, int $events): void
  * NULL.
  * @param mixed $arg An argument that will be passed to each of the callbacks (optional).
  * @return resource event_buffer_new returns new buffered event resource
- * on success .
+ * on success.
  * @throws LibeventException
  *
  */
@@ -327,7 +327,7 @@ function event_del($event): void
 /**
  * Creates and returns a new event resource.
  *
- * @return resource event_new returns a new event resource on success .
+ * @return resource event_new returns a new event resource on success.
  * @throws LibeventException
  *
  */

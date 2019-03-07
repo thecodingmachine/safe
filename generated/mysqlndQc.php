@@ -57,7 +57,7 @@ function mysqlnd_qc_clear_cache(): void
  * offers the same capabilities.
  *
  * @param string $callback
- * @return mixed Returns TRUE on success .
+ * @return mixed Returns TRUE on success.
  * @throws MysqlndQcException
  *
  */

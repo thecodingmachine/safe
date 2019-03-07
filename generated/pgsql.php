@@ -35,7 +35,7 @@ function pg_cancel_query($connection): void
  * connection is not present, the default connection
  * is used. The default connection is the last connection made by
  * pg_connect or pg_pconnect.
- * @return string The client encoding, .
+ * @return string The client encoding.
  * @throws PgsqlException
  *
  */
@@ -180,7 +180,7 @@ function pg_connection_reset($connection): void
  * @param int $options Any number of PGSQL_CONV_IGNORE_DEFAULT,
  * PGSQL_CONV_FORCE_NULL or
  * PGSQL_CONV_IGNORE_NOT_NULL, combined.
- * @return array An array of converted values, .
+ * @return array An array of converted values.
  * @throws PgsqlException
  *
  */
@@ -272,7 +272,7 @@ function pg_copy_to($connection, string $table_name, string $delimiter = null, s
  * is used. The default connection is the last connection made by
  * pg_connect or pg_pconnect.
  * @return string A string containing the name of the database the
- * connection is to, .
+ * connection is to.
  * @throws PgsqlException
  *
  */
@@ -324,7 +324,7 @@ function pg_dbname($connection = null): string
  * PGSQL_DML_STRING combined. If PGSQL_DML_STRING is part of the
  * options then query string is returned. When PGSQL_DML_NO_CONV
  * or PGSQL_DML_ESCAPE is set, it does not call pg_convert internally.
- * @return mixed Returns TRUE on success .  Returns string if PGSQL_DML_STRING is passed
+ * @return mixed Returns TRUE on success.  Returns string if PGSQL_DML_STRING is passed
  * via options.
  * @throws PgsqlException
  *
@@ -399,7 +399,7 @@ function pg_end_copy($connection = null): void
  * must match the number of placeholders.
  *
  * Elements are converted to strings by calling this function.
- * @return resource A query result resource on success .
+ * @return resource A query result resource on success.
  * @throws PgsqlException
  *
  */
@@ -432,7 +432,7 @@ function pg_execute($connection = null, string $stmtname = null, array $params =
  * pg_query_params or pg_execute
  * (among others).
  * @param int $field_number Field number, starting from 0.
- * @return string The field name, .
+ * @return string The field name.
  * @throws PgsqlException
  *
  */
@@ -482,7 +482,7 @@ function pg_field_table($result, int $field_number, bool $oid_only = false)
  * pg_query_params or pg_execute
  * (among others).
  * @param int $field_number Field number, starting from 0.
- * @return string A string containing the base name of the field's type, .
+ * @return string A string containing the base name of the field's type.
  * @throws PgsqlException
  *
  */
@@ -504,7 +504,7 @@ function pg_field_type($result, int $field_number): string
  * @param resource $connection PostgreSQL database connection resource.
  * @return mixed Returns TRUE if the flush was successful or no data was waiting to be
  * flushed, 0 if part of the pending data was flushed but
- * more remains .
+ * more remains.
  * @throws PgsqlException
  *
  */
@@ -553,7 +553,7 @@ function pg_free_result($result): void
  * is used. The default connection is the last connection made by
  * pg_connect or pg_pconnect.
  * @return string A string containing the name of the host the
- * connection is to, .
+ * connection is to.
  * @throws PgsqlException
  *
  */
@@ -606,7 +606,7 @@ function pg_host($connection = null): string
  * PGSQL_DML_STRING combined. If PGSQL_DML_STRING is part of the
  * options then query string is returned. When PGSQL_DML_NO_CONV
  * or PGSQL_DML_ESCAPE is set, it does not call pg_convert internally.
- * @return mixed Returns the connection resource on success,  . Returns string if PGSQL_DML_STRING is passed
+ * @return mixed Returns the connection resource on success. Returns string if PGSQL_DML_STRING is passed
  * via options.
  * @throws PgsqlException
  *
@@ -639,7 +639,7 @@ function pg_insert($connection, string $table_name, array $assoc_array, int $opt
  * is used. The default connection is the last connection made by
  * pg_connect or pg_pconnect.
  * @return string A string containing the last error message on the
- * given connection, .
+ * given connection.
  * @throws PgsqlException
  *
  */
@@ -684,8 +684,7 @@ function pg_last_error($connection = null): string
  * given connection with
  * PGSQL_NOTICE_LAST,
  * an array with PGSQL_NOTICE_ALL,
- * a boolean with PGSQL_NOTICE_CLEAR,
- * .
+ * a boolean with PGSQL_NOTICE_CLEAR.
  * @throws PgsqlException
  *
  */
@@ -724,7 +723,7 @@ function pg_last_notice($connection, int $option = PGSQL_NOTICE_LAST)
  * pg_query_params or pg_execute
  * (among others).
  * @return string A string containing the OID assigned to the most recently inserted
- * row in the specified connection,  or
+ * row in the specified connection or
  * no available OID.
  * @throws PgsqlException
  *
@@ -817,7 +816,7 @@ function pg_lo_export($connection = null, int $oid = null, string $pathname = nu
  * object id is assigned by the server. The parameter
  * was added in PHP 5.3 and relies on functionality that first
  * appeared in PostgreSQL 8.1.
- * @return int The OID of the newly created large object, .
+ * @return int The OID of the newly created large object.
  * @throws PgsqlException
  *
  */
@@ -854,7 +853,7 @@ function pg_lo_import($connection = null, string $pathname = null, $object_id = 
  * @param int $oid The OID of the large object in the database.
  * @param string $mode Can be either "r" for read-only, "w" for write only or "rw" for read and
  * write.
- * @return resource A large object resource .
+ * @return resource A large object resource.
  * @throws PgsqlException
  *
  */
@@ -879,7 +878,7 @@ function pg_lo_open($connection, int $oid, string $mode)
  * enclose it within a transaction block.
  *
  * @param resource $large_object PostgreSQL large object (LOB) resource, returned by pg_lo_open.
- * @return int Number of bytes read .
+ * @return int Number of bytes read.
  * @throws PgsqlException
  *
  */
@@ -905,7 +904,7 @@ function pg_lo_read_all($large_object): int
  * @param resource $large_object PostgreSQL large object (LOB) resource, returned by pg_lo_open.
  * @param int $len An optional maximum number of bytes to return.
  * @return string A string containing len bytes from the
- * large object, .
+ * large object.
  * @throws PgsqlException
  *
  */
@@ -969,7 +968,7 @@ function pg_lo_truncate($large_object, int $size): void
 
 /**
  * pg_lo_unlink deletes a large object with the
- * oid. Returns TRUE on success .
+ * oid. Returns TRUE on success.
  *
  * To use the large object interface, it is necessary to
  * enclose it within a transaction block.
@@ -1006,7 +1005,7 @@ function pg_lo_unlink($connection, int $oid): void
  * @param int $len An optional maximum number of bytes to write.  Must be greater than zero
  * and no greater than the length of data.  Defaults to
  * the length of data.
- * @return int The number of bytes written to the large object, .
+ * @return int The number of bytes written to the large object.
  * @throws PgsqlException
  *
  */
@@ -1032,7 +1031,7 @@ function pg_lo_write($large_object, string $data, int $len = null): int
  * @param resource $connection PostgreSQL database connection resource.
  * @param string $table_name The name of the table.
  * @param bool $extended Flag for returning extended meta data. Default to FALSE.
- * @return array An array of the table definition, .
+ * @return array An array of the table definition.
  * @throws PgsqlException
  *
  */
@@ -1057,7 +1056,7 @@ function pg_meta_data($connection, string $table_name, bool $extended = false): 
  * is used. The default connection is the last connection made by
  * pg_connect or pg_pconnect.
  * @return string A string containing the connection
- * options, .
+ * options.
  * @throws PgsqlException
  *
  */
@@ -1225,8 +1224,7 @@ function pg_ping($connection = null): void
  * is used. The default connection is the last connection made by
  * pg_connect or pg_pconnect.
  * @return int An int containing the port number of the database
- * server the connection is to,
- * .
+ * server the connection is to.
  * @throws PgsqlException
  *
  */
@@ -1276,7 +1274,7 @@ function pg_port($connection = null): int
  * @param string $query The parameterized SQL statement.  Must contain only a single statement.
  * (multiple statements separated by semi-colons are not allowed.)  If any parameters
  * are used, they are referred to as $1, $2, etc.
- * @return resource A query result resource on success .
+ * @return resource A query result resource on success.
  * @throws PgsqlException
  *
  */
@@ -1383,7 +1381,7 @@ function pg_put_line($connection = null, string $data = null): void
  * Values intended for bytea fields are not supported as
  * parameters. Use pg_escape_bytea instead, or use the
  * large object functions.
- * @return resource A query result resource on success .
+ * @return resource A query result resource on success.
  * @throws PgsqlException
  *
  */
@@ -1441,7 +1439,7 @@ function pg_query_params($connection = null, string $query = null, array $params
  *
  * Any user-supplied data substituted directly into a query string should
  * be properly escaped.
- * @return resource A query result resource on success .
+ * @return resource A query result resource on success.
  * @throws PgsqlException
  *
  */
@@ -1487,7 +1485,7 @@ function pg_query($connection = null, string $query = null)
  * PGSQL_DIAG_CONTEXT, PGSQL_DIAG_SOURCE_FILE,
  * PGSQL_DIAG_SOURCE_LINE or
  * PGSQL_DIAG_SOURCE_FUNCTION.
- * @return string|?false A string containing the contents of the error field, NULL if the field does not exist .
+ * @return string|?false A string containing the contents of the error field, NULL if the field does not exist.
  * @throws PgsqlException
  *
  */
@@ -1558,7 +1556,7 @@ function pg_result_seek($result, int $offset): void
  * options then query string is returned. When PGSQL_DML_NO_CONV
  * or PGSQL_DML_ESCAPE is set, it does not call pg_convert internally.
  * @param int $result_type
- * @return mixed Returns TRUE on success .  Returns string if PGSQL_DML_STRING is passed
+ * @return mixed Returns TRUE on success.  Returns string if PGSQL_DML_STRING is passed
  * via options.
  * @throws PgsqlException
  *
@@ -1713,7 +1711,7 @@ function pg_send_query($connection, string $query): void
  * corresponding to the socket underlying the given PostgreSQL connection.
  *
  * @param resource $connection PostgreSQL database connection resource.
- * @return resource A socket resource on success .
+ * @return resource A socket resource on success.
  * @throws PgsqlException
  *
  */
@@ -1775,7 +1773,7 @@ function pg_trace(string $pathname, string $mode = "w", $connection = null): voi
  * is used. The default connection is the last connection made by
  * pg_connect or pg_pconnect.
  * @return string A string containing the debug TTY of
- * the connection, .
+ * the connection.
  * @throws PgsqlException
  *
  */
@@ -1833,7 +1831,7 @@ function pg_tty($connection = null): string
  * PGSQL_DML_STRING combined. If PGSQL_DML_STRING is part of the
  * options then query string is returned. When PGSQL_DML_NO_CONV
  * or PGSQL_DML_ESCAPE is set, it does not call pg_convert internally.
- * @return mixed Returns TRUE on success .  Returns string if PGSQL_DML_STRING is passed
+ * @return mixed Returns TRUE on success.  Returns string if PGSQL_DML_STRING is passed
  * via options.
  * @throws PgsqlException
  *

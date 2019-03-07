@@ -35,14 +35,14 @@ use Safe\Exceptions\IbmDb2Exception;
  * @return mixed When db2_autocommit receives only the
  * connection parameter, it returns the current state
  * of AUTOCOMMIT for the requested connection as an integer value. A value of
- * 0 indicates that AUTOCOMMIT is off, while a value of 1 indicates that
+ * DB2_AUTOCOMMIT_OFF indicates that AUTOCOMMIT is off, while a value of DB2_AUTOCOMMIT_ON indicates that
  * AUTOCOMMIT is on.
  *
  * When db2_autocommit receives both the
  * connection parameter and
  * autocommit parameter, it attempts to set the
  * AUTOCOMMIT state of the requested connection to the corresponding state.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  * @throws IbmDb2Exception
  *
  */
@@ -504,8 +504,7 @@ function db2_free_stmt($stmt): void
  *
  *
  * DB2 for z/OS and OS/390 servers support up to a length of 18 characters.
- * @return string Returns the current setting of the connection attribute provided on success
- * .
+ * @return string Returns the current setting of the connection attribute provided on success.
  * @throws IbmDb2Exception
  *
  */

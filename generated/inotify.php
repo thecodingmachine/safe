@@ -8,7 +8,7 @@ use Safe\Exceptions\InotifyException;
  * Initialize an inotify instance for use with
  * inotify_add_watch
  *
- * @return resource A stream resource .
+ * @return resource A stream resource.
  * @throws InotifyException
  *
  */

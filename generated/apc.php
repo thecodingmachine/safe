@@ -62,7 +62,7 @@ function apc_cas(string $key, int $old, int $new): void
  * @param string $filename Full or relative path to a PHP file that will be compiled and stored in
  * the bytecode cache.
  * @param bool $atomic
- * @return mixed Returns TRUE on success .
+ * @return mixed Returns TRUE on success.
  * @throws ApcException
  *
  */
@@ -84,8 +84,7 @@ function apc_compile_file(string $filename, bool $atomic = true)
  * @param int $step The step, or value to decrease.
  * @param bool $success Optionally pass the success or fail boolean value to
  * this referenced variable.
- * @return int Returns the current value of key's value on success,
- *
+ * @return int Returns the current value of key's value on success
  * @throws ApcException
  *
  */
@@ -139,7 +138,7 @@ function apc_define_constants(string $key, array $constants, bool $case_sensitiv
  * @param mixed $keys The files to be deleted. Accepts a string,
  * array of strings, or an APCIterator
  * object.
- * @return mixed Returns TRUE on success .
+ * @return mixed Returns TRUE on success.
  * Or if keys is an array, then
  * an empty array is returned on success, or an array of failed files
  * is returned.
@@ -183,8 +182,7 @@ function apc_delete(string $key)
  * @param int $step The step, or value to increase.
  * @param bool $success Optionally pass the success or fail boolean value to
  * this referenced variable.
- * @return int Returns the current value of key's value on success,
- *
+ * @return int Returns the current value of key's value on success
  * @throws ApcException
  *
  */

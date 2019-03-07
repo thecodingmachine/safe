@@ -26,7 +26,7 @@ use Safe\Exceptions\SocketsException;
  * reused.
  *
  * @param resource $socket A valid socket resource created with socket_create.
- * @return resource Returns a new socket resource on success, . The actual
+ * @return resource Returns a new socket resource on success. The actual
  * error code can be retrieved by calling
  * socket_last_error. This error code may be passed to
  * socket_strerror to get a textual explanation of the
@@ -120,7 +120,7 @@ function socket_connect($socket, string $address, int $port = 0): void
  * backlog parameter, see
  * socket_listen for more information.
  * @return resource socket_create_listen returns a new socket resource
- * on success . The error code can be retrieved with
+ * on success. The error code can be retrieved with
  * socket_last_error. This code may be passed to
  * socket_strerror to get a textual explanation of the
  * error.
@@ -189,8 +189,7 @@ function socket_create_pair(int $domain, int $type, int $protocol, ?array &$fd):
  * the desired protocol is TCP, or UDP the corresponding constants
  * SOL_TCP, and SOL_UDP
  * can also be used.
- * @return resource socket_create returns a socket resource on success,
- * . The actual error code can be retrieved by calling
+ * @return resource socket_create returns a socket resource on success. The actual error code can be retrieved by calling
  * socket_last_error. This error code may be passed to
  * socket_strerror to get a textual explanation of the
  * error.
@@ -212,7 +211,7 @@ function socket_create(int $domain, int $type, int $protocol)
  *
  *
  * @param resource $socket
- * @return resource Return resource .
+ * @return resource Return resource.
  * @throws SocketsException
  *
  */
@@ -259,7 +258,7 @@ function socket_export_stream($socket)
  * is sent or the time specified in l_linger
  * elapses. If the socket is non-blocking,
  * socket_close will fail and return an error.
- * @return mixed Returns the value of the given option, s.
+ * @return mixed Returns the value of the given options.
  * @throws SocketsException
  *
  */
@@ -403,8 +402,7 @@ function socket_listen($socket, int $backlog = 0): void
  *
  *
  *
- * @return string socket_read returns the data as a string on success,
- * (including if the remote host has closed the
+ * @return string socket_read returns the data as a string on success (including if the remote host has closed the
  * connection). The error code can be retrieved with
  * socket_last_error. This code may be passed to
  * socket_strerror to get a textual representation of
@@ -469,7 +467,7 @@ function socket_read($socket, int $length, int $type = PHP_BINARY_READ): string
  *
  *
  *
- * @return int socket_send returns the number of bytes sent, .
+ * @return int socket_send returns the number of bytes sent.
  * @throws SocketsException
  *
  */
@@ -490,7 +488,7 @@ function socket_send($socket, string $buf, int $len, int $flags): int
  * @param resource $socket
  * @param array $message
  * @param int $flags
- * @return int Returns the number of bytes sent,  .
+ * @return int Returns the number of bytes sent.
  * @throws SocketsException
  *
  */
@@ -555,7 +553,7 @@ function socket_sendmsg($socket, array $message, int $flags = 0): int
  * @param int $port port is the remote port number at which the data
  * will be sent.
  * @return int socket_sendto returns the number of bytes sent to the
- * remote host, .
+ * remote host.
  * @throws SocketsException
  *
  */
@@ -707,7 +705,7 @@ function socket_shutdown($socket, int $how = 2): void
  * alternate length of bytes written to the socket. If this length is
  * greater than the buffer length, it is silently truncated to the length
  * of the buffer.
- * @return int Returns the number of bytes successfully written to the socket .
+ * @return int Returns the number of bytes successfully written to the socket.
  * The error code can be retrieved with
  * socket_last_error. This code may be passed to
  * socket_strerror to get a textual explanation of the

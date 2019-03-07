@@ -14,7 +14,7 @@ use Safe\Exceptions\SimplexmlException;
  * simplexml_import_dom will return an object of
  * the specified class. That class should extend the
  * SimpleXMLElement class.
- * @return \SimpleXMLElement Returns a SimpleXMLElement .
+ * @return \SimpleXMLElement Returns a SimpleXMLElement.
  * @throws SimplexmlException
  *
  */
@@ -50,7 +50,7 @@ function simplexml_import_dom(\DOMNode $node, string $class_name = "SimpleXMLEle
  * @param bool $is_prefix TRUE if ns is a prefix, FALSE if it's a URI;
  * defaults to FALSE.
  * @return \SimpleXMLElement Returns an object of class SimpleXMLElement with
- * properties containing the data held within the XML document, .
+ * properties containing the data held within the XML document.
  * @throws SimplexmlException
  *
  */
@@ -79,7 +79,7 @@ function simplexml_load_file(string $filename, string $class_name = "SimpleXMLEl
  * @param bool $is_prefix TRUE if ns is a prefix, FALSE if it's a URI;
  * defaults to FALSE.
  * @return \SimpleXMLElement Returns an object of class SimpleXMLElement with
- * properties containing the data held within the xml document, .
+ * properties containing the data held within the xml document.
  * @throws SimplexmlException
  *
  */

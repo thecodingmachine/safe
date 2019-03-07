@@ -15,7 +15,7 @@ use Safe\Exceptions\IconvException;
  * internal_encoding
  *
  * @return mixed Returns the current value of the internal configuration variable if
- * successful .
+ * successful.
  *
  * If type is omitted or set to "all",
  * iconv_get_encoding returns an array that
@@ -81,7 +81,7 @@ function iconv_set_encoding(string $type, string $charset): void
  * so the conversion is likely to fail for characters which are illegal for
  * the out_charset.
  * @param string $str The string to be converted.
- * @return string Returns the converted string .
+ * @return string Returns the converted string.
  * @throws IconvException
  *
  */

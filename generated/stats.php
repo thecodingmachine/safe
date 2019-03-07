@@ -9,8 +9,7 @@ use Safe\Exceptions\StatsException;
  *
  * @param array $a The first array
  * @param array $b The second array
- * @return float Returns the covariance of a and b,
- * .
+ * @return float Returns the covariance of a and b.
  * @throws StatsException
  *
  */
@@ -52,8 +51,7 @@ function stats_standard_deviation(array $a, bool $sample = false): float
  *
  * @param array $arr1 The first array
  * @param array $arr2 The second array
- * @return float Returns the Pearson correlation coefficient between arr1 and arr2,
- * .
+ * @return float Returns the Pearson correlation coefficient between arr1 and arr2.
  * @throws StatsException
  *
  */
@@ -73,8 +71,7 @@ function stats_stat_correlation(array $arr1, array $arr2): float
  *
  * @param array $arr1 The first array
  * @param array $arr2 The second array
- * @return float Returns the inner product of arr1 and arr2,
- * .
+ * @return float Returns the inner product of arr1 and arr2.
  * @throws StatsException
  *
  */

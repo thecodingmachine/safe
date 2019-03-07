@@ -30,7 +30,7 @@ function shmop_delete($shmid): void
  * @param int $start Offset from which to start reading
  * @param int $count The number of bytes to read.
  * 0 reads shmop_size($shmid) - $start bytes.
- * @return string Returns the data .
+ * @return string Returns the data.
  * @throws ShmopException
  *
  */
@@ -53,7 +53,7 @@ function shmop_read($shmid, int $start, int $count): string
  * @param string $data A string to write into shared memory block
  * @param int $offset Specifies where to start writing data inside the shared memory
  * segment.
- * @return int The size of the written data, .
+ * @return int The size of the written data.
  * @throws ShmopException
  *
  */

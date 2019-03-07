@@ -6,7 +6,7 @@ use Safe\Exceptions\PdfException;
 
 /**
  * Activates a previously created structure element or other content item.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param int $id
@@ -25,7 +25,7 @@ function PDF_activate_item($pdfdoc, int $id): void
 
 /**
  * Add a link annotation to a target within the current PDF file.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 6, use
  * PDF_create_action with type=GoTo
@@ -54,7 +54,7 @@ function PDF_add_locallink($pdfdoc, float $lowerleftx, float $lowerlefty, float 
 
 /**
  * Creates a named destination on an arbitrary page in the current document.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param string $name
@@ -73,7 +73,7 @@ function PDF_add_nameddest($pdfdoc, string $name, string $optlist): void
 
 
 /**
- * Sets an annotation for the current page. Returns TRUE on success .
+ * Sets an annotation for the current page. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 6, use
  * PDF_create_annotation with
@@ -103,7 +103,7 @@ function PDF_add_note($pdfdoc, float $llx, float $lly, float $urx, float $ury, s
 
 /**
  * Add a file link annotation to a PDF target.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 6, use
  * PDF_create_action with
@@ -134,7 +134,7 @@ function PDF_add_pdflink($pdfdoc, float $bottom_left_x, float $bottom_left_y, fl
 
 /**
  * Adds an existing image as thumbnail for the current page.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param int $image
@@ -153,7 +153,7 @@ function PDF_add_thumbnail($pdfdoc, int $image): void
 
 /**
  * Adds a weblink annotation to a target url on the Web.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 6, use
  * PDF_create_action with type=URI
@@ -180,7 +180,7 @@ function PDF_add_weblink($pdfdoc, float $lowerleftx, float $lowerlefty, float $u
 
 
 /**
- * Adds a file attachment annotation. Returns TRUE on success .
+ * Adds a file attachment annotation. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 6, use
  * PDF_create_annotation with
@@ -210,7 +210,7 @@ function PDF_attach_file($pdfdoc, float $llx, float $lly, float $urx, float $ury
 
 
 /**
- * Starts a layer for subsequent output on the page. Returns TRUE on success .
+ * Starts a layer for subsequent output on the page. Returns TRUE on success.
  *
  * This function requires PDF 1.5.
  *
@@ -232,7 +232,7 @@ function PDF_begin_layer($pdfdoc, int $layer): void
 /**
  * Adds a new page to the document, and specifies various options.
  * The parameters width and height
- * are the dimensions of the new page in points. Returns TRUE on success .
+ * are the dimensions of the new page in points. Returns TRUE on success.
  *
  *
  * Common Page Sizes in Points
@@ -314,7 +314,7 @@ function PDF_begin_page_ext($pdfdoc, float $width, float $height, string $optlis
 
 
 /**
- * Adds a new page to the document. Returns TRUE on success .
+ * Adds a new page to the document. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 6, use
  * PDF_begin_page_ext instead.
@@ -336,7 +336,7 @@ function PDF_begin_page($pdfdoc, float $width, float $height): void
 
 
 /**
- * Adds a circle. Returns TRUE on success .
+ * Adds a circle. Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param float $x
@@ -356,7 +356,7 @@ function PDF_circle($pdfdoc, float $x, float $y, float $r): void
 
 
 /**
- * Uses the current path as clipping path, and terminate the path. Returns TRUE on success .
+ * Uses the current path as clipping path, and terminate the path. Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -373,7 +373,7 @@ function PDF_clip($p): void
 
 
 /**
- * Closes the page handle, and frees all page-related resources. Returns TRUE on success .
+ * Closes the page handle, and frees all page-related resources. Returns TRUE on success.
  *
  * @param resource $p
  * @param int $page
@@ -391,7 +391,7 @@ function PDF_close_pdi_page($p, int $page): void
 
 
 /**
- * Closes all open page handles, and closes the input PDF document. Returns TRUE on success .
+ * Closes all open page handles, and closes the input PDF document. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 7,
  * use PDF_close_pdi_document instead.
@@ -413,7 +413,7 @@ function PDF_close_pdi($p, int $doc): void
 
 /**
  * Closes the generated PDF file, and frees all document-related resources.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 6, use
  * PDF_end_document instead.
@@ -433,7 +433,7 @@ function PDF_close($p): void
 
 
 /**
- * Closes the path, fills, and strokes it. Returns TRUE on success .
+ * Closes the path, fills, and strokes it. Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -450,7 +450,7 @@ function PDF_closepath_fill_stroke($p): void
 
 
 /**
- * Closes the path, and strokes it. Returns TRUE on success .
+ * Closes the path, and strokes it. Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -467,7 +467,7 @@ function PDF_closepath_stroke($p): void
 
 
 /**
- * Closes the current path. Returns TRUE on success .
+ * Closes the current path. Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -484,7 +484,7 @@ function PDF_closepath($p): void
 
 
 /**
- * Concatenates a matrix to the current transformation matrix (CTM). Returns TRUE on success .
+ * Concatenates a matrix to the current transformation matrix (CTM). Returns TRUE on success.
  *
  * @param resource $p
  * @param float $a
@@ -507,7 +507,7 @@ function PDF_concat($p, float $a, float $b, float $c, float $d, float $e, float 
 
 
 /**
- * Prints text at the next line. Returns TRUE on success .
+ * Prints text at the next line. Returns TRUE on success.
  *
  * @param resource $p
  * @param string $text
@@ -526,7 +526,7 @@ function PDF_continue_text($p, string $text): void
 
 /**
  * Draws a Bezier curve from the current point, using 3 more control points.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * @param resource $p
  * @param float $x1
@@ -549,7 +549,7 @@ function PDF_curveto($p, float $x1, float $y1, float $x2, float $y2, float $x3, 
 
 
 /**
- * Deletes a PDFlib object, and frees all internal resources. Returns TRUE on success .
+ * Deletes a PDFlib object, and frees all internal resources. Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @throws PdfException
@@ -566,7 +566,7 @@ function PDF_delete($pdfdoc): void
 
 
 /**
- * Deactivates all active layers. Returns TRUE on success .
+ * Deactivates all active layers. Returns TRUE on success.
  *
  * This function requires PDF 1.5.
  *
@@ -585,7 +585,7 @@ function PDF_end_layer($pdfdoc): void
 
 
 /**
- * Finishes a page, and applies various options. Returns TRUE on success .
+ * Finishes a page, and applies various options. Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param string $optlist
@@ -603,7 +603,7 @@ function PDF_end_page_ext($pdfdoc, string $optlist): void
 
 
 /**
- * Finishes the page. Returns TRUE on success .
+ * Finishes the page. Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -620,7 +620,7 @@ function PDF_end_page($p): void
 
 
 /**
- * Finishes the pattern definition. Returns TRUE on success .
+ * Finishes the pattern definition. Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -637,7 +637,7 @@ function PDF_end_pattern($p): void
 
 
 /**
- * Finishes a template definition. Returns TRUE on success .
+ * Finishes a template definition. Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -655,7 +655,7 @@ function PDF_end_template($p): void
 
 /**
  * Fills and strokes the current path with the current fill and stroke color.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -673,7 +673,7 @@ function PDF_fill_stroke($p): void
 
 /**
  * Fills the interior of the current path with the current fill color.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -691,7 +691,7 @@ function PDF_fill($p): void
 
 /**
  * Places an image or template on the page, subject to various options.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param int $image
@@ -713,7 +713,7 @@ function PDF_fit_image($pdfdoc, int $image, float $x, float $y, string $optlist)
 
 /**
  * Places an imported PDF page on the page, subject to various options.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param int $page
@@ -734,7 +734,7 @@ function PDF_fit_pdi_page($pdfdoc, int $page, float $x, float $y, string $optlis
 
 
 /**
- * Places a single line of text on the page, subject to various options. Returns TRUE on success .
+ * Places a single line of text on the page, subject to various options. Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param string $text
@@ -756,7 +756,7 @@ function PDF_fit_textline($pdfdoc, string $text, float $x, float $y, string $opt
 
 /**
  * Reset all color and graphics state parameters to their defaults.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -773,7 +773,7 @@ function PDF_initgraphics($p): void
 
 
 /**
- * Draws a line from the current point to another point. Returns TRUE on success .
+ * Draws a line from the current point to another point. Returns TRUE on success.
  *
  * @param resource $p
  * @param float $x
@@ -793,7 +793,7 @@ function PDF_lineto($p, float $x, float $y): void
 
 /**
  * Finds a built-in spot color name, or makes a named spot color from the
- * current fill color. Returns TRUE on success .
+ * current fill color. Returns TRUE on success.
  *
  * @param resource $p
  * @param string $spotname
@@ -813,7 +813,7 @@ function PDF_makespotcolor($p, string $spotname): int
 
 
 /**
- * Sets the current point for graphics output. Returns TRUE on success .
+ * Sets the current point for graphics output. Returns TRUE on success.
  *
  * @param resource $p
  * @param float $x
@@ -833,7 +833,7 @@ function PDF_moveto($p, float $x, float $y): void
 
 /**
  * Creates a new PDF file using the supplied file name.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 6, use
  * PDF_begin_document instead.
@@ -854,7 +854,7 @@ function PDF_open_file($p, string $filename): void
 
 
 /**
- * Places an image and scales it. Returns TRUE on success .
+ * Places an image and scales it. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 5, use
  * PDF_fit_image instead.
@@ -878,7 +878,7 @@ function PDF_place_image($pdfdoc, int $image, float $x, float $y, float $scale):
 
 
 /**
- * Places a PDF page and scales it. Returns TRUE on success .
+ * Places a PDF page and scales it. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 5, use
  * PDF_fit_pdi_page instead.
@@ -903,7 +903,7 @@ function PDF_place_pdi_page($pdfdoc, int $page, float $x, float $y, float $sx, f
 
 
 /**
- * Draws a rectangle. Returns TRUE on success .
+ * Draws a rectangle. Returns TRUE on success.
  *
  * @param resource $p
  * @param float $x
@@ -924,7 +924,7 @@ function PDF_rect($p, float $x, float $y, float $width, float $height): void
 
 
 /**
- * Restores the most recently saved graphics state. Returns TRUE on success .
+ * Restores the most recently saved graphics state. Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -941,7 +941,7 @@ function PDF_restore($p): void
 
 
 /**
- * Rotates the coordinate system. Returns TRUE on success .
+ * Rotates the coordinate system. Returns TRUE on success.
  *
  * @param resource $p
  * @param float $phi
@@ -959,7 +959,7 @@ function PDF_rotate($p, float $phi): void
 
 
 /**
- * Saves the current graphics state. Returns TRUE on success .
+ * Saves the current graphics state. Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException
@@ -976,7 +976,7 @@ function PDF_save($p): void
 
 
 /**
- * Scales the coordinate system. Returns TRUE on success .
+ * Scales the coordinate system. Returns TRUE on success.
  *
  * @param resource $p
  * @param float $sx
@@ -995,7 +995,7 @@ function PDF_scale($p, float $sx, float $sy): void
 
 
 /**
- * Sets the border color for all kinds of annotations. Returns TRUE on success .
+ * Sets the border color for all kinds of annotations. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 6, use
  * the option annotcolor in
@@ -1019,7 +1019,7 @@ function PDF_set_border_color($p, float $red, float $green, float $blue): void
 
 
 /**
- * Sets the border dash style for all kinds of annotations. Returns TRUE on success .
+ * Sets the border dash style for all kinds of annotations. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 6, use
  * the option dasharray in
@@ -1042,7 +1042,7 @@ function PDF_set_border_dash($pdfdoc, float $black, float $white): void
 
 
 /**
- * Sets the border style for all kinds of annotations. Returns TRUE on success .
+ * Sets the border style for all kinds of annotations. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 6, use
  * the options borderstyle and
@@ -1067,7 +1067,7 @@ function PDF_set_border_style($pdfdoc, string $style, float $width): void
 
 /**
  * Fill document information field key with
- * value. Returns TRUE on success .
+ * value. Returns TRUE on success.
  *
  * @param resource $p
  * @param string $key
@@ -1086,7 +1086,7 @@ function PDF_set_info($p, string $key, string $value): void
 
 
 /**
- * Defines hierarchical and group relationships among layers. Returns TRUE on success .
+ * Defines hierarchical and group relationships among layers. Returns TRUE on success.
  *
  * This function requires PDF 1.5.
  *
@@ -1107,7 +1107,7 @@ function PDF_set_layer_dependency($pdfdoc, string $type, string $optlist): void
 
 
 /**
- * Sets some PDFlib parameter with string type. Returns TRUE on success .
+ * Sets some PDFlib parameter with string type. Returns TRUE on success.
  *
  * @param resource $p
  * @param string $key
@@ -1126,7 +1126,7 @@ function PDF_set_parameter($p, string $key, string $value): void
 
 
 /**
- * Sets the position for text output on the page. Returns TRUE on success .
+ * Sets the position for text output on the page. Returns TRUE on success.
  *
  * @param resource $p
  * @param float $x
@@ -1145,7 +1145,7 @@ function PDF_set_text_pos($p, float $x, float $y): void
 
 
 /**
- * Sets the value of some PDFlib parameter with numerical type. Returns TRUE on success .
+ * Sets the value of some PDFlib parameter with numerical type. Returns TRUE on success.
  *
  * @param resource $p
  * @param string $key
@@ -1164,7 +1164,7 @@ function PDF_set_value($p, string $key, float $value): void
 
 
 /**
- * Sets the current color space and color. Returns TRUE on success .
+ * Sets the current color space and color. Returns TRUE on success.
  *
  * @param resource $p
  * @param string $fstype
@@ -1188,7 +1188,7 @@ function PDF_setcolor($p, string $fstype, string $colorspace, float $c1, float $
 
 /**
  * Sets the current dash pattern to b black
- * and w white units. Returns TRUE on success .
+ * and w white units. Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param float $b
@@ -1207,7 +1207,7 @@ function PDF_setdash($pdfdoc, float $b, float $w): void
 
 
 /**
- * Sets a dash pattern defined by an option list. Returns TRUE on success .
+ * Sets a dash pattern defined by an option list. Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param string $optlist
@@ -1225,7 +1225,7 @@ function PDF_setdashpattern($pdfdoc, string $optlist): void
 
 
 /**
- * Sets the flatness parameter. Returns TRUE on success .
+ * Sets the flatness parameter. Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param float $flatness
@@ -1245,7 +1245,7 @@ function PDF_setflat($pdfdoc, float $flatness): void
 /**
  * Sets the current font in the specified fontsize, using a
  * font handle returned by PDF_load_font.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param int $font
@@ -1265,7 +1265,7 @@ function PDF_setfont($pdfdoc, int $font, float $fontsize): void
 
 /**
  * Sets the current fill color to a gray value between 0 and 1 inclusive.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 4, use
  * PDF_setcolor instead.
@@ -1287,7 +1287,7 @@ function PDF_setgray_fill($p, float $g): void
 
 /**
  * Sets the current stroke color to a gray value between 0 and 1 inclusive.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 4, use
  * PDF_setcolor instead.
@@ -1308,7 +1308,7 @@ function PDF_setgray_stroke($p, float $g): void
 
 
 /**
- * Sets the current fill and stroke color to a gray value between 0 and 1 inclusive. Returns TRUE on success .
+ * Sets the current fill and stroke color to a gray value between 0 and 1 inclusive. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 4, use
  * PDF_setcolor instead.
@@ -1330,7 +1330,7 @@ function PDF_setgray($p, float $g): void
 
 /**
  * Sets the linejoin parameter to specify the shape
- * at the corners of paths that are stroked. Returns TRUE on success .
+ * at the corners of paths that are stroked. Returns TRUE on success.
  *
  * @param resource $p
  * @param int $value
@@ -1348,7 +1348,7 @@ function PDF_setlinejoin($p, int $value): void
 
 
 /**
- * Sets the current line width. Returns TRUE on success .
+ * Sets the current line width. Returns TRUE on success.
  *
  * @param resource $p
  * @param float $width
@@ -1366,7 +1366,7 @@ function PDF_setlinewidth($p, float $width): void
 
 
 /**
- * Explicitly sets the current transformation matrix. Returns TRUE on success .
+ * Explicitly sets the current transformation matrix. Returns TRUE on success.
  *
  * @param resource $p
  * @param float $a
@@ -1389,7 +1389,7 @@ function PDF_setmatrix($p, float $a, float $b, float $c, float $d, float $e, flo
 
 
 /**
- * Sets the miter limit.Returns TRUE on success .
+ * Sets the miter limit.Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param float $miter
@@ -1407,7 +1407,7 @@ function PDF_setmiterlimit($pdfdoc, float $miter): void
 
 
 /**
- * Sets the current fill color to the supplied RGB values. Returns TRUE on success .
+ * Sets the current fill color to the supplied RGB values. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 4, use
  * PDF_setcolor instead.
@@ -1430,7 +1430,7 @@ function PDF_setrgbcolor_fill($p, float $red, float $green, float $blue): void
 
 
 /**
- * Sets the current stroke color to the supplied RGB values. Returns TRUE on success .
+ * Sets the current stroke color to the supplied RGB values. Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 4, use
  * PDF_setcolor instead.
@@ -1454,7 +1454,7 @@ function PDF_setrgbcolor_stroke($p, float $red, float $green, float $blue): void
 
 /**
  * Sets the current fill and stroke color to the supplied RGB values.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * This function is deprecated since PDFlib version 4, use
  * PDF_setcolor instead.
@@ -1477,7 +1477,7 @@ function PDF_setrgbcolor($p, float $red, float $green, float $blue): void
 
 
 /**
- * Prints text in the current font. Returns TRUE on success .
+ * Prints text in the current font. Returns TRUE on success.
  *
  * @param resource $p
  * @param string $text
@@ -1498,7 +1498,7 @@ function PDF_show_xy($p, string $text, float $x, float $y): void
 
 /**
  * Prints text in the current font and size at
- * the current position. Returns TRUE on success .
+ * the current position. Returns TRUE on success.
  *
  * @param resource $pdfdoc
  * @param string $text
@@ -1517,7 +1517,7 @@ function PDF_show($pdfdoc, string $text): void
 
 /**
  * Skews the coordinate system in x and y direction by alpha
- * and beta degrees, respectively. Returns TRUE on success .
+ * and beta degrees, respectively. Returns TRUE on success.
  *
  * @param resource $p
  * @param float $alpha
@@ -1537,7 +1537,7 @@ function PDF_skew($p, float $alpha, float $beta): void
 
 /**
  * Strokes the path with the current color and line width, and clear it.
- * Returns TRUE on success .
+ * Returns TRUE on success.
  *
  * @param resource $p
  * @throws PdfException

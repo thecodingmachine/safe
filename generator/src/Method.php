@@ -132,6 +132,7 @@ class Method
     {
         $string = \strip_tags($string);
         $string = $this->removeString($string, 'or FALSE on failure');
+        $string = $this->removeString($string, 'may return FALSE');
         $string = $this->removeString($string, 'and FALSE on failure');
         $string = $this->removeString($string, 'on success, or FALSE otherwise');
         $string = $this->removeString($string, 'or FALSE on error');
@@ -149,9 +150,9 @@ class Method
     private function removeString(string $string, string $search): string
     {
         $search = str_replace(' ', '\s+', $search);
-        $result = preg_replace('/'.$search.'/m', '', $string);
+        $result = preg_replace('/[\s\,]*'.$search.'/m', '', $string);
         if ($result === null) {
-            throw new \RuntimeException('An error occured while calling preg_replace');
+            throw new \RuntimeException('An error occurred while calling preg_replace');
         }
         return $result;
     }

@@ -300,7 +300,7 @@ function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, s
  *
  *
  *
- * @return resource Returns a resource on success, .
+ * @return resource Returns a resource on success.
  * @throws Ssh2Exception
  *
  */
@@ -353,7 +353,7 @@ function ssh2_disconnect($session): void
  * @param int $width_height_type width_height_type should be one of
  * SSH2_TERM_UNIT_CHARS or
  * SSH2_TERM_UNIT_PIXELS.
- * @return resource Returns a stream on success .
+ * @return resource Returns a stream on success.
  * @throws Ssh2Exception
  *
  */
@@ -420,7 +420,7 @@ function ssh2_publickey_add($pkey, string $algoname, string $blob, bool $overwri
  *
  * @param resource $session
  * @return resource Returns an SSH2 Publickey Subsystem resource for use
- * with all other ssh2_publickey_*() methods .
+ * with all other ssh2_publickey_*() methods.
  * @throws Ssh2Exception
  *
  */

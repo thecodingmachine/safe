@@ -11,7 +11,7 @@ use Safe\Exceptions\MsqlException;
  * @param resource $result The result resource that
  * is being evaluated. This result comes from a call to
  * msql_query.
- * @return int Returns the number of affected rows on success, .
+ * @return int Returns the number of affected rows on success.
  * @throws MsqlException
  *
  */
@@ -77,7 +77,7 @@ function msql_close($link_identifier = null): void
  * While this function will accept a colon (:) as a
  * host/port separator, a comma (,) is the preferred
  * method.
- * @return resource Returns a positive mSQL link identifier on success, .
+ * @return resource Returns a positive mSQL link identifier on success.
  * @throws MsqlException
  *
  */
@@ -156,7 +156,7 @@ function msql_data_seek($result, int $row_number): void
  * If not specified, the last link opened by msql_connect
  * is assumed. If no such link is found, the function will try to establish a
  * link as if msql_connect was called, and use it.
- * @return resource Returns a positive mSQL query identifier to the query result, .
+ * @return resource Returns a positive mSQL query identifier to the query result.
  * @throws MsqlException
  *
  */
@@ -210,7 +210,7 @@ function msql_drop_db(string $database_name, $link_identifier = null): void
  * msql_query.
  * @param int $field_offset The numerical field offset. The
  * field_offset starts at 1.
- * @return int Returns the length of the specified field .
+ * @return int Returns the length of the specified field.
  * @throws MsqlException
  *
  */
@@ -234,7 +234,7 @@ function msql_field_len($result, int $field_offset): int
  * msql_query.
  * @param int $field_offset The numerical field offset. The
  * field_offset starts at 1.
- * @return string The name of the field .
+ * @return string The name of the field.
  * @throws MsqlException
  *
  */
@@ -280,7 +280,7 @@ function msql_field_seek($result, int $field_offset): void
  * msql_query.
  * @param int $field_offset The numerical field offset. The
  * field_offset starts at 1.
- * @return int The name of the table on success .
+ * @return int The name of the table on success.
  * @throws MsqlException
  *
  */
@@ -365,7 +365,7 @@ function msql_free_result($result): void
  * If not specified, the connection is established by the means of a Unix
  * domain socket, being more efficient than a localhost TCP socket
  * connection.
- * @return resource Returns a positive mSQL link identifier on success, .
+ * @return resource Returns a positive mSQL link identifier on success.
  * @throws MsqlException
  *
  */
@@ -394,7 +394,7 @@ function msql_pconnect(string $hostname = null)
  * If not specified, the last link opened by msql_connect
  * is assumed. If no such link is found, the function will try to establish a
  * link as if msql_connect was called, and use it.
- * @return resource Returns a positive mSQL query identifier on success, .
+ * @return resource Returns a positive mSQL query identifier on success.
  * @throws MsqlException
  *
  */

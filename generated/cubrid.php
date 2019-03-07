@@ -6,7 +6,7 @@ use Safe\Exceptions\CubridException;
 
 /**
  * This function frees the memory occupied by the result data. It returns
- * TRUE on success . Note that it can only frees the
+ * TRUE on success. Note that it can only frees the
  * client fetch buffer now, and if you want free all memory, use function
  * cubrid_close_request.
  *
@@ -219,7 +219,7 @@ function cubrid_get_server_info($conn_identifier): string
  * The cubrid_insert_id function retrieves the ID
  * generated for the AUTO_INCREMENT column which is updated by the previous
  * INSERT query. It returns 0 if the previous query does not generate new
- * rows, .
+ * rows.
  *
  * @param resource $conn_identifier The connection identifier previously obtained by a call to
  * cubrid_connect.

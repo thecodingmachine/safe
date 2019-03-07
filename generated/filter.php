@@ -91,7 +91,7 @@ function filter_input_array(int $type, $definition = null, bool $add_empty = tru
  * This parameter can be also an integer holding a filter constant. Then all values in the
  * input array are filtered by this filter.
  * @param bool $add_empty Add missing keys as NULL to the return value.
- * @return mixed An array containing the values of the requested variables on success, . An array value will be FALSE if the filter fails, or NULL if
+ * @return mixed An array containing the values of the requested variables on success. An array value will be FALSE if the filter fails, or NULL if
  * the variable is not set.
  * @throws FilterException
  *

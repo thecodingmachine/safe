@@ -8,7 +8,7 @@ use Safe\Exceptions\StringsException;
  * convert_uudecode decodes a uuencoded string.
  *
  * @param string $data The uuencoded data.
- * @return string Returns the decoded data as a string  .
+ * @return string Returns the decoded data as a string.
  * @throws StringsException
  *
  */
@@ -32,7 +32,7 @@ function convert_uudecode(string $data): string
  * about 35% larger than the original.
  *
  * @param string $data The data to be encoded.
- * @return string Returns the uuencoded data  .
+ * @return string Returns the uuencoded data.
  * @throws StringsException
  *
  */
@@ -51,7 +51,7 @@ function convert_uuencode(string $data): string
  * Decodes a hexadecimally encoded binary string.
  *
  * @param string $data Hexadecimal representation of data.
- * @return string Returns the binary representation of the given data  .
+ * @return string Returns the binary representation of the given data.
  * @throws StringsException
  *
  */
@@ -108,7 +108,7 @@ function md5_file(string $filename, bool $raw_output = false): string
  * @param int $phonemes This parameter restricts the returned metaphone key to
  * phonemes characters in length.
  * The default value of 0 means no restriction.
- * @return string Returns the metaphone key as a string,  .
+ * @return string Returns the metaphone key as a string.
  * @throws StringsException
  *
  */
@@ -253,7 +253,7 @@ function sha1_file(string $filename, bool $raw_output = false): string
  *
  *
  * G - shorter of %E and
- * %f.
+ * %F.
  *
  *
  * o - the argument is treated as an
@@ -328,7 +328,7 @@ function sha1_file(string $filename, bool $raw_output = false): string
  *
  *
  * G - shorter of %E and
- * %f.
+ * %F.
  *
  *
  * o - the argument is treated as an
@@ -477,7 +477,7 @@ function sha1_file(string $filename, bool $raw_output = false): string
  * The c type specifier ignores padding and width
  * @param mixed $params
  * @return string Returns a string produced according to the formatting string
- * format,  .
+ * format.
  * @throws StringsException
  *
  */
@@ -541,7 +541,7 @@ function sprintf(string $format, ...$params): string
  * If length is omitted, the substring starting from
  * start until the end of the string will be
  * returned.
- * @return string Returns the extracted part of string;  , or
+ * @return string Returns the extracted part of string;, or
  * an empty string.
  * @throws StringsException
  *

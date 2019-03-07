@@ -37,7 +37,7 @@ function stream_context_set_params($stream_or_context, array $params): void
  * @param resource $dest The destination stream
  * @param int $maxlength Maximum bytes to copy
  * @param int $offset The offset where to start to copy data
- * @return int Returns the total count of bytes copied,  .
+ * @return int Returns the total count of bytes copied.
  * @throws StreamException
  *
  */
@@ -74,7 +74,7 @@ function stream_copy_to_stream($source, $dest, int $maxlength = -1, int $offset 
  * the list and will therefore be called last during stream operations.
  * To add a filter to the beginning of the list, use
  * stream_filter_prepend.
- * @return resource Returns a resource on success . The resource can be
+ * @return resource Returns a resource on success. The resource can be
  * used to refer to this filter instance during a call to
  * stream_filter_remove.
  *
@@ -123,7 +123,7 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
  * to the beginning of the list and will therefore be
  * called first during stream operations.  To add a filter to the end of the
  * list, use stream_filter_append.
- * @return resource Returns a resource on success . The resource can be
+ * @return resource Returns a resource on success. The resource can be
  * used to refer to this filter instance during a call to
  * stream_filter_remove.
  *
@@ -210,7 +210,7 @@ function stream_filter_remove($stream_filter): void
  * buffer).
  * @param int $offset Seek to the specified offset before reading. If this number is negative,
  * no seeking will occur and reading will start from the current position.
- * @return string Returns a string .
+ * @return string Returns a string.
  * @throws StreamException
  *
  */
@@ -247,7 +247,7 @@ function stream_isatty($stream): void
  * Resolve filename against the include path according to the same rules as fopen/include.
  *
  * @param string $filename The filename to resolve.
- * @return string Returns a string containing the resolved absolute filename,  .
+ * @return string Returns a string containing the resolved absolute filename.
  * @throws StreamException
  *
  */
@@ -327,7 +327,7 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
  *
  * Can also be determined later using
  * stream_socket_get_name.
- * @return resource Returns a stream to the accepted socket connection .
+ * @return resource Returns a stream to the accepted socket connection.
  * @throws StreamException
  *
  */
@@ -435,7 +435,7 @@ function stream_socket_client(string $remote_socket, int &$errno = null, string 
  * STREAM_IPPROTO_RAW,
  * STREAM_IPPROTO_TCP or
  * STREAM_IPPROTO_UDP
- * @return resource[] Returns an array with the two socket resources on success, .
+ * @return resource[] Returns an array with the two socket resources on success.
  * @throws StreamException
  *
  */
@@ -488,7 +488,7 @@ function stream_socket_pair(int $domain, int $type, int $protocol): array
  * For UDP sockets, you must use STREAM_SERVER_BIND as
  * the flags parameter.
  * @param resource $context
- * @return resource Returns the created stream, .
+ * @return resource Returns the created stream.
  * @throws StreamException
  *
  */

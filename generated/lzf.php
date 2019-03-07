@@ -9,7 +9,7 @@ use Safe\Exceptions\LzfException;
  * data string using LZF encoding.
  *
  * @param string $data The string to compress.
- * @return string Returns the compressed data .
+ * @return string Returns the compressed data.
  * @throws LzfException
  *
  */
@@ -29,7 +29,7 @@ function lzf_compress(string $data): string
  * data string containing lzf encoded data.
  *
  * @param string $data The compressed string.
- * @return string Returns the decompressed data .
+ * @return string Returns the decompressed data.
  * @throws LzfException
  *
  */

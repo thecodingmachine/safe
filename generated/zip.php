@@ -56,7 +56,7 @@ function zip_entry_open($zip, $zip_entry, string $mode = null): void
  * @param int $length The number of bytes to return.
  *
  * This should be the uncompressed length you wish to read.
- * @return string Returns the data read, empty string on end of a file, .
+ * @return string Returns the data read, empty string on end of a file.
  * @throws ZipException
  *
  */

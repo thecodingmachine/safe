@@ -86,7 +86,7 @@ function pspell_clear_session(int $dictionary_link): void
  * 'viscii', 'cp1252', 'machine unsigned 16', 'machine unsigned
  * 32'. This parameter is largely untested, so be careful when
  * using.
- * @return int Retuns a pspell config identifier, .
+ * @return int Retuns a pspell config identifier.
  * @throws PspellException
  *
  */
@@ -315,7 +315,7 @@ function pspell_config_save_repl(int $dictionary_link, bool $flag): void
  *
  * @param int $config The config parameter is the one returned by
  * pspell_config_create when the config was created.
- * @return int Returns a dictionary link identifier on success,  .
+ * @return int Returns a dictionary link identifier on success.
  * @throws PspellException
  *
  */
@@ -388,7 +388,7 @@ function pspell_new_config(int $config): int
  * PSPELL_NORMAL and
  * PSPELL_BAD_SPELLERS are mutually exclusive, so you
  * should select only one of them.
- * @return int Returns the dictionary link identifier on success .
+ * @return int Returns the dictionary link identifier on success.
  * @throws PspellException
  *
  */

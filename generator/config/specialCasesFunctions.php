@@ -8,4 +8,5 @@ return [
     'apc_fetch',
     'apcu_fetch',
     'preg_replace',
+    'openssl_encrypt',
 ];

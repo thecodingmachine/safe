@@ -603,7 +603,6 @@ services:
       openssl_decrypt: 'Safe\openssl_decrypt'
       openssl_dh_compute_key: 'Safe\openssl_dh_compute_key'
       openssl_digest: 'Safe\openssl_digest'
-      openssl_encrypt: 'Safe\openssl_encrypt'
       openssl_open: 'Safe\openssl_open'
       openssl_pbkdf2: 'Safe\openssl_pbkdf2'
       openssl_pkcs12_export_to_file: 'Safe\openssl_pkcs12_export_to_file'
@@ -1079,3 +1078,4 @@ services:
       apc_fetch: 'Safe\apc_fetch'
       apcu_fetch: 'Safe\apcu_fetch'
       preg_replace: 'Safe\preg_replace'
+      openssl_encrypt: 'Safe\openssl_encrypt'

@@ -341,35 +341,6 @@ function openssl_digest(string $data, string $method, bool $raw_output = false):
 
 
 /**
- * Encrypts given data with given method and key, returns a raw
- * or base64 encoded string
- *
- * @param string $data The plaintext message data to be encrypted.
- * @param string $method The cipher method. For a list of available cipher methods, use openssl_get_cipher_methods.
- * @param string $key The key.
- * @param int $options options is a bitwise disjunction of the flags
- * OPENSSL_RAW_DATA and
- * OPENSSL_ZERO_PADDING.
- * @param string $iv A non-NULL Initialization Vector.
- * @param string $tag The authentication tag passed by reference when using AEAD cipher mode (GCM or CCM).
- * @param string $aad Additional authentication data.
- * @param int $tag_length The length of the authentication tag. Its value can be between 4 and 16 for GCM mode.
- * @return string Returns the encrypted string on success.
- * @throws OpensslException
- *
- */
-function openssl_encrypt(string $data, string $method, string $key, int $options = 0, string $iv = "", string &$tag = null, string $aad = "", int $tag_length = 16): string
-{
-    error_clear_last();
-    $result = \openssl_encrypt($data, $method, $key, $options, $iv, $tag, $aad, $tag_length);
-    if ($result === false) {
-        throw OpensslException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * openssl_open opens (decrypts)
  * sealed_data using the private key associated with
  * the key identifier priv_key_id and the envelope key

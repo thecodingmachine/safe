@@ -118,7 +118,6 @@ XML;
         openssl_sign('foo', $signatureSafe, file_get_contents(__DIR__ . '/fixtures/id_rsa'));
 
         $this->assertSame($signature, $signatureSafe);
-
     }
 
     public function testOpenSslEncrypt()
@@ -128,14 +127,16 @@ XML;
             'aes-256-cbc',
             pack('H*', 'a2e8ccd0e7985cc0b6213a55815a1034afc252980e970ca90e5202689f9473b0'),
             \OPENSSL_RAW_DATA,
-            pack('H*', '123ce954203b7caaaa9da67f59839456'));
+            pack('H*', '123ce954203b7caaaa9da67f59839456')
+        );
 
         $resultSafe = openssl_encrypt(
             'test',
             'aes-256-cbc',
             pack('H*', 'a2e8ccd0e7985cc0b6213a55815a1034afc252980e970ca90e5202689f9473b0'),
             \OPENSSL_RAW_DATA,
-            pack('H*', '123ce954203b7caaaa9da67f59839456'));
+            pack('H*', '123ce954203b7caaaa9da67f59839456')
+        );
 
         $this->assertSame($result, $resultSafe);
     }

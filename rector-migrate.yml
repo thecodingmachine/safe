@@ -991,6 +991,7 @@ services:
       sha1_file: 'Safe\sha1_file'
       sprintf: 'Safe\sprintf'
       substr: 'Safe\substr'
+      vsprintf: 'Safe\vsprintf'
       swoole_async_write: 'Safe\swoole_async_write'
       swoole_async_writefile: 'Safe\swoole_async_writefile'
       swoole_event_defer: 'Safe\swoole_event_defer'

@@ -20,6 +20,13 @@ $ cd generator/doc/doc-en
 $ svn update
 ```
 
+To use the generator, you need to make sure you installed all the needed dependencies:
+
+```bash
+$ cd generator
+$ composer install
+```
+
 ### Generating the functions
 
 Generating the functions can be done with a simple command.

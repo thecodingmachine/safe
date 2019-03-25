@@ -152,207 +152,238 @@ function sha1_file(string $filename, bool $raw_output = false): string
  * ordinary characters (excluding %) that are
  * copied directly to the result and conversion
  * specifications, each of which results in fetching its
- * own parameter.  This applies to both sprintf
- * and printf.
+ * own parameter.
  *
- * Each conversion specification consists of a percent sign
- * (%), followed by one or more of these
- * elements, in order:
+ * A conversion specification follows this prototype:
+ * %[flags][width][.precision]specifier.
  *
  *
- *
- * An optional sign specifier that forces a sign
- * (- or +) to be used on a number. By default, only the - sign is used
- * on a number if it's negative. This specifier forces positive numbers
- * to have the + sign attached as well.
+ * Flags
  *
  *
  *
- *
- * An optional padding specifier that says
- * what character will be used for padding the results to the
- * right string size.  This may be a space character or a
- * 0 (zero character).  The default is to pad
- * with spaces.  An alternate padding character can be specified
- * by prefixing it with a single quote (').
- * See the examples below.
+ * Flag
+ * Description
  *
  *
  *
  *
- * An optional alignment specifier that says
- * if the result should be left-justified or right-justified.
- * The default is right-justified; a -
- * character here will make it left-justified.
+ * -
+ *
+ * Left-justify within the given field width;
+ * Right justification is the default
+ *
+ *
+ *
+ * +
+ *
+ * Prefix positive numbers with a plus sign
+ * +; Default only negative
+ * are prefixed with a negative sign.
+ *
+ *
+ *
+ * (space)
+ *
+ * Pads the result with spaces.
+ * This is the default.
+ *
+ *
+ *
+ * 0
+ *
+ * Only left-pads numbers with zeros.
+ * With s specifiers this can
+ * also right-pad with zeros.
+ *
+ *
+ *
+ * '(char)
+ *
+ * Pads the result with the character (char).
  *
  *
  *
  *
- * An optional number, a width specifier
- * that says how many characters (minimum) this conversion should
- * result in.
+ *
+ *
+ * An integer that says how many characters (minimum)
+ * this conversion should result in.
+ *
+ * A period . followed by an integer
+ * who's meaning depends on the specifier:
+ *
+ *
+ *
+ * For e, E,
+ * f and F
+ * specifiers: this is the number of digits to be printed
+ * after the decimal point (by default, this is 6).
  *
  *
  *
  *
- * An optional precision specifier in the form
- * of a period (.) followed by an optional decimal digit string
- * that says how many decimal digits should be displayed for
- * floating-point numbers. When using this specifier on a string,
- * it acts as a cutoff point, setting a maximum character limit to
- * the string. Additionally, the character to use when padding a
- * number may optionally be specified between the period and the
- * digit.
+ * For g and G
+ * specifiers: this is the maximum number of significant
+ * digits to be printed.
  *
  *
  *
  *
- * A type specifier that says what type the
- * argument data should be treated as.  Possible types:
+ * For s specifier: it acts as a cutoff point,
+ * setting a maximum character limit to the string.
  *
  *
- * % - a literal percent character. No
- * argument is required.
  *
  *
- * b - the argument is treated as an
- * integer and presented as a binary number.
+ *
+ * If the period is specified without an explicit value for precision,
+ * 0 is assumed.
  *
  *
- * c - the argument is treated as an
- * integer and presented as the character with that ASCII
- * value.
  *
  *
- * d - the argument is treated as an
- * integer and presented as a (signed) decimal number.
+ * Specifiers
  *
  *
- * e - the argument is treated as scientific
- * notation (e.g. 1.2e+2).
+ *
+ * Specifier
+ * Description
+ *
+ *
+ *
+ *
+ * %
+ *
+ * A literal percent character. No argument is required.
+ *
+ *
+ *
+ * b
+ *
+ * The argument is treated as an integer and presented
+ * as a binary number.
+ *
+ *
+ *
+ * c
+ *
+ * The argument is treated as an integer and presented
+ * as the character with that ASCII.
+ *
+ *
+ *
+ * d
+ *
+ * The argument is treated as an integer and presented
+ * as a (signed) decimal number.
+ *
+ *
+ *
+ * e
+ *
+ * The argument is treated as scientific notation (e.g. 1.2e+2).
  * The precision specifier stands for the number of digits after the
  * decimal point since PHP 5.2.1. In earlier versions, it was taken as
  * number of significant digits (one less).
  *
  *
- * E - like %e but uses
+ *
+ * E
+ *
+ * Like the e specifier but uses
  * uppercase letter (e.g. 1.2E+2).
  *
  *
- * f - the argument is treated as a
- * float and presented as a floating-point number (locale aware).
+ *
+ * f
+ *
+ * The argument is treated as a float and presented
+ * as a floating-point number (locale aware).
  *
  *
- * F - the argument is treated as a
- * float and presented as a floating-point number (non-locale aware).
- * Available since PHP 5.0.3.
+ *
+ * F
+ *
+ * The argument is treated as a float and presented
+ * as a floating-point number (non-locale aware).
+ * Available as of PHP 5.0.3.
  *
  *
- * g - shorter of %e and
- * %f.
+ *
+ * g
  *
  *
- * G - shorter of %E and
- * %F.
+ * General format.
  *
  *
- * o - the argument is treated as an
- * integer and presented as an octal number.
+ * Let P equal the precision if nonzero, 6 if the precision is omitted,
+ * or 1 if the precision is zero.
+ * Then, if a conversion with style E would have an exponent of X:
  *
  *
- * s - the argument is treated as and
- * presented as a string.
- *
- *
- * u - the argument is treated as an
- * integer and presented as an unsigned decimal number.
- *
- *
- * x - the argument is treated as an integer
- * and presented as a hexadecimal number (with lowercase
- * letters).
- *
- *
- * X - the argument is treated as an integer
- * and presented as a hexadecimal number (with uppercase
- * letters).
+ * If P &gt; X ≥ −4, the conversion is with style f and precision P − (X + 1).
+ * Otherwise, the conversion is with style e and precision P − 1.
  *
  *
  *
  *
+ * G
+ *
+ * Like the g specifier but uses
+ * E and F.
  *
  *
- * A type specifier that says what type the
- * argument data should be treated as.  Possible types:
+ *
+ * o
+ *
+ * The argument is treated as an integer and presented
+ * as an octal number.
  *
  *
- * % - a literal percent character. No
- * argument is required.
+ *
+ * s
+ *
+ * The argument is treated and presented as a string.
  *
  *
- * b - the argument is treated as an
- * integer and presented as a binary number.
+ *
+ * u
+ *
+ * The argument is treated as an integer and presented
+ * as an unsigned decimal number.
  *
  *
- * c - the argument is treated as an
- * integer and presented as the character with that ASCII
- * value.
+ *
+ * x
+ *
+ * The argument is treated as an integer and presented
+ * as a hexadecimal number (with lowercase letters).
  *
  *
- * d - the argument is treated as an
- * integer and presented as a (signed) decimal number.
+ *
+ * X
+ *
+ * The argument is treated as an integer and presented
+ * as a hexadecimal number (with uppercase letters).
  *
  *
- * e - the argument is treated as scientific
- * notation (e.g. 1.2e+2).
- * The precision specifier stands for the number of digits after the
- * decimal point since PHP 5.2.1. In earlier versions, it was taken as
- * number of significant digits (one less).
  *
  *
- * E - like %e but uses
- * uppercase letter (e.g. 1.2E+2).
  *
  *
- * f - the argument is treated as a
- * float and presented as a floating-point number (locale aware).
+ * General format.
  *
+ * Let P equal the precision if nonzero, 6 if the precision is omitted,
+ * or 1 if the precision is zero.
+ * Then, if a conversion with style E would have an exponent of X:
  *
- * F - the argument is treated as a
- * float and presented as a floating-point number (non-locale aware).
- * Available since PHP 5.0.3.
+ * If P &gt; X ≥ −4, the conversion is with style f and precision P − (X + 1).
+ * Otherwise, the conversion is with style e and precision P − 1.
  *
+ * The c type specifier ignores padding and width
  *
- * g - shorter of %e and
- * %f.
- *
- *
- * G - shorter of %E and
- * %F.
- *
- *
- * o - the argument is treated as an
- * integer and presented as an octal number.
- *
- *
- * s - the argument is treated as and
- * presented as a string.
- *
- *
- * u - the argument is treated as an
- * integer and presented as an unsigned decimal number.
- *
- *
- * x - the argument is treated as an integer
- * and presented as a hexadecimal number (with lowercase
- * letters).
- *
- *
- * X - the argument is treated as an integer
- * and presented as a hexadecimal number (with uppercase
- * letters).
- *
- *
+ * Attempting to use a combination of the string and width specifiers with character sets that require more than one byte per character may result in unexpected results
  *
  * Variables will be co-erced to a suitable type for the specifier:
  *
@@ -395,86 +426,6 @@ function sha1_file(string $filename, bool $raw_output = false): string
  *
  *
  *
- *
- * Attempting to use a combination of the string and width specifiers with character sets that require more than one byte per character may result in unexpected results
- *
- * The format string supports argument numbering/swapping.  Here is an
- * example:
- *
- * Argument swapping
- *
- *
- * ]]>
- *
- *
- * This will output "There are 5 monkeys in the tree".  But
- * imagine we are creating a format string in a separate file,
- * commonly because we would like to internationalize it and we
- * rewrite it as:
- *
- * Argument swapping
- *
- *
- * ]]>
- *
- *
- * We now have a problem.  The order of the placeholders in the
- * format string does not match the order of the arguments in the
- * code.  We would like to leave the code as is and simply indicate
- * in the format string which arguments the placeholders refer to.
- * We would write the format string like this instead:
- *
- * Argument swapping
- *
- *
- * ]]>
- *
- *
- * An added benefit here is that you can repeat the placeholders without
- * adding more arguments in the code.  For example:
- *
- * Argument swapping
- *
- *
- * ]]>
- *
- *
- * When using argument swapping, the n$
- * position specifier must come immediately
- * after the percent sign (%), before any other
- * specifiers, as shown in the example below.
- *
- * Specifying padding character
- *
- *
- * ]]>
- *
- * The above example will output:
- *
- *
- *
- *
- *
- * Position specifier with other specifiers
- *
- *
- * ]]>
- *
- * The above example will output:
- *
- *
- *
- *
- *
- * The above example will output:
- *
- * The above example will output:
- *
- * Attempting to use a position specifier greater than
- * PHP_INT_MAX will result in
- * sprintf generating warnings.
- *
- * The c type specifier ignores padding and width
  * @param mixed $params
  * @return string Returns a string produced according to the formatting string
  * format.
@@ -554,6 +505,305 @@ function substr(string $string, int $start, int $length = null): string
     } else {
         $result = \substr($string, $start);
     }
+    if ($result === false) {
+        throw StringsException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Operates as sprintf but accepts an array of
+ * arguments, rather than a variable number of arguments.
+ *
+ * @param string $format The format string is composed of zero or more directives:
+ * ordinary characters (excluding %) that are
+ * copied directly to the result and conversion
+ * specifications, each of which results in fetching its
+ * own parameter.
+ *
+ * A conversion specification follows this prototype:
+ * %[flags][width][.precision]specifier.
+ *
+ *
+ * Flags
+ *
+ *
+ *
+ * Flag
+ * Description
+ *
+ *
+ *
+ *
+ * -
+ *
+ * Left-justify within the given field width;
+ * Right justification is the default
+ *
+ *
+ *
+ * +
+ *
+ * Prefix positive numbers with a plus sign
+ * +; Default only negative
+ * are prefixed with a negative sign.
+ *
+ *
+ *
+ * (space)
+ *
+ * Pads the result with spaces.
+ * This is the default.
+ *
+ *
+ *
+ * 0
+ *
+ * Only left-pads numbers with zeros.
+ * With s specifiers this can
+ * also right-pad with zeros.
+ *
+ *
+ *
+ * '(char)
+ *
+ * Pads the result with the character (char).
+ *
+ *
+ *
+ *
+ *
+ *
+ * An integer that says how many characters (minimum)
+ * this conversion should result in.
+ *
+ * A period . followed by an integer
+ * who's meaning depends on the specifier:
+ *
+ *
+ *
+ * For e, E,
+ * f and F
+ * specifiers: this is the number of digits to be printed
+ * after the decimal point (by default, this is 6).
+ *
+ *
+ *
+ *
+ * For g and G
+ * specifiers: this is the maximum number of significant
+ * digits to be printed.
+ *
+ *
+ *
+ *
+ * For s specifier: it acts as a cutoff point,
+ * setting a maximum character limit to the string.
+ *
+ *
+ *
+ *
+ *
+ * If the period is specified without an explicit value for precision,
+ * 0 is assumed.
+ *
+ *
+ *
+ *
+ * Specifiers
+ *
+ *
+ *
+ * Specifier
+ * Description
+ *
+ *
+ *
+ *
+ * %
+ *
+ * A literal percent character. No argument is required.
+ *
+ *
+ *
+ * b
+ *
+ * The argument is treated as an integer and presented
+ * as a binary number.
+ *
+ *
+ *
+ * c
+ *
+ * The argument is treated as an integer and presented
+ * as the character with that ASCII.
+ *
+ *
+ *
+ * d
+ *
+ * The argument is treated as an integer and presented
+ * as a (signed) decimal number.
+ *
+ *
+ *
+ * e
+ *
+ * The argument is treated as scientific notation (e.g. 1.2e+2).
+ * The precision specifier stands for the number of digits after the
+ * decimal point since PHP 5.2.1. In earlier versions, it was taken as
+ * number of significant digits (one less).
+ *
+ *
+ *
+ * E
+ *
+ * Like the e specifier but uses
+ * uppercase letter (e.g. 1.2E+2).
+ *
+ *
+ *
+ * f
+ *
+ * The argument is treated as a float and presented
+ * as a floating-point number (locale aware).
+ *
+ *
+ *
+ * F
+ *
+ * The argument is treated as a float and presented
+ * as a floating-point number (non-locale aware).
+ * Available as of PHP 5.0.3.
+ *
+ *
+ *
+ * g
+ *
+ *
+ * General format.
+ *
+ *
+ * Let P equal the precision if nonzero, 6 if the precision is omitted,
+ * or 1 if the precision is zero.
+ * Then, if a conversion with style E would have an exponent of X:
+ *
+ *
+ * If P &gt; X ≥ −4, the conversion is with style f and precision P − (X + 1).
+ * Otherwise, the conversion is with style e and precision P − 1.
+ *
+ *
+ *
+ *
+ * G
+ *
+ * Like the g specifier but uses
+ * E and F.
+ *
+ *
+ *
+ * o
+ *
+ * The argument is treated as an integer and presented
+ * as an octal number.
+ *
+ *
+ *
+ * s
+ *
+ * The argument is treated and presented as a string.
+ *
+ *
+ *
+ * u
+ *
+ * The argument is treated as an integer and presented
+ * as an unsigned decimal number.
+ *
+ *
+ *
+ * x
+ *
+ * The argument is treated as an integer and presented
+ * as a hexadecimal number (with lowercase letters).
+ *
+ *
+ *
+ * X
+ *
+ * The argument is treated as an integer and presented
+ * as a hexadecimal number (with uppercase letters).
+ *
+ *
+ *
+ *
+ *
+ *
+ * General format.
+ *
+ * Let P equal the precision if nonzero, 6 if the precision is omitted,
+ * or 1 if the precision is zero.
+ * Then, if a conversion with style E would have an exponent of X:
+ *
+ * If P &gt; X ≥ −4, the conversion is with style f and precision P − (X + 1).
+ * Otherwise, the conversion is with style e and precision P − 1.
+ *
+ * The c type specifier ignores padding and width
+ *
+ * Attempting to use a combination of the string and width specifiers with character sets that require more than one byte per character may result in unexpected results
+ *
+ * Variables will be co-erced to a suitable type for the specifier:
+ *
+ * Type Handling
+ *
+ *
+ *
+ * Type
+ * Specifiers
+ *
+ *
+ *
+ *
+ * string
+ * s
+ *
+ *
+ * integer
+ *
+ * d,
+ * u,
+ * c,
+ * o,
+ * x,
+ * X,
+ * b
+ *
+ *
+ *
+ * double
+ *
+ * g,
+ * G,
+ * e,
+ * E,
+ * f,
+ * F
+ *
+ *
+ *
+ *
+ *
+ * @param array $args
+ * @return string Return array values as a formatted string according to
+ * format.
+ * @throws StringsException
+ *
+ */
+function vsprintf(string $format, array $args): string
+{
+    error_clear_last();
+    $result = \vsprintf($format, $args);
     if ($result === false) {
         throw StringsException::createFromPhpError();
     }

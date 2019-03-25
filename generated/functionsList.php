@@ -990,6 +990,7 @@ return [
     'sha1_file',
     'sprintf',
     'substr',
+    'vsprintf',
     'swoole_async_write',
     'swoole_async_writefile',
     'swoole_event_defer',

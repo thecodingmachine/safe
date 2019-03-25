@@ -140,4 +140,21 @@ XML;
 
         $this->assertSame($result, $resultSafe);
     }
+
+    public function testArrayMultisort()
+    {
+        require_once __DIR__ . '/../../generated/array.php';
+
+        $integers = [3, 1, 2];
+        $integersSafe = [3, 1, 2];
+
+        $sort = [];
+        foreach ($integers as $k => $value) {
+            $sort[$k] = $value;
+        }
+        \array_multisort($sort, SORT_ASC, $integers);
+        array_multisort($sort, SORT_ASC, $integersSafe);
+
+        $this->assertEquals($integers, $integersSafe);
+    }
 }

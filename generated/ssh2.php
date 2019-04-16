@@ -617,3 +617,25 @@ function ssh2_sftp_unlink($sftp, string $filename): void
         throw Ssh2Exception::createFromPhpError();
     }
 }
+
+
+/**
+ * Request the SFTP subsystem from an already connected SSH2 server.
+ *
+ * @param resource $session An SSH connection link identifier, obtained from a call to
+ * ssh2_connect.
+ * @return resource This method returns an SSH2 SFTP resource for use with
+ * all other ssh2_sftp_*() methods and the
+ * ssh2.sftp:// fopen wrapper.
+ * @throws Ssh2Exception
+ *
+ */
+function ssh2_sftp($session)
+{
+    error_clear_last();
+    $result = \ssh2_sftp($session);
+    if ($result === false) {
+        throw Ssh2Exception::createFromPhpError();
+    }
+    return $result;
+}

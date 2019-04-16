@@ -647,8 +647,9 @@ function curl_multi_init()
  *
  * CURLOPT_DNS_USE_GLOBAL_CACHE
  *
- * TRUE to use a global DNS cache. This option is
- * not thread-safe and is enabled by default.
+ * TRUE to use a global DNS cache. This option is not thread-safe.
+ * It is conditionally enabled by default if PHP is built for non-threaded use
+ * (CLI, FCGI, Apache2-Prefork, etc.).
  *
  *
  *

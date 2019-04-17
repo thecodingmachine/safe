@@ -61,14 +61,15 @@ function ldap_add($link_identifier, string $dn, array $entry, array $serverctrls
  * @param resource $link_identifier
  * @param string $bind_rdn
  * @param string $bind_password
+ * @param array $serverctrls
  * @return resource Returns an LDAP result identifier.
  * @throws LdapException
  *
  */
-function ldap_bind_ext($link_identifier, ?string $bind_rdn = null, ?string $bind_password = null)
+function ldap_bind_ext($link_identifier, ?string $bind_rdn = null, ?string $bind_password = null, array $serverctrls = null)
 {
     error_clear_last();
-    $result = \ldap_bind_ext($link_identifier, $bind_rdn, $bind_password);
+    $result = \ldap_bind_ext($link_identifier, $bind_rdn, $bind_password, $serverctrls);
     if ($result === false) {
         throw LdapException::createFromPhpError();
     }
@@ -82,13 +83,14 @@ function ldap_bind_ext($link_identifier, ?string $bind_rdn = null, ?string $bind
  * @param resource $link_identifier An LDAP link identifier, returned by ldap_connect.
  * @param string $bind_rdn
  * @param string $bind_password
+ * @param array $serverctrls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
-function ldap_bind($link_identifier, ?string $bind_rdn = null, ?string $bind_password = null): void
+function ldap_bind($link_identifier, ?string $bind_rdn = null, ?string $bind_password = null, array $serverctrls = null): void
 {
     error_clear_last();
-    $result = \ldap_bind($link_identifier, $bind_rdn, $bind_password);
+    $result = \ldap_bind($link_identifier, $bind_rdn, $bind_password, $serverctrls);
     if ($result === false) {
         throw LdapException::createFromPhpError();
     }

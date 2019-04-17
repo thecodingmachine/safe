@@ -75,6 +75,12 @@ class Parameter
 
     public function isByReference(): bool
     {
+        if ($this->phpStanFunction !== null) {
+            $phpStanParameter = $this->phpStanFunction->getParameter($this->getParameter());
+            if ($phpStanParameter) {
+                return $phpStanParameter->isByReference();
+            }
+        }
         return ((string)$this->parameter->parameter['role']) === 'reference';
     }
 

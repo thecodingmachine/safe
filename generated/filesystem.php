@@ -346,6 +346,66 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
 
 
 /**
+ * Reads an entire file into an array.
+ *
+ * @param string $filename Path to the file.
+ * @param int $flags The optional parameter flags can be one, or
+ * more, of the following constants:
+ *
+ *
+ *
+ * FILE_USE_INCLUDE_PATH
+ *
+ *
+ *
+ * Search for the file in the include_path.
+ *
+ *
+ *
+ *
+ *
+ * FILE_IGNORE_NEW_LINES
+ *
+ *
+ *
+ * Omit newline at the end of each array element
+ *
+ *
+ *
+ *
+ *
+ * FILE_SKIP_EMPTY_LINES
+ *
+ *
+ *
+ * Skip empty lines
+ *
+ *
+ *
+ *
+ * @param resource $context
+ * @return array Returns the file in an array. Each element of the array corresponds to a
+ * line in the file, with the newline still attached. Upon failure,
+ * file returns FALSE.
+ * @throws FilesystemException
+ *
+ */
+function file(string $filename, int $flags = 0, $context = null): array
+{
+    error_clear_last();
+    if ($context !== null) {
+        $result = \file($filename, $flags, $context);
+    } else {
+        $result = \file($filename, $flags);
+    }
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  *
  *
  * @param string $filename Path to the file.

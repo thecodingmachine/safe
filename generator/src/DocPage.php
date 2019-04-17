@@ -83,6 +83,9 @@ class DocPage
         if (preg_match('/If\s+the\s+call\s+fails,\s+it\s+will\s+return\s+&false;/m', $file)) {
             return true;
         }
+        if (preg_match('/Upon\s+failure,?\s+\<function\>[\w_]{1,15}?\<\/function\>\s+returns\s+&false;/m', $file)) {
+            return true;
+        }
 
         return false;
     }

@@ -1,6 +1,6 @@
 # This rector file is replacing all core PHP functions with the equivalent "safe" functions 
 services:
-  Rector\Rector\Function_\FunctionReplaceRector:
+  Rector\Rector\Function_\RenameFunctionRector:
     $oldFunctionToNewFunction:
       apache_get_version: 'Safe\apache_get_version'
       apache_getenv: 'Safe\apache_getenv'

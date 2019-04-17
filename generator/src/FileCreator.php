@@ -127,7 +127,7 @@ return [\n");
         }
         fwrite($stream, "# This rector file is replacing all core PHP functions with the equivalent \"safe\" functions 
 services:
-  Rector\Rector\Function_\FunctionReplaceRector:
+  Rector\Rector\Function_\RenameFunctionRector:
     \$oldFunctionToNewFunction:
 ");
         foreach ($functionNames as $functionName) {

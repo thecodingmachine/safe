@@ -54,7 +54,7 @@ script:
     echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
     exit 1;
   fi
-- cd tests/rector/0.4 && composer install && composer rector && composer test && cd ../../..
+- cd generator/tests/rector/0.4 && composer install && composer rector && composer test && cd ../../../..
 
 after_script:
 - cd generator && travis_retry php vendor/bin/php-coveralls -v

@@ -241,13 +241,13 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
 {
     error_clear_last();
     if ($maxlen !== null) {
-        $result = \file_get_contents($filename, $use_include_path, $context, $offset, $maxlen);
+        $result = @\file_get_contents($filename, $use_include_path, $context, $offset, $maxlen);
     } elseif ($offset !== 0) {
-        $result = \file_get_contents($filename, $use_include_path, $context, $offset);
+        $result = @\file_get_contents($filename, $use_include_path, $context, $offset);
     } elseif ($context !== null) {
-        $result = \file_get_contents($filename, $use_include_path, $context);
+        $result = @\file_get_contents($filename, $use_include_path, $context);
     } else {
-        $result = \file_get_contents($filename, $use_include_path);
+        $result = @\file_get_contents($filename, $use_include_path);
     }
     if ($result === false) {
         throw FilesystemException::createFromPhpError();

@@ -78,16 +78,7 @@ function getcwd(): string
  * @param resource $context For a description of the context parameter,
  * refer to the streams section of
  * the manual.
- * @return resource Returns a directory handle resource on success.
- *
- * If path is not a valid directory or the
- * directory can not be opened due to permission restrictions or
- * filesystem errors, opendir returns FALSE and
- * generates a PHP error of level
- * E_WARNING.  You can suppress the error output of
- * opendir by prepending
- * '@' to the
- * front of the function name.
+ * @return resource Returns a directory handle resource on success
  * @throws DirException
  *
  */

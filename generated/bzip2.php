@@ -13,14 +13,13 @@ use Safe\Exceptions\Bzip2Exception;
  * @throws Bzip2Exception
  *
  */
-function bzclose($bz): int
+function bzclose($bz): void
 {
     error_clear_last();
     $result = \bzclose($bz);
     if ($result === false) {
         throw Bzip2Exception::createFromPhpError();
     }
-    return $result;
 }
 
 

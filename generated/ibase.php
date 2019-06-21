@@ -5,6 +5,24 @@ namespace Safe;
 use Safe\Exceptions\IbaseException;
 
 /**
+ * This function will discard a BLOB if it has not yet been closed by
+ * fbird_blob_close.
+ *
+ * @param resource $blob_handle A BLOB handle opened with fbird_blob_create.
+ * @throws IbaseException
+ *
+ */
+function fbird_blob_cancel($blob_handle): void
+{
+    error_clear_last();
+    $result = \fbird_blob_cancel($blob_handle);
+    if ($result === false) {
+        throw IbaseException::createFromPhpError();
+    }
+}
+
+
+/**
  *
  *
  * @param resource $service_handle The handle on the database server service.
@@ -31,6 +49,44 @@ function ibase_add_user($service_handle, string $user_name, string $password, st
     if ($result === false) {
         throw IbaseException::createFromPhpError();
     }
+}
+
+
+/**
+ * This function passes the arguments to the (remote) database server. There it starts a new backup process. Therefore you
+ * won't get any responses.
+ *
+ * @param resource $service_handle A previously opened connection to the database server.
+ * @param string $source_db The absolute file path to the database on the database server. You can also use a database alias.
+ * @param string $dest_file The path to the backup file on the database server.
+ * @param int $options Additional options to pass to the database server for backup.
+ * The options parameter can be a combination
+ * of the following constants:
+ * IBASE_BKP_IGNORE_CHECKSUMS,
+ * IBASE_BKP_IGNORE_LIMBO,
+ * IBASE_BKP_METADATA_ONLY,
+ * IBASE_BKP_NO_GARBAGE_COLLECT,
+ * IBASE_BKP_OLD_DESCRIPTIONS,
+ * IBASE_BKP_NON_TRANSPORTABLE or
+ * IBASE_BKP_CONVERT.
+ * Read the section about  for further information.
+ * @param bool $verbose Since the backup process is done on the database server, you don't have any chance
+ * to get its output. This argument is useless.
+ * @return mixed Returns TRUE on success.
+ *
+ * Since the backup process is done on the (remote) server, this function just passes the arguments to it.
+ * While the arguments are legal, you won't get FALSE.
+ * @throws IbaseException
+ *
+ */
+function ibase_backup($service_handle, string $source_db, string $dest_file, int $options = 0, bool $verbose = false)
+{
+    error_clear_last();
+    $result = \ibase_backup($service_handle, $source_db, $dest_file, $options, $verbose);
+    if ($result === false) {
+        throw IbaseException::createFromPhpError();
+    }
+    return $result;
 }
 
 
@@ -454,6 +510,47 @@ function ibase_pconnect(string $database = null, string $username = null, string
 
 
 /**
+ * This function passes the arguments to the (remote) database server. There it starts a new restore process. Therefore you
+ * won't get any responses.
+ *
+ * @param resource $service_handle A previously opened connection to the database server.
+ * @param string $source_file The absolute path on the server where the backup file is located.
+ * @param string $dest_db The path to create the new database on the server. You can also use database alias.
+ * @param int $options Additional options to pass to the database server for restore.
+ * The options parameter can be a combination
+ * of the following constants:
+ * IBASE_RES_DEACTIVATE_IDX,
+ * IBASE_RES_NO_SHADOW,
+ * IBASE_RES_NO_VALIDITY,
+ * IBASE_RES_ONE_AT_A_TIME,
+ * IBASE_RES_REPLACE,
+ * IBASE_RES_CREATE,
+ * IBASE_RES_USE_ALL_SPACE,
+ * IBASE_PRP_PAGE_BUFFERS,
+ * IBASE_PRP_SWEEP_INTERVAL,
+ * IBASE_RES_CREATE.
+ * Read the section about  for further information.
+ * @param bool $verbose Since the restore process is done on the database server, you don't have any chance
+ * to get its output. This argument is useless.
+ * @return mixed Returns TRUE on success.
+ *
+ * Since the restore process is done on the (remote) server, this function just passes the arguments to it.
+ * While the arguments are legal, you won't get FALSE.
+ * @throws IbaseException
+ *
+ */
+function ibase_restore($service_handle, string $source_file, string $dest_db, int $options = 0, bool $verbose = false)
+{
+    error_clear_last();
+    $result = \ibase_restore($service_handle, $source_file, $dest_db, $options, $verbose);
+    if ($result === false) {
+        throw IbaseException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Rolls back a transaction without closing it.
  *
  * @param resource $link_or_trans_identifier If called without an argument, this function rolls back the default
@@ -500,7 +597,29 @@ function ibase_rollback($link_or_trans_identifier = null): void
 /**
  *
  *
- * @param resource $service_handle
+ * @param string $host The name or ip address of the database host. You can define the port by adding
+ * '/' and port number. If no port is specified, port 3050 will be used.
+ * @param string $dba_username The name of any valid user.
+ * @param string $dba_password The user's password.
+ * @return resource Returns a Interbase / Firebird link identifier on success.
+ * @throws IbaseException
+ *
+ */
+function ibase_service_attach(string $host, string $dba_username, string $dba_password)
+{
+    error_clear_last();
+    $result = \ibase_service_attach($host, $dba_username, $dba_password);
+    if ($result === false) {
+        throw IbaseException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ *
+ *
+ * @param resource $service_handle A previously created connection to the database server.
  * @throws IbaseException
  *
  */

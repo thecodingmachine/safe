@@ -54,7 +54,8 @@ function json_encode($value, int $options = 0, int $depth = 512): string
 
 
 /**
- *
+ * Returns the error string of the last json_encode or json_decode
+ * call, which did not specify JSON_THROW_ON_ERROR.
  *
  * @return string Returns the error message on success, "No error" if no
  * error has occurred.

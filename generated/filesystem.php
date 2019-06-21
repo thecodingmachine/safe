@@ -215,7 +215,7 @@ function fflush($handle): void
  * supported by your OS to enhance performance.
  *
  * @param string $filename Name of the file to read.
- * @param bool $use_include_path As of PHP 5 the FILE_USE_INCLUDE_PATH constant can be used
+ * @param bool $use_include_path The FILE_USE_INCLUDE_PATH constant can be used
  * to trigger include path
  * search.
  * This is not possible if strict typing
@@ -779,7 +779,7 @@ function flock($handle, int $operation, ?int &$wouldblock = null): void
  * can be set to '1' or TRUE if you want to search for the file in the
  * include_path, too.
  * @param resource $context
- * @return resource Returns a file pointer resource on success.
+ * @return resource Returns a file pointer resource on success
  * @throws FilesystemException
  *
  */
@@ -1173,6 +1173,32 @@ function parse_ini_string(string $ini, bool $process_sections = false, int $scan
 {
     error_clear_last();
     $result = \parse_ini_string($ini, $process_sections, $scanner_mode);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Reads a file and writes it to the output buffer.
+ *
+ * @param string $filename The filename being read.
+ * @param bool $use_include_path You can use the optional second parameter and set it to TRUE, if
+ * you want to search for the file in the include_path, too.
+ * @param resource $context A context stream resource.
+ * @return int Returns the number of bytes read from the file on success
+ * @throws FilesystemException
+ *
+ */
+function readfile(string $filename, bool $use_include_path = false, $context = null): int
+{
+    error_clear_last();
+    if ($context !== null) {
+        $result = \readfile($filename, $use_include_path, $context);
+    } else {
+        $result = \readfile($filename, $use_include_path);
+    }
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }

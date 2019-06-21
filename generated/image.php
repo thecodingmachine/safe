@@ -938,6 +938,15 @@ function imagefilltoborder($image, int $x, int $y, int $border, int $color): voi
  *
  *
  *
+ *
+ * IMG_FILTER_SCATTER: Applies scatter effect
+ * to the image, use arg1 and
+ * arg2 to define the effect strength and
+ * additionally arg3 to only apply the
+ * on select pixel colors.
+ *
+ *
+ *
  * @param int $arg1
  *
  *
@@ -965,6 +974,13 @@ function imagefilltoborder($image, int $x, int $y, int $border, int $color): voi
  *
  *
  *
+ *
+ * IMG_FILTER_SCATTER: Effect substraction level.
+ * This must not be higher or equal to the addition level set with
+ * arg2.
+ *
+ *
+ *
  * @param int $arg2
  *
  *
@@ -978,10 +994,21 @@ function imagefilltoborder($image, int $x, int $y, int $border, int $color): voi
  *
  *
  *
+ *
+ * IMG_FILTER_SCATTER: Effect addition level.
+ *
+ *
+ *
  * @param int $arg3
  *
  *
  * IMG_FILTER_COLORIZE: Value of blue component.
+ *
+ *
+ *
+ *
+ * IMG_FILTER_SCATTER: Optional array indexed color values
+ * to apply effect at.
  *
  *
  *

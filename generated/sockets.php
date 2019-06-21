@@ -722,3 +722,63 @@ function socket_write($socket, string $buffer, int $length = 0): int
     }
     return $result;
 }
+
+
+/**
+ * Exports the WSAPROTOCOL_INFO structure into shared memory and returns
+ * an identifier to be used with socket_wsaprotocol_info_import. The
+ * exported ID is only valid for the given target_pid.
+ *
+ * @param resource  $socket A valid socket resource.
+ * @param int  $target_pid The ID of the process which will import the the socket.
+ * @return string Returns an identifier to be used for the import
+ * @throws SocketsException
+ *
+ */
+function socket_wsaprotocol_info_export(resource  $socket, int  $target_pid): string
+{
+    error_clear_last();
+    $result = \socket_wsaprotocol_info_export($socket, $target_pid);
+    if ($result === false) {
+        throw SocketsException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Imports a socket which has formerly been exported from another process.
+ *
+ * @param string $info_id The ID which has been returned by a former call to
+ * socket_wsaprotocol_info_export.
+ * @return resource Returns the socket resource
+ * @throws SocketsException
+ *
+ */
+function socket_wsaprotocol_info_import(string $info_id)
+{
+    error_clear_last();
+    $result = \socket_wsaprotocol_info_import($info_id);
+    if ($result === false) {
+        throw SocketsException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Releases the shared memory corresponding to the given info_id.
+ *
+ * @param string $info_id The ID which has been returned by a former call to
+ * socket_wsaprotocol_info_export.
+ * @throws SocketsException
+ *
+ */
+function socket_wsaprotocol_info_release(string $info_id): void
+{
+    error_clear_last();
+    $result = \socket_wsaprotocol_info_release($info_id);
+    if ($result === false) {
+        throw SocketsException::createFromPhpError();
+    }
+}

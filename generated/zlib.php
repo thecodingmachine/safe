@@ -562,6 +562,32 @@ function inflate_init(int $encoding, array $options = null)
 
 
 /**
+ * Reads a file, decompresses it and writes it to standard output.
+ *
+ * readgzfile can be used to read a file which is not in
+ * gzip format; in this case readgzfile will directly
+ * read from the file without decompression.
+ *
+ * @param string $filename The file name. This file will be opened from the filesystem and its
+ * contents written to standard output.
+ * @param int $use_include_path You can set this optional parameter to 1, if you
+ * want to search for the file in the include_path too.
+ * @return int Returns the number of (uncompressed) bytes read from the file on success
+ * @throws ZlibException
+ *
+ */
+function readgzfile(string $filename, int $use_include_path = 0): int
+{
+    error_clear_last();
+    $result = \readgzfile($filename, $use_include_path);
+    if ($result === false) {
+        throw ZlibException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Uncompress any raw/gzip/zlib encoded data.
  *
  * @param string $data

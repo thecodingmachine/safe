@@ -26,7 +26,7 @@ function msg_queue_exists(int $key): void
  * specified queue of the type specified by
  * desiredmsgtype.
  *
- * @param resource $queue
+ * @param resource $queue Message queue resource handle
  * @param int $desiredmsgtype If desiredmsgtype is 0, the message from the front
  * of the queue is returned. If desiredmsgtype is
  * greater than 0, then the first message of that type is returned.
@@ -127,9 +127,13 @@ function msg_remove_queue($queue): void
  * msgtype (which MUST be greater than 0) to
  * the message queue specified by queue.
  *
- * @param resource $queue
- * @param int $msgtype
- * @param mixed $message
+ * @param resource $queue Message queue resource handle
+ * @param int $msgtype The type of the message (MUST be greater than 0)
+ * @param mixed $message The body of the message.
+ *
+ * If serialize set to FALSE is supplied,
+ * MUST be of type: string, integer, float
+ * or bool. In other case a warning will be issued.
  * @param bool $serialize The optional serialize controls how the
  * message is sent.  serialize
  * defaults to TRUE which means that the message is
@@ -147,7 +151,7 @@ function msg_remove_queue($queue): void
  * errorcode to MSG_EAGAIN,
  * indicating that you should try to send your message again a little
  * later on.
- * @param int $errorcode
+ * @param int $errorcode If the function fails, the optional errorcode will be set to the value of the system errno variable.
  * @throws SemException
  *
  */

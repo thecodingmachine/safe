@@ -21,30 +21,37 @@ class DocPage
         $this->path = $_path;
     }
 
+    // Ignore function if it was removed before PHP 7.1
+    private function getIsDeprecated(string $file): bool
+    {
+        if (preg_match('/&warn\.deprecated\.function-(\d+-\d+-\d+)\.removed-(\d+-\d+-\d+)/', $file, $matches)) {
+            $removedVersion = $matches[2];
+            [$major, $minor] = explode('-', $removedVersion);
+            if ($major < 7 || ($major == 7 && $minor == 0)) {
+                return true;
+            }
+        }
+
+        if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches) && isset($matches[2])) {
+            $removedVersion = $matches[2];
+            [$major, $minor] = explode('-', $removedVersion);
+            if ($major < 7 || ($major == 7 && $minor == 0)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /*
-     * Detect function which didn't return FALSE on error.
-     *
-     * @return bool
+     * Detect function which return FALSE on error.
      */
     public function detectFalsyFunction(): bool
     {
         $file = file_get_contents($this->path);
 
-        if (preg_match('/&warn\.deprecated\.function-(\d+-\d+-\d+)\.removed-(\d+-\d+-\d+)/', $file, $matches)) {
-            $removedVersion = $matches[2];
-            [$major, $minor] = explode('-', $removedVersion);
-            if ($major < 7 || ($major == 7 && $minor == 0)) {
-                // Ignore function if it was removed before PHP 7.1
-                return false;
-            }
-        }
-        if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches) && isset($matches[2])) {
-            $removedVersion = $matches[2];
-            [$major, $minor] = explode('-', $removedVersion);
-            if ($major < 7 || ($major == 7 && $minor == 0)) {
-                // Ignore function if it was removed before PHP 7.1
-                return false;
-            }
+        if ($this->getIsDeprecated($file)) {
+            return false;
         }
 
         if (preg_match('/&false;\s+on\s+error/m', $file)) {
@@ -84,6 +91,24 @@ class DocPage
             return true;
         }
         if (preg_match('/Upon\s+failure,?\s+\<function\>[\w_]{1,15}?\<\/function\>\s+returns\s+&false;/m', $file)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /*
+     * Detect function which return NULL on error.
+     */
+    public function detectNullsyFunction(): bool
+    {
+        $file = \file_get_contents($this->path);
+
+        if ($this->getIsDeprecated($file)) {
+            return false;
+        }
+
+        if (preg_match('/&null;\s+on\s+failure/', $file)) {
             return true;
         }
 

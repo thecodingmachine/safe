@@ -26,4 +26,13 @@ class DocPageTest extends TestCase
         $this->assertTrue($mcryptDecrypt->detectFalsyFunction());
         $this->assertTrue($fsockopen->detectFalsyFunction());
     }
+
+    public function testDetectNullsyFunction()
+    {
+        $pregMatch = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-flip.xml');
+        $implode = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/implode.xml');
+
+        $this->assertTrue($pregMatch->detectNullsyFunction());
+        $this->assertFalse($implode->detectNullsyFunction());
+    }
 }

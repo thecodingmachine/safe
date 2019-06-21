@@ -142,7 +142,7 @@ class WritePhpFunction
 
         foreach ($params as $param) {
             $paramAsString = '';
-            if ($param->getType() !== 'mixed' && $param->getType() !== 'resource') {
+            if ($param->isTypeable()) {
                 if ($param->isNullable()) {
                     $paramAsString .= '?';
                 }

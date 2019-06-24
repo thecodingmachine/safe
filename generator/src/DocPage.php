@@ -93,6 +93,12 @@ class DocPage
         if (preg_match('/Upon\s+failure,?\s+\<function\>[\w_]{1,15}?\<\/function\>\s+returns\s+&false;/m', $file)) {
             return true;
         }
+        if (preg_match('/On\s+failure,\s+&false;\s+is\s+returned/m', $file)) {
+            return true;
+        }
+        if (preg_match('/on\s+success,\s+otherwise\s+&false;\s+is\s+returned/m', $file)) {
+            return true;
+        }
 
         return false;
     }

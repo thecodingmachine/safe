@@ -157,4 +157,9 @@ class Parameter
         $inner_xml = trim($inner_xml);
         return $inner_xml;
     }
+
+    public function isTypeable(): bool
+    {
+        return $this->getType() !== 'mixed' && $this->getType() !== 'resource' && \count(\explode("|", $this->getType())) < 2;
+    }
 }

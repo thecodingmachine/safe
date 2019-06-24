@@ -7,6 +7,8 @@ use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
 
 class Method
 {
+    const FALSY_TYPE = 1;
+    const NULLSY_TYPE = 2;
     /**
      * @var \SimpleXMLElement
      */
@@ -27,18 +29,28 @@ class Method
      * @var PhpStanFunctionMapReader
      */
     private $phpStanFunctionMapReader;
+    /**
+     * @var int
+     */
+    private $errorType;
 
-    public function __construct(\SimpleXMLElement $_functionObject, \SimpleXMLElement $rootEntity, string $moduleName, PhpStanFunctionMapReader $phpStanFunctionMapReader)
+    public function __construct(\SimpleXMLElement $_functionObject, \SimpleXMLElement $rootEntity, string $moduleName, PhpStanFunctionMapReader $phpStanFunctionMapReader, int $errorType)
     {
         $this->functionObject = $_functionObject;
         $this->rootEntity = $rootEntity;
         $this->moduleName = $moduleName;
         $this->phpStanFunctionMapReader = $phpStanFunctionMapReader;
+        $this->errorType = $errorType;
     }
 
     public function getFunctionName(): string
     {
         return $this->functionObject->methodname->__toString();
+    }
+
+    public function getErrorType(): int
+    {
+        return $this->errorType;
     }
 
     public function getReturnType(): string

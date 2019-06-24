@@ -93,6 +93,30 @@ function highlight_string(string $str, bool $return = false)
 
 
 /**
+ * Convert string from one codepage to another.
+ *
+ * @param int|string $in_codepage The codepage of the subject string.
+ * Either the codepage name or identifier.
+ * @param int|string $out_codepage The codepage to convert the subject string to.
+ * Either the codepage name or identifier.
+ * @param string $subject The string to convert.
+ * @return string The subject string converted to
+ * out_codepage, or NULL on failure.
+ * @throws MiscException
+ *
+ */
+function sapi_windows_cp_conv($in_codepage, $out_codepage, string $subject): string
+{
+    error_clear_last();
+    $result = \sapi_windows_cp_conv($in_codepage, $out_codepage, $subject);
+    if ($result === null) {
+        throw MiscException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Set the codepage of the current process.
  *
  * @param int $cp A codepage identifier.

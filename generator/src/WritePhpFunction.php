@@ -99,12 +99,24 @@ class WritePhpFunction
 
     private function generateExceptionCode(string $moduleName, Method $method) : string
     {
+        $errorValue = null;
+        switch ($method->getErrorType()) {
+            case Method::FALSY_TYPE:
+                $errorValue = 'false';
+                break;
+            case Method::NULLSY_TYPE:
+                $errorValue = 'null';
+                break;
+            default:
+                throw new \LogicException("Method doesn't have an error type");
+        }
+
         // Special case for CURL: we need the first argument of the method if this is a resource.
         if ($moduleName === 'Curl') {
             $params = $method->getParams();
             if (\count($params) > 0 && $params[0]->getParameter() === 'ch') {
                 return "
-    if (\$result === false) {
+    if (\$result === $errorValue) {
         throw CurlException::createFromCurlResource(\$ch);
     }
 ";
@@ -113,7 +125,7 @@ class WritePhpFunction
 
         $exceptionName = FileCreator::toExceptionName($moduleName);
         return "
-    if (\$result === false) {
+    if (\$result === $errorValue) {
         throw {$exceptionName}::createFromPhpError();
     }
 ";
@@ -130,7 +142,7 @@ class WritePhpFunction
 
         foreach ($params as $param) {
             $paramAsString = '';
-            if ($param->getType() !== 'mixed' && $param->getType() !== 'resource') {
+            if ($param->isTypeable()) {
                 if ($param->isNullable()) {
                     $paramAsString .= '?';
                 }

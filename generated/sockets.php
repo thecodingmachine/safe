@@ -46,6 +46,46 @@ function socket_accept($socket)
 
 
 /**
+ * Create a Socket resource, and bind it to the provided AddrInfo resource.  The return
+ * value of this function may be used with socket_listen.
+ *
+ * @param resource $addr Resource created from socket_addrinfo_lookup().
+ * @return resource|null Returns a Socket resource on success or NULL on failure.
+ * @throws SocketsException
+ *
+ */
+function socket_addrinfo_bind($addr)
+{
+    error_clear_last();
+    $result = \socket_addrinfo_bind($addr);
+    if ($result === null) {
+        throw SocketsException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Create a Socket resource, and connect it to the provided AddrInfo resource.  The return
+ * value of this function may be used with the rest of the socket functions.
+ *
+ * @param resource $addr Resource created from socket_addrinfo_lookup()
+ * @return resource|null Returns a Socket resource on success or NULL on failure.
+ * @throws SocketsException
+ *
+ */
+function socket_addrinfo_connect($addr)
+{
+    error_clear_last();
+    $result = \socket_addrinfo_connect($addr);
+    if ($result === null) {
+        throw SocketsException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Binds the name given in address to the socket
  * described by socket. This has to be done before
  * a connection is be established using socket_connect
@@ -333,6 +373,25 @@ function socket_getsockname($socket, ?string &$addr, ?int &$port = null): void
     if ($result === false) {
         throw SocketsException::createFromPhpError();
     }
+}
+
+
+/**
+ * Imports a stream that encapsulates a socket into a socket extension resource.
+ *
+ * @param resource $stream The stream resource to import.
+ * @return resource Returns FALSE or NULL on failure.
+ * @throws SocketsException
+ *
+ */
+function socket_import_stream($stream)
+{
+    error_clear_last();
+    $result = \socket_import_stream($stream);
+    if ($result === null) {
+        throw SocketsException::createFromPhpError();
+    }
+    return $result;
 }
 
 

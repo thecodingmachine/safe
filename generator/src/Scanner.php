@@ -94,7 +94,11 @@ class Scanner
             }
 
             $docPage = new DocPage($path);
-            if ($docPage->detectFalsyFunction()) {
+            $isFalsy = $docPage->detectFalsyFunction();
+            $isNullsy = $docPage->detectNullsyFunction();
+            if ($isFalsy || $isNullsy) {
+                $errorType = $isFalsy ? Method::FALSY_TYPE : Method::NULLSY_TYPE;
+
                 $functionObjects = $docPage->getMethodSynopsis();
                 if (count($functionObjects) > 1) {
                     $overloadedFunctions = array_merge($overloadedFunctions, \array_map(function ($functionObject) {
@@ -107,7 +111,7 @@ class Scanner
                 }
                 $rootEntity = $docPage->loadAndResolveFile();
                 foreach ($functionObjects as $functionObject) {
-                    $function = new Method($functionObject, $rootEntity, $docPage->getModule(), $phpStanFunctionMapReader);
+                    $function = new Method($functionObject, $rootEntity, $docPage->getModule(), $phpStanFunctionMapReader, $errorType);
                     if (isset($ignoredFunctions[$function->getFunctionName()])) {
                         continue;
                     }

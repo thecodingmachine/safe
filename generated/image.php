@@ -5,6 +5,79 @@ namespace Safe;
 use Safe\Exceptions\ImageException;
 
 /**
+ * The getimagesize function will determine the
+ * size of any supported given image file and return the dimensions along with
+ * the file type and a height/width text string to be used inside a
+ * normal HTML IMG tag and the
+ * correspondent HTTP content type.
+ *
+ * getimagesize can also return some more information
+ * in imageinfo parameter.
+ *
+ * @param string $filename This parameter specifies the file you wish to retrieve information
+ * about. It can reference a local file or (configuration permitting) a
+ * remote file using one of the supported streams.
+ * @param array $imageinfo This optional parameter allows you to extract some extended
+ * information from the image file. Currently, this will return the
+ * different JPG APP markers as an associative array.
+ * Some programs use these APP markers to embed text information in
+ * images. A very common one is to embed
+ * IPTC information in the APP13 marker.
+ * You can use the iptcparse function to parse the
+ * binary APP13 marker into something readable.
+ *
+ * The imageinfo only supports
+ * JFIF files.
+ * @return array Returns an array with up to 7 elements. Not all image types will include
+ * the channels and bits elements.
+ *
+ * Index 0 and 1 contains respectively the width and the height of the image.
+ *
+ * Index 2 is one of the IMAGETYPE_XXX constants indicating
+ * the type of the image.
+ *
+ * Index 3 is a text string with the correct
+ * height="yyy" width="xxx" string that can be used
+ * directly in an IMG tag.
+ *
+ * mime is the correspondant MIME type of the image.
+ * This information can be used to deliver images with the correct HTTP
+ * Content-type header:
+ *
+ * getimagesize and MIME types
+ *
+ *
+ * ]]>
+ *
+ *
+ *
+ * channels will be 3 for RGB pictures and 4 for CMYK
+ * pictures.
+ *
+ * bits is the number of bits for each color.
+ *
+ * For some image types, the presence of channels and
+ * bits values can be a bit
+ * confusing. As an example, GIF always uses 3 channels
+ * per pixel, but the number of bits per pixel cannot be calculated for an
+ * animated GIF with a global color table.
+ *
+ * On failure, FALSE is returned.
+ * @throws ImageException
+ *
+ */
+function getimagesize(string $filename, array &$imageinfo = null): array
+{
+    error_clear_last();
+    $result = \getimagesize($filename, $imageinfo);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * image2wbmp outputs or save a WBMP
  * version of the given image.
  *

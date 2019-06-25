@@ -316,6 +316,26 @@ function fsockopen(string $hostname, int $port = -1, ?int &$errno = null, ?strin
 
 
 /**
+ * gethostname gets the standard host name for
+ * the local machine.
+ *
+ * @return string Returns a string with the hostname on success, otherwise FALSE is
+ * returned.
+ * @throws NetworkException
+ *
+ */
+function gethostname(): string
+{
+    error_clear_last();
+    $result = \gethostname();
+    if ($result === false) {
+        throw NetworkException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * getprotobyname returns the protocol number
  * associated with the protocol name as per
  * /etc/protocols.

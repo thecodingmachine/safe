@@ -948,6 +948,38 @@ function fwrite($handle, string $string, int $length = null): int
  * shells.
  *
  * @param string $pattern The pattern. No tilde expansion or parameter substitution is done.
+ *
+ * Special characters:
+ *
+ *
+ *
+ * * - Matches zero of more characters.
+ *
+ *
+ *
+ *
+ * ? - Matches exactly one character (any character).
+ *
+ *
+ *
+ *
+ * [...] - Matches one character from a group of
+ * characters. If the first character is !,
+ * matches any character not in the group.
+ *
+ *
+ *
+ *
+ * ... - Matches all the subdirectories, recursively.
+ *
+ *
+ *
+ *
+ * \ - Escapes the following character,
+ * except when the GLOB_NOESCAPE flag is used.
+ *
+ *
+ *
  * @param int $flags Valid flags:
  *
  *

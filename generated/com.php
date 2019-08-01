@@ -120,13 +120,7 @@ function com_load_typelib(string $typelib_name, bool $case_sensitive = true): vo
 function com_print_typeinfo(object $comobject, string $dispinterface = null, bool $wantsink = false): void
 {
     error_clear_last();
-    if ($wantsink !== false) {
-        $result = \com_print_typeinfo($comobject, $dispinterface, $wantsink);
-    } elseif ($dispinterface !== null) {
-        $result = \com_print_typeinfo($comobject, $dispinterface);
-    } else {
-        $result = \com_print_typeinfo($comobject);
-    }
+    $result = \com_print_typeinfo($comobject, $dispinterface, $wantsink);
     if ($result === false) {
         throw ComException::createFromPhpError();
     }

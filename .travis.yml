@@ -52,6 +52,10 @@ script:
   else
     # Uncommitted changes
     echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
+    echo "Detected changes:"
+    git status
+    git diff
+    echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
     exit 1;
   fi
 - cd generator/tests/rector/0.4 && composer install && composer rector && composer test && cd ../../../..

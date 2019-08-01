@@ -56,8 +56,10 @@ function closelog(): void
  * Records for the Authoritative Name Servers.
  * @param array $addtl Passed by reference and, if given, will be populated with any
  * Additional Records.
- * @param bool $raw In case of raw mode, we query only the requested type instead of looping
- * type by type before going with the additional info stuff.
+ * @param bool $raw The type will be interpreted as a raw DNS type ID
+ * (the DNS_* constants cannot be used).
+ * The return value will contain a data key, which needs
+ * to be manually parsed.
  * @return array This function returns an array of associative arrays. Each associative array contains
  * at minimum the following keys:
  *

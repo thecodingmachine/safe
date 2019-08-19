@@ -201,8 +201,6 @@ return [
     'ftp_ssl_connect',
     'ftp_systype',
     'create_function',
-    'forward_static_call_array',
-    'forward_static_call',
     'register_tick_function',
     'gmp_binomial',
     'gmp_export',

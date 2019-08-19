@@ -800,7 +800,7 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
 
 /**
  * fputcsv formats a line (passed as a
- * fields array) as CSV and write it (terminated by a
+ * fields array) as CSV and writes it (terminated by a
  * newline) to the specified file handle.
  *
  * @param resource $handle The file pointer must be valid, and must point to

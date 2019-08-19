@@ -12,4 +12,6 @@ return [
     'call_user_func_array',
     'mb_check_encoding',
     'array_search',
+    'forward_static_call',
+    'forward_static_call_array',
 ];

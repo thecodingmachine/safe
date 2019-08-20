@@ -43,7 +43,7 @@ function finfo_close($finfo): void
  * @throws FileinfoException
  *
  */
-function finfo_open(int $options = FILEINFO_NONE, ?string $magic_file = null)
+function finfo_open(int $options = FILEINFO_NONE, string $magic_file = "")
 {
     error_clear_last();
     $result = \finfo_open($options, $magic_file);

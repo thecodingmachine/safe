@@ -369,6 +369,7 @@ services:
       getmypid: 'Safe\getmypid'
       getmyuid: 'Safe\getmyuid'
       getopt: 'Safe\getopt'
+      ini_get: 'Safe\ini_get'
       ini_set: 'Safe\ini_set'
       phpcredits: 'Safe\phpcredits'
       phpinfo: 'Safe\phpinfo'

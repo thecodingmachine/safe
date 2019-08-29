@@ -289,6 +289,27 @@ function getopt(string $options, array $longopts = null, ?int &$optind = null): 
 
 
 /**
+ * Returns the value of the configuration option on success.
+ *
+ * @param string $varname The configuration option name.
+ * @return string Returns the value of the configuration option as a string on success, or an
+ * empty string for null values. Returns FALSE if the
+ * configuration option doesn't exist.
+ * @throws InfoException
+ *
+ */
+function ini_get(string $varname): string
+{
+    error_clear_last();
+    $result = \ini_get($varname);
+    if ($result === false) {
+        throw InfoException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Sets the value of the given configuration option.  The configuration option
  * will keep this new value during the script's execution, and will be restored
  * at the script's ending.

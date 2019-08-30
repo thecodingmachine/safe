@@ -99,6 +99,9 @@ class DocPage
         if (preg_match('/on\s+success,\s+otherwise\s+&false;\s+is\s+returned/m', $file)) {
             return true;
         }
+        if (preg_match('/Returns.*on success[.\s\S]+Returns &false;\s+if/m', $file)) {
+            return true;
+        }
 
         return false;
     }

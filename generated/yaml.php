@@ -23,7 +23,7 @@ use Safe\Exceptions\YamlException;
  * @throws YamlException
  *
  */
-function yaml_parse_file(string $filename, int $pos = 0, ?int &$ndocs = null, array $callbacks = null)
+function yaml_parse_file(string $filename, int $pos = 0, int &$ndocs = null, array $callbacks = null)
 {
     error_clear_last();
     $result = \yaml_parse_file($filename, $pos, $ndocs, $callbacks);

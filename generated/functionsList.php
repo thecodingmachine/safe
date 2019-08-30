@@ -366,6 +366,7 @@ return [
     'getmypid',
     'getmyuid',
     'getopt',
+    'ini_get',
     'ini_set',
     'phpcredits',
     'phpinfo',

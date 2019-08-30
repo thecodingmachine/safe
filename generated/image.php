@@ -641,6 +641,277 @@ function imagecopyresized($dst_image, $src_image, int $dst_x, int $dst_y, int $s
 
 
 /**
+ * imagecreate returns an image identifier
+ * representing a blank image of specified size.
+ *
+ * In general, we recommend the use of
+ * imagecreatetruecolor instead of
+ * imagecreate so that image processing occurs on the
+ * highest quality image possible. If you want to output a palette image, then
+ * imagetruecolortopalette should be called immediately
+ * before saving the image with imagepng or
+ * imagegif.
+ *
+ * @param int $width The image width.
+ * @param int $height The image height.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreate(int $width, int $height)
+{
+    error_clear_last();
+    $result = \imagecreate($width, $height);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * imagecreatefrombmp returns an image identifier
+ * representing the image obtained from the given filename.
+ *
+ * @param string $filename Path to the BMP image.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatefrombmp(string $filename)
+{
+    error_clear_last();
+    $result = \imagecreatefrombmp($filename);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Create a new image from GD file or URL.
+ *
+ * @param string $filename Path to the GD file.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatefromgd(string $filename)
+{
+    error_clear_last();
+    $result = \imagecreatefromgd($filename);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Create a new image from GD2 file or URL.
+ *
+ * @param string $filename Path to the GD2 image.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatefromgd2(string $filename)
+{
+    error_clear_last();
+    $result = \imagecreatefromgd2($filename);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Create a new image from a given part of GD2 file or URL.
+ *
+ * @param string $filename Path to the GD2 image.
+ * @param int $srcX x-coordinate of source point.
+ * @param int $srcY y-coordinate of source point.
+ * @param int $width Source width.
+ * @param int $height Source height.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatefromgd2part(string $filename, int $srcX, int $srcY, int $width, int $height)
+{
+    error_clear_last();
+    $result = \imagecreatefromgd2part($filename, $srcX, $srcY, $width, $height);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * imagecreatefromgif returns an image identifier
+ * representing the image obtained from the given filename.
+ *
+ * @param string $filename Path to the GIF image.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatefromgif(string $filename)
+{
+    error_clear_last();
+    $result = \imagecreatefromgif($filename);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * imagecreatefromjpeg returns an image identifier
+ * representing the image obtained from the given filename.
+ *
+ * @param string $filename Path to the JPEG image.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatefromjpeg(string $filename)
+{
+    error_clear_last();
+    $result = \imagecreatefromjpeg($filename);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * imagecreatefrompng returns an image identifier
+ * representing the image obtained from the given filename.
+ *
+ * @param string $filename Path to the PNG image.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatefrompng(string $filename)
+{
+    error_clear_last();
+    $result = \imagecreatefrompng($filename);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * imagecreatefromwbmp returns an image identifier
+ * representing the image obtained from the given filename.
+ *
+ * @param string $filename Path to the WBMP image.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatefromwbmp(string $filename)
+{
+    error_clear_last();
+    $result = \imagecreatefromwbmp($filename);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * imagecreatefromwebp returns an image identifier
+ * representing the image obtained from the given filename.
+ *
+ * @param string $filename Path to the WebP image.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatefromwebp(string $filename)
+{
+    error_clear_last();
+    $result = \imagecreatefromwebp($filename);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * imagecreatefromxbm returns an image identifier
+ * representing the image obtained from the given filename.
+ *
+ * @param string $filename Path to the XBM image.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatefromxbm(string $filename)
+{
+    error_clear_last();
+    $result = \imagecreatefromxbm($filename);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * imagecreatefromxpm returns an image identifier
+ * representing the image obtained from the given filename.
+ *
+ * @param string $filename Path to the XPM image.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatefromxpm(string $filename)
+{
+    error_clear_last();
+    $result = \imagecreatefromxpm($filename);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * imagecreatetruecolor returns an image identifier
+ * representing a black image of the specified size.
+ *
+ * @param int $width Image width.
+ * @param int $height Image height.
+ * @return resource Returns an image resource identifier on success, FALSE on errors.
+ * @throws ImageException
+ *
+ */
+function imagecreatetruecolor(int $width, int $height)
+{
+    error_clear_last();
+    $result = \imagecreatetruecolor($width, $height);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Crops an image to the given rectangular area and returns the resulting image.
  * The given image is not modified.
  *

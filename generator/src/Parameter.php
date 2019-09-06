@@ -21,49 +21,66 @@ class Parameter
     }
 
     /**
-     * Returns the type as declared in the doc.
-     * @return string
+     * Tries to identify the typehint from the doc-block parameter
      */
-    public function getType(): string
+    public function getSignatureType(): string
     {
-        $type = $this->parameter->type->__toString();
-        $strType = Type::toRootNamespace($type);
-        if ($strType !== 'mixed' && $strType !== 'resource' && $this->phpStanFunction !== null) {
-            $phpStanParameter = $this->phpStanFunction->getParameter($this->getParameter());
-            if ($phpStanParameter) {
-                // Let's make the parameter nullable if it is by reference and is used only for writing.
-                if ($phpStanParameter->isWriteOnly()) {
-                    $strType = '?'.$strType;
-                }
-            }
+        $coreType = $this->getDocBlockType();
+        //list all types in the doc-block
+        $types = explode('|', $coreType);
+        //no typehint exists for thoses cases
+        if (in_array('resource', $types) || in_array('mixed', $types)) {
+            return '';
         }
-        return $strType;
+        //remove 'null' from the list to identify if the signature type should be nullable
+        $nullablePosition = array_search('null', $types);
+        if ($nullablePosition !== false) {
+            array_splice($types, $nullablePosition, 1);
+        }
+        if (count($types) === 0) {
+            throw new \RuntimeException('Error when trying to extract parameter type');
+        }
+        //if there is still several types, no typehint
+        if (count($types) > 1) {
+            return '';
+        }
+
+        $finalType = $types[0];
+        //strip callable type of its possible parenthesis and return (ex: callable(): void)
+        if (\strpos($finalType, 'callable(') > -1) {
+            $finalType = 'callable';
+        } elseif (strpos($finalType, '[]') !== false) {
+            $finalType = 'iterable'; //generics cannot be typehinted and have to be turned into iterable
+        }
+        return ($nullablePosition !== false ? '?' : '').$finalType;
     }
 
     /**
-     * Returns the type as declared in the doc.
-     * @return string
+     * Try to fetch the complete type used in the doc_block, first from phpstan, then from the regular documentation
      */
-    public function getBestType(): string
+    public function getDocBlockType(): string
     {
-        // Get the type from PhpStan database first, then from the php doc.
         if ($this->phpStanFunction !== null) {
             $phpStanParameter = $this->phpStanFunction->getParameter($this->getParameter());
             if ($phpStanParameter) {
                 try {
-                    return $phpStanParameter->getType();
+                    $type = $phpStanParameter->getType();
+                    // Let's make the parameter nullable if it is by reference and is used only for writing.
+                    if ($phpStanParameter->isWriteOnly() && $type !== 'resource' && $type !== 'mixed') {
+                        $type = $type.'|null';
+                    }
+                    return $type;
                 } catch (EmptyTypeException $e) {
-                    // If the type is empty in PHPStan, let's fallback to documentation.
-                    return $this->getType();
+                    // If the type is empty in PHPStan, we fallback to documentation.
+                    // @ignoreException
                 }
             }
         }
-        return $this->getType();
+
+        $type = $this->parameter->type->__toString();
+        return Type::toRootNamespace($type);
     }
 
-    /*
-     * @return string
-     */
     public function getParameter(): string
     {
         if ($this->isVariadic()) {
@@ -156,10 +173,5 @@ class Parameter
         $inner_xml = str_replace(['<'.$element_name.'>', '</'.$element_name.'>', '<'.$element_name.'/>'], '', $inner_xml);
         $inner_xml = trim($inner_xml);
         return $inner_xml;
-    }
-
-    public function isTypeable(): bool
-    {
-        return $this->getType() !== 'mixed' && $this->getType() !== 'resource' && \count(\explode("|", $this->getType())) < 2;
     }
 }

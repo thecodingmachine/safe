@@ -14,4 +14,5 @@ return [
     'array_search',
     'forward_static_call',
     'forward_static_call_array',
+    'readdir', //the documentation is false: the function return false at the end of the iteration
 ];

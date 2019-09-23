@@ -85,7 +85,6 @@ return [
     'chroot',
     'getcwd',
     'opendir',
-    'readdir',
     'rewinddir',
     'scandir',
     'eio_busy',

@@ -88,7 +88,6 @@ services:
       chroot: 'Safe\chroot'
       getcwd: 'Safe\getcwd'
       opendir: 'Safe\opendir'
-      readdir: 'Safe\readdir'
       rewinddir: 'Safe\rewinddir'
       scandir: 'Safe\scandir'
       eio_busy: 'Safe\eio_busy'

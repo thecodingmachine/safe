@@ -9,4 +9,5 @@ return [
     'apcu_fetch',
     'preg_replace',
     'openssl_encrypt',
+    'readdir',
 ];

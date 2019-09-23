@@ -7,7 +7,7 @@ use DateTimeInterface;
 use DateTimeZone;
 use Safe\Exceptions\DatetimeException;
 
-//this class is used to implement a safe version of the Datetime
+/** this class implements a safe version of the Datetime class */
 class DateTime extends \DateTime
 {
     //switch from regular datetime to safe version

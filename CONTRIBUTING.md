@@ -36,6 +36,13 @@ $ cd generator
 $ php ./safe.php generate
 ```
 
+## Special cases
+
+In some cases, automatic generation is too difficult to execute and the function has to be written manually.
+This should however only be done exceptionally in order to keep the project easy to maintain.
+The most important examples are all the functions of the classes `DateTime` and `DateTimeImmutable`, since the entire classes have to be overloaded manually.
+All custom objects must be located in lib/ and custom functions must be in lib/special_cases.php.
+
 ### Submitting a PR
 
 The continuous integration hooks will regenerate all the functions and check that the result is exactly what has been

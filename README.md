@@ -59,6 +59,9 @@ $content = file_get_contents('foobar.json');
 $foobar = json_decode($content);
 ```
 
+All PHP functions that can return `false` on error are part of Safe. 
+In addition, Safe also provide 2 'Safe' classes: `Safe\DateTime` and `Safe\DateTimeImmutable` whose methods will throw exceptions instead of returning false.
+
 ## PHPStan integration
 
 > Yeah... but I must explicitly think about importing the "safe" variant of the function, for each and every file of my application.

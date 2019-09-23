@@ -7,6 +7,7 @@ use Safe\Exceptions\PcreException;
 
 class SpecialCasesTest extends TestCase
 {
+
     public function testPregReplace()
     {
         require_once __DIR__.'/../../lib/special_cases.php';

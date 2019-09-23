@@ -53,14 +53,15 @@ function apcu_cas(string $key, int $old, int $new): void
  * @param int $step The step, or value to decrease.
  * @param bool $success Optionally pass the success or fail boolean value to
  * this referenced variable.
+ * @param int $ttl TTL to use if the operation inserts a new value (rather than decrementing an existing one).
  * @return int Returns the current value of key's value on success
  * @throws ApcuException
  *
  */
-function apcu_dec(string $key, int $step = 1, ?bool &$success = null): int
+function apcu_dec(string $key, int $step = 1, ?bool &$success = null, int $ttl = 0): int
 {
     error_clear_last();
-    $result = \apcu_dec($key, $step, $success);
+    $result = \apcu_dec($key, $step, $success, $ttl);
     if ($result === false) {
         throw ApcuException::createFromPhpError();
     }
@@ -96,14 +97,15 @@ function apcu_delete($key): void
  * @param int $step The step, or value to increase.
  * @param bool $success Optionally pass the success or fail boolean value to
  * this referenced variable.
+ * @param int $ttl TTL to use if the operation inserts a new value (rather than incrementing an existing one).
  * @return int Returns the current value of key's value on success
  * @throws ApcuException
  *
  */
-function apcu_inc(string $key, int $step = 1, ?bool &$success = null): int
+function apcu_inc(string $key, int $step = 1, ?bool &$success = null, int $ttl = 0): int
 {
     error_clear_last();
-    $result = \apcu_inc($key, $step, $success);
+    $result = \apcu_inc($key, $step, $success, $ttl);
     if ($result === false) {
         throw ApcuException::createFromPhpError();
     }

@@ -16,7 +16,12 @@ class DateTime extends \DateTime
         return new self($datetime->format('Y-m-d H:i:s'), $datetime->getTimezone());
     }
 
-    public static function createFromFormat($format, $time, DateTimeZone $timezone = null): self
+    /**
+     * @param string $format
+     * @param string $time
+     * @param DateTimeZone|null $timezone
+     */
+    public static function createFromFormat($format, $time, $timezone = null): self
     {
         $datetime = parent::createFromFormat($format, $time, $timezone);
         if ($datetime === false) {

@@ -8,16 +8,41 @@ use DateTimeInterface;
 use DateTimeZone;
 use Safe\Exceptions\DatetimeException;
 
-//this class is used to implement a safe version of the DatetimeImmutable class
+/**
+ * This class is used to implement a safe version of the DatetimeImmutable class.
+ * While it technically overloads \DateTimeImmutable for typehint compatibility,
+ * it is actually used as a wrapper of \DateTimeImmutable, mostly to be able to overwrite functions like getTimestamp() while still being able to edit milliseconds via setTime().
+ */
 class DateTimeImmutable extends \DateTimeImmutable
 {
+    /**
+     * @var \DateTimeImmutable
+     */
+    private $innerDateTime;
+
+    public function __construct($time = 'now', $timezone = null)
+    {
+        parent::__construct();
+        $this->innerDateTime = new parent($time, $timezone);
+    }
+
     //switch from regular datetime to safe version
     private static function createFromRegular(\DateTimeImmutable $datetime): self
     {
-        return new self($datetime->format('Y-m-d H:i:s'), $datetime->getTimezone());
+        $safeDatetime = new self();
+        $safeDatetime->innerDateTime = $datetime;
+        return $safeDatetime;
     }
 
-    public static function createFromFormat($format, $time, DateTimeZone $timezone = null): self
+    /////////////////////////////////////////////////////////////////////////////
+    // overload functions with false errors
+
+    /**
+     * @param string $format
+     * @param string $time
+     * @param DateTimeZone|null $timezone
+     */
+    public static function createFromFormat($format, $time, $timezone = null): self
     {
         $datetime = parent::createFromFormat($format, $time, $timezone);
         if ($datetime === false) {
@@ -28,54 +53,38 @@ class DateTimeImmutable extends \DateTimeImmutable
 
     public function format($format): string
     {
-        $result = parent::format($format);
+        /** @var string|false $result */
+        $result = $this->innerDateTime->format($format);
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }
         return $result;
     }
 
-    /**
-     * @param DateTimeInterface $datetime2 <p>The date to compare to.</p>
-     * @param bool $absolute [optional] <p>Should the interval be forced to be positive?</p>
-     * @return DateInterval
-     */
     public function diff($datetime2, $absolute = false): DateInterval
     {
         /** @var \DateInterval|false $result */
-        $result = parent::diff($datetime2, $absolute);
+        $result = $this->innerDateTime->diff($datetime2, $absolute);
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }
         return $result;
     }
 
-    /**
-     * @param string $modify  <p>A date/time string. Valid formats are explained in
-     * {@link https://secure.php.net/manual/en/datetime.formats.php Date and Time Formats}.</p>
-     * @return DateTimeImmutable
-     */
     public function modify($modify): self
     {
         /** @var \DateTimeImmutable|false $result */
-        $result = parent::modify($modify);
+        $result = $this->innerDateTime->modify($modify);
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }
         return self::createFromRegular($result); //we have to recreate a safe datetime because modify create a new instance of \DateTimeImmutable
     }
 
-    /**
-     * @param int $year <p>Year of the date.</p>
-     * @param int $month <p>Month of the date.</p>
-     * @param int $day <p>Day of the date.</p>
-     * @return DateTimeImmutable
-     *
-     */
     public function setDate($year, $month, $day): self
     {
         /** @var \DateTimeImmutable|false $result */
-        $result = parent::setDate($year, $month, $day);
+        $result = $this->innerDateTime->setDate($year, $month, $day);
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }
@@ -85,7 +94,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     public function setISODate($year, $week, $day = 1): self
     {
         /** @var \DateTimeImmutable|false $result */
-        $result = parent::setISODate($year, $week, $day);
+        $result = $this->innerDateTime->setISODate($year, $week, $day);
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }
@@ -95,7 +104,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     public function setTime($hour, $minute, $second = 0, $microseconds = 0): self
     {
         /** @var \DateTimeImmutable|false $result */
-        $result = parent::setTime($hour, $minute, $second, $microseconds);
+        $result = $this->innerDateTime->setTime($hour, $minute, $second, $microseconds);
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }
@@ -105,7 +114,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     public function setTimestamp($unixtimestamp): self
     {
         /** @var \DateTimeImmutable|false $result */
-        $result = parent::setTimestamp($unixtimestamp);
+        $result = $this->innerDateTime->setTimestamp($unixtimestamp);
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }
@@ -115,7 +124,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     public function setTimezone($timezone): self
     {
         /** @var \DateTimeImmutable|false $result */
-       $result = parent::setTimezone($timezone);
+        $result = $this->innerDateTime->setTimezone($timezone);
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }
@@ -125,18 +134,29 @@ class DateTimeImmutable extends \DateTimeImmutable
     public function sub($interval): self
     {
         /** @var \DateTimeImmutable|false $result */
-        $result = parent::sub($interval);
+        $result = $this->innerDateTime->sub($interval);
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }
         return self::createFromRegular($result);
     }
 
-    //theses functions are overload to actually return a safe instance, since datetimeimmutable re-instante itself
+    public function getOffset(): int
+    {
+        /** @var int|false $result */
+        $result = $this->innerDateTime->getOffset();
+        if ($result === false) {
+            throw DatetimeException::createFromPhpError();
+        }
+        return $result;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //overload getters to use the inner datetime immutable instead of itself
 
     public function add($interval): self
     {
-        return self::createFromRegular(parent::add($interval));
+        return self::createFromRegular($this->innerDateTime->add($interval));
     }
 
     public static function createFromMutable($dateTime): self
@@ -147,5 +167,15 @@ class DateTimeImmutable extends \DateTimeImmutable
     public static function __set_state(array $array): self
     {
         return self::createFromRegular(parent::__set_state($array));
+    }
+
+    public function getTimezone(): DateTimeZone
+    {
+        return $this->innerDateTime->getTimezone();
+    }
+
+    public function getTimestamp(): int
+    {
+        return $this->innerDateTime->getTimestamp();
     }
 }

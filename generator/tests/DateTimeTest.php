@@ -23,7 +23,7 @@ class DateTimeTest extends TestCase
         $datetime = DateTime::createFromFormat('lol', 'super');
     }
 
-    public function testSafeDatetimePreserveTimeAndTimezone(): void
+    public function testCreateFromFormatPreserveTimeAndTimezone(): void
     {
         $timezone = new \DateTimeZone('Pacific/Chatham');
         $datetime = DateTime::createFromFormat('d-m-Y', '20-03-2006', $timezone);
@@ -32,7 +32,7 @@ class DateTimeTest extends TestCase
         $this->assertEquals($timezone, $datetime->getTimezone());
     }
 
-    public function testSafeDatetimeSetDate(): void
+    public function testSetDate(): void
     {
         $datetime = new DateTime();
         $datetime = $datetime->setDate(2017, 4, 6);
@@ -44,7 +44,7 @@ class DateTimeTest extends TestCase
         //todo: test an error case
     }
 
-    public function testSafeDatetimeModify(): void
+    public function testModify(): void
     {
         $datetime = new DateTime();
         $datetime = $datetime->setDate(2017, 4, 6);

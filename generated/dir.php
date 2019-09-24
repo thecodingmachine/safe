@@ -98,34 +98,6 @@ function opendir(string $path, $context = null)
 
 
 /**
- * Returns the name of the next entry in the directory. The
- * entries are returned in the order in which they are stored by
- * the filesystem.
- *
- * @param resource $dir_handle The directory handle resource previously opened
- * with opendir. If the directory handle is
- * not specified, the last link opened by opendir
- * is assumed.
- * @return string Returns the entry name on success.
- * @throws DirException
- *
- */
-function readdir($dir_handle = null): string
-{
-    error_clear_last();
-    if ($dir_handle !== null) {
-        $result = \readdir($dir_handle);
-    } else {
-        $result = \readdir();
-    }
-    if ($result === false) {
-        throw DirException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Resets the directory stream indicated by
  * dir_handle to the beginning of the
  * directory.

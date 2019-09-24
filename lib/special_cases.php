@@ -162,6 +162,22 @@ function preg_replace($pattern, $replacement, $subject, int $limit = -1, int &$c
 }
 
 /**
+ * @param resource|null $dir_handle
+ * @return string|false
+ * @deprecated
+ * This function is only in safe because the php documentation is wrong
+ */
+function readdir($dir_handle = null)
+{
+    if ($dir_handle !== null) {
+        $result = \readdir($dir_handle);
+    } else {
+        $result = \readdir();
+    }
+    return $result;
+}
+
+/**
  * Encrypts given data with given method and key, returns a raw
  * or base64 encoded string
  *

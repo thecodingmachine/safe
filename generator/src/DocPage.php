@@ -124,6 +124,9 @@ class DocPage
         if (preg_match('/&null;\s+on\s+failure/', $file)) {
             return true;
         }
+        if (preg_match('/&null;\s+if\s+an\s+error\s+occurs/', $file)) {
+            return true;
+        }
 
         return false;
     }

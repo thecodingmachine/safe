@@ -31,6 +31,8 @@ services:
       array_combine: 'Safe\array_combine'
       array_flip: 'Safe\array_flip'
       array_multisort: 'Safe\array_multisort'
+      array_replace_recursive: 'Safe\array_replace_recursive'
+      array_replace: 'Safe\array_replace'
       array_walk_recursive: 'Safe\array_walk_recursive'
       arsort: 'Safe\arsort'
       asort: 'Safe\asort'

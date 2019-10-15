@@ -31,7 +31,7 @@ function eio_busy(int $delay, int $pri = EIO_PRI_DEFAULT, callable $callback = n
 
 
 /**
- * eio_chmod changes file, or direcrory permissions. The
+ * eio_chmod changes file, or directory permissions. The
  * new permissions are specified by mode.
  *
  * @param string $path Path to the target file or directory

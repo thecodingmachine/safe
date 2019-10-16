@@ -29,4 +29,11 @@ class PhpStanFunctionMapReaderTest extends TestCase
         $this->assertTrue($parameters['success']->isByReference());
         $this->assertTrue($parameters['success']->isOptional());
     }
+    
+    public function testVersion74ComesFirst(): void
+    {
+        $mapReader = new PhpStanFunctionMapReader();
+        $this->assertTrue($mapReader->hasFunction('password_hash'));
+        $this->assertEquals(['string|false', 'password'=>'string', 'algo'=>'string|null', 'options='=>'array'], $mapReader->getFunction('password_hash'));
+    }
 }

@@ -146,13 +146,6 @@ function cli_set_process_title(string $title): void
  * /usr/local/php/lib/php/extensions/debug-non-zts-20010901
  * or
  * /usr/local/php/lib/php/extensions/no-debug-zts-20010901.
- * @return int Returns TRUE on success. If the functionality of loading modules is not available
- * or has been disabled (either by setting
- * enable_dl off or by enabling safe mode
- * in php.ini) an E_ERROR is emitted
- * and execution is stopped. If dl fails because the
- * specified library couldn't be loaded, in addition to FALSE an
- * E_WARNING message is emitted.
  * @throws InfoException
  *
  */

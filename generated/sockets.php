@@ -789,7 +789,7 @@ function socket_write($socket, string $buffer, int $length = 0): int
  * exported ID is only valid for the given target_pid.
  *
  * @param resource  $socket A valid socket resource.
- * @param int  $target_pid The ID of the process which will import the socket.
+ * @param int $target_pid The ID of the process which will import the socket.
  * @return string Returns an identifier to be used for the import
  * @throws SocketsException
  *

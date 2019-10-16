@@ -264,7 +264,7 @@ function ldap_exop_whoami($link): string
  * @throws LdapException
  *
  */
-function ldap_exop($link, string $reqoid, string $reqdata = null, ?array $serverctrls = null, string &$retdata = null, string &$retoid = null)
+function ldap_exop($link, string $reqoid, string $reqdata = null, ?array $serverctrls = null, ?string &$retdata = null, ?string &$retoid = null)
 {
     error_clear_last();
     $result = \ldap_exop($link, $reqoid, $reqdata, $serverctrls, $retdata, $retoid);
@@ -1083,7 +1083,7 @@ function ldap_next_attribute($link_identifier, $result_entry_identifier): string
  * @throws LdapException
  *
  */
-function ldap_parse_exop($link, $result, string &$retdata = null, string &$retoid = null): void
+function ldap_parse_exop($link, $result, ?string &$retdata = null, ?string &$retoid = null): void
 {
     error_clear_last();
     $result = \ldap_parse_exop($link, $result, $retdata, $retoid);
@@ -1112,7 +1112,7 @@ function ldap_parse_exop($link, $result, string &$retdata = null, string &$retoi
  * @throws LdapException
  *
  */
-function ldap_parse_result($link, $result, int &$errcode, string &$matcheddn = null, string &$errmsg = null, array &$referrals = null, array &$serverctrls = null): void
+function ldap_parse_result($link, $result, ?int &$errcode, ?string &$matcheddn = null, ?string &$errmsg = null, ?array &$referrals = null, ?array &$serverctrls = null): void
 {
     error_clear_last();
     $result = \ldap_parse_result($link, $result, $errcode, $matcheddn, $errmsg, $referrals, $serverctrls);

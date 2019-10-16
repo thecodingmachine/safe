@@ -9,7 +9,7 @@ use Safe\Exceptions\IbmDb2Exception;
  *
  * @param resource $connection A valid database connection resource variable as returned from
  * db2_connect or db2_pconnect.
- * @param bool $value One of the following constants:
+ * @param int $value One of the following constants:
  *
  *
  * DB2_AUTOCOMMIT_OFF

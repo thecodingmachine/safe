@@ -566,7 +566,7 @@ function odbc_gettypeinfo($connection_id, int $data_type = null)
 /**
  * Enables handling of LONG and LONGVARBINARY columns.
  *
- * @param int $result_id The result identifier.
+ * @param resource $result_id The result identifier.
  * @param int $length The number of bytes returned to PHP is controlled by the parameter
  * length. If it is set to 0, Long column data is passed through to the
  * client.

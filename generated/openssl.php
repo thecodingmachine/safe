@@ -584,7 +584,7 @@ function openssl_pkcs7_encrypt(string $infile, string $outfile, $recipcerts, arr
  * @throws OpensslException
  *
  */
-function openssl_pkcs7_read(string $infilename, array &$certs): void
+function openssl_pkcs7_read(string $infilename, ?array &$certs): void
 {
     error_clear_last();
     $result = \openssl_pkcs7_read($infilename, $certs);

@@ -528,7 +528,7 @@ function curl_multi_errno($mh): int
  * @throws CurlException
  *
  */
-function curl_multi_info_read($mh, int &$msgs_in_queue = null): array
+function curl_multi_info_read($mh, ?int &$msgs_in_queue = null): array
 {
     error_clear_last();
     $result = \curl_multi_info_read($mh, $msgs_in_queue);

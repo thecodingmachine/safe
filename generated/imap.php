@@ -37,7 +37,7 @@ function imap_append($imap_stream, string $mailbox, string $message, string $opt
  *
  * @param resource $imap_stream An IMAP stream returned by
  * imap_open.
- * @return object Returns the information in an object with following properties:
+ * @return \stdClass Returns the information in an object with following properties:
  *
  *
  *
@@ -214,7 +214,7 @@ function imap_gc($imap_stream, int $caches): void
  * @param int $subjectlength Number of characters for the fetchsubject property
  * Must be greater than or equal to zero.
  * @param string $defaulthost
- * @return object Returns FALSE on error or, if successful, the information in an object with following properties:
+ * @return \stdClass Returns FALSE on error or, if successful, the information in an object with following properties:
  *
  *
  *
@@ -536,7 +536,7 @@ function imap_mail(string $to, string $subject, string $message, string $additio
  *
  * @param resource $imap_stream An IMAP stream returned by
  * imap_open.
- * @return object Returns the information in an object with following properties:
+ * @return \stdClass Returns the information in an object with following properties:
  *
  * Mailbox properties
  *

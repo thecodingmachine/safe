@@ -47,7 +47,7 @@ use Safe\Exceptions\YazException;
  * @throws YazException
  *
  */
-function yaz_ccl_parse($id, string $query, array &$result): void
+function yaz_ccl_parse($id, string $query, ?array &$result): void
 {
     error_clear_last();
     $result = \yaz_ccl_parse($id, $query, $result);

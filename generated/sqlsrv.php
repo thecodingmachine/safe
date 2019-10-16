@@ -272,7 +272,7 @@ function sqlsrv_get_field($stmt, int $fieldIndex, int $getAsType = null)
  * sets, row counts, and output parameters.
  *
  * @param resource $stmt The statement on which the next result is being called.
- * @return mixed Returns TRUE if the next result was successfully retrieved, FALSE if an error
+ * @return bool|null Returns TRUE if the next result was successfully retrieved, FALSE if an error
  * occurred, and NULL if there are no more results to retrieve.
  * @throws SqlsrvException
  *
@@ -294,7 +294,7 @@ function sqlsrv_next_result($stmt)
  * @param resource $stmt The statement for which the number of fields is returned.
  * sqlsrv_num_fields can be called on a statement before
  * or after statement execution.
- * @return mixed Returns the number of fields on success. Returns FALSE otherwise.
+ * @return int Returns the number of fields on success. Returns FALSE otherwise.
  * @throws SqlsrvException
  *
  */
@@ -321,7 +321,7 @@ function sqlsrv_num_fields($stmt)
  * sqlsrv_query, sqlsrv_prepare, or
  * Specifying a Cursor Type and Selecting Rows
  * in the Microsoft SQLSRV documentation.
- * @return mixed Returns the number of rows retrieved on success and FALSE if an error occurred.
+ * @return int Returns the number of rows retrieved on success and FALSE if an error occurred.
  * If a forward cursor (the default) or dynamic cursor is used, FALSE is returned.
  * @throws SqlsrvException
  *
@@ -354,7 +354,7 @@ function sqlsrv_num_rows($stmt)
  * The following table describes the elements in the array structure above:
  * @param array $options An array specifying query property options. The supported keys are described
  * in the following table:
- * @return mixed Returns a statement resource on success and FALSE if an error occurred.
+ * @return resource Returns a statement resource on success and FALSE if an error occurred.
  * @throws SqlsrvException
  *
  */
@@ -391,7 +391,7 @@ function sqlsrv_prepare($conn, string $sql, array $params = null, array $options
  * The following table describes the elements in the array structure above:
  * @param array $options An array specifying query property options. The supported keys are described
  * in the following table:
- * @return mixed Returns a statement resource on success and FALSE if an error occurred.
+ * @return resource Returns a statement resource on success and FALSE if an error occurred.
  * @throws SqlsrvException
  *
  */

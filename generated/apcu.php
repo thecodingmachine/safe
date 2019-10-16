@@ -76,17 +76,19 @@ function apcu_dec(string $key, int $step = 1, ?bool &$success = null, int $ttl =
  * string for a single key,
  * or as an array of strings for several keys,
  * or as an APCUIterator object.
- * @return bool|array Returns TRUE on success.
+ * @return bool|array If key is an array, an indexed array of the keys is returned.
+ * Otherwise TRUE is returned on success.
  * @throws ApcuException
  *
  */
-function apcu_delete($key): void
+function apcu_delete($key)
 {
     error_clear_last();
     $result = \apcu_delete($key);
     if ($result === false) {
         throw ApcuException::createFromPhpError();
     }
+    return $result;
 }
 
 

@@ -28,6 +28,8 @@ return [
     'array_combine',
     'array_flip',
     'array_multisort',
+    'array_replace_recursive',
+    'array_replace',
     'array_walk_recursive',
     'arsort',
     'asort',

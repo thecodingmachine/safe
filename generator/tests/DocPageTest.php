@@ -16,6 +16,7 @@ class DocPageTest extends TestCase
         $sessionRegister = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/session/functions/session-register.xml');
         $mcryptDecrypt = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/mcrypt/functions/mcrypt-decrypt.xml');
         $fsockopen = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/network/functions/fsockopen.xml');
+        $arrayReplace = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-replace.xml');
 
         $this->assertTrue($pregMatch->detectFalsyFunction());
         $this->assertFalse($implode->detectFalsyFunction());
@@ -25,14 +26,17 @@ class DocPageTest extends TestCase
         $this->assertFalse($sessionRegister->detectFalsyFunction());
         $this->assertTrue($mcryptDecrypt->detectFalsyFunction());
         $this->assertTrue($fsockopen->detectFalsyFunction());
+        $this->assertFalse($arrayReplace->detectFalsyFunction());
     }
 
     public function testDetectNullsyFunction()
     {
         $pregMatch = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-flip.xml');
         $implode = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/implode.xml');
+        $arrayReplace = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-replace.xml');
 
         $this->assertTrue($pregMatch->detectNullsyFunction());
         $this->assertFalse($implode->detectNullsyFunction());
+        $this->assertTrue($arrayReplace->detectNullsyFunction());
     }
 }

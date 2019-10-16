@@ -495,7 +495,7 @@ function curl_multi_errno($mh): int
  *
  * @param resource $mh A cURL multi handle returned by
  * curl_multi_init.
- * @param int $msgs_in_queue Number of messages that are still in the queue
+ * @param int|null $msgs_in_queue Number of messages that are still in the queue
  * @return array On success, returns an associative array for the message, FALSE on failure.
  *
  *
@@ -528,7 +528,7 @@ function curl_multi_errno($mh): int
  * @throws CurlException
  *
  */
-function curl_multi_info_read($mh, int &$msgs_in_queue = null): array
+function curl_multi_info_read($mh, ?int &$msgs_in_queue = null): array
 {
     error_clear_last();
     $result = \curl_multi_info_read($mh, $msgs_in_queue);

@@ -9,7 +9,6 @@ use Safe\Exceptions\Bzip2Exception;
  *
  * @param resource $bz The file pointer. It must be valid and must point to a file
  * successfully opened by bzopen.
- * @return int Returns TRUE on success.
  * @throws Bzip2Exception
  *
  */
@@ -29,7 +28,6 @@ function bzclose($bz): void
  *
  * @param resource $bz The file pointer. It must be valid and must point to a file
  * successfully opened by bzopen.
- * @return int Returns TRUE on success.
  * @throws Bzip2Exception
  *
  */

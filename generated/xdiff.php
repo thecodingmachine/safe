@@ -214,12 +214,12 @@ function xdiff_string_patch_binary(string $str, string $patch): string
  *
  * Starting from version 1.5.0, you can also use binary OR to enable
  * XDIFF_PATCH_IGNORESPACE flag.
- * @param string $error If provided then rejected parts are stored inside this variable.
+ * @param string|null $error If provided then rejected parts are stored inside this variable.
  * @return string Returns the patched string.
  * @throws XdiffException
  *
  */
-function xdiff_string_patch(string $str, string $patch, int $flags = null, string &$error = null): string
+function xdiff_string_patch(string $str, string $patch, int $flags = null, ?string &$error = null): string
 {
     error_clear_last();
     if ($error !== null) {

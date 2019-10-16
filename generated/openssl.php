@@ -55,7 +55,7 @@ function openssl_csr_export_to_file($csr, string $outfilename, bool $notext = tr
  * reference.
  *
  * @param string|resource $csr See CSR parameters for a list of valid values.
- * @param string $out on success, this string will contain the PEM encoded CSR
+ * @param string|null $out on success, this string will contain the PEM encoded CSR
  * @param bool $notext
  * The optional parameter notext affects
  * the verbosity of the output; if it is FALSE, then additional human-readable
@@ -351,7 +351,7 @@ function openssl_digest(string $data, string $method, bool $raw_output = false):
  * openssl_seal for more information.
  *
  * @param string $sealed_data
- * @param string $open_data If the call is successful the opened data is returned in this
+ * @param string|null $open_data If the call is successful the opened data is returned in this
  * parameter.
  * @param string $env_key
  * @param string|array|resource $priv_key_id
@@ -453,7 +453,7 @@ function openssl_pkcs12_export_to_file($x509, string $filename, $priv_key, strin
  * out in a PKCS#12 file format.
  *
  * @param string|resource $x509 See Key/Certificate parameters for a list of valid values.
- * @param string $out On success, this will hold the PKCS#12.
+ * @param string|null $out On success, this will hold the PKCS#12.
  * @param string|array|resource $priv_key Private key component of PKCS#12 file.
  * See Public/Private Key parameters for a list of valid values.
  * @param string $pass Encryption password for unlocking the PKCS#12 file.
@@ -501,7 +501,7 @@ function openssl_pkcs12_export($x509, ?string &$out, $priv_key, string $pass, ar
  * certs.
  *
  * @param string $pkcs12 The certificate store contents, not its file name.
- * @param array $certs On success, this will hold the Certificate Store Data.
+ * @param array|null $certs On success, this will hold the Certificate Store Data.
  * @param string $pass Encryption password for unlocking the PKCS#12 file.
  * @throws OpensslException
  *
@@ -580,11 +580,11 @@ function openssl_pkcs7_encrypt(string $infile, string $outfile, $recipcerts, arr
  *
  *
  * @param string $infilename
- * @param array $certs
+ * @param array|null $certs
  * @throws OpensslException
  *
  */
-function openssl_pkcs7_read(string $infilename, array &$certs): void
+function openssl_pkcs7_read(string $infilename, ?array &$certs): void
 {
     error_clear_last();
     $result = \openssl_pkcs7_read($infilename, $certs);
@@ -670,7 +670,7 @@ function openssl_pkey_export_to_file($key, string $outfilename, string $passphra
  * out (which is passed by reference).
  *
  * @param resource $key
- * @param string $out
+ * @param string|null $out
  * @param string $passphrase The key is optionally protected by passphrase.
  * @param array $configargs configargs can be used to fine-tune the export
  * process by specifying and/or overriding options for the openssl
@@ -714,7 +714,7 @@ function openssl_pkey_export($key, ?string &$out, string $passphrase = null, arr
  * @throws OpensslException
  *
  */
-function openssl_pkey_get_private($key, string $passphrase = "")
+function openssl_pkey_get_private(string $key, string $passphrase = "")
 {
     error_clear_last();
     $result = \openssl_pkey_get_private($key, $passphrase);
@@ -792,7 +792,7 @@ function openssl_pkey_new(array $configargs = null)
  * You can use this function e.g. to decrypt data which is supposed to only be available to you.
  *
  * @param string $data
- * @param string $decrypted
+ * @param string|null $decrypted
  * @param string|resource|array $key key must be the private key corresponding that
  * was used to encrypt the data.
  * @param int $padding padding can be one of
@@ -823,7 +823,7 @@ function openssl_private_decrypt(string $data, ?string &$decrypted, $key, int $p
  * is not written by someone else.
  *
  * @param string $data
- * @param string $crypted
+ * @param string|null $crypted
  * @param string|resource|array $key
  * @param int $padding padding can be one of
  * OPENSSL_PKCS1_PADDING,
@@ -851,7 +851,7 @@ function openssl_private_encrypt(string $data, ?string &$crypted, $key, int $pad
  * owner of the private key.
  *
  * @param string $data
- * @param string $decrypted
+ * @param string|null $decrypted
  * @param string|resource $key key must be the public key corresponding that
  * was used to encrypt the data.
  * @param int $padding padding can be one of
@@ -881,7 +881,7 @@ function openssl_public_decrypt(string $data, ?string &$decrypted, $key, int $pa
  * in database.
  *
  * @param string $data
- * @param string $crypted This will hold the result of the encryption.
+ * @param string|null $crypted This will hold the result of the encryption.
  * @param string|resource $key The public key.
  * @param int $padding padding can be one of
  * OPENSSL_PKCS1_PADDING,
@@ -911,7 +911,7 @@ function openssl_public_encrypt(string $data, ?string &$crypted, $key, int $padd
  *
  * @param int $length The length of the desired string of bytes. Must be a positive integer. PHP will
  * try to cast this parameter to a non-null integer to use it.
- * @param bool $crypto_strong If passed into the function, this will hold a boolean value that determines
+ * @param bool|null $crypto_strong If passed into the function, this will hold a boolean value that determines
  * if the algorithm used was "cryptographically strong", e.g., safe for usage with GPG,
  * passwords, etc. TRUE if it did, otherwise FALSE
  * @return string Returns the generated string of bytes on success.
@@ -941,7 +941,7 @@ function openssl_random_pseudo_bytes(int $length, ?bool &$crypto_strong = null):
  * the envelope key that was encrypted with the recipient's public key.
  *
  * @param string $data The data to seal.
- * @param string $sealed_data The sealed data.
+ * @param string|null $sealed_data The sealed data.
  * @param array $env_keys Array of encrypted keys.
  * @param array $pub_key_ids Array of public key resource identifiers.
  * @param string $method The cipher method.
@@ -972,7 +972,7 @@ function openssl_seal(string $data, ?string &$sealed_data, array &$env_keys, arr
  * not encrypted.
  *
  * @param string $data The string of data you wish to sign
- * @param string $signature If the call was successful the signature is returned in
+ * @param string|null $signature If the call was successful the signature is returned in
  * signature.
  * @param resource|string $priv_key_id resource - a key, returned by openssl_get_privatekey
  *
@@ -1024,7 +1024,7 @@ function openssl_x509_export_to_file($x509, string $outfilename, bool $notext = 
  * output in a PEM encoded format.
  *
  * @param string|resource $x509 See Key/Certificate parameters for a list of valid values.
- * @param string $output On success, this will hold the PEM.
+ * @param string|null $output On success, this will hold the PEM.
  * @param bool $notext
  * The optional parameter notext affects
  * the verbosity of the output; if it is FALSE, then additional human-readable

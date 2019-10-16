@@ -37,7 +37,7 @@ function imap_append($imap_stream, string $mailbox, string $message, string $opt
  *
  * @param resource $imap_stream An IMAP stream returned by
  * imap_open.
- * @return object Returns the information in an object with following properties:
+ * @return \stdClass Returns the information in an object with following properties:
  *
  *
  *
@@ -214,7 +214,7 @@ function imap_gc($imap_stream, int $caches): void
  * @param int $subjectlength Number of characters for the fetchsubject property
  * Must be greater than or equal to zero.
  * @param string $defaulthost
- * @return object Returns FALSE on error or, if successful, the information in an object with following properties:
+ * @return \stdClass Returns FALSE on error or, if successful, the information in an object with following properties:
  *
  *
  *
@@ -419,7 +419,7 @@ function imap_gc($imap_stream, int $caches): void
  * @throws ImapException
  *
  */
-function imap_headerinfo($imap_stream, int $msg_number, int $fromlength = 0, int $subjectlength = 0, ?string $defaulthost = null): object
+function imap_headerinfo($imap_stream, int $msg_number, int $fromlength = 0, int $subjectlength = 0, string $defaulthost = null): object
 {
     error_clear_last();
     $result = \imap_headerinfo($imap_stream, $msg_number, $fromlength, $subjectlength, $defaulthost);
@@ -536,7 +536,7 @@ function imap_mail(string $to, string $subject, string $message, string $additio
  *
  * @param resource $imap_stream An IMAP stream returned by
  * imap_open.
- * @return object Returns the information in an object with following properties:
+ * @return \stdClass Returns the information in an object with following properties:
  *
  * Mailbox properties
  *
@@ -835,7 +835,7 @@ function imap_num_msg($imap_stream): int
  * @throws ImapException
  *
  */
-function imap_open(string $mailbox, string $username, string $password, int $options = 0, int $n_retries = 0, array $params = null)
+function imap_open(string $mailbox, string $username, string $password, int $options = 0, int $n_retries = 0, ?array $params = null)
 {
     error_clear_last();
     $result = \imap_open($mailbox, $username, $password, $options, $n_retries, $params);

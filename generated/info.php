@@ -146,13 +146,6 @@ function cli_set_process_title(string $title): void
  * /usr/local/php/lib/php/extensions/debug-non-zts-20010901
  * or
  * /usr/local/php/lib/php/extensions/no-debug-zts-20010901.
- * @return int Returns TRUE on success. If the functionality of loading modules is not available
- * or has been disabled (either by setting
- * enable_dl off or by enabling safe mode
- * in php.ini) an E_ERROR is emitted
- * and execution is stopped. If dl fails because the
- * specified library couldn't be loaded, in addition to FALSE an
- * E_WARNING message is emitted.
  * @throws InfoException
  *
  */
@@ -266,7 +259,7 @@ function getmyuid(): int
  *
  * @param string $options
  * @param array $longopts
- * @param int $optind
+ * @param int|null $optind
  * @return array|array|array This function will return an array of option / argument pairs.
  * @throws InfoException
  *
@@ -322,7 +315,7 @@ function ini_get(string $varname): string
  * @throws InfoException
  *
  */
-function ini_set(string $varname, string $newvalue): string
+function ini_set(string $varname, $newvalue): string
 {
     error_clear_last();
     $result = \ini_set($varname, $newvalue);

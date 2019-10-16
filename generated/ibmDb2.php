@@ -9,7 +9,7 @@ use Safe\Exceptions\IbmDb2Exception;
  *
  * @param resource $connection A valid database connection resource variable as returned from
  * db2_connect or db2_pconnect.
- * @param bool $value One of the following constants:
+ * @param int $value One of the following constants:
  *
  *
  * DB2_AUTOCOMMIT_OFF
@@ -46,7 +46,7 @@ use Safe\Exceptions\IbmDb2Exception;
  * @throws IbmDb2Exception
  *
  */
-function db2_autocommit($connection, bool $value = null)
+function db2_autocommit($connection, int $value = null)
 {
     error_clear_last();
     if ($value !== null) {

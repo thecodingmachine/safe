@@ -133,7 +133,7 @@ function odbc_autocommit($connection_id, bool $OnOff = false)
  * @throws UodbcException
  *
  */
-function odbc_binmode($result_id, int $mode): void
+function odbc_binmode(int $result_id, int $mode): void
 {
     error_clear_last();
     $result = \odbc_binmode($result_id, $mode);
@@ -340,7 +340,7 @@ function odbc_execute($result_id, array $parameters_array = null): void
  * Fetch one result row into array.
  *
  * @param resource $result_id The result resource.
- * @param array $result_array The result array
+ * @param array|null $result_array The result array
  * that can be of any type since it will be converted to type
  * array. The array will contain the column values starting at array
  * index 0.
@@ -566,7 +566,7 @@ function odbc_gettypeinfo($connection_id, int $data_type = null)
 /**
  * Enables handling of LONG and LONGVARBINARY columns.
  *
- * @param int $result_id The result identifier.
+ * @param resource $result_id The result identifier.
  * @param int $length The number of bytes returned to PHP is controlled by the parameter
  * length. If it is set to 0, Long column data is passed through to the
  * client.

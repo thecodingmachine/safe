@@ -642,7 +642,7 @@ function oci_execute($statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
  * identifier created by oci_parse and executed
  * by oci_execute, or a REF
  * CURSOR statement identifier.
- * @param array $output The variable to contain the returned rows.
+ * @param array|null $output The variable to contain the returned rows.
  *
  * LOB columns are returned as strings, where Oracle supports
  * conversion.

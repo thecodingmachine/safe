@@ -199,11 +199,11 @@ function socket_create_listen(int $port, int $backlog = 128)
  *
  * See socket_create for the full list of supported
  * protocols.
- * @param resource[] $fd Reference to an array in which the two socket resources will be inserted.
+ * @param resource[]|null $fd Reference to an array in which the two socket resources will be inserted.
  * @throws SocketsException
  *
  */
-function socket_create_pair(int $domain, int $type, int $protocol, ?array &$fd): void
+function socket_create_pair(int $domain, int $type, int $protocol, ?iterable &$fd): void
 {
     error_clear_last();
     $result = \socket_create_pair($domain, $type, $protocol, $fd);
@@ -331,7 +331,7 @@ function socket_get_option($socket, int $level, int $optname)
  * socket_getpeername will return the Unix filesystem
  * path (e.g. /var/run/daemon.sock) in the
  * address parameter.
- * @param int $port If given, this will hold the port associated to
+ * @param int|null $port If given, this will hold the port associated to
  * address.
  * @throws SocketsException
  *
@@ -351,7 +351,7 @@ function socket_getpeername($socket, string &$address, ?int &$port = null): void
  *
  * @param resource $socket A valid socket resource created with socket_create
  * or socket_accept.
- * @param string $addr If the given socket is of type AF_INET
+ * @param string|null $addr If the given socket is of type AF_INET
  * or AF_INET6, socket_getsockname
  * will return the local IP address in appropriate notation (e.g.
  * 127.0.0.1 or fe80::1) in the
@@ -362,7 +362,7 @@ function socket_getpeername($socket, string &$address, ?int &$port = null): void
  * socket_getsockname will return the Unix filesystem
  * path (e.g. /var/run/daemon.sock) in the
  * address parameter.
- * @param int $port If provided, this will hold the associated port.
+ * @param int|null $port If provided, this will hold the associated port.
  * @throws SocketsException
  *
  */
@@ -789,12 +789,12 @@ function socket_write($socket, string $buffer, int $length = 0): int
  * exported ID is only valid for the given target_pid.
  *
  * @param resource  $socket A valid socket resource.
- * @param int  $target_pid The ID of the process which will import the socket.
+ * @param int $target_pid The ID of the process which will import the socket.
  * @return string Returns an identifier to be used for the import
  * @throws SocketsException
  *
  */
-function socket_wsaprotocol_info_export(resource  $socket, int  $target_pid): string
+function socket_wsaprotocol_info_export(resource  $socket, int $target_pid): string
 {
     error_clear_last();
     $result = \socket_wsaprotocol_info_export($socket, $target_pid);

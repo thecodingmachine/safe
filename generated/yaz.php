@@ -14,7 +14,7 @@ use Safe\Exceptions\YazException;
  *
  * @param resource $id The connection resource returned by yaz_connect.
  * @param string $query The CCL FIND query.
- * @param array $result If the function was executed successfully, this will be an array
+ * @param array|null $result If the function was executed successfully, this will be an array
  * containing the valid RPN query under the key rpn.
  *
  * Upon failure, three indexes are set in this array to indicate the cause
@@ -47,7 +47,7 @@ use Safe\Exceptions\YazException;
  * @throws YazException
  *
  */
-function yaz_ccl_parse($id, string $query, array &$result): void
+function yaz_ccl_parse($id, string $query, ?array &$result): void
 {
     error_clear_last();
     $result = \yaz_ccl_parse($id, $query, $result);

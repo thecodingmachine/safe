@@ -195,7 +195,7 @@ function sleep(int $seconds): int
  *
  * @param int $seconds Must be a non-negative integer.
  * @param int $nanoseconds Must be a non-negative integer less than 1 billion.
- * @return array Returns TRUE on success.
+ * @return array{0:int,1:int} Returns TRUE on success.
  *
  * If the delay was interrupted by a signal, an associative array will be
  * returned with the components:

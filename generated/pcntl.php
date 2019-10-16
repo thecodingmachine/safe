@@ -132,7 +132,7 @@ function pcntl_signal_dispatch(): void
  * blocked signals by the given list of signals.
  *
  * @param array $set List of signals.
- * @param array $oldset The oldset parameter is set to an array
+ * @param array|null $oldset The oldset parameter is set to an array
  * containing the list of the previously blocked signals.
  * @throws PcntlException
  *

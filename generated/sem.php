@@ -37,7 +37,7 @@ function msg_queue_exists(int $key): void
  * message arrives on the queue.  You can prevent the script from blocking
  * by specifying MSG_IPC_NOWAIT in the
  * flags parameter.
- * @param int $msgtype The type of the message that was received will be stored in this
+ * @param int|null $msgtype The type of the message that was received will be stored in this
  * parameter.
  * @param int $maxsize The maximum size of message to be accepted is specified by the
  * maxsize; if the message in the queue is larger
@@ -87,7 +87,7 @@ function msg_queue_exists(int $key): void
  *
  *
  *
- * @param int $errorcode If the function fails, the optional errorcode
+ * @param int|null $errorcode If the function fails, the optional errorcode
  * will be set to the value of the system errno variable.
  * @throws SemException
  *
@@ -151,7 +151,7 @@ function msg_remove_queue($queue): void
  * errorcode to MSG_EAGAIN,
  * indicating that you should try to send your message again a little
  * later on.
- * @param int $errorcode If the function fails, the optional errorcode will be set to the value of the system errno variable.
+ * @param int|null $errorcode If the function fails, the optional errorcode will be set to the value of the system errno variable.
  * @throws SemException
  *
  */

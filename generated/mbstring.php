@@ -104,7 +104,7 @@ function mb_encoding_aliases(string $encoding): array
  * @param string $pattern The regular expression pattern.
  *
  * Multibyte characters may be used in pattern.
- * @param string $callback A callback that will be called and passed an array of matched elements
+ * @param callable $callback A callback that will be called and passed an array of matched elements
  * in the  subject string. The callback should
  * return the replacement string.
  *
@@ -368,7 +368,7 @@ function mb_ord(string $str, string $encoding = null): int
  * global variables.
  *
  * @param string $encoded_string The URL encoded data.
- * @param array $result An array containing decoded and character encoded converted values.
+ * @param array|null $result An array containing decoded and character encoded converted values.
  * @throws MbstringException
  *
  */
@@ -464,7 +464,7 @@ function mb_regex_encoding(string $encoding = null)
  * @throws MbstringException
  *
  */
-function mb_send_mail(string $to, string $subject, string $message, $additional_headers = null, string $additional_parameter = null): void
+function mb_send_mail(string $to, string $subject, string $message, string $additional_headers = null, string $additional_parameter = null): void
 {
     error_clear_last();
     $result = \mb_send_mail($to, $subject, $message, $additional_headers, $additional_parameter);

@@ -112,7 +112,7 @@ XML;
         require_once __DIR__ . '/../../generated/openssl.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
         require_once __DIR__ . '/../../lib/Exceptions/AbstractSafeException.php';
-        require_once __DIR__ . '/../../generated/Exceptions/OpensslException.php';
+        require_once __DIR__ . '/../../lib/Exceptions/OpensslException.php';
 
         \openssl_sign('foo', $signature, file_get_contents(__DIR__ . '/fixtures/id_rsa'));
         openssl_sign('foo', $signatureSafe, file_get_contents(__DIR__ . '/fixtures/id_rsa'));

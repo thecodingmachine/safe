@@ -6,7 +6,7 @@ namespace Safe\PhpStanFunctions;
 class PhpStanFunction
 {
     /**
-     * @var string
+     * @var PhpStanType
      */
     private $returnType;
 
@@ -20,22 +20,16 @@ class PhpStanFunction
      */
     public function __construct(array $signature)
     {
-        $this->returnType = \array_shift($signature);
+        $this->returnType = new PhpStanType(\array_shift($signature));
         foreach ($signature as $name => $type) {
             $param = new PhpStanParameter($name, $type);
             $this->parameters[$param->getName()] = $param;
         }
     }
-
-    /**
-     * @return string
-     */
-    public function getReturnType(): string
+    
+    public function getReturnType(): PhpStanType
     {
-        if ($this->returnType === 'bool') {
-            $this->returnType = 'void';
-        }
-        return \str_replace(['|bool', '|false'], '', $this->returnType);
+        return $this->returnType;
     }
 
     /**

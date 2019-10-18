@@ -28,15 +28,13 @@ class GenerateCommand extends Command
 
         $paths = $scanner->getFunctionsPaths();
 
-        [
-            'functions' => $functions,
-            'overloadedFunctions' => $overloadedFunctions
-        ] = $scanner->getMethods($paths);
+        /** @var Method[] $functions */
+        /** @var string[] $overloadedFunctions */
+        ['functions' => $functions,'overloadedFunctions' => $overloadedFunctions] = $scanner->getMethods($paths);
 
         $output->writeln('These functions have been ignored and must be dealt with manually: '.\implode(', ', $overloadedFunctions));
 
         $fileCreator = new FileCreator();
-        //$fileCreator->generateXlsFile($protoFunctions, __DIR__ . '/../generated/lib.xls');
         $fileCreator->generatePhpFile($functions, __DIR__ . '/../../generated/');
         $fileCreator->generateFunctionsList($functions, __DIR__ . '/../../generated/functionsList.php');
         $fileCreator->generateRectorFile($functions, __DIR__ . '/../../rector-migrate.yml');
@@ -44,7 +42,8 @@ class GenerateCommand extends Command
 
         $modules = [];
         foreach ($functions as $function) {
-            $modules[$function->getModuleName()] = $function->getModuleName();
+            $moduleName = $function->getModuleName();
+            $modules[$moduleName] = $moduleName;
         }
 
         foreach ($modules as $moduleName => $foo) {

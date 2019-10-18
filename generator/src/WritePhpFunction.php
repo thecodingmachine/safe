@@ -20,7 +20,9 @@ class WritePhpFunction
     public function getPhpPrototypeFunction(): string
     {
         if ($this->method->getFunctionName()) {
-            return 'function '.$this->method->getFunctionName().'('.$this->displayParamsWithType($this->method->getParams()).')'.': '.$this->method->getReturnType().'{}';
+            $returnType = $this->method->getSignatureReturnType();
+            $returnType = $returnType ? ': '.$returnType : '';
+            return 'function '.$this->method->getFunctionName().'('.$this->displayParamsWithType($this->method->getParams()).')'.$returnType.'{}';
         }
         return '';
     }
@@ -42,13 +44,10 @@ class WritePhpFunction
     private function writePhpFunction(): string
     {
         $phpFunction = $this->method->getPhpDoc();
-        if ($this->method->getReturnType() !== 'mixed' && $this->method->getReturnType() !== 'resource') {
-            $returnType = ': ' . $this->method->getReturnType();
-        } else {
-            $returnType = '';
-        }
+        $returnType = $this->method->getSignatureReturnType();
+        $returnType = $returnType ? ': '.$returnType : '';
         $returnStatement = '';
-        if ($this->method->getReturnType() !== 'void') {
+        if ($this->method->getSignatureReturnType() !== 'void') {
             $returnStatement = "    return \$result;\n";
         }
         $moduleName = $this->method->getModuleName();

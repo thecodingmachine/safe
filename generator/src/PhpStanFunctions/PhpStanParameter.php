@@ -12,7 +12,7 @@ class PhpStanParameter
      */
     private $name;
     /**
-     * @var string
+     * @var PhpStanType
      */
     private $type;
 
@@ -29,10 +29,6 @@ class PhpStanParameter
      */
     private $byReference = false;
     /**
-     * @var bool
-     */
-    private $nullable = false;
-    /**
      * Whether the parameter is "write only" (applies only to "by reference" parameters)
      * @var bool
      */
@@ -40,6 +36,7 @@ class PhpStanParameter
 
     public function __construct(string $name, string $type)
     {
+        $writeOnly = false;
         if (\strpos($name, '=') !== false) {
             $this->optional = true;
         }
@@ -50,19 +47,13 @@ class PhpStanParameter
             $this->byReference = true;
         }
         if (\strpos($name, '&w_') !== false) {
-            $this->writeOnly = true;
+            $writeOnly = true;
         }
         $name = \str_replace(['&rw_', '&w_'], '', $name);
         $name = trim($name, '=.&');
 
         $this->name = $name;
-
-        if (\strpos($type, '?') !== false) {
-            $type = \str_replace('?', '', $type).'|null';
-            $this->nullable = true;
-        }
-
-        $this->type = $type;
+        $this->type = new PhpStanType($type, $writeOnly);
     }
 
     /**
@@ -73,12 +64,9 @@ class PhpStanParameter
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
-    public function getType(): string
+    public function getType(): PhpStanType
     {
-        return Type::toRootNamespace($this->type);
+        return $this->type;
     }
 
     /**
@@ -114,11 +102,8 @@ class PhpStanParameter
         return $this->writeOnly;
     }
 
-    /**
-     * @return bool
-     */
     public function isNullable(): bool
     {
-        return $this->nullable;
+        return $this->type->isNullable();
     }
 }

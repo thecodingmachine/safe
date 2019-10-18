@@ -21,7 +21,7 @@ class MethodTest extends TestCase
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
-        $type = $method->getReturnType();
+        $type = $method->getSignatureReturnType();
         $this->assertEquals('int', $type);
     }
 
@@ -79,5 +79,25 @@ class MethodTest extends TestCase
 
         $params = $method->getParams();
         $this->assertEquals('', $params[0]->getDefaultValue());
+    }
+    
+    public function testGetReturnDocBlock(): void
+    {
+        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-replace.xml');
+        $xmlObject = $docPage->getMethodSynopsis();
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::NULLSY_TYPE);
+        $this->assertEquals("@return array Returns an array.\n", $method->getReturnDocBlock());
+
+        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/shmop/functions/shmop-delete.xml');
+        $xmlObject = $docPage->getMethodSynopsis();
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
+        $this->assertEquals('', $method->getReturnDocBlock());
+        $this->assertEquals('void', $method->getSignatureReturnType());
+
+        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/sqlsrv/functions/sqlsrv-next-result.xml');
+        $xmlObject = $docPage->getMethodSynopsis();
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
+        $this->assertEquals("@return bool|null Returns TRUE if the next result was successfully retrieved, FALSE if an error \n   occurred, and NULL if there are no more results to retrieve.\n", $method->getReturnDocBlock());
+        $this->assertEquals('?bool', $method->getSignatureReturnType());
     }
 }

@@ -596,7 +596,7 @@ function odbc_longreadlen($result_id, int $length): void
  * see odbc_connect for details.
  * @param string $query_string The query string statement being prepared.
  * @return resource Returns an ODBC result identifier if the SQL command was prepared
- * successfully. Returns FALSE on error.
+ * successfully.
  * @throws UodbcException
  *
  */

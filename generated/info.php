@@ -167,7 +167,7 @@ function dl(string $library): void
  *
  * @return int Returns the time of the last modification of the current
  * page. The value returned is a Unix timestamp, suitable for
- * feeding to date. Returns FALSE on error.
+ * feeding to date.
  * @throws InfoException
  *
  */

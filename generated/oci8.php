@@ -1265,11 +1265,11 @@ function oci_pconnect(string $username, string $password, string $connection_str
  * describes the column as, which is uppercase for columns created
  * case insensitively.
  * @return string Returns everything as strings except for abstract types (ROWIDs, LOBs and
- * FILEs). Returns FALSE on error.
+ * FILEs).
  * @throws Oci8Exception
  *
  */
-function oci_result($statement, $field)
+function oci_result($statement, $field): string
 {
     error_clear_last();
     $result = \oci_result($statement, $field);
@@ -1686,14 +1686,7 @@ function oci_set_prefetch($statement, int $rows): void
  *
  *
  *
- * UNKNOWN
- *
- *
- *
- *
- *
- *
- * Returns FALSE on error.
+ * UNKNOW.
  * @throws Oci8Exception
  *
  */

@@ -50,7 +50,7 @@ function socket_accept($socket)
  * value of this function may be used with socket_listen.
  *
  * @param resource $addr Resource created from socket_addrinfo_lookup().
- * @return resource|null Returns a Socket resource on success or NULL on failure.
+ * @return resource Returns a Socket resource on success.
  * @throws SocketsException
  *
  */
@@ -70,7 +70,7 @@ function socket_addrinfo_bind($addr)
  * value of this function may be used with the rest of the socket functions.
  *
  * @param resource $addr Resource created from socket_addrinfo_lookup()
- * @return resource|null Returns a Socket resource on success or NULL on failure.
+ * @return resource Returns a Socket resource on success.
  * @throws SocketsException
  *
  */
@@ -380,7 +380,7 @@ function socket_getsockname($socket, ?string &$addr, ?int &$port = null): void
  * Imports a stream that encapsulates a socket into a socket extension resource.
  *
  * @param resource $stream The stream resource to import.
- * @return resource Returns FALSE or NULL on failure.
+ * @return resource|false Returns FALSE.
  * @throws SocketsException
  *
  */

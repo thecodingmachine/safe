@@ -74,7 +74,6 @@ function gmp_import(string $data, int $word_size = 1, int $options = GMP_MSW_FIR
  * gmp_random_range functions.
  *
  * Either a GMP number resource in PHP 5.5 and earlier, a GMP object in PHP 5.6 and later, or a numeric string provided that it is possible to convert the latter to a number.
- * @return \GMP Returns NULL on success.
  * @throws GmpException
  *
  */

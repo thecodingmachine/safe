@@ -439,7 +439,7 @@ function stream_socket_client(string $remote_socket, int &$errno = null, string 
  * @throws StreamException
  *
  */
-function stream_socket_pair(int $domain, int $type, int $protocol): array
+function stream_socket_pair(int $domain, int $type, int $protocol): iterable
 {
     error_clear_last();
     $result = \stream_socket_pair($domain, $type, $protocol);

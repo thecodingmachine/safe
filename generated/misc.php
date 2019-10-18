@@ -52,7 +52,7 @@ function define(string $name, $value, bool $case_insensitive = false): void
  * @param string $filename Path to the PHP file to be highlighted.
  * @param bool $return Set this parameter to TRUE to make this function return the
  * highlighted code.
- * @return string If return is set to TRUE, returns the highlighted
+ * @return string|bool If return is set to TRUE, returns the highlighted
  * code as a string instead of printing it out. Otherwise, it will return
  * TRUE on success, FALSE on failure.
  * @throws MiscException
@@ -75,7 +75,7 @@ function highlight_file(string $filename, bool $return = false)
  * @param string $str The PHP code to be highlighted. This should include the opening tag.
  * @param bool $return Set this parameter to TRUE to make this function return the
  * highlighted code.
- * @return string If return is set to TRUE, returns the highlighted
+ * @return string|bool If return is set to TRUE, returns the highlighted
  * code as a string instead of printing it out. Otherwise, it will return
  * TRUE on success, FALSE on failure.
  * @throws MiscException
@@ -101,7 +101,7 @@ function highlight_string(string $str, bool $return = false)
  * Either the codepage name or identifier.
  * @param string $subject The string to convert.
  * @return string The subject string converted to
- * out_codepage, or NULL on failure.
+ * out_codepage.
  * @throws MiscException
  *
  */
@@ -195,7 +195,7 @@ function sleep(int $seconds): int
  *
  * @param int $seconds Must be a non-negative integer.
  * @param int $nanoseconds Must be a non-negative integer less than 1 billion.
- * @return array{0:int,1:int} Returns TRUE on success.
+ * @return array{0:int,1:int}|bool Returns TRUE on success.
  *
  * If the delay was interrupted by a signal, an associative array will be
  * returned with the components:

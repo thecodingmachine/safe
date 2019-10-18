@@ -72,7 +72,7 @@ function apcu_dec(string $key, int $step = 1, ?bool &$success = null, int $ttl =
 /**
  * Removes a stored variable from the cache.
  *
- * @param string|string[]|APCUIterator $key A key used to store the value as a
+ * @param string|string[]|\APCUIterator $key A key used to store the value as a
  * string for a single key,
  * or as an array of strings for several keys,
  * or as an APCUIterator object.

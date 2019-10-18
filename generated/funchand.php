@@ -28,7 +28,7 @@ function create_function(string $args, string $code): string
 /**
  *
  *
- * @param callable $function The function to register.
+ * @param callable(): void $function The function to register.
  * @param mixed $params
  * @throws FunchandException
  *

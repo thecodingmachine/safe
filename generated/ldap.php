@@ -66,7 +66,7 @@ function ldap_add($link_identifier, string $dn, array $entry, array $serverctrls
  * @throws LdapException
  *
  */
-function ldap_bind_ext($link_identifier, ?string $bind_rdn = null, ?string $bind_password = null, array $serverctrls = null)
+function ldap_bind_ext($link_identifier, string $bind_rdn = null, string $bind_password = null, array $serverctrls = null)
 {
     error_clear_last();
     $result = \ldap_bind_ext($link_identifier, $bind_rdn, $bind_password, $serverctrls);
@@ -87,7 +87,7 @@ function ldap_bind_ext($link_identifier, ?string $bind_rdn = null, ?string $bind
  * @throws LdapException
  *
  */
-function ldap_bind($link_identifier, ?string $bind_rdn = null, ?string $bind_password = null, array $serverctrls = null): void
+function ldap_bind($link_identifier, string $bind_rdn = null, string $bind_password = null, array $serverctrls = null): void
 {
     error_clear_last();
     $result = \ldap_bind($link_identifier, $bind_rdn, $bind_password, $serverctrls);
@@ -102,8 +102,8 @@ function ldap_bind($link_identifier, ?string $bind_rdn = null, ?string $bind_pas
  *
  * @param resource $link An LDAP link identifier, returned by ldap_connect.
  * @param resource $result
- * @param string $cookie An opaque structure sent by the server.
- * @param int $estimated The estimated number of entries to retrieve.
+ * @param string|null $cookie An opaque structure sent by the server.
+ * @param int|null $estimated The estimated number of entries to retrieve.
  * @throws LdapException
  *
  */
@@ -255,16 +255,16 @@ function ldap_exop_whoami($link): string
  * @param string $reqoid The extended operation request OID. You may use one of LDAP_EXOP_START_TLS, LDAP_EXOP_MODIFY_PASSWD, LDAP_EXOP_REFRESH, LDAP_EXOP_WHO_AM_I, LDAP_EXOP_TURN, or a string with the OID of the operation you want to send.
  * @param string $reqdata The extended operation request data. May be NULL for some operations like LDAP_EXOP_WHO_AM_I, may also need to be BER encoded.
  * @param array $serverctrls Array of LDAP Controls to send with the request.
- * @param string $retdata Will be filled with the extended operation response data if provided.
+ * @param string|null $retdata Will be filled with the extended operation response data if provided.
  * If not provided you may use ldap_parse_exop on the result object
  * later to get this data.
- * @param string $retoid Will be filled with the response OID if provided, usually equal to the request OID.
+ * @param string|null $retoid Will be filled with the response OID if provided, usually equal to the request OID.
  * @return mixed When used with retdata, returns TRUE on success.
  * When used without retdata, returns a result identifier.
  * @throws LdapException
  *
  */
-function ldap_exop($link, string $reqoid, string $reqdata = null, ?array $serverctrls = null, string &$retdata = null, string &$retoid = null)
+function ldap_exop($link, string $reqoid, string $reqdata = null, array $serverctrls = null, ?string &$retdata = null, ?string &$retoid = null)
 {
     error_clear_last();
     $result = \ldap_exop($link, $reqoid, $reqdata, $serverctrls, $retdata, $retoid);
@@ -1078,12 +1078,12 @@ function ldap_next_attribute($link_identifier, $result_entry_identifier): string
  *
  * @param resource $link An LDAP link identifier, returned by ldap_connect.
  * @param resource $result An LDAP result resource, returned by ldap_exop.
- * @param string $retdata Will be filled by the response data.
- * @param string $retoid Will be filled by the response OID.
+ * @param string|null $retdata Will be filled by the response data.
+ * @param string|null $retoid Will be filled by the response OID.
  * @throws LdapException
  *
  */
-function ldap_parse_exop($link, $result, string &$retdata = null, string &$retoid = null): void
+function ldap_parse_exop($link, $result, ?string &$retdata = null, ?string &$retoid = null): void
 {
     error_clear_last();
     $result = \ldap_parse_exop($link, $result, $retdata, $retoid);
@@ -1099,20 +1099,20 @@ function ldap_parse_exop($link, $result, string &$retdata = null, string &$retoi
  * @param resource $link An LDAP link identifier, returned by ldap_connect.
  * @param resource $result An LDAP result resource, returned by ldap_list or
  * ldap_search.
- * @param int $errcode A reference to a variable that will be set to the LDAP error code in
+ * @param int|null $errcode A reference to a variable that will be set to the LDAP error code in
  * the result, or 0 if no error occurred.
- * @param string $matcheddn A reference to a variable that will be set to a matched DN if one was
+ * @param string|null $matcheddn A reference to a variable that will be set to a matched DN if one was
  * recognised within the request, otherwise it will be set to NULL.
- * @param string $errmsg A reference to a variable that will be set to the LDAP error message in
+ * @param string|null $errmsg A reference to a variable that will be set to the LDAP error message in
  * the result, or an empty string if no error occurred.
- * @param array $referrals A reference to a variable that will be set to an array set
+ * @param array|null $referrals A reference to a variable that will be set to an array set
  * to all of the referral strings in the result, or an empty array if no
  * referrals were returned.
- * @param array $serverctrls An array of LDAP Controls which have been sent with the response.
+ * @param array|null $serverctrls An array of LDAP Controls which have been sent with the response.
  * @throws LdapException
  *
  */
-function ldap_parse_result($link, $result, int &$errcode, string &$matcheddn = null, string &$errmsg = null, array &$referrals = null, array &$serverctrls = null): void
+function ldap_parse_result($link, $result, ?int &$errcode, ?string &$matcheddn = null, ?string &$errmsg = null, ?array &$referrals = null, ?array &$serverctrls = null): void
 {
     error_clear_last();
     $result = \ldap_parse_result($link, $result, $errcode, $matcheddn, $errmsg, $referrals, $serverctrls);

@@ -51,7 +51,7 @@ function hash_hkdf(string $algo, string $ikm, int $length = 0, string $info = ''
  * @throws HashException
  *
  */
-function hash_update_file(\HashContext $hcontext, string $filename, $scontext = null): void
+function hash_update_file(\HashContext $hcontext, string $filename, ?\HashContext $scontext = null): void
 {
     error_clear_last();
     $result = \hash_update_file($hcontext, $filename, $scontext);

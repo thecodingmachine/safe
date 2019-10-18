@@ -35,7 +35,7 @@ function ftp_alloc($ftp_stream, int $filesize, string &$result = null): void
  * @throws FtpException
  *
  */
-function ftp_append($ftp, string $remote_file, string $local_file, int $mode = FTP_IMAGE): void
+function ftp_append($ftp, string $remote_file, string $local_file, int $mode = FTP_BINARY): void
 {
     error_clear_last();
     $result = \ftp_append($ftp, $remote_file, $local_file, $mode);
@@ -179,7 +179,7 @@ function ftp_delete($ftp_stream, string $path): void
  * @throws FtpException
  *
  */
-function ftp_fget($ftp_stream, $handle, string $remote_file, int $mode = FTP_IMAGE, int $resumepos = 0): void
+function ftp_fget($ftp_stream, $handle, string $remote_file, int $mode = FTP_BINARY, int $resumepos = 0): void
 {
     error_clear_last();
     $result = \ftp_fget($ftp_stream, $handle, $remote_file, $mode, $resumepos);
@@ -202,7 +202,7 @@ function ftp_fget($ftp_stream, $handle, string $remote_file, int $mode = FTP_IMA
  * @throws FtpException
  *
  */
-function ftp_fput($ftp_stream, string $remote_file, $handle, int $mode = FTP_IMAGE, int $startpos = 0): void
+function ftp_fput($ftp_stream, string $remote_file, $handle, int $mode = FTP_BINARY, int $startpos = 0): void
 {
     error_clear_last();
     $result = \ftp_fput($ftp_stream, $remote_file, $handle, $mode, $startpos);
@@ -353,7 +353,7 @@ function ftp_pasv($ftp_stream, bool $pasv): void
  * @throws FtpException
  *
  */
-function ftp_put($ftp_stream, string $remote_file, string $local_file, int $mode = FTP_IMAGE, int $startpos = 0): void
+function ftp_put($ftp_stream, string $remote_file, string $local_file, int $mode = FTP_BINARY, int $startpos = 0): void
 {
     error_clear_last();
     $result = \ftp_put($ftp_stream, $remote_file, $local_file, $mode, $startpos);

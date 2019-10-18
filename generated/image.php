@@ -142,7 +142,7 @@ function imageaffine($image, array $affine, array $clip = null)
  * 0 to 5 and float values).
  * @param array $m2 An affine transformation matrix (an array with keys
  * 0 to 5 and float values).
- * @return array An affine transformation matrix (an array with keys
+ * @return array{0:float,1:float,2:float,3:float,4:float,5:float} An affine transformation matrix (an array with keys
  * 0 to 5 and float values).
  * @throws ImageException
  *
@@ -162,7 +162,7 @@ function imageaffinematrixconcat(array $m1, array $m2): array
  * Returns an affine transformation matrix.
  *
  * @param int $type One of the IMG_AFFINE_* constants.
- * @param array $options If type is IMG_AFFINE_TRANSLATE
+ * @param array|float $options If type is IMG_AFFINE_TRANSLATE
  * or IMG_AFFINE_SCALE,
  * options has to be an array with keys x
  * and y, both having float values.
@@ -170,7 +170,7 @@ function imageaffinematrixconcat(array $m1, array $m2): array
  * If type is IMG_AFFINE_ROTATE,
  * IMG_AFFINE_SHEAR_HORIZONTAL or IMG_AFFINE_SHEAR_VERTICAL,
  * options has to be a float specifying the angle.
- * @return array An affine transformation matrix (an array with keys
+ * @return array{0:float,1:float,2:float,3:float,4:float,5:float} An affine transformation matrix (an array with keys
  * 0 to 5 and float values).
  * @throws ImageException
  *

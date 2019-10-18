@@ -52,9 +52,9 @@ function closelog(): void
  * between platforms, DNS_ANY will not
  * always return every record, the slower DNS_ALL
  * will collect all records more reliably.
- * @param array $authns Passed by reference and, if given, will be populated with Resource
+ * @param array|null $authns Passed by reference and, if given, will be populated with Resource
  * Records for the Authoritative Name Servers.
- * @param array $addtl Passed by reference and, if given, will be populated with any
+ * @param array|null $addtl Passed by reference and, if given, will be populated with any
  * Additional Records.
  * @param bool $raw The type will be interpreted as a raw DNS type ID
  * (the DNS_* constants cannot be used).
@@ -278,7 +278,7 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authns =
  * @param int $port The port number. This can be omitted and skipped with
  * -1 for transports that do not use ports, such as
  * unix://.
- * @param int $errno If provided, holds the system level error number that occurred in the
+ * @param int|null $errno If provided, holds the system level error number that occurred in the
  * system-level connect() call.
  *
  * If the value returned in errno is
@@ -286,7 +286,7 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authns =
  * indication that the error occurred before the
  * connect() call. This is most likely due to a
  * problem initializing the socket.
- * @param string $errstr The error message as a string.
+ * @param string|null $errstr The error message as a string.
  * @param float $timeout The connection timeout, in seconds.
  *
  * If you need to set a timeout for reading/writing data over the

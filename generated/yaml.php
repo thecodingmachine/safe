@@ -10,7 +10,7 @@ use Safe\Exceptions\YamlException;
  * @param string $filename Path to the file.
  * @param int $pos Document to extract from stream (-1 for all
  * documents, 0 for first document, ...).
- * @param int $ndocs If ndocs is provided, then it is filled with the
+ * @param int|null $ndocs If ndocs is provided, then it is filled with the
  * number of documents found in stream.
  * @param array $callbacks Content handlers for YAML nodes. Associative array of YAML
  * tag =&gt; callable mappings. See
@@ -23,7 +23,7 @@ use Safe\Exceptions\YamlException;
  * @throws YamlException
  *
  */
-function yaml_parse_file(string $filename, int $pos = 0, int &$ndocs = null, array $callbacks = null)
+function yaml_parse_file(string $filename, int $pos = 0, ?int &$ndocs = null, array $callbacks = null)
 {
     error_clear_last();
     $result = \yaml_parse_file($filename, $pos, $ndocs, $callbacks);
@@ -44,7 +44,7 @@ function yaml_parse_file(string $filename, int $pos = 0, int &$ndocs = null, arr
  * continue as though filename specifies a regular file.
  * @param int $pos Document to extract from stream (-1 for all
  * documents, 0 for first document, ...).
- * @param int $ndocs If ndocs is provided, then it is filled with the
+ * @param int|null $ndocs If ndocs is provided, then it is filled with the
  * number of documents found in stream.
  * @param array $callbacks Content handlers for YAML nodes. Associative array of YAML
  * tag =&gt; callable mappings. See
@@ -56,7 +56,7 @@ function yaml_parse_file(string $filename, int $pos = 0, int &$ndocs = null, arr
  * @throws YamlException
  *
  */
-function yaml_parse_url(string $url, int $pos = 0, int &$ndocs = null, array $callbacks = null)
+function yaml_parse_url(string $url, int $pos = 0, ?int &$ndocs = null, array $callbacks = null)
 {
     error_clear_last();
     $result = \yaml_parse_url($url, $pos, $ndocs, $callbacks);
@@ -73,7 +73,7 @@ function yaml_parse_url(string $url, int $pos = 0, int &$ndocs = null, array $ca
  * @param string $input The string to parse as a YAML document stream.
  * @param int $pos Document to extract from stream (-1 for all
  * documents, 0 for first document, ...).
- * @param int $ndocs If ndocs is provided, then it is filled with the
+ * @param int|null $ndocs If ndocs is provided, then it is filled with the
  * number of documents found in stream.
  * @param array $callbacks Content handlers for YAML nodes. Associative array of YAML
  * tag =&gt; callable mappings. See
@@ -86,7 +86,7 @@ function yaml_parse_url(string $url, int $pos = 0, int &$ndocs = null, array $ca
  * @throws YamlException
  *
  */
-function yaml_parse(string $input, int $pos = 0, int &$ndocs = null, array $callbacks = null)
+function yaml_parse(string $input, int $pos = 0, ?int &$ndocs = null, array $callbacks = null)
 {
     error_clear_last();
     $result = \yaml_parse($input, $pos, $ndocs, $callbacks);

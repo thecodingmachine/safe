@@ -26,7 +26,7 @@ use Safe\Exceptions\ComException;
  * @throws ComException
  *
  */
-function com_event_sink(variant $comobject, object $sinkobject, $sinkinterface = null): void
+function com_event_sink(object $comobject, object $sinkobject, $sinkinterface = null): void
 {
     error_clear_last();
     if ($sinkinterface !== null) {

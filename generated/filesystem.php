@@ -565,7 +565,7 @@ function filesize(string $filename): int
  * It is also possible to add LOCK_NB as a bitmask to one
  * of the above operations if you don't want flock to
  * block while locking.
- * @param int $wouldblock The optional third argument is set to 1 if the lock would block
+ * @param int|null $wouldblock The optional third argument is set to 1 if the lock would block
  * (EWOULDBLOCK errno condition).
  * @throws FilesystemException
  *

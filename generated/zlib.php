@@ -596,7 +596,7 @@ function readgzfile(string $filename, int $use_include_path = 0): int
  * @throws ZlibException
  *
  */
-function zlib_decode(string $data, string $max_decoded_len = null): string
+function zlib_decode(string $data, int $max_decoded_len = null): string
 {
     error_clear_last();
     if ($max_decoded_len !== null) {

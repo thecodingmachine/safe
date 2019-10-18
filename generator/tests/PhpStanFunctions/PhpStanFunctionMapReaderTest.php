@@ -29,4 +29,10 @@ class PhpStanFunctionMapReaderTest extends TestCase
         $this->assertTrue($parameters['success']->isByReference());
         $this->assertTrue($parameters['success']->isOptional());
     }
+    
+    //todo: find a way to test custom map
+    /*public function testCustomMapThrowExceptionIfOutdated()
+    {
+        $mapReader = new PhpStanFunctionMapReader();
+    }*/
 }

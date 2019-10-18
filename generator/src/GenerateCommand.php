@@ -55,12 +55,18 @@ class GenerateCommand extends Command
 
         // Let's require the generated file to check there is no error.
         $files = \glob(__DIR__.'/../../generated/*.php');
+        if ($files === false) {
+            throw new \RuntimeException('Failed to require the generated file');
+        }
 
         foreach ($files as $file) {
             require($file);
         }
 
         $files = \glob(__DIR__.'/../../generated/Exceptions/*.php');
+        if ($files === false) {
+            throw new \RuntimeException('Failed to require the generated exception file');
+        }
 
         require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
         require_once __DIR__.'/../../lib/Exceptions/AbstractSafeException.php';
@@ -76,12 +82,18 @@ class GenerateCommand extends Command
     private function rmGenerated(): void
     {
         $exceptions = \glob(__DIR__.'/../../generated/Exceptions/*.php');
+        if ($exceptions === false) {
+            throw new \RuntimeException('Failed to require the generated exception files');
+        }
 
         foreach ($exceptions as $exception) {
             \unlink($exception);
         }
 
         $files = \glob(__DIR__.'/../../generated/*.php');
+        if ($files === false) {
+            throw new \RuntimeException('Failed to require the generated files');
+        }
 
         foreach ($files as $file) {
             \unlink($file);

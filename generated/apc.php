@@ -82,7 +82,7 @@ function apc_compile_file(string $filename, bool $atomic = true)
  *
  * @param string $key The key of the value being decreased.
  * @param int $step The step, or value to decrease.
- * @param bool $success Optionally pass the success or fail boolean value to
+ * @param bool|null $success Optionally pass the success or fail boolean value to
  * this referenced variable.
  * @return int Returns the current value of key's value on success
  * @throws ApcException
@@ -164,7 +164,7 @@ function apc_delete_file($keys)
  * @throws ApcException
  *
  */
-function apc_delete(string $key)
+function apc_delete($key)
 {
     error_clear_last();
     $result = \apc_delete($key);
@@ -180,7 +180,7 @@ function apc_delete(string $key)
  *
  * @param string $key The key of the value being increased.
  * @param int $step The step, or value to increase.
- * @param bool $success Optionally pass the success or fail boolean value to
+ * @param bool|null $success Optionally pass the success or fail boolean value to
  * this referenced variable.
  * @return int Returns the current value of key's value on success
  * @throws ApcException

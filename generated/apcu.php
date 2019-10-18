@@ -51,7 +51,7 @@ function apcu_cas(string $key, int $old, int $new): void
  *
  * @param string $key The key of the value being decreased.
  * @param int $step The step, or value to decrease.
- * @param bool $success Optionally pass the success or fail boolean value to
+ * @param bool|null $success Optionally pass the success or fail boolean value to
  * this referenced variable.
  * @param int $ttl TTL to use if the operation inserts a new value (rather than decrementing an existing one).
  * @return int Returns the current value of key's value on success
@@ -97,7 +97,7 @@ function apcu_delete($key)
  *
  * @param string $key The key of the value being increased.
  * @param int $step The step, or value to increase.
- * @param bool $success Optionally pass the success or fail boolean value to
+ * @param bool|null $success Optionally pass the success or fail boolean value to
  * this referenced variable.
  * @param int $ttl TTL to use if the operation inserts a new value (rather than incrementing an existing one).
  * @return int Returns the current value of key's value on success

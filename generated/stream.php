@@ -322,7 +322,7 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
  * @param resource $server_socket The server socket to accept a connection from.
  * @param float $timeout Override the default socket accept timeout. Time should be given in
  * seconds.
- * @param string $peername Will be set to the name (address) of the client which connected, if
+ * @param string|null $peername Will be set to the name (address) of the client which connected, if
  * included and available from the selected transport.
  *
  * Can also be determined later using

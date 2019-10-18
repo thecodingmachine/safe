@@ -1485,7 +1485,7 @@ function pg_query($connection = null, string $query = null)
  * PGSQL_DIAG_CONTEXT, PGSQL_DIAG_SOURCE_FILE,
  * PGSQL_DIAG_SOURCE_LINE or
  * PGSQL_DIAG_SOURCE_FUNCTION.
- * @return string|?false A string containing the contents of the error field, NULL if the field does not exist.
+ * @return string|null A string containing the contents of the error field.
  * @throws PgsqlException
  *
  */

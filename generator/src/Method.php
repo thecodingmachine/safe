@@ -119,7 +119,7 @@ class Method
 
         $i=1;
         foreach ($this->getParams() as $parameter) {
-            $str .= '@param '.$parameter->getBestType().' $'.$parameter->getParameter().' ';
+            $str .= '@param '.$parameter->getDocBlockType().' $'.$parameter->getParameter().' ';
             $str .= $this->getStringForXPath("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[$i]//docbook:para")."\n";
             $i++;
         }
@@ -149,6 +149,9 @@ class Method
         $string = $this->removeString($string, 'on success, or FALSE otherwise');
         $string = $this->removeString($string, 'or FALSE on error');
         $string = $this->removeString($string, 'or FALSE if an error occurred');
+        $string = $this->removeString($string, ' Returns FALSE otherwise.');
+        $string = $this->removeString($string, ' and FALSE if an error occurred');
+        $string = $this->removeString($string, ', NULL if the field does not exist');
         $string = $this->removeString($string, 'the function will return TRUE, or FALSE otherwise');
         return $string;
     }

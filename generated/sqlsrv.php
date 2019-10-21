@@ -276,7 +276,7 @@ function sqlsrv_get_field($stmt, int $fieldIndex, int $getAsType = null)
  * @throws SqlsrvException
  *
  */
-function sqlsrv_next_result($stmt)
+function sqlsrv_next_result($stmt): ?bool
 {
     error_clear_last();
     $result = \sqlsrv_next_result($stmt);
@@ -297,7 +297,7 @@ function sqlsrv_next_result($stmt)
  * @throws SqlsrvException
  *
  */
-function sqlsrv_num_fields($stmt)
+function sqlsrv_num_fields($stmt): int
 {
     error_clear_last();
     $result = \sqlsrv_num_fields($stmt);
@@ -325,7 +325,7 @@ function sqlsrv_num_fields($stmt)
  * @throws SqlsrvException
  *
  */
-function sqlsrv_num_rows($stmt)
+function sqlsrv_num_rows($stmt): int
 {
     error_clear_last();
     $result = \sqlsrv_num_rows($stmt);

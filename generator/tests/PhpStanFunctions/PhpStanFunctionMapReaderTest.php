@@ -20,11 +20,11 @@ class PhpStanFunctionMapReaderTest extends TestCase
 
 
         // 'apcu_fetch' => ['mixed', 'key'=>'string|string[]', '&w_success='=>'bool'],
-        $this->assertSame('mixed', $function->getReturnType());
+        $this->assertSame('mixed', $function->getReturnType()->getDocBlockType());
         $parameters = $function->getParameters();
         $this->assertCount(2, $parameters);
         $this->assertSame('success', $parameters['success']->getName());
-        $this->assertSame('bool', $parameters['success']->getType());
+        $this->assertSame('bool|null', $parameters['success']->getType()->getDocBlockType());
         $this->assertFalse($parameters['success']->isVariadic());
         $this->assertTrue($parameters['success']->isByReference());
         $this->assertTrue($parameters['success']->isOptional());

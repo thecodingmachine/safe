@@ -43,7 +43,7 @@ function array_combine(array $keys, array $values): array
  * used as its value, and all others will be lost.
  *
  * @param array $array An array of key/value pairs to be flipped.
- * @return array Returns the flipped array on success and NULL on failure.
+ * @return array Returns the flipped array on success.
  * @throws ArrayException
  *
  */
@@ -153,7 +153,7 @@ function array_multisort(array &$array1, $array1_sort_order = SORT_ASC, $array1_
  *
  * @param array $array1 The array in which elements are replaced.
  * @param array $params Optional. Arrays from which elements will be extracted.
- * @return array|null Returns an array, or NULL if an error occurs.
+ * @return array Returns an array.
  * @throws ArrayException
  *
  */
@@ -188,7 +188,7 @@ function array_replace_recursive(array $array1, array  ...$params): array
  * @param array $array1 The array in which elements are replaced.
  * @param array $params Arrays from which elements will be extracted.
  * Values from later arrays overwrite the previous values.
- * @return array|null Returns an array, or NULL if an error occurs.
+ * @return array Returns an array.
  * @throws ArrayException
  *
  */

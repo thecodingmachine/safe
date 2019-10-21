@@ -14,7 +14,7 @@ class Type
     private static function isClass(string $type): bool
     {
         if ($type === '') {
-            throw new EmptyTypeException('Empty type passed');
+            return false;
         }
         if ($type === 'stdClass') {
             return true;
@@ -28,9 +28,6 @@ class Type
 
     /**
      * Put classes in the root namespace
-     *
-     * @param string $type
-     * @return string
      */
     public static function toRootNamespace(string $type): string
     {

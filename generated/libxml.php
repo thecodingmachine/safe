@@ -7,7 +7,7 @@ use Safe\Exceptions\LibxmlException;
 /**
  * Retrieve last error from libxml.
  *
- * @return libXMLError Returns a LibXMLError object if there is any error in the
+ * @return \LibXMLError Returns a LibXMLError object if there is any error in the
  * buffer, FALSE otherwise.
  * @throws LibxmlException
  *

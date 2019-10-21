@@ -2,6 +2,8 @@
 namespace Safe;
 
 use Safe\PhpStanFunctions\PhpStanFunction;
+use Safe\PhpStanFunctions\PhpStanParameter;
+use Safe\PhpStanFunctions\PhpStanType;
 
 class Parameter
 {
@@ -10,14 +12,20 @@ class Parameter
      */
     private $parameter;
     /**
-     * @var PhpStanFunction|null
+     * @var PhpStanType
      */
-    private $phpStanFunction;
+    private $type;
+    /**
+     * @var PhpStanParameter|null
+     */
+    private $phpStanParams;
 
     public function __construct(\SimpleXMLElement $parameter, ?PhpStanFunction $phpStanFunction)
     {
         $this->parameter = $parameter;
-        $this->phpStanFunction = $phpStanFunction;
+        $this->phpStanParams = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameter()) : null;
+        
+        $this->type = $this->phpStanParams ? $this->phpStanParams->getType() : new PhpStanType($this->parameter->type->__toString());
     }
 
     /**
@@ -25,34 +33,7 @@ class Parameter
      */
     public function getSignatureType(): string
     {
-        $coreType = $this->getDocBlockType();
-        //list all types in the doc-block
-        $types = explode('|', $coreType);
-        //no typehint exists for thoses cases
-        if (in_array('resource', $types) || in_array('mixed', $types)) {
-            return '';
-        }
-        //remove 'null' from the list to identify if the signature type should be nullable
-        $nullablePosition = array_search('null', $types);
-        if ($nullablePosition !== false) {
-            array_splice($types, $nullablePosition, 1);
-        }
-        if (count($types) === 0) {
-            throw new \RuntimeException('Error when trying to extract parameter type');
-        }
-        //if there is still several types, no typehint
-        if (count($types) > 1) {
-            return '';
-        }
-
-        $finalType = $types[0];
-        //strip callable type of its possible parenthesis and return (ex: callable(): void)
-        if (\strpos($finalType, 'callable(') > -1) {
-            $finalType = 'callable';
-        } elseif (strpos($finalType, '[]') !== false) {
-            $finalType = 'iterable'; //generics cannot be typehinted and have to be turned into iterable
-        }
-        return ($nullablePosition !== false ? '?' : '').$finalType;
+        return $this->type->getSignatureType();
     }
 
     /**
@@ -60,25 +41,7 @@ class Parameter
      */
     public function getDocBlockType(): string
     {
-        if ($this->phpStanFunction !== null) {
-            $phpStanParameter = $this->phpStanFunction->getParameter($this->getParameter());
-            if ($phpStanParameter) {
-                try {
-                    $type = $phpStanParameter->getType();
-                    // Let's make the parameter nullable if it is by reference and is used only for writing.
-                    if ($phpStanParameter->isWriteOnly() && $type !== 'resource' && $type !== 'mixed') {
-                        $type = $type.'|null';
-                    }
-                    return $type;
-                } catch (EmptyTypeException $e) {
-                    // If the type is empty in PHPStan, we fallback to documentation.
-                    // @ignoreException
-                }
-            }
-        }
-
-        $type = $this->parameter->type->__toString();
-        return Type::toRootNamespace($type);
+        return $this->type->getDocBlockType();
     }
 
     public function getParameter(): string
@@ -125,13 +88,7 @@ class Parameter
 
     public function isNullable(): bool
     {
-        if ($this->phpStanFunction !== null) {
-            $phpStanParameter = $this->phpStanFunction->getParameter($this->getParameter());
-            if ($phpStanParameter) {
-                return $phpStanParameter->isNullable();
-            }
-        }
-        return $this->hasDefaultValue() && $this->getDefaultValue() === 'null';
+        return $this->type->isNullable();
     }
 
     /*

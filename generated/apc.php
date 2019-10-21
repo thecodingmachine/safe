@@ -159,19 +159,18 @@ function apc_delete_file($keys)
 /**
  * Removes a stored variable from the cache.
  *
- * @param string|string[]|APCIterator $key The key used to store the value (with
+ * @param string|string[]|\APCIterator $key The key used to store the value (with
  * apc_store).
  * @throws ApcException
  *
  */
-function apc_delete($key)
+function apc_delete($key): void
 {
     error_clear_last();
     $result = \apc_delete($key);
     if ($result === false) {
         throw ApcException::createFromPhpError();
     }
-    return $result;
 }
 
 

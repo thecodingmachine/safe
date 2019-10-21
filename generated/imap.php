@@ -71,7 +71,7 @@ function imap_append($imap_stream, string $mailbox, string $message, string $opt
  * @throws ImapException
  *
  */
-function imap_check($imap_stream): object
+function imap_check($imap_stream): \stdClass
 {
     error_clear_last();
     $result = \imap_check($imap_stream);
@@ -419,7 +419,7 @@ function imap_gc($imap_stream, int $caches): void
  * @throws ImapException
  *
  */
-function imap_headerinfo($imap_stream, int $msg_number, int $fromlength = 0, int $subjectlength = 0, string $defaulthost = null): object
+function imap_headerinfo($imap_stream, int $msg_number, int $fromlength = 0, int $subjectlength = 0, string $defaulthost = null): \stdClass
 {
     error_clear_last();
     $result = \imap_headerinfo($imap_stream, $msg_number, $fromlength, $subjectlength, $defaulthost);
@@ -581,7 +581,7 @@ function imap_mail(string $to, string $subject, string $message, string $additio
  * @throws ImapException
  *
  */
-function imap_mailboxmsginfo($imap_stream): object
+function imap_mailboxmsginfo($imap_stream): \stdClass
 {
     error_clear_last();
     $result = \imap_mailboxmsginfo($imap_stream);

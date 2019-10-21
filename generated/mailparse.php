@@ -23,8 +23,6 @@ use Safe\Exceptions\MailparseException;
  *
  * If callbackfunc is set to NULL, returns the
  * extracted section as a string.
- *
- * Returns FALSE on error.
  * @throws MailparseException
  *
  */

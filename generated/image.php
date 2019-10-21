@@ -430,7 +430,6 @@ function imagecolormatch($image1, $image2): void
  * @param array $matrix A 3x3 matrix: an array of three arrays of three floats.
  * @param float $div The divisor of the result of the convolution, used for normalization.
  * @param float $offset Color offset.
- * @return resource Returns TRUE on success.
  * @throws ImageException
  *
  */
@@ -2614,7 +2613,6 @@ function imagettfbbox(float $size, float $angle, string $fontfile, string $text)
  * right, upper right, upper left. The points are relative to the text
  * regardless of the angle, so "upper left" means in the top left-hand
  * corner when you see the text horizontally.
- * Returns FALSE on error.
  * @throws ImageException
  *
  */
@@ -2718,7 +2716,7 @@ function imagexbm($image, ?string $filename = null, int $foreground = null): voi
  * @param string $jpeg_file_name Path to the JPEG image.
  * @param int $spool Spool flag. If the spool flag is less than 2 then the JPEG will be
  * returned as a string. Otherwise the JPEG will be printed to STDOUT.
- * @return array If spool is less than 2, the JPEG will be returned. Otherwise returns TRUE on success.
+ * @return string|bool If spool is less than 2, the JPEG will be returned. Otherwise returns TRUE on success.
  * @throws ImageException
  *
  */

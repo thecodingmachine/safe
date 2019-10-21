@@ -688,7 +688,7 @@ function pg_last_error($connection = null): string
  * @throws PgsqlException
  *
  */
-function pg_last_notice($connection, int $option = PGSQL_NOTICE_LAST)
+function pg_last_notice($connection, int $option = PGSQL_NOTICE_LAST): string
 {
     error_clear_last();
     $result = \pg_last_notice($connection, $option);
@@ -1485,11 +1485,11 @@ function pg_query($connection = null, string $query = null)
  * PGSQL_DIAG_CONTEXT, PGSQL_DIAG_SOURCE_FILE,
  * PGSQL_DIAG_SOURCE_LINE or
  * PGSQL_DIAG_SOURCE_FUNCTION.
- * @return string|null A string containing the contents of the error field.
+ * @return string|null A string containing the contents of the error field, NULL if the field does not exist.
  * @throws PgsqlException
  *
  */
-function pg_result_error_field($result, int $fieldcode): string
+function pg_result_error_field($result, int $fieldcode): ?string
 {
     error_clear_last();
     $result = \pg_result_error_field($result, $fieldcode);
@@ -1859,8 +1859,7 @@ function pg_update($connection, string $table_name, array $data, array $conditio
  * is used. The default connection is the last connection made by
  * pg_connect or pg_pconnect.
  * @return array Returns an array with client, protocol
- * and server keys and values (if available).  Returns
- * FALSE on error or invalid connection.
+ * and server keys and values (if available) or invalid connection.
  * @throws PgsqlException
  *
  */

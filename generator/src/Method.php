@@ -4,6 +4,7 @@ namespace Safe;
 
 use Safe\PhpStanFunctions\PhpStanFunction;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
+use Safe\PhpStanFunctions\PhpStanType;
 
 class Method
 {
@@ -26,21 +27,28 @@ class Method
      */
     private $params = null;
     /**
-     * @var PhpStanFunctionMapReader
-     */
-    private $phpStanFunctionMapReader;
-    /**
      * @var int
      */
     private $errorType;
+    /**
+     * The function prototype from the phpstan internal documentation (functionMap.php)
+     * @var PhpStanFunction|null
+     */
+    private $phpstanSignarure;
+    /**
+     * @var PhpStanType
+     */
+    private $returnType;
 
     public function __construct(\SimpleXMLElement $_functionObject, \SimpleXMLElement $rootEntity, string $moduleName, PhpStanFunctionMapReader $phpStanFunctionMapReader, int $errorType)
     {
         $this->functionObject = $_functionObject;
         $this->rootEntity = $rootEntity;
         $this->moduleName = $moduleName;
-        $this->phpStanFunctionMapReader = $phpStanFunctionMapReader;
         $this->errorType = $errorType;
+        $functionName = $this->getFunctionName();
+        $this->phpstanSignarure = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
+        $this->returnType = $this->phpstanSignarure ? $this->phpstanSignarure->getReturnType() : new PhpStanType($this->functionObject->type->__toString());
     }
 
     public function getFunctionName(): string
@@ -53,20 +61,9 @@ class Method
         return $this->errorType;
     }
 
-    public function getReturnType(): string
+    public function getSignatureReturnType(): string
     {
-        // If the function returns a boolean, since false is for error, true is for success.
-        // Let's replace this with a "void".
-        $type = $this->functionObject->type->__toString();
-        if ($type === 'bool') {
-            return 'void';
-        }
-        // Some types are completely weird. For instance, oci_new_collection returns a "OCI-Collection" (with a dash, yup)
-        if (\strpos($type, '-') !== false) {
-            return 'mixed';
-        }
-
-        return Type::toRootNamespace($type);
+        return $this->returnType->getSignatureType($this->errorType);
     }
 
     /**
@@ -78,7 +75,7 @@ class Method
             if (!isset($this->functionObject->methodparam)) {
                 return [];
             }
-            $phpStanFunction = $this->getPhpStanData();
+            $phpStanFunction = $this->phpstanSignarure;
             $params = [];
             $i=1;
             foreach ($this->functionObject->methodparam as $param) {
@@ -124,43 +121,57 @@ class Method
             $i++;
         }
 
-        $bestReturnType = $this->getBestReturnType();
-        if ($bestReturnType !== 'void') {
-            $str .= '@return '.$bestReturnType. ' ' .$this->getReturnDoc()."\n";
-        }
+        $str .= $this->getReturnDocBlock();
 
         $str .= '@throws '.FileCreator::toExceptionName($this->getModuleName()). "\n";
 
         return $str;
     }
 
-    private function getReturnDoc(): string
+    public function getReturnDocBlock(): string
     {
         $returnDoc = $this->getStringForXPath("//docbook:refsect1[@role='returnvalues']/docbook:para");
-        return $this->stripReturnFalseText($returnDoc);
+        $returnDoc = $this->stripReturnFalseText($returnDoc);
+
+        $bestReturnType = $this->getDocBlockReturnType();
+        if ($bestReturnType !== 'void') {
+            return '@return '.$bestReturnType. ' ' .$returnDoc."\n";
+        }
+        return '';
     }
 
     private function stripReturnFalseText(string $string): string
     {
         $string = \strip_tags($string);
-        $string = $this->removeString($string, 'or FALSE on failure');
-        $string = $this->removeString($string, 'may return FALSE');
-        $string = $this->removeString($string, 'and FALSE on failure');
-        $string = $this->removeString($string, 'on success, or FALSE otherwise');
-        $string = $this->removeString($string, 'or FALSE on error');
-        $string = $this->removeString($string, 'or FALSE if an error occurred');
-        $string = $this->removeString($string, ' Returns FALSE otherwise.');
-        $string = $this->removeString($string, ' and FALSE if an error occurred');
-        $string = $this->removeString($string, ', NULL if the field does not exist');
-        $string = $this->removeString($string, 'the function will return TRUE, or FALSE otherwise');
+        switch ($this->errorType) {
+            case self::NULLSY_TYPE:
+                $string = $this->removeString($string, ', or NULL if an error occurs');
+                $string = $this->removeString($string, ' and NULL on failure');
+                $string = $this->removeString($string, ' or NULL on failure');
+                break;
+                
+            case self::FALSY_TYPE:
+                $string = $this->removeString($string, 'or FALSE on failure');
+                $string = $this->removeString($string, '. Returns FALSE on error');
+                $string = $this->removeString($string, 'may return FALSE');
+                $string = $this->removeString($string, 'and FALSE on failure');
+                $string = $this->removeString($string, 'on success, or FALSE otherwise');
+                $string = $this->removeString($string, 'or FALSE on error');
+                $string = $this->removeString($string, 'or FALSE if an error occurred');
+                $string = $this->removeString($string, ' Returns FALSE otherwise.');
+                $string = $this->removeString($string, ' and FALSE if an error occurred');
+                $string = $this->removeString($string, 'the function will return TRUE, or FALSE otherwise');
+                break;
+                
+            default:
+                throw new \RuntimeException('Incorrect error type.');
+        }
+
         return $string;
     }
 
     /**
      * Removes a string, even if the string is split on multiple lines.
-     * @param string $string
-     * @param string $search
-     * @return string
      */
     private function removeString(string $string, string $search): string
     {
@@ -185,24 +196,9 @@ class Method
         return trim($str);
     }
 
-    private function getBestReturnType(): ?string
+    private function getDocBlockReturnType(): ?string
     {
-        $phpStanFunction = $this->getPhpStanData();
-        // Get the type from PhpStan database first, then from the php doc.
-        if ($phpStanFunction !== null) {
-            return Type::toRootNamespace($phpStanFunction->getReturnType());
-        } else {
-            return Type::toRootNamespace($this->getReturnType());
-        }
-    }
-
-    private function getPhpStanData(): ?PhpStanFunction
-    {
-        $functionName = $this->getFunctionName();
-        if (!$this->phpStanFunctionMapReader->hasFunction($functionName)) {
-            return null;
-        }
-        return $this->phpStanFunctionMapReader->getFunction($functionName);
+        return $this->returnType->getDocBlockType($this->errorType);
     }
 
     private function getInnerXml(\SimpleXMLElement $SimpleXMLElement): string

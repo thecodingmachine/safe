@@ -15,17 +15,13 @@ class Parameter
      * @var PhpStanType
      */
     private $type;
-    /**
-     * @var PhpStanParameter|null
-     */
-    private $phpStanParams;
 
     public function __construct(\SimpleXMLElement $parameter, ?PhpStanFunction $phpStanFunction)
     {
         $this->parameter = $parameter;
-        $this->phpStanParams = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameter()) : null;
+        $phpStanParam = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameter()) : null;
         
-        $this->type = $this->phpStanParams ? $this->phpStanParams->getType() : new PhpStanType($this->parameter->type->__toString());
+        $this->type = $phpStanParam ? $phpStanParam->getType() : new PhpStanType($this->parameter->type->__toString());
     }
 
     /**

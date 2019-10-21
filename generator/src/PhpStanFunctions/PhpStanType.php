@@ -32,6 +32,7 @@ class PhpStanType
 
     public function __construct(string $data, bool $writeOnly = false)
     {
+        //first we try to parse the type string to have a list as clean as possible.
         $nullable = false;
         $falsable = false;
         // Let's make the parameter nullable if it is by reference and is used only for writing.
@@ -89,6 +90,7 @@ class PhpStanType
 
     public function getSignatureType(?int $errorType = null): string
     {
+        //We edit the return type depending of the "onErrorType" of the function. For example, a function that is both nullable and "nullsy" will created a non nullable safe function. Only relevant on return type.
         $nullable = $errorType === Method::NULLSY_TYPE ? false : $this->nullable;
         $falsable = $errorType === Method::FALSY_TYPE ? false : $this->falsable;
         $types = $this->types;
@@ -107,7 +109,7 @@ class PhpStanType
             }
         }
         
-        //if there are several types, no typehint
+        //if there are several distinct types, no typehint (we use distinct in case doc block contains several times the same type, for example array<int>|array<string>)
         if (count(array_unique($types)) > 1) {
             return '';
         } elseif (\in_array('void', $types) || (count($types) === 0 && !$nullable && !$falsable)) {
@@ -132,15 +134,5 @@ class PhpStanType
     public function isFalsable(): bool
     {
         return $this->falsable;
-    }
-
-    public function removeFalsable(): void
-    {
-        $this->falsable = false;
-    }
-
-    public function removeNullable(): void
-    {
-        $this->nullable = false;
     }
 }

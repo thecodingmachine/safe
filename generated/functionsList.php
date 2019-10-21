@@ -22,7 +22,6 @@ return [
     'apcu_cache_info',
     'apcu_cas',
     'apcu_dec',
-    'apcu_delete',
     'apcu_inc',
     'apcu_sma_info',
     'array_combine',

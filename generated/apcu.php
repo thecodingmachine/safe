@@ -70,29 +70,6 @@ function apcu_dec(string $key, int $step = 1, ?bool &$success = null, int $ttl =
 
 
 /**
- * Removes a stored variable from the cache.
- *
- * @param string|string[]|\APCUIterator $key A key used to store the value as a
- * string for a single key,
- * or as an array of strings for several keys,
- * or as an APCUIterator object.
- * @return bool|array If key is an array, an indexed array of the keys is returned.
- * Otherwise TRUE is returned on success.
- * @throws ApcuException
- *
- */
-function apcu_delete($key)
-{
-    error_clear_last();
-    $result = \apcu_delete($key);
-    if ($result === false) {
-        throw ApcuException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Increases a stored number.
  *
  * @param string $key The key of the value being increased.

@@ -25,7 +25,6 @@ services:
       apcu_cache_info: 'Safe\apcu_cache_info'
       apcu_cas: 'Safe\apcu_cas'
       apcu_dec: 'Safe\apcu_dec'
-      apcu_delete: 'Safe\apcu_delete'
       apcu_inc: 'Safe\apcu_inc'
       apcu_sma_info: 'Safe\apcu_sma_info'
       array_combine: 'Safe\array_combine'

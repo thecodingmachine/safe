@@ -15,4 +15,5 @@ return [
     'forward_static_call',
     'forward_static_call_array',
     'readdir', //the documentation is false: the function return false at the end of the iteration
+    'apcu_delete', //apcu_delete returns false when the $key does not exist in the cache store
 ];

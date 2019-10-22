@@ -37,4 +37,9 @@ class PhpStanFunctionMapReader
         }
         return new PhpStanFunction($map);
     }
+    
+    public function uselessFunction()
+    {
+        return 'lol';
+    }
 }

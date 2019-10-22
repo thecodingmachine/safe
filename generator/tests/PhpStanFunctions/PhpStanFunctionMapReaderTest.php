@@ -25,9 +25,6 @@ class PhpStanFunctionMapReaderTest extends TestCase
         $this->assertCount(2, $parameters);
         $this->assertSame('success', $parameters['success']->getName());
         $this->assertSame('bool|null', $parameters['success']->getType()->getDocBlockType());
-        $this->assertFalse($parameters['success']->isVariadic());
-        $this->assertTrue($parameters['success']->isByReference());
-        $this->assertTrue($parameters['success']->isOptional());
     }
     
     //todo: find a way to test custom map

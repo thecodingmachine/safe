@@ -1125,7 +1125,7 @@ function imagefilledellipse($image, int $cx, int $cy, int $width, int $height, i
  * such as imagecreatetruecolor.
  * @param array $points An array containing the x and y
  * coordinates of the polygons vertices consecutively.
- * @param int $num_points Total number of vertices, which must be at least 3.
+ * @param int $num_points Total number of points (vertices), which must be at least 3.
  * @param int $color A color identifier created with imagecolorallocate.
  * @throws ImageException
  *
@@ -1776,7 +1776,7 @@ function imageloadfont(string $file): int
  *
  *
  *
- * @param int $num_points Total number of points (vertices).
+ * @param int $num_points Total number of points (vertices), which must be at least 3.
  * @param int $color A color identifier created with imagecolorallocate.
  * @throws ImageException
  *
@@ -1852,7 +1852,7 @@ function imagepng($image, $to = null, int $quality = -1, int $filters = -1): voi
  *
  *
  *
- * @param int $num_points Total number of points (vertices).
+ * @param int $num_points Total number of points (vertices), which must be at least 3.
  * @param int $color A color identifier created with imagecolorallocate.
  * @throws ImageException
  *

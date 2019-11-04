@@ -114,7 +114,7 @@ tool that performs instant refactoring of your application.
 First, you need to install Rector:
 
 ```bash
-$ composer require --dev rector/rector ^0.4
+$ composer require --dev rector/rector ^0.5
 ```
 
 Now, you simply need to run Rector with this command:

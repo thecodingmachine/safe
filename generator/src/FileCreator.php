@@ -128,14 +128,13 @@ return [\n");
             throw new \RuntimeException('Unable to write to '.$path);
         }
         fwrite($stream, "# This rector file is replacing all core PHP functions with the equivalent \"safe\" functions
-# It is targetting Rector 0.4.x versions.
-# If you are using Rector 0.3, please upgrade your Rector version
+# It is targetting Rector 0.5.x versions.
+# If you are using Rector 0.4, please upgrade your Rector version
 services:
-  Rector\Rector\Function_\RenameFunctionRector:
-    \$oldFunctionToNewFunction:
+  Rector\Renaming\Rector\Function_\RenameFunctionRector:
 ");
         foreach ($functionNames as $functionName) {
-            fwrite($stream, '      '.$functionName.": 'Safe\\".$functionName."'\n");
+            fwrite($stream, '    '.$functionName.": 'Safe\\".$functionName."'\n");
         }
         fclose($stream);
     }

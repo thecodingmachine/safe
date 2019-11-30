@@ -8,6 +8,10 @@ abstract class AbstractSafeException extends \ErrorException implements SafeExce
     public static function createFromPhpError(): self
     {
         $error = error_get_last();
+        
+        if ($error === null) {
+            return new static();
+        }
 
         return new static($error['message'], 0, $error['type']);
     }

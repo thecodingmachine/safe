@@ -1,6 +1,8 @@
 language: php
 matrix:
   include:
+  - php: 7.4
+    env: PREFER_LOWEST=""
   - php: 7.3
     env: PREFER_LOWEST=""
   - php: 7.2

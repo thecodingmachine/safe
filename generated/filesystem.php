@@ -953,7 +953,7 @@ function fwrite($handle, string $string, int $length = null): int
  *
  *
  *
- * * - Matches zero of more characters.
+ * * - Matches zero or more characters.
  *
  *
  *

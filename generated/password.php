@@ -97,7 +97,7 @@ use Safe\Exceptions\PasswordException;
  * algorithm, will result
  * in the password parameter being truncated to a
  * maximum length of 72 characters.
- * @param int $algo A password algorithm constant denoting the algorithm to use when hashing the password.
+ * @param int|string|null $algo A password algorithm constant denoting the algorithm to use when hashing the password.
  * @param array $options An associative array containing options. See the password algorithm constants for documentation on the supported options for each algorithm.
  *
  * If omitted, a random salt will be created and the default cost will be
@@ -111,7 +111,7 @@ use Safe\Exceptions\PasswordException;
  * @throws PasswordException
  *
  */
-function password_hash(string $password, int $algo, array $options = null): string
+function password_hash(string $password, $algo, array $options = null): string
 {
     error_clear_last();
     if ($options !== null) {

@@ -145,6 +145,35 @@ function sha1_file(string $filename, bool $raw_output = false): string
 
 
 /**
+ * Calculates the soundex key of str.
+ *
+ * Soundex keys have the property that words pronounced similarly
+ * produce the same soundex key, and can thus be used to simplify
+ * searches in databases where you know the pronunciation but not
+ * the spelling. This soundex function returns a string 4 characters
+ * long, starting with a letter.
+ *
+ * This particular soundex function is one described by Donald Knuth
+ * in "The Art Of Computer Programming, vol. 3: Sorting And
+ * Searching", Addison-Wesley (1973), pp. 391-392.
+ *
+ * @param string $str The input string.
+ * @return string Returns the soundex key as a string.
+ * @throws StringsException
+ *
+ */
+function soundex(string $str): string
+{
+    error_clear_last();
+    $result = \soundex($str);
+    if ($result === false) {
+        throw StringsException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Returns a string produced according to the formatting string
  * format.
  *
@@ -451,7 +480,7 @@ function sprintf(string $format, ...$params): string
  * Returns the portion of string specified by the
  * start and length parameters.
  *
- * @param string $string The input string. Must be one character or longer.
+ * @param string $string The input string.
  * @param int $start If start is non-negative, the returned string
  * will start at the start'th position in
  * string, counting from zero. For instance,

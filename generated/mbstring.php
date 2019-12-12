@@ -472,3 +472,24 @@ function mb_send_mail(string $to, string $subject, string $message, string $addi
         throw MbstringException::createFromPhpError();
     }
 }
+
+
+/**
+ *
+ *
+ * @param string $pattern The regular expression pattern.
+ * @param string $string The string being split.
+ * @param int $limit
+ * @return array The result as an array.
+ * @throws MbstringException
+ *
+ */
+function mb_split(string $pattern, string $string, int $limit = -1): array
+{
+    error_clear_last();
+    $result = \mb_split($pattern, $string, $limit);
+    if ($result === false) {
+        throw MbstringException::createFromPhpError();
+    }
+    return $result;
+}

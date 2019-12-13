@@ -7,7 +7,7 @@ use function strpos;
 
 class DocPage
 {
-    /*
+    /**
      * @var string
      */
     private $path;

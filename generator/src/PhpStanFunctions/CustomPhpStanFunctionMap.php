@@ -6,7 +6,6 @@
  */
 
 return [
-    'mb_ereg_replace_callback' => ['string|false', 'pattern'=>'string', 'callback'=>'callable', 'string'=>'string', 'option='=>'string'],
     'swoole_async_writefile' => ['bool', 'filename'=>'string', 'content'=>'string', 'callback='=>'callable', 'flags='=>'int'],
     'libxml_get_last_error' => ['LibXMLError|false'], //LibXMLError need to be uppercase
     'gmp_random_seed' => ['void', 'seed'=>'GMP|string|int'], //gmp_random_seed doesn't return

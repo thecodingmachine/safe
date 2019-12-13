@@ -16,6 +16,6 @@ class PcreException extends \Exception implements SafeExceptionInterface
             PREG_JIT_STACKLIMIT_ERROR => 'PREG_JIT_STACKLIMIT_ERROR',
         ];
         $errMsg = $errorMap[preg_last_error()] ?? 'Unknown PCRE error: '.preg_last_error();
-        return new static($errMsg, \preg_last_error());
+        return new self($errMsg, \preg_last_error());
     }
 }

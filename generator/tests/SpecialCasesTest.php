@@ -12,7 +12,6 @@ class SpecialCasesTest extends TestCase
     {
         require_once __DIR__.'/../../lib/special_cases.php';
         require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
-        require_once __DIR__.'/../../lib/Exceptions/AbstractSafeException.php';
         require_once __DIR__.'/../../lib/Exceptions/PcreException.php';
 
         $this->expectException(PcreException::class);

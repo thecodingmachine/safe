@@ -49,6 +49,9 @@ class DocPage
     public function detectFalsyFunction(): bool
     {
         $file = file_get_contents($this->path);
+        if ($file === false) {
+            throw new \RuntimeException('An error occured while reading '.$this->path);
+        }
 
         if ($this->getIsDeprecated($file)) {
             return false;
@@ -116,6 +119,9 @@ class DocPage
     public function detectNullsyFunction(): bool
     {
         $file = \file_get_contents($this->path);
+        if ($file === false) {
+            throw new \RuntimeException('An error occured while reading '.$this->path);
+        }
 
         if ($this->getIsDeprecated($file)) {
             return false;
@@ -141,6 +147,9 @@ class DocPage
         $cleanedFunctions = [];
 
         $file = \file_get_contents($this->path);
+        if ($file === false) {
+            throw new \RuntimeException('An error occured while reading '.$this->path);
+        }
         if (!preg_match_all('/<\/?methodsynopsis[\s\S]*?>[\s\S]*?<\/methodsynopsis>/m', $file, $functions, PREG_SET_ORDER, 0)) {
             return [];
         }
@@ -171,6 +180,9 @@ class DocPage
     public function loadAndResolveFile(): \SimpleXMLElement
     {
         $content = \file_get_contents($this->path);
+        if ($content === false) {
+            throw new \RuntimeException('An error occured while reading '.$this->path);
+        }
         $strpos = \strpos($content, '?>')+2;
         if (!\file_exists(__DIR__.'/../doc/entities/generated.ent')) {
             self::buildEntities();
@@ -237,10 +249,10 @@ class DocPage
 
     public static function buildEntities(): void
     {
-        $file1 = \file_get_contents(__DIR__.'/../doc/doc-en/en/language-defs.ent');
-        $file2 = \file_get_contents(__DIR__.'/../doc/doc-en/en/language-snippets.ent');
-        $file3 = \file_get_contents(__DIR__.'/../doc/doc-en/en/extensions.ent');
-        $file4 = \file_get_contents(__DIR__.'/../doc/doc-en/doc-base/entities/global.ent');
+        $file1 = \file_get_contents(__DIR__.'/../doc/doc-en/en/language-defs.ent') ?: '';
+        $file2 = \file_get_contents(__DIR__.'/../doc/doc-en/en/language-snippets.ent') ?: '';
+        $file3 = \file_get_contents(__DIR__.'/../doc/doc-en/en/extensions.ent') ?: '';
+        $file4 = \file_get_contents(__DIR__.'/../doc/doc-en/doc-base/entities/global.ent') ?: '';
 
         $completeFile = $file1 . self::extractXmlHeader($file2) . self::extractXmlHeader($file3) . $file4;
 

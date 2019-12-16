@@ -43,12 +43,12 @@ class PhpStanType
         //remove 'null' from the list to identify if the signature type should be nullable
         if (($nullablePosition = \array_search('null', $returnTypes)) !== false) {
             $nullable = true;
-            \array_splice($returnTypes, $nullablePosition, 1);
+            \array_splice($returnTypes, (int) $nullablePosition, 1);
         }
         //remove 'false' from the list to identify if the function return false on error
         if (($falsablePosition = \array_search('false', $returnTypes)) !== false) {
             $falsable = true;
-            \array_splice($returnTypes, $falsablePosition, 1);
+            \array_splice($returnTypes, (int) $falsablePosition, 1);
         }
         if (\count($returnTypes) === 0) {
             throw new \RuntimeException('Error when trying to extract parameter type');

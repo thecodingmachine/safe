@@ -23,7 +23,7 @@
     "php-coveralls/php-coveralls": "^2.1"
   },
   "scripts": {
-    "phpstan": "phpstan analyse src -c phpstan.neon --level=7 --no-progress -vvv",
+    "phpstan": "phpstan analyse src -c phpstan.neon --level=max --no-progress -vvv",
     "cs-fix": "phpcbf",
     "cs-check": "phpcs"
   },

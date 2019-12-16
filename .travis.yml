@@ -1,10 +1,15 @@
 language: php
 matrix:
+  fast_finish: true # Don't wait for the allowed failures to build.
   include:
   - php: 7.3
     env: PREFER_LOWEST=""
   - php: 7.2
     env: PREFER_LOWEST=""
+  allow_failures:
+    # PHP 7.4 testing is allowed to fail because the container isn't ready yet 
+    - php: 7.4
+      env: PREFER_LOWEST=""
 
 cache:
   directories:

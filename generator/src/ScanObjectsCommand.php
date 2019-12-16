@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ScanObjectsCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('scan-objects')
@@ -34,5 +34,6 @@ class ScanObjectsCommand extends Command
         }
 
         $output->writeln('These methods are overloaded: '.\implode(', ', $overloadedFunctions));
+        return 0;
     }
 }

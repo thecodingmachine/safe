@@ -3,13 +3,13 @@
 
 namespace Safe\Exceptions;
 
-class CurlException extends AbstractSafeException
+class CurlException extends \Exception implements SafeExceptionInterface
 {
     /**
      * @param resource $ch
      */
     public static function createFromCurlResource($ch): self
     {
-        return new static(\curl_error($ch), \curl_errno($ch));
+        return new self(\curl_error($ch), \curl_errno($ch));
     }
 }

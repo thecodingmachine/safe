@@ -10,10 +10,20 @@ use SplFileInfo;
 
 class Scanner
 {
-    /*
+    /**
      * @var string
      */
     private $path;
+
+    /**
+     * @var string[]
+     */
+    private $ignoredFunctions;
+
+    /**
+     * @var string[]
+     */
+    private $ignoredModules;
 
     public function __construct(string $path)
     {
@@ -42,8 +52,6 @@ class Scanner
         return iterator_to_array($finder);
     }
 
-    private $ignoredFunctions;
-
     /**
      * Returns the list of functions that must be ignored.
      * @return string[]
@@ -58,8 +66,6 @@ class Scanner
         }
         return $this->ignoredFunctions;
     }
-
-    private $ignoredModules;
 
     /**
      * Returns the list of modules that must be ignored.

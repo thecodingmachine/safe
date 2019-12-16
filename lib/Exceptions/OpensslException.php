@@ -7,6 +7,6 @@ class OpensslException extends \Exception implements SafeExceptionInterface
 {
     public static function createFromPhpError(): self
     {
-        return new static(\openssl_error_string(), 0);
+        return new self(\openssl_error_string() ?: '', 0);
     }
 }

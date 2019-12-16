@@ -418,7 +418,7 @@ function mb_regex_encoding(string $encoding = null)
  * This parameter is not automatically encoded.
  * @param string $subject The subject of the mail.
  * @param string $message The message of the mail.
- * @param string $additional_headers String or array to be inserted at the end of the email header.
+ * @param string|array|null $additional_headers String or array to be inserted at the end of the email header.
  *
  * This is typically used to add extra headers (From, Cc, and Bcc).
  * Multiple extra headers should be separated with a CRLF (\r\n).
@@ -464,7 +464,7 @@ function mb_regex_encoding(string $encoding = null)
  * @throws MbstringException
  *
  */
-function mb_send_mail(string $to, string $subject, string $message, string $additional_headers = null, string $additional_parameter = null): void
+function mb_send_mail(string $to, string $subject, string $message, $additional_headers = null, string $additional_parameter = null): void
 {
     error_clear_last();
     $result = \mb_send_mail($to, $subject, $message, $additional_headers, $additional_parameter);

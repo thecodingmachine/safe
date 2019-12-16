@@ -1,6 +1,10 @@
 <?php
 namespace Safe\Exceptions;
 
-class ShmopException extends AbstractSafeException
+class ShmopException extends \Exception implements SafeExceptionInterface
 {
+    public static function createFromPhpError(): self
+    {
+        return new self(\json_last_error_msg(), \json_last_error());
+    }
 }

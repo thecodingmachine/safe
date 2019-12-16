@@ -12,7 +12,6 @@ class DateTimeImmutableTest extends TestCase
     protected function setUp()
     {
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
-        require_once __DIR__ . '/../../lib/Exceptions/AbstractSafeException.php';
         require_once __DIR__ . '/../../generated/Exceptions/DatetimeException.php';
         require_once __DIR__ . '/../../lib/DateTimeImmutable.php';
     }

@@ -16,7 +16,6 @@ class GeneratedFilesTest extends TestCase
     {
         require_once __DIR__ . '/../../generated/strings.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
-        require_once __DIR__ . '/../../lib/Exceptions/AbstractSafeException.php';
         require_once __DIR__ . '/../../generated/Exceptions/StringsException.php';
 
         $this->assertSame('foo', sprintf('foo'));
@@ -37,7 +36,6 @@ class GeneratedFilesTest extends TestCase
     {
         require_once __DIR__ . '/../../generated/pcre.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
-        require_once __DIR__ . '/../../lib/Exceptions/AbstractSafeException.php';
         require_once __DIR__ . '/../../lib/Exceptions/PcreException.php';
 
 
@@ -52,7 +50,6 @@ class GeneratedFilesTest extends TestCase
     {
         require_once __DIR__ . '/../../generated/simplexml.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
-        require_once __DIR__ . '/../../lib/Exceptions/AbstractSafeException.php';
         require_once __DIR__ . '/../../generated/Exceptions/SimplexmlException.php';
 
         $xmlStr = <<<XML
@@ -83,7 +80,6 @@ XML;
     {
         require_once __DIR__ . '/../../generated/pcre.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
-        require_once __DIR__ . '/../../lib/Exceptions/AbstractSafeException.php';
         require_once __DIR__ . '/../../lib/Exceptions/PcreException.php';
 
         $keywords = preg_split("/[\s,]+/", "hypertext language, programming", null);
@@ -98,7 +94,6 @@ XML;
     {
         require_once __DIR__ . '/../../generated/datetime.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
-        require_once __DIR__ . '/../../lib/Exceptions/AbstractSafeException.php';
         require_once __DIR__ . '/../../generated/Exceptions/DatetimeException.php';
 
         $this->assertSame(\strtotime('+1 day'), strtotime('+1 day'));
@@ -111,7 +106,6 @@ XML;
     {
         require_once __DIR__ . '/../../generated/openssl.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
-        require_once __DIR__ . '/../../lib/Exceptions/AbstractSafeException.php';
         require_once __DIR__ . '/../../lib/Exceptions/OpensslException.php';
 
         \openssl_sign('foo', $signature, file_get_contents(__DIR__ . '/fixtures/id_rsa'));

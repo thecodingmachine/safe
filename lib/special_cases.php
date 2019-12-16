@@ -63,7 +63,7 @@ function apc_fetch($key)
  * @param string|string[] $key The key used to store the value (with
  * apcu_store). If an array is passed then each
  * element is fetched and returned.
- * @return mixed The stored variable or array of variables on success; FALSE on failure
+ * @return mixed The stored variable or array of variables on success
  * @throws ApcuException
  *
  */
@@ -130,7 +130,7 @@ function apcu_fetch($key)
  * 'strlen(\'$1\')+strlen("$2")'). Make sure you are
  * aware of PHP's string
  * syntax to know exactly how the interpreted string will look.
- * @param string|array $subject The string or an array with strings to search and replace.
+ * @param string|array|string[] $subject The string or an array with strings to search and replace.
  *
  * If subject is an array, then the search and
  * replace is performed on every entry of subject,
@@ -140,7 +140,7 @@ function apcu_fetch($key)
  * -1 (no limit).
  * @param int $count If specified, this variable will be filled with the number of
  * replacements done.
- * @return string|array preg_replace returns an array if the
+ * @return string|array|string[] preg_replace returns an array if the
  * subject parameter is an array, or a string
  * otherwise.
  *

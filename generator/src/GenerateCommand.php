@@ -10,7 +10,7 @@ use Symfony\Component\Process\Process;
 
 class GenerateCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('generate')
@@ -68,7 +68,6 @@ class GenerateCommand extends Command
         }
 
         require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
-        require_once __DIR__.'/../../lib/Exceptions/AbstractSafeException.php';
         foreach ($files as $file) {
             require($file);
         }
@@ -76,6 +75,8 @@ class GenerateCommand extends Command
         // Finally, let's edit the composer.json file
         $output->writeln('Editing composer.json');
         ComposerJsonEditor::editFiles(\array_values($modules));
+        
+        return 0;
     }
 
     private function rmGenerated(): void

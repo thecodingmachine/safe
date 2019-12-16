@@ -20,6 +20,12 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     private $innerDateTime;
 
+    /**
+     * DateTimeImmutable constructor.
+     * @param string $time
+     * @param DateTimeZone|null $timezone
+     * @throws \Exception
+     */
     public function __construct($time = 'now', $timezone = null)
     {
         parent::__construct();
@@ -51,6 +57,10 @@ class DateTimeImmutable extends \DateTimeImmutable
         return self::createFromRegular($datetime);
     }
 
+    /**
+     * @param string $format
+     * @return string
+     */
     public function format($format): string
     {
         /** @var string|false $result */
@@ -61,6 +71,11 @@ class DateTimeImmutable extends \DateTimeImmutable
         return $result;
     }
 
+    /**
+     * @param DateTimeInterface $datetime2
+     * @param bool $absolute
+     * @return DateInterval
+     */
     public function diff($datetime2, $absolute = false): DateInterval
     {
         /** @var \DateInterval|false $result */
@@ -71,6 +86,10 @@ class DateTimeImmutable extends \DateTimeImmutable
         return $result;
     }
 
+    /**
+     * @param string $modify
+     * @return DateTimeImmutable
+     */
     public function modify($modify): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -81,6 +100,12 @@ class DateTimeImmutable extends \DateTimeImmutable
         return self::createFromRegular($result); //we have to recreate a safe datetime because modify create a new instance of \DateTimeImmutable
     }
 
+    /**
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @return DateTimeImmutable
+     */
     public function setDate($year, $month, $day): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -91,6 +116,12 @@ class DateTimeImmutable extends \DateTimeImmutable
         return self::createFromRegular($result); //we have to recreate a safe datetime because modify create a new instance of \DateTimeImmutable
     }
 
+    /**
+     * @param int $year
+     * @param int $week
+     * @param int $day
+     * @return DateTimeImmutable
+     */
     public function setISODate($year, $week, $day = 1): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -101,6 +132,13 @@ class DateTimeImmutable extends \DateTimeImmutable
         return self::createFromRegular($result); //we have to recreate a safe datetime because modify create a new instance of \DateTimeImmutable
     }
 
+    /**
+     * @param int $hour
+     * @param int $minute
+     * @param int $second
+     * @param int $microseconds
+     * @return DateTimeImmutable
+     */
     public function setTime($hour, $minute, $second = 0, $microseconds = 0): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -111,6 +149,10 @@ class DateTimeImmutable extends \DateTimeImmutable
         return self::createFromRegular($result);
     }
 
+    /**
+     * @param int $unixtimestamp
+     * @return DateTimeImmutable
+     */
     public function setTimestamp($unixtimestamp): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -121,6 +163,10 @@ class DateTimeImmutable extends \DateTimeImmutable
         return self::createFromRegular($result);
     }
 
+    /**
+     * @param DateTimeZone $timezone
+     * @return DateTimeImmutable
+     */
     public function setTimezone($timezone): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -131,6 +177,10 @@ class DateTimeImmutable extends \DateTimeImmutable
         return self::createFromRegular($result);
     }
 
+    /**
+     * @param DateInterval $interval
+     * @return DateTimeImmutable
+     */
     public function sub($interval): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -154,16 +204,28 @@ class DateTimeImmutable extends \DateTimeImmutable
     //////////////////////////////////////////////////////////////////////////////////////////
     //overload getters to use the inner datetime immutable instead of itself
 
+    /**
+     * @param DateInterval $interval
+     * @return DateTimeImmutable
+     */
     public function add($interval): self
     {
         return self::createFromRegular($this->innerDateTime->add($interval));
     }
 
+    /**
+     * @param DateTime $dateTime
+     * @return DateTimeImmutable
+     */
     public static function createFromMutable($dateTime): self
     {
         return self::createFromRegular(parent::createFromMutable($dateTime));
     }
 
+    /**
+     * @param mixed[] $array
+     * @return DateTimeImmutable
+     */
     public static function __set_state(array $array): self
     {
         return self::createFromRegular(parent::__set_state($array));

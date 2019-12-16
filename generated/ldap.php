@@ -59,14 +59,14 @@ function ldap_add($link_identifier, string $dn, array $entry, array $serverctrls
  * Does the same thing as ldap_bind but returns the LDAP result resource to be parsed with ldap_parse_result.
  *
  * @param resource $link_identifier
- * @param string $bind_rdn
- * @param string $bind_password
+ * @param string|null $bind_rdn
+ * @param string|null $bind_password
  * @param array $serverctrls
  * @return resource Returns an LDAP result identifier.
  * @throws LdapException
  *
  */
-function ldap_bind_ext($link_identifier, string $bind_rdn = null, string $bind_password = null, array $serverctrls = null)
+function ldap_bind_ext($link_identifier, ?string $bind_rdn = null, ?string $bind_password = null, array $serverctrls = null)
 {
     error_clear_last();
     $result = \ldap_bind_ext($link_identifier, $bind_rdn, $bind_password, $serverctrls);
@@ -81,13 +81,13 @@ function ldap_bind_ext($link_identifier, string $bind_rdn = null, string $bind_p
  * Binds to the LDAP directory with specified RDN and password.
  *
  * @param resource $link_identifier An LDAP link identifier, returned by ldap_connect.
- * @param string $bind_rdn
- * @param string $bind_password
+ * @param string|null $bind_rdn
+ * @param string|null $bind_password
  * @param array $serverctrls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
-function ldap_bind($link_identifier, string $bind_rdn = null, string $bind_password = null, array $serverctrls = null): void
+function ldap_bind($link_identifier, ?string $bind_rdn = null, ?string $bind_password = null, array $serverctrls = null): void
 {
     error_clear_last();
     $result = \ldap_bind($link_identifier, $bind_rdn, $bind_password, $serverctrls);
@@ -254,7 +254,7 @@ function ldap_exop_whoami($link): string
  * @param resource $link An LDAP link identifier, returned by ldap_connect.
  * @param string $reqoid The extended operation request OID. You may use one of LDAP_EXOP_START_TLS, LDAP_EXOP_MODIFY_PASSWD, LDAP_EXOP_REFRESH, LDAP_EXOP_WHO_AM_I, LDAP_EXOP_TURN, or a string with the OID of the operation you want to send.
  * @param string $reqdata The extended operation request data. May be NULL for some operations like LDAP_EXOP_WHO_AM_I, may also need to be BER encoded.
- * @param array $serverctrls Array of LDAP Controls to send with the request.
+ * @param array|null $serverctrls Array of LDAP Controls to send with the request.
  * @param string|null $retdata Will be filled with the extended operation response data if provided.
  * If not provided you may use ldap_parse_exop on the result object
  * later to get this data.
@@ -264,7 +264,7 @@ function ldap_exop_whoami($link): string
  * @throws LdapException
  *
  */
-function ldap_exop($link, string $reqoid, string $reqdata = null, array $serverctrls = null, ?string &$retdata = null, ?string &$retoid = null)
+function ldap_exop($link, string $reqoid, string $reqdata = null, ?array $serverctrls = null, ?string &$retdata = null, ?string &$retoid = null)
 {
     error_clear_last();
     $result = \ldap_exop($link, $reqoid, $reqdata, $serverctrls, $retdata, $retoid);
@@ -1404,7 +1404,7 @@ function ldap_search($link_identifier, string $base_dn, string $filter, array $a
 /**
  * Sets the value of the specified option to be newval.
  *
- * @param resource $link_identifier An LDAP link identifier, returned by ldap_connect.
+ * @param resource|null $link_identifier An LDAP link identifier, returned by ldap_connect.
  * @param int $option The parameter option can be one of:
  *
  *

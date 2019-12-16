@@ -16,7 +16,7 @@ class PhpStanFunctionMapReader
 
     public function __construct()
     {
-        $this->functionMap = require __DIR__.'/../../vendor/phpstan/phpstan/src/Reflection/SignatureMap/functionMap.php';
+        $this->functionMap = require 'phar://'.__DIR__.'/../../vendor/phpstan/phpstan/phpstan.phar/src/Reflection/SignatureMap/functionMap.php';
         $this->customFunctionMap = require __DIR__.'/CustomPhpStanFunctionMap.php';
     }
 
@@ -31,7 +31,7 @@ class PhpStanFunctionMapReader
         $customMap = $this->customFunctionMap[$functionName] ?? null;
         if ($map && $customMap) {
             if ($customMap === $map) {
-                throw new \RuntimeException('Useless custom function map: '.var_export($customMap, true)."\nPlease delete this line from the custom file");
+                throw new \RuntimeException("Useless custom function map $functionName: ".var_export($customMap, true)."\nPlease delete this line from the custom file");
             }
             $map = $customMap;
         }

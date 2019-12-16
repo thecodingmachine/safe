@@ -196,7 +196,7 @@ class Method
         return trim($str);
     }
 
-    private function getDocBlockReturnType(): ?string
+    private function getDocBlockReturnType(): string
     {
         return $this->returnType->getDocBlockType($this->errorType);
     }

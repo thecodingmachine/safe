@@ -184,7 +184,10 @@ function soundex(string $str): string
  * own parameter.
  *
  * A conversion specification follows this prototype:
- * %[flags][width][.precision]specifier.
+ * %[argnum$][flags][width][.precision]specifier.
+ *
+ * An integer followed by a dollar sign $,
+ * to specify which number argument to treat in the conversion.
  *
  *
  * Flags
@@ -552,7 +555,10 @@ function substr(string $string, int $start, int $length = null): string
  * own parameter.
  *
  * A conversion specification follows this prototype:
- * %[flags][width][.precision]specifier.
+ * %[argnum$][flags][width][.precision]specifier.
+ *
+ * An integer followed by a dollar sign $,
+ * to specify which number argument to treat in the conversion.
  *
  *
  * Flags

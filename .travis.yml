@@ -5,8 +5,6 @@ matrix:
     env: PREFER_LOWEST=""
   - php: 7.2
     env: PREFER_LOWEST=""
-  - php: 7.1
-    env: PREFER_LOWEST=""
 
 cache:
   directories:
@@ -61,4 +59,4 @@ script:
 - cd generator/tests/rector/0.5 && composer install && composer rector && composer test && cd ../../../..
 
 after_script:
-- cd generator && travis_retry php vendor/bin/php-coveralls -v
+- cd generator && travis_retry php vendor/bin/php-coveralls -v --root_dir="./generator"

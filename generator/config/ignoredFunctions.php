@@ -17,4 +17,5 @@ return [
     'readdir', //the documentation is false: the function return false at the end of the iteration
     'apcu_delete', //apcu_delete returns false when the $key does not exist in the cache store
     'filter_has_var', //this function is meant to return true or false
+    'array_multisort', // this function si too buggy, see PR #113 on github
 ];

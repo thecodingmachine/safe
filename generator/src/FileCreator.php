@@ -150,11 +150,12 @@ services:
 <?php
 namespace Safe\Exceptions;
 
-class {$exceptionName} extends \Exception implements SafeExceptionInterface
+class {$exceptionName} extends \ErrorException implements SafeExceptionInterface
 {
     public static function createFromPhpError(): self
     {
-        return new self(\json_last_error_msg(), \json_last_error());
+        \$error = error_get_last();
+        return new self(\$error['message'] ?? 'An error occured', 0, \$error['type'] ?? 1);
     }
 }
 

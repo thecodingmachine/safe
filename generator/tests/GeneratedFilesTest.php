@@ -3,6 +3,7 @@
 namespace Safe;
 
 use PHPUnit\Framework\TestCase;
+use Safe\Exceptions\DatetimeException;
 use function restore_error_handler;
 use Safe\Exceptions\StringsException;
 use SimpleXMLElement;
@@ -97,6 +98,15 @@ XML;
         require_once __DIR__ . '/../../generated/Exceptions/DatetimeException.php';
 
         $this->assertSame(\strtotime('+1 day'), strtotime('+1 day'));
+
+        set_error_handler(function () {
+        });
+        try {
+            $this->expectException(DatetimeException::class);
+            strtotime('nonsense');
+        } finally {
+            restore_error_handler();
+        }
     }
 
     /**

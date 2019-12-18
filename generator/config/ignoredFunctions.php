@@ -14,8 +14,8 @@ return [
     'array_search',
     'forward_static_call',
     'forward_static_call_array',
-    'readdir', //the documentation is false: the function return false at the end of the iteration
-    'apcu_delete', //apcu_delete returns false when the $key does not exist in the cache store
-    'filter_has_var', //this function is meant to return true or false
-    'array_multisort', // this function si too buggy, see PR #113 on github
+    'readdir', // the documentation is false: the function returns false at the end of the iteration
+    'apcu_delete', // apcu_delete returns false when the $key does not exist in the cache store
+    'filter_has_var', // this function is meant to return a boolean
+    'array_multisort', // this function is too buggy, see PR #113 on GitHub
 ];

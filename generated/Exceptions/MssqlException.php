@@ -1,10 +1,11 @@
 <?php
 namespace Safe\Exceptions;
 
-class MssqlException extends \Exception implements SafeExceptionInterface
+class MssqlException extends \ErrorException implements SafeExceptionInterface
 {
     public static function createFromPhpError(): self
     {
-        return new self(\json_last_error_msg(), \json_last_error());
+        $error = error_get_last();
+        return new self($error['message'] ?? 'An error occured', 0, $error['type'] ?? 1);
     }
 }

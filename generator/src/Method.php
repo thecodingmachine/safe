@@ -39,6 +39,10 @@ class Method
      * @var PhpStanType
      */
     private $returnType;
+    /**
+     * @var bool
+     */
+    private $isPure;
 
     public function __construct(\SimpleXMLElement $_functionObject, \SimpleXMLElement $rootEntity, string $moduleName, PhpStanFunctionMapReader $phpStanFunctionMapReader, int $errorType)
     {
@@ -49,6 +53,7 @@ class Method
         $functionName = $this->getFunctionName();
         $this->phpstanSignarure = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
         $this->returnType = $this->phpstanSignarure ? $this->phpstanSignarure->getReturnType() : new PhpStanType($this->functionObject->type->__toString());
+        $this->isPure = PureFunctionIdentifier::isPure($functionName);
     }
 
     public function getFunctionName(): string
@@ -122,6 +127,9 @@ class Method
         }
 
         $str .= $this->getReturnDocBlock();
+        if ($this->isPure) {
+            $str .=  "@psalm-pure\n";
+        }
 
         $str .= '@throws '.FileCreator::toExceptionName($this->getModuleName()). "\n";
 

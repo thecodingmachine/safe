@@ -8,6 +8,7 @@ use Safe\Exceptions\ReadlineException;
  * This function adds a line to the command line history.
  *
  * @param string $line The line to be added in the history.
+ * @psalm-pure
  * @throws ReadlineException
  *
  */

@@ -9,6 +9,7 @@ use Safe\Exceptions\DirException;
  * directory.
  *
  * @param string $directory The new current directory
+ * @psalm-pure
  * @throws DirException
  *
  */
@@ -32,6 +33,7 @@ function chdir(string $directory): void
  * requires root privileges.
  *
  * @param string $directory The path to change the root directory to.
+ * @psalm-pure
  * @throws DirException
  *
  */

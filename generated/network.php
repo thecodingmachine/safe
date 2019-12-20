@@ -549,6 +549,7 @@ function inet_ntop(string $in_addr): string
  *
  * LOG_USER is the only valid log type under Windows
  * operating systems
+ * @psalm-pure
  * @throws NetworkException
  *
  */
@@ -624,6 +625,7 @@ function openlog(string $ident, int $option, int $facility): void
  * %m will be replaced by the error message string
  * (strerror) corresponding to the present value of
  * errno.
+ * @psalm-pure
  * @throws NetworkException
  *
  */

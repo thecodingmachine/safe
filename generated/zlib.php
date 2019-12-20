@@ -131,6 +131,7 @@ function deflate_init(int $encoding, array $options = null)
  *
  * @param resource $zp The gz-file pointer. It must be valid, and must point to a file
  * successfully opened by gzopen.
+ * @psalm-pure
  * @throws ZlibException
  *
  */
@@ -372,6 +373,7 @@ function gzpassthru($zp): int
  *
  * @param resource $zp The gz-file pointer. It must be valid, and must point to a file
  * successfully opened by gzopen.
+ * @psalm-pure
  * @throws ZlibException
  *
  */

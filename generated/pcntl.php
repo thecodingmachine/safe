@@ -17,6 +17,7 @@ use Safe\Exceptions\PcntlException;
  * environment to the program.  The array is in the format of name =&gt; value,
  * the key being the name of the environmental variable and the value being
  * the value of that variable.
+ * @psalm-pure
  * @throws PcntlException
  *
  */

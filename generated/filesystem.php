@@ -13,6 +13,7 @@ use Safe\Exceptions\FilesystemException;
  *
  * @param string $filename Path to the file.
  * @param string|int $group A group name or number.
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -75,6 +76,7 @@ function chmod(string $filename, int $mode): void
  *
  * @param string $filename Path to the file.
  * @param string|int $user A user name or number.
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -102,6 +104,7 @@ function chown(string $filename, $user): void
  * If the destination file already exists, it will be overwritten.
  * @param resource $context A valid context resource created with
  * stream_context_create.
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -169,6 +172,7 @@ function disk_total_space(string $directory): float
  *
  * @param resource $handle The file pointer must be valid, and must point to a file successfully
  * opened by fopen or fsockopen.
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -327,6 +331,7 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
  * @param resource $context A valid context resource created with
  * stream_context_create.
  * @return int This function returns the number of bytes that were written to the file.
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -780,6 +785,7 @@ function flock($handle, int $operation, ?int &$wouldblock = null): void
  * include_path, too.
  * @param resource $context
  * @return resource Returns a file pointer resource on success
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -816,6 +822,7 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  * escape character (at most one character).
  * An empty string ("") disables the proprietary escape mechanism.
  * @return int Returns the length of the written string.
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -866,6 +873,7 @@ function fputcsv($handle, array $fields, string $delimiter = ",", string $enclos
  * that is typically created using fopen.
  * @param int $length Up to length number of bytes read.
  * @return string Returns the read string.
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -894,6 +902,7 @@ function fread($handle, int $length): string
  *
  * If size is smaller than the file then the file
  * is truncated to that size.
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -923,6 +932,7 @@ function ftruncate($handle, int $size): void
  * configuration option will be ignored and no slashes will be
  * stripped from string.
  * @return int
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -1120,6 +1130,7 @@ function link(string $target, string $link): void
  * @param bool $recursive Allows the creation of nested directories specified in the
  * pathname.
  * @param resource $context
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -1220,6 +1231,7 @@ function parse_ini_string(string $ini, bool $process_sections = false, int $scan
  * you want to search for the file in the include_path, too.
  * @param resource $context A context stream resource.
  * @return int Returns the number of bytes read from the file on success
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -1308,6 +1320,7 @@ function realpath(string $path): string
  * newname.
  * @param string $newname The new name.
  * @param resource $context
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -1331,6 +1344,7 @@ function rename(string $oldname, string $newname, $context = null): void
  *
  * @param resource $handle The file pointer must be valid, and must point to a file
  * successfully opened by fopen.
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -1351,6 +1365,7 @@ function rewind($handle): void
  *
  * @param string $dirname Path to the directory.
  * @param resource $context
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -1375,6 +1390,7 @@ function rmdir(string $dirname, $context = null): void
  *
  * @param string $target Target of the link.
  * @param string $link The link name.
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -1452,6 +1468,7 @@ function tmpfile()
  * the value of atime. Otherwise, it is set to
  * the value passed to the time parameter.
  * If neither are present, the current system time is used.
+ * @psalm-pure
  * @throws FilesystemException
  *
  */
@@ -1478,6 +1495,7 @@ function touch(string $filename, int $time = null, int $atime = null): void
  *
  * @param string $filename Path to the file.
  * @param resource $context
+ * @psalm-pure
  * @throws FilesystemException
  *
  */

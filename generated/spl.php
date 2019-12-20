@@ -96,6 +96,7 @@ function class_uses($class, bool $autoload = true): array
  * cannot be registered.
  * @param bool $prepend If true, spl_autoload_register will prepend
  * the autoloader on the autoload queue instead of appending it.
+ * @psalm-pure
  * @throws SplException
  *
  */

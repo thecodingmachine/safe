@@ -81,6 +81,7 @@ function session_destroy(): void
  * You should not delete old session if you need to avoid
  * races caused by deletion or detect/avoid session hijack
  * attacks.
+ * @psalm-pure
  * @throws SessionException
  *
  */

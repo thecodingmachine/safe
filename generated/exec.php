@@ -114,6 +114,7 @@ function proc_get_status($process): array
  *
  * For Windows the increment parameter have the
  * following meanings:
+ * @psalm-pure
  * @throws ExecException
  *
  */
@@ -145,6 +146,7 @@ function proc_nice(int $increment): void
  * return status of the executed command will be written to this
  * variable.
  * @return string Returns the last line of the command output on success.
+ * @psalm-pure
  * @throws ExecException
  *
  */

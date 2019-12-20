@@ -615,6 +615,7 @@ function openssl_pkcs7_read(string $infilename, ?array &$certs): void
  * @param string $extracerts extracerts specifies the name of a file containing
  * a bunch of extra certificates to include in the signature which can for
  * example be used to help the recipient to verify the certificate that you used.
+ * @psalm-pure
  * @throws OpensslException
  *
  */

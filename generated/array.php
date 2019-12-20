@@ -347,8 +347,8 @@ function shuffle(array &$array): void
  * Sorting type flags:
  *
  *
- * SORT_REGULAR - compare items normally
- * (don't change types)
+ * SORT_REGULAR - compare items normally;
+ * the details are described in the comparison operators section
  *
  *
  * SORT_NUMERIC - compare items numerically

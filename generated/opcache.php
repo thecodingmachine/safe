@@ -10,6 +10,7 @@ use Safe\Exceptions\OpcacheException;
  * restart by pre-caching files that will be included in later requests.
  *
  * @param string $file The path to the PHP script to be compiled.
+ * @psalm-pure
  * @throws OpcacheException
  *
  */

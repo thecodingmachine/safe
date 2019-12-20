@@ -1574,6 +1574,7 @@ function ldap_search($link_identifier, string $base_dn, string $filter, array $a
  * if not supplied. See draft-ietf-ldapext-ldap-c-api-xx.txt
  * for details. See also the second example below.
  * @param mixed $newval The new value for the specified option.
+ * @psalm-pure
  * @throws LdapException
  *
  */

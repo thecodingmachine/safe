@@ -317,6 +317,7 @@ function mb_http_output(string $encoding = null)
  * In this case, the character encoding for multibyte regex is NOT changed.
  * If encoding is omitted, then
  * the current character encoding name is returned.
+ * @psalm-pure
  * @throws MbstringException
  *
  */

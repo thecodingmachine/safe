@@ -11,6 +11,7 @@ use Safe\Exceptions\FunchandException;
  * @param string $args The function arguments.
  * @param string $code The function code.
  * @return string Returns a unique function name as a string.
+ * @psalm-pure
  * @throws FunchandException
  *
  */
@@ -30,6 +31,7 @@ function create_function(string $args, string $code): string
  *
  * @param callable(): void $function The function to register.
  * @param mixed $params
+ * @psalm-pure
  * @throws FunchandException
  *
  */

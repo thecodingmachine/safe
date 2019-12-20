@@ -43,6 +43,7 @@ function apc_cache_info(string $cache_type = '', bool $limited = false): array
  * @param string $key The key of the value being updated.
  * @param int $old The old value (the value currently stored).
  * @param int $new The new value to update to.
+ * @psalm-pure
  * @throws ApcException
  *
  */
@@ -85,6 +86,7 @@ function apc_compile_file(string $filename, bool $atomic = true)
  * @param bool|null $success Optionally pass the success or fail boolean value to
  * this referenced variable.
  * @return int Returns the current value of key's value on success
+ * @psalm-pure
  * @throws ApcException
  *
  */
@@ -161,6 +163,7 @@ function apc_delete_file($keys)
  *
  * @param string|string[]|\APCIterator $key The key used to store the value (with
  * apc_store).
+ * @psalm-pure
  * @throws ApcException
  *
  */
@@ -182,6 +185,7 @@ function apc_delete($key): void
  * @param bool|null $success Optionally pass the success or fail boolean value to
  * this referenced variable.
  * @return int Returns the current value of key's value on success
+ * @psalm-pure
  * @throws ApcException
  *
  */

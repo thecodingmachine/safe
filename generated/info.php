@@ -10,6 +10,7 @@ use Safe\Exceptions\InfoException;
  * CLI mode.
  *
  * @param string $title The new title.
+ * @psalm-pure
  * @throws InfoException
  *
  */
@@ -240,6 +241,7 @@ function ini_get(string $varname): string
  * in the appendix.
  * @param string|int|float|bool $newvalue The new value for the option.
  * @return string Returns the old value on success, FALSE on failure.
+ * @psalm-pure
  * @throws InfoException
  *
  */
@@ -430,6 +432,7 @@ function phpcredits(int $flag = CREDITS_ALL): void
  *
  *
  *
+ * @psalm-pure
  * @throws InfoException
  *
  */
@@ -465,6 +468,7 @@ function phpinfo(int $what = INFO_ALL): void
  * to allow to change them.
  *
  * @param string $setting The setting, like "FOO=BAR"
+ * @psalm-pure
  * @throws InfoException
  *
  */
@@ -513,6 +517,7 @@ function set_include_path(string $new_include_path): string
  *
  * @param int $seconds The maximum execution time, in seconds. If set to zero, no time limit
  * is imposed.
+ * @psalm-pure
  * @throws InfoException
  *
  */

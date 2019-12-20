@@ -695,6 +695,7 @@ function socket_set_nonblock($socket): void
  * @param int $optname The available socket options are the same as those for the
  * socket_get_option function.
  * @param int|string|array $optval The option value.
+ * @psalm-pure
  * @throws SocketsException
  *
  */
@@ -769,6 +770,7 @@ function socket_shutdown($socket, int $how = 2): void
  * socket_last_error. This code may be passed to
  * socket_strerror to get a textual explanation of the
  * error.
+ * @psalm-pure
  * @throws SocketsException
  *
  */

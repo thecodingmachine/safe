@@ -25,6 +25,7 @@ use Safe\Exceptions\MiscException;
  * different values.
  *
  * Case-insensitive constants are stored as lower-case.
+ * @psalm-pure
  * @throws MiscException
  *
  */
@@ -175,6 +176,7 @@ function sapi_windows_vt100_support($stream, bool $enable = null): void
  * WAIT_IO_COMPLETION constant within the Windows API).
  * On other platforms, the return value will be the number of seconds left to
  * sleep.
+ * @psalm-pure
  * @throws MiscException
  *
  */

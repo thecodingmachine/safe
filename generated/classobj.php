@@ -12,6 +12,7 @@ use Safe\Exceptions\ClassobjException;
  * @param string $original The original class.
  * @param string $alias The alias name for the class.
  * @param bool $autoload Whether to autoload if the original class is not found.
+ * @psalm-pure
  * @throws ClassobjException
  *
  */

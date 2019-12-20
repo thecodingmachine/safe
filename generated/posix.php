@@ -138,6 +138,7 @@ function posix_initgroups(string $name, int $base_group_id): void
  *
  * @param int $pid The process identifier.
  * @param int $sig One of the PCNTL signals constants.
+ * @psalm-pure
  * @throws PosixException
  *
  */

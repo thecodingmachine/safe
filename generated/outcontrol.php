@@ -16,6 +16,7 @@ use Safe\Exceptions\OutcontrolException;
  * and PHP_OUTPUT_HANDLER_REMOVABLE
  * flags. Otherwise ob_end_clean will not work.
  *
+ * @psalm-pure
  * @throws OutcontrolException
  *
  */

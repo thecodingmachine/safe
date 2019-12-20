@@ -36,6 +36,7 @@ function curl_escape($ch, string $str): string
  * @return bool|string Returns TRUE on success. However, if the CURLOPT_RETURNTRANSFER
  * option is set, it will return
  * the result on success, FALSE on failure.
+ * @psalm-pure
  * @throws CurlException
  *
  */
@@ -2413,6 +2414,7 @@ function curl_multi_init()
  *
  *
  *
+ * @psalm-pure
  * @throws CurlException
  *
  */

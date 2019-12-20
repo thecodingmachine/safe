@@ -33,6 +33,7 @@ function apcu_cache_info(bool $limited = false): array
  * @param string $key The key of the value being updated.
  * @param int $old The old value (the value currently stored).
  * @param int $new The new value to update to.
+ * @psalm-pure
  * @throws ApcuException
  *
  */
@@ -55,6 +56,7 @@ function apcu_cas(string $key, int $old, int $new): void
  * this referenced variable.
  * @param int $ttl TTL to use if the operation inserts a new value (rather than decrementing an existing one).
  * @return int Returns the current value of key's value on success
+ * @psalm-pure
  * @throws ApcuException
  *
  */
@@ -78,6 +80,7 @@ function apcu_dec(string $key, int $step = 1, ?bool &$success = null, int $ttl =
  * this referenced variable.
  * @param int $ttl TTL to use if the operation inserts a new value (rather than incrementing an existing one).
  * @return int Returns the current value of key's value on success
+ * @psalm-pure
  * @throws ApcuException
  *
  */

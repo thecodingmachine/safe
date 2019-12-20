@@ -277,6 +277,7 @@ function stream_resolve_include_path(string $filename): string
  * fgets call will always return right away
  * while in blocking mode it will wait for data to become available
  * on the stream.
+ * @psalm-pure
  * @throws StreamException
  *
  */
@@ -302,6 +303,7 @@ function stream_set_blocking($stream, bool $mode): void
  * @param resource $stream The target stream.
  * @param int $seconds The seconds part of the timeout to be set.
  * @param int $microseconds The microseconds part of the timeout to be set.
+ * @psalm-pure
  * @throws StreamException
  *
  */

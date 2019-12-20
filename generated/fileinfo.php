@@ -8,6 +8,7 @@ use Safe\Exceptions\FileinfoException;
  * This function closes the resource opened by finfo_open.
  *
  * @param resource $finfo Fileinfo resource returned by finfo_open.
+ * @psalm-pure
  * @throws FileinfoException
  *
  */

@@ -63,6 +63,7 @@ use Safe\Exceptions\ErrorfuncException;
  * parameter is set to 1.
  * This message type uses the same internal function as
  * mail does.
+ * @psalm-pure
  * @throws ErrorfuncException
  *
  */

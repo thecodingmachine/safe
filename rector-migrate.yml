@@ -491,6 +491,7 @@ services:
     highlight_string: 'Safe\highlight_string'
     sapi_windows_cp_conv: 'Safe\sapi_windows_cp_conv'
     sapi_windows_cp_set: 'Safe\sapi_windows_cp_set'
+    sapi_windows_generate_ctrl_event: 'Safe\sapi_windows_generate_ctrl_event'
     sapi_windows_vt100_support: 'Safe\sapi_windows_vt100_support'
     sleep: 'Safe\sleep'
     time_nanosleep: 'Safe\time_nanosleep'

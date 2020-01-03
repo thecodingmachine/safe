@@ -489,6 +489,7 @@ return [
     'highlight_string',
     'sapi_windows_cp_conv',
     'sapi_windows_cp_set',
+    'sapi_windows_generate_ctrl_event',
     'sapi_windows_vt100_support',
     'sleep',
     'time_nanosleep',

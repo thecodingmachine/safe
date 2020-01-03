@@ -134,6 +134,27 @@ function sapi_windows_cp_set(int $cp): void
 
 
 /**
+ * Sends a CTRL event to another process in the same process group.
+ *
+ * @param int $event The CTRL even to send;
+ * either PHP_WINDOWS_EVENT_CTRL_C
+ * or PHP_WINDOWS_EVENT_CTRL_BREAK.
+ * @param int $pid The ID of the process to which to send the event to. If 0
+ * is given, the event is sent to all processes of the process group.
+ * @throws MiscException
+ *
+ */
+function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
+{
+    error_clear_last();
+    $result = \sapi_windows_generate_ctrl_event($event, $pid);
+    if ($result === false) {
+        throw MiscException::createFromPhpError();
+    }
+}
+
+
+/**
  * If enable is omitted, the function returns TRUE if the stream stream has VT100 control codes enabled, FALSE otherwise.
  *
  * If enable is specified, the function will try to enable or disable the VT100 features of the stream stream.

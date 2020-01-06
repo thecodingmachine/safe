@@ -142,4 +142,15 @@ class DateTimeImmutableTest extends TestCase
         $this->assertEquals($safeDatetime->getTimestamp(), $newDatetime->getTimestamp());
         $this->assertEquals($safeDatetime->getTimezone(), $newDatetime->getTimezone());
     }
+    
+    public function testComparaison(): void
+    {
+        $safeDateTime = new \Safe\DateTimeImmutable();
+        $phpDateTime = new \DateTimeImmutable();
+        $timeLimit = \DateInterval::createFromDateString('2 hours');
+
+        $a = $safeDateTime->modify('+3 hours') < $safeDateTime->add($timeLimit);
+        $b = $phpDateTime->modify('+3 hours') < $phpDateTime->add($timeLimit);
+        $this->assertEquals($b, $a);
+    }
 }

@@ -4,5 +4,5 @@
 /CONTRIBUTING.md export-ignore
 /phpcs.xml.dist export-ignore
 /phpstan.neon export-ignore
-/benchmark export-ignore
+/performance export-ignore
 /generator export-ignore

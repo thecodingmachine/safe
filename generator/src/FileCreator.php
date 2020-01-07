@@ -87,6 +87,7 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';
         }, $functions);
         $specialCases = require __DIR__.'/../config/specialCasesFunctions.php';
         $functionNames = array_merge($functionNames, $specialCases);
+        natcasesort($functionNames);
         $excludeCases = require __DIR__.'/../config/ignoredFunctions.php';
         return array_diff($functionNames, $excludeCases);
     }

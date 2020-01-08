@@ -153,4 +153,16 @@ class DateTimeImmutableTest extends TestCase
         $b = $phpDateTime->modify('+3 hours') < $phpDateTime->add($timeLimit);
         $this->assertEquals($b, $a);
     }
+
+    public function testEquals(): void
+    {
+        $phpDateTime = new \DateTimeImmutable();
+
+        $safeDateTime1 = \Safe\DateTimeImmutable::createFromFormat('Y-m-d H:i:s.v', $phpDateTime->format('Y-m-d H:i:s.v'));
+        $safeDateTime2 = new \Safe\DateTimeImmutable($safeDateTime1->format('Y-m-d H:i:s.v'));
+
+        $this->assertEquals($phpDateTime, $safeDateTime1);
+        $this->assertEquals($phpDateTime, $safeDateTime2);
+        $this->assertEquals($safeDateTime1, $safeDateTime2);
+    }
 }

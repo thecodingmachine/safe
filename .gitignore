@@ -3,6 +3,6 @@
 /generator/doc/doc-en/
 /generator/doc/entities/generated.ent
 /composer.lock
-/vendor/
-/generator/tests/rector/0.4/composer.lock
-/generator/tests/rector/0.4/vendor/
+vendor/
+/generator/tests/rector/0.5/composer.lock
+/generator/tests/rector/0.6/composer.lock

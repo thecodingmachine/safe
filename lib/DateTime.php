@@ -13,7 +13,7 @@ class DateTime extends \DateTime
     //switch from regular datetime to safe version
     private static function createFromRegular(\DateTime $datetime): self
     {
-        return new self($datetime->format('Y-m-d H:i:s.v'), $datetime->getTimezone());
+        return new self($datetime->format('Y-m-d H:i:s.u'), $datetime->getTimezone());
     }
 
     /**

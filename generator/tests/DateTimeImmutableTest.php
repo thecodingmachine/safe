@@ -158,8 +158,8 @@ class DateTimeImmutableTest extends TestCase
     {
         $phpDateTime = new \DateTimeImmutable();
 
-        $safeDateTime1 = \Safe\DateTimeImmutable::createFromFormat('Y-m-d H:i:s.v', $phpDateTime->format('Y-m-d H:i:s.v'));
-        $safeDateTime2 = new \Safe\DateTimeImmutable($safeDateTime1->format('Y-m-d H:i:s.v'));
+        $safeDateTime1 = \Safe\DateTimeImmutable::createFromFormat('Y-m-d H:i:s.u', $phpDateTime->format('Y-m-d H:i:s.u'));
+        $safeDateTime2 = new \Safe\DateTimeImmutable($safeDateTime1->format('Y-m-d H:i:s.u'));
 
         $this->assertEquals($phpDateTime, $safeDateTime1);
         $this->assertEquals($phpDateTime, $safeDateTime2);

@@ -62,6 +62,7 @@ script:
     exit 1;
   fi
 - cd generator/tests/rector/0.5 && composer install && composer rector && composer test && cd ../../../..
+- cd generator/tests/rector/0.6 && composer install && composer rector && composer test && cd ../../../..
 
 after_script:
 - cd generator && travis_retry php vendor/bin/php-coveralls -v --root_dir="./generator"

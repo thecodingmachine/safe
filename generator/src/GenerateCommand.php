@@ -38,6 +38,7 @@ class GenerateCommand extends Command
         $fileCreator->generatePhpFile($functions, __DIR__ . '/../../generated/');
         $fileCreator->generateFunctionsList($functions, __DIR__ . '/../../generated/functionsList.php');
         $fileCreator->generateRectorFile($functions, __DIR__ . '/../../rector-migrate.yml');
+        $fileCreator->generateRectorFileForZeroPointSix($functions, __DIR__ . '/../../rector-migrate-0.6.yml');
 
 
         $modules = [];
@@ -75,7 +76,7 @@ class GenerateCommand extends Command
         // Finally, let's edit the composer.json file
         $output->writeln('Editing composer.json');
         ComposerJsonEditor::editFiles(\array_values($modules));
-        
+
         return 0;
     }
 

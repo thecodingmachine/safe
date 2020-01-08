@@ -116,6 +116,8 @@ return [\n");
     }
 
     /**
+     * @deprecated Official support for rector/rector:~0.5 is not advertised anymore.
+     *
      * This function generate a rector yml file containing a replacer for all functions
      *
      * @param Method[] $functions
@@ -140,6 +142,39 @@ services:
         fclose($stream);
     }
 
+    /**
+     * Generates a configuration file for replacing all functions when using rector/rector:~0.6.
+     *
+     * @param Method[] $functions
+     * @param string $path
+     */
+    public function generateRectorFileForZeroPointSix(array $functions, string $path): void
+    {
+        $functionNames = $this->getFunctionsNameList($functions);
+
+        $stream = fopen($path, 'w');
+
+        if ($stream === false) {
+            throw new \RuntimeException('Unable to write to '.$path);
+        }
+
+        $header = <<<'TXT'
+# This file configures rector/rector:~0.6.0 to replace all PHP functions with their equivalent "safe" functions
+
+services:
+  Rector\Renaming\Rector\Function_\RenameFunctionRector:
+    $oldFunctionToNewFunction:
+
+TXT;
+
+        fwrite($stream, $header);
+
+        foreach ($functionNames as $functionName) {
+            fwrite($stream, '      '.$functionName.": 'Safe\\".$functionName."'\n");
+        }
+
+        fclose($stream);
+    }
 
     public function createExceptionFile(string $moduleName): void
     {

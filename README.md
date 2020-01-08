@@ -114,13 +114,13 @@ tool that performs instant refactoring of your application.
 First, you need to install Rector:
 
 ```bash
-$ composer require --dev rector/rector ^0.5
+$ composer require --dev rector/rector ^0.6
 ```
 
 Now, you simply need to run Rector with this command:
 
 ```bash
-vendor/bin/rector process src/ --config vendor/thecodingmachine/safe/rector-migrate.yml
+vendor/bin/rector process src/ --config vendor/thecodingmachine/safe/rector-migrate-0.6.yml
 ```
 
 *Note:* do not forget to replace "src/" with the path to your source directory.

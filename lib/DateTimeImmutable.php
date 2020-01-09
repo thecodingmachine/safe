@@ -35,7 +35,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     //switch from regular datetime to safe version
     private static function createFromRegular(\DateTimeImmutable $datetime): self
     {
-        $safeDatetime = new self($datetime->format('Y-m-d H:i:s'), $datetime->getTimezone()); //we need to also update the wrapper to not break the operators '<' and '>'
+        $safeDatetime = new self($datetime->format('Y-m-d H:i:s.u'), $datetime->getTimezone()); //we need to also update the wrapper to not break the operators '<' and '>'
         $safeDatetime->innerDateTime = $datetime;
         return $safeDatetime;
     }

@@ -3,44 +3,10 @@
 namespace Safe;
 
 use function array_merge;
-use Complex\Exception;
 use function file_exists;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class FileCreator
 {
-    /**
-     * This function generate an xls file
-     *
-     * @param string[] $protoFunctions
-     * @param string $path
-     */
-    public function generateXlsFile(array $protoFunctions, string $path): void
-    {
-        $spreadsheet = new Spreadsheet();
-        $numb = 1;
-
-        $sheet = $spreadsheet->getActiveSheet();
-        $sheet->setCellValue('A1', 'Function name');
-        $sheet->setCellValue('B1', 'Status');
-
-        foreach ($protoFunctions as $protoFunction) {
-            if ($protoFunction) {
-                if (strpos($protoFunction, '=') === false && strpos($protoFunction, 'json') === false) {
-                    $status = 'classic';
-                } elseif (strpos($protoFunction, 'json')) {
-                    $status = 'json';
-                } else {
-                    $status = 'opt';
-                }
-                $sheet->setCellValue('A'.$numb, $protoFunction);
-                $sheet->setCellValue('B'.$numb++, $status);
-            }
-        }
-        $writer = new Xlsx($spreadsheet);
-        $writer->save($path);
-    }
 
     /**
      * This function generate an improved php lib function in a php file

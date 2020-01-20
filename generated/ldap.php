@@ -83,14 +83,13 @@ function ldap_bind_ext($link_identifier, ?string $bind_rdn = null, ?string $bind
  * @param resource $link_identifier An LDAP link identifier, returned by ldap_connect.
  * @param string|null $bind_rdn
  * @param string|null $bind_password
- * @param array $serverctrls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
-function ldap_bind($link_identifier, ?string $bind_rdn = null, ?string $bind_password = null, array $serverctrls = null): void
+function ldap_bind($link_identifier, ?string $bind_rdn = null, ?string $bind_password = null): void
 {
     error_clear_last();
-    $result = \ldap_bind($link_identifier, $bind_rdn, $bind_password, $serverctrls);
+    $result = \ldap_bind($link_identifier, $bind_rdn, $bind_password);
     if ($result === false) {
         throw LdapException::createFromPhpError();
     }

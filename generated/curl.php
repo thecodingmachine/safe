@@ -818,6 +818,15 @@ function curl_multi_init()
  *
  *
  *
+ * CURLOPT_HTTP_CONTENT_DECODING
+ *
+ * FALSE to get the raw HTTP response body.
+ *
+ *
+ * Available as of PHP 5.5.0 if built against libcurl &gt;= 7.16.2.
+ *
+ *
+ *
  * CURLOPT_MUTE
  *
  * TRUE to be completely silent with regards to

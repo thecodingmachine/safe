@@ -49,7 +49,7 @@ function socket_accept($socket)
  * Create a Socket resource, and bind it to the provided AddrInfo resource.  The return
  * value of this function may be used with socket_listen.
  *
- * @param resource $addr Resource created from socket_addrinfo_lookup().
+ * @param resource $addr Resource created from socket_addrinfo_lookup.
  * @return resource Returns a Socket resource on success.
  * @throws SocketsException
  *
@@ -69,7 +69,7 @@ function socket_addrinfo_bind($addr)
  * Create a Socket resource, and connect it to the provided AddrInfo resource.  The return
  * value of this function may be used with the rest of the socket functions.
  *
- * @param resource $addr Resource created from socket_addrinfo_lookup()
+ * @param resource $addr Resource created from socket_addrinfo_lookup
  * @return resource Returns a Socket resource on success.
  * @throws SocketsException
  *

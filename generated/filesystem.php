@@ -1413,7 +1413,7 @@ function tempnam(string $dir, string $prefix): string
 
 /**
  * Creates a temporary file with a unique name in read-write (w+) mode and
- * returns a file handle .
+ * returns a file handle.
  *
  * The file is automatically removed when closed (for example, by calling
  * fclose, or when there are no remaining references to

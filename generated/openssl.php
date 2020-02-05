@@ -696,7 +696,7 @@ function openssl_pkey_export($key, ?string &$out, string $passphrase = null, arr
 
 
 /**
- * openssl_get_privatekey parses
+ * openssl_pkey_get_private parses
  * key and prepares it for use by other functions.
  *
  * @param string $key key can be one of the following:
@@ -726,7 +726,7 @@ function openssl_pkey_get_private(string $key, string $passphrase = "")
 
 
 /**
- * openssl_get_publickey extracts the public key from
+ * openssl_pkey_get_public extracts the public key from
  * certificate and prepares it for use by other
  * functions.
  *

@@ -277,6 +277,96 @@ function curl_exec($ch)
  *
  *
  *
+ *
+ * CURLINFO_CONTENT_LENGTH_DOWNLOAD_T - The content-length of the download. This is the value read from the Content-Type: field. -1 if the size isn't known
+ *
+ *
+ *
+ *
+ * CURLINFO_CONTENT_LENGTH_UPLOAD_T - The specified size of the upload. -1 if the size isn't known
+ *
+ *
+ *
+ *
+ * CURLINFO_HTTP_VERSION - The version used in the last HTTP connection. The return value will be one of the defined CURL_HTTP_VERSION_* constants or 0 if the version can't be determined
+ *
+ *
+ *
+ *
+ * CURLINFO_PROTOCOL - The protocol used in the last HTTP connection. The returned value will be exactly one of the CURLPROTO_* values
+ *
+ *
+ *
+ *
+ * CURLINFO_PROXY_SSL_VERIFYRESULT - The result of the certificate verification that was requested (using the CURLOPT_PROXY_SSL_VERIFYPEER option). Only used for HTTPS proxies
+ *
+ *
+ *
+ *
+ * CURLINFO_SCHEME - The URL scheme used for the most recent connection
+ *
+ *
+ *
+ *
+ * CURLINFO_SIZE_DOWNLOAD_T - Total number of bytes that were downloaded. The number is only for the latest transfer and will be reset again for each new transfer
+ *
+ *
+ *
+ *
+ * CURLINFO_SIZE_UPLOAD_T - Total number of bytes that were uploaded
+ *
+ *
+ *
+ *
+ * CURLINFO_SPEED_DOWNLOAD_T - The average download speed in bytes/second that curl measured for the complete download
+ *
+ *
+ *
+ *
+ * CURLINFO_SPEED_UPLOAD_T - The average upload speed in bytes/second that curl measured for the complete upload
+ *
+ *
+ *
+ *
+ * CURLINFO_APPCONNECT_TIME_T - Time, in microseconds, it took from the start until the SSL/SSH connect/handshake to the remote host was completed
+ *
+ *
+ *
+ *
+ * CURLINFO_CONNECT_TIME_T - Total time taken, in microseconds, from the start until the connection to the remote host (or proxy) was completed
+ *
+ *
+ *
+ *
+ * CURLINFO_FILETIME_T - Remote time of the retrieved document (as Unix timestamp), an alternative to CURLINFO_FILETIME to allow systems with 32 bit long variables to extract dates outside of the 32bit timestamp range
+ *
+ *
+ *
+ *
+ * CURLINFO_NAMELOOKUP_TIME_T - Time in microseconds from the start until the name resolving was completed
+ *
+ *
+ *
+ *
+ * CURLINFO_PRETRANSFER_TIME_T - Time taken from the start until the file transfer is just about to begin, in microseconds
+ *
+ *
+ *
+ *
+ * CURLINFO_REDIRECT_TIME_T - Total time, in microseconds, it took for all redirection steps include name lookup, connect, pretransfer and transfer before final transaction was started
+ *
+ *
+ *
+ *
+ * CURLINFO_STARTTRANSFER_TIME_T - Time, in microseconds, it took from the start until the first byte is received
+ *
+ *
+ *
+ *
+ * CURLINFO_TOTAL_TIME_T - Total time in microseconds for the previous transfer, including name resolving, TCP connect etc.
+ *
+ *
+ *
  * @return mixed If opt is given, returns its value.
  * Otherwise, returns an associative array with the following elements
  * (which correspond to opt):
@@ -645,6 +735,46 @@ function curl_multi_init()
  *
  *
  *
+ * CURLOPT_DISALLOW_USERNAME_IN_URL
+ *
+ * TRUE to not allow URLs that include a username. Usernames are allowed by default (0).
+ *
+ *
+ * Added in cURL 7.61.0. Available since PHP 7.3.0.
+ *
+ *
+ *
+ * CURLOPT_DNS_SHUFFLE_ADDRESSES
+ *
+ * TRUE to shuffle the order of all returned addresses so that they will be used
+ * in a random order, when a name is resolved and more than one IP address is returned.
+ * This may cause IPv4 to be used before IPv6 or vice versa.
+ *
+ *
+ * Added in cURL 7.60.0. Available since PHP 7.3.0.
+ *
+ *
+ *
+ * CURLOPT_HAPROXYPROTOCOL
+ *
+ * TRUE to send an HAProxy PROXY protocol v1 header at the start of the connection.
+ * The default action is not to send this header.
+ *
+ *
+ * Added in cURL 7.60.0. Available since PHP 7.3.0.
+ *
+ *
+ *
+ * CURLOPT_SSH_COMPRESSION
+ *
+ * TRUE to enable built-in SSH compression. This is a request, not an order;
+ * the server may or may not do it.
+ *
+ *
+ * Added in cURL 7.56.0. Available since PHP 7.3.0.
+ *
+ *
+ *
  * CURLOPT_DNS_USE_GLOBAL_CACHE
  *
  * TRUE to use a global DNS cache. This option is not thread-safe.
@@ -800,6 +930,16 @@ function curl_multi_init()
  *
  *
  *
+ * CURLOPT_HTTP09_ALLOWED
+ *
+ * Whether to allow HTTP/0.9 responses. Defaults to FALSE as of libcurl 7.66.0;
+ * formerly it defaulted to TRUE.
+ *
+ *
+ * Available since PHP 7.3.15 and 7.4.3, respectively, if built against libcurl &gt;= 7.64.0
+ *
+ *
+ *
  * CURLOPT_HTTPGET
  *
  * TRUE to reset the HTTP request method to GET.
@@ -824,6 +964,18 @@ function curl_multi_init()
  *
  *
  * Available as of PHP 5.5.0 if built against libcurl &gt;= 7.16.2.
+ *
+ *
+ *
+ * CURLOPT_KEEP_SENDING_ON_ERROR
+ *
+ * TRUE to keep sending the request body if the HTTP code returned is
+ * equal to or larger than 300. The default action would be to stop sending
+ * and close the stream or connection. Suitable for manual NTLM authentication.
+ * Most applications do not need this option.
+ *
+ *
+ * Available as of PHP 7.3.0 if built against libcurl &gt;= 7.51.0.
  *
  *
  *
@@ -999,6 +1151,31 @@ function curl_multi_init()
  *
  *
  *
+ * CURLOPT_PROXY_SSL_VERIFYPEER
+ *
+ * FALSE to stop cURL from verifying the peer's certificate.
+ * Alternate certificates to verify against can be
+ * specified with the CURLOPT_CAINFO option
+ * or a certificate directory can be specified with the
+ * CURLOPT_CAPATH option.
+ * When set to false, the peer certificate verification succeeds regardless.
+ *
+ *
+ * TRUE by default. Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_SUPPRESS_CONNECT_HEADERS
+ *
+ * TRUE to suppress proxy CONNECT response headers from the user callback functions
+ * CURLOPT_HEADERFUNCTION and CURLOPT_WRITEFUNCTION,
+ * when CURLOPT_HTTPPROXYTUNNEL is used and a CONNECT request is made.
+ *
+ *
+ * Added in cURL 7.54.0. Available since PHP 7.3.0.
+ *
+ *
+ *
  * CURLOPT_TCP_FASTOPEN
  *
  * TRUE to enable TCP Fast Open.
@@ -1148,6 +1325,18 @@ function curl_multi_init()
  *
  *
  * Added in cURL 7.36.0. Available since PHP 7.0.7.
+ *
+ *
+ *
+ * CURLOPT_HAPPY_EYEBALLS_TIMEOUT_MS
+ *
+ * Head start for ipv6 for the happy eyeballs algorithm. Happy eyeballs attempts
+ * to connect to both IPv4 and IPv6 addresses for dual-stack hosts,
+ * preferring IPv6 first for timeout milliseconds.
+ * Defaults to CURL_HET_DEFAULT, which is currently 200 milliseconds.
+ *
+ *
+ * Added in cURL 7.59.0. Available since PHP 7.3.0.
  *
  *
  *
@@ -1395,6 +1584,38 @@ function curl_multi_init()
  *
  *
  *
+ * CURLOPT_SOCKS5_AUTH
+ *
+ *
+ * The SOCKS5 authentication method(s) to use. The options are:
+ * CURLAUTH_BASIC,
+ * CURLAUTH_GSSAPI,
+ * CURLAUTH_NONE.
+ *
+ *
+ * The bitwise | (or) operator can be used to combine
+ * more than one method. If this is done, cURL will poll the server to see
+ * what methods it supports and pick the best one.
+ *
+ *
+ * CURLAUTH_BASIC allows username/password authentication.
+ *
+ *
+ * CURLAUTH_GSSAPI allows GSS-API authentication.
+ *
+ *
+ * CURLAUTH_NONE allows no authentication.
+ *
+ *
+ *
+ * Defaults to CURLAUTH_BASIC|CURLAUTH_GSSAPI.
+ * Set the actual username and password with the CURLOPT_PROXYUSERPWD option.
+ *
+ *
+ * Available as of 7.3.0 and curl &gt;= 7.55.0.
+ *
+ *
+ *
  * CURLOPT_SSL_OPTIONS
  *
  * Set SSL behavior options, which is a bitmask of any of the following constants:
@@ -1444,6 +1665,69 @@ function curl_multi_init()
  *
  *
  *
+ *
+ *
+ *
+ * CURLOPT_PROXY_SSL_OPTIONS
+ *
+ * Set proxy SSL behavior options, which is a bitmask of any of the following constants:
+ *
+ * CURLSSLOPT_ALLOW_BEAST: do not attempt to use
+ * any workarounds for a security flaw in the SSL3 and TLS1.0 protocols.
+ *
+ *
+ * CURLSSLOPT_NO_REVOKE: disable certificate
+ * revocation checks for those SSL backends where such behavior is
+ * present. (curl &gt;= 7.44.0)
+ *
+ *
+ * CURLSSLOPT_NO_PARTIALCHAIN: do not accept "partial"
+ * certificate chains, which it otherwise does by default. (curl &gt;= 7.68.0)
+ *
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_SSL_VERIFYHOST
+ *
+ * Set to 2 to verify in the HTTPS proxy's certificate name fields against the proxy name.
+ * When set to 0 the connection succeeds regardless of the names used in the certificate.
+ * Use that ability with caution!
+ * 1 treated as a debug option in curl 7.28.0 and earlier.
+ * From curl 7.28.1 to 7.65.3 CURLE_BAD_FUNCTION_ARGUMENT is returned.
+ * From curl 7.66.0 onwards 1 and 2 is treated as the same value.
+ * In production environments the value of this option should be kept at 2 (default value).
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_SSLVERSION
+ *
+ * One of CURL_SSLVERSION_DEFAULT,
+ * CURL_SSLVERSION_TLSv1,
+ * CURL_SSLVERSION_TLSv1_0,
+ * CURL_SSLVERSION_TLSv1_1,
+ * CURL_SSLVERSION_TLSv1_2,
+ * CURL_SSLVERSION_TLSv1_3,
+ * CURL_SSLVERSION_MAX_DEFAULT,
+ * CURL_SSLVERSION_MAX_TLSv1_0,
+ * CURL_SSLVERSION_MAX_TLSv1_2,
+ * CURL_SSLVERSION_MAX_TLSv1_2,
+ * CURL_SSLVERSION_MAX_TLSv1_3 or
+ * CURL_SSLVERSION_SSLv3.
+ *
+ *
+ * Your best bet is to not set this and let it use the default CURL_SSLVERSION_DEFAULT
+ * which will attempt to figure out the remote SSL protocol version.
+ *
+ *
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
  *
  *
  *
@@ -1501,6 +1785,19 @@ function curl_multi_init()
  * CURL_TIMECOND_IFMODSINCE is used.
  *
  *
+ *
+ *
+ *
+ * CURLOPT_TIMEVALUE_LARGE
+ *
+ * The time in seconds since January 1st, 1970. The time will be used
+ * by CURLOPT_TIMECONDITION. Defaults to zero.
+ * The difference between this option and CURLOPT_TIMEVALUE
+ * is the type of the argument. On systems where 'long' is only 32 bit wide,
+ * this option has to be used to set dates beyond the year 2038.
+ *
+ *
+ * Added in cURL 7.59.0. Available since PHP 7.3.0.
  *
  *
  *
@@ -1615,9 +1912,27 @@ function curl_multi_init()
  * CURLPROTO_TFTP,
  * CURLPROTO_ALL
  *
+ * The SOCKS5 authentication method(s) to use. The options are:
+ * CURLAUTH_BASIC,
+ * CURLAUTH_GSSAPI,
+ * CURLAUTH_NONE.
+ *
+ * The bitwise | (or) operator can be used to combine
+ * more than one method. If this is done, cURL will poll the server to see
+ * what methods it supports and pick the best one.
+ *
+ * CURLAUTH_BASIC allows username/password authentication.
+ *
+ * CURLAUTH_GSSAPI allows GSS-API authentication.
+ *
+ * CURLAUTH_NONE allows no authentication.
+ *
  * Your best bet is to not set this and let it use the default.
  * Setting it to 2 or 3 is very dangerous given the known
  * vulnerabilities in SSLv2 and SSLv3.
+ *
+ * Your best bet is to not set this and let it use the default CURL_SSLVERSION_DEFAULT
+ * which will attempt to figure out the remote SSL protocol version.
  *
  * value should be a string for the
  * following values of the option parameter:
@@ -1629,6 +1944,20 @@ function curl_multi_init()
  * Set value to
  * Notes
  *
+ *
+ *
+ *
+ * CURLOPT_ABSTRACT_UNIX_SOCKET
+ *
+ * Enables the use of an abstract Unix domain socket instead of
+ * establishing a TCP connection to a host and sets the path to
+ * the given string. This option shares the same semantics
+ * as CURLOPT_UNIX_SOCKET_PATH. These two options
+ * share the same storage and therefore only one of them can be set
+ * per handle.
+ *
+ *
+ * Available since PHP 7.3.0 and cURL 7.53.0
  *
  *
  *
@@ -1885,6 +2214,26 @@ function curl_multi_init()
  *
  *
  *
+ * CURLOPT_PRE_PROXY
+ *
+ * Set a string holding the host name or dotted numerical
+ * IP address to be used as the preproxy that curl connects to before
+ * it connects to the HTTP(S) proxy specified in the
+ * CURLOPT_PROXY option for the upcoming request.
+ * The preproxy can only be a SOCKS proxy and it should be prefixed with
+ * [scheme]:// to specify which kind of socks is used.
+ * A numerical IPv6 address must be written within [brackets].
+ * Setting the preproxy to an empty string explicitly disables the use of a preproxy.
+ * To specify port number in this string, append :[port]
+ * to the end of the host name. The proxy's port number may optionally be
+ * specified with the separate option CURLOPT_PROXYPORT.
+ * Defaults to using port 1080 for proxies if a port is not specified.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
  * CURLOPT_PROXY
  *
  * The HTTP proxy to tunnel requests through.
@@ -1899,6 +2248,178 @@ function curl_multi_init()
  *
  *
  * Added in cURL 7.34.0. Available since PHP 7.0.7.
+ *
+ *
+ *
+ * CURLOPT_PROXY_CAINFO
+ *
+ * The path to proxy Certificate Authority (CA) bundle. Set the path as a
+ * string naming a file holding one or more certificates to
+ * verify the HTTPS proxy with.
+ * This option is for connecting to an HTTPS proxy, not an HTTPS server.
+ * Defaults set to the system path where libcurl's cacert bundle is assumed
+ * to be stored.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_CAPATH
+ *
+ * The directory holding multiple CA certificates to verify the HTTPS proxy with.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_CRLFILE
+ *
+ * Set the file name with the concatenation of CRL (Certificate Revocation List)
+ * in PEM format to use in the certificate validation that occurs during
+ * the SSL exchange.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_KEYPASSWD
+ *
+ * Set the string be used as the password required to use the
+ * CURLOPT_PROXY_SSLKEY private key. You never needed a
+ * passphrase to load a certificate but you need one to load your private key.
+ * This option is for connecting to an HTTPS proxy, not an HTTPS server.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_PINNEDPUBLICKEY
+ *
+ * Set the pinned public key for HTTPS proxy. The string can be the file name
+ * of your pinned public key. The file format expected is "PEM" or "DER".
+ * The string can also be any number of base64 encoded sha256 hashes preceded by
+ * "sha256//" and separated by ";"
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_SSLCERT
+ *
+ * The file name of your client certificate used to connect to the HTTPS proxy.
+ * The default format is "P12" on Secure Transport and "PEM" on other engines,
+ * and can be changed with CURLOPT_PROXY_SSLCERTTYPE.
+ * With NSS or Secure Transport, this can also be the nickname of the certificate
+ * you wish to authenticate with as it is named in the security database.
+ * If you want to use a file from the current directory, please precede it with
+ * "./" prefix, in order to avoid confusion with a nickname.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_SSLCERTTYPE
+ *
+ * The format of your client certificate used when connecting to an HTTPS proxy.
+ * Supported formats are "PEM" and "DER", except with Secure Transport.
+ * OpenSSL (versions 0.9.3 and later) and Secure Transport
+ * (on iOS 5 or later, or OS X 10.7 or later) also support "P12" for
+ * PKCS#12-encoded files. Defaults to "PEM".
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_SSL_CIPHER_LIST
+ *
+ * The list of ciphers to use for the connection to the HTTPS proxy.
+ * The list must be syntactically correct, it consists of one or more cipher
+ * strings separated by colons. Commas or spaces are also acceptable separators
+ * but colons are normally used, !, - and + can be used as operators.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_TLS13_CIPHERS
+ *
+ * The list of cipher suites to use for the TLS 1.3 connection to a proxy.
+ * The list must be syntactically correct, it consists of one or more
+ * cipher suite strings separated by colons. This option is currently used
+ * only when curl is built to use OpenSSL 1.1.1 or later.
+ * If you are using a different SSL backend you can try setting
+ * TLS 1.3 cipher suites by using the CURLOPT_PROXY_SSL_CIPHER_LIST option.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.61.0. Available when built with OpenSSL &gt;= 1.1.1.
+ *
+ *
+ *
+ * CURLOPT_PROXY_SSLKEY
+ *
+ * The file name of your private key used for connecting to the HTTPS proxy.
+ * The default format is "PEM" and can be changed with
+ * CURLOPT_PROXY_SSLKEYTYPE.
+ * (iOS and Mac OS X only) This option is ignored if curl was built against Secure Transport.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0. Available if built TLS enabled.
+ *
+ *
+ *
+ * CURLOPT_PROXY_SSLKEYTYPE
+ *
+ * The format of your private key. Supported formats are "PEM", "DER" and "ENG".
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_TLSAUTH_PASSWORD
+ *
+ * The password to use for the TLS authentication method specified with the
+ * CURLOPT_PROXY_TLSAUTH_TYPE option. Requires that the
+ * CURLOPT_PROXY_TLSAUTH_USERNAME option to also be set.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_TLSAUTH_TYPE
+ *
+ * The method of the TLS authentication used for the HTTPS connection. Supported method is "SRP".
+ *
+ *
+ * Secure Remote Password (SRP) authentication for TLS provides mutual authentication
+ * if both sides have a shared secret. To use TLS-SRP, you must also set the
+ * CURLOPT_PROXY_TLSAUTH_USERNAME and
+ * CURLOPT_PROXY_TLSAUTH_PASSWORD options.
+ *
+ *
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_TLSAUTH_USERNAME
+ *
+ * Tusername to use for the HTTPS proxy TLS authentication method specified with the
+ * CURLOPT_PROXY_TLSAUTH_TYPE option. Requires that the
+ * CURLOPT_PROXY_TLSAUTH_PASSWORD option to also be set.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
  *
  *
  *
@@ -2075,6 +2596,19 @@ function curl_multi_init()
  *
  *
  *
+ * CURLOPT_TLS13_CIPHERS
+ *
+ * The list of cipher suites to use for the TLS 1.3 connection. The list must be
+ * syntactically correct, it consists of one or more cipher suite strings separated by colons.
+ * This option is currently used only when curl is built to use OpenSSL 1.1.1 or later.
+ * If you are using a different SSL backend you can try setting
+ * TLS 1.3 cipher suites by using the CURLOPT_SSL_CIPHER_LIST option.
+ *
+ *
+ * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.61.0. Available when built with OpenSSL &gt;= 1.1.1.
+ *
+ *
+ *
  * CURLOPT_UNIX_SOCKET_PATH
  *
  * Enables the use of Unix domain sockets as connection endpoint and
@@ -2163,6 +2697,11 @@ function curl_multi_init()
  *
  * Set the local IPv6 address that the resolver should bind to. The argument
  * should contain a single numerical IPv6 address as a string.
+ *
+ * Secure Remote Password (SRP) authentication for TLS provides mutual authentication
+ * if both sides have a shared secret. To use TLS-SRP, you must also set the
+ * CURLOPT_PROXY_TLSAUTH_USERNAME and
+ * CURLOPT_PROXY_TLSAUTH_PASSWORD options.
  *
  * The secret password needed to use the private SSL key specified in
  * CURLOPT_SSLKEY.

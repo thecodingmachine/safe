@@ -7,14 +7,14 @@ on:
   - "push"
 
 jobs:
-  
+
   init-php-doc:
     name: "Init the php documentation cache"
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v2.0.0"
-      
+
       - name: "Cache PHP documentation checked out with svn"
         id: cache-svn
         uses: "actions/cache@v1.0.3"
@@ -26,7 +26,12 @@ jobs:
         if: steps.cache-svn.outputs.cache-hit != 'true'
         run: svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
         working-directory: "generator/doc"
-  
+
+      - name: "Update PHP documentation with svn"
+        if: steps.cache-svn.outputs.cache-hit == 'true'
+        run: svn update
+        working-directory: "generator/doc"
+
   continuous-integration:
     name: "Continuous Integration"
 

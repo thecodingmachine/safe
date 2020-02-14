@@ -3,6 +3,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/thecodingmachine/safe/v/unstable.svg)](https://packagist.org/packages/thecodingmachine/safe)
 [![License](https://poser.pugx.org/thecodingmachine/safe/license.svg)](https://packagist.org/packages/thecodingmachine/safe)
 [![Build Status](https://travis-ci.org/thecodingmachine/safe.svg?branch=master)](https://travis-ci.org/thecodingmachine/safe)
+[![Continuous Integration](https://github.com/thecodingmachine/safe/workflows/Continuous%20Integration/badge.svg)](https://github.com/thecodingmachine/safe/actions)
 [![Coverage Status](https://coveralls.io/repos/thecodingmachine/safe/badge.svg?branch=master&service=github)](https://coveralls.io/github/thecodingmachine/safe?branch=master)
 
 Safe PHP
@@ -59,7 +60,7 @@ $content = file_get_contents('foobar.json');
 $foobar = json_decode($content);
 ```
 
-All PHP functions that can return `false` on error are part of Safe. 
+All PHP functions that can return `false` on error are part of Safe.
 In addition, Safe also provide 2 'Safe' classes: `Safe\DateTime` and `Safe\DateTimeImmutable` whose methods will throw exceptions instead of returning false.
 
 ## PHPStan integration
@@ -159,8 +160,8 @@ try {
 
 Safe is loading 1000+ functions from ~85 files on each request. Yet, the performance impact of this loading is quite low.
 
-In case you worry, using Safe will "cost" you ~700µs on each request. The [performance section](performance/README.md) 
-contains more information regarding the way we tested the performance impact of Safe. 
+In case you worry, using Safe will "cost" you ~700µs on each request. The [performance section](performance/README.md)
+contains more information regarding the way we tested the performance impact of Safe.
 
 ## Learn more
 

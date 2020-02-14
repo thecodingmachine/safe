@@ -49,4 +49,5 @@ return [
     'win32ps',
     'wincache',
     'xattr',
+    'runkit7',
 ];

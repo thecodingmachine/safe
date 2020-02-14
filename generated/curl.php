@@ -1607,9 +1607,9 @@ function curl_multi_init()
  * CURLAUTH_NONE allows no authentication.
  *
  *
- *
  * Defaults to CURLAUTH_BASIC|CURLAUTH_GSSAPI.
  * Set the actual username and password with the CURLOPT_PROXYUSERPWD option.
+ *
  *
  *
  * Available as of 7.3.0 and curl &gt;= 7.55.0.
@@ -1926,6 +1926,9 @@ function curl_multi_init()
  * CURLAUTH_GSSAPI allows GSS-API authentication.
  *
  * CURLAUTH_NONE allows no authentication.
+ *
+ * Defaults to CURLAUTH_BASIC|CURLAUTH_GSSAPI.
+ * Set the actual username and password with the CURLOPT_PROXYUSERPWD option.
  *
  * Your best bet is to not set this and let it use the default.
  * Setting it to 2 or 3 is very dangerous given the known

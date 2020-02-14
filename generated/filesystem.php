@@ -970,11 +970,6 @@ function fwrite($handle, string $string, int $length = null): int
  *
  *
  *
- * ... - Matches all the subdirectories, recursively.
- *
- *
- *
- *
  * \ - Escapes the following character,
  * except when the GLOB_NOESCAPE flag is used.
  *

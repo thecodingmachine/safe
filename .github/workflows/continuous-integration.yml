@@ -7,9 +7,30 @@ on:
   - "push"
 
 jobs:
-  continuous-integratio:
+  
+  init-php-doc:
+    name: "Init the php documentation cache"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2.0.0"
+      
+      - name: "Cache PHP documentation checked out with svn"
+        id: cache-svn
+        uses: "actions/cache@v1.0.3"
+        with:
+          path: "generator/doc/doc-en"
+          key: "php-documentation"
+
+      - name: "Check out PHP documentation with svn"
+        if: steps.cache-svn.outputs.cache-hit != 'true'
+        run: svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
+        working-directory: "generator/doc"
+  
+  continuous-integration:
     name: "Continuous Integration"
 
+    needs: init-php-doc
     runs-on: "ubuntu-latest"
 
     strategy:
@@ -31,6 +52,13 @@ jobs:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
 
+      - name: "Cache PHP documentation checked out with svn"
+        id: cache-svn
+        uses: "actions/cache@v1.0.3"
+        with:
+          path: "generator/doc/doc-en"
+          key: "php-documentation"
+
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v1.0.3"
         with:
@@ -38,5 +66,66 @@ jobs:
           key: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('**/composer.lock') }}"
           restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
 
+      - name: "Install dependencies with composer in generator/ directory"
+        run: "composer install --no-interaction"
+        working-directory: "generator"
+
       - name: "Install dependencies with composer in root directory"
-        run: "composer install --no-interaction --no-progress --no-suggest"
+        run: "composer install --no-interaction"
+
+      - name: "Run tests with phpunit/phpunit in generator/ directory"
+        run: "vendor/bin/phpunit"
+        working-directory: "generator"
+
+      - name: "Run coding standard checks with squizlabs/php_codesniffer in generator/ directory"
+        run: "composer cs-check"
+        working-directory: "generator"
+
+      - name: "Run static code analysis with phpstan/phpstan in generator/ directory"
+        run: "composer phpstan"
+        working-directory: "generator"
+
+      - name: "Dump autoloader with composer in root directory"
+        run: "composer dump-autoload"
+
+      - name: "Run coding standard checks with squizlabs/php_codesniffer in root directory"
+        run: "composer cs-check"
+
+      - name: "Run static code analysis with phpstan/phpstan in root directory"
+        run: "composer phpstan"
+
+      - name: "Regenerate files"
+        run: "./safe.php generate"
+        working-directory: "generator"
+
+      - name: "Check if regenerated files are different"
+        run: |
+          if output=$(git status --porcelain) && [ -z "$output" ]; then
+            # all is good
+            echo "Generated files are the same as committed file: OK"
+          else
+            # Uncommitted changes
+            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
+            echo "Detected changes:"
+            git status
+            git diff
+            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
+            exit 1;
+          fi
+      - name: "Check if refactoring can be done with rector/rector:~0.5.0"
+        run: "composer install && composer rector && composer test"
+        working-directory: "generator/tests/rector/0.5"
+
+      - name: "Check if refactoring can be done with rector/rector:~0.6.0"
+        run: "composer install && composer rector && composer test"
+        working-directory: "generator/tests/rector/0.6"
+
+      #- name: "Archive code coverage results"
+      #  uses: "actions/upload-artifact@v1"
+      #  with:
+      #    name: "build"
+      #    path: "generator/build"
+      #
+      #- name: "Upload test coverage to coveralls"
+      #  run: "php vendor/bin/php-coveralls -v"
+      #  working-directory: "generator"

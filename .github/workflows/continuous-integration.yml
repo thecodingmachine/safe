@@ -120,12 +120,12 @@ jobs:
         run: "composer install && composer rector && composer test"
         working-directory: "generator/tests/rector/0.6"
 
-      #- name: "Archive code coverage results"
-      #  uses: "actions/upload-artifact@v1"
-      #  with:
-      #    name: "build"
-      #    path: "generator/build"
-      #
-      #- name: "Upload test coverage to coveralls"
-      #  run: "php vendor/bin/php-coveralls -v"
-      #  working-directory: "generator"
+      - name: "Archive code coverage results"
+        uses: "actions/upload-artifact@v1"
+        with:
+          name: "build"
+          path: "generator/build"
+
+      - name: "Upload test coverage to coveralls"
+        run: "php vendor/bin/php-coveralls -v"
+        working-directory: "generator"

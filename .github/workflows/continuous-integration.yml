@@ -127,5 +127,9 @@ jobs:
           path: "generator/build"
 
       - name: "Upload test coverage to coveralls"
+        continue-on-error: true
         run: "php vendor/bin/php-coveralls -v"
         working-directory: "generator"
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          COVERALLS_RUN_LOCALLY: 1

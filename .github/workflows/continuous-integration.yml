@@ -127,8 +127,7 @@ jobs:
           path: "generator/build"
 
       - name: "Upload test coverage to coveralls"
-        run: "php vendor/bin/php-coveralls -v"
-        working-directory: "generator"
-        env:
-          COVERALLS_REPO_TOKEN: "jkrVNjOvNxoqfyCSQ2QbIgbqP53QCkFmP"
-          COVERALLS_RUN_LOCALLY: 1
+        uses: "coverallsapp/github-action@master"
+        with:
+          github-token: "jkrVNjOvNxoqfyCSQ2QbIgbqP53QCkFmP"
+          path-to-lcov: "generator/build/logs/clover.xml"

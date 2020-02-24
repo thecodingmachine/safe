@@ -126,6 +126,9 @@ jobs:
           name: "build"
           path: "generator/build"
 
+      - name: "Debugging env vars"
+        run: "env"
+
       - name: "Upload test coverage to coveralls"
         run: "php vendor/bin/php-coveralls -v"
         working-directory: "generator"

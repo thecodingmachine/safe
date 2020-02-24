@@ -13,9 +13,7 @@
     <testsuites>
         <testsuite name="Main test Suite">
             <directory>./tests/</directory>
-            <exclude>
-                <directory>./tests/rector</directory>
-            </exclude>
+            <exclude>./tests/rector</exclude>
         </testsuite>
     </testsuites>
     <filter>

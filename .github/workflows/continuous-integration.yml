@@ -8,29 +8,9 @@ on:
 
 jobs:
 
-  init-php-doc:
-    name: "Init the php documentation cache"
-    runs-on: "ubuntu-latest"
-    steps:
-      - name: "Checkout"
-        uses: "actions/checkout@v2.0.0"
-
-      - name: "Cache PHP documentation checked out with git"
-        id: cache-svn
-        uses: "actions/cache@v1.0.3"
-        with:
-          path: "generator/doc/doc-en"
-          key: "php-documentation"
-
-      - name: "Check out PHP documentation with git"
-        if: steps.cache-svn.outputs.cache-hit != 'true'
-        run: sh update.sh
-        working-directory: "generator/doc"
-
   continuous-integration:
     name: "Continuous Integration"
 
-    needs: init-php-doc
     runs-on: "ubuntu-latest"
 
     strategy:
@@ -52,12 +32,9 @@ jobs:
           coverage: "pcov"
           php-version: "${{ matrix.php-version }}"
 
-      - name: "Cache PHP documentation checked out with svn"
-        id: cache-svn
-        uses: "actions/cache@v1.0.3"
-        with:
-          path: "generator/doc/doc-en"
-          key: "php-documentation"
+      - name: "Check out PHP documentation with git"
+        run: sh update.sh
+        working-directory: "generator/doc"
 
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v1.0.3"

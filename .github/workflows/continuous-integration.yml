@@ -15,16 +15,16 @@ jobs:
       - name: "Checkout"
         uses: "actions/checkout@v2.0.0"
 
-      - name: "Cache PHP documentation checked out with svn"
+      - name: "Cache PHP documentation checked out with git"
         id: cache-svn
         uses: "actions/cache@v1.0.3"
         with:
           path: "generator/doc/doc-en"
           key: "php-documentation"
 
-      - name: "Check out PHP documentation with svn"
+      - name: "Check out PHP documentation with git"
         if: steps.cache-svn.outputs.cache-hit != 'true'
-        run: svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
+        run: sh update.sh
         working-directory: "generator/doc"
 
   continuous-integration:

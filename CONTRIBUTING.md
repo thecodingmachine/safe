@@ -4,21 +4,19 @@ Safe-PHP code is generated automatically from the PHP doc.
 
 ## How to install Safe-PHP development environment
 
-The first step is to download the PHP documentation project locally.
-You will need Subversion (svn) installed on your computer.
+The first step is to download the PHP documentation project locally, using git.
 
 ```bash
 $ cd generator/doc
-$ svn co https://svn.php.net/repository/phpdoc/modules/doc-en doc-en
-$ cd ../..
+$ sh update.sh
 ```
 
-At any point, if you want to update the documentation to the latest version, you can use:
+The script can be used to both install the doc and to update it.
+All it does is pull from theses mirrors:
 
-```bash
-$ cd generator/doc/doc-en
-$ svn update
-```
+https://github.com/salathe/phpdoc-base
+
+https://github.com/php/doc-en
 
 To use the generator, you need to make sure you installed all the needed dependencies:
 

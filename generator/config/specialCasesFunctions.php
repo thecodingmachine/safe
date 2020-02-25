@@ -10,4 +10,5 @@ return [
     'openssl_encrypt',
     'preg_replace',
     'readdir',
+    'sprintf',
 ];

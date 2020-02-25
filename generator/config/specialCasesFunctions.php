@@ -4,10 +4,10 @@
  * They are declared in lib/special_cases.php
  */
 return [
-    'json_decode',
     'apc_fetch',
     'apcu_fetch',
-    'preg_replace',
+    'json_decode',
     'openssl_encrypt',
+    'preg_replace',
     'readdir',
 ];

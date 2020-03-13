@@ -82,39 +82,12 @@ return [\n");
     }
 
     /**
-     * @deprecated Official support for rector/rector:~0.5 is not advertised anymore.
-     *
-     * This function generate a rector yml file containing a replacer for all functions
-     *
-     * @param Method[] $functions
-     * @param string $path
-     */
-    public function generateRectorFile(array $functions, string $path): void
-    {
-        $functionNames = $this->getFunctionsNameList($functions);
-        $stream = fopen($path, 'w');
-        if ($stream === false) {
-            throw new \RuntimeException('Unable to write to '.$path);
-        }
-        fwrite($stream, "# This rector file is replacing all core PHP functions with the equivalent \"safe\" functions
-# It is targetting Rector 0.5.x versions.
-# If you are using Rector 0.4, please upgrade your Rector version
-services:
-  Rector\Renaming\Rector\Function_\RenameFunctionRector:
-");
-        foreach ($functionNames as $functionName) {
-            fwrite($stream, '    '.$functionName.": 'Safe\\".$functionName."'\n");
-        }
-        fclose($stream);
-    }
-
-    /**
      * Generates a configuration file for replacing all functions when using rector/rector:~0.6.
      *
      * @param Method[] $functions
      * @param string $path
      */
-    public function generateRectorFileForZeroPointSix(array $functions, string $path): void
+    public function generateRectorFileForZeroPointSeven(array $functions, string $path): void
     {
         $functionNames = $this->getFunctionsNameList($functions);
 
@@ -125,7 +98,7 @@ services:
         }
 
         $header = <<<'TXT'
-# This file configures rector/rector:~0.6.0 to replace all PHP functions with their equivalent "safe" functions
+# This file configures rector/rector:~0.7.0 to replace all PHP functions with their equivalent "safe" functions
 
 services:
   Rector\Renaming\Rector\Function_\RenameFunctionRector:

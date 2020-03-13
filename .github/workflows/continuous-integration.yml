@@ -24,10 +24,10 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2.0.0"
+        uses: "actions/checkout@v2"
 
       - name: "Install PHP with extensions"
-        uses: "shivammathur/setup-php@1.8.2"
+        uses: "shivammathur/setup-php@v2"
         with:
           coverage: "pcov"
           php-version: "${{ matrix.php-version }}"
@@ -37,7 +37,7 @@ jobs:
         working-directory: "generator/doc"
 
       - name: "Cache dependencies installed with composer"
-        uses: "actions/cache@v1.0.3"
+        uses: "actions/cache@v1"
         with:
           path: "~/.composer/cache"
           key: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('**/composer.lock') }}"

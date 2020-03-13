@@ -1656,6 +1656,14 @@ function curl_multi_init()
  * CURL_SSLVERSION_TLSv1_0 (4),
  * CURL_SSLVERSION_TLSv1_1 (5) or
  * CURL_SSLVERSION_TLSv1_2 (6).
+ * The maximum TLS version can be set by using one of the CURL_SSLVERSION_MAX_*
+ * constants. It is also possible to OR one of the CURL_SSLVERSION_*
+ * constants with one of the CURL_SSLVERSION_MAX_* constants.
+ * CURL_SSLVERSION_MAX_DEFAULT (the maximum version supported by the library),
+ * CURL_SSLVERSION_MAX_TLSv1_0,
+ * CURL_SSLVERSION_MAX_TLSv1_1,
+ * CURL_SSLVERSION_MAX_TLSv1_2, or
+ * CURL_SSLVERSION_MAX_TLSv1_3.
  *
  *
  * Your best bet is to not set this and let it use the default.
@@ -1715,7 +1723,7 @@ function curl_multi_init()
  * CURL_SSLVERSION_TLSv1_3,
  * CURL_SSLVERSION_MAX_DEFAULT,
  * CURL_SSLVERSION_MAX_TLSv1_0,
- * CURL_SSLVERSION_MAX_TLSv1_2,
+ * CURL_SSLVERSION_MAX_TLSv1_1,
  * CURL_SSLVERSION_MAX_TLSv1_2,
  * CURL_SSLVERSION_MAX_TLSv1_3 or
  * CURL_SSLVERSION_SSLv3.
@@ -1737,6 +1745,42 @@ function curl_multi_init()
  *
  *
  * Added in cURL 7.46.0. Available since PHP 7.0.7.
+ *
+ *
+ *
+ * CURLOPT_TCP_KEEPALIVE
+ *
+ * If set to 1, TCP keepalive probes will be sent. The delay and
+ * frequency of these probes can be controlled by the CURLOPT_TCP_KEEPIDLE
+ * and CURLOPT_TCP_KEEPINTVL options, provided the operating system
+ * supports them. If set to 0 (default) keepalive probes are disabled.
+ *
+ *
+ * Added in cURL 7.25.0. Available since PHP 5.5.0.
+ *
+ *
+ *
+ * CURLOPT_TCP_KEEPIDLE
+ *
+ * Sets the delay, in seconds, that the operating system will wait while the connection is
+ * idle before sending keepalive probes, if CURLOPT_TCP_KEEPALIVE is
+ * enabled. Not all operating systems support this option.
+ * The default is 60.
+ *
+ *
+ * Added in cURL 7.25.0. Available since PHP 5.5.0.
+ *
+ *
+ *
+ * CURLOPT_TCP_KEEPINTVL
+ *
+ * Sets the interval, in seconds, that the operating system will wait between sending
+ * keepalive probes, if CURLOPT_TCP_KEEPALIVE is enabled.
+ * Not all operating systems support this option.
+ * The default is 60.
+ *
+ *
+ * Added in cURL 7.25.0. Available since PHP 5.5.0.
  *
  *
  *
@@ -2013,6 +2057,20 @@ function curl_multi_init()
  * e.g. after a call to curl_close.
  *
  *
+ *
+ *
+ *
+ * CURLOPT_COOKIELIST
+ *
+ * A cookie string (i.e. a single line in Netscape/Mozilla format, or a regular
+ * HTTP-style Set-Cookie header) adds that single cookie to the internal cookie store.
+ * "ALL" erases all cookies held in memory.
+ * "SESS" erases all session cookies held in memory.
+ * "FLUSH" writes all known cookies to the file specified by CURLOPT_COOKIEJAR.
+ * "RELOAD" loads all cookies from the files specified by CURLOPT_COOKIEFILE.
+ *
+ *
+ * Available since PHP 5.5.0 and cURL 7.14.1.
  *
  *
  *
@@ -2541,6 +2599,8 @@ function curl_multi_init()
  * The format of the certificate. Supported formats are
  * "PEM" (default), "DER",
  * and "ENG".
+ * As of OpenSSL 0.9.3, "P12" (for PKCS#12-encoded files)
+ * is also supported.
  *
  *
  * Added in cURL 7.9.3.

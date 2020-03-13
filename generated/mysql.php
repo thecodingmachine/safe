@@ -132,7 +132,7 @@ function mysql_create_db(string $database_name, $link_identifier = null): void
  * row_number should be a value in the range from 0 to
  * mysql_num_rows - 1. However if the result set
  * is empty (mysql_num_rows == 0), a seek to 0 will
- * fail with a E_WARNING and
+ * fail with an E_WARNING and
  * mysql_data_seek will return FALSE.
  *
  * @param resource $result The result resource that

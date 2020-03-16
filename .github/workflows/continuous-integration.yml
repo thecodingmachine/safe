@@ -99,6 +99,10 @@ jobs:
         working-directory: "generator/tests/rector/0.6"
         if: matrix.php-version != '7.4'
 
+      - name: "Check if refactoring can be done with rector/rector:~0.7.0"
+        run: "composer install && composer rector && composer test"
+        working-directory: "generator/tests/rector/0.7"
+
       - name: "Archive code coverage results"
         uses: "actions/upload-artifact@v1"
         with:

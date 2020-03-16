@@ -112,17 +112,21 @@ find these functions but changing the namespace of the functions one function at
 Fortunately, Safe comes bundled with a "Rector" configuration file. [Rector](https://github.com/rectorphp/rector) is a command-line
 tool that performs instant refactoring of your application.
 
-First, you need to install Rector:
+Run
 
 ```bash
-$ composer require --dev rector/rector ^0.6
+$ composer require --dev rector/rector:^0.7
 ```
 
-Now, you simply need to run Rector with this command:
+to install `rector/rector`.
+
+Run
 
 ```bash
-vendor/bin/rector process src/ --config vendor/thecodingmachine/safe/rector-migrate-0.6.yml
+vendor/bin/rector process src/ --config vendor/thecodingmachine/safe/rector-migrate-0.7.yml
 ```
+
+to run `rector/rector`.
 
 *Note:* do not forget to replace "src/" with the path to your source directory.
 

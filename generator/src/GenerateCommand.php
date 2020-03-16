@@ -39,7 +39,7 @@ class GenerateCommand extends Command
         $fileCreator->generateFunctionsList($functions, __DIR__ . '/../../generated/functionsList.php');
         $fileCreator->generateRectorFile($functions, __DIR__ . '/../../rector-migrate.yml');
         $fileCreator->generateRectorFileForZeroPointSix($functions, __DIR__ . '/../../rector-migrate-0.6.yml');
-
+        $fileCreator->generateRectorFileForZeroPointSeven($functions, __DIR__ . '/../../rector-migrate-0.7.yml');
 
         $modules = [];
         foreach ($functions as $function) {

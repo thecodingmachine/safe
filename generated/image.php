@@ -2681,7 +2681,7 @@ function imagewebp($image, $to = null, int $quality = 80): void
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param string|null $filename The path to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $filename The path to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  *
  * The filename (without the .xbm extension) is also
  * used for the C identifiers of the XBM, whereby non
@@ -2695,7 +2695,7 @@ function imagewebp($image, $to = null, int $quality = 80): void
  * @throws ImageException
  *
  */
-function imagexbm($image, ?string $filename = null, int $foreground = null): void
+function imagexbm($image, $filename = null, int $foreground = null): void
 {
     error_clear_last();
     if ($foreground !== null) {

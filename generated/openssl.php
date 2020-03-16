@@ -84,7 +84,7 @@ function openssl_csr_export($csr, ?string &$out, bool $notext = true): void
  * array - if shortnames is TRUE (the default) then
  * fields will be indexed with the short name form, otherwise, the long name
  * form will be used - e.g.: CN is the shortname form of commonName.
- * @return array Returns TRUE on success.
+ * @return array Returns an associative array with subject description.
  * @throws OpensslException
  *
  */
@@ -942,7 +942,7 @@ function openssl_random_pseudo_bytes(int $length, ?bool &$crypto_strong = null):
  *
  * @param string $data The data to seal.
  * @param string|null $sealed_data The sealed data.
- * @param array $env_keys Array of encrypted keys.
+ * @param array|null $env_keys Array of encrypted keys.
  * @param array $pub_key_ids Array of public key resource identifiers.
  * @param string $method The cipher method.
  * @param string $iv The initialization vector.
@@ -953,7 +953,7 @@ function openssl_random_pseudo_bytes(int $length, ?bool &$crypto_strong = null):
  * @throws OpensslException
  *
  */
-function openssl_seal(string $data, ?string &$sealed_data, array &$env_keys, array $pub_key_ids, string $method = "RC4", string &$iv = null): int
+function openssl_seal(string $data, ?string &$sealed_data, ?array &$env_keys, array $pub_key_ids, string $method = "RC4", string &$iv = null): int
 {
     error_clear_last();
     $result = \openssl_seal($data, $sealed_data, $env_keys, $pub_key_ids, $method, $iv);

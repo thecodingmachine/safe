@@ -89,13 +89,10 @@ jobs:
             echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
             exit 1;
           fi
-      - name: "Check if refactoring can be done with rector/rector:~0.5.0"
-        run: "composer install && composer rector && composer test"
-        working-directory: "generator/tests/rector/0.5"
 
-      - name: "Check if refactoring can be done with rector/rector:~0.6.0"
+      - name: "Check if refactoring can be done with rector/rector:~0.7.0"
         run: "composer install && composer rector && composer test"
-        working-directory: "generator/tests/rector/0.6"
+        working-directory: "generator/tests/rector/0.7"
 
       - name: "Archive code coverage results"
         uses: "actions/upload-artifact@v1"

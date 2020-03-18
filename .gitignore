@@ -4,6 +4,5 @@
 /generator/doc/entities/generated.ent
 /composer.lock
 vendor/
-/generator/tests/rector/0.5/composer.lock
-/generator/tests/rector/0.6/composer.lock
+/generator/tests/rector/0.7/composer.lock
 .phpunit.result.cache

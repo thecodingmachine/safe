@@ -84,7 +84,7 @@ function openssl_csr_export($csr, ?string &$out, bool $notext = true): void
  * array - if shortnames is TRUE (the default) then
  * fields will be indexed with the short name form, otherwise, the long name
  * form will be used - e.g.: CN is the shortname form of commonName.
- * @return array Returns TRUE on success.
+ * @return array Returns an associative array with subject description.
  * @throws OpensslException
  *
  */

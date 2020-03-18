@@ -229,6 +229,9 @@ function sem_acquire($sem_identifier, bool $nowait = false): void
  * will return a different semaphore identifier, but both
  * identifiers access the same underlying semaphore.
  *
+ * If key is 0, a new private semaphore
+ * is created for each call to sem_get.
+ *
  * @param int $key
  * @param int $max_acquire The number of processes that can acquire the semaphore simultaneously
  * is set to max_acquire.

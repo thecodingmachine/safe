@@ -32,9 +32,17 @@ jobs:
           coverage: "pcov"
           php-version: "${{ matrix.php-version }}"
 
-      - name: "Check out PHP documentation with git"
-        run: sh update.sh
-        working-directory: "generator/doc"
+      - name: "Check out salathe/phpdoc-base"
+        uses: "actions/checkout@v2"
+        with:
+          path: "generator/doc/doc-en/doc-base"
+          repository: "salathe/phpdoc-base"
+
+      - name: "Check out php/doc-en"
+        uses: "actions/checkout@v2"
+        with:
+          path: "generator/doc/doc-en/en"
+          repository: "php/doc-en"
 
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v1.0.3"

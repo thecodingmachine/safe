@@ -86,7 +86,7 @@ function pspell_clear_session(int $dictionary_link): void
  * 'viscii', 'cp1252', 'machine unsigned 16', 'machine unsigned
  * 32'. This parameter is largely untested, so be careful when
  * using.
- * @return int Retuns a pspell config identifier.
+ * @return int Returns a pspell config identifier.
  * @throws PspellException
  *
  */

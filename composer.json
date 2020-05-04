@@ -69,6 +69,7 @@
             "generated/ps.php",
             "generated/pspell.php",
             "generated/readline.php",
+            "generated/rpminfo.php",
             "generated/rrd.php",
             "generated/sem.php",
             "generated/session.php",

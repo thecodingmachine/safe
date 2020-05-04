@@ -1387,7 +1387,11 @@ function curl_multi_init()
  * CURL_HTTP_VERSION_NONE (default, lets CURL
  * decide which version to use),
  * CURL_HTTP_VERSION_1_0 (forces HTTP/1.0),
- * or CURL_HTTP_VERSION_1_1 (forces HTTP/1.1).
+ * CURL_HTTP_VERSION_1_1 (forces HTTP/1.1),
+ * CURL_HTTP_VERSION_2_0 (attempts HTTP 2),
+ * CURL_HTTP_VERSION_2  (alias of CURL_HTTP_VERSION_2_0),
+ * CURL_HTTP_VERSION_2TLS (attempts HTTP 2 over TLS (HTTPS) only) or
+ * CURL_HTTP_VERSION_2_PRIOR_KNOWLEDGE (issues non-TLS HTTP requests using HTTP/2 without HTTP/1.1 Upgrade).
  *
  *
  *

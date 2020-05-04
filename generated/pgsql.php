@@ -305,7 +305,7 @@ function pg_dbname($connection = null): string
  * By default pg_delete passes raw values. Values
  * must be escaped or PGSQL_DML_ESCAPE option must be
  * specified. PGSQL_DML_ESCAPE quotes and escapes
- * paramters/identifiers. Therefore, table/column names became case
+ * parameters/identifiers. Therefore, table/column names became case
  * sensitive.
  *
  * Note that neither escape nor prepared query can protect LIKE query,
@@ -586,7 +586,7 @@ function pg_host($connection = null): string
  * By default pg_insert passes raw values. Values
  * must be escaped or PGSQL_DML_ESCAPE option must be
  * specified. PGSQL_DML_ESCAPE quotes and escapes
- * paramters/identifiers. Therefore, table/column names became case
+ * parameters/identifiers. Therefore, table/column names became case
  * sensitive.
  *
  * Note that neither escape nor prepared query can protect LIKE query,
@@ -1536,7 +1536,7 @@ function pg_result_seek($result, int $offset): void
  * By default pg_select passes raw values. Values
  * must be escaped or PGSQL_DML_ESCAPE option must be
  * specified. PGSQL_DML_ESCAPE quotes and escapes
- * paramters/identifiers. Therefore, table/column names became case
+ * parameters/identifiers. Therefore, table/column names became case
  * sensitive.
  *
  * Note that neither escape nor prepared query can protect LIKE query,
@@ -1810,7 +1810,7 @@ function pg_tty($connection = null): string
  * By default pg_update passes raw values. Values
  * must be escaped or PGSQL_DML_ESCAPE option must be
  * specified. PGSQL_DML_ESCAPE quotes and escapes
- * paramters/identifiers. Therefore, table/column names became case
+ * parameters/identifiers. Therefore, table/column names became case
  * sensitive.
  *
  * Note that neither escape nor prepared query can protect LIKE query,

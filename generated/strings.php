@@ -363,7 +363,7 @@ function soundex(string $str): string
  * G
  *
  * Like the g specifier but uses
- * E and F.
+ * E and f.
  *
  *
  *
@@ -734,7 +734,7 @@ function substr(string $string, int $start, int $length = null): string
  * G
  *
  * Like the g specifier but uses
- * E and F.
+ * E and f.
  *
  *
  *

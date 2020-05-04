@@ -110,6 +110,11 @@ class DocPage
             return true;
         }
 
+        //used to detect imagecreatefromstring
+        if (preg_match('/will be returned on success\. &false; is returned if/m', $file)) {
+            return true;
+        }
+
         return false;
     }
 

@@ -304,6 +304,7 @@ services:
       imagecreatefromgif: 'Safe\imagecreatefromgif'
       imagecreatefromjpeg: 'Safe\imagecreatefromjpeg'
       imagecreatefrompng: 'Safe\imagecreatefrompng'
+      imagecreatefromstring: 'Safe\imagecreatefromstring'
       imagecreatefromwbmp: 'Safe\imagecreatefromwbmp'
       imagecreatefromwebp: 'Safe\imagecreatefromwebp'
       imagecreatefromxbm: 'Safe\imagecreatefromxbm'

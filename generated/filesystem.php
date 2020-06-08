@@ -741,7 +741,7 @@ function flock($handle, int $operation, ?int &$wouldblock = null): void
  * break, you need to use the correct line-ending character(s) for your
  * operating system.  Unix based systems use \n as the
  * line ending character, Windows based systems use \r\n
- * as the line ending characters and Macintosh based systems use
+ * as the line ending characters and Macintosh based systems (Mac OS Classic) used
  * \r as the line ending character.
  *
  * If you use the wrong line ending characters when writing your files, you
@@ -756,22 +756,18 @@ function flock($handle, int $operation, ?int &$wouldblock = null): void
  * 'b' or 't' as the last character
  * of the mode parameter.
  *
- * The default translation mode depends on the SAPI and version of PHP that
- * you are using, so you are encouraged to always specify the appropriate
- * flag for portability reasons.  You should use the 't'
+ * The default translation mode is 'b'.
+ * You can use the 't'
  * mode if you are working with plain-text files and you use
  * \n to delimit your line endings in your script, but
- * expect your files to be readable with applications such as notepad.  You
+ * expect your files to be readable with applications such as old versions of notepad.  You
  * should use the 'b' in all other cases.
  *
- * If you do not specify the 'b' flag when working with binary files, you
+ * If you specify the 't' flag when working with binary files, you
  * may experience strange problems with your data, including broken image
  * files and strange problems with \r\n characters.
  *
- * For portability, it is strongly recommended that you always
- * use the 'b' flag when opening files with fopen.
- *
- * Again, for portability, it is also strongly recommended that
+ * For portability, it is also strongly recommended that
  * you re-write code that uses or relies upon the 't'
  * mode so that it uses the correct line endings and
  * 'b' mode instead.

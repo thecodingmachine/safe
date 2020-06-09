@@ -20,6 +20,7 @@ class DateTime extends \DateTime
      * @param string $format
      * @param string $time
      * @param DateTimeZone|null $timezone
+     * @throws DatetimeException
      */
     public static function createFromFormat($format, $time, $timezone = null): self
     {
@@ -34,6 +35,7 @@ class DateTime extends \DateTime
      * @param DateTimeInterface $datetime2 The date to compare to.
      * @param boolean $absolute [optional] Whether to return absolute difference.
      * @return DateInterval The DateInterval object representing the difference between the two dates.
+     * @throws DatetimeException
      */
     public function diff($datetime2, $absolute = false): DateInterval
     {
@@ -48,6 +50,7 @@ class DateTime extends \DateTime
     /**
      * @param string $modify A date/time string. Valid formats are explained in <a href="https://secure.php.net/manual/en/datetime.formats.php">Date and Time Formats</a>.
      * @return DateTime Returns the DateTime object for method chaining.
+     * @throws DatetimeException
      */
     public function modify($modify): self
     {
@@ -64,6 +67,7 @@ class DateTime extends \DateTime
      * @param int $month
      * @param int $day
      * @return DateTime
+     * @throws DatetimeException
      */
     public function setDate($year, $month, $day): self
     {

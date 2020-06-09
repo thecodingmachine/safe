@@ -47,6 +47,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @param string $format
      * @param string $time
      * @param DateTimeZone|null $timezone
+     * @throws DatetimeException
      */
     public static function createFromFormat($format, $time, $timezone = null): self
     {
@@ -60,6 +61,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     /**
      * @param string $format
      * @return string
+     * @throws DatetimeException
      */
     public function format($format): string
     {
@@ -75,6 +77,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @param DateTimeInterface $datetime2
      * @param bool $absolute
      * @return DateInterval
+     * @throws DatetimeException
      */
     public function diff($datetime2, $absolute = false): DateInterval
     {
@@ -89,6 +92,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     /**
      * @param string $modify
      * @return DateTimeImmutable
+     * @throws DatetimeException
      */
     public function modify($modify): self
     {
@@ -105,6 +109,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @param int $month
      * @param int $day
      * @return DateTimeImmutable
+     * @throws DatetimeException
      */
     public function setDate($year, $month, $day): self
     {
@@ -121,6 +126,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @param int $week
      * @param int $day
      * @return DateTimeImmutable
+     * @throws DatetimeException
      */
     public function setISODate($year, $week, $day = 1): self
     {
@@ -138,6 +144,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @param int $second
      * @param int $microseconds
      * @return DateTimeImmutable
+     * @throws DatetimeException
      */
     public function setTime($hour, $minute, $second = 0, $microseconds = 0): self
     {
@@ -152,6 +159,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     /**
      * @param int $unixtimestamp
      * @return DateTimeImmutable
+     * @throws DatetimeException
      */
     public function setTimestamp($unixtimestamp): self
     {
@@ -166,6 +174,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     /**
      * @param DateTimeZone $timezone
      * @return DateTimeImmutable
+     * @throws DatetimeException
      */
     public function setTimezone($timezone): self
     {
@@ -180,6 +189,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     /**
      * @param DateInterval $interval
      * @return DateTimeImmutable
+     * @throws DatetimeException
      */
     public function sub($interval): self
     {
@@ -191,6 +201,9 @@ class DateTimeImmutable extends \DateTimeImmutable
         return self::createFromRegular($result);
     }
 
+    /**
+     * @throws DatetimeException
+     */
     public function getOffset(): int
     {
         /** @var int|false $result */

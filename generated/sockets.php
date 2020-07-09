@@ -794,7 +794,7 @@ function socket_write($socket, string $buffer, int $length = 0): int
  * @throws SocketsException
  *
  */
-function socket_wsaprotocol_info_export(\resource $socket, int $target_pid): string
+function socket_wsaprotocol_info_export($socket, int $target_pid): string
 {
     error_clear_last();
     $result = \socket_wsaprotocol_info_export($socket, $target_pid);

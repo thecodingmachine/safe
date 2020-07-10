@@ -165,4 +165,23 @@ class DateTimeImmutableTest extends TestCase
         $this->assertEquals($phpDateTime, $safeDateTime2);
         $this->assertEquals($safeDateTime1, $safeDateTime2);
     }
+
+    public function testDatePeriod(): void
+    {
+        $datePeriod = new \DatePeriod(new \DateTimeImmutable('2020-01-01'), new \DateInterval('P1D'), (new \DateTimeImmutable('2020-01-03'))->modify('+1 day'));
+        $this->assertCount(3, $datePeriod);
+
+        $strings = [];
+        foreach ($datePeriod as $date) {
+            $strings[] = $date->format('Y-m-d H:i:s');
+        }
+
+        $expected = [
+            '2020-01-01 00:00:00',
+            '2020-01-02 00:00:00',
+            '2020-01-03 00:00:00',
+        ];
+
+        $this->assertSame($expected, $strings);
+    }
 }

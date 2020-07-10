@@ -168,7 +168,7 @@ class DateTimeImmutableTest extends TestCase
 
     public function testDatePeriod(): void
     {
-        $datePeriod = new \DatePeriod(new \DateTimeImmutable('2020-01-01'), new \DateInterval('P1D'), (new \DateTimeImmutable('2020-01-03'))->modify('+1 day'));
+        $datePeriod = new \DatePeriod(new \Safe\DateTimeImmutable('2020-01-01'), new \DateInterval('P1D'), (new \Safe\DateTimeImmutable('2020-01-03'))->modify('+1 day'));
         $this->assertCount(3, $datePeriod);
 
         $strings = [];

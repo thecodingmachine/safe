@@ -106,6 +106,8 @@ class PhpStanType
                 $type = 'array'; //typed array has to be untyped
             } elseif (\strpos($type, '[]') !== false) {
                 $type = 'iterable'; //generics cannot be typehinted and have to be turned into iterable
+            } elseif (\strpos($type, 'resource') !== false) {
+                $type = ''; // resource cant be typehinted
             }
         }
         

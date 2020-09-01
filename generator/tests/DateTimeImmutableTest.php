@@ -165,4 +165,35 @@ class DateTimeImmutableTest extends TestCase
         $this->assertEquals($phpDateTime, $safeDateTime2);
         $this->assertEquals($safeDateTime1, $safeDateTime2);
     }
+
+    //DatePeriod corrupts our DateTimeImmutable by setting their inner to null.
+    //This bug cannot be solved without editing DatePeriod itself.
+    public function testDatePeriodBug(): void
+    {
+        $start = new \Safe\DateTimeImmutable('2020-01-01');
+        $end = (new \Safe\DateTimeImmutable('2020-01-03'))->modify('+1 day');
+        $datePeriod = new \DatePeriod($start, new \DateInterval('P1D'), $end);
+
+        /** @var DateTimeImmutable $date */
+        foreach ($datePeriod as $date) {
+            $this->expectException(\TypeError::class);
+            $this->assertNull($date->getInnerDateTime());
+        }
+        
+    }
+    
+    public function testSwitchBetweenRegularAndSafe(): void
+    {
+        $d = new \DateTimeImmutable('2019-01-01');
+        $d2 = \Safe\DateTimeImmutable::createFromRegular($d);
+        $d3 = $d2->getInnerDateTime();
+        $this->assertSame($d->format('Y-m-d H:i:s.u'), $d3->format('Y-m-d H:i:s.u'));
+    }
+
+    public function testSwitchBetweenRegularAndSafe2(): void
+    {
+        $d = new \Safe\DateTimeImmutable('2019-01-01');
+        $d2 = \Safe\DateTimeImmutable::createFromRegular($d->getInnerDateTime());
+        $this->assertSame($d->format('Y-m-d H:i:s.u'), $d2->format('Y-m-d H:i:s.u'));
+    }
 }

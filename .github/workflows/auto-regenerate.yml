@@ -1,0 +1,79 @@
+
+name: "Auto Regenerate"
+
+on:
+  branches:
+    - master
+  schedule:
+    - cron:  '0 0 * * 0'
+
+jobs:
+
+  auto-regenerate:
+    name: "Continuous Integration"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+  
+      - name: "Install PHP with extensions"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "pcov"
+          php-version: "7.4"
+  
+      - name: "Check out salathe/phpdoc-base"
+        uses: "actions/checkout@v2"
+        with:
+          path: "generator/doc/doc-en/doc-base"
+          repository: "salathe/phpdoc-base"
+  
+      - name: "Check out php/doc-en"
+        uses: "actions/checkout@v2"
+        with:
+          path: "generator/doc/doc-en/en"
+          repository: "php/doc-en"
+    
+      - name: "Install dependencies with composer in generator/ directory"
+        run: "composer install --no-interaction"
+        working-directory: "generator"
+  
+      - name: "Install dependencies with composer in root directory"
+        run: "composer install --no-interaction"
+
+  
+      - name: "Dump autoloader with composer in root directory"
+        run: "composer dump-autoload"
+
+  
+      - name: "Regenerate files"
+        run: "./safe.php generate"
+        working-directory: "generator"
+  
+      - name: "Check if regenerated files are different"
+        run: |
+          if output=$(git status --porcelain) && [ -z "$output" ]; then
+            # all is good
+            echo "Generated files are the same as committed file: OK"
+          else
+            # Uncommitted changes
+            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
+            echo "Detected changes:"
+            git status
+            git diff
+            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
+            exit 1;
+          fi
+  
+      - name: "Create a pr if the files are different"
+        if: ${{ failure() }}
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: "Automatically regenerate the files"
+          branch: create-pull-request/regenerate-files
+          title: "Automatically regenerate the files"
+          labels: "regenerate, auto"
+          assignees: "kharhamel, moufmouf"
+          
+  
+   

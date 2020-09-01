@@ -2,15 +2,13 @@
 name: "Auto Regenerate"
 
 on:
-  branches:
-    - master
   schedule:
     - cron:  '0 0 * * 0'
 
 jobs:
 
   auto-regenerate:
-    name: "Continuous Integration"
+    name: "Tries to regenerate the files"
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout"

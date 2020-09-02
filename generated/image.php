@@ -405,8 +405,8 @@ function imagecolordeallocate($image, int $color): void
 /**
  * Makes the colors of the palette version of an image more closely match the true color version.
  *
- * @param resource $image1 A truecolor image link resource.
- * @param resource $image2 A palette image link resource pointing to an image that has the same
+ * @param resource $image1 A truecolor image resource.
+ * @param resource $image2 A palette image resource pointing to an image that has the same
  * size as image1.
  * @throws ImageException
  *
@@ -452,8 +452,8 @@ function imageconvolution($image, array $matrix, float $div, float $offset): voi
  * onto the x,y coordinates, dst_x and
  * dst_y.
  *
- * @param resource $dst_im Destination image link resource.
- * @param resource $src_im Source image link resource.
+ * @param resource $dst_im Destination image resource.
+ * @param resource $src_im Source image resource.
  * @param int $dst_x x-coordinate of destination point.
  * @param int $dst_y y-coordinate of destination point.
  * @param int $src_x x-coordinate of source point.
@@ -482,8 +482,8 @@ function imagecopy($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x, int $sr
  * onto the x,y coordinates, dst_x and
  * dst_y.
  *
- * @param resource $dst_im Destination image link resource.
- * @param resource $src_im Source image link resource.
+ * @param resource $dst_im Destination image resource.
+ * @param resource $src_im Source image resource.
  * @param int $dst_x x-coordinate of destination point.
  * @param int $dst_y y-coordinate of destination point.
  * @param int $src_x x-coordinate of source point.
@@ -522,8 +522,8 @@ function imagecopymerge($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x, in
  * that when merging it preserves the hue of the source by converting
  * the destination pixels to gray scale before the copy operation.
  *
- * @param resource $dst_im Destination image link resource.
- * @param resource $src_im Source image link resource.
+ * @param resource $dst_im Destination image resource.
+ * @param resource $src_im Source image resource.
  * @param int $dst_x x-coordinate of destination point.
  * @param int $dst_y y-coordinate of destination point.
  * @param int $src_x x-coordinate of source point.
@@ -571,8 +571,8 @@ function imagecopymergegray($dst_im, $src_im, int $dst_x, int $dst_y, int $src_x
  * src_image) but if the regions overlap the
  * results will be unpredictable.
  *
- * @param resource $dst_image Destination image link resource.
- * @param resource $src_image Source image link resource.
+ * @param resource $dst_image Destination image resource.
+ * @param resource $src_image Source image resource.
  * @param int $dst_x x-coordinate of destination point.
  * @param int $dst_y y-coordinate of destination point.
  * @param int $src_x x-coordinate of source point.
@@ -616,8 +616,8 @@ function imagecopyresampled($dst_image, $src_image, int $dst_x, int $dst_y, int 
  * src_image) but if the regions overlap the
  * results will be unpredictable.
  *
- * @param resource $dst_image Destination image link resource.
- * @param resource $src_image Source image link resource.
+ * @param resource $dst_image Destination image resource.
+ * @param resource $src_image Source image resource.
  * @param int $dst_x x-coordinate of destination point.
  * @param int $dst_y y-coordinate of destination point.
  * @param int $src_x x-coordinate of source point.

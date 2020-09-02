@@ -372,7 +372,7 @@ function mb_ord(string $str, string $encoding = null): int
  * @throws MbstringException
  *
  */
-function mb_parse_str(string $encoded_string, ?array &$result = null): void
+function mb_parse_str(string $encoded_string, ?array &$result): void
 {
     error_clear_last();
     $result = \mb_parse_str($encoded_string, $result);

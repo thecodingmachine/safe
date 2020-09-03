@@ -33,14 +33,23 @@ jobs:
           coverage: "pcov"
           php-version: "${{ matrix.php-version }}"
 
+      - name: "Cache the php documentation"
+        id: cache-php-doc
+        uses: "actions/cache@v1"
+        with:
+          path: "generator/doc/doc-en"
+          key: "php-doc"
+
       - name: "Check out salathe/phpdoc-base"
         uses: "actions/checkout@v2"
+        if: steps.cache-php-doc.outputs.cache-hit != 'true'
         with:
           path: "generator/doc/doc-en/doc-base"
           repository: "salathe/phpdoc-base"
 
       - name: "Check out php/doc-en"
         uses: "actions/checkout@v2"
+        if: steps.cache-php-doc.outputs.cache-hit != 'true'
         with:
           path: "generator/doc/doc-en/en"
           repository: "php/doc-en"

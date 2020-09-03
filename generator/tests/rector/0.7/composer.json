@@ -12,7 +12,7 @@
     "phpunit/phpunit": "^7"
   },
   "scripts": {
-    "rector": "rector process src/ --config ../../../../rector-migrate-0.7.yml",
+    "rector": "rector process src/ --config ../../../../rector-migrate-0.7.php",
     "test": "phpunit"
   }
 }

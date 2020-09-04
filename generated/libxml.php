@@ -6,11 +6,11 @@ use Safe\Exceptions\LibxmlException;
 
 /**
  * Retrieve last error from libxml.
- *
+ * 
  * @return \LibXMLError Returns a LibXMLError object if there is any error in the
  * buffer, FALSE otherwise.
  * @throws LibxmlException
- *
+ * 
  */
 function libxml_get_last_error(): \LibXMLError
 {
@@ -25,13 +25,13 @@ function libxml_get_last_error(): \LibXMLError
 
 /**
  * Changes the default external entity loader.
- *
+ * 
  * @param callable $resolver_function A callable that takes three arguments. Two strings, a public id
  * and system id, and a context (an array with four keys) as the third argument.
  * This callback should return a resource, a string from which a resource can be
  * opened, or NULL.
  * @throws LibxmlException
- *
+ * 
  */
 function libxml_set_external_entity_loader(callable $resolver_function): void
 {
@@ -41,3 +41,5 @@ function libxml_set_external_entity_loader(callable $resolver_function): void
         throw LibxmlException::createFromPhpError();
     }
 }
+
+

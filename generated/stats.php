@@ -6,12 +6,12 @@ use Safe\Exceptions\StatsException;
 
 /**
  * Returns the covariance of a and b.
- *
+ * 
  * @param array $a The first array
  * @param array $b The second array
  * @return float Returns the covariance of a and b.
  * @throws StatsException
- *
+ * 
  */
 function stats_covariance(array $a, array $b): float
 {
@@ -26,14 +26,14 @@ function stats_covariance(array $a, array $b): float
 
 /**
  * Returns the standard deviation of the values in a.
- *
- * @param array $a The array of data to find the standard deviation for. Note that all
+ * 
+ * @param array $a The array of data to find the standard deviation for. Note that all 
  * values of the array will be cast to float.
- * @param bool $sample Indicates if a represents a sample of the
+ * @param bool $sample Indicates if a represents a sample of the 
  * population; defaults to FALSE.
  * @return float Returns the standard deviation on success; FALSE on failure.
  * @throws StatsException
- *
+ * 
  */
 function stats_standard_deviation(array $a, bool $sample = false): float
 {
@@ -48,12 +48,12 @@ function stats_standard_deviation(array $a, bool $sample = false): float
 
 /**
  * Returns the Pearson correlation coefficient between arr1 and arr2.
- *
+ * 
  * @param array $arr1 The first array
  * @param array $arr2 The second array
  * @return float Returns the Pearson correlation coefficient between arr1 and arr2.
  * @throws StatsException
- *
+ * 
  */
 function stats_stat_correlation(array $arr1, array $arr2): float
 {
@@ -68,12 +68,12 @@ function stats_stat_correlation(array $arr1, array $arr2): float
 
 /**
  * Returns the inner product of arr1 and arr2.
- *
+ * 
  * @param array $arr1 The first array
  * @param array $arr2 The second array
  * @return float Returns the inner product of arr1 and arr2.
  * @throws StatsException
- *
+ * 
  */
 function stats_stat_innerproduct(array $arr1, array $arr2): float
 {
@@ -88,14 +88,14 @@ function stats_stat_innerproduct(array $arr1, array $arr2): float
 
 /**
  * Returns the variance of the values in a.
- *
- * @param array $a The array of data to find the standard deviation for. Note that all
+ * 
+ * @param array $a The array of data to find the standard deviation for. Note that all 
  * values of the array will be cast to float.
- * @param bool $sample Indicates if a represents a sample of the
+ * @param bool $sample Indicates if a represents a sample of the 
  * population; defaults to FALSE.
  * @return float Returns the variance on success; FALSE on failure.
  * @throws StatsException
- *
+ * 
  */
 function stats_variance(array $a, bool $sample = false): float
 {
@@ -106,3 +106,5 @@ function stats_variance(array $a, bool $sample = false): float
     }
     return $result;
 }
+
+

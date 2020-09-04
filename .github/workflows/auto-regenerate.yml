@@ -35,6 +35,12 @@ jobs:
       - name: "Install dependencies with composer in generator/ directory"
         run: "composer install --no-interaction"
         working-directory: "generator"
+        
+      - name: "Install dependencies with composer in root/ directory"
+        run: "composer install --no-interaction"
+
+      - name: "Dump autoloader with composer in root directory"
+        run: "composer dump-autoload"
   
       - name: "Regenerate files"
         run: "./safe.php generate"

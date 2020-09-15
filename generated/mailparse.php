@@ -66,6 +66,9 @@ function mailparse_msg_free($mimemail): void
  *
  * @param string $filename Path to the file holding the message.
  * The file is opened and streamed through the parser.
+ *
+ * The message contained in filename is supposed to end with a newline
+ * (CRLF); otherwise the last line of the message will not be parsed.
  * @return resource Returns a MIME resource representing the structure.
  * @throws MailparseException
  *
@@ -88,7 +91,8 @@ function mailparse_msg_parse_file(string $filename)
  * than read and parse the whole thing.
  *
  * @param resource $mimemail A valid MIME resource.
- * @param string $data
+ * @param string $data The final chunk of data is supposed to end with a newline
+ * (CRLF); otherwise the last line of the message will not be parsed.
  * @throws MailparseException
  *
  */

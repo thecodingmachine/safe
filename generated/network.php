@@ -52,6 +52,8 @@ function closelog(): void
  * between platforms, DNS_ANY will not
  * always return every record, the slower DNS_ALL
  * will collect all records more reliably.
+ *
+ * DNS_CAA is not supported on Windows.
  * @param array|null $authns Passed by reference and, if given, will be populated with Resource
  * Records for the Authoritative Name Servers.
  * @param array|null $addtl Passed by reference and, if given, will be populated with any

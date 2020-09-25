@@ -148,34 +148,42 @@ function odbc_binmode(int $result_id, int $mode): void
  *
  * @param resource $connection_id The ODBC connection identifier,
  * see odbc_connect for details.
- * @param string $qualifier The qualifier.
- * @param string $owner The owner.
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
  * @param string $table_name The table name.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
  * @param string $column_name The column name.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
  * @return resource Returns an ODBC result identifier.
  * This result identifier can be used to fetch a list of columns and
  * associated privileges.
  *
  * The result set has the following columns:
  *
- * TABLE_QUALIFIER
- * TABLE_OWNER
+ * TABLE_CAT
+ * TABLE_SCHEM
  * TABLE_NAME
+ * COLUMN_NAME
  * GRANTOR
  * GRANTEE
  * PRIVILEGE
  * IS_GRANTABLE
  *
- *
- * The result set is ordered by TABLE_QUALIFIER, TABLE_OWNER and
- * TABLE_NAME.
+ * Drivers can report additional columns.
  * @throws UodbcException
  *
  */
-function odbc_columnprivileges($connection_id, string $qualifier, string $owner, string $table_name, string $column_name)
+function odbc_columnprivileges($connection_id, string $catalog, string $schema, string $table_name, string $column_name)
 {
     error_clear_last();
-    $result = \odbc_columnprivileges($connection_id, $qualifier, $owner, $table_name, $column_name);
+    $result = \odbc_columnprivileges($connection_id, $catalog, $schema, $table_name, $column_name);
     if ($result === false) {
         throw UodbcException::createFromPhpError();
     }
@@ -188,44 +196,57 @@ function odbc_columnprivileges($connection_id, string $qualifier, string $owner,
  *
  * @param resource $connection_id The ODBC connection identifier,
  * see odbc_connect for details.
- * @param string $qualifier The qualifier.
- * @param string $schema The owner.
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
  * @param string $table_name The table name.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
  * @param string $column_name The column name.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
  * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
- * TABLE_QUALIFIER
+ * TABLE_CAT
  * TABLE_SCHEM
  * TABLE_NAME
  * COLUMN_NAME
  * DATA_TYPE
  * TYPE_NAME
- * PRECISION
- * LENGTH
- * SCALE
- * RADIX
+ * COLUMN_SIZE
+ * BUFFER_LENGTH
+ * DECIMAL_DIGITS
+ * NUM_PREC_RADIX
  * NULLABLE
  * REMARKS
+ * COLUMN_DEF
+ * SQL_DATA_TYPE
+ * SQL_DATETIME_SUB
+ * CHAR_OCTET_LENGTH
+ * ORDINAL_POSITION
+ * IS_NULLABLE
  *
- *
- * The result set is ordered by TABLE_QUALIFIER, TABLE_SCHEM and
- * TABLE_NAME.
+ * Drivers can report additional columns.
  * @throws UodbcException
  *
  */
-function odbc_columns($connection_id, string $qualifier = null, string $schema = null, string $table_name = null, string $column_name = null)
+function odbc_columns($connection_id, string $catalog = null, string $schema = null, string $table_name = null, string $column_name = null)
 {
     error_clear_last();
     if ($column_name !== null) {
-        $result = \odbc_columns($connection_id, $qualifier, $schema, $table_name, $column_name);
+        $result = \odbc_columns($connection_id, $catalog, $schema, $table_name, $column_name);
     } elseif ($table_name !== null) {
-        $result = \odbc_columns($connection_id, $qualifier, $schema, $table_name);
+        $result = \odbc_columns($connection_id, $catalog, $schema, $table_name);
     } elseif ($schema !== null) {
-        $result = \odbc_columns($connection_id, $qualifier, $schema);
-    } elseif ($qualifier !== null) {
-        $result = \odbc_columns($connection_id, $qualifier);
+        $result = \odbc_columns($connection_id, $catalog, $schema);
+    } elseif ($catalog !== null) {
+        $result = \odbc_columns($connection_id, $catalog);
     } else {
         $result = \odbc_columns($connection_id);
     }
@@ -264,7 +285,8 @@ function odbc_commit($connection_id): void
  * SQL_FETCH_FIRST, SQL_FETCH_NEXT.
  * Use SQL_FETCH_FIRST the first time this function is
  * called, thereafter use the SQL_FETCH_NEXT.
- * @return array Returns FALSE on error, and an array upon success.
+ * @return array Returns FALSE on error, an array upon success, and NULL after fetching
+ * the last available DSN.
  * @throws UodbcException
  *
  */
@@ -478,22 +500,22 @@ function odbc_field_type($result_id, int $field_number): string
  *
  * @param resource $connection_id The ODBC connection identifier,
  * see odbc_connect for details.
- * @param string $pk_qualifier The primary key qualifier.
- * @param string $pk_owner The primary key owner.
+ * @param string $pk_catalog The catalog ('qualifier' in ODBC 2 parlance) of the primary key table.
+ * @param string $pk_schema The schema ('owner' in ODBC 2 parlance) of the primary key table.
  * @param string $pk_table The primary key table.
- * @param string $fk_qualifier The foreign key qualifier.
- * @param string $fk_owner The foreign key owner.
+ * @param string $fk_catalog The catalog ('qualifier' in ODBC 2 parlance) of the foreign key table.
+ * @param string $fk_schema The schema ('owner' in ODBC 2 parlance) of the foreign key table.
  * @param string $fk_table The foreign key table.
  * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
- * PKTABLE_QUALIFIER
- * PKTABLE_OWNER
+ * PKTABLE_CAT
+ * PKTABLE_SCHEM
  * PKTABLE_NAME
  * PKCOLUMN_NAME
- * FKTABLE_QUALIFIER
- * FKTABLE_OWNER
+ * FKTABLE_CAT
+ * FKTABLE_SCHEM
  * FKTABLE_NAME
  * FKCOLUMN_NAME
  * KEY_SEQ
@@ -501,14 +523,16 @@ function odbc_field_type($result_id, int $field_number): string
  * DELETE_RULE
  * FK_NAME
  * PK_NAME
+ * DEFERRABILITY
  *
+ * Drivers can report additional columns.
  * @throws UodbcException
  *
  */
-function odbc_foreignkeys($connection_id, string $pk_qualifier, string $pk_owner, string $pk_table, string $fk_qualifier, string $fk_owner, string $fk_table)
+function odbc_foreignkeys($connection_id, string $pk_catalog, string $pk_schema, string $pk_table, string $fk_catalog, string $fk_schema, string $fk_table)
 {
     error_clear_last();
-    $result = \odbc_foreignkeys($connection_id, $pk_qualifier, $pk_owner, $pk_table, $fk_qualifier, $fk_owner, $fk_table);
+    $result = \odbc_foreignkeys($connection_id, $pk_catalog, $pk_schema, $pk_table, $fk_catalog, $fk_schema, $fk_table);
     if ($result === false) {
         throw UodbcException::createFromPhpError();
     }
@@ -617,27 +641,28 @@ function odbc_prepare($connection_id, string $query_string)
  *
  * @param resource $connection_id The ODBC connection identifier,
  * see odbc_connect for details.
- * @param string $qualifier
- * @param string $owner
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
  * @param string $table
  * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
- * TABLE_QUALIFIER
- * TABLE_OWNER
+ * TABLE_CAT
+ * TABLE_SCHEM
  * TABLE_NAME
  * COLUMN_NAME
  * KEY_SEQ
  * PK_NAME
  *
+ * Drivers can report additional columns.
  * @throws UodbcException
  *
  */
-function odbc_primarykeys($connection_id, string $qualifier, string $owner, string $table)
+function odbc_primarykeys($connection_id, string $catalog, string $schema, string $table)
 {
     error_clear_last();
-    $result = \odbc_primarykeys($connection_id, $qualifier, $owner, $table);
+    $result = \odbc_primarykeys($connection_id, $catalog, $schema, $table);
     if ($result === false) {
         throw UodbcException::createFromPhpError();
     }
@@ -759,10 +784,14 @@ function odbc_setoption($id, int $function, int $option, int $param): void
  * @param resource $connection_id The ODBC connection identifier,
  * see odbc_connect for details.
  * @param int $type
- * @param string $qualifier The qualifier.
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
  * @param string $table The table.
  * @param int $scope The scope, which orders the result set.
- * @param int $nullable The nullable option.
+ * One of SQL_SCOPE_CURROW, SQL_SCOPE_TRANSACTION
+ * or SQL_SCOPE_SESSION.
+ * @param int $nullable Determines whether to return special columns that can have a NULL value.
+ * One of SQL_NO_NULLS or SQL_NULLABLE .
  * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
@@ -771,18 +800,19 @@ function odbc_setoption($id, int $function, int $option, int $param): void
  * COLUMN_NAME
  * DATA_TYPE
  * TYPE_NAME
- * PRECISION
- * LENGTH
- * SCALE
+ * COLUMN_SIZE
+ * BUFFER_LENGTH
+ * DECIMAL_DIGITS
  * PSEUDO_COLUMN
  *
+ * Drivers can report additional columns.
  * @throws UodbcException
  *
  */
-function odbc_specialcolumns($connection_id, int $type, string $qualifier, string $table, int $scope, int $nullable)
+function odbc_specialcolumns($connection_id, int $type, string $catalog, string $schema, string $table, int $scope, int $nullable)
 {
     error_clear_last();
-    $result = \odbc_specialcolumns($connection_id, $type, $qualifier, $table, $scope, $nullable);
+    $result = \odbc_specialcolumns($connection_id, $type, $catalog, $schema, $table, $scope, $nullable);
     if ($result === false) {
         throw UodbcException::createFromPhpError();
     }
@@ -795,36 +825,40 @@ function odbc_specialcolumns($connection_id, int $type, string $qualifier, strin
  *
  * @param resource $connection_id The ODBC connection identifier,
  * see odbc_connect for details.
- * @param string $qualifier The qualifier.
- * @param string $owner The owner.
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
  * @param string $table_name The table name.
- * @param int $unique The unique attribute.
- * @param int $accuracy The accuracy.
+ * @param int $unique The type of the index.
+ * One of SQL_INDEX_UNIQUE or SQL_INDEX_ALL.
+ * @param int $accuracy One of SQL_ENSURE or SQL_QUICK.
+ * The latter requests that the driver retrieve the CARDINALITY and
+ * PAGES only if they are readily available from the server.
  * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
- * TABLE_QUALIFIER
- * TABLE_OWNER
+ * TABLE_CAT
+ * TABLE_SCHEM
  * TABLE_NAME
  * NON_UNIQUE
  * INDEX_QUALIFIER
  * INDEX_NAME
  * TYPE
- * SEQ_IN_INDEX
+ * ORDINAL_POSITION
  * COLUMN_NAME
- * COLLATION
+ * ASC_OR_DESC
  * CARDINALITY
  * PAGES
  * FILTER_CONDITION
  *
+ * Drivers can report additional columns.
  * @throws UodbcException
  *
  */
-function odbc_statistics($connection_id, string $qualifier, string $owner, string $table_name, int $unique, int $accuracy)
+function odbc_statistics($connection_id, string $catalog, string $schema, string $table_name, int $unique, int $accuracy)
 {
     error_clear_last();
-    $result = \odbc_statistics($connection_id, $qualifier, $owner, $table_name, $unique, $accuracy);
+    $result = \odbc_statistics($connection_id, $catalog, $schema, $table_name, $unique, $accuracy);
     if ($result === false) {
         throw UodbcException::createFromPhpError();
     }
@@ -838,30 +872,35 @@ function odbc_statistics($connection_id, string $qualifier, string $owner, strin
  *
  * @param resource $connection_id The ODBC connection identifier,
  * see odbc_connect for details.
- * @param string $qualifier The qualifier.
- * @param string $owner The owner. Accepts the following search patterns:
- * ('%' to match zero or more characters and '_' to match a single character)
- * @param string $name The name. Accepts the following search patterns:
- * ('%' to match zero or more characters and '_' to match a single character)
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @param string $name The name.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
  * @return resource An ODBC result identifier.
  *
  * The result set has the following columns:
  *
- * TABLE_QUALIFIER
- * TABLE_OWNER
+ * TABLE_CAT
+ * TABLE_SCHEM
  * TABLE_NAME
  * GRANTOR
  * GRANTEE
  * PRIVILEGE
  * IS_GRANTABLE
  *
+ * Drivers can report additional columns.
  * @throws UodbcException
  *
  */
-function odbc_tableprivileges($connection_id, string $qualifier, string $owner, string $name)
+function odbc_tableprivileges($connection_id, string $catalog, string $schema, string $name)
 {
     error_clear_last();
-    $result = \odbc_tableprivileges($connection_id, $qualifier, $owner, $name);
+    $result = \odbc_tableprivileges($connection_id, $catalog, $schema, $name);
     if ($result === false) {
         throw UodbcException::createFromPhpError();
     }
@@ -874,14 +913,14 @@ function odbc_tableprivileges($connection_id, string $qualifier, string $owner, 
  *
  * To support enumeration of qualifiers, owners, and table types,
  * the following special semantics for the
- * qualifier, owner,
+ * catalog, schema,
  * name, and
  * table_type are available:
  *
  *
  *
- * If qualifier is a single percent
- * character (%) and owner and
+ * If catalog is a single percent
+ * character (%) and schema and
  * name are empty strings, then the result
  * set contains a list of valid qualifiers for the data
  * source. (All columns except the TABLE_QUALIFIER column contain
@@ -890,8 +929,8 @@ function odbc_tableprivileges($connection_id, string $qualifier, string $owner, 
  *
  *
  *
- * If owner is a single percent character
- * (%) and qualifier and
+ * If schema is a single percent character
+ * (%) and catalog and
  * name are empty strings, then the result
  * set contains a list of valid owners for the data source. (All
  * columns except the TABLE_OWNER column contain
@@ -901,8 +940,8 @@ function odbc_tableprivileges($connection_id, string $qualifier, string $owner, 
  *
  *
  * If table_type is a single percent
- * character (%) and qualifier,
- * owner and name
+ * character (%) and catalog,
+ * schema and name
  * are empty strings, then the result set contains a list of
  * valid table types for the data source. (All columns except the
  * TABLE_TYPE column contain NULLs.)
@@ -912,15 +951,19 @@ function odbc_tableprivileges($connection_id, string $qualifier, string $owner, 
  *
  * @param resource $connection_id The ODBC connection identifier,
  * see odbc_connect for details.
- * @param string $qualifier The qualifier.
- * @param string $owner The owner. Accepts search patterns ('%' to match zero or more
- * characters and '_' to match a single character).
- * @param string $name The name. Accepts search patterns ('%' to match zero or more
- * characters and '_' to match a single character).
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @param string $name The name.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
  * @param string $types If table_type is not an empty string, it
  * must contain a list of comma-separated values for the types of
  * interest; each value may be enclosed in single quotes (') or
- * unquoted. For example, "'TABLE','VIEW'" or "TABLE, VIEW".  If the
+ * unquoted. For example, 'TABLE','VIEW' or TABLE, VIEW.  If the
  * data source does not support a specified table type,
  * odbc_tables does not return any results for
  * that type.
@@ -928,26 +971,27 @@ function odbc_tableprivileges($connection_id, string $qualifier, string $owner, 
  *
  * The result set has the following columns:
  *
- * TABLE_QUALIFIER
- * TABLE_OWNER
+ * TABLE_CAT
+ * TABLE_SCHEM
  * TABLE_NAME
  * TABLE_TYPE
  * REMARKS
  *
+ * Drivers can report additional columns.
  * @throws UodbcException
  *
  */
-function odbc_tables($connection_id, string $qualifier = null, string $owner = null, string $name = null, string $types = null)
+function odbc_tables($connection_id, string $catalog = null, string $schema = null, string $name = null, string $types = null)
 {
     error_clear_last();
     if ($types !== null) {
-        $result = \odbc_tables($connection_id, $qualifier, $owner, $name, $types);
+        $result = \odbc_tables($connection_id, $catalog, $schema, $name, $types);
     } elseif ($name !== null) {
-        $result = \odbc_tables($connection_id, $qualifier, $owner, $name);
-    } elseif ($owner !== null) {
-        $result = \odbc_tables($connection_id, $qualifier, $owner);
-    } elseif ($qualifier !== null) {
-        $result = \odbc_tables($connection_id, $qualifier);
+        $result = \odbc_tables($connection_id, $catalog, $schema, $name);
+    } elseif ($schema !== null) {
+        $result = \odbc_tables($connection_id, $catalog, $schema);
+    } elseif ($catalog !== null) {
+        $result = \odbc_tables($connection_id, $catalog);
     } else {
         $result = \odbc_tables($connection_id);
     }

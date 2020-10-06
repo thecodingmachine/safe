@@ -676,6 +676,10 @@ function odbc_primarykeys($connection_id, string $catalog, string $schema, strin
 /**
  * Prints all rows from a result identifier produced by
  * odbc_exec. The result is printed in HTML table format.
+ * The data is not escaped.
+ *
+ * This function is not supposed to be used in production environments; it is
+ * merely meant for development purposes, to get a result set quickly rendered.
  *
  * @param resource $result_id The result identifier.
  * @param string $format Additional overall table formatting.

@@ -3,7 +3,6 @@
 
 namespace Safe;
 
-
 use http\Exception\RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -26,6 +25,7 @@ class DeprecateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /** @var string $moduleName */
         $moduleName = $input->getArgument('module');
         
         $moduleFilePath = self::GENERATE_DIRECTORY."$moduleName.php";
@@ -62,5 +62,4 @@ class DeprecateCommand extends Command
     {
         return "Exceptions/".ucfirst($moduleName)."Exception.php";
     }
-
 }

@@ -108,7 +108,7 @@ class DocPage
 
         if (preg_match('/&gd\.return\.identifier;/m', $file)) {
             return true;
-        }  
+        }
         if (preg_match('/&gd\.return\.identifier;/m', $file)) {
             return true;
         }

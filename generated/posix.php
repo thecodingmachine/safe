@@ -6,19 +6,19 @@ use Safe\Exceptions\PosixException;
 
 /**
  * posix_access checks the user's permission of a file.
- *
+ * 
  * @param string $file The name of the file to be tested.
  * @param int $mode A mask consisting of one or more of POSIX_F_OK,
  * POSIX_R_OK, POSIX_W_OK and
  * POSIX_X_OK.
- *
+ * 
  * POSIX_R_OK, POSIX_W_OK and
  * POSIX_X_OK request checking whether the file
  * exists and has read, write and execute permissions, respectively.
  * POSIX_F_OK just requests checking for the
  * existence of the file.
  * @throws PosixException
- *
+ * 
  */
 function posix_access(string $file, int $mode = POSIX_F_OK): void
 {
@@ -32,56 +32,56 @@ function posix_access(string $file, int $mode = POSIX_F_OK): void
 
 /**
  * Gets information about a group provided its name.
- *
+ * 
  * @param string $name The name of the group
  * @return array Returns an array on success.
  * The array elements returned are:
- *
+ * 
  * The group information array
- *
- *
- *
+ * 
+ * 
+ * 
  * Element
  * Description
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
  * name
- *
+ * 
  * The name element contains the name of the group. This is
  * a short, usually less than 16 character "handle" of the
  * group, not the real, full name.  This should be the same as
  * the name parameter used when
  * calling the function, and hence redundant.
- *
- *
- *
+ * 
+ * 
+ * 
  * passwd
- *
+ * 
  * The passwd element contains the group's password in an
  * encrypted format. Often, for example on a system employing
  * "shadow" passwords, an asterisk is returned instead.
- *
- *
- *
+ * 
+ * 
+ * 
  * gid
- *
+ * 
  * Group ID of the group in numeric form.
- *
- *
- *
+ * 
+ * 
+ * 
  * members
- *
+ * 
  * This consists of an array of
  * string's for all the members in the group.
- *
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
+ * 
  * @throws PosixException
- *
+ * 
  */
 function posix_getgrnam(string $name): array
 {
@@ -97,11 +97,11 @@ function posix_getgrnam(string $name): array
 /**
  * Returns the process group identifier of the process
  * pid.
- *
+ * 
  * @param int $pid The process id.
  * @return int Returns the identifier, as an integer.
  * @throws PosixException
- *
+ * 
  */
 function posix_getpgid(int $pid): int
 {
@@ -116,11 +116,11 @@ function posix_getpgid(int $pid): int
 
 /**
  * Calculates the group access list for the user specified in name.
- *
+ * 
  * @param string $name The user to calculate the list for.
  * @param int $base_group_id Typically the group number from the password file.
  * @throws PosixException
- *
+ * 
  */
 function posix_initgroups(string $name, int $base_group_id): void
 {
@@ -135,11 +135,11 @@ function posix_initgroups(string $name, int $base_group_id): void
 /**
  * Send the signal sig to the process with
  * the process identifier pid.
- *
+ * 
  * @param int $pid The process identifier.
  * @param int $sig One of the PCNTL signals constants.
  * @throws PosixException
- *
+ * 
  */
 function posix_kill(int $pid, int $sig): void
 {
@@ -155,7 +155,7 @@ function posix_kill(int $pid, int $sig): void
  * posix_mkfifo creates a special
  * FIFO file which exists in the file system and acts as
  * a bidirectional communication endpoint for processes.
- *
+ * 
  * @param string $pathname Path to the FIFO file.
  * @param int $mode The second parameter mode has to be given in
  * octal notation (e.g. 0644). The permission of the newly created
@@ -163,7 +163,7 @@ function posix_kill(int $pid, int $sig): void
  * umask. The permissions of the created file are
  * (mode &amp; ~umask).
  * @throws PosixException
- *
+ * 
  */
 function posix_mkfifo(string $pathname, int $mode): void
 {
@@ -177,7 +177,7 @@ function posix_mkfifo(string $pathname, int $mode): void
 
 /**
  * Creates a special or ordinary file.
- *
+ * 
  * @param string $pathname The file to create
  * @param int $mode This parameter is constructed by a bitwise OR between file type (one of
  * the following constants: POSIX_S_IFREG,
@@ -188,7 +188,7 @@ function posix_mkfifo(string $pathname, int $mode): void
  * S_IFCHR or S_IFBLK).
  * @param int $minor The minor device kernel identifier.
  * @throws PosixException
- *
+ * 
  */
 function posix_mknod(string $pathname, int $mode, int $major = 0, int $minor = 0): void
 {
@@ -204,10 +204,10 @@ function posix_mknod(string $pathname, int $mode, int $major = 0, int $minor = 0
  * Set the effective group ID of the current process. This is a
  * privileged function and needs appropriate privileges (usually
  * root) on the system to be able to perform this function.
- *
+ * 
  * @param int $gid The group id.
  * @throws PosixException
- *
+ * 
  */
 function posix_setegid(int $gid): void
 {
@@ -223,10 +223,10 @@ function posix_setegid(int $gid): void
  * Set the effective user ID of the current process. This is a privileged
  * function and needs appropriate privileges (usually root) on
  * the system to be able to perform this function.
- *
+ * 
  * @param int $uid The user id.
  * @throws PosixException
- *
+ * 
  */
 function posix_seteuid(int $uid): void
 {
@@ -245,10 +245,10 @@ function posix_seteuid(int $uid): void
  * appropriate order of function calls is
  * posix_setgid first,
  * posix_setuid last.
- *
+ * 
  * @param int $gid The group id.
  * @throws PosixException
- *
+ * 
  */
 function posix_setgid(int $gid): void
 {
@@ -263,11 +263,11 @@ function posix_setgid(int $gid): void
 /**
  * Let the process pid join the process group
  * pgid.
- *
+ * 
  * @param int $pid The process id.
  * @param int $pgid The process group id.
  * @throws PosixException
- *
+ * 
  */
 function posix_setpgid(int $pid, int $pgid): void
 {
@@ -282,14 +282,14 @@ function posix_setpgid(int $pid, int $pgid): void
 /**
  * posix_setrlimit sets the soft and hard limits for a
  * given system resource.
- *
- *
+ * 
+ * 
  * Each resource has an associated soft and hard limit.  The soft
  * limit is the value that the kernel enforces for the corresponding
  * resource.  The hard limit acts as a ceiling for the soft limit.
  * An unprivileged process may only set its soft limit to a value
  * from 0 to the hard limit, and irreversibly lower its hard limit.
- *
+ * 
  * @param int $resource The
  * resource limit constant
  * corresponding to the limit that is being set.
@@ -298,7 +298,7 @@ function posix_setpgid(int $pid, int $pgid): void
  * @param int $hardlimit The hard limit, in whatever unit the resource limit requires, or
  * POSIX_RLIMIT_INFINITY.
  * @throws PosixException
- *
+ * 
  */
 function posix_setrlimit(int $resource, int $softlimit, int $hardlimit): void
 {
@@ -314,10 +314,10 @@ function posix_setrlimit(int $resource, int $softlimit, int $hardlimit): void
  * Set the real user ID of the current process. This is a privileged
  * function that needs appropriate privileges (usually root) on
  * the system to be able to perform this function.
- *
+ * 
  * @param int $uid The user id.
  * @throws PosixException
- *
+ * 
  */
 function posix_setuid(int $uid): void
 {
@@ -327,3 +327,5 @@ function posix_setuid(int $uid): void
         throw PosixException::createFromPhpError();
     }
 }
+
+

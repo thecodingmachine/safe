@@ -5,12 +5,12 @@ namespace Safe;
 use Safe\Exceptions\PspellException;
 
 /**
- *
- *
- * @param int $dictionary_link
+ * 
+ * 
+ * @param int $dictionary_link 
  * @param string $word The added word.
  * @throws PspellException
- *
+ * 
  */
 function pspell_add_to_personal(int $dictionary_link, string $word): void
 {
@@ -23,12 +23,12 @@ function pspell_add_to_personal(int $dictionary_link, string $word): void
 
 
 /**
- *
- *
- * @param int $dictionary_link
+ * 
+ * 
+ * @param int $dictionary_link 
  * @param string $word The added word.
  * @throws PspellException
- *
+ * 
  */
 function pspell_add_to_session(int $dictionary_link, string $word): void
 {
@@ -41,11 +41,11 @@ function pspell_add_to_session(int $dictionary_link, string $word): void
 
 
 /**
- *
- *
- * @param int $dictionary_link
+ * 
+ * 
+ * @param int $dictionary_link 
  * @throws PspellException
- *
+ * 
  */
 function pspell_clear_session(int $dictionary_link): void
 {
@@ -59,7 +59,7 @@ function pspell_clear_session(int $dictionary_link): void
 
 /**
  * Create a config used to open a dictionary.
- *
+ * 
  * pspell_config_create has a very similar syntax to
  * pspell_new. In fact, using
  * pspell_config_create immediately followed by
@@ -68,10 +68,10 @@ function pspell_clear_session(int $dictionary_link): void
  * pspell_config_* functions before calling
  * pspell_new_config to take advantage of some
  * advanced functionality.
- *
+ * 
  * For more information and examples, check out inline manual pspell
  * website:http://aspell.net/.
- *
+ * 
  * @param string $language The language parameter is the language code which consists of the
  * two letter ISO 639 language code and an optional two letter ISO
  * 3166 country code after a dash or underscore.
@@ -88,7 +88,7 @@ function pspell_clear_session(int $dictionary_link): void
  * using.
  * @return int Returns a pspell config identifier.
  * @throws PspellException
- *
+ * 
  */
 function pspell_config_create(string $language, string $spelling = null, string $jargon = null, string $encoding = null): int
 {
@@ -99,7 +99,7 @@ function pspell_config_create(string $language, string $spelling = null, string 
         $result = \pspell_config_create($language, $spelling, $jargon);
     } elseif ($spelling !== null) {
         $result = \pspell_config_create($language, $spelling);
-    } else {
+    }else {
         $result = \pspell_config_create($language);
     }
     if ($result === false) {
@@ -112,12 +112,12 @@ function pspell_config_create(string $language, string $spelling = null, string 
 /**
  * This function is
  * currently not documented; only its argument list is available.
- *
- *
- * @param int $conf
- * @param string $directory
+ * 
+ * 
+ * @param int $conf 
+ * @param string $directory 
  * @throws PspellException
- *
+ * 
  */
 function pspell_config_data_dir(int $conf, string $directory): void
 {
@@ -132,12 +132,12 @@ function pspell_config_data_dir(int $conf, string $directory): void
 /**
  * This function is
  * currently not documented; only its argument list is available.
- *
- *
- * @param int $conf
- * @param string $directory
+ * 
+ * 
+ * @param int $conf 
+ * @param string $directory 
  * @throws PspellException
- *
+ * 
  */
 function pspell_config_dict_dir(int $conf, string $directory): void
 {
@@ -150,12 +150,12 @@ function pspell_config_dict_dir(int $conf, string $directory): void
 
 
 /**
- *
- *
- * @param int $dictionary_link
+ * 
+ * 
+ * @param int $dictionary_link 
  * @param int $n Words less than n characters will be skipped.
  * @throws PspellException
- *
+ * 
  */
 function pspell_config_ignore(int $dictionary_link, int $n): void
 {
@@ -168,32 +168,32 @@ function pspell_config_ignore(int $dictionary_link, int $n): void
 
 
 /**
- *
- *
- * @param int $dictionary_link
+ * 
+ * 
+ * @param int $dictionary_link 
  * @param int $mode The mode parameter is the mode in which spellchecker will work.
  * There are several modes available:
- *
- *
- *
+ * 
+ * 
+ * 
  * PSPELL_FAST - Fast mode (least number of
  * suggestions)
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
  * PSPELL_NORMAL - Normal mode (more suggestions)
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
  * PSPELL_BAD_SPELLERS - Slow mode (a lot of
  * suggestions)
- *
- *
- *
+ * 
+ * 
+ * 
  * @throws PspellException
- *
+ * 
  */
 function pspell_config_mode(int $dictionary_link, int $mode): void
 {
@@ -210,15 +210,15 @@ function pspell_config_mode(int $dictionary_link, int $mode): void
  * loaded and used in addition to the standard one after you call
  * pspell_new_config. The file is also the file where
  * pspell_save_wordlist will save personal wordlist to.
- *
+ * 
  * pspell_config_personal should be used on a config
  * before calling pspell_new_config.
- *
- * @param int $dictionary_link
+ * 
+ * @param int $dictionary_link 
  * @param string $file The personal wordlist. If the file does not exist, it will be created.
  * The file should be writable by whoever PHP runs as (e.g. nobody).
  * @throws PspellException
- *
+ * 
  */
 function pspell_config_personal(int $dictionary_link, string $file): void
 {
@@ -232,20 +232,20 @@ function pspell_config_personal(int $dictionary_link, string $file): void
 
 /**
  * Set a file that contains replacement pairs.
- *
+ * 
  * The replacement pairs improve the quality of the spellchecker. When a word
  * is misspelled, and a proper suggestion was not found in the list,
  * pspell_store_replacement can be used to store a
  * replacement pair and then pspell_save_wordlist to
  * save the wordlist along with the replacement pairs.
- *
+ * 
  * pspell_config_repl should be used on a config
  * before calling pspell_new_config.
- *
- * @param int $dictionary_link
+ * 
+ * @param int $dictionary_link 
  * @param string $file The file should be writable by whoever PHP runs as (e.g. nobody).
  * @throws PspellException
- *
+ * 
  */
 function pspell_config_repl(int $dictionary_link, string $file): void
 {
@@ -263,15 +263,15 @@ function pspell_config_repl(int $dictionary_link, string $file): void
  * there should be a space between the two words. Changing this setting only
  * affects the results returned by pspell_check;
  * pspell_suggest will still return suggestions.
- *
+ * 
  * pspell_config_runtogether should be used on a config
  * before calling pspell_new_config.
- *
- * @param int $dictionary_link
+ * 
+ * @param int $dictionary_link 
  * @param bool $flag TRUE if run-together words should be treated as legal compounds,
  * FALSE otherwise.
  * @throws PspellException
- *
+ * 
  */
 function pspell_config_runtogether(int $dictionary_link, bool $flag): void
 {
@@ -291,14 +291,14 @@ function pspell_config_runtogether(int $dictionary_link, bool $flag): void
  * replacement pairs will be saved by
  * pspell_save_wordlist anyway, and if it is not,
  * the replacement pairs will not be saved.
- *
+ * 
  * pspell_config_save_repl should be used on a config
  * before calling pspell_new_config.
- *
- * @param int $dictionary_link
+ * 
+ * @param int $dictionary_link 
  * @param bool $flag TRUE if replacement pairs should be saved, FALSE otherwise.
  * @throws PspellException
- *
+ * 
  */
 function pspell_config_save_repl(int $dictionary_link, bool $flag): void
 {
@@ -311,13 +311,13 @@ function pspell_config_save_repl(int $dictionary_link, bool $flag): void
 
 
 /**
- *
- *
+ * 
+ * 
  * @param int $config The config parameter is the one returned by
  * pspell_config_create when the config was created.
  * @return int Returns a dictionary link identifier on success.
  * @throws PspellException
- *
+ * 
  */
 function pspell_new_config(int $config): int
 {
@@ -334,10 +334,10 @@ function pspell_new_config(int $config): int
  * pspell_new opens up a new dictionary and
  * returns the dictionary link identifier for use in other pspell
  * functions.
- *
+ * 
  * For more information and examples, check out inline manual pspell
  * website:http://aspell.net/.
- *
+ * 
  * @param string $language The language parameter is the language code which consists of the
  * two letter ISO 639 language code and an optional two letter ISO
  * 3166 country code after a dash or underscore.
@@ -354,35 +354,35 @@ function pspell_new_config(int $config): int
  * using.
  * @param int $mode The mode parameter is the mode in which spellchecker will work.
  * There are several modes available:
- *
- *
- *
+ * 
+ * 
+ * 
  * PSPELL_FAST - Fast mode (least number of
  * suggestions)
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
  * PSPELL_NORMAL - Normal mode (more suggestions)
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
  * PSPELL_BAD_SPELLERS - Slow mode (a lot of
  * suggestions)
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
  * PSPELL_RUN_TOGETHER - Consider run-together words
  * as legal compounds.  That is, "thecat" will be a legal compound,
  * although there should be a space between the two words. Changing this
  * setting only affects the results returned by
  * pspell_check; pspell_suggest
  * will still return suggestions.
- *
- *
- *
+ * 
+ * 
+ * 
  * Mode is a bitmask constructed from different constants listed above.
  * However, PSPELL_FAST,
  * PSPELL_NORMAL and
@@ -390,7 +390,7 @@ function pspell_new_config(int $config): int
  * should select only one of them.
  * @return int Returns the dictionary link identifier on success.
  * @throws PspellException
- *
+ * 
  */
 function pspell_new(string $language, string $spelling = null, string $jargon = null, string $encoding = null, int $mode = 0): int
 {
@@ -403,7 +403,7 @@ function pspell_new(string $language, string $spelling = null, string $jargon = 
         $result = \pspell_new($language, $spelling, $jargon);
     } elseif ($spelling !== null) {
         $result = \pspell_new($language, $spelling);
-    } else {
+    }else {
         $result = \pspell_new($language);
     }
     if ($result === false) {
@@ -414,12 +414,12 @@ function pspell_new(string $language, string $spelling = null, string $jargon = 
 
 
 /**
- *
- *
+ * 
+ * 
  * @param int $dictionary_link A dictionary link identifier opened with
  * pspell_new_personal.
  * @throws PspellException
- *
+ * 
  */
 function pspell_save_wordlist(int $dictionary_link): void
 {
@@ -432,14 +432,14 @@ function pspell_save_wordlist(int $dictionary_link): void
 
 
 /**
- *
- *
+ * 
+ * 
  * @param int $dictionary_link A dictionary link identifier, opened with
  * pspell_new_personal
  * @param string $misspelled The misspelled word.
  * @param string $correct The fixed spelling for the misspelled word.
  * @throws PspellException
- *
+ * 
  */
 function pspell_store_replacement(int $dictionary_link, string $misspelled, string $correct): void
 {
@@ -449,3 +449,5 @@ function pspell_store_replacement(int $dictionary_link, string $misspelled, stri
         throw PspellException::createFromPhpError();
     }
 }
+
+

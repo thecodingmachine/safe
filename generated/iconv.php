@@ -6,22 +6,22 @@ use Safe\Exceptions\IconvException;
 
 /**
  * Retrieve internal configuration variables of iconv extension.
- *
+ * 
  * @param string $type The value of the optional type can be:
- *
+ * 
  * all
  * input_encoding
  * output_encoding
  * internal_encoding
- *
+ * 
  * @return mixed Returns the current value of the internal configuration variable if
  * successful.
- *
+ * 
  * If type is omitted or set to "all",
  * iconv_get_encoding returns an array that
  * stores all these variables.
  * @throws IconvException
- *
+ * 
  */
 function iconv_get_encoding(string $type = "all")
 {
@@ -37,16 +37,16 @@ function iconv_get_encoding(string $type = "all")
 /**
  * Changes the value of the internal configuration variable specified by
  * type to charset.
- *
+ * 
  * @param string $type The value of type can be any one of these:
- *
+ * 
  * input_encoding
  * output_encoding
  * internal_encoding
- *
+ * 
  * @param string $charset The character set.
  * @throws IconvException
- *
+ * 
  */
 function iconv_set_encoding(string $type, string $charset): void
 {
@@ -62,10 +62,10 @@ function iconv_set_encoding(string $type, string $charset): void
  * Performs a character set conversion on the string
  * str from in_charset
  * to out_charset.
- *
+ * 
  * @param string $in_charset The input charset.
  * @param string $out_charset The output charset.
- *
+ * 
  * If you append the string //TRANSLIT to
  * out_charset transliteration is activated. This
  * means that when a character can't be represented in the target charset,
@@ -74,7 +74,7 @@ function iconv_set_encoding(string $type, string $charset): void
  * characters that cannot be represented in the target charset are silently
  * discarded. Otherwise, E_NOTICE is generated and the function
  * will return FALSE.
- *
+ * 
  * If and how //TRANSLIT works exactly depends on the
  * system's iconv() implementation (cf. ICONV_IMPL).
  * Some implementations are known to ignore //TRANSLIT,
@@ -83,7 +83,7 @@ function iconv_set_encoding(string $type, string $charset): void
  * @param string $str The string to be converted.
  * @return string Returns the converted string.
  * @throws IconvException
- *
+ * 
  */
 function iconv(string $in_charset, string $out_charset, string $str): string
 {
@@ -94,3 +94,5 @@ function iconv(string $in_charset, string $out_charset, string $str): string
     }
     return $result;
 }
+
+

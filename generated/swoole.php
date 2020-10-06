@@ -5,14 +5,14 @@ namespace Safe;
 use Safe\Exceptions\SwooleException;
 
 /**
- *
- *
+ * 
+ * 
  * @param string $filename The filename being written.
  * @param string $content The content writing to the file.
  * @param int $offset The offset.
- * @param callable $callback
+ * @param callable $callback 
  * @throws SwooleException
- *
+ * 
  */
 function swoole_async_write(string $filename, string $content, int $offset = null, callable $callback = null): void
 {
@@ -21,7 +21,7 @@ function swoole_async_write(string $filename, string $content, int $offset = nul
         $result = \swoole_async_write($filename, $content, $offset, $callback);
     } elseif ($offset !== null) {
         $result = \swoole_async_write($filename, $content, $offset);
-    } else {
+    }else {
         $result = \swoole_async_write($filename, $content);
     }
     if ($result === false) {
@@ -31,14 +31,14 @@ function swoole_async_write(string $filename, string $content, int $offset = nul
 
 
 /**
- *
- *
+ * 
+ * 
  * @param string $filename The filename being written.
  * @param string $content The content writing to the file.
- * @param callable $callback
- * @param int $flags
+ * @param callable $callback 
+ * @param int $flags 
  * @throws SwooleException
- *
+ * 
  */
 function swoole_async_writefile(string $filename, string $content, callable $callback = null, int $flags = 0): void
 {
@@ -47,7 +47,7 @@ function swoole_async_writefile(string $filename, string $content, callable $cal
         $result = \swoole_async_writefile($filename, $content, $callback, $flags);
     } elseif ($callback !== null) {
         $result = \swoole_async_writefile($filename, $content, $callback);
-    } else {
+    }else {
         $result = \swoole_async_writefile($filename, $content);
     }
     if ($result === false) {
@@ -57,11 +57,11 @@ function swoole_async_writefile(string $filename, string $content, callable $cal
 
 
 /**
- *
- *
- * @param callable $callback
+ * 
+ * 
+ * @param callable $callback 
  * @throws SwooleException
- *
+ * 
  */
 function swoole_event_defer(callable $callback): void
 {
@@ -74,11 +74,11 @@ function swoole_event_defer(callable $callback): void
 
 
 /**
- *
- *
- * @param int $fd
+ * 
+ * 
+ * @param int $fd 
  * @throws SwooleException
- *
+ * 
  */
 function swoole_event_del(int $fd): void
 {
@@ -91,12 +91,12 @@ function swoole_event_del(int $fd): void
 
 
 /**
- *
- *
- * @param int $fd
- * @param string $data
+ * 
+ * 
+ * @param int $fd 
+ * @param string $data 
  * @throws SwooleException
- *
+ * 
  */
 function swoole_event_write(int $fd, string $data): void
 {
@@ -106,3 +106,5 @@ function swoole_event_write(int $fd, string $data): void
         throw SwooleException::createFromPhpError();
     }
 }
+
+

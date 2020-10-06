@@ -6,11 +6,11 @@ use Safe\Exceptions\UopzException;
 
 /**
  * Makes class extend parent
- *
+ * 
  * @param string $class The name of the class to extend
  * @param string $parent The name of the class to inherit
  * @throws UopzException
- *
+ * 
  */
 function uopz_extend(string $class, string $parent): void
 {
@@ -24,11 +24,11 @@ function uopz_extend(string $class, string $parent): void
 
 /**
  * Makes class implement interface
- *
- * @param string $class
- * @param string $interface
+ * 
+ * @param string $class 
+ * @param string $interface 
  * @throws UopzException
- *
+ * 
  */
 function uopz_implement(string $class, string $interface): void
 {
@@ -38,3 +38,5 @@ function uopz_implement(string $class, string $interface): void
         throw UopzException::createFromPhpError();
     }
 }
+
+

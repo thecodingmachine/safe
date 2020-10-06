@@ -39,19 +39,17 @@ class DeprecateCommand extends Command
             throw new \RuntimeException("Could not move the file.");
         }
 
-        $exceptionFilePath = self::GENERATE_DIRECTORY.$this->getExceptionFilePath($moduleName);
-        $moveException = false;
+        $exceptionFilePath = self::GENERATE_DIRECTORY.self::getExceptionFilePath($moduleName);
         if (\file_exists($exceptionFilePath)) {
-            $moveException = true;
             $output->writeln("Move exception file to deprecated");
-            $success = \rename($exceptionFilePath, self::DEPRECATE_DIRECTORY.$this->getExceptionFilePath($moduleName));
+            $success = \rename($exceptionFilePath, self::DEPRECATE_DIRECTORY.self::getExceptionFilePath($moduleName));
             if (!$success) {
                 throw new \RuntimeException("Could not move the file.");
             }
         }
 
         $output->writeln('Editing composer.json');
-        $this->editComposerFile($moduleName, $moveException);
+        ComposerJsonEditor::editComposerFileForDeprecation($moduleName);
 
         $generatedListFile = self::GENERATE_DIRECTORY.'functionsList.php';
         $deprecatedListFile = self::DEPRECATE_DIRECTORY.'functionsList.php';
@@ -63,41 +61,6 @@ class DeprecateCommand extends Command
     public static function getExceptionFilePath(string $moduleName): string
     {
         return "Exceptions/".ucfirst($moduleName)."Exception.php";
-    }
-
-
-    private function editComposerFile(string $moduleName, bool $moveException): void
-    {
-        
-        $composerContent = file_get_contents(__DIR__.'/../../composer.json');
-        if ($composerContent === false) {
-            throw new \RuntimeException('Error while loading composer.json file for edition.');
-        }
-        $composerJson = \json_decode($composerContent, true);
-        $composerJson['autoload']['files'] = self::editFileList($composerJson['autoload']['files'], $moduleName);
-
-        $newContent = json_encode($composerJson, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES);
-        \file_put_contents(__DIR__.'/../../composer.json', $newContent);
-    }
-
-    /**
-     * @param string[] $fileList
-     * @return string[]
-     */
-    public static function editFileList(array $fileList, string $moduleName): array
-    {
-        $newList = [];
-        foreach ($fileList as $fileName) {
-            if ($fileName === "generated/$moduleName.php") {
-                $newList[] = "deprecated/$moduleName.php";
-            //} else if($fileName === self::GENERATE_DIRECTORY.self::getExceptionFilePath($moduleName)) {
-            //    $newList[] = self::DEPRECATE_DIRECTORY.self::getExceptionFilePath($moduleName);
-            } else {
-                $newList[] = $fileName;
-            }
-        }
-        
-        return $newList;
     }
 
 }

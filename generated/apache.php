@@ -46,7 +46,9 @@ function apache_getenv(string $variable, bool $walk_to_top = false): string
 
 
 /**
- * Fetches all HTTP request headers from the current request.
+ * Fetches all HTTP request headers from the current request. Works in the
+ * Apache, FastCGI, CLI, FPM and NSAPI server module
+ * in Netscape/iPlanet/SunONE webservers.
  *
  * @return array An associative array of all the HTTP headers in the current request.
  * @throws ApacheException
@@ -86,7 +88,9 @@ function apache_reset_timeout(): void
 
 
 /**
- * Fetch all HTTP response headers.
+ * Fetch all HTTP response headers.  Works in the
+ * Apache, FastCGI, CLI, FPM and NSAPI server module
+ * in Netscape/iPlanet/SunONE webservers.
  *
  * @return array An array of all Apache response headers on success.
  * @throws ApacheException

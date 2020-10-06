@@ -1107,7 +1107,7 @@ function pg_options($connection = null): string
  * server_encoding, client_encoding,
  * is_superuser, session_authorization,
  * DateStyle, TimeZone, and
- * integer_datetimes.
+ * integer_datetimes.  Note that this value is case-sensitive.
  * @return string A string containing the value of the parameter, FALSE on failure or invalid
  * param_name.
  * @throws PgsqlException

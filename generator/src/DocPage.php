@@ -109,9 +109,12 @@ class DocPage
         if (preg_match('/&gd\.return\.identifier;/m', $file)) {
             return true;
         }
+        if (preg_match('/&gd\.return\.identifier;/m', $file)) {
+            return true;
+        }
 
         //used to detect imagecreatefromstring
-        if (preg_match('/will be returned on success\. &false; is returned if/m', $file)) {
+        if (preg_match('/If the arguments are invalid, the function returns &false;/m', $file)) {
             return true;
         }
 

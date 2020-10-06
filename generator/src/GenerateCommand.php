@@ -74,7 +74,7 @@ class GenerateCommand extends Command
 
         // Finally, let's edit the composer.json file
         $output->writeln('Editing composer.json');
-        ComposerJsonEditor::editFiles(\array_values($modules));
+        ComposerJsonEditor::editComposerFileForGeneration(\array_values($modules));
 
         return 0;
     }

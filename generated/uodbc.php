@@ -36,17 +36,23 @@ function odbc_autocommit($connection_id, bool $OnOff = false)
 
 
 /**
- * Enables handling of binary column data. ODBC SQL types affected are
+ * Controls handling of binary column data. ODBC SQL types affected are
  * BINARY, VARBINARY, and
  * LONGVARBINARY.
+ * The default mode can be set using the
+ * uodbc.defaultbinmode php.ini directive.
  *
- * When binary SQL data is converted to character C data, each byte
+ * When binary SQL data is converted to character C data (ODBC_BINMODE_CONVERT), each byte
  * (8 bits) of source data is represented as two ASCII characters.
  * These characters are the ASCII character representation of the
  * number in its hexadecimal form. For example, a binary
  * 00000001 is converted to
  * "01" and a binary 11111111
  * is converted to "FF".
+ *
+ * While the handling of BINARY and VARBINARY
+ * columns only depend on the binmode, the handling of LONGVARBINARY
+ * columns also depends on the longreadlen as well:
  *
  * LONGVARBINARY handling
  *
@@ -75,11 +81,6 @@ function odbc_autocommit($connection_id, bool $OnOff = false)
  *
  *
  * ODBC_BINMODE_PASSTHRU
- * 0
- * passthru
- *
- *
- * ODBC_BINMODE_PASSTHRU
  * &gt;0
  * passthru
  *
@@ -99,19 +100,13 @@ function odbc_autocommit($connection_id, bool $OnOff = false)
  *
  * If odbc_fetch_into is used, passthru means that an
  * empty string is returned for these columns.
+ * If odbc_result is used, passthru means that the data are
+ * sent directly to the client (i.e. printed).
  *
  * @param int $result_id The result identifier.
  *
  * If result_id is 0, the
  * settings apply as default for new results.
- *
- *
- * Default for longreadlen is 4096 and
- * mode defaults to
- * ODBC_BINMODE_RETURN. Handling of binary long
- * columns is also affected by odbc_longreadlen.
- *
- *
  * @param int $mode Possible values for mode are:
  *
  *
@@ -128,6 +123,12 @@ function odbc_autocommit($connection_id, bool $OnOff = false)
  *
  * ODBC_BINMODE_CONVERT: Convert to char and return
  *
+ *
+ *
+ *
+ *
+ * Handling of binary long
+ * columns is also affected by odbc_longreadlen.
  *
  *
  * @throws UodbcException
@@ -588,12 +589,14 @@ function odbc_gettypeinfo($connection_id, int $data_type = null)
 
 
 /**
- * Enables handling of LONG and LONGVARBINARY columns.
+ * Controls handling of LONG, LONGVARCHAR and LONGVARBINARY columns.
+ * The default length can be set using the
+ * uodbc.defaultlrl php.ini directive.
  *
  * @param resource $result_id The result identifier.
  * @param int $length The number of bytes returned to PHP is controlled by the parameter
- * length. If it is set to 0, Long column data is passed through to the
- * client.
+ * length. If it is set to 0, long column data is passed through to the
+ * client (i.e. printed) when retrieved with odbc_result.
  * @throws UodbcException
  *
  */
@@ -673,6 +676,10 @@ function odbc_primarykeys($connection_id, string $catalog, string $schema, strin
 /**
  * Prints all rows from a result identifier produced by
  * odbc_exec. The result is printed in HTML table format.
+ * The data is not escaped.
+ *
+ * This function is not supposed to be used in production environments; it is
+ * merely meant for development purposes, to get a result set quickly rendered.
  *
  * @param resource $result_id The result identifier.
  * @param string $format Additional overall table formatting.

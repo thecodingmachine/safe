@@ -17,6 +17,7 @@ class DocPageTest extends TestCase
         $mcryptDecrypt = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/mcrypt/functions/mcrypt-decrypt.xml');
         $fsockopen = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/network/functions/fsockopen.xml');
         $arrayReplace = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-replace.xml');
+        $mktime = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/datetime/functions/mktime.xml');
 
         $this->assertTrue($pregMatch->detectFalsyFunction());
         $this->assertFalse($implode->detectFalsyFunction());
@@ -27,6 +28,7 @@ class DocPageTest extends TestCase
         $this->assertTrue($mcryptDecrypt->detectFalsyFunction());
         $this->assertTrue($fsockopen->detectFalsyFunction());
         $this->assertFalse($arrayReplace->detectFalsyFunction());
+        $this->assertTrue($mktime->detectFalsyFunction());
     }
 
     public function testDetectNullsyFunction()

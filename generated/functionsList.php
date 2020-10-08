@@ -374,6 +374,7 @@ return [
     'inotify_rm_watch',
     'iptcembed',
     'iptcparse',
+    'jdtounix',
     'jpeg2wbmp',
     'json_decode',
     'json_encode',

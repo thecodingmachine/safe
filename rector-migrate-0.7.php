@@ -384,6 +384,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'inotify_rm_watch' => 'Safe\inotify_rm_watch',
             'iptcembed' => 'Safe\iptcembed',
             'iptcparse' => 'Safe\iptcparse',
+            'jdtounix' => 'Safe\jdtounix',
             'jpeg2wbmp' => 'Safe\jpeg2wbmp',
             'json_decode' => 'Safe\json_decode',
             'json_encode' => 'Safe\json_encode',

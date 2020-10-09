@@ -331,6 +331,7 @@ return [
     'imap_close',
     'imap_createmailbox',
     'imap_deletemailbox',
+    'imap_fetchstructure',
     'imap_gc',
     'imap_headerinfo',
     'imap_mail',

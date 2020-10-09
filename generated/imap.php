@@ -181,6 +181,154 @@ function imap_deletemailbox($imap_stream, string $mailbox): void
 
 
 /**
+ * Fetches all the structured information for a given message.
+ *
+ * @param resource $imap_stream An IMAP stream returned by
+ * imap_open.
+ * @param int $msg_number The message number
+ * @param int $options This optional parameter only has a single option,
+ * FT_UID, which tells the function to treat the
+ * msg_number argument as a
+ * UID.
+ * @return \stdClass Returns an object with properties listed in the table below.
+ *
+ *
+ *
+ * Returned Object for imap_fetchstructure
+ *
+ *
+ *
+ *
+ * type
+ * Primary body type
+ *
+ *
+ * encoding
+ * Body transfer encoding
+ *
+ *
+ * ifsubtype
+ * TRUE if there is a subtype string
+ *
+ *
+ * subtype
+ * MIME subtype
+ *
+ *
+ * ifdescription
+ * TRUE if there is a description string
+ *
+ *
+ * description
+ * Content description string
+ *
+ *
+ * ifid
+ * TRUE if there is an identification string
+ *
+ *
+ * id
+ * Identification string
+ *
+ *
+ * lines
+ * Number of lines
+ *
+ *
+ * bytes
+ * Number of bytes
+ *
+ *
+ * ifdisposition
+ * TRUE if there is a disposition string
+ *
+ *
+ * disposition
+ * Disposition string
+ *
+ *
+ * ifdparameters
+ * TRUE if the dparameters array exists
+ *
+ *
+ * dparameters
+ * An array of objects where each object has an
+ * "attribute" and a "value"
+ * property corresponding to the parameters on the
+ * Content-disposition MIME
+ * header.
+ *
+ *
+ * ifparameters
+ * TRUE if the parameters array exists
+ *
+ *
+ * parameters
+ * An array of objects where each object has an
+ * "attribute" and a "value"
+ * property.
+ *
+ *
+ * parts
+ * An array of objects identical in structure to the top-level
+ * object, each of which corresponds to a MIME body
+ * part.
+ *
+ *
+ *
+ *
+ *
+ *
+ * Primary body type (value may vary with used library, use of constants is recommended)
+ *
+ *
+ * ValueTypeConstant
+ *
+ *
+ * 0textTYPETEXT
+ * 1multipartTYPEMULTIPART
+ * 2messageTYPEMESSAGE
+ * 3applicationTYPEAPPLICATION
+ * 4audioTYPEAUDIO
+ * 5imageTYPEIMAGE
+ * 6videoTYPEVIDEO
+ * 7modelTYPEMODEL
+ * 8otherTYPEOTHER
+ *
+ *
+ *
+ *
+ *
+ * Transfer encodings (value may vary with used library, use of constants is recommended)
+ *
+ *
+ * ValueTypeConstant
+ *
+ *
+ * 07bitENC7BIT
+ * 18bitENC8BIT
+ * 2BinaryENCBINARY
+ * 3Base64ENCBASE64
+ * 4Quoted-PrintableENCQUOTEDPRINTABLE
+ * 5otherENCOTHER
+ *
+ *
+ *
+ * @throws ImapException
+ *
+ */
+function imap_fetchstructure($imap_stream, int $msg_number, int $options = 0): \stdClass
+{
+    error_clear_last();
+    $result = \imap_fetchstructure($imap_stream, $msg_number, $options);
+    if ($result === false) {
+        throw ImapException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Purges the cache of entries of a specific type.
  *
  * @param resource $imap_stream An IMAP stream returned by

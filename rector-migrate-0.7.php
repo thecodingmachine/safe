@@ -341,6 +341,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'imap_close' => 'Safe\imap_close',
             'imap_createmailbox' => 'Safe\imap_createmailbox',
             'imap_deletemailbox' => 'Safe\imap_deletemailbox',
+            'imap_fetchstructure' => 'Safe\imap_fetchstructure',
             'imap_gc' => 'Safe\imap_gc',
             'imap_headerinfo' => 'Safe\imap_headerinfo',
             'imap_mail' => 'Safe\imap_mail',

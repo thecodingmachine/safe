@@ -579,6 +579,124 @@ function imap_headerinfo($imap_stream, int $msg_number, int $fromlength = 0, int
 
 
 /**
+ * Create a MIME message based on the given envelope
+ * and body sections.
+ *
+ * @param array $envelope An associative array of header fields. Valid keys are: "remail",
+ * "return_path", "date", "from", "reply_to", "in_reply_to", "subject",
+ * "to", "cc", "bcc" and "message_id", which set the respective message headers to the given string.
+ * To set additional headers, the key "custom_headers" is supported, which expects
+ * an array of those headers, e.g. ["User-Agent: My Mail Client"].
+ * @param array $body An indexed array of bodies. The first body is the main body of the message;
+ * only if it has a type of TYPEMULTIPART, further bodies
+ * are processed; these bodies constitute the bodies of the parts.
+ *
+ *
+ * Body Array Structure
+ *
+ *
+ *
+ * Key
+ * Type
+ * Description
+ *
+ *
+ *
+ *
+ * type
+ * int
+ *
+ * The MIME type.
+ * One of TYPETEXT (default), TYPEMULTIPART,
+ * TYPEMESSAGE, TYPEAPPLICATION,
+ * TYPEAUDIO, TYPEIMAGE,
+ * TYPEMODEL or TYPEOTHER.
+ *
+ *
+ *
+ * encoding
+ * int
+ *
+ * The Content-Transfer-Encoding.
+ * One of ENC7BIT (default), ENC8BIT,
+ * ENCBINARY, ENCBASE64,
+ * ENCQUOTEDPRINTABLE or ENCOTHER.
+ *
+ *
+ *
+ * charset
+ * string
+ * The charset parameter of the MIME type.
+ *
+ *
+ * type.parameters
+ * array
+ * An associative array of Content-Type parameter names and their values.
+ *
+ *
+ * subtype
+ * string
+ * The MIME subtype, e.g. 'jpeg' for TYPEIMAGE.
+ *
+ *
+ * id
+ * string
+ * The Content-ID.
+ *
+ *
+ * description
+ * string
+ * The Content-Description.
+ *
+ *
+ * disposition.type
+ * string
+ * The Content-Disposition, e.g. 'attachment'.
+ *
+ *
+ * disposition
+ * array
+ * An associative array of Content-Disposition parameter names and values.
+ *
+ *
+ * contents.data
+ * string
+ * The payload.
+ *
+ *
+ * lines
+ * int
+ * The size of the payload in lines.
+ *
+ *
+ * bytes
+ * int
+ * The size of the payload in bytes.
+ *
+ *
+ * md5
+ * string
+ * The MD5 checksum of the payload.
+ *
+ *
+ *
+ *
+ * @return string Returns the MIME message as string.
+ * @throws ImapException
+ *
+ */
+function imap_mail_compose(array $envelope, array $body): string
+{
+    error_clear_last();
+    $result = \imap_mail_compose($envelope, $body);
+    if ($result === false) {
+        throw ImapException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Copies mail messages specified by msglist
  * to specified mailbox.
  *
@@ -1138,6 +1256,83 @@ function imap_setflag_full($imap_stream, string $sequence, string $flag, int $op
     if ($result === false) {
         throw ImapException::createFromPhpError();
     }
+}
+
+
+/**
+ * Gets and sorts message numbers by the given parameters.
+ *
+ * @param resource $imap_stream An IMAP stream returned by
+ * imap_open.
+ * @param int $criteria Criteria can be one (and only one) of the following:
+ *
+ *
+ *
+ * SORTDATE - message Date
+ *
+ *
+ *
+ *
+ * SORTARRIVAL - arrival date
+ *
+ *
+ *
+ *
+ * SORTFROM - mailbox in first From address
+ *
+ *
+ *
+ *
+ * SORTSUBJECT - message subject
+ *
+ *
+ *
+ *
+ * SORTTO - mailbox in first To address
+ *
+ *
+ *
+ *
+ * SORTCC - mailbox in first cc address
+ *
+ *
+ *
+ *
+ * SORTSIZE - size of message in octets
+ *
+ *
+ *
+ * @param int $reverse Set this to 1 for reverse sorting
+ * @param int $options The options are a bitmask of one or more of the
+ * following:
+ *
+ *
+ *
+ * SE_UID - Return UIDs instead of sequence numbers
+ *
+ *
+ *
+ *
+ * SE_NOPREFETCH - Don't prefetch searched messages
+ *
+ *
+ *
+ * @param string $search_criteria IMAP2-format search criteria string. For details see
+ * imap_search.
+ * @param string $charset MIME character set to use when sorting strings.
+ * @return array Returns an array of message numbers sorted by the given
+ * parameters.
+ * @throws ImapException
+ *
+ */
+function imap_sort($imap_stream, int $criteria, int $reverse, int $options = 0, string $search_criteria = null, string $charset = null): array
+{
+    error_clear_last();
+    $result = \imap_sort($imap_stream, $criteria, $reverse, $options, $search_criteria, $charset);
+    if ($result === false) {
+        throw ImapException::createFromPhpError();
+    }
+    return $result;
 }
 
 

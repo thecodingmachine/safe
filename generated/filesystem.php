@@ -595,8 +595,8 @@ function flock($handle, int $operation, ?int &$wouldblock = null): void
  * a local file, then it will try to open a stream on that file.
  * The file must be accessible to PHP, so you need to ensure that
  * the file access permissions allow this access.
- * If you have enabled safe mode
- * or open_basedir further
+ * If you have enabled
+ * open_basedir further
  * restrictions may apply.
  *
  * If PHP has decided that filename specifies
@@ -1135,7 +1135,9 @@ function mkdir(string $pathname, int $mode = 0777, bool $recursive = false, $con
  *
  * The structure of the ini file is the same as the php.ini's.
  *
- * @param string $filename The filename of the ini file being parsed.
+ * @param string $filename The filename of the ini file being parsed. If a relative path is used,
+ * it is evaluated relative to the current working directory, then the
+ * include_path.
  * @param bool $process_sections By setting the process_sections
  * parameter to TRUE, you get a multidimensional array, with
  * the section names and settings included. The default

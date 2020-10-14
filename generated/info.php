@@ -449,21 +449,6 @@ function phpinfo(int $what = INFO_ALL): void
  * request. At the end of the request the environment is restored to its
  * original state.
  *
- * Setting certain environment variables may be a potential security breach.
- * The safe_mode_allowed_env_vars directive contains a
- * comma-delimited list of prefixes. In Safe Mode, the user may only alter
- * environment variables whose names begin with the prefixes supplied by
- * this directive. By default, users will only be able to set environment
- * variables that begin with PHP_ (e.g.
- * PHP_FOO=BAR). Note: if this directive is empty, PHP
- * will let the user modify ANY environment variable!
- *
- * The safe_mode_protected_env_vars directive contains a
- * comma-delimited list of environment variables, that the end user won't be
- * able to change using putenv.  These variables will
- * be protected even if safe_mode_allowed_env_vars is set
- * to allow to change them.
- *
  * @param string $setting The setting, like "FOO=BAR"
  * @throws InfoException
  *

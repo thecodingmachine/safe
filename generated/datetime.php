@@ -358,6 +358,69 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, fl
 
 
 /**
+ * Returns a string formatted according to the given format string using the
+ * given integer timestamp or the current time
+ * if no timestamp is given.  In other words, timestamp
+ * is optional and defaults to the value of time.
+ *
+ * @param string $format Format accepted by DateTimeInterface::format.
+ * @param int $timestamp The optional timestamp parameter is an
+ * integer Unix timestamp that defaults to the current
+ * local time if a timestamp is not given. In other
+ * words, it defaults to the value of time.
+ * @return string Returns a formatted date string. If a non-numeric value is used for
+ * timestamp, FALSE is returned and an
+ * E_WARNING level error is emitted.
+ * @throws DatetimeException
+ *
+ */
+function date(string $format, int $timestamp = null): string
+{
+    error_clear_last();
+    if ($timestamp !== null) {
+        $result = \date($format, $timestamp);
+    } else {
+        $result = \date($format);
+    }
+    if ($result === false) {
+        throw DatetimeException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Identical to the date function except that
+ * the time returned is Greenwich Mean Time (GMT).
+ *
+ * @param string $format The format of the outputted date string. See the formatting
+ * options for the date function.
+ * @param int $timestamp The optional timestamp parameter is an
+ * integer Unix timestamp that defaults to the current
+ * local time if a timestamp is not given. In other
+ * words, it defaults to the value of time.
+ * @return string Returns a formatted date string. If a non-numeric value is used for
+ * timestamp, FALSE is returned and an
+ * E_WARNING level error is emitted.
+ * @throws DatetimeException
+ *
+ */
+function gmdate(string $format, int $timestamp = null): string
+{
+    error_clear_last();
+    if ($timestamp !== null) {
+        $result = \gmdate($format, $timestamp);
+    } else {
+        $result = \gmdate($format);
+    }
+    if ($result === false) {
+        throw DatetimeException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Returns the Unix timestamp corresponding to the arguments
  * given. This timestamp is a long integer containing the number of
  * seconds between the Unix Epoch (January 1 1970 00:00:00 GMT) and the time

@@ -10,4 +10,5 @@ return [
     'preg_replace',
     'openssl_encrypt',
     'readdir',
+    'socket_write',
 ];

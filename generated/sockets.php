@@ -754,36 +754,6 @@ function socket_shutdown($socket, int $how = 2): void
 
 
 /**
- * The function socket_write writes to the
- * socket from the given
- * buffer.
- *
- * @param resource $socket
- * @param string $buffer The buffer to be written.
- * @param int $length The optional parameter length can specify an
- * alternate length of bytes written to the socket. If this length is
- * greater than the buffer length, it is silently truncated to the length
- * of the buffer.
- * @return int Returns the number of bytes successfully written to the socket.
- * The error code can be retrieved with
- * socket_last_error. This code may be passed to
- * socket_strerror to get a textual explanation of the
- * error.
- * @throws SocketsException
- *
- */
-function socket_write($socket, string $buffer, int $length = 0): int
-{
-    error_clear_last();
-    $result = \socket_write($socket, $buffer, $length);
-    if ($result === false) {
-        throw SocketsException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Exports the WSAPROTOCOL_INFO structure into shared memory and returns
  * an identifier to be used with socket_wsaprotocol_info_import. The
  * exported ID is only valid for the given target_pid.

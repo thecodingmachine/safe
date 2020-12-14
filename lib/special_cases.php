@@ -30,6 +30,15 @@ use Safe\Exceptions\PcreException;
  */
 function json_decode(string $json, bool $assoc = false, int $depth = 512, int $options = 0)
 {
+    if ($options & 4194304) { // options has JSON_THROW_ON_ERROR
+        try {
+            $data = \json_decode($json, $assoc, $depth, $options);
+        } catch (\Exception $e) {
+            throw new JsonException($e->getMessage(), (int) $e->getCode());
+        }
+        return $data;
+    }
+
     $data = \json_decode($json, $assoc, $depth, $options);
     if (JSON_ERROR_NONE !== json_last_error()) {
         throw JsonException::createFromPhpError();

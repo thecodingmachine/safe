@@ -43,19 +43,21 @@ class WritePhpFunction
      */
     private function writePhpFunction(): string
     {
-        $phpFunction = $this->method->getPhpDoc();
+        $phpFunction = "
+if (! function_exists('\\\\Safe\\\\{$this->method->getFunctionName()}')) {";
+        $phpFunction .= $this->method->getPhpDoc();
         $returnType = $this->method->getSignatureReturnType();
         $returnType = $returnType ? ': '.$returnType : '';
         $returnStatement = '';
         if ($this->method->getSignatureReturnType() !== 'void') {
-            $returnStatement = "    return \$result;\n";
+            $returnStatement = "        return \$result;\n";
         }
         $moduleName = $this->method->getModuleName();
 
-        $phpFunction .= "function {$this->method->getFunctionName()}({$this->displayParamsWithType($this->method->getParams())}){$returnType}
-{
-    error_clear_last();
-";
+        $phpFunction .= "    function {$this->method->getFunctionName()}({$this->displayParamsWithType($this->method->getParams())}){$returnType}
+    {
+        error_clear_last();
+    ";
 
         if (!$this->method->isOverloaded()) {
             $phpFunction .= '    $result = '.$this->printFunctionCall($this->method);
@@ -76,20 +78,21 @@ class WritePhpFunction
                     $defaultValueToString = $this->defaultValueToString($defaultValue);
                 }
                 $phpFunction .= 'if ($'.$lastParameter->getParameter().' !== '.$defaultValueToString.') {'."\n";
-                $phpFunction .= '        $result = '.$this->printFunctionCall($method)."\n";
-                $phpFunction .= '    }';
+                $phpFunction .= '            $result = '.$this->printFunctionCall($method)."\n";
+                $phpFunction .= '        }';
                 $inElse = true;
                 $method = $method->cloneAndRemoveAParameter();
                 if (!$method->isOverloaded()) {
                     break;
                 }
             } while (true);
-            $phpFunction .= 'else {'."\n";
-            $phpFunction .= '        $result = '.$this->printFunctionCall($method)."\n";
-            $phpFunction .= '    }';
+            $phpFunction .= ' else {'."\n";
+            $phpFunction .= '            $result = '.$this->printFunctionCall($method)."\n";
+            $phpFunction .= '        }';
         }
 
-        $phpFunction .= $this->generateExceptionCode($moduleName, $this->method).$returnStatement. '}
+        $phpFunction .= $this->generateExceptionCode($moduleName, $this->method).$returnStatement. '    }
+}
 ';
 
         return $phpFunction;
@@ -114,18 +117,18 @@ class WritePhpFunction
             $params = $method->getParams();
             if (\count($params) > 0 && $params[0]->getParameter() === 'ch') {
                 return "
-    if (\$result === $errorValue) {
-        throw CurlException::createFromCurlResource(\$ch);
-    }
+        if (\$result === $errorValue) {
+            throw CurlException::createFromCurlResource(\$ch);
+        }
 ";
             }
         }
 
         $exceptionName = FileCreator::toExceptionName($moduleName);
         return "
-    if (\$result === $errorValue) {
-        throw {$exceptionName}::createFromPhpError();
-    }
+        if (\$result === $errorValue) {
+            throw {$exceptionName}::createFromPhpError();
+        }
 ";
     }
 

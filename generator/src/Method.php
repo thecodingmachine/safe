@@ -102,7 +102,7 @@ class Method
     {
         $str = "/**\n".
             implode("\n", array_map(function (string $line) {
-                return ' * '.ltrim($line);
+                return rtrim(' * '.ltrim($line));
             }, \explode("\n", \strip_tags($this->getDocBlock()))))
             ."\n */\n";
 

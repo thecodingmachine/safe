@@ -11,4 +11,6 @@ return [
     'imageconvolution' => ['bool', 'src_im'=>'resource', 'matrix3x3'=>'array', 'div'=>'float', 'offset'=>'float'], //imageconvolution return a bool
     'iptcembed' => ['string|bool', 'iptcdata'=>'string', 'jpeg_file_name'=>'string', 'spool='=>'int'], //iptcembed return either a string, true or false
     'password_hash' => ['string|false', 'password'=>'string', 'algo'=>'int|string|null', 'options='=>'array'],
+    'com_load_typelib' => ['bool', 'typelib_name'=>'string', 'case_insensitive='=>'bool'], // case_insensitive is a bool
+    'sem_get' => ['resource|false', 'key'=>'int', 'max_acquire='=>'int', 'perm='=>'int', 'auto_release='=>'bool'], // auto_release is a bool
 ];

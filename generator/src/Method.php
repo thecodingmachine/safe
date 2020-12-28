@@ -100,7 +100,7 @@ class Method
 
     public function getPhpDoc(): string
     {
-        $str = "/**\n".
+        $str = "\n/**\n".
             implode("\n", array_map(function (string $line) {
                 return rtrim(' * '.ltrim($line));
             }, \explode("\n", \strip_tags($this->getDocBlock()))))

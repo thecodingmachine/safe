@@ -16,7 +16,7 @@ class PhpStanFunctionMapReader
 
     public function __construct()
     {
-        $this->functionMap = require 'phar://'.__DIR__.'/../../vendor/phpstan/phpstan/phpstan.phar/src/Reflection/SignatureMap/functionMap.php';
+        $this->functionMap = require 'phar://'.__DIR__.'/../../vendor/phpstan/phpstan/phpstan.phar/resources/functionMap.php';
         $this->customFunctionMap = require __DIR__.'/CustomPhpStanFunctionMap.php';
     }
 

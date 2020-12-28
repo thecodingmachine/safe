@@ -23,8 +23,9 @@ function bzclose($bz): void
 
 
 /**
- * Forces a write of all buffered bzip2 data for the file pointer
- * bz.
+ * This function is supposed to force a write of all buffered bzip2 data for the file pointer
+ * bz,
+ * but is implemented as null function in libbz2, and as such does nothing.
  *
  * @param resource $bz The file pointer. It must be valid and must point to a file
  * successfully opened by bzopen.

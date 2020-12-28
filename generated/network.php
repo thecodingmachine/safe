@@ -54,9 +54,9 @@ function closelog(): void
  * will collect all records more reliably.
  *
  * DNS_CAA is not supported on Windows.
- * @param array|null $authns Passed by reference and, if given, will be populated with Resource
+ * @param array|null $authoritative_name_servers Passed by reference and, if given, will be populated with Resource
  * Records for the Authoritative Name Servers.
- * @param array|null $addtl Passed by reference and, if given, will be populated with any
+ * @param array|null $additional_records Passed by reference and, if given, will be populated with any
  * Additional Records.
  * @param bool $raw The type will be interpreted as a raw DNS type ID
  * (the DNS_* constants cannot be used).
@@ -245,10 +245,10 @@ function closelog(): void
  * @throws NetworkException
  *
  */
-function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authns = null, ?array &$addtl = null, bool $raw = false): array
+function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authoritative_name_servers = null, ?array &$additional_records = null, bool $raw = false): array
 {
     error_clear_last();
-    $result = \dns_get_record($hostname, $type, $authns, $addtl, $raw);
+    $result = \dns_get_record($hostname, $type, $authoritative_name_servers, $additional_records, $raw);
     if ($result === false) {
         throw NetworkException::createFromPhpError();
     }
@@ -280,15 +280,15 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authns =
  * @param int $port The port number. This can be omitted and skipped with
  * -1 for transports that do not use ports, such as
  * unix://.
- * @param int|null $errno If provided, holds the system level error number that occurred in the
+ * @param int|null $error_code If provided, holds the system level error number that occurred in the
  * system-level connect() call.
  *
- * If the value returned in errno is
+ * If the value returned in error_code is
  * 0 and the function returned FALSE, it is an
  * indication that the error occurred before the
  * connect() call. This is most likely due to a
  * problem initializing the socket.
- * @param string|null $errstr The error message as a string.
+ * @param string|null $error_message The error message as a string.
  * @param float $timeout The connection timeout, in seconds.
  *
  * If you need to set a timeout for reading/writing data over the
@@ -304,13 +304,13 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authns =
  * @throws NetworkException
  *
  */
-function fsockopen(string $hostname, int $port = -1, ?int &$errno = null, ?string &$errstr = null, float $timeout = null)
+function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null)
 {
     error_clear_last();
     if ($timeout !== null) {
-        $result = \fsockopen($hostname, $port, $errno, $errstr, $timeout);
+        $result = \fsockopen($hostname, $port, $error_code, $error_message, $timeout);
     } else {
-        $result = \fsockopen($hostname, $port, $errno, $errstr);
+        $result = \fsockopen($hostname, $port, $error_code, $error_message);
     }
     if ($result === false) {
         throw NetworkException::createFromPhpError();
@@ -341,18 +341,18 @@ function gethostname(): string
 
 /**
  * getprotobyname returns the protocol number
- * associated with the protocol name as per
+ * associated with the protocol protocol as per
  * /etc/protocols.
  *
- * @param string $name The protocol name.
+ * @param string $protocol The protocol name.
  * @return int Returns the protocol number.
  * @throws NetworkException
  *
  */
-function getprotobyname(string $name): int
+function getprotobyname(string $protocol): int
 {
     error_clear_last();
-    $result = \getprotobyname($name);
+    $result = \getprotobyname($protocol);
     if ($result === false) {
         throw NetworkException::createFromPhpError();
     }
@@ -362,18 +362,41 @@ function getprotobyname(string $name): int
 
 /**
  * getprotobynumber returns the protocol name
- * associated with protocol number as per
+ * associated with protocol protocol as per
  * /etc/protocols.
  *
- * @param int $number The protocol number.
+ * @param int $protocol The protocol number.
  * @return string Returns the protocol name as a string.
  * @throws NetworkException
  *
  */
-function getprotobynumber(int $number): string
+function getprotobynumber(int $protocol): string
 {
     error_clear_last();
-    $result = \getprotobynumber($number);
+    $result = \getprotobynumber($protocol);
+    if ($result === false) {
+        throw NetworkException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * getservbyport returns the Internet service
+ * associated with port for the specified
+ * protocol as per /etc/services.
+ *
+ * @param int $port The port number.
+ * @param string $protocol protocol is either "tcp"
+ * or "udp" (in lowercase).
+ * @return string Returns the Internet service name as a string.
+ * @throws NetworkException
+ *
+ */
+function getservbyport(int $port, string $protocol): string
+{
+    error_clear_last();
+    $result = \getservbyport($port, $protocol);
     if ($result === false) {
         throw NetworkException::createFromPhpError();
     }
@@ -406,15 +429,36 @@ function header_register_callback(callable $callback): void
 /**
  *
  *
- * @param string $in_addr A 32bit IPv4, or 128bit IPv6 address.
+ * @param string $ip A 32bit IPv4, or 128bit IPv6 address.
  * @return string Returns a string representation of the address.
  * @throws NetworkException
  *
  */
-function inet_ntop(string $in_addr): string
+function inet_ntop(string $ip): string
 {
     error_clear_last();
-    $result = \inet_ntop($in_addr);
+    $result = \inet_ntop($ip);
+    if ($result === false) {
+        throw NetworkException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * The function long2ip generates an Internet address
+ * in dotted format (i.e.: aaa.bbb.ccc.ddd) from the long integer
+ * representation.
+ *
+ * @param int $ip A proper address representation in long integer.
+ * @return string Returns the Internet IP address as a string.
+ * @throws NetworkException
+ *
+ */
+function long2ip(int $ip): string
+{
+    error_clear_last();
+    $result = \long2ip($ip);
     if ($result === false) {
         throw NetworkException::createFromPhpError();
     }
@@ -428,11 +472,11 @@ function inet_ntop(string $in_addr): string
  *
  * The use of openlog is optional. It
  * will automatically be called by syslog if
- * necessary, in which case ident will default
+ * necessary, in which case prefix will default
  * to FALSE.
  *
- * @param string $ident The string ident is added to each message.
- * @param int $option The option argument is used to indicate
+ * @param string $prefix The string prefix is added to each message.
+ * @param int $flags The flags argument is used to indicate
  * what logging options will be used when generating a log message.
  *
  * openlog Options
@@ -554,10 +598,10 @@ function inet_ntop(string $in_addr): string
  * @throws NetworkException
  *
  */
-function openlog(string $ident, int $option, int $facility): void
+function openlog(string $prefix, int $flags, int $facility): void
 {
     error_clear_last();
-    $result = \openlog($ident, $option, $facility);
+    $result = \openlog($prefix, $flags, $facility);
     if ($result === false) {
         throw NetworkException::createFromPhpError();
     }

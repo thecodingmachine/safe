@@ -8,7 +8,7 @@ use Safe\Exceptions\SplException;
  * This function returns an array with the names of the interfaces that the
  * given class and its parents implement.
  *
- * @param mixed $class An object (class instance) or a string (class or interface name).
+ * @param object|string $class An object (class instance) or a string (class or interface name).
  * @param bool $autoload Whether to allow this function to load the class automatically through
  * the __autoload magic method.
  * @return array An array on success.
@@ -30,7 +30,7 @@ function class_implements($class, bool $autoload = true): array
  * This function returns an array with the name of the parent classes of
  * the given class.
  *
- * @param mixed $class An object (class instance) or a string (class name).
+ * @param object|string $class An object (class instance) or a string (class name).
  * @param bool $autoload Whether to allow this function to load the class automatically through
  * the __autoload magic method.
  * @return array An array on success.
@@ -53,7 +53,7 @@ function class_parents($class, bool $autoload = true): array
  * given class uses. This does however not include
  * any traits used by a parent class.
  *
- * @param mixed $class An object (class instance) or a string (class name).
+ * @param object|string $class An object (class instance) or a string (class name).
  * @param bool $autoload Whether to allow this function to load the class automatically through
  * the __autoload magic method.
  * @return array An array on success.

@@ -13,8 +13,8 @@ use Safe\Exceptions\MiscException;
  * even invalid names, whose value can (only) be retrieved with
  * constant. However, doing so is not recommended.
  * @param mixed $value The value of the constant. In PHP 5, value must
- * be a scalar value (integer,
- * float, string, boolean, or
+ * be a scalar value (int,
+ * float, string, bool, or
  * NULL). In PHP 7, array values are also accepted.
  *
  * While it is possible to define resource constants, it is
@@ -85,6 +85,30 @@ function highlight_string(string $str, bool $return = false)
 {
     error_clear_last();
     $result = \highlight_string($str, $return);
+    if ($result === false) {
+        throw MiscException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ *
+ *
+ * @param bool $as_number Whether the high resolution time should be returned as array
+ * or number.
+ * @return array{0:int,1:int}|int|float Returns an array of integers in the form [seconds, nanoseconds], if the
+ * parameter as_number is false. Otherwise the nanoseconds
+ * are returned as int (64bit platforms) or float
+ * (32bit platforms).
+ * Returns FALSE on failure.
+ * @throws MiscException
+ *
+ */
+function hrtime(bool $as_number = false)
+{
+    error_clear_last();
+    $result = \hrtime($as_number);
     if ($result === false) {
         throw MiscException::createFromPhpError();
     }
@@ -241,16 +265,16 @@ function highlight_string(string $str, bool $return = false)
  *
  *
  *
- * @param mixed $params
+ * @param mixed $values
  * @return string Returns a binary string containing data.
  * @throws MiscException
  *
  */
-function pack(string $format, ...$params): string
+function pack(string $format, ...$values): string
 {
     error_clear_last();
-    if ($params !== []) {
-        $result = \pack($format, ...$params);
+    if ($values !== []) {
+        $result = \pack($format, ...$values);
     } else {
         $result = \pack($format);
     }
@@ -380,6 +404,27 @@ function sleep(int $seconds): int
 
 
 /**
+ * Returns three samples representing the average system load
+ * (the number of processes in the system run queue) over the last 1, 5 and 15
+ * minutes, respectively. Returns FALSE on failure.
+ *
+ * @return array Returns an array with three samples (last 1, 5 and 15
+ * minutes).
+ * @throws MiscException
+ *
+ */
+function sys_getloadavg(): array
+{
+    error_clear_last();
+    $result = \sys_getloadavg();
+    if ($result === false) {
+        throw MiscException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Delays program execution for the given number of
  * seconds and nanoseconds.
  *
@@ -446,17 +491,17 @@ function time_sleep_until(float $timestamp): void
  * the given name.
  *
  * @param string $format See pack for an explanation of the format codes.
- * @param string $data The packed data.
+ * @param string $string The packed data.
  * @param int $offset The offset to begin unpacking from.
  * @return array Returns an associative array containing unpacked elements of binary
  * string.
  * @throws MiscException
  *
  */
-function unpack(string $format, string $data, int $offset = 0): array
+function unpack(string $format, string $string, int $offset = 0): array
 {
     error_clear_last();
-    $result = \unpack($format, $data, $offset);
+    $result = \unpack($format, $string, $offset);
     if ($result === false) {
         throw MiscException::createFromPhpError();
     }

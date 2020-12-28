@@ -684,7 +684,7 @@ function pg_last_error($connection = null): string
  * given connection with
  * PGSQL_NOTICE_LAST,
  * an array with PGSQL_NOTICE_ALL,
- * a boolean with PGSQL_NOTICE_CLEAR.
+ * a bool with PGSQL_NOTICE_CLEAR.
  * @throws PgsqlException
  *
  */
@@ -811,7 +811,7 @@ function pg_lo_export($connection = null, int $oid = null, string $pathname = nu
  * pg_connect or pg_pconnect.
  * @param string $pathname The full path and file name of the file on the client
  * filesystem from which to read the large object data.
- * @param mixed $object_id If an object_id is given the function
+ * @param  $object_id If an object_id is given the function
  * will try to create a large object with this id, else a free
  * object id is assigned by the server. The parameter
  * was added in PHP 5.3 and relies on functionality that first
@@ -1167,14 +1167,14 @@ function pg_parameter_status($connection = null, string $param_name = null): str
  * requiressl (deprecated in favor of sslmode), and
  * service.  Which of these arguments exist depends
  * on your PostgreSQL version.
- * @param int $connect_type If PGSQL_CONNECT_FORCE_NEW is passed, then a new connection
+ * @param string $connect_type If PGSQL_CONNECT_FORCE_NEW is passed, then a new connection
  * is created, even if the connection_string is identical to
  * an existing connection.
  * @return resource PostgreSQL connection resource on success, FALSE on failure.
  * @throws PgsqlException
  *
  */
-function pg_pconnect(string $connection_string, int $connect_type = null)
+function pg_pconnect(string $connection_string, string $connect_type = null)
 {
     error_clear_last();
     if ($connect_type !== null) {

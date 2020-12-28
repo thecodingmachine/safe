@@ -7,15 +7,15 @@ use Safe\Exceptions\StringsException;
 /**
  * convert_uudecode decodes a uuencoded string.
  *
- * @param string $data The uuencoded data.
+ * @param string $string The uuencoded data.
  * @return string Returns the decoded data as a string.
  * @throws StringsException
  *
  */
-function convert_uudecode(string $data): string
+function convert_uudecode(string $string): string
 {
     error_clear_last();
-    $result = \convert_uudecode($data);
+    $result = \convert_uudecode($string);
     if ($result === false) {
         throw StringsException::createFromPhpError();
     }
@@ -24,22 +24,50 @@ function convert_uudecode(string $data): string
 
 
 /**
- * convert_uuencode encodes a string using the uuencode
- * algorithm.
+ * Counts the number of occurrences of every byte-value (0..255) in
+ * string and returns it in various ways.
  *
- * Uuencode translates all strings (including binary data) into printable
- * characters, making them safe for network transmissions. Uuencoded data is
- * about 35% larger than the original.
+ * @param string $string The examined string.
+ * @param int $mode See return values.
+ * @return mixed Depending on mode
+ * count_chars returns one of the following:
  *
- * @param string $data The data to be encoded.
- * @return string Returns the uuencoded data.
+ *
+ *
+ * 0 - an array with the byte-value as key and the frequency of
+ * every byte as value.
+ *
+ *
+ *
+ *
+ * 1 - same as 0 but only byte-values with a frequency greater
+ * than zero are listed.
+ *
+ *
+ *
+ *
+ * 2 - same as 0 but only byte-values with a frequency equal to
+ * zero are listed.
+ *
+ *
+ *
+ *
+ * 3 - a string containing all unique characters is returned.
+ *
+ *
+ *
+ *
+ * 4 - a string containing all not used characters is returned.
+ *
+ *
+ *
  * @throws StringsException
  *
  */
-function convert_uuencode(string $data): string
+function count_chars(string $string, int $mode = 0)
 {
     error_clear_last();
-    $result = \convert_uuencode($data);
+    $result = \count_chars($string, $mode);
     if ($result === false) {
         throw StringsException::createFromPhpError();
     }
@@ -50,15 +78,15 @@ function convert_uuencode(string $data): string
 /**
  * Decodes a hexadecimally encoded binary string.
  *
- * @param string $data Hexadecimal representation of data.
+ * @param string $string Hexadecimal representation of data.
  * @return string Returns the binary representation of the given data.
  * @throws StringsException
  *
  */
-function hex2bin(string $data): string
+function hex2bin(string $string): string
 {
     error_clear_last();
-    $result = \hex2bin($data);
+    $result = \hex2bin($string);
     if ($result === false) {
         throw StringsException::createFromPhpError();
     }
@@ -74,16 +102,16 @@ function hex2bin(string $data): string
  * The hash is a 32-character hexadecimal number.
  *
  * @param string $filename The filename
- * @param bool $raw_output When TRUE, returns the digest in raw binary format with a length of
+ * @param bool $binary When TRUE, returns the digest in raw binary format with a length of
  * 16.
  * @return string Returns a string on success, FALSE otherwise.
  * @throws StringsException
  *
  */
-function md5_file(string $filename, bool $raw_output = false): string
+function md5_file(string $filename, bool $binary = false): string
 {
     error_clear_last();
-    $result = \md5_file($filename, $raw_output);
+    $result = \md5_file($filename, $binary);
     if ($result === false) {
         throw StringsException::createFromPhpError();
     }
@@ -92,7 +120,7 @@ function md5_file(string $filename, bool $raw_output = false): string
 
 
 /**
- * Calculates the metaphone key of str.
+ * Calculates the metaphone key of string.
  *
  * Similar to soundex metaphone creates the same key for
  * similar sounding words. It's more accurate than
@@ -104,18 +132,20 @@ function md5_file(string $filename, bool $raw_output = false): string
  * Algorithms for Programmers", Binstock &amp; Rex, Addison Wesley,
  * 1995].
  *
- * @param string $str The input string.
- * @param int $phonemes This parameter restricts the returned metaphone key to
- * phonemes characters in length.
+ * @param string $string The input string.
+ * @param int $max_phonemes This parameter restricts the returned metaphone key to
+ * max_phonemes characters in length.
+ * However, the resulting phonemes are always transcribed completely, so the
+ * resulting string length may be slightly longer than max_phonemes.
  * The default value of 0 means no restriction.
  * @return string Returns the metaphone key as a string.
  * @throws StringsException
  *
  */
-function metaphone(string $str, int $phonemes = 0): string
+function metaphone(string $string, int $max_phonemes = 0): string
 {
     error_clear_last();
-    $result = \metaphone($str, $phonemes);
+    $result = \metaphone($string, $max_phonemes);
     if ($result === false) {
         throw StringsException::createFromPhpError();
     }
@@ -127,45 +157,16 @@ function metaphone(string $str, int $phonemes = 0): string
  *
  *
  * @param string $filename The filename of the file to hash.
- * @param bool $raw_output When TRUE, returns the digest in raw binary format with a length of
+ * @param bool $binary When TRUE, returns the digest in raw binary format with a length of
  * 20.
  * @return string Returns a string on success, FALSE otherwise.
  * @throws StringsException
  *
  */
-function sha1_file(string $filename, bool $raw_output = false): string
+function sha1_file(string $filename, bool $binary = false): string
 {
     error_clear_last();
-    $result = \sha1_file($filename, $raw_output);
-    if ($result === false) {
-        throw StringsException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
- * Calculates the soundex key of str.
- *
- * Soundex keys have the property that words pronounced similarly
- * produce the same soundex key, and can thus be used to simplify
- * searches in databases where you know the pronunciation but not
- * the spelling. This soundex function returns a string 4 characters
- * long, starting with a letter.
- *
- * This particular soundex function is one described by Donald Knuth
- * in "The Art Of Computer Programming, vol. 3: Sorting And
- * Searching", Addison-Wesley (1973), pp. 391-392.
- *
- * @param string $str The input string.
- * @return string Returns the soundex key as a string.
- * @throws StringsException
- *
- */
-function soundex(string $str): string
-{
-    error_clear_last();
-    $result = \soundex($str);
+    $result = \sha1_file($filename, $binary);
     if ($result === false) {
         throw StringsException::createFromPhpError();
     }
@@ -367,6 +368,20 @@ function soundex(string $str): string
  *
  *
  *
+ * h
+ *
+ * Like the g specifier but uses F.
+ * Available as of PHP 8.0.0.
+ *
+ *
+ *
+ * H
+ *
+ * Like the g specifier but uses
+ * E and F. Available as of PHP 8.0.0.
+ *
+ *
+ *
  * o
  *
  * The argument is treated as an integer and presented
@@ -458,17 +473,17 @@ function soundex(string $str): string
  *
  *
  *
- * @param mixed $params
+ * @param string|int|float|bool $values
  * @return string Returns a string produced according to the formatting string
  * format.
  * @throws StringsException
  *
  */
-function sprintf(string $format, ...$params): string
+function sprintf(string $format, ...$values): string
 {
     error_clear_last();
-    if ($params !== []) {
-        $result = \sprintf($format, ...$params);
+    if ($values !== []) {
+        $result = \sprintf($format, ...$values);
     } else {
         $result = \sprintf($format);
     }
@@ -481,26 +496,26 @@ function sprintf(string $format, ...$params): string
 
 /**
  * Returns the portion of string specified by the
- * start and length parameters.
+ * offset and length parameters.
  *
  * @param string $string The input string.
- * @param int $start If start is non-negative, the returned string
- * will start at the start'th position in
+ * @param int $offset If offset is non-negative, the returned string
+ * will start at the offset'th position in
  * string, counting from zero. For instance,
  * in the string 'abcdef', the character at
  * position 0 is 'a', the
  * character at position 2 is
  * 'c', and so forth.
  *
- * If start is negative, the returned string
- * will start at the start'th character
+ * If offset is negative, the returned string
+ * will start at the offset'th character
  * from the end of string.
  *
  * If string is less than
- * start characters long, FALSE will be returned.
+ * offset characters long, FALSE will be returned.
  *
  *
- * Using a negative start
+ * Using a negative offset
  *
  *
  * ]]>
@@ -508,34 +523,34 @@ function sprintf(string $format, ...$params): string
  *
  * @param int $length If length is given and is positive, the string
  * returned will contain at most length characters
- * beginning from start (depending on the length of
+ * beginning from offset (depending on the length of
  * string).
  *
  * If length is given and is negative, then that many
  * characters will be omitted from the end of string
  * (after the start position has been calculated when a
- * start is negative).  If
- * start denotes the position of this truncation or
+ * offset is negative).  If
+ * offset denotes the position of this truncation or
  * beyond, FALSE will be returned.
  *
  * If length is given and is 0,
  * FALSE or NULL, an empty string will be returned.
  *
  * If length is omitted, the substring starting from
- * start until the end of the string will be
+ * offset until the end of the string will be
  * returned.
  * @return string Returns the extracted part of string;, or
  * an empty string.
  * @throws StringsException
  *
  */
-function substr(string $string, int $start, int $length = null): string
+function substr(string $string, int $offset, int $length = null): string
 {
     error_clear_last();
     if ($length !== null) {
-        $result = \substr($string, $start, $length);
+        $result = \substr($string, $offset, $length);
     } else {
-        $result = \substr($string, $start);
+        $result = \substr($string, $offset);
     }
     if ($result === false) {
         throw StringsException::createFromPhpError();
@@ -738,6 +753,20 @@ function substr(string $string, int $start, int $length = null): string
  *
  *
  *
+ * h
+ *
+ * Like the g specifier but uses F.
+ * Available as of PHP 8.0.0.
+ *
+ *
+ *
+ * H
+ *
+ * Like the g specifier but uses
+ * E and F. Available as of PHP 8.0.0.
+ *
+ *
+ *
  * o
  *
  * The argument is treated as an integer and presented
@@ -829,16 +858,16 @@ function substr(string $string, int $start, int $length = null): string
  *
  *
  *
- * @param array $args
+ * @param array $values
  * @return string Return array values as a formatted string according to
  * format.
  * @throws StringsException
  *
  */
-function vsprintf(string $format, array $args): string
+function vsprintf(string $format, array $values): string
 {
     error_clear_last();
-    $result = \vsprintf($format, $args);
+    $result = \vsprintf($format, $values);
     if ($result === false) {
         throw StringsException::createFromPhpError();
     }

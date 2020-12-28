@@ -6,8 +6,8 @@ use Safe\Exceptions\XmlException;
 
 /**
  * xml_parser_create_ns creates a new XML parser
- * with XML namespace support and returns a resource handle referencing
- * it to be used by the other XML functions.
+ * with XML namespace support and returns a XMLParser
+ * instance to be used by the other XML functions.
  *
  * @param string $encoding The input encoding is automatically detected, so that the
  * encoding parameter specifies only the output
@@ -18,7 +18,7 @@ use Safe\Exceptions\XmlException;
  * @param string $separator With a namespace aware parser tag parameters passed to the various
  * handler functions will consist of namespace and tag name separated by
  * the string specified in separator.
- * @return resource Returns a resource handle for the new XML parser.
+ * @return resource Returns a new XMLParser instance.
  * @throws XmlException
  *
  */
@@ -41,7 +41,7 @@ function xml_parser_create_ns(string $encoding = null, string $separator = ":")
 
 /**
  * xml_parser_create creates a new XML parser
- * and returns a resource handle referencing it to be used by the
+ * and returns a XMLParser instance to be used by the
  * other XML functions.
  *
  * @param string $encoding The optional encoding specifies the character
@@ -55,7 +55,7 @@ function xml_parser_create_ns(string $encoding = null, string $separator = ":")
  * ISO-8859-1, while in PHP 5.0.2 and upper is UTF-8. The supported
  * encodings are ISO-8859-1, UTF-8 and
  * US-ASCII.
- * @return resource Returns a resource handle for the new XML parser.
+ * @return resource Returns a new XMLParser instance.
  * @throws XmlException
  *
  */
@@ -75,6 +75,23 @@ function xml_parser_create(string $encoding = null)
 
 
 /**
+ * Frees the given XML parser.
+ *
+ * @param resource $parser
+ * @throws XmlException
+ *
+ */
+function xml_parser_free($parser): void
+{
+    error_clear_last();
+    $result = \xml_parser_free($parser);
+    if ($result === false) {
+        throw XmlException::createFromPhpError();
+    }
+}
+
+
+/**
  * This function allows to use parser inside
  * object. All callback functions could be set with
  * xml_set_element_handler etc and assumed to be
@@ -85,7 +102,7 @@ function xml_parser_create(string $encoding = null)
  * @throws XmlException
  *
  */
-function xml_set_object($parser, object &$object): void
+function xml_set_object($parser, object $object): void
 {
     error_clear_last();
     $result = \xml_set_object($parser, $object);

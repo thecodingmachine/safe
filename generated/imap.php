@@ -25,7 +25,13 @@ use Safe\Exceptions\ImapException;
 function imap_append($imap_stream, string $mailbox, string $message, string $options = null, string $internal_date = null): void
 {
     error_clear_last();
-    $result = \imap_append($imap_stream, $mailbox, $message, $options, $internal_date);
+    if ($internal_date !== null) {
+        $result = \imap_append($imap_stream, $mailbox, $message, $options, $internal_date);
+    } elseif ($options !== null) {
+        $result = \imap_append($imap_stream, $mailbox, $message, $options);
+    } else {
+        $result = \imap_append($imap_stream, $mailbox, $message);
+    }
     if ($result === false) {
         throw ImapException::createFromPhpError();
     }
@@ -361,7 +367,7 @@ function imap_gc($imap_stream, int $caches): void
  * Must be greater than or equal to zero.
  * @param int $subjectlength Number of characters for the fetchsubject property
  * Must be greater than or equal to zero.
- * @param string $defaulthost
+ * @param string|null $defaulthost
  * @return \stdClass Returns FALSE on error or, if successful, the information in an object with following properties:
  *
  *
@@ -567,10 +573,14 @@ function imap_gc($imap_stream, int $caches): void
  * @throws ImapException
  *
  */
-function imap_headerinfo($imap_stream, int $msg_number, int $fromlength = 0, int $subjectlength = 0, string $defaulthost = null): \stdClass
+function imap_headerinfo($imap_stream, int $msg_number, int $fromlength = 0, int $subjectlength = 0, ?string $defaulthost = null): \stdClass
 {
     error_clear_last();
-    $result = \imap_headerinfo($imap_stream, $msg_number, $fromlength, $subjectlength, $defaulthost);
+    if ($defaulthost !== null) {
+        $result = \imap_headerinfo($imap_stream, $msg_number, $fromlength, $subjectlength, $defaulthost);
+    } else {
+        $result = \imap_headerinfo($imap_stream, $msg_number, $fromlength, $subjectlength);
+    }
     if ($result === false) {
         throw ImapException::createFromPhpError();
     }
@@ -787,7 +797,17 @@ function imap_mail_move($imap_stream, string $msglist, string $mailbox, int $opt
 function imap_mail(string $to, string $subject, string $message, string $additional_headers = null, string $cc = null, string $bcc = null, string $rpath = null): void
 {
     error_clear_last();
-    $result = \imap_mail($to, $subject, $message, $additional_headers, $cc, $bcc, $rpath);
+    if ($rpath !== null) {
+        $result = \imap_mail($to, $subject, $message, $additional_headers, $cc, $bcc, $rpath);
+    } elseif ($bcc !== null) {
+        $result = \imap_mail($to, $subject, $message, $additional_headers, $cc, $bcc);
+    } elseif ($cc !== null) {
+        $result = \imap_mail($to, $subject, $message, $additional_headers, $cc);
+    } elseif ($additional_headers !== null) {
+        $result = \imap_mail($to, $subject, $message, $additional_headers);
+    } else {
+        $result = \imap_mail($to, $subject, $message);
+    }
     if ($result === false) {
         throw ImapException::createFromPhpError();
     }
@@ -1328,7 +1348,13 @@ function imap_setflag_full($imap_stream, string $sequence, string $flag, int $op
 function imap_sort($imap_stream, int $criteria, int $reverse, int $options = 0, string $search_criteria = null, string $charset = null): array
 {
     error_clear_last();
-    $result = \imap_sort($imap_stream, $criteria, $reverse, $options, $search_criteria, $charset);
+    if ($charset !== null) {
+        $result = \imap_sort($imap_stream, $criteria, $reverse, $options, $search_criteria, $charset);
+    } elseif ($search_criteria !== null) {
+        $result = \imap_sort($imap_stream, $criteria, $reverse, $options, $search_criteria);
+    } else {
+        $result = \imap_sort($imap_stream, $criteria, $reverse, $options);
+    }
     if ($result === false) {
         throw ImapException::createFromPhpError();
     }

@@ -7,7 +7,7 @@ use Safe\Exceptions\StreamException;
 /**
  * Sets parameters on the specified context.
  *
- * @param resource $stream_or_context The stream or context to apply the parameters too.
+ * @param resource $context The stream or context to apply the parameters too.
  * @param array $params An array of parameters to set.
  *
  * params should be an associative array of the structure:
@@ -15,10 +15,10 @@ use Safe\Exceptions\StreamException;
  * @throws StreamException
  *
  */
-function stream_context_set_params($stream_or_context, array $params): void
+function stream_context_set_params($context, array $params): void
 {
     error_clear_last();
-    $result = \stream_context_set_params($stream_or_context, $params);
+    $result = \stream_context_set_params($context, $params);
     if ($result === false) {
         throw StreamException::createFromPhpError();
     }
@@ -69,7 +69,7 @@ function stream_copy_to_stream($source, $dest, int $maxlength = -1, int $offset 
  * STREAM_FILTER_WRITE, and/or
  * STREAM_FILTER_ALL can also be passed to the
  * read_write parameter to override this behavior.
- * @param mixed $params This filter will be added with the specified
+ * @param array $params This filter will be added with the specified
  * params to the end of
  * the list and will therefore be called last during stream operations.
  * To add a filter to the beginning of the list, use
@@ -83,7 +83,7 @@ function stream_copy_to_stream($source, $dest, int $maxlength = -1, int $offset 
  * @throws StreamException
  *
  */
-function stream_filter_append($stream, string $filtername, int $read_write = null, $params = null)
+function stream_filter_append($stream, string $filtername, int $read_write = null, array $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -119,7 +119,7 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
  * read_write parameter to override this behavior.
  * See stream_filter_append for an example of
  * using this parameter.
- * @param mixed $params This filter will be added with the specified params
+ * @param array $params This filter will be added with the specified params
  * to the beginning of the list and will therefore be
  * called first during stream operations.  To add a filter to the end of the
  * list, use stream_filter_append.
@@ -132,7 +132,7 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
  * @throws StreamException
  *
  */
-function stream_filter_prepend($stream, string $filtername, int $read_write = null, $params = null)
+function stream_filter_prepend($stream, string $filtername, int $read_write = null, array $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -155,8 +155,8 @@ function stream_filter_prepend($stream, string $filtername, int $read_write = nu
  * filesystem functions (such as fopen,
  * fread etc.).
  *
- * @param string $filtername The filter name to be registered.
- * @param string $classname To implement a filter, you need to define a class as an extension of
+ * @param string $filter_name The filter name to be registered.
+ * @param string $class To implement a filter, you need to define a class as an extension of
  * php_user_filter with a number of member
  * functions. When performing read/write operations on the stream
  * to which your filter is attached, PHP will pass the data through your
@@ -167,10 +167,10 @@ function stream_filter_prepend($stream, string $filtername, int $read_write = nu
  * @throws StreamException
  *
  */
-function stream_filter_register(string $filtername, string $classname): void
+function stream_filter_register(string $filter_name, string $class): void
 {
     error_clear_last();
-    $result = \stream_filter_register($filtername, $classname);
+    $result = \stream_filter_register($filter_name, $class);
     if ($result === false) {
         throw StreamException::createFromPhpError();
     }
@@ -269,7 +269,7 @@ function stream_resolve_include_path(string $filename): string
  * (currently, regular files and socket streams).
  *
  * @param resource $stream The stream.
- * @param bool $mode If mode is FALSE, the given stream
+ * @param bool $enable If enable is FALSE, the given stream
  * will be switched to non-blocking mode, and if TRUE, it
  * will be switched to blocking mode.  This affects calls like
  * fgets and fread
@@ -280,10 +280,10 @@ function stream_resolve_include_path(string $filename): string
  * @throws StreamException
  *
  */
-function stream_set_blocking($stream, bool $mode): void
+function stream_set_blocking($stream, bool $enable): void
 {
     error_clear_last();
-    $result = \stream_set_blocking($stream, $mode);
+    $result = \stream_set_blocking($stream, $enable);
     if ($result === false) {
         throw StreamException::createFromPhpError();
     }
@@ -360,8 +360,8 @@ function stream_socket_accept($server_socket, float $timeout = null, ?string &$p
  * to the socket file on the filesystem.
  *
  * @param string $remote_socket Address to the socket to connect to.
- * @param int $errno Will be set to the system level error number if connection fails.
- * @param string $errstr Will be set to the system level error message if the connection fails.
+ * @param int|null $errno Will be set to the system level error number if connection fails.
+ * @param string|null $errstr Will be set to the system level error message if the connection fails.
  * @param float $timeout Number of seconds until the connect() system call
  * should timeout.
  *
@@ -397,7 +397,7 @@ function stream_socket_accept($server_socket, float $timeout = null, ?string &$p
  * @throws StreamException
  *
  */
-function stream_socket_client(string $remote_socket, int &$errno = null, string &$errstr = null, float $timeout = null, int $flags = STREAM_CLIENT_CONNECT, $context = null)
+function stream_socket_client(string $remote_socket, ?int &$errno = null, ?string &$errstr = null, float $timeout = null, int $flags = STREAM_CLIENT_CONNECT, $context = null)
 {
     error_clear_last();
     if ($context !== null) {
@@ -471,7 +471,7 @@ function stream_socket_pair(int $domain, int $type, int $protocol): iterable
  * A list of available transports can be retrieved using
  * stream_get_transports. See
  * for a list of bulitin transports.
- * @param int $errno If the optional errno and errstr
+ * @param int|null $errno If the optional errno and errstr
  * arguments are present they will be set to indicate the actual system
  * level error that occurred in the system-level socket(),
  * bind(), and listen() calls. If
@@ -481,7 +481,7 @@ function stream_socket_pair(int $domain, int $type, int $protocol): iterable
  * call. This is most likely due to a problem initializing the socket.
  * Note that the errno and
  * errstr arguments will always be passed by reference.
- * @param string $errstr See errno description.
+ * @param string|null $errstr See errno description.
  * @param int $flags A bitmask field which may be set to any combination of socket creation
  * flags.
  *
@@ -492,7 +492,7 @@ function stream_socket_pair(int $domain, int $type, int $protocol): iterable
  * @throws StreamException
  *
  */
-function stream_socket_server(string $local_socket, int &$errno = null, string &$errstr = null, int $flags = STREAM_SERVER_BIND | STREAM_SERVER_LISTEN, $context = null)
+function stream_socket_server(string $local_socket, ?int &$errno = null, ?string &$errstr = null, int $flags = STREAM_SERVER_BIND | STREAM_SERVER_LISTEN, $context = null)
 {
     error_clear_last();
     if ($context !== null) {
@@ -512,7 +512,7 @@ function stream_socket_server(string $local_socket, int &$errno = null, string &
  *
  * @param resource $stream An open stream (opened with stream_socket_client,
  * for example)
- * @param int $how One of the following constants: STREAM_SHUT_RD
+ * @param int $mode One of the following constants: STREAM_SHUT_RD
  * (disable further receptions), STREAM_SHUT_WR
  * (disable further transmissions) or
  * STREAM_SHUT_RDWR (disable further receptions and
@@ -520,10 +520,10 @@ function stream_socket_server(string $local_socket, int &$errno = null, string &
  * @throws StreamException
  *
  */
-function stream_socket_shutdown($stream, int $how): void
+function stream_socket_shutdown($stream, int $mode): void
 {
     error_clear_last();
-    $result = \stream_socket_shutdown($stream, $how);
+    $result = \stream_socket_shutdown($stream, $mode);
     if ($result === false) {
         throw StreamException::createFromPhpError();
     }
@@ -554,17 +554,17 @@ function stream_supports_lock($stream): void
  * fread etc.).
  *
  * @param string $protocol The wrapper name to be registered.
- * @param string $classname The classname which implements the protocol.
+ * @param string $class The classname which implements the protocol.
  * @param int $flags Should be set to STREAM_IS_URL if
  * protocol is a URL protocol. Default is 0, local
  * stream.
  * @throws StreamException
  *
  */
-function stream_wrapper_register(string $protocol, string $classname, int $flags = 0): void
+function stream_wrapper_register(string $protocol, string $class, int $flags = 0): void
 {
     error_clear_last();
-    $result = \stream_wrapper_register($protocol, $classname, $flags);
+    $result = \stream_wrapper_register($protocol, $class, $flags);
     if ($result === false) {
         throw StreamException::createFromPhpError();
     }

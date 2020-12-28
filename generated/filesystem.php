@@ -28,12 +28,12 @@ function chgrp(string $filename, $group): void
 
 /**
  * Attempts to change the mode of the specified file to that given in
- * mode.
+ * permissions.
  *
  * @param string $filename Path to the file.
- * @param int $mode Note that mode is not automatically
+ * @param int $permissions Note that permissions is not automatically
  * assumed to be an octal value, so to ensure the expected operation,
- * you need to prefix mode with a zero (0).
+ * you need to prefix permissions with a zero (0).
  * Strings such as "g+w" will not work properly.
  *
  *
@@ -43,7 +43,7 @@ function chgrp(string $filename, $group): void
  *
  *
  *
- * The mode parameter consists of three octal
+ * The permissions parameter consists of three octal
  * number components specifying access restrictions for the owner,
  * the user group in which the owner is in, and to everybody else in
  * this order. One component can be computed by adding up the needed
@@ -58,10 +58,10 @@ function chgrp(string $filename, $group): void
  *
  *
  */
-function chmod(string $filename, int $mode): void
+function chmod(string $filename, int $permissions): void
 {
     error_clear_last();
-    $result = \chmod($filename, $mode);
+    $result = \chmod($filename, $permissions);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -165,17 +165,17 @@ function disk_total_space(string $directory): float
 
 
 /**
- * The file pointed to by handle is closed.
+ * The file pointed to by stream is closed.
  *
- * @param resource $handle The file pointer must be valid, and must point to a file successfully
+ * @param resource $stream The file pointer must be valid, and must point to a file successfully
  * opened by fopen or fsockopen.
  * @throws FilesystemException
  *
  */
-function fclose($handle): void
+function fclose($stream): void
 {
     error_clear_last();
-    $result = \fclose($handle);
+    $result = \fclose($stream);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -184,19 +184,19 @@ function fclose($handle): void
 
 /**
  * This function forces a write of all buffered output to the resource
- * pointed to by the file handle.
+ * pointed to by the file stream.
  *
- * @param resource $handle The file pointer must be valid, and must point to
+ * @param resource $stream The file pointer must be valid, and must point to
  * a file successfully opened by fopen or
  * fsockopen (and not yet closed by
  * fclose).
  * @throws FilesystemException
  *
  */
-function fflush($handle): void
+function fflush($stream): void
 {
     error_clear_last();
-    $result = \fflush($handle);
+    $result = \fflush($stream);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -508,6 +508,39 @@ function fileowner(string $filename): int
 
 
 /**
+ * Gets permissions for the given file.
+ *
+ * @param string $filename Path to the file.
+ * @return int Returns the file's permissions as a numeric mode. Lower bits of this mode
+ * are the same as the permissions expected by chmod,
+ * however on most platforms the return value will also include information on
+ * the type of file given as filename. The examples
+ * below demonstrate how to test the return value for specific permissions and
+ * file types on POSIX systems, including Linux and macOS.
+ *
+ * For local files, the specific return value is that of the
+ * st_mode member of the structure returned by the C
+ * library's stat function. Exactly which bits are set
+ * can vary from platform to platform, and looking up your specific platform's
+ * documentation is recommended if parsing the non-permission bits of the
+ * return value is required.
+ *
+ * Returns FALSE on failure.
+ * @throws FilesystemException
+ *
+ */
+function fileperms(string $filename): int
+{
+    error_clear_last();
+    $result = \fileperms($filename);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Gets the size for the given file.
  *
  * @param string $filename Path to the file.
@@ -541,7 +574,7 @@ function filesize(string $filename): int
  * or it will not work). By default, this function will block until the
  * requested lock is acquired; this may be controlled with the LOCK_NB option documented below.
  *
- * @param resource $handle A file system pointer resource
+ * @param resource $stream A file system pointer resource
  * that is typically created using fopen.
  * @param int $operation operation is one of the following:
  *
@@ -565,15 +598,15 @@ function filesize(string $filename): int
  * It is also possible to add LOCK_NB as a bitmask to one
  * of the above operations, if flock should not
  * block during the locking attempt.
- * @param int|null $wouldblock The optional third argument is set to 1 if the lock would block
+ * @param int|null $would_block The optional third argument is set to 1 if the lock would block
  * (EWOULDBLOCK errno condition).
  * @throws FilesystemException
  *
  */
-function flock($handle, int $operation, ?int &$wouldblock = null): void
+function flock($stream, int $operation, ?int &$would_block = null): void
 {
     error_clear_last();
-    $result = \flock($handle, $operation, $wouldblock);
+    $result = \flock($stream, $operation, $would_block);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -829,7 +862,7 @@ function fputcsv($handle, array $fields, string $delimiter = ",", string $enclos
 /**
  * fread reads up to
  * length bytes from the file pointer
- * referenced by handle. Reading stops as soon as one
+ * referenced by stream. Reading stops as soon as one
  * of the following conditions is met:
  *
  *
@@ -858,17 +891,17 @@ function fputcsv($handle, array $fields, string $delimiter = ",", string $enclos
  *
  *
  *
- * @param resource $handle A file system pointer resource
+ * @param resource $stream A file system pointer resource
  * that is typically created using fopen.
  * @param int $length Up to length number of bytes read.
  * @return string Returns the read string.
  * @throws FilesystemException
  *
  */
-function fread($handle, int $length): string
+function fread($stream, int $length): string
 {
     error_clear_last();
-    $result = \fread($handle, $length);
+    $result = \fread($stream, $length);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -877,12 +910,37 @@ function fread($handle, int $length): string
 
 
 /**
- * Takes the filepointer, handle, and truncates the file to
+ * Gathers the statistics of the file opened by the file
+ * pointer stream. This function is similar to the
+ * stat function except that it operates
+ * on an open file pointer instead of a filename.
+ *
+ * @param resource $stream A file system pointer resource
+ * that is typically created using fopen.
+ * @return array Returns an array with the statistics of the file; the format of the array
+ * is described in detail on the stat manual page.
+ * Returns FALSE on failure.
+ * @throws FilesystemException
+ *
+ */
+function fstat($stream): array
+{
+    error_clear_last();
+    $result = \fstat($stream);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Takes the filepointer, stream, and truncates the file to
  * length, size.
  *
- * @param resource $handle The file pointer.
+ * @param resource $stream The file pointer.
  *
- * The handle must be open for writing.
+ * The stream must be open for writing.
  * @param int $size The size to truncate to.
  *
  * If size is larger than the file then the file
@@ -893,10 +951,10 @@ function fread($handle, int $length): string
  * @throws FilesystemException
  *
  */
-function ftruncate($handle, int $size): void
+function ftruncate($stream, int $size): void
 {
     error_clear_last();
-    $result = \ftruncate($handle, $size);
+    $result = \ftruncate($stream, $size);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -1016,6 +1074,12 @@ function fwrite($handle, string $string, int $length = null): int
  *
  *
  *
+ *
+ *
+ * The GLOB_BRACE flag is not available on some non GNU
+ * systems, like Solaris.
+ *
+ *
  * @return array Returns an array containing the matched files/directories, an empty array
  * if no file matched.
  * @throws FilesystemException
@@ -1095,6 +1159,33 @@ function link(string $target, string $link): void
 
 
 /**
+ * Gathers the statistics of the file or symbolic link named by
+ * filename.
+ *
+ * @param string $filename Path to a file or a symbolic link.
+ * @return array See the manual page for stat for information on
+ * the structure of the array that lstat returns.
+ * This function is identical to the stat function
+ * except that if the filename parameter is a symbolic
+ * link, the status of the symbolic link is returned, not the status of the
+ * file pointed to by the symbolic link.
+ *
+ * On failure, FALSE is returned.
+ * @throws FilesystemException
+ *
+ */
+function lstat(string $filename): array
+{
+    error_clear_last();
+    $result = \lstat($filename);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Attempts to create the directory specified by pathname.
  *
  * @param string $pathname The directory path.
@@ -1170,11 +1261,11 @@ function parse_ini_file(string $filename, bool $process_sections = false, int $s
 
 /**
  * parse_ini_string returns the settings in string
- * ini in an associative array.
+ * ini_string in an associative array.
  *
  * The structure of the ini string is the same as the php.ini's.
  *
- * @param string $ini The contents of the ini file being parsed.
+ * @param string $ini_string The contents of the ini file being parsed.
  * @param bool $process_sections By setting the process_sections
  * parameter to TRUE, you get a multidimensional array, with
  * the section names and settings included. The default
@@ -1194,10 +1285,10 @@ function parse_ini_file(string $filename, bool $process_sections = false, int $s
  * @throws FilesystemException
  *
  */
-function parse_ini_string(string $ini, bool $process_sections = false, int $scanner_mode = INI_SCANNER_NORMAL): array
+function parse_ini_string(string $ini_string, bool $process_sections = false, int $scanner_mode = INI_SCANNER_NORMAL): array
 {
     error_clear_last();
-    $result = \parse_ini_string($ini, $process_sections, $scanner_mode);
+    $result = \parse_ini_string($ini_string, $process_sections, $scanner_mode);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -1300,6 +1391,12 @@ function realpath(string $path): string
  * must match the wrapper used in
  * newname.
  * @param string $newname The new name.
+ *
+ *
+ * On Windows, if newname already exists, it must be writable.
+ * Otherwise rename fails and issues E_WARNING.
+ *
+ *
  * @param resource $context
  * @throws FilesystemException
  *
@@ -1319,18 +1416,18 @@ function rename(string $oldname, string $newname, $context = null): void
 
 
 /**
- * Sets the file position indicator for handle
+ * Sets the file position indicator for stream
  * to the beginning of the file stream.
  *
- * @param resource $handle The file pointer must be valid, and must point to a file
+ * @param resource $stream The file pointer must be valid, and must point to a file
  * successfully opened by fopen.
  * @throws FilesystemException
  *
  */
-function rewind($handle): void
+function rewind($stream): void
 {
     error_clear_last();
-    $result = \rewind($handle);
+    $result = \rewind($stream);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -1387,16 +1484,16 @@ function symlink(string $target, string $link): void
  * generate a file in the system's temporary directory, and return
  * the full path to that file, including its name.
  *
- * @param string $dir The directory where the temporary filename will be created.
+ * @param string $directory The directory where the temporary filename will be created.
  * @param string $prefix The prefix of the generated temporary filename.
  * @return string Returns the new temporary filename (with path).
  * @throws FilesystemException
  *
  */
-function tempnam(string $dir, string $prefix): string
+function tempnam(string $directory, string $prefix): string
 {
     error_clear_last();
-    $result = \tempnam($dir, $prefix);
+    $result = \tempnam($directory, $prefix);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }

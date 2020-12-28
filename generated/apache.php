@@ -26,8 +26,6 @@ function apache_get_version(): string
  * Retrieve an Apache environment variable specified by
  * variable.
  *
- * This function requires Apache 2 otherwise it's undefined.
- *
  * @param string $variable The Apache environment variable
  * @param bool $walk_to_top Whether to get the top-level variable available to all Apache layers.
  * @return string The value of the Apache environment variable on success
@@ -38,6 +36,54 @@ function apache_getenv(string $variable, bool $walk_to_top = false): string
 {
     error_clear_last();
     $result = \apache_getenv($variable, $walk_to_top);
+    if ($result === false) {
+        throw ApacheException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * This performs a partial request for a URI.  It goes just far
+ * enough to obtain all the important information about the given
+ * resource.
+ *
+ * @param string $filename The filename (URI) that's being requested.
+ * @return object An object of related URI information. The properties of
+ * this object are:
+ *
+ *
+ * status
+ * the_request
+ * status_line
+ * method
+ * content_type
+ * handler
+ * uri
+ * filename
+ * path_info
+ * args
+ * boundary
+ * no_cache
+ * no_local_copy
+ * allowed
+ * send_bodyct
+ * bytes_sent
+ * byterange
+ * clength
+ * unparsed_uri
+ * mtime
+ * request_time
+ *
+ *
+ * Returns FALSE on failure.
+ * @throws ApacheException
+ *
+ */
+function apache_lookup_uri(string $filename): object
+{
+    error_clear_last();
+    $result = \apache_lookup_uri($filename);
     if ($result === false) {
         throw ApacheException::createFromPhpError();
     }
@@ -163,14 +209,14 @@ function getallheaders(): array
  * To run the sub-request, all buffers are terminated and flushed to the
  * browser, pending headers are sent too.
  *
- * @param string $filename The file that the virtual command will be performed on.
+ * @param string $uri The file that the virtual command will be performed on.
  * @throws ApacheException
  *
  */
-function virtual(string $filename): void
+function virtual(string $uri): void
 {
     error_clear_last();
-    $result = \virtual($filename);
+    $result = \virtual($uri);
     if ($result === false) {
         throw ApacheException::createFromPhpError();
     }

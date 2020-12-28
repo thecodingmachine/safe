@@ -7,14 +7,14 @@ use Safe\Exceptions\ReadlineException;
 /**
  * This function adds a line to the command line history.
  *
- * @param string $line The line to be added in the history.
+ * @param string $prompt The line to be added in the history.
  * @throws ReadlineException
  *
  */
-function readline_add_history(string $line): void
+function readline_add_history(string $prompt): void
 {
     error_clear_last();
-    $result = \readline_add_history($line);
+    $result = \readline_add_history($prompt);
     if ($result === false) {
         throw ReadlineException::createFromPhpError();
     }
@@ -100,15 +100,15 @@ function readline_clear_history(): void
  * This function registers a completion function. This is the same kind of
  * functionality you'd get if you hit your tab key while using Bash.
  *
- * @param callable $function You must supply the name of an existing function which accepts a
+ * @param callable $callback You must supply the name of an existing function which accepts a
  * partial command line and returns an array of possible matches.
  * @throws ReadlineException
  *
  */
-function readline_completion_function(callable $function): void
+function readline_completion_function(callable $callback): void
 {
     error_clear_last();
-    $result = \readline_completion_function($function);
+    $result = \readline_completion_function($callback);
     if ($result === false) {
         throw ReadlineException::createFromPhpError();
     }

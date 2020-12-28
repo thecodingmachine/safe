@@ -15,7 +15,7 @@ use Safe\Exceptions\PcreException;
  *
  * @param string $pattern The pattern to search for, as a string.
  * @param string $subject The input string.
- * @param array $matches Array of all matches in multi-dimensional array ordered according to
+ * @param array|null $matches Array of all matches in multi-dimensional array ordered according to
  * flags.
  * @param int $flags Can be a combination of the following flags (note that it doesn't make
  * sense to use PREG_PATTERN_ORDER together with
@@ -347,7 +347,7 @@ use Safe\Exceptions\PcreException;
  * @throws PcreException
  *
  */
-function preg_match_all(string $pattern, string $subject, array &$matches = null, int $flags = PREG_PATTERN_ORDER, int $offset = 0): int
+function preg_match_all(string $pattern, string $subject, ?array &$matches = null, int $flags = PREG_PATTERN_ORDER, int $offset = 0): int
 {
     error_clear_last();
     $result = \preg_match_all($pattern, $subject, $matches, $flags, $offset);
@@ -364,7 +364,7 @@ function preg_match_all(string $pattern, string $subject, array &$matches = null
  *
  * @param string $pattern The pattern to search for, as a string.
  * @param string $subject The input string.
- * @param array $matches If matches is provided, then it is filled with
+ * @param string[]|null $matches If matches is provided, then it is filled with
  * the results of search. $matches[0] will contain the
  * text that matched the full pattern, $matches[1]
  * will have the text that matched the first captured parenthesized
@@ -584,7 +584,7 @@ function preg_match_all(string $pattern, string $subject, array &$matches = null
  * @throws PcreException
  *
  */
-function preg_match(string $pattern, string $subject, array &$matches = null, int $flags = 0, int $offset = 0): int
+function preg_match(string $pattern, string $subject, ?iterable &$matches = null, int $flags = 0, int $offset = 0): int
 {
     error_clear_last();
     $result = \preg_match($pattern, $subject, $matches, $flags, $offset);

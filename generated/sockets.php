@@ -319,7 +319,7 @@ function socket_get_option($socket, int $level, int $optname)
  *
  * @param resource $socket A valid socket resource created with socket_create
  * or socket_accept.
- * @param string $address If the given socket is of type AF_INET or
+ * @param string|null $address If the given socket is of type AF_INET or
  * AF_INET6, socket_getpeername
  * will return the peers (remote) IP address in
  * appropriate notation (e.g. 127.0.0.1 or
@@ -336,7 +336,7 @@ function socket_get_option($socket, int $level, int $optname)
  * @throws SocketsException
  *
  */
-function socket_getpeername($socket, string &$address, ?int &$port = null): void
+function socket_getpeername($socket, ?string &$address, ?int &$port = null): void
 {
     error_clear_last();
     $result = \socket_getpeername($socket, $address, $port);
@@ -758,7 +758,7 @@ function socket_shutdown($socket, int $how = 2): void
  * an identifier to be used with socket_wsaprotocol_info_import. The
  * exported ID is only valid for the given target_pid.
  *
- * @param resource  $socket A valid socket resource.
+ * @param resource $socket A valid socket resource.
  * @param int $target_pid The ID of the process which will import the socket.
  * @return string Returns an identifier to be used for the import
  * @throws SocketsException

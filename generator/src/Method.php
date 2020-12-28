@@ -91,7 +91,7 @@ class Method
                     }
                 }
 
-                $params[] = new Parameter($param, $phpStanFunction);
+                $params[] = new Parameter($param, $phpStanFunction, $i-2);
             }
             $this->params = $params;
         }

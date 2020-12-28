@@ -16,10 +16,10 @@ class Parameter
      */
     private $type;
 
-    public function __construct(\SimpleXMLElement $parameter, ?PhpStanFunction $phpStanFunction)
+    public function __construct(\SimpleXMLElement $parameter, ?PhpStanFunction $phpStanFunction, int $position)
     {
         $this->parameter = $parameter;
-        $phpStanParam = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameter()) : null;
+        $phpStanParam = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameter(), $position) : null;
         
         $this->type = $phpStanParam ? $phpStanParam->getType() : new PhpStanType($this->parameter->type->__toString());
     }
@@ -42,9 +42,6 @@ class Parameter
 
     public function getParameter(): string
     {
-        if ($this->isVariadic()) {
-            return 'params';
-        }
         // The db2_bind_param method has parameters with a dash in it... yep... (patch submitted)
         return \str_replace('-', '_', $this->parameter->parameter->__toString());
     }
@@ -62,7 +59,7 @@ class Parameter
      */
     public function isOptionalWithNoDefault(): bool
     {
-        if (((string)$this->parameter['choice']) !== 'opt') {
+        if (((string)$this->parameter['choice']) !== 'opt' && !$this->isVariadic()) {
             return false;
         }
         if (!$this->hasDefaultValue()) {
@@ -71,7 +68,7 @@ class Parameter
 
         $initializer = $this->getInitializer();
         // Some default value have weird values. For instance, first parameter of "mb_internal_encoding" has default value "mb_internal_encoding()"
-        if ($initializer !== 'array()' && strpos($initializer, '(') !== false) {
+        if ($initializer === 'null' || ($initializer !== 'array()' && strpos($initializer, '(') !== false)) {
             return true;
         }
         return false;
@@ -79,7 +76,7 @@ class Parameter
 
     public function isVariadic(): bool
     {
-        return $this->parameter->parameter->__toString() === '...';
+        return ((string)$this->parameter['rep']) === 'repeat';
     }
 
     public function isNullable(): bool

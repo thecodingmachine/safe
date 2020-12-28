@@ -39,6 +39,7 @@ if (! function_exists('\\Safe\\json_decode')) {
     }
 }
 
+
 if (! function_exists('\\Safe\\apc_fetch')) {
     /**
      * Fetchs a stored variable from the cache.
@@ -61,6 +62,7 @@ if (! function_exists('\\Safe\\apc_fetch')) {
     }
 }
 
+
 if (! function_exists('\\Safe\\apcu_fetch')) {
     /**
      * Fetchs an entry from the cache.
@@ -82,6 +84,7 @@ if (! function_exists('\\Safe\\apcu_fetch')) {
         return $result;
     }
 }
+
 
 if (! function_exists('\\Safe\\preg_replace')) {
     /**
@@ -169,6 +172,7 @@ if (! function_exists('\\Safe\\preg_replace')) {
     }
 }
 
+
 if (! function_exists('\\Safe\\readdir')) {
     /**
      * @param resource|null $dir_handle
@@ -186,6 +190,7 @@ if (! function_exists('\\Safe\\readdir')) {
         return $result;
     }
 }
+
 
 if (! function_exists('\\Safe\\openssl_encrypt')) {
     /**
@@ -221,6 +226,7 @@ if (! function_exists('\\Safe\\openssl_encrypt')) {
         return $result;
     }
 }
+
 
 if (! function_exists('\\Safe\\socket_write')) {
     /**

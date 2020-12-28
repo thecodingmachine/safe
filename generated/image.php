@@ -12,12 +12,12 @@ use Safe\Exceptions\ImageException;
  * correspondent HTTP content type.
  *
  * getimagesize can also return some more information
- * in imageinfo parameter.
+ * in image_info parameter.
  *
  * @param string $filename This parameter specifies the file you wish to retrieve information
  * about. It can reference a local file or (configuration permitting) a
  * remote file using one of the supported streams.
- * @param array $imageinfo This optional parameter allows you to extract some extended
+ * @param array|null $image_info This optional parameter allows you to extract some extended
  * information from the image file. Currently, this will return the
  * different JPG APP markers as an associative array.
  * Some programs use these APP markers to embed text information in
@@ -26,7 +26,7 @@ use Safe\Exceptions\ImageException;
  * You can use the iptcparse function to parse the
  * binary APP13 marker into something readable.
  *
- * The imageinfo only supports
+ * The image_info only supports
  * JFIF files.
  * @return array Returns an array with up to 7 elements. Not all image types will include
  * the channels and bits elements.
@@ -66,10 +66,31 @@ use Safe\Exceptions\ImageException;
  * @throws ImageException
  *
  */
-function getimagesize(string $filename, array &$imageinfo = null): array
+function getimagesize(string $filename, ?array &$image_info = null): array
 {
     error_clear_last();
-    $result = \getimagesize($filename, $imageinfo);
+    $result = \getimagesize($filename, $image_info);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Returns the extension for the given IMAGETYPE_XXX
+ * constant.
+ *
+ * @param int $image_type One of the IMAGETYPE_XXX constant.
+ * @param bool $include_dot Whether to prepend a dot to the extension or not. Default to TRUE.
+ * @return string A string with the extension corresponding to the given image type.
+ * @throws ImageException
+ *
+ */
+function image_type_to_extension(int $image_type, bool $include_dot = true): string
+{
+    error_clear_last();
+    $result = \image_type_to_extension($image_type, $include_dot);
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
@@ -280,7 +301,7 @@ function imagearc($image, int $cx, int $cy, int $width, int $height, int $start,
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  *
  * NULL is invalid if the compressed arguments is
  * not used.
@@ -291,7 +312,13 @@ function imagearc($image, int $cx, int $cy, int $width, int $height, int $start,
 function imagebmp($image, $to = null, bool $compressed = true): void
 {
     error_clear_last();
-    $result = \imagebmp($image, $to, $compressed);
+    if ($compressed !== true) {
+        $result = \imagebmp($image, $to, $compressed);
+    } elseif ($to !== null) {
+        $result = \imagebmp($image, $to);
+    } else {
+        $result = \imagebmp($image);
+    }
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
@@ -1118,29 +1145,6 @@ function imagefilledellipse($image, int $cx, int $cy, int $width, int $height, i
 
 
 /**
- * imagefilledpolygon creates a filled polygon
- * in the given image.
- *
- * @param resource $image An image resource, returned by one of the image creation functions,
- * such as imagecreatetruecolor.
- * @param array $points An array containing the x and y
- * coordinates of the polygons vertices consecutively.
- * @param int $num_points Total number of points (vertices), which must be at least 3.
- * @param int $color A color identifier created with imagecolorallocate.
- * @throws ImageException
- *
- */
-function imagefilledpolygon($image, array $points, int $num_points, int $color): void
-{
-    error_clear_last();
-    $result = \imagefilledpolygon($image, $points, $num_points, $color);
-    if ($result === false) {
-        throw ImageException::createFromPhpError();
-    }
-}
-
-
-/**
  * Creates a rectangle filled with color in the given
  * image starting at point 1 and ending at point 2.
  * 0, 0 is the top left corner of the image.
@@ -1464,7 +1468,7 @@ function imagegammacorrect($image, float $inputgamma, float $outputgamma): void
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @throws ImageException
  *
  */
@@ -1483,7 +1487,7 @@ function imagegd($image, $to = null): void
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @param int $chunk_size Chunk size.
  * @param int $type Either IMG_GD2_RAW or
  * IMG_GD2_COMPRESSED. Default is
@@ -1515,14 +1519,18 @@ function imagegd2($image, $to = null, int $chunk_size = 128, int $type = IMG_GD2
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @throws ImageException
  *
  */
 function imagegif($image, $to = null): void
 {
     error_clear_last();
-    $result = \imagegif($image, $to);
+    if ($to !== null) {
+        $result = \imagegif($image, $to);
+    } else {
+        $result = \imagegif($image);
+    }
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
@@ -1573,7 +1581,7 @@ function imagegrabwindow(int $window_handle, int $client_area = 0)
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @param int $quality quality is optional, and ranges from 0 (worst
  * quality, smaller file) to 100 (best quality, biggest file). The
  * default (-1) uses the default IJG quality value (about 75).
@@ -1583,7 +1591,13 @@ function imagegrabwindow(int $window_handle, int $client_area = 0)
 function imagejpeg($image, $to = null, int $quality = -1): void
 {
     error_clear_last();
-    $result = \imagejpeg($image, $to, $quality);
+    if ($quality !== -1) {
+        $result = \imagejpeg($image, $to, $quality);
+    } elseif ($to !== null) {
+        $result = \imagejpeg($image, $to);
+    } else {
+        $result = \imagejpeg($image);
+    }
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
@@ -1747,57 +1761,12 @@ function imageloadfont(string $file): int
 
 
 /**
- * imageopenpolygon draws an open polygon on the given
- * image. Contrary to imagepolygon,
- * no line is drawn between the last and the first point.
- *
- * @param resource $image An image resource, returned by one of the image creation functions,
- * such as imagecreatetruecolor.
- * @param array $points An array containing the polygon's vertices, e.g.:
- *
- *
- *
- *
- * points[0]
- * = x0
- *
- *
- * points[1]
- * = y0
- *
- *
- * points[2]
- * = x1
- *
- *
- * points[3]
- * = y1
- *
- *
- *
- *
- * @param int $num_points Total number of points (vertices), which must be at least 3.
- * @param int $color A color identifier created with imagecolorallocate.
- * @throws ImageException
- *
- */
-function imageopenpolygon($image, array $points, int $num_points, int $color): void
-{
-    error_clear_last();
-    $result = \imageopenpolygon($image, $points, $num_points, $color);
-    if ($result === false) {
-        throw ImageException::createFromPhpError();
-    }
-}
-
-
-/**
  * Outputs or saves a PNG image from the given
  * image.
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  *
  * NULL is invalid if the quality and
  * filters arguments are not used.
@@ -1816,51 +1785,15 @@ function imageopenpolygon($image, array $points, int $num_points, int $color): v
 function imagepng($image, $to = null, int $quality = -1, int $filters = -1): void
 {
     error_clear_last();
-    $result = \imagepng($image, $to, $quality, $filters);
-    if ($result === false) {
-        throw ImageException::createFromPhpError();
+    if ($filters !== -1) {
+        $result = \imagepng($image, $to, $quality, $filters);
+    } elseif ($quality !== -1) {
+        $result = \imagepng($image, $to, $quality);
+    } elseif ($to !== null) {
+        $result = \imagepng($image, $to);
+    } else {
+        $result = \imagepng($image);
     }
-}
-
-
-/**
- * imagepolygon creates a polygon in the given
- * image.
- *
- * @param resource $image An image resource, returned by one of the image creation functions,
- * such as imagecreatetruecolor.
- * @param array $points An array containing the polygon's vertices, e.g.:
- *
- *
- *
- *
- * points[0]
- * = x0
- *
- *
- * points[1]
- * = y0
- *
- *
- * points[2]
- * = x1
- *
- *
- * points[3]
- * = y1
- *
- *
- *
- *
- * @param int $num_points Total number of points (vertices), which must be at least 3.
- * @param int $color A color identifier created with imagecolorallocate.
- * @throws ImageException
- *
- */
-function imagepolygon($image, array $points, int $num_points, int $color): void
-{
-    error_clear_last();
-    $result = \imagepolygon($image, $points, $num_points, $color);
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
@@ -2544,7 +2477,7 @@ function imagettftext($image, float $size, float $angle, int $x, int $y, int $co
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @param int $foreground You can set the foreground color with this parameter by setting an
  * identifier obtained from imagecolorallocate.
  * The default foreground color is black.
@@ -2556,8 +2489,10 @@ function imagewbmp($image, $to = null, int $foreground = null): void
     error_clear_last();
     if ($foreground !== null) {
         $result = \imagewbmp($image, $to, $foreground);
-    } else {
+    } elseif ($to !== null) {
         $result = \imagewbmp($image, $to);
+    } else {
+        $result = \imagewbmp($image);
     }
     if ($result === false) {
         throw ImageException::createFromPhpError();
@@ -2570,7 +2505,7 @@ function imagewbmp($image, $to = null, int $foreground = null): void
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @param int $quality quality ranges from 0 (worst
  * quality, smaller file) to 100 (best quality, biggest file).
  * @throws ImageException
@@ -2579,7 +2514,13 @@ function imagewbmp($image, $to = null, int $foreground = null): void
 function imagewebp($image, $to = null, int $quality = 80): void
 {
     error_clear_last();
-    $result = \imagewebp($image, $to, $quality);
+    if ($quality !== 80) {
+        $result = \imagewebp($image, $to, $quality);
+    } elseif ($to !== null) {
+        $result = \imagewebp($image, $to);
+    } else {
+        $result = \imagewebp($image);
+    }
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
@@ -2592,7 +2533,7 @@ function imagewebp($image, $to = null, int $quality = 80): void
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param string|null $filename The path to save the file to, given as string. If NULL, the raw image stream will be output directly.
+ * @param string|resource|null $filename The path to save the file to, given as string. If NULL, the raw image stream will be output directly.
  *
  * The filename (without the .xbm extension) is also
  * used for the C identifiers of the XBM, whereby non
@@ -2606,7 +2547,7 @@ function imagewebp($image, $to = null, int $quality = 80): void
  * @throws ImageException
  *
  */
-function imagexbm($image, ?string $filename, int $foreground = null): void
+function imagexbm($image, $filename, int $foreground = null): void
 {
     error_clear_last();
     if ($foreground !== null) {
@@ -2623,18 +2564,18 @@ function imagexbm($image, ?string $filename, int $foreground = null): void
 /**
  * Embeds binary IPTC data into a JPEG image.
  *
- * @param string $iptcdata The data to be written.
- * @param string $jpeg_file_name Path to the JPEG image.
+ * @param string $iptc_data The data to be written.
+ * @param string $filename Path to the JPEG image.
  * @param int $spool Spool flag. If the spool flag is less than 2 then the JPEG will be
  * returned as a string. Otherwise the JPEG will be printed to STDOUT.
  * @return string|bool If spool is less than 2, the JPEG will be returned. Otherwise returns TRUE on success.
  * @throws ImageException
  *
  */
-function iptcembed(string $iptcdata, string $jpeg_file_name, int $spool = 0)
+function iptcembed(string $iptc_data, string $filename, int $spool = 0)
 {
     error_clear_last();
-    $result = \iptcembed($iptcdata, $jpeg_file_name, $spool);
+    $result = \iptcembed($iptc_data, $filename, $spool);
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
@@ -2645,16 +2586,16 @@ function iptcembed(string $iptcdata, string $jpeg_file_name, int $spool = 0)
 /**
  * Parses an IPTC block into its single tags.
  *
- * @param string $iptcblock A binary IPTC block.
+ * @param string $iptc_block A binary IPTC block.
  * @return array Returns an array using the tagmarker as an index and the value as the
  * value. It returns FALSE on error or if no IPTC data was found.
  * @throws ImageException
  *
  */
-function iptcparse(string $iptcblock): array
+function iptcparse(string $iptc_block): array
 {
     error_clear_last();
-    $result = \iptcparse($iptcblock);
+    $result = \iptcparse($iptc_block);
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }

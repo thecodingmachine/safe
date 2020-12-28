@@ -10,12 +10,12 @@ use Safe\Exceptions\FtpException;
  *
  * @param resource $ftp_stream The link identifier of the FTP connection.
  * @param int $filesize The number of bytes to allocate.
- * @param string $result A textual representation of the servers response will be returned by
+ * @param string|null $result A textual representation of the servers response will be returned by
  * reference in result if a variable is provided.
  * @throws FtpException
  *
  */
-function ftp_alloc($ftp_stream, int $filesize, string &$result = null): void
+function ftp_alloc($ftp_stream, int $filesize, ?string &$result = null): void
 {
     error_clear_last();
     $result = \ftp_alloc($ftp_stream, $filesize, $result);

@@ -1071,7 +1071,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_READDIR_DENTS
- * (integer)
+ * (int)
  *
  *
  *
@@ -1091,7 +1091,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_READDIR_DIRS_FIRST
- * (integer)
+ * (int)
  *
  *
  *
@@ -1103,7 +1103,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_READDIR_STAT_ORDER
- * (integer)
+ * (int)
  *
  *
  *
@@ -1118,7 +1118,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_READDIR_FOUND_UNKNOWN
- * (integer)
+ * (int)
  *
  *
  *
@@ -1137,7 +1137,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_UNKNOWN
- * (integer)
+ * (int)
  *
  *
  *
@@ -1148,7 +1148,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_FIFO
- * (integer)
+ * (int)
  *
  *
  *
@@ -1159,7 +1159,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_CHR
- * (integer)
+ * (int)
  *
  *
  *
@@ -1170,7 +1170,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_MPC
- * (integer)
+ * (int)
  *
  *
  *
@@ -1181,7 +1181,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_DIR
- * (integer)
+ * (int)
  *
  *
  *
@@ -1192,7 +1192,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_NAM
- * (integer)
+ * (int)
  *
  *
  *
@@ -1203,7 +1203,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_BLK
- * (integer)
+ * (int)
  *
  *
  *
@@ -1214,7 +1214,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_MPB
- * (integer)
+ * (int)
  *
  *
  *
@@ -1225,7 +1225,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_REG
- * (integer)
+ * (int)
  *
  *
  *
@@ -1236,7 +1236,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_NWK
- * (integer)
+ * (int)
  *
  *
  *
@@ -1246,7 +1246,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_CMP
- * (integer)
+ * (int)
  *
  *
  *
@@ -1257,7 +1257,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_LNK
- * (integer)
+ * (int)
  *
  *
  *
@@ -1268,7 +1268,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_SOCK
- * (integer)
+ * (int)
  *
  *
  *
@@ -1279,7 +1279,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_DOOR
- * (integer)
+ * (int)
  *
  *
  *
@@ -1290,7 +1290,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_WHT
- * (integer)
+ * (int)
  *
  *
  *
@@ -1301,7 +1301,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * EIO_DT_MAX
- * (integer)
+ * (int)
  *
  *
  *

@@ -180,7 +180,7 @@ function date_sun_info(int $timestamp, float $latitude, float $longitude): array
  *
  *
  * SUNFUNCS_RET_TIMESTAMP
- * returns the result as integer (timestamp)
+ * returns the result as int (timestamp)
  * 1095034606
  *
  *
@@ -283,7 +283,7 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, f
  *
  *
  * SUNFUNCS_RET_TIMESTAMP
- * returns the result as integer (timestamp)
+ * returns the result as int (timestamp)
  * 1095034606
  *
  *
@@ -365,8 +365,8 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, fl
  *
  * @param string $format Format accepted by DateTimeInterface::format.
  * @param int $timestamp The optional timestamp parameter is an
- * integer Unix timestamp that defaults to the current
- * local time if a timestamp is not given. In other
+ * int Unix timestamp that defaults to the current
+ * local time if timestamp is omitted or NULL. In other
  * words, it defaults to the value of time.
  * @return string Returns a formatted date string. If a non-numeric value is used for
  * timestamp, FALSE is returned and an
@@ -390,28 +390,210 @@ function date(string $format, int $timestamp = null): string
 
 
 /**
- * Identical to the date function except that
- * the time returned is Greenwich Mean Time (GMT).
+ * Identical to mktime except the passed parameters represents a
+ * GMT date. gmmktime internally uses mktime
+ * so only times valid in derived local time can be used.
  *
- * @param string $format The format of the outputted date string. See the formatting
- * options for the date function.
- * @param int $timestamp The optional timestamp parameter is an
- * integer Unix timestamp that defaults to the current
- * local time if a timestamp is not given. In other
- * words, it defaults to the value of time.
- * @return string Returns a formatted date string. If a non-numeric value is used for
- * timestamp, FALSE is returned and an
- * E_WARNING level error is emitted.
+ * Like mktime, arguments may be left out in order
+ * from right to left, with any omitted arguments being set to the
+ * current corresponding GMT value.
+ *
+ * @param int $hour The number of the hour relative to the start of the day determined by
+ * month, day and year.
+ * Negative values reference the hour before midnight of the day in question.
+ * Values greater than 23 reference the appropriate hour in the following day(s).
+ * @param int $minute The number of the minute relative to the start of the hour.
+ * Negative values reference the minute in the previous hour.
+ * Values greater than 59 reference the appropriate minute in the following hour(s).
+ * @param int $second The number of seconds relative to the start of the minute.
+ * Negative values reference the second in the previous minute.
+ * Values greater than 59 reference the appropriate second in the following minute(s).
+ * @param int $month The number of the month relative to the end of the previous year.
+ * Values 1 to 12 reference the normal calendar months of the year in question.
+ * Values less than 1 (including negative values) reference the months in the previous year in reverse order, so 0 is December, -1 is November, etc.
+ * Values greater than 12 reference the appropriate month in the following year(s).
+ * @param int $day The number of the day relative to the end of the previous month.
+ * Values 1 to 28, 29, 30 or 31 (depending upon the month) reference the normal days in the relevant month.
+ * Values less than 1 (including negative values) reference the days in the previous month, so 0 is the last day of the previous month, -1 is the day before that, etc.
+ * Values greater than the number of days in the relevant month reference the appropriate day in the following month(s).
+ * @param int $year The year
+ * @return int Returns a int Unix timestamp on success.
  * @throws DatetimeException
  *
  */
-function gmdate(string $format, int $timestamp = null): string
+function gmmktime(int $hour, int $minute = null, int $second = null, int $month = null, int $day = null, int $year = null): int
+{
+    error_clear_last();
+    if ($year !== null) {
+        $result = \gmmktime($hour, $minute, $second, $month, $day, $year);
+    } elseif ($day !== null) {
+        $result = \gmmktime($hour, $minute, $second, $month, $day);
+    } elseif ($month !== null) {
+        $result = \gmmktime($hour, $minute, $second, $month);
+    } elseif ($second !== null) {
+        $result = \gmmktime($hour, $minute, $second);
+    } elseif ($minute !== null) {
+        $result = \gmmktime($hour, $minute);
+    } else {
+        $result = \gmmktime($hour);
+    }
+    if ($result === false) {
+        throw DatetimeException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Behaves the same as strftime except that the
+ * time returned is Greenwich Mean Time (GMT). For example, when run
+ * in Eastern Standard Time (GMT -0500), the first line below prints
+ * "Dec 31 1998 20:00:00", while the second prints "Jan 01 1999
+ * 01:00:00".
+ *
+ * @param string $format See description in strftime.
+ * @param int $timestamp The optional timestamp parameter is an
+ * int Unix timestamp that defaults to the current
+ * local time if timestamp is omitted or NULL. In other
+ * words, it defaults to the value of time.
+ * @return string Returns a string formatted according to the given format string
+ * using the given timestamp or the current
+ * local time if no timestamp is given.  Month and weekday names and
+ * other language dependent strings respect the current locale set
+ * with setlocale.
+ * On failure, FALSE is returned.
+ * @throws DatetimeException
+ *
+ */
+function gmstrftime(string $format, int $timestamp = null): string
 {
     error_clear_last();
     if ($timestamp !== null) {
-        $result = \gmdate($format, $timestamp);
+        $result = \gmstrftime($format, $timestamp);
     } else {
-        $result = \gmdate($format);
+        $result = \gmstrftime($format);
+    }
+    if ($result === false) {
+        throw DatetimeException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Returns a number formatted according to the given format string using the
+ * given integer timestamp or the current local time
+ * if no timestamp is given. In other words, timestamp
+ * is optional and defaults to the value of time.
+ *
+ * Unlike the function date, idate
+ * accepts just one char in the format parameter.
+ *
+ * @param string $format
+ * The following characters are recognized in the
+ * format parameter string
+ *
+ *
+ *
+ * format character
+ * Description
+ *
+ *
+ *
+ *
+ * B
+ * Swatch Beat/Internet Time
+ *
+ *
+ * d
+ * Day of the month
+ *
+ *
+ * h
+ * Hour (12 hour format)
+ *
+ *
+ * H
+ * Hour (24 hour format)
+ *
+ *
+ * i
+ * Minutes
+ *
+ *
+ * I (uppercase i)
+ * returns 1 if DST is activated,
+ * 0 otherwise
+ *
+ *
+ * L (uppercase l)
+ * returns 1 for leap year,
+ * 0 otherwise
+ *
+ *
+ * m
+ * Month number
+ *
+ *
+ * s
+ * Seconds
+ *
+ *
+ * t
+ * Days in current month
+ *
+ *
+ * U
+ * Seconds since the Unix Epoch - January 1 1970 00:00:00 UTC -
+ * this is the same as time
+ *
+ *
+ * w
+ * Day of the week (0 on Sunday)
+ *
+ *
+ * W
+ * ISO-8601 week number of year, weeks starting on
+ * Monday
+ *
+ *
+ * y
+ * Year (1 or 2 digits - check note below)
+ *
+ *
+ * Y
+ * Year (4 digits)
+ *
+ *
+ * z
+ * Day of the year
+ *
+ *
+ * Z
+ * Timezone offset in seconds
+ *
+ *
+ *
+ *
+ * @param int $timestamp The optional timestamp parameter is an
+ * int Unix timestamp that defaults to the current
+ * local time if timestamp is omitted or NULL. In other
+ * words, it defaults to the value of time.
+ * @return int Returns an int on success.
+ *
+ * As idate always returns an int and
+ * as they can't start with a "0", idate may return
+ * fewer digits than you would expect. See the example below.
+ * @throws DatetimeException
+ *
+ */
+function idate(string $format, int $timestamp = null): int
+{
+    error_clear_last();
+    if ($timestamp !== null) {
+        $result = \idate($format, $timestamp);
+    } else {
+        $result = \idate($format);
     }
     if ($result === false) {
         throw DatetimeException::createFromPhpError();
@@ -456,12 +638,11 @@ function gmdate(string $format, int $timestamp = null): string
  * range was limited from 1970 to 2038 on some systems (e.g. Windows).
  * @return int mktime returns the Unix timestamp of the arguments
  * given.
- * If the arguments are invalid, the function returns FALSE (before PHP 5.1
- * it returned -1).
+ * If the arguments are invalid, the function returns FALSE.
  * @throws DatetimeException
  *
  */
-function mktime(int $hour = null, int $minute = null, int $second = null, int $month = null, int $day = null, int $year = null): int
+function mktime(int $hour, int $minute = null, int $second = null, int $month = null, int $day = null, int $year = null): int
 {
     error_clear_last();
     if ($year !== null) {
@@ -474,10 +655,8 @@ function mktime(int $hour = null, int $minute = null, int $second = null, int $m
         $result = \mktime($hour, $minute, $second);
     } elseif ($minute !== null) {
         $result = \mktime($hour, $minute);
-    } elseif ($hour !== null) {
-        $result = \mktime($hour);
     } else {
-        $result = \mktime();
+        $result = \mktime($hour);
     }
     if ($result === false) {
         throw DatetimeException::createFromPhpError();
@@ -488,13 +667,13 @@ function mktime(int $hour = null, int $minute = null, int $second = null, int $m
 
 /**
  * strptime returns an array with the
- * date parsed.
+ * timestamp parsed.
  *
  * Month and weekday names and other language dependent strings respect the
  * current locale set with setlocale (LC_TIME).
  *
- * @param string $date The string to parse (e.g. returned from strftime).
- * @param string $format The format used in date (e.g. the same as
+ * @param string $timestamp The string to parse (e.g. returned from strftime).
+ * @param string $format The format used in timestamp (e.g. the same as
  * used in strftime). Note that some of the format
  * options available to strftime may not have any
  * effect within strptime; the exact subset that are
@@ -549,7 +728,7 @@ function mktime(int $hour = null, int $minute = null, int $second = null, int $m
  *
  *
  * "unparsed"
- * the date part which was not
+ * the timestamp part which was not
  * recognized using the specified format
  *
  *
@@ -558,10 +737,10 @@ function mktime(int $hour = null, int $minute = null, int $second = null, int $m
  * @throws DatetimeException
  *
  */
-function strptime(string $date, string $format): array
+function strptime(string $timestamp, string $format): array
 {
     error_clear_last();
-    $result = \strptime($date, $format);
+    $result = \strptime($timestamp, $format);
     if ($result === false) {
         throw DatetimeException::createFromPhpError();
     }
@@ -577,18 +756,17 @@ function strptime(string $date, string $format): array
  * ways to define the default time zone.
  *
  * @param string $datetime A date/time string. Valid formats are explained in Date and Time Formats.
- * @param int $now The timestamp which is used as a base for the calculation of relative
+ * @param int $baseTimestamp The timestamp which is used as a base for the calculation of relative
  * dates.
- * @return int Returns a timestamp on success, FALSE otherwise. Previous to PHP 5.1.0,
- * this function would return -1 on failure.
+ * @return int Returns a timestamp on success, FALSE otherwise.
  * @throws DatetimeException
  *
  */
-function strtotime(string $datetime, int $now = null): int
+function strtotime(string $datetime, int $baseTimestamp = null): int
 {
     error_clear_last();
-    if ($now !== null) {
-        $result = \strtotime($datetime, $now);
+    if ($baseTimestamp !== null) {
+        $result = \strtotime($datetime, $baseTimestamp);
     } else {
         $result = \strtotime($datetime);
     }

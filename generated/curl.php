@@ -5,21 +5,41 @@ namespace Safe;
 use Safe\Exceptions\CurlException;
 
 /**
+ * Copies a cURL handle keeping the same preferences.
+ *
+ * @param resource $handle A cURL handle returned by
+ * curl_init.
+ * @return resource Returns a new cURL handle.
+ * @throws CurlException
+ *
+ */
+function curl_copy_handle($handle)
+{
+    error_clear_last();
+    $result = \curl_copy_handle($handle);
+    if ($result === false) {
+        throw CurlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * This function URL encodes the given string according to RFC 3986.
  *
- * @param resource $ch A cURL handle returned by
+ * @param resource $handle A cURL handle returned by
  * curl_init.
- * @param string $str The string to be encoded.
+ * @param string $string The string to be encoded.
  * @return string Returns escaped string.
  * @throws CurlException
  *
  */
-function curl_escape($ch, string $str): string
+function curl_escape($handle, string $string): string
 {
     error_clear_last();
-    $result = \curl_escape($ch, $str);
+    $result = \curl_escape($handle, $string);
     if ($result === false) {
-        throw CurlException::createFromCurlResource($ch);
+        throw CurlException::createFromPhpError();
     }
     return $result;
 }
@@ -31,7 +51,7 @@ function curl_escape($ch, string $str): string
  * This function should be called after initializing a cURL session and all
  * the options for the session are set.
  *
- * @param resource $ch A cURL handle returned by
+ * @param resource $handle A cURL handle returned by
  * curl_init.
  * @return bool|string Returns TRUE on success. However, if the CURLOPT_RETURNTRANSFER
  * option is set, it will return
@@ -39,12 +59,12 @@ function curl_escape($ch, string $str): string
  * @throws CurlException
  *
  */
-function curl_exec($ch)
+function curl_exec($handle)
 {
     error_clear_last();
-    $result = \curl_exec($ch);
+    $result = \curl_exec($handle);
     if ($result === false) {
-        throw CurlException::createFromCurlResource($ch);
+        throw CurlException::createFromPhpError();
     }
     return $result;
 }
@@ -53,9 +73,9 @@ function curl_exec($ch)
 /**
  * Gets information about the last transfer.
  *
- * @param resource $ch A cURL handle returned by
+ * @param resource $handle A cURL handle returned by
  * curl_init.
- * @param int $opt This may be one of the following constants:
+ * @param int $option This may be one of the following constants:
  *
  *
  *
@@ -367,9 +387,9 @@ function curl_exec($ch)
  *
  *
  *
- * @return mixed If opt is given, returns its value.
+ * @return mixed If option is given, returns its value.
  * Otherwise, returns an associative array with the following elements
- * (which correspond to opt):
+ * (which correspond to option):
  *
  *
  *
@@ -512,16 +532,16 @@ function curl_exec($ch)
  * @throws CurlException
  *
  */
-function curl_getinfo($ch, int $opt = null)
+function curl_getinfo($handle, int $option = null)
 {
     error_clear_last();
-    if ($opt !== null) {
-        $result = \curl_getinfo($ch, $opt);
+    if ($option !== null) {
+        $result = \curl_getinfo($handle, $option);
     } else {
-        $result = \curl_getinfo($ch);
+        $result = \curl_getinfo($handle);
     }
     if ($result === false) {
-        throw CurlException::createFromCurlResource($ch);
+        throw CurlException::createFromPhpError();
     }
     return $result;
 }
@@ -545,7 +565,11 @@ function curl_getinfo($ch, int $opt = null)
 function curl_init(string $url = null)
 {
     error_clear_last();
-    $result = \curl_init($url);
+    if ($url !== null) {
+        $result = \curl_init($url);
+    } else {
+        $result = \curl_init();
+    }
     if ($result === false) {
         throw CurlException::createFromPhpError();
     }
@@ -556,16 +580,16 @@ function curl_init(string $url = null)
 /**
  * Return an integer containing the last multi curl error number.
  *
- * @param resource $mh A cURL multi handle returned by
+ * @param resource $multi_handle A cURL multi handle returned by
  * curl_multi_init.
  * @return int Return an integer containing the last multi curl error number.
  * @throws CurlException
  *
  */
-function curl_multi_errno($mh): int
+function curl_multi_errno($multi_handle): int
 {
     error_clear_last();
-    $result = \curl_multi_errno($mh);
+    $result = \curl_multi_errno($multi_handle);
     if ($result === false) {
         throw CurlException::createFromPhpError();
     }
@@ -580,12 +604,12 @@ function curl_multi_errno($mh): int
  *
  * Repeated calls to this function will return a new result each time, until a FALSE is returned
  * as a signal that there is no more to get at this point. The integer pointed to with
- * msgs_in_queue will contain the number of remaining messages after this
+ * queued_messages will contain the number of remaining messages after this
  * function was called.
  *
- * @param resource $mh A cURL multi handle returned by
+ * @param resource $multi_handle A cURL multi handle returned by
  * curl_multi_init.
- * @param int|null $msgs_in_queue Number of messages that are still in the queue
+ * @param int|null $queued_messages Number of messages that are still in the queue
  * @return array On success, returns an associative array for the message, FALSE on failure.
  *
  *
@@ -618,10 +642,10 @@ function curl_multi_errno($mh): int
  * @throws CurlException
  *
  */
-function curl_multi_info_read($mh, ?int &$msgs_in_queue = null): array
+function curl_multi_info_read($multi_handle, ?int &$queued_messages = null): array
 {
     error_clear_last();
-    $result = \curl_multi_info_read($mh, $msgs_in_queue);
+    $result = \curl_multi_info_read($multi_handle, $queued_messages);
     if ($result === false) {
         throw CurlException::createFromPhpError();
     }
@@ -632,7 +656,7 @@ function curl_multi_info_read($mh, ?int &$msgs_in_queue = null): array
 /**
  * Allows the processing of multiple cURL handles asynchronously.
  *
- * @return resource Returns a cURL multi handle resource on success, FALSE on failure.
+ * @return resource Returns a cURL multi handle on success, FALSE on failure.
  * @throws CurlException
  *
  */
@@ -650,7 +674,7 @@ function curl_multi_init()
 /**
  * Sets an option on the given cURL session handle.
  *
- * @param resource $ch A cURL handle returned by
+ * @param resource $handle A cURL handle returned by
  * curl_init.
  * @param int $option The CURLOPT_XXX option to set.
  * @param mixed $value The value to be set on option.
@@ -1082,21 +1106,6 @@ function curl_multi_init()
  *
  *
  *
- * CURLOPT_SAFE_UPLOAD
- *
- * TRUE to disable support for the @ prefix for
- * uploading files in CURLOPT_POSTFIELDS, which
- * means that values starting with @ can be safely
- * passed as fields. CURLFile may be used for
- * uploads instead.
- *
- *
- * Added in PHP 5.5.0 with FALSE as the default value. PHP 5.6.0
- * changes the default value to TRUE. PHP 7 removes this option;
- * the CURLFile interface must be used to upload files.
- *
- *
- *
  * CURLOPT_SASL_IR
  *
  * TRUE to enable sending the initial response in the first packet.
@@ -1248,7 +1257,7 @@ function curl_multi_init()
  * PHP automatically sets this option to TRUE, this should only be
  * changed for debugging purposes.
  *
- * value should be an integer for the
+ * value should be an int for the
  * following values of the option parameter:
  *
  *
@@ -2239,10 +2248,7 @@ function curl_multi_init()
  *
  *
  * The full data to post in a HTTP "POST" operation.
- * To post a file, prepend a filename with @ and
- * use the full path. The filetype can be explicitly specified by
- * following the filename with the type in the format
- * ';type=mimetype'. This parameter can either be
+ * This parameter can either be
  * passed as a urlencoded string like 'para1=val1&amp;para2=val2&amp;...'
  * or as an array with the field name as key and field data as value.
  * If value is an array, the
@@ -2250,15 +2256,8 @@ function curl_multi_init()
  * multipart/form-data.
  *
  *
- * As of PHP 5.2.0, value must be an array if
- * files are passed to this option with the @ prefix.
- *
- *
- * As of PHP 5.5.0, the @ prefix is deprecated and
- * files can be sent using CURLFile. The
- * @ prefix can be disabled for safe passing of
- * values beginning with @ by setting the
- * CURLOPT_SAFE_UPLOAD option to TRUE.
+ * Files can be sent using CURLFile,
+ * in which case value must be an array.
  *
  *
  *
@@ -3031,12 +3030,12 @@ function curl_multi_init()
  * @throws CurlException
  *
  */
-function curl_setopt($ch, int $option, $value): void
+function curl_setopt($handle, int $option, $value): void
 {
     error_clear_last();
-    $result = \curl_setopt($ch, $option, $value);
+    $result = \curl_setopt($handle, $option, $value);
     if ($result === false) {
-        throw CurlException::createFromCurlResource($ch);
+        throw CurlException::createFromPhpError();
     }
 }
 
@@ -3044,15 +3043,16 @@ function curl_setopt($ch, int $option, $value): void
 /**
  * Return an integer containing the last share curl error number.
  *
- * @param resource $sh A cURL share handle returned by curl_share_init.
+ * @param resource $share_handle A cURL share handle returned by
+ * curl_share_init.
  * @return int Returns an integer containing the last share curl error number.
  * @throws CurlException
  *
  */
-function curl_share_errno($sh): int
+function curl_share_errno($share_handle): int
 {
     error_clear_last();
-    $result = \curl_share_errno($sh);
+    $result = \curl_share_errno($share_handle);
     if ($result === false) {
         throw CurlException::createFromPhpError();
     }
@@ -3063,7 +3063,8 @@ function curl_share_errno($sh): int
 /**
  * Sets an option on the given cURL share handle.
  *
- * @param resource $sh A cURL share handle returned by curl_share_init.
+ * @param resource $share_handle A cURL share handle returned by
+ * curl_share_init.
  * @param int $option
  *
  *
@@ -3088,7 +3089,7 @@ function curl_share_errno($sh): int
  *
  *
  *
- * @param string $value
+ * @param mixed $value
  *
  *
  *
@@ -3125,10 +3126,10 @@ function curl_share_errno($sh): int
  * @throws CurlException
  *
  */
-function curl_share_setopt($sh, int $option, string $value): void
+function curl_share_setopt($share_handle, int $option, $value): void
 {
     error_clear_last();
-    $result = \curl_share_setopt($sh, $option, $value);
+    $result = \curl_share_setopt($share_handle, $option, $value);
     if ($result === false) {
         throw CurlException::createFromPhpError();
     }
@@ -3138,19 +3139,19 @@ function curl_share_setopt($sh, int $option, string $value): void
 /**
  * This function decodes the given URL encoded string.
  *
- * @param resource $ch A cURL handle returned by
+ * @param resource $handle A cURL handle returned by
  * curl_init.
- * @param string $str The URL encoded string to be decoded.
+ * @param string $string The URL encoded string to be decoded.
  * @return string Returns decoded string.
  * @throws CurlException
  *
  */
-function curl_unescape($ch, string $str): string
+function curl_unescape($handle, string $string): string
 {
     error_clear_last();
-    $result = \curl_unescape($ch, $str);
+    $result = \curl_unescape($handle, $string);
     if ($result === false) {
-        throw CurlException::createFromCurlResource($ch);
+        throw CurlException::createFromPhpError();
     }
     return $result;
 }

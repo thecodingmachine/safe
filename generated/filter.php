@@ -11,7 +11,7 @@ use Safe\Exceptions\FilterException;
  * @param int $type One of INPUT_GET, INPUT_POST,
  * INPUT_COOKIE, INPUT_SERVER, or
  * INPUT_ENV.
- * @param int|array $definition An array defining the arguments. A valid key is a string
+ * @param int|array $options An array defining the arguments. A valid key is a string
  * containing a variable name and a valid value is either a filter type, or an array
  * optionally specifying the filter, flags and options. If the value is an
  * array, valid keys are filter which specifies the
@@ -23,7 +23,7 @@ use Safe\Exceptions\FilterException;
  * This parameter can be also an integer holding a filter constant. Then all values in the
  * input array are filtered by this filter.
  * @param bool $add_empty Add missing keys as NULL to the return value.
- * @return mixed An array containing the values of the requested variables on success.
+ * @return array|null An array containing the values of the requested variables on success.
  * If the input array designated by type is not populated,
  * the function returns NULL if the FILTER_NULL_ON_FAILURE
  * flag is not given, or FALSE otherwise. For other failures, FALSE is returned.
@@ -36,16 +36,10 @@ use Safe\Exceptions\FilterException;
  * @throws FilterException
  *
  */
-function filter_input_array(int $type, $definition = null, bool $add_empty = true)
+function filter_input_array(int $type, $options = FILTER_DEFAULT, bool $add_empty = true): ?array
 {
     error_clear_last();
-    if ($add_empty !== true) {
-        $result = \filter_input_array($type, $definition, $add_empty);
-    } elseif ($definition !== null) {
-        $result = \filter_input_array($type, $definition);
-    } else {
-        $result = \filter_input_array($type);
-    }
+    $result = \filter_input_array($type, $options, $add_empty);
     if ($result === false) {
         throw FilterException::createFromPhpError();
     }
@@ -57,8 +51,8 @@ function filter_input_array(int $type, $definition = null, bool $add_empty = tru
  * This function is useful for retrieving many values without
  * repetitively calling filter_var.
  *
- * @param array $data An array with string keys containing the data to filter.
- * @param mixed $definition An array defining the arguments. A valid key is a string
+ * @param array $array An array with string keys containing the data to filter.
+ * @param mixed $options An array defining the arguments. A valid key is a string
  * containing a variable name and a valid value is either a
  * filter type, or an
  * array optionally specifying the filter, flags and options.
@@ -71,21 +65,15 @@ function filter_input_array(int $type, $definition = null, bool $add_empty = tru
  * This parameter can be also an integer holding a filter constant. Then all values in the
  * input array are filtered by this filter.
  * @param bool $add_empty Add missing keys as NULL to the return value.
- * @return mixed An array containing the values of the requested variables on success. An array value will be FALSE if the filter fails, or NULL if
+ * @return array|null An array containing the values of the requested variables on success. An array value will be FALSE if the filter fails, or NULL if
  * the variable is not set.
  * @throws FilterException
  *
  */
-function filter_var_array(array $data, $definition = null, bool $add_empty = true)
+function filter_var_array(array $array, $options = FILTER_DEFAULT, bool $add_empty = true): ?array
 {
     error_clear_last();
-    if ($add_empty !== true) {
-        $result = \filter_var_array($data, $definition, $add_empty);
-    } elseif ($definition !== null) {
-        $result = \filter_var_array($data, $definition);
-    } else {
-        $result = \filter_var_array($data);
-    }
+    $result = \filter_var_array($array, $options, $add_empty);
     if ($result === false) {
         throw FilterException::createFromPhpError();
     }

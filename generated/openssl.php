@@ -151,14 +151,14 @@ function openssl_csr_get_subject($csr, bool $use_shortnames = true): array
  *
  *
  * private_key_bits
- * integer
+ * int
  * default_bits
  * Specifies how many bits should be used to generate a private
  * key
  *
  *
  * private_key_type
- * integer
+ * int
  * none
  * Specifies the type of private key to create.  This can be one
  * of OPENSSL_KEYTYPE_DSA,
@@ -170,13 +170,13 @@ function openssl_csr_get_subject($csr, bool $use_shortnames = true): array
  *
  *
  * encrypt_key
- * boolean
+ * bool
  * encrypt_key
  * Should an exported key (with passphrase) be encrypted?
  *
  *
  * encrypt_key_cipher
- * integer
+ * int
  * none
  *
  * One of cipher constants.
@@ -234,7 +234,7 @@ function openssl_csr_new(array $dn, &$privkey, array $configargs = null, array $
  * It can also be the path to a PEM encoded CSR when specified as
  * file://path/to/csr or an exported string generated
  * by openssl_csr_export.
- * @param mixed $cacert The generated certificate will be signed by cacert.
+ * @param string|resource|null $cacert The generated certificate will be signed by cacert.
  * If cacert is NULL, the generated certificate
  * will be a self-signed certificate.
  * @param string|resource|array $priv_key priv_key is the private key that corresponds to
@@ -356,6 +356,12 @@ function openssl_digest(string $data, string $method, bool $raw_output = false):
  * @param string $env_key
  * @param string|array|resource $priv_key_id
  * @param string $method The cipher method.
+ *
+ *
+ * The default value ('RC4') is considered insecure.
+ * It is strongly recommended to explicitly specify a secure cipher method.
+ *
+ *
  * @param string $iv The initialization vector.
  * @throws OpensslException
  *
@@ -639,7 +645,7 @@ function openssl_pkcs7_sign(string $infilename, string $outfilename, $signcert, 
  *
  * @param resource|string|array $key
  * @param string $outfilename Path to the output file.
- * @param string $passphrase The key can be optionally protected by a
+ * @param string|null $passphrase The key can be optionally protected by a
  * passphrase.
  * @param array $configargs configargs can be used to fine-tune the export
  * process by specifying and/or overriding options for the openssl
@@ -648,7 +654,7 @@ function openssl_pkcs7_sign(string $infilename, string $outfilename, $signcert, 
  * @throws OpensslException
  *
  */
-function openssl_pkey_export_to_file($key, string $outfilename, string $passphrase = null, array $configargs = null): void
+function openssl_pkey_export_to_file($key, string $outfilename, ?string $passphrase = null, array $configargs = null): void
 {
     error_clear_last();
     if ($configargs !== null) {
@@ -671,7 +677,7 @@ function openssl_pkey_export_to_file($key, string $outfilename, string $passphra
  *
  * @param resource $key
  * @param string|null $out
- * @param string $passphrase The key is optionally protected by passphrase.
+ * @param string|null $passphrase The key is optionally protected by passphrase.
  * @param array $configargs configargs can be used to fine-tune the export
  * process by specifying and/or overriding options for the openssl
  * configuration file.  See openssl_csr_new for more
@@ -679,7 +685,7 @@ function openssl_pkey_export_to_file($key, string $outfilename, string $passphra
  * @throws OpensslException
  *
  */
-function openssl_pkey_export($key, ?string &$out, string $passphrase = null, array $configargs = null): void
+function openssl_pkey_export($key, ?string &$out, ?string $passphrase = null, array $configargs = null): void
 {
     error_clear_last();
     if ($configargs !== null) {
@@ -911,7 +917,7 @@ function openssl_public_encrypt(string $data, ?string &$crypted, $key, int $padd
  *
  * @param int $length The length of the desired string of bytes. Must be a positive integer. PHP will
  * try to cast this parameter to a non-null integer to use it.
- * @param bool|null $crypto_strong If passed into the function, this will hold a boolean value that determines
+ * @param bool|null $crypto_strong If passed into the function, this will hold a bool value that determines
  * if the algorithm used was "cryptographically strong", e.g., safe for usage with GPG,
  * passwords, etc. TRUE if it did, otherwise FALSE
  * @return string Returns the generated string of bytes on success.
@@ -942,9 +948,15 @@ function openssl_random_pseudo_bytes(int $length, ?bool &$crypto_strong = null):
  *
  * @param string $data The data to seal.
  * @param string|null $sealed_data The sealed data.
- * @param array $env_keys Array of encrypted keys.
+ * @param array|null $env_keys Array of encrypted keys.
  * @param array $pub_key_ids Array of public key resource identifiers.
  * @param string $method The cipher method.
+ *
+ *
+ * The default value ('RC4') is considered insecure.
+ * It is strongly recommended to explicitly specify a secure cipher method.
+ *
+ *
  * @param string $iv The initialization vector.
  * @return int Returns the length of the sealed data on success.
  * If successful the sealed data is returned in
@@ -953,7 +965,7 @@ function openssl_random_pseudo_bytes(int $length, ?bool &$crypto_strong = null):
  * @throws OpensslException
  *
  */
-function openssl_seal(string $data, ?string &$sealed_data, array &$env_keys, array $pub_key_ids, string $method = "RC4", string &$iv = null): int
+function openssl_seal(string $data, ?string &$sealed_data, ?array &$env_keys, array $pub_key_ids, string $method = "RC4", string &$iv = null): int
 {
     error_clear_last();
     $result = \openssl_seal($data, $sealed_data, $env_keys, $pub_key_ids, $method, $iv);

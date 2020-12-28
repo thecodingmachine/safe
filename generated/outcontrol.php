@@ -5,6 +5,29 @@ namespace Safe;
 use Safe\Exceptions\OutcontrolException;
 
 /**
+ * This function discards the contents of the output buffer.
+ *
+ * This function does not destroy the output buffer like
+ * ob_end_clean does.
+ *
+ * The output buffer must be started by
+ * ob_start with PHP_OUTPUT_HANDLER_CLEANABLE
+ * flag. Otherwise ob_clean will not work.
+ *
+ * @throws OutcontrolException
+ *
+ */
+function ob_clean(): void
+{
+    error_clear_last();
+    $result = \ob_clean();
+    if ($result === false) {
+        throw OutcontrolException::createFromPhpError();
+    }
+}
+
+
+/**
  * This function discards the contents of the topmost output buffer and turns
  * off this output buffering. If you want to further process the buffer's
  * contents you have to call ob_get_contents before
@@ -49,6 +72,29 @@ function ob_end_flush(): void
 {
     error_clear_last();
     $result = \ob_end_flush();
+    if ($result === false) {
+        throw OutcontrolException::createFromPhpError();
+    }
+}
+
+
+/**
+ * This function will send the contents of the output buffer (if any). If you
+ * want to further process the buffer's contents you have to call
+ * ob_get_contents before ob_flush
+ * as the buffer contents are discarded after ob_flush
+ * is called.
+ *
+ * This function does not destroy the output buffer like
+ * ob_end_flush does.
+ *
+ * @throws OutcontrolException
+ *
+ */
+function ob_flush(): void
+{
+    error_clear_last();
+    $result = \ob_flush();
     if ($result === false) {
         throw OutcontrolException::createFromPhpError();
     }

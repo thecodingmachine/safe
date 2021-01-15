@@ -12,22 +12,22 @@ use Safe\Exceptions\IngresiiException;
  * ingres_commit) to switch the
  * autocommit mode of the server on or off (when the script begins
  * the autocommit mode is off).
- *
+ * 
  * When autocommit mode is on, every query is automatically
  * committed by the server, as if ingres_commit
  * was called after every call to ingres_query.
- * To see if autocommit is enabled use,
+ * To see if autocommit is enabled use, 
  * ingres_autocommit_state.
- *
+ * 
  * By default Ingres will rollback any uncommitted transactions at the end of
  * a request. Use this function or ingres_commit to
  * ensure your data is committed to the database.
- *
+ * 
  * @param resource $link The connection link identifier
  * @throws IngresiiException
- *
+ * 
  */
-function ingres_autocommit($link): void
+function ingres_autocommit( $link): void
 {
     error_clear_last();
     $result = \ingres_autocommit($link);
@@ -40,16 +40,16 @@ function ingres_autocommit($link): void
 /**
  * ingres_close closes the connection to
  * the Ingres server that is associated with the specified link.
- *
+ * 
  * ingres_close is usually unnecessary, as it
  * will not close persistent connections and all non-persistent connections
  * are automatically closed at the end of the script.
- *
+ * 
  * @param resource $link The connection link identifier
  * @throws IngresiiException
- *
+ * 
  */
-function ingres_close($link): void
+function ingres_close( $link): void
 {
     error_clear_last();
     $result = \ingres_close($link);
@@ -62,23 +62,23 @@ function ingres_close($link): void
 /**
  * ingres_commit commits the currently open
  * transaction, making all changes made to the database permanent.
- *
+ * 
  * This closes the transaction. A new transaction can be opened by sending a
  * query with ingres_query.
- *
+ * 
  * You can also have the server commit automatically after every
  * query by calling ingres_autocommit before
  * opening the transaction.
- *
+ * 
  * By default Ingres will roll back any uncommitted transactions at the end of
  * a request. Use this function or ingres_autocommit to
  * ensure your that data is committed to the database.
- *
+ * 
  * @param resource $link The connection link identifier
  * @throws IngresiiException
- *
+ * 
  */
-function ingres_commit($link): void
+function ingres_commit( $link): void
 {
     error_clear_last();
     $result = \ingres_commit($link);
@@ -91,66 +91,66 @@ function ingres_commit($link): void
 /**
  * ingres_connect opens a connection with the
  * given Ingres database.
- *
+ * 
  * The connection is closed when the script ends or when
  * ingres_close is called on this link.
- *
+ * 
  * @param string $database The database name. Must follow the syntax:
- *
+ * 
  * [vnode::]dbname[/svr_class]
  * @param string $username The Ingres user name
  * @param string $password The password associated with username
  * @param array $options ingres_connect options
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
  * Option name
  * Option type
  * Description
  * Example
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
  * date_century_boundary
- * integer
+ * int
  * The threshold by which a 2-digit year is determined to be in
- * the current century or in the next century. Equivalent to II_DATE_CENTURY_BOUNDARY.
+ * the current century or in the next century. Equivalent to II_DATE_CENTURY_BOUNDARY. 
  * 50
- *
- *
+ * 
+ * 
  * group
  * string
  * Specifies the group ID of the user, equivalent to the "-G"
  * flag
  * payroll
- *
- *
+ * 
+ * 
  * role
  * string
  * The role ID of the application. If a role password is
  * required, the parameter value should be specified as "role/password"
- *
- *
+ * 
+ * 
  * effective_user
  * string
  * The ingres user account being impersonated, equivalent to the "-u" flag
  * another_user
- *
- *
+ * 
+ * 
  * dbms_password
  * string
  * The internal database password for the user connecting to Ingres
  * s3cr3t
- *
- *
+ * 
+ * 
  * table_structure
  * string
- *
+ * 
  * The default structure for new tables.
  * Valid values for table_structure are:
- *
+ * 
  * INGRES_STRUCTURE_BTREE
  * INGRES_STRUCTURE_HASH
  * INGRES_STRUCTURE_HEAP
@@ -159,32 +159,32 @@ function ingres_commit($link): void
  * INGRES_STRUCTURE_CISAM
  * INGRES_STRUCTURE_CHASH
  * INGRES_STRUCTURE_CHEAP
- *
- *
- *
+ * 
+ * 
+ * 
  * INGRES_STRUCTURE_BTREE
- *
- *
+ * 
+ * 
  * index_structure
  * string
- *
+ * 
  * The default structure for new secondary indexes. Valid values
  * for index_structure are:
- *
+ * 
  * INGRES_STRUCTURE_CBTREE
  * INGRES_STRUCTURE_CISAM
  * INGRES_STRUCTURE_CHASH
  * INGRES_STRUCTURE_BTREE
  * INGRES_STRUCTURE_HASH
  * INGRES_STRUCTURE_ISAM
- *
- *
- *
+ * 
+ * 
+ * 
  * INGRES_STRUCTURE_HASH
- *
- *
+ * 
+ * 
  * login_local
- * boolean
+ * bool
  * Determines how the connection user ID and password are
  * used when a VNODE is included in the target database string.
  * If set to TRUE, the user ID and password are used to locally access
@@ -195,23 +195,23 @@ function ingres_commit($link): void
  * This parameter is ignored if no VNODE is included in the target
  * database string. The default is FALSE.
  * TRUE
- *
- *
+ * 
+ * 
  * timezone
  * string
  * Controls the timezone of the session. If not set it will
  * default to the value defined by II_TIMEZONE_NAME. If
  * II_TIMEZONE_NAME is not defined, NA-PACIFIC (GMT-8 with Daylight
  * Savings) is used.
- *
- *
+ * 
+ * 
  * date_format
- * integer
+ * int
  * Sets the allowable input and output format for Ingres dates.
  * Defaults to the value defined by II_DATE_FORMAT. If II_DATE_FORMAT is
  * not set the default date format is US, e.g. mm/dd/yy. Valid values
  * for date_format are:
- *
+ * 
  * INGRES_DATE_DMY
  * INGRES_DATE_FINISH
  * INGRES_DATE_GERMAN
@@ -222,68 +222,68 @@ function ingres_commit($link): void
  * INGRES_DATE_MULTINATIONAL4
  * INGRES_DATE_YMD
  * INGRES_DATE_US
- *
- *
- *
+ * 
+ * 
+ * 
  * INGRES_DATE_MULTINATIONAL4
- *
- *
+ * 
+ * 
  * decimal_separator
  * string
  * The character identifier for decimal data
  * ","
- *
- *
+ * 
+ * 
  * money_lort
- * integer
+ * int
  * Leading or trailing currency sign. Valid values for money_lort
  * are:
- *
+ * 
  * INGRES_MONEY_LEADING
  * INGRES_MONEY_TRAILING
- *
- *
- *
+ * 
+ * 
+ * 
  * INGRES_MONEY_TRAILING
- *
- *
+ * 
+ * 
  * money_sign
  * string
  * The currency symbol to be used with the MONEY datatype
  * €
- *
- *
+ * 
+ * 
  * money_precision
- * integer
+ * int
  * The precision of the MONEY datatype
  * 3
- *
- *
+ * 
+ * 
  * float4_precision
- * integer
+ * int
  * Precision of the FLOAT4 datatype
  * 10
- *
- *
+ * 
+ * 
  * float8_precision
- * integer
+ * int
  * Precision of the FLOAT8 data
  * 10
- *
- *
+ * 
+ * 
  * blob_segment_length
- * integer
+ * int
  * The amount of data in bytes to fetch at a time when retrieving
  * BLOB or CLOB data, defaults to 4096 bytes when not explicitly set
  * 8192
- *
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
+ * 
  * The default structure for new tables.
  * Valid values for table_structure are:
- *
+ * 
  * INGRES_STRUCTURE_BTREE
  * INGRES_STRUCTURE_HASH
  * INGRES_STRUCTURE_HEAP
@@ -292,24 +292,24 @@ function ingres_commit($link): void
  * INGRES_STRUCTURE_CISAM
  * INGRES_STRUCTURE_CHASH
  * INGRES_STRUCTURE_CHEAP
- *
- *
+ * 
+ * 
  * The default structure for new secondary indexes. Valid values
  * for index_structure are:
- *
+ * 
  * INGRES_STRUCTURE_CBTREE
  * INGRES_STRUCTURE_CISAM
  * INGRES_STRUCTURE_CHASH
  * INGRES_STRUCTURE_BTREE
  * INGRES_STRUCTURE_HASH
  * INGRES_STRUCTURE_ISAM
- *
- *
+ * 
+ * 
  * Sets the allowable input and output format for Ingres dates.
  * Defaults to the value defined by II_DATE_FORMAT. If II_DATE_FORMAT is
  * not set the default date format is US, e.g. mm/dd/yy. Valid values
  * for date_format are:
- *
+ * 
  * INGRES_DATE_DMY
  * INGRES_DATE_FINISH
  * INGRES_DATE_GERMAN
@@ -320,17 +320,17 @@ function ingres_commit($link): void
  * INGRES_DATE_MULTINATIONAL4
  * INGRES_DATE_YMD
  * INGRES_DATE_US
- *
- *
+ * 
+ * 
  * Leading or trailing currency sign. Valid values for money_lort
  * are:
- *
+ * 
  * INGRES_MONEY_LEADING
  * INGRES_MONEY_TRAILING
- *
+ * 
  * @return resource Returns a Ingres link resource on success
  * @throws IngresiiException
- *
+ * 
  */
 function ingres_connect(string $database = null, string $username = null, string $password = null, array $options = null)
 {
@@ -343,7 +343,7 @@ function ingres_connect(string $database = null, string $username = null, string
         $result = \ingres_connect($database, $username);
     } elseif ($database !== null) {
         $result = \ingres_connect($database);
-    } else {
+    }else {
         $result = \ingres_connect();
     }
     if ($result === false) {
@@ -355,23 +355,23 @@ function ingres_connect(string $database = null, string $username = null, string
 
 /**
  * Execute a query prepared using ingres_prepare.
- *
+ * 
  * @param resource $result The result query identifier
  * @param array $params An array of parameter values to be used with the query
  * @param string $types A string containing a sequence of types for the parameter values
  * passed. See the types parameter in
  * ingres_query for the list of type codes.
  * @throws IngresiiException
- *
+ * 
  */
-function ingres_execute($result, array $params = null, string $types = null): void
+function ingres_execute( $result, array $params = null, string $types = null): void
 {
     error_clear_last();
     if ($types !== null) {
         $result = \ingres_execute($result, $params, $types);
     } elseif ($params !== null) {
         $result = \ingres_execute($result, $params);
-    } else {
+    }else {
         $result = \ingres_execute($result);
     }
     if ($result === false) {
@@ -383,11 +383,11 @@ function ingres_execute($result, array $params = null, string $types = null): vo
 /**
  * ingres_field_name returns the name of a field
  * in a query result.
- *
+ * 
  * @param resource $result The query result identifier
  * @param int $index index is the field whose name will be
  * retrieved.
- *
+ * 
  * The possible values of index depend upon
  * the value
  * of ingres.array_index_start.
@@ -403,9 +403,9 @@ function ingres_execute($result, array $params = null, string $types = null): vo
  * @return string Returns the name of a field
  * in a query result
  * @throws IngresiiException
- *
+ * 
  */
-function ingres_field_name($result, int $index): string
+function ingres_field_name( $result, int $index): string
 {
     error_clear_last();
     $result = \ingres_field_name($result, $index);
@@ -418,11 +418,11 @@ function ingres_field_name($result, int $index): string
 
 /**
  * Get the type of a field in a query result.
- *
+ * 
  * @param resource $result The query result identifier
  * @param int $index index is the field whose type will be
  * retrieved.
- *
+ * 
  * The possible values of index depend upon
  * the value
  * of ingres.array_index_start.
@@ -444,12 +444,12 @@ function ingres_field_name($result, int $index): string
  * than one SQL type depending on the length of the field (see
  * ingres_field_length). For example
  * IIAPI_FLT_TYPE can be a float4 or a float8. For detailed
- * information, see the Ingres OpenAPI User Guide, Appendix
+ * information, see the Ingres OpenAPI User Guide, Appendix 
  * "Data Types" in the Ingres documentation.
  * @throws IngresiiException
- *
+ * 
  */
-function ingres_field_type($result, int $index): string
+function ingres_field_type( $result, int $index): string
 {
     error_clear_last();
     $result = \ingres_field_type($result, $index);
@@ -461,13 +461,13 @@ function ingres_field_type($result, int $index): string
 
 
 /**
- *
- *
+ * 
+ * 
  * @param resource $result The query result identifier
  * @throws IngresiiException
- *
+ * 
  */
-function ingres_free_result($result): void
+function ingres_free_result( $result): void
 {
     error_clear_last();
     $result = \ingres_free_result($result);
@@ -479,8 +479,8 @@ function ingres_free_result($result): void
 
 /**
  * Open a persistent connection to an Ingres database.
- *
- * There are only two differences between this function and
+ * 
+ * There are only two differences between this function and 
  * ingres_connect: First, when connecting, the
  * function will initially try to find a (persistent) link that is
  * already opened with the same parameters.  If one is found, an
@@ -491,9 +491,9 @@ function ingres_free_result($result): void
  * (ingres_close will not close links
  * established by ingres_pconnect). This type
  * of link is therefore called "persistent".
- *
+ * 
  * @param string $database The database name. Must follow the syntax:
- *
+ * 
  * [vnode::]dbname[/svr_class]
  * @param string $username The Ingres user name
  * @param string $password The password associated with username
@@ -501,7 +501,7 @@ function ingres_free_result($result): void
  * can be passed
  * @return resource Returns an Ingres link resource on success
  * @throws IngresiiException
- *
+ * 
  */
 function ingres_pconnect(string $database = null, string $username = null, string $password = null, array $options = null)
 {
@@ -514,7 +514,7 @@ function ingres_pconnect(string $database = null, string $username = null, strin
         $result = \ingres_pconnect($database, $username);
     } elseif ($database !== null) {
         $result = \ingres_pconnect($database);
-    } else {
+    }else {
         $result = \ingres_pconnect();
     }
     if ($result === false) {
@@ -532,14 +532,14 @@ function ingres_pconnect(string $database = null, string $username = null, strin
  * make use of scrollable
  * cursors. It cannot be used with
  * ingres_unbuffered_query.
- *
+ * 
  * @param resource $result The result identifier for a query
  * @param int $position The row to position the cursor on. If ingres.array_index_start
  * is set to 0, then the first row is 0, else it is 1
  * @throws IngresiiException
- *
+ * 
  */
-function ingres_result_seek($result, int $position): void
+function ingres_result_seek( $result, int $position): void
 {
     error_clear_last();
     $result = \ingres_result_seek($result, $position);
@@ -553,15 +553,15 @@ function ingres_result_seek($result, int $position): void
  * ingres_rollback rolls back the currently
  * open transaction, actually cancelling all changes made to the
  * database during the transaction.
- *
+ * 
  * This closes the transaction. A new transaction can be opened by sending a
  * query with ingres_query.
- *
+ * 
  * @param resource $link The connection link identifier
  * @throws IngresiiException
- *
+ * 
  */
-function ingres_rollback($link): void
+function ingres_rollback( $link): void
 {
     error_clear_last();
     $result = \ingres_rollback($link);
@@ -575,30 +575,30 @@ function ingres_rollback($link): void
  * ingres_set_environment is called to set environmental
  * options that affect the output of certain values from Ingres, such as the
  * timezone, date format, decimal character separator, and float precision.
- *
+ * 
  * @param resource $link The connection link identifier
  * @param array $options An enumerated array of option name/value pairs. The following table
  * lists the option name and the expected type
- *
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
+ * 
  * Option name
  * Option type
  * Description
  * Example
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
  * date_century_boundary
- * integer
+ * int
  * The threshold by which a 2-digit year is determined to be in
  * the current century or in the next century. Equivalent to II_DATE_CENTURY_BOUNDARY
  * 50
- *
- *
+ * 
+ * 
  * timezone
  * string
  * Controls the timezone of the session. If not set, it will
@@ -606,15 +606,15 @@ function ingres_rollback($link): void
  * II_TIMEZONE_NAME is not defined, NA-PACIFIC (GMT-8 with Daylight
  * Savings) is used.
  * UNITED-KINGDOM
- *
- *
+ * 
+ * 
  * date_format
- * integer
+ * int
  * Sets the allowable input and output format for Ingres dates.
  * Defaults to the value defined by II_DATE_FORMAT. If II_DATE_FORMAT is
  * not set, the default date format is US, for example mm/dd/yy. Valid values
  * for date_format are:
- *
+ * 
  * INGRES_DATE_DMY
  * INGRES_DATE_FINISH
  * INGRES_DATE_GERMAN
@@ -625,70 +625,70 @@ function ingres_rollback($link): void
  * INGRES_DATE_MULTINATIONAL4
  * INGRES_DATE_YMD
  * INGRES_DATE_US
- *
- *
- *
+ * 
+ * 
+ * 
  * INGRES_DATE_ISO4
- *
- *
+ * 
+ * 
  * decimal_separator
  * string
  * The character identifier for decimal data
  * ","
- *
- *
+ * 
+ * 
  * money_lort
- * integer
+ * int
  * Leading or trailing currency sign. Valid values for money_lort
  * are:
- *
+ * 
  * INGRES_MONEY_LEADING
  * INGRES_MONEY_TRAILING
- *
- *
- *
+ * 
+ * 
+ * 
  * INGRES_MONEY_LEADING
- *
- *
+ * 
+ * 
  * money_sign
  * string
  * The currency symbol to be used with the MONEY datatype
  * €
- *
- *
+ * 
+ * 
  * money_precision
- * integer
+ * int
  * The precision of the MONEY datatype
  * 2
- *
- *
+ * 
+ * 
  * float4_precision
- * integer
+ * int
  * Precision of the FLOAT4 datatype
  * 10
- *
- *
+ * 
+ * 
  * float8_precision
- * integer
+ * int
  * Precision of the FLOAT8 data
  * 10
- *
- *
+ * 
+ * 
  * blob_segment_length
- * integer
+ * int
  * The amount of data in bytes to fetch at a time when retrieving
  * BLOB or CLOB data. Defaults to 4096 bytes when not set explicitly
  * 8192
- *
- *
- *
- *
- *
+ * 
+ * 
+ * 
+ * 
+ * 
  * Sets the allowable input and output format for Ingres dates.
  * Defaults to the value defined by II_DATE_FORMAT. If II_DATE_FORMAT is
  * not set, the default date format is US, for example mm/dd/yy. Valid values
  * for date_format are:
- *
+ * 
  * INGRES_DATE_DMY
  * INGRES_DATE_FINISH
  * INGRES_DATE_GERMAN
@@ -699,18 +699,18 @@ function ingres_rollback($link): void
  * INGRES_DATE_MULTINATIONAL4
  * INGRES_DATE_YMD
  * INGRES_DATE_US
- *
- *
+ * 
+ * 
  * Leading or trailing currency sign. Valid values for money_lort
  * are:
- *
+ * 
  * INGRES_MONEY_LEADING
  * INGRES_MONEY_TRAILING
- *
+ * 
  * @throws IngresiiException
- *
+ * 
  */
-function ingres_set_environment($link, array $options): void
+function ingres_set_environment( $link, array $options): void
 {
     error_clear_last();
     $result = \ingres_set_environment($link, $options);
@@ -718,3 +718,5 @@ function ingres_set_environment($link, array $options): void
         throw IngresiiException::createFromPhpError();
     }
 }
+
+

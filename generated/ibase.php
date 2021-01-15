@@ -7,12 +7,12 @@ use Safe\Exceptions\IbaseException;
 /**
  * This function will discard a BLOB if it has not yet been closed by
  * fbird_blob_close.
- *
+ * 
  * @param resource $blob_handle A BLOB handle opened with fbird_blob_create.
  * @throws IbaseException
- *
+ * 
  */
-function fbird_blob_cancel($blob_handle): void
+function fbird_blob_cancel( $blob_handle): void
 {
     error_clear_last();
     $result = \fbird_blob_cancel($blob_handle);
@@ -23,8 +23,8 @@ function fbird_blob_cancel($blob_handle): void
 
 
 /**
- *
- *
+ * 
+ * 
  * @param resource $service_handle The handle on the database server service.
  * @param string $user_name The login name of the new database user.
  * @param string $password The password of the new user.
@@ -32,9 +32,9 @@ function fbird_blob_cancel($blob_handle): void
  * @param string $middle_name The middle name of the new database user.
  * @param string $last_name The last name of the new database user.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_add_user($service_handle, string $user_name, string $password, string $first_name = null, string $middle_name = null, string $last_name = null): void
+function ibase_add_user( $service_handle, string $user_name, string $password, string $first_name = null, string $middle_name = null, string $last_name = null): void
 {
     error_clear_last();
     if ($last_name !== null) {
@@ -43,7 +43,7 @@ function ibase_add_user($service_handle, string $user_name, string $password, st
         $result = \ibase_add_user($service_handle, $user_name, $password, $first_name, $middle_name);
     } elseif ($first_name !== null) {
         $result = \ibase_add_user($service_handle, $user_name, $password, $first_name);
-    } else {
+    }else {
         $result = \ibase_add_user($service_handle, $user_name, $password);
     }
     if ($result === false) {
@@ -55,15 +55,15 @@ function ibase_add_user($service_handle, string $user_name, string $password, st
 /**
  * This function passes the arguments to the (remote) database server. There it starts a new backup process. Therefore you
  * won't get any responses.
- *
+ * 
  * @param resource $service_handle A previously opened connection to the database server.
  * @param string $source_db The absolute file path to the database on the database server. You can also use a database alias.
  * @param string $dest_file The path to the backup file on the database server.
  * @param int $options Additional options to pass to the database server for backup.
- * The options parameter can be a combination
+ * The options parameter can be a combination 
  * of the following constants:
  * IBASE_BKP_IGNORE_CHECKSUMS,
- * IBASE_BKP_IGNORE_LIMBO,
+ * IBASE_BKP_IGNORE_LIMBO, 
  * IBASE_BKP_METADATA_ONLY,
  * IBASE_BKP_NO_GARBAGE_COLLECT,
  * IBASE_BKP_OLD_DESCRIPTIONS,
@@ -73,13 +73,13 @@ function ibase_add_user($service_handle, string $user_name, string $password, st
  * @param bool $verbose Since the backup process is done on the database server, you don't have any chance
  * to get its output. This argument is useless.
  * @return mixed Returns TRUE on success.
- *
+ * 
  * Since the backup process is done on the (remote) server, this function just passes the arguments to it.
  * While the arguments are legal, you won't get FALSE.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_backup($service_handle, string $source_db, string $dest_file, int $options = 0, bool $verbose = false)
+function ibase_backup( $service_handle, string $source_db, string $dest_file, int $options = 0, bool $verbose = false)
 {
     error_clear_last();
     $result = \ibase_backup($service_handle, $source_db, $dest_file, $options, $verbose);
@@ -93,12 +93,12 @@ function ibase_backup($service_handle, string $source_db, string $dest_file, int
 /**
  * This function will discard a BLOB if it has not yet been closed by
  * ibase_blob_close.
- *
+ * 
  * @param resource $blob_handle A BLOB handle opened with ibase_blob_create.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_blob_cancel($blob_handle): void
+function ibase_blob_cancel( $blob_handle): void
 {
     error_clear_last();
     $result = \ibase_blob_cancel($blob_handle);
@@ -111,15 +111,15 @@ function ibase_blob_cancel($blob_handle): void
 /**
  * ibase_blob_create creates a new BLOB for filling with
  * data.
- *
+ * 
  * @param resource $link_identifier An InterBase link identifier. If omitted, the last opened link is
  * assumed.
  * @return resource Returns a BLOB handle for later use with
  * ibase_blob_add.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_blob_create($link_identifier = null)
+function ibase_blob_create( $link_identifier = null)
 {
     error_clear_last();
     $result = \ibase_blob_create($link_identifier);
@@ -133,14 +133,14 @@ function ibase_blob_create($link_identifier = null)
 /**
  * This function returns at most len bytes from a BLOB
  * that has been opened for reading by ibase_blob_open.
- *
+ * 
  * @param resource $blob_handle A BLOB handle opened with ibase_blob_open.
  * @param int $len Size of returned data.
  * @return string Returns at most len bytes from the BLOB.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_blob_get($blob_handle, int $len): string
+function ibase_blob_get( $blob_handle, int $len): string
 {
     error_clear_last();
     $result = \ibase_blob_get($blob_handle, $len);
@@ -156,14 +156,14 @@ function ibase_blob_get($blob_handle, int $len): string
  * a connection id returned from ibase_connect.
  * Default transaction on link is committed, other transactions are
  * rolled back.
- *
+ * 
  * @param resource $connection_id An InterBase link identifier returned from
  * ibase_connect. If omitted, the last opened link
  * is assumed.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_close($connection_id = null): void
+function ibase_close( $connection_id = null): void
 {
     error_clear_last();
     $result = \ibase_close($connection_id);
@@ -175,7 +175,7 @@ function ibase_close($connection_id = null): void
 
 /**
  * Commits a transaction without closing it.
- *
+ * 
  * @param resource $link_or_trans_identifier If called without an argument, this function commits the default
  * transaction of the default link. If the argument is a connection
  * identifier, the default transaction of the corresponding connection
@@ -184,9 +184,9 @@ function ibase_close($connection_id = null): void
  * will be retained, so statements executed from within this transaction
  * will not be invalidated.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_commit_ret($link_or_trans_identifier = null): void
+function ibase_commit_ret( $link_or_trans_identifier = null): void
 {
     error_clear_last();
     $result = \ibase_commit_ret($link_or_trans_identifier);
@@ -198,16 +198,16 @@ function ibase_commit_ret($link_or_trans_identifier = null): void
 
 /**
  * Commits a transaction.
- *
+ * 
  * @param resource $link_or_trans_identifier If called without an argument, this function commits the default
  * transaction of the default link. If the argument is a connection
  * identifier, the default transaction of the corresponding connection
  * will be committed. If the argument is a transaction identifier, the
  * corresponding transaction will be committed.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_commit($link_or_trans_identifier = null): void
+function ibase_commit( $link_or_trans_identifier = null): void
 {
     error_clear_last();
     $result = \ibase_commit($link_or_trans_identifier);
@@ -219,13 +219,13 @@ function ibase_commit($link_or_trans_identifier = null): void
 
 /**
  * Establishes a connection to an Firebird/InterBase server.
- *
+ * 
  * In case a second call is made to ibase_connect with
  * the same arguments, no new link will be established, but instead, the link
  * identifier of the already opened link will be returned. The link to the
  * server will be closed as soon as the execution of the script ends, unless
  * it's closed earlier by explicitly calling ibase_close.
- *
+ * 
  * @param string $database The database argument has to be a valid path to
  * database file on the server it resides on. If the server is not local,
  * it must be prefixed with either 'hostname:' (TCP/IP), 'hostname/port:'
@@ -245,10 +245,10 @@ function ibase_commit($link_or_trans_identifier = null): void
  * statement executed within a connection, and it defaults to the highest
  * one supported by client libraries.
  * @param string $role Functional only with InterBase 5 and up.
- * @param int $sync
+ * @param int $sync 
  * @return resource Returns an Firebird/InterBase link identifier on success.
  * @throws IbaseException
- *
+ * 
  */
 function ibase_connect(string $database = null, string $username = null, string $password = null, string $charset = null, int $buffers = null, int $dialect = null, string $role = null, int $sync = null)
 {
@@ -269,7 +269,7 @@ function ibase_connect(string $database = null, string $username = null, string 
         $result = \ibase_connect($database, $username);
     } elseif ($database !== null) {
         $result = \ibase_connect($database);
-    } else {
+    }else {
         $result = \ibase_connect();
     }
     if ($result === false) {
@@ -280,14 +280,14 @@ function ibase_connect(string $database = null, string $username = null, string 
 
 
 /**
- *
- *
+ * 
+ * 
  * @param resource $service_handle The handle on the database server service.
  * @param string $user_name The login name of the user you want to delete from the database.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_delete_user($service_handle, string $user_name): void
+function ibase_delete_user( $service_handle, string $user_name): void
 {
     error_clear_last();
     $result = \ibase_delete_user($service_handle, $user_name);
@@ -300,13 +300,13 @@ function ibase_delete_user($service_handle, string $user_name): void
 /**
  * This functions drops a database that was opened by either ibase_connect
  * or ibase_pconnect. The database is closed and deleted from the server.
- *
+ * 
  * @param resource $connection An InterBase link identifier. If omitted, the last opened link is
  * assumed.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_drop_db($connection = null): void
+function ibase_drop_db( $connection = null): void
 {
     error_clear_last();
     $result = \ibase_drop_db($connection);
@@ -320,13 +320,13 @@ function ibase_drop_db($connection = null): void
  * This function causes the registered event handler specified by
  * event to be cancelled. The callback function will
  * no longer be called for the events it was registered to handle.
- *
+ * 
  * @param resource $event An event resource, created by
  * ibase_set_event_handler.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_free_event_handler($event): void
+function ibase_free_event_handler( $event): void
 {
     error_clear_last();
     $result = \ibase_free_event_handler($event);
@@ -338,12 +338,12 @@ function ibase_free_event_handler($event): void
 
 /**
  * Frees a prepared query.
- *
+ * 
  * @param resource $query A query prepared with ibase_prepare.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_free_query($query): void
+function ibase_free_query( $query): void
 {
     error_clear_last();
     $result = \ibase_free_query($query);
@@ -355,13 +355,13 @@ function ibase_free_query($query): void
 
 /**
  * Frees a result set.
- *
+ * 
  * @param resource $result_identifier A result set created by ibase_query or
  * ibase_execute.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_free_result($result_identifier): void
+function ibase_free_result( $result_identifier): void
 {
     error_clear_last();
     $result = \ibase_free_result($result_identifier);
@@ -372,16 +372,16 @@ function ibase_free_result($result_identifier): void
 
 
 /**
- *
- *
- * @param resource $service_handle
- * @param string $db
- * @param int $action
- * @param int $argument
+ * 
+ * 
+ * @param resource $service_handle 
+ * @param string $db 
+ * @param int $action 
+ * @param int $argument 
  * @throws IbaseException
- *
+ * 
  */
-function ibase_maintain_db($service_handle, string $db, int $action, int $argument = 0): void
+function ibase_maintain_db( $service_handle, string $db, int $action, int $argument = 0): void
 {
     error_clear_last();
     $result = \ibase_maintain_db($service_handle, $db, $action, $argument);
@@ -392,8 +392,8 @@ function ibase_maintain_db($service_handle, string $db, int $action, int $argume
 
 
 /**
- *
- *
+ * 
+ * 
  * @param resource $service_handle The handle on the database server service.
  * @param string $user_name The login name of the database user to modify.
  * @param string $password The user's new password.
@@ -401,9 +401,9 @@ function ibase_maintain_db($service_handle, string $db, int $action, int $argume
  * @param string $middle_name The user's new middle name.
  * @param string $last_name The user's new last name.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_modify_user($service_handle, string $user_name, string $password, string $first_name = null, string $middle_name = null, string $last_name = null): void
+function ibase_modify_user( $service_handle, string $user_name, string $password, string $first_name = null, string $middle_name = null, string $last_name = null): void
 {
     error_clear_last();
     if ($last_name !== null) {
@@ -412,7 +412,7 @@ function ibase_modify_user($service_handle, string $user_name, string $password,
         $result = \ibase_modify_user($service_handle, $user_name, $password, $first_name, $middle_name);
     } elseif ($first_name !== null) {
         $result = \ibase_modify_user($service_handle, $user_name, $password, $first_name);
-    } else {
+    }else {
         $result = \ibase_modify_user($service_handle, $user_name, $password);
     }
     if ($result === false) {
@@ -424,13 +424,13 @@ function ibase_modify_user($service_handle, string $user_name, string $password,
 /**
  * This function assigns a name to a result set. This name can be used later in
  * UPDATE|DELETE ... WHERE CURRENT OF name statements.
- *
+ * 
  * @param resource $result An InterBase result set.
  * @param string $name The name to be assigned.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_name_result($result, string $name): void
+function ibase_name_result( $result, string $name): void
 {
     error_clear_last();
     $result = \ibase_name_result($result, $name);
@@ -442,20 +442,20 @@ function ibase_name_result($result, string $name): void
 
 /**
  * Opens a persistent connection to an InterBase database.
- *
+ * 
  * ibase_pconnect acts very much like
  * ibase_connect with two major differences.
- *
+ * 
  * First, when connecting, the function will first try to find a (persistent)
  * link that's already opened with the same parameters. If one is found, an
  * identifier for it will be returned instead of opening a new connection.
- *
+ * 
  * Second, the connection to the InterBase server will not be closed when the
  * execution of the script ends. Instead, the link will remain open for
  * future use (ibase_close will not close links
  * established by ibase_pconnect). This type of link is
  * therefore called 'persistent'.
- *
+ * 
  * @param string $database The database argument has to be a valid path to
  * database file on the server it resides on. If the server is not local,
  * it must be prefixed with either 'hostname:' (TCP/IP), '//hostname/'
@@ -475,10 +475,10 @@ function ibase_name_result($result, string $name): void
  * one supported by client libraries. Functional only with InterBase 6
  * and up.
  * @param string $role Functional only with InterBase 5 and up.
- * @param int $sync
+ * @param int $sync 
  * @return resource Returns an InterBase link identifier on success.
  * @throws IbaseException
- *
+ * 
  */
 function ibase_pconnect(string $database = null, string $username = null, string $password = null, string $charset = null, int $buffers = null, int $dialect = null, string $role = null, int $sync = null)
 {
@@ -499,7 +499,7 @@ function ibase_pconnect(string $database = null, string $username = null, string
         $result = \ibase_pconnect($database, $username);
     } elseif ($database !== null) {
         $result = \ibase_pconnect($database);
-    } else {
+    }else {
         $result = \ibase_pconnect();
     }
     if ($result === false) {
@@ -512,15 +512,15 @@ function ibase_pconnect(string $database = null, string $username = null, string
 /**
  * This function passes the arguments to the (remote) database server. There it starts a new restore process. Therefore you
  * won't get any responses.
- *
+ * 
  * @param resource $service_handle A previously opened connection to the database server.
  * @param string $source_file The absolute path on the server where the backup file is located.
  * @param string $dest_db The path to create the new database on the server. You can also use database alias.
  * @param int $options Additional options to pass to the database server for restore.
- * The options parameter can be a combination
+ * The options parameter can be a combination 
  * of the following constants:
  * IBASE_RES_DEACTIVATE_IDX,
- * IBASE_RES_NO_SHADOW,
+ * IBASE_RES_NO_SHADOW, 
  * IBASE_RES_NO_VALIDITY,
  * IBASE_RES_ONE_AT_A_TIME,
  * IBASE_RES_REPLACE,
@@ -533,13 +533,13 @@ function ibase_pconnect(string $database = null, string $username = null, string
  * @param bool $verbose Since the restore process is done on the database server, you don't have any chance
  * to get its output. This argument is useless.
  * @return mixed Returns TRUE on success.
- *
+ * 
  * Since the restore process is done on the (remote) server, this function just passes the arguments to it.
  * While the arguments are legal, you won't get FALSE.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_restore($service_handle, string $source_file, string $dest_db, int $options = 0, bool $verbose = false)
+function ibase_restore( $service_handle, string $source_file, string $dest_db, int $options = 0, bool $verbose = false)
 {
     error_clear_last();
     $result = \ibase_restore($service_handle, $source_file, $dest_db, $options, $verbose);
@@ -552,7 +552,7 @@ function ibase_restore($service_handle, string $source_file, string $dest_db, in
 
 /**
  * Rolls back a transaction without closing it.
- *
+ * 
  * @param resource $link_or_trans_identifier If called without an argument, this function rolls back the default
  * transaction of the default link. If the argument is a connection
  * identifier, the default transaction of the corresponding connection
@@ -561,9 +561,9 @@ function ibase_restore($service_handle, string $source_file, string $dest_db, in
  * will be retained, so statements executed from within this transaction
  * will not be invalidated.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_rollback_ret($link_or_trans_identifier = null): void
+function ibase_rollback_ret( $link_or_trans_identifier = null): void
 {
     error_clear_last();
     $result = \ibase_rollback_ret($link_or_trans_identifier);
@@ -575,16 +575,16 @@ function ibase_rollback_ret($link_or_trans_identifier = null): void
 
 /**
  * Rolls back a transaction.
- *
+ * 
  * @param resource $link_or_trans_identifier If called without an argument, this function rolls back the default
  * transaction of the default link. If the argument is a connection
  * identifier, the default transaction of the corresponding connection
  * will be rolled back. If the argument is a transaction identifier, the
  * corresponding transaction will be rolled back.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_rollback($link_or_trans_identifier = null): void
+function ibase_rollback( $link_or_trans_identifier = null): void
 {
     error_clear_last();
     $result = \ibase_rollback($link_or_trans_identifier);
@@ -595,15 +595,15 @@ function ibase_rollback($link_or_trans_identifier = null): void
 
 
 /**
- *
- *
- * @param string $host The name or ip address of the database host. You can define the port by adding
+ * 
+ * 
+ * @param string $host The name or ip address of the database host. You can define the port by adding 
  * '/' and port number. If no port is specified, port 3050 will be used.
  * @param string $dba_username The name of any valid user.
  * @param string $dba_password The user's password.
  * @return resource Returns a Interbase / Firebird link identifier on success.
  * @throws IbaseException
- *
+ * 
  */
 function ibase_service_attach(string $host, string $dba_username, string $dba_password)
 {
@@ -617,13 +617,13 @@ function ibase_service_attach(string $host, string $dba_username, string $dba_pa
 
 
 /**
- *
- *
+ * 
+ * 
  * @param resource $service_handle A previously created connection to the database server.
  * @throws IbaseException
- *
+ * 
  */
-function ibase_service_detach($service_handle): void
+function ibase_service_detach( $service_handle): void
 {
     error_clear_last();
     $result = \ibase_service_detach($service_handle);
@@ -631,3 +631,5 @@ function ibase_service_detach($service_handle): void
         throw IbaseException::createFromPhpError();
     }
 }
+
+

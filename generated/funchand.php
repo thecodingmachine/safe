@@ -7,12 +7,12 @@ use Safe\Exceptions\FunchandException;
 /**
  * Creates an anonymous function from the parameters passed, and
  * returns a unique name for it.
- *
+ * 
  * @param string $args The function arguments.
  * @param string $code The function code.
  * @return string Returns a unique function name as a string.
  * @throws FunchandException
- *
+ * 
  */
 function create_function(string $args, string $code): string
 {
@@ -26,22 +26,20 @@ function create_function(string $args, string $code): string
 
 
 /**
- *
- *
- * @param callable(): void $function The function to register.
- * @param mixed $params
+ * 
+ * 
+ * @param callable $callback The function to register.
+ * @param mixed $args 
  * @throws FunchandException
- *
+ * 
  */
-function register_tick_function(callable $function, ...$params): void
+function register_tick_function(callable $callback,  $args): void
 {
     error_clear_last();
-    if ($params !== []) {
-        $result = \register_tick_function($function, ...$params);
-    } else {
-        $result = \register_tick_function($function);
-    }
+    $result = \register_tick_function($callback, $args);
     if ($result === false) {
         throw FunchandException::createFromPhpError();
     }
 }
+
+

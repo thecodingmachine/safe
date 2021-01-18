@@ -23,6 +23,10 @@ class GeneratedFilesTest extends TestCase
         $this->assertSame('foobar', sprintf('foo%s', 'bar'));
         $this->assertSame('foobarbaz', sprintf('foo%s%s', 'bar', 'baz'));
 
+        if (version_compare(PHP_VERSION, '7.4', '>=')) {
+            return;
+        }
+
         set_error_handler(function () {
         });
         try {

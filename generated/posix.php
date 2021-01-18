@@ -99,7 +99,7 @@ function posix_getgrnam(string $name): array
  * pid.
  *
  * @param int $pid The process id.
- * @return int Returns the identifier, as an integer.
+ * @return int Returns the identifier, as an int.
  * @throws PosixException
  *
  */

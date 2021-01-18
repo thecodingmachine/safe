@@ -114,7 +114,7 @@ function ingres_commit($link): void
  *
  *
  * date_century_boundary
- * integer
+ * int
  * The threshold by which a 2-digit year is determined to be in
  * the current century or in the next century. Equivalent to II_DATE_CENTURY_BOUNDARY.
  * 50
@@ -184,7 +184,7 @@ function ingres_commit($link): void
  *
  *
  * login_local
- * boolean
+ * bool
  * Determines how the connection user ID and password are
  * used when a VNODE is included in the target database string.
  * If set to TRUE, the user ID and password are used to locally access
@@ -206,7 +206,7 @@ function ingres_commit($link): void
  *
  *
  * date_format
- * integer
+ * int
  * Sets the allowable input and output format for Ingres dates.
  * Defaults to the value defined by II_DATE_FORMAT. If II_DATE_FORMAT is
  * not set the default date format is US, e.g. mm/dd/yy. Valid values
@@ -235,7 +235,7 @@ function ingres_commit($link): void
  *
  *
  * money_lort
- * integer
+ * int
  * Leading or trailing currency sign. Valid values for money_lort
  * are:
  *
@@ -254,25 +254,25 @@ function ingres_commit($link): void
  *
  *
  * money_precision
- * integer
+ * int
  * The precision of the MONEY datatype
  * 3
  *
  *
  * float4_precision
- * integer
+ * int
  * Precision of the FLOAT4 datatype
  * 10
  *
  *
  * float8_precision
- * integer
+ * int
  * Precision of the FLOAT8 data
  * 10
  *
  *
  * blob_segment_length
- * integer
+ * int
  * The amount of data in bytes to fetch at a time when retrieving
  * BLOB or CLOB data, defaults to 4096 bytes when not explicitly set
  * 8192
@@ -593,7 +593,7 @@ function ingres_rollback($link): void
  *
  *
  * date_century_boundary
- * integer
+ * int
  * The threshold by which a 2-digit year is determined to be in
  * the current century or in the next century. Equivalent to II_DATE_CENTURY_BOUNDARY
  * 50
@@ -609,7 +609,7 @@ function ingres_rollback($link): void
  *
  *
  * date_format
- * integer
+ * int
  * Sets the allowable input and output format for Ingres dates.
  * Defaults to the value defined by II_DATE_FORMAT. If II_DATE_FORMAT is
  * not set, the default date format is US, for example mm/dd/yy. Valid values
@@ -638,7 +638,7 @@ function ingres_rollback($link): void
  *
  *
  * money_lort
- * integer
+ * int
  * Leading or trailing currency sign. Valid values for money_lort
  * are:
  *
@@ -657,25 +657,25 @@ function ingres_rollback($link): void
  *
  *
  * money_precision
- * integer
+ * int
  * The precision of the MONEY datatype
  * 2
  *
  *
  * float4_precision
- * integer
+ * int
  * Precision of the FLOAT4 datatype
  * 10
  *
  *
  * float8_precision
- * integer
+ * int
  * Precision of the FLOAT8 data
  * 10
  *
  *
  * blob_segment_length
- * integer
+ * int
  * The amount of data in bytes to fetch at a time when retrieving
  * BLOB or CLOB data. Defaults to 4096 bytes when not set explicitly
  * 8192

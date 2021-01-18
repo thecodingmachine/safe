@@ -90,7 +90,6 @@ class WritePhpFunction
         }
 
         $phpFunction .= $this->generateExceptionCode($moduleName, $this->method).$returnStatement. '}
-
 ';
 
         return $phpFunction;

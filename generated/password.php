@@ -60,7 +60,7 @@ use Safe\Exceptions\PasswordException;
  *
  *
  *
- * cost (integer) - which denotes the algorithmic cost that should be used.
+ * cost (int) - which denotes the algorithmic cost that should be used.
  * Examples of these values can be found on the crypt page.
  *
  *
@@ -73,19 +73,19 @@ use Safe\Exceptions\PasswordException;
  *
  *
  *
- * memory_cost (integer) - Maximum memory (in kibibytes) that may
+ * memory_cost (int) - Maximum memory (in kibibytes) that may
  * be used to compute the Argon2 hash. Defaults to PASSWORD_ARGON2_DEFAULT_MEMORY_COST.
  *
  *
  *
  *
- * time_cost (integer) - Maximum amount of time it may
+ * time_cost (int) - Maximum amount of time it may
  * take to compute the Argon2 hash. Defaults to PASSWORD_ARGON2_DEFAULT_TIME_COST.
  *
  *
  *
  *
- * threads (integer) - Number of threads to use for computing
+ * threads (int) - Number of threads to use for computing
  * the Argon2 hash. Defaults to PASSWORD_ARGON2_DEFAULT_THREADS.
  *
  *

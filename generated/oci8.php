@@ -395,9 +395,11 @@ function oci_commit($connection): void
 /**
  * Returns a connection identifier needed for most other OCI8 operations.
  *
- * See Connection Handling for
- * general information on connection management and connection
- * pooling.
+ * For performance, most applications should use persistent connections
+ * with oci_pconnect instead
+ * of oci_connect.
+ * See Connection Handling for general
+ * information on connection management and connection pooling.
  *
  * From PHP 5.1.2 (PECL OCI8 1.1) oci_close can
  * be used to close the connection.
@@ -432,18 +434,18 @@ function oci_commit($connection): void
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Service names can be found by running the Oracle
- * utility lsnrctl status on the database server
+ * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * settings.  Refer to Oracle documentation.  Service names can be found by running
+ * the Oracle utility lsnrctl status on the database server
  * machine.
  *
  *
- * The tnsnames.ora file can be in the Oracle Net
- * search path, which
- * includes $ORACLE_HOME/network/admin
- * and /etc.  Alternatively
- * set TNS_ADMIN so
- * that $TNS_ADMIN/tnsnames.ora is read.  Make sure
- * the web daemon has read access to the file.
+ * The tnsnames.ora file can be in the Oracle Net search path,
+ * which
+ * includes /your/path/to/instantclient/network/admin, $ORACLE_HOME/network/admin
+ * and /etc.  Alternatively set TNS_ADMIN
+ * so that $TNS_ADMIN/tnsnames.ora is read.  Make sure the web
+ * daemon has read access to the file.
  * @param string $character_set Determines
  * the character set used by the Oracle Client libraries.  The character
  * set does not need to match the character set used by the database.  If
@@ -915,7 +917,11 @@ function oci_free_statement($statement): void
 function oci_new_collection($connection, string $tdo, string $schema = null)
 {
     error_clear_last();
-    $result = \oci_new_collection($connection, $tdo, $schema);
+    if ($schema !== null) {
+        $result = \oci_new_collection($connection, $tdo, $schema);
+    } else {
+        $result = \oci_new_collection($connection, $tdo);
+    }
     if ($result === false) {
         throw Oci8Exception::createFromPhpError();
     }
@@ -954,18 +960,18 @@ function oci_new_collection($connection, string $tdo, string $schema = null)
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Service names can be found by running the Oracle
- * utility lsnrctl status on the database server
+ * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * settings.  Refer to Oracle documentation.  Service names can be found by running
+ * the Oracle utility lsnrctl status on the database server
  * machine.
  *
  *
- * The tnsnames.ora file can be in the Oracle Net
- * search path, which
- * includes $ORACLE_HOME/network/admin
- * and /etc.  Alternatively
- * set TNS_ADMIN so
- * that $TNS_ADMIN/tnsnames.ora is read.  Make sure
- * the web daemon has read access to the file.
+ * The tnsnames.ora file can be in the Oracle Net search path,
+ * which
+ * includes /your/path/to/instantclient/network/admin, $ORACLE_HOME/network/admin
+ * and /etc.  Alternatively set TNS_ADMIN
+ * so that $TNS_ADMIN/tnsnames.ora is read.  Make sure the web
+ * daemon has read access to the file.
  * @param string $character_set Determines
  * the character set used by the Oracle Client libraries.  The character
  * set does not need to match the character set used by the database.  If
@@ -1147,11 +1153,12 @@ function oci_parse($connection, string $sql_text)
 /**
  * Creates a persistent connection to an Oracle server and logs on.
  *
- * Persistent connections are cached and re-used between requests, resulting
- * in reduced overhead on each page load; a typical PHP application will have
- * a single persistent connection open against an  Oracle server per Apache
- * child process (or PHP FastCGI/CGI process). See the Persistent Database
- * Connections section for more information.
+ * Persistent connections are cached and re-used between requests, resulting in
+ * reduced overhead on each page load; a typical PHP application will have a
+ * single persistent connection open against an Oracle server per Apache child
+ * process (or PHP FPM process). See the OCI8
+ * Connection Handling and Connection Pooling section for more
+ * information.
  *
  * @param string $username The Oracle user name.
  * @param string $password The password for username.
@@ -1175,18 +1182,18 @@ function oci_parse($connection, string $sql_text)
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Service names can be found by running the Oracle
- * utility lsnrctl status on the database server
+ * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * settings.  Refer to Oracle documentation.  Service names can be found by running
+ * the Oracle utility lsnrctl status on the database server
  * machine.
  *
  *
- * The tnsnames.ora file can be in the Oracle Net
- * search path, which
- * includes $ORACLE_HOME/network/admin
- * and /etc.  Alternatively
- * set TNS_ADMIN so
- * that $TNS_ADMIN/tnsnames.ora is read.  Make sure
- * the web daemon has read access to the file.
+ * The tnsnames.ora file can be in the Oracle Net search path,
+ * which
+ * includes /your/path/to/instantclient/network/admin, $ORACLE_HOME/network/admin
+ * and /etc.  Alternatively set TNS_ADMIN
+ * so that $TNS_ADMIN/tnsnames.ora is read.  Make sure the web
+ * daemon has read access to the file.
  * @param string $character_set Determines
  * the character set used by the Oracle Client libraries.  The character
  * set does not need to match the character set used by the database.  If

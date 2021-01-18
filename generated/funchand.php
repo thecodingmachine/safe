@@ -28,18 +28,18 @@ function create_function(string $args, string $code): string
 /**
  *
  *
- * @param callable(): void $function The function to register.
- * @param mixed $params
+ * @param callable(): void $callback The function to register.
+ * @param mixed $args
  * @throws FunchandException
  *
  */
-function register_tick_function(callable $function, ...$params): void
+function register_tick_function(callable $callback, ...$args): void
 {
     error_clear_last();
-    if ($params !== []) {
-        $result = \register_tick_function($function, ...$params);
+    if ($args !== []) {
+        $result = \register_tick_function($callback, ...$args);
     } else {
-        $result = \register_tick_function($function);
+        $result = \register_tick_function($callback);
     }
     if ($result === false) {
         throw FunchandException::createFromPhpError();

@@ -33,7 +33,6 @@ class FileCreator
 namespace Safe;
 
 use Safe\\Exceptions\\".self::toExceptionName($module). ';
-
 ');
             foreach ($phpFunctions as $phpFunction) {
                 \fwrite($stream, $phpFunction."\n");

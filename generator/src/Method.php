@@ -91,7 +91,7 @@ class Method
                     }
                 }
 
-                $params[] = new Parameter($param, $phpStanFunction);
+                $params[] = new Parameter($param, $phpStanFunction, $i-2);
             }
             $this->params = $params;
         }
@@ -100,9 +100,9 @@ class Method
 
     public function getPhpDoc(): string
     {
-        $str = "/**\n".
+        $str = "\n/**\n".
             implode("\n", array_map(function (string $line) {
-                return ' * '.ltrim($line);
+                return rtrim(' * '.ltrim($line));
             }, \explode("\n", \strip_tags($this->getDocBlock()))))
             ."\n */\n";
 

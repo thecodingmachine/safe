@@ -41,6 +41,7 @@ return [
     'session_pgsql',
     'snmp',
     'sqlite',
+    'stats',
     'suhosin',
     'svn',
     'sybase',

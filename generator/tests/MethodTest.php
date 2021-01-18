@@ -37,6 +37,16 @@ class MethodTest extends TestCase
 
     public function testGetTypeHintFromRessource()
     {
+        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/sprintf.xml');
+        $xmlObject = $docPage->getMethodSynopsis();
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
+        $params = $method->getParams();
+        $this->assertEquals('string', $params[0]->getDocBlockType());
+        $this->assertEquals('string', $params[0]->getSignatureType());
+        $this->assertEquals('string|int|float|bool', $params[1]->getDocBlockType());
+        $this->assertTrue($params[1]->isVariadic());
+        $this->assertEquals('', $params[1]->getSignatureType());
+
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/mbstring/functions/mb-ereg-replace-callback.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);

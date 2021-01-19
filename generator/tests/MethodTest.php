@@ -71,14 +71,17 @@ class MethodTest extends TestCase
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
         $this->assertEquals('\HashContext', $params[0]->getDocBlockType());
-        $this->assertEquals('\HashContext', $params[0]->getSignatureType());        
-        
+        $this->assertEquals('\HashContext', $params[0]->getSignatureType());
+    }
+    
+    public function testImapOpen5Parameter()
+    {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/imap/functions/imap-open.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
-        $this->assertEquals('array|null', $params[5]->getDocBlockType());
-        $this->assertEquals('?array', $params[5]->getSignatureType());
+        $this->assertEquals('array', $params[5]->getDocBlockType());
+        $this->assertEquals('array', $params[5]->getSignatureType());        
     }
 
     public function testGetInitializer()

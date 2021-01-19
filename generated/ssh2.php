@@ -381,6 +381,53 @@ function ssh2_exec($session, string $command, string $pty = null, array $env = n
 
 
 /**
+ * Accepts a connection created by a listener.
+ *
+ * @param resource $listener An SSH2 Listener resource, obtained from a call to ssh2_forward_listen.
+ * @return  Returns a stream resource.
+ * @throws Ssh2Exception
+ *
+ */
+function ssh2_forward_accept($listener)
+{
+    error_clear_last();
+    $result = \ssh2_forward_accept($listener);
+    if ($result === false) {
+        throw Ssh2Exception::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Binds a port on the remote server and listen for connections.
+ *
+ * @param resource $session An SSH Session resource, obtained from a call to ssh2_connect.
+ * @param int $port The port of the remote server.
+ * @param string $host
+ * @param int $max_connections
+ * @return  Returns an SSH2 Listener.
+ * @throws Ssh2Exception
+ *
+ */
+function ssh2_forward_listen($session, int $port, string $host = null, int $max_connections = 16)
+{
+    error_clear_last();
+    if ($max_connections !== 16) {
+        $result = \ssh2_forward_listen($session, $port, $host, $max_connections);
+    } elseif ($host !== null) {
+        $result = \ssh2_forward_listen($session, $port, $host);
+    } else {
+        $result = \ssh2_forward_listen($session, $port);
+    }
+    if ($result === false) {
+        throw Ssh2Exception::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  *
  *
  * @param resource $pkey Publickey Subsystem resource created by ssh2_publickey_init.

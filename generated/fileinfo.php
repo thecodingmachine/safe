@@ -58,13 +58,13 @@ function finfo_open(int $flags = FILEINFO_NONE, string $magic_database = "")
  * Returns the MIME content type for a file as determined by using
  * information from the magic.mime file.
  *
- * @param string $filename Path to the tested file.
+ * @param string|resource $filename Path to the tested file.
  * @return string Returns the content type in MIME format, like
  * text/plain or application/octet-stream.
  * @throws FileinfoException
  *
  */
-function mime_content_type(string $filename): string
+function mime_content_type($filename): string
 {
     error_clear_last();
     $result = \mime_content_type($filename);

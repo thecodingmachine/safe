@@ -93,8 +93,7 @@ function apache_lookup_uri(string $filename): object
 
 /**
  * Fetches all HTTP request headers from the current request. Works in the
- * Apache, FastCGI, CLI, FPM and NSAPI server module
- * in Netscape/iPlanet/SunONE webservers.
+ * Apache, FastCGI, CLI, and FPM webservers.
  *
  * @return array An associative array of all the HTTP headers in the current request.
  * @throws ApacheException
@@ -135,8 +134,7 @@ function apache_reset_timeout(): void
 
 /**
  * Fetch all HTTP response headers.  Works in the
- * Apache, FastCGI, CLI, FPM and NSAPI server module
- * in Netscape/iPlanet/SunONE webservers.
+ * Apache, FastCGI, CLI, and FPM webservers.
  *
  * @return array An array of all Apache response headers on success.
  * @throws ApacheException

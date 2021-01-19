@@ -21,7 +21,7 @@ class Parameter
         $this->parameter = $parameter;
         $phpStanParam = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameter(), $position) : null;
         
-        $this->type = $phpStanParam ? $phpStanParam->getType() : new PhpStanType($this->parameter->type->__toString());
+        $this->type = $phpStanParam ? $phpStanParam->getType() : new PhpStanType($this->parameter->type->__toString()); //todo: is this if useful?
     }
 
     /**

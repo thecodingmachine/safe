@@ -24,6 +24,148 @@ function openssl_cipher_iv_length(string $method): int
 
 
 /**
+ * Decrypts a CMS message.
+ *
+ * @param string $input_filename The name of a file containing encrypted content.
+ * @param string $output_filename The name of the file to deposit the decrypted content.
+ * @param  $certificate The name of the file containing a certificate of the recipient.
+ * @param  $private_key The name of the file containing a PKCS#8 key.
+ * @param int $encoding The encoding of the input file. One of OPENSSL_CMS_SMIME,
+ * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
+ * @throws OpensslException
+ *
+ */
+function openssl_cms_decrypt(string $input_filename, string $output_filename, $certificate, $private_key = null, int $encoding = OPENSSL_ENCODING_SMIME): void
+{
+    error_clear_last();
+    if ($encoding !== OPENSSL_ENCODING_SMIME) {
+        $result = \openssl_cms_decrypt($input_filename, $output_filename, $certificate, $private_key, $encoding);
+    } elseif ($private_key !== null) {
+        $result = \openssl_cms_decrypt($input_filename, $output_filename, $certificate, $private_key);
+    } else {
+        $result = \openssl_cms_decrypt($input_filename, $output_filename, $certificate);
+    }
+    if ($result === false) {
+        throw OpensslException::createFromPhpError();
+    }
+}
+
+
+/**
+ * This function encrypts content to one or more recipients,
+ * based on the certificates that are passed to it.
+ *
+ * @param string $input_filename The file to be encrypted.
+ * @param string $output_filename The output file.
+ * @param  $certificate Recipients to encrypt to.
+ * @param  $headers Headers to include when S/MIME is used.
+ * @param int $flags Flags to be passed to CMS_sign.
+ * @param int $encoding An encoding to output. One of OPENSSL_CMS_SMIME,
+ * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
+ * @param int $cipher_algo A cypher to use.
+ * @throws OpensslException
+ *
+ */
+function openssl_cms_encrypt(string $input_filename, string $output_filename, $certificate, $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, int $cipher_algo = OPENSSL_CIPHER_RC2_40): void
+{
+    error_clear_last();
+    $result = \openssl_cms_encrypt($input_filename, $output_filename, $certificate, $headers, $flags, $encoding, $cipher_algo);
+    if ($result === false) {
+        throw OpensslException::createFromPhpError();
+    }
+}
+
+
+/**
+ * Performs the exact analog to openssl_pkcs7_read.
+ *
+ * @param string $input_filename
+ * @param array $certificates
+ * @throws OpensslException
+ *
+ */
+function openssl_cms_read(string $input_filename, array &$certificates): void
+{
+    error_clear_last();
+    $result = \openssl_cms_read($input_filename, $certificates);
+    if ($result === false) {
+        throw OpensslException::createFromPhpError();
+    }
+}
+
+
+/**
+ * This function signs a file with an X.509 certificate and key.
+ *
+ * @param string $input_filename The name of the file to be signed.
+ * @param string $output_filename The name of the file to deposit the results.
+ * @param  $certificate The name of the file containing the signing certificate.
+ * @param  $private_key The name of file containing the key associated with certificate.
+ * @param  $headers An array of headers to be included in S/MIME output.
+ * @param int $flags Flags to be passed to cms_sign.
+ * @param int $encoding The encoding of the output file. One of OPENSSL_CMS_SMIME,
+ * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
+ * @param  $untrusted_certificates_filename Intermediate certificates to be included in the signature.
+ * @throws OpensslException
+ *
+ */
+function openssl_cms_sign(string $input_filename, string $output_filename, $certificate, $private_key, $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, $untrusted_certificates_filename = null): void
+{
+    error_clear_last();
+    if ($untrusted_certificates_filename !== null) {
+        $result = \openssl_cms_sign($input_filename, $output_filename, $certificate, $private_key, $headers, $flags, $encoding, $untrusted_certificates_filename);
+    } else {
+        $result = \openssl_cms_sign($input_filename, $output_filename, $certificate, $private_key, $headers, $flags, $encoding);
+    }
+    if ($result === false) {
+        throw OpensslException::createFromPhpError();
+    }
+}
+
+
+/**
+ * This function verifies a CMS signature, either attached or detached, with the specified encoding.
+ *
+ * @param string $input_filename The input file.
+ * @param int $flags Flags to pass to cms_verify.
+ * @param  $certificates A file with the signer certificate and optionally intermediate certificates.
+ * @param array $ca_info An array containing self-signed certificate authority certificates.
+ * @param  $untrusted_certificates_filename A file containing additional intermediate certificates.
+ * @param  $content A file pointing to the content when signatures are detached.
+ * @param  $pk7
+ * @param  $sigfile A file to save the signature to.
+ * @param int $encoding The encoding of the input file. One of OPENSSL_CMS_SMIME,
+ * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
+ * @throws OpensslException
+ *
+ */
+function openssl_cms_verify(string $input_filename, int $flags = 0, $certificates = null, array $ca_info = [], $untrusted_certificates_filename = null, $content = null, $pk7 = null, $sigfile = null, int $encoding = OPENSSL_ENCODING_SMIME): void
+{
+    error_clear_last();
+    if ($encoding !== OPENSSL_ENCODING_SMIME) {
+        $result = \openssl_cms_verify($input_filename, $flags, $certificates, $ca_info, $untrusted_certificates_filename, $content, $pk7, $sigfile, $encoding);
+    } elseif ($sigfile !== null) {
+        $result = \openssl_cms_verify($input_filename, $flags, $certificates, $ca_info, $untrusted_certificates_filename, $content, $pk7, $sigfile);
+    } elseif ($pk7 !== null) {
+        $result = \openssl_cms_verify($input_filename, $flags, $certificates, $ca_info, $untrusted_certificates_filename, $content, $pk7);
+    } elseif ($content !== null) {
+        $result = \openssl_cms_verify($input_filename, $flags, $certificates, $ca_info, $untrusted_certificates_filename, $content);
+    } elseif ($untrusted_certificates_filename !== null) {
+        $result = \openssl_cms_verify($input_filename, $flags, $certificates, $ca_info, $untrusted_certificates_filename);
+    } elseif ($ca_info !== []) {
+        $result = \openssl_cms_verify($input_filename, $flags, $certificates, $ca_info);
+    } elseif ($certificates !== null) {
+        $result = \openssl_cms_verify($input_filename, $flags, $certificates);
+    } else {
+        $result = \openssl_cms_verify($input_filename, $flags);
+    }
+    if ($result === false) {
+        throw OpensslException::createFromPhpError();
+    }
+}
+
+
+/**
  * openssl_csr_export_to_file takes the Certificate
  * Signing Request represented by csr and saves it
  * in PEM format into the file named by outfilename.
@@ -645,7 +787,7 @@ function openssl_pkcs7_sign(string $infilename, string $outfilename, $signcert, 
  *
  * @param resource|string|array $key
  * @param string $outfilename Path to the output file.
- * @param string $passphrase The key can be optionally protected by a
+ * @param string|null $passphrase The key can be optionally protected by a
  * passphrase.
  * @param array $configargs configargs can be used to fine-tune the export
  * process by specifying and/or overriding options for the openssl
@@ -654,7 +796,7 @@ function openssl_pkcs7_sign(string $infilename, string $outfilename, $signcert, 
  * @throws OpensslException
  *
  */
-function openssl_pkey_export_to_file($key, string $outfilename, string $passphrase = null, array $configargs = null): void
+function openssl_pkey_export_to_file($key, string $outfilename, ?string $passphrase = null, array $configargs = null): void
 {
     error_clear_last();
     if ($configargs !== null) {
@@ -677,7 +819,7 @@ function openssl_pkey_export_to_file($key, string $outfilename, string $passphra
  *
  * @param resource $key
  * @param string|null $out
- * @param string $passphrase The key is optionally protected by passphrase.
+ * @param string|null $passphrase The key is optionally protected by passphrase.
  * @param array $configargs configargs can be used to fine-tune the export
  * process by specifying and/or overriding options for the openssl
  * configuration file.  See openssl_csr_new for more
@@ -685,7 +827,7 @@ function openssl_pkey_export_to_file($key, string $outfilename, string $passphra
  * @throws OpensslException
  *
  */
-function openssl_pkey_export($key, ?string &$out, string $passphrase = null, array $configargs = null): void
+function openssl_pkey_export($key, ?string &$out, ?string $passphrase = null, array $configargs = null): void
 {
     error_clear_last();
     if ($configargs !== null) {
@@ -762,9 +904,9 @@ function openssl_pkey_get_public($certificate)
 
 
 /**
- * openssl_pkey_new generates a new private and public
- * key pair.  The public component of the key can be obtained using
- * openssl_pkey_get_public.
+ * openssl_pkey_new generates a new private
+ * key.
+ * How to obtain the public component of the key is shown in an example below.
  *
  * @param array $configargs You can finetune the key generation (such as specifying the number of
  * bits) using configargs.  See
@@ -948,7 +1090,7 @@ function openssl_random_pseudo_bytes(int $length, ?bool &$crypto_strong = null):
  *
  * @param string $data The data to seal.
  * @param string|null $sealed_data The sealed data.
- * @param array $env_keys Array of encrypted keys.
+ * @param array|null $env_keys Array of encrypted keys.
  * @param array $pub_key_ids Array of public key resource identifiers.
  * @param string $method The cipher method.
  *
@@ -965,7 +1107,7 @@ function openssl_random_pseudo_bytes(int $length, ?bool &$crypto_strong = null):
  * @throws OpensslException
  *
  */
-function openssl_seal(string $data, ?string &$sealed_data, array &$env_keys, array $pub_key_ids, string $method = "RC4", string &$iv = null): int
+function openssl_seal(string $data, ?string &$sealed_data, ?array &$env_keys, array $pub_key_ids, string $method = "RC4", string &$iv = null): int
 {
     error_clear_last();
     $result = \openssl_seal($data, $sealed_data, $env_keys, $pub_key_ids, $method, $iv);

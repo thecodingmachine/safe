@@ -91,14 +91,8 @@ class Scanner
         $phpStanFunctionMapReader = new PhpStanFunctionMapReader();
         $ignoredFunctions = $this->getIgnoredFunctions();
         $ignoredFunctions = \array_combine($ignoredFunctions, $ignoredFunctions);
-        if ($ignoredFunctions === false) {
-            throw new \RuntimeException('Failed when combining arrays');
-        }
         $ignoredModules = $this->getIgnoredModules();
         $ignoredModules = \array_combine($ignoredModules, $ignoredModules);
-        if ($ignoredModules === false) {
-            throw new \RuntimeException('Failed when combining arrays');
-        }
         foreach ($paths as $path) {
             $module = \basename(\dirname($path, 2));
             if (isset($ignoredModules[$module])) {

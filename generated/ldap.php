@@ -236,11 +236,11 @@ function ldap_delete_ext($ldap, string $dn, array $controls = null)
  *
  * @param resource $ldap An LDAP link identifier, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
- * @param  $controls Array of LDAP Controls to send with the request.
+ * @param array $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
-function ldap_delete($ldap, string $dn, $controls = null): void
+function ldap_delete($ldap, string $dn, array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -284,7 +284,7 @@ function ldap_dn2ufn(string $dn): string
  * @param array $controls If provided, a password policy request control is send with the request and this is
  * filled with an array of LDAP Controls
  * returned with the request.
- * @return mixed Returns the generated password if new_password is empty or omitted.
+ * @return string|bool Returns the generated password if new_password is empty or omitted.
  * Otherwise returns TRUE on success.
  * @throws LdapException
  *
@@ -304,11 +304,11 @@ function ldap_exop_passwd($ldap, string $user = "", string $old_password = "", s
  * Performs a WHOAMI extended operation and returns the data.
  *
  * @param resource $ldap An LDAP link identifier, returned by ldap_connect.
- * @return string The data returned by the server.
+ * @return string|bool The data returned by the server.
  * @throws LdapException
  *
  */
-function ldap_exop_whoami($ldap): string
+function ldap_exop_whoami($ldap)
 {
     error_clear_last();
     $result = \ldap_exop_whoami($ldap);
@@ -332,7 +332,7 @@ function ldap_exop_whoami($ldap): string
  * If not provided you may use ldap_parse_exop on the result object
  * later to get this data.
  * @param string|null $retoid Will be filled with the response OID if provided, usually equal to the request OID.
- * @return mixed When used with retdata, returns TRUE on success.
+ * @return resource|bool When used with retdata, returns TRUE on success.
  * When used without retdata, returns a result identifier.
  * @throws LdapException
  *
@@ -697,7 +697,7 @@ function ldap_get_entries($ldap, $result): array
  * 7.1
  *
  *
- * LDAP_OPT_X_TLS_KEYILE
+ * LDAP_OPT_X_TLS_KEYFILE
  * string
  * 7.1
  *
@@ -877,12 +877,12 @@ function ldap_get_values($ldap, $entry, string $attribute): array
  *
  *
  *
- * @param  $controls Array of LDAP Controls to send with the request.
+ * @param array $controls Array of LDAP Controls to send with the request.
  * @return resource Returns a search result identifier.
  * @throws LdapException
  *
  */
-function ldap_list($ldap, string $base, string $filter, array $attributes = [], int $attributes_only = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, $controls = null)
+function ldap_list($ldap, string $base, string $filter, array $attributes = [], int $attributes_only = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, array $controls = null)
 {
     error_clear_last();
     if ($controls !== null) {
@@ -930,11 +930,11 @@ function ldap_mod_add_ext($ldap, string $dn, array $entry, array $controls = nul
  * @param resource $ldap An LDAP link identifier, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
  * @param array $entry An associative array listing the attirbute values to add. If an attribute was not existing yet it will be added. If an attribute is existing you can only add values to it if it supports multiple values.
- * @param  $controls Array of LDAP Controls to send with the request.
+ * @param array $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
-function ldap_mod_add($ldap, string $dn, array $entry, $controls = null): void
+function ldap_mod_add($ldap, string $dn, array $entry, array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -982,11 +982,11 @@ function ldap_mod_del_ext($ldap, string $dn, array $entry, array $controls = nul
  * @param resource $ldap An LDAP link identifier, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
  * @param array $entry
- * @param  $controls Array of LDAP Controls to send with the request.
+ * @param array $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
-function ldap_mod_del($ldap, string $dn, array $entry, $controls = null): void
+function ldap_mod_del($ldap, string $dn, array $entry, array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -1033,11 +1033,11 @@ function ldap_mod_replace_ext($ldap, string $dn, array $entry, array $controls =
  * @param resource $ldap An LDAP link identifier, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
  * @param array $entry An associative array listing the attributes to replace. Sending an empty array as value will remove the attribute, while sending an attribute not existing yet on this entry will add it.
- * @param  $controls Array of LDAP Controls to send with the request.
+ * @param array $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
-function ldap_mod_replace($ldap, string $dn, array $entry, $controls = null): void
+function ldap_mod_replace($ldap, string $dn, array $entry, array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -1130,13 +1130,13 @@ function ldap_mod_replace($ldap, string $dn, array $entry, $controls = null): vo
  * value for values must be an array of strings, and
  * any value for modtype must be one of the
  * LDAP_MODIFY_BATCH_* constants listed above.
- * @param  $controls Each value specified through values is added (as
+ * @param array $controls Each value specified through values is added (as
  * an additional value) to the attribute named by
  * attrib.
  * @throws LdapException
  *
  */
-function ldap_modify_batch($ldap, string $dn, array $modifications_info, $controls = null): void
+function ldap_modify_batch($ldap, string $dn, array $modifications_info, array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -1290,12 +1290,12 @@ function ldap_parse_result($ldap, $result, ?int &$error_code, ?string &$matched_
  *
  *
  *
- * @param  $controls Array of LDAP Controls to send with the request.
+ * @param array $controls Array of LDAP Controls to send with the request.
  * @return resource Returns a search result identifier.
  * @throws LdapException
  *
  */
-function ldap_read($ldap, string $base, string $filter, array $attributes = [], int $attributes_only = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, $controls = null)
+function ldap_read($ldap, string $base, string $filter, array $attributes = [], int $attributes_only = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, array $controls = null)
 {
     error_clear_last();
     if ($controls !== null) {
@@ -1347,11 +1347,11 @@ function ldap_rename_ext($ldap, string $dn, string $new_rdn, string $new_parent,
  * @param string $new_parent The new parent/superior entry.
  * @param bool $delete_old_rdn If TRUE the old RDN value(s) is removed, else the old RDN value(s)
  * is retained as non-distinguished values of the entry.
- * @param  $controls Array of LDAP Controls to send with the request.
+ * @param array $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
-function ldap_rename($ldap, string $dn, string $new_rdn, string $new_parent, bool $delete_old_rdn, $controls = null): void
+function ldap_rename($ldap, string $dn, string $new_rdn, string $new_parent, bool $delete_old_rdn, array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -1486,12 +1486,12 @@ function ldap_sasl_bind($ldap, string $dn = null, string $password = null, strin
  *
  *
  *
- * @param  $controls Array of LDAP Controls to send with the request.
+ * @param array $controls Array of LDAP Controls to send with the request.
  * @return resource Returns a search result identifier.
  * @throws LdapException
  *
  */
-function ldap_search($ldap, string $base, string $filter, array $attributes = [], int $attributes_only = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, $controls = null)
+function ldap_search($ldap, string $base, string $filter, array $attributes = [], int $attributes_only = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, array $controls = null)
 {
     error_clear_last();
     if ($controls !== null) {

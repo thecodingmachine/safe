@@ -49,7 +49,7 @@ function exec(string $command, ?array &$output = null, ?int &$result_code = null
  *
  * @param resource $process The proc_open resource that will
  * be evaluated.
- * @return array An array of collected information on success. The returned array contains the following elements:
+ * @return array{command: string, pid: int, running: bool, signaled: bool, stopped: bool, exitcode: int, termsig: int, stopsig: int} An array of collected information on success. The returned array contains the following elements:
  *
  *
  *

@@ -3089,7 +3089,7 @@ function curl_share_errno($share_handle): int
  *
  *
  *
- * @param string $value
+ * @param mixed $value
  *
  *
  *
@@ -3126,7 +3126,7 @@ function curl_share_errno($share_handle): int
  * @throws CurlException
  *
  */
-function curl_share_setopt($share_handle, int $option, string $value): void
+function curl_share_setopt($share_handle, int $option, $value): void
 {
     error_clear_last();
     $result = \curl_share_setopt($share_handle, $option, $value);

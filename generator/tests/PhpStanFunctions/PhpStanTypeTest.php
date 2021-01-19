@@ -142,4 +142,11 @@ class PhpStanTypeTest extends TestCase
         $this->assertEquals('array', $param->getSignatureType());
     }
 
+    public function testNullOrFalseBecomingNull(): void
+    {
+        $param = new PhpStanType('null|false');
+        $this->assertEquals('null', $param->getDocBlockType(Method::FALSY_TYPE));
+        $this->assertEquals('', $param->getSignatureType(Method::FALSY_TYPE));
+    }
+
 }

@@ -456,8 +456,8 @@ function mb_ord(string $string, string $encoding = null): int
 function mb_parse_str(string $string, ?array &$result): void
 {
     error_clear_last();
-    $result = \mb_parse_str($string, $result);
-    if ($result === false) {
+    $success = \mb_parse_str($string, $result);
+    if (! $success) {
         throw MbstringException::createFromPhpError();
     }
 }

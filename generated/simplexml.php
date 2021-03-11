@@ -14,7 +14,7 @@ use Safe\Exceptions\SimplexmlException;
  * simplexml_import_dom will return an object of
  * the specified class. That class should extend the
  * SimpleXMLElement class.
- * @return \SimpleXMLElement Returns a SimpleXMLElement.
+ * @return \SimpleXMLElement|false Returns a SimpleXMLElement.
  * @throws SimplexmlException
  *
  */
@@ -22,7 +22,7 @@ function simplexml_import_dom(\DOMNode $node, string $class_name = "SimpleXMLEle
 {
     error_clear_last();
     $result = \simplexml_import_dom($node, $class_name);
-    if ($result === false) {
+    if ($result === null) {
         throw SimplexmlException::createFromPhpError();
     }
     return $result;

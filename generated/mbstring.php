@@ -328,13 +328,24 @@ function mb_eregi_replace(string $pattern, string $replacement, string $string, 
 /**
  *
  *
- * @param string $type If type isn't specified or is specified to
- * "all", an array having the elements "internal_encoding",
- * "http_output", "http_input", "func_overload", "mail_charset",
- * "mail_header_encoding", "mail_body_encoding" will be returned.
+ * @param string $type If type is not specified or is specified as "all",
+ * "internal_encoding", "http_input",
+ * "http_output", "http_output_conv_mimetypes",
+ * "mail_charset", "mail_header_encoding",
+ * "mail_body_encoding", "illegal_chars",
+ * "encoding_translation", "language",
+ * "detect_order", "substitute_character"
+ * and "strict_detection"
+ * will be returned.
  *
- * If type is specified as "http_output",
- * "http_input", "internal_encoding", "func_overload",
+ * If type is specified as
+ * "internal_encoding", "http_input",
+ * "http_output", "http_output_conv_mimetypes",
+ * "mail_charset", "mail_header_encoding",
+ * "mail_body_encoding", "illegal_chars",
+ * "encoding_translation", "language",
+ * "detect_order", "substitute_character"
+ * or "strict_detection"
  * the specified setting parameter will be returned.
  * @return mixed An array of type information if type
  * is not specified, otherwise a specific type.

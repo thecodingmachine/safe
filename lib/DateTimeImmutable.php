@@ -35,6 +35,12 @@ class DateTimeImmutable extends \DateTimeImmutable
     //switch between regular datetime and safe version
     public static function createFromRegular(\DateTimeImmutable $datetime): self
     {
+        // fix php 8
+        if ($datetime instanceof DateTimeImmutable && $datetime->innerDateTime === null) {
+            $datetime->innerDateTime = new \DateTimeImmutable($datetime->format('Y-m-d H:i:s.u'), $datetime->getTimezone());
+            return $datetime;
+        }
+
         $safeDatetime = new self($datetime->format('Y-m-d H:i:s.u'), $datetime->getTimezone()); //we need to also update the wrapper to not break the operators '<' and '>'
         $safeDatetime->innerDateTime = $datetime; //to make sure we don't lose information because of the format().
         return $safeDatetime;
@@ -72,7 +78,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     public function format($format): string
     {
         /** @var string|false $result */
-        $result = $this->innerDateTime->format($format);
+        $result = $this->innerDateTime !== null ? $this->innerDateTime->format($format) : parent::format($format); // needed for php 8 createFromRegular
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }
@@ -252,7 +258,7 @@ class DateTimeImmutable extends \DateTimeImmutable
 
     public function getTimezone(): DateTimeZone
     {
-        return $this->innerDateTime->getTimezone();
+        return $this->innerDateTime !== null ? $this->innerDateTime->getTimezone() : parent::getTimezone(); // needed for php 8 createFromRegular
     }
 
     public function getTimestamp(): int

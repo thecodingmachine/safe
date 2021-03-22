@@ -14,7 +14,7 @@ use Safe\Exceptions\SimplexmlException;
  * simplexml_import_dom will return an object of
  * the specified class. That class should extend the
  * SimpleXMLElement class.
- * @return \SimpleXMLElement|false Returns a SimpleXMLElement.
+ * @return \SimpleXMLElement Returns a SimpleXMLElement.
  * @throws SimplexmlException
  *
  */

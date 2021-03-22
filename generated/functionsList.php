@@ -973,6 +973,7 @@ return [
     'ssh2_publickey_remove',
     'ssh2_scp_recv',
     'ssh2_scp_send',
+    'ssh2_send_eof',
     'ssh2_sftp',
     'ssh2_sftp_chmod',
     'ssh2_sftp_mkdir',

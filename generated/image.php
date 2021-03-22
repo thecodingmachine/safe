@@ -1837,15 +1837,15 @@ function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color):
  * @param float $angle Rotation angle, in degrees. The rotation angle is interpreted as the
  * number of degrees to rotate the image anticlockwise.
  * @param int $bgd_color Specifies the color of the uncovered zone after the rotation
- * @param int $dummy This parameter is unused.
+ * @param bool $ignore_transparent This parameter is unused.
  * @return resource Returns an image resource for the rotated image.
  * @throws ImageException
  *
  */
-function imagerotate($image, float $angle, int $bgd_color, int $dummy = 0)
+function imagerotate($image, float $angle, int $bgd_color, bool $ignore_transparent = false)
 {
     error_clear_last();
-    $result = \imagerotate($image, $angle, $bgd_color, $dummy);
+    $result = \imagerotate($image, $angle, $bgd_color, $ignore_transparent);
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }

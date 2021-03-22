@@ -983,6 +983,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'ssh2_publickey_remove' => 'Safe\ssh2_publickey_remove',
             'ssh2_scp_recv' => 'Safe\ssh2_scp_recv',
             'ssh2_scp_send' => 'Safe\ssh2_scp_send',
+            'ssh2_send_eof' => 'Safe\ssh2_send_eof',
             'ssh2_sftp' => 'Safe\ssh2_sftp',
             'ssh2_sftp_chmod' => 'Safe\ssh2_sftp_chmod',
             'ssh2_sftp_mkdir' => 'Safe\ssh2_sftp_mkdir',

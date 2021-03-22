@@ -544,6 +544,27 @@ function ssh2_scp_send($session, string $local_file, string $remote_file, int $c
 
 
 /**
+ * Sends an EOF to the stream; this is typically used to close standard input,
+ * while keeping output and error alive. For example, one can send a remote
+ * process some data over standard input, close it to start processing, and
+ * still be able to read out the results without creating additional files.
+ *
+ * @param resource $channel An SSH stream; can be acquired through functions like ssh2_fetch_stream
+ * or ssh2_connect.
+ * @throws Ssh2Exception
+ *
+ */
+function ssh2_send_eof($channel): void
+{
+    error_clear_last();
+    $result = \ssh2_send_eof($channel);
+    if ($result === false) {
+        throw Ssh2Exception::createFromPhpError();
+    }
+}
+
+
+/**
  * Attempts to change the mode of the specified file to that given in
  * mode.
  *

@@ -55,9 +55,9 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @param DateTimeZone|null $timezone
      * @throws DatetimeException
      */
-    public static function createFromFormat($format, $time, $timezone = null): self
+    public static function createFromFormat($format, $time, $timezone = null)
     {
-        $datetime = parent::createFromFormat($format, $time, $timezone);
+        $datetime = \DateTimeImmutable::createFromFormat($format, $time, $timezone);
         if ($datetime === false) {
             throw DatetimeException::createFromPhpError();
         }

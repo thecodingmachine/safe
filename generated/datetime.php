@@ -233,10 +233,10 @@ function date_sun_info(int $timestamp, float $latitude, float $longitude): array
  * @throws DatetimeException
  *
  */
-function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, float $latitude = null, float $longitude = null, float $zenith = null, float $utcOffset = 0)
+function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, float $latitude = null, float $longitude = null, float $zenith = null, float $utcOffset = null)
 {
     error_clear_last();
-    if ($utcOffset !== 0) {
+    if ($utcOffset !== null) {
         $result = \date_sunrise($timestamp, $returnFormat, $latitude, $longitude, $zenith, $utcOffset);
     } elseif ($zenith !== null) {
         $result = \date_sunrise($timestamp, $returnFormat, $latitude, $longitude, $zenith);
@@ -336,10 +336,10 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, f
  * @throws DatetimeException
  *
  */
-function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, float $latitude = null, float $longitude = null, float $zenith = null, float $utcOffset = 0)
+function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, float $latitude = null, float $longitude = null, float $zenith = null, float $utcOffset = null)
 {
     error_clear_last();
-    if ($utcOffset !== 0) {
+    if ($utcOffset !== null) {
         $result = \date_sunset($timestamp, $returnFormat, $latitude, $longitude, $zenith, $utcOffset);
     } elseif ($zenith !== null) {
         $result = \date_sunset($timestamp, $returnFormat, $latitude, $longitude, $zenith);

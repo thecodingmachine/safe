@@ -558,7 +558,7 @@ function ps_delete($psdoc): void
  * Ends a page which was started with ps_begin_page.
  * Ending a page will leave the current drawing context, which e.g. requires
  * to reload fonts if they were loading within the page, and to set many
- * other drawing parameters like the line width, or color..
+ * other drawing parameters like the line width, or color.
  *
  * @param resource $psdoc Resource identifier of the postscript file
  * as returned by ps_new.

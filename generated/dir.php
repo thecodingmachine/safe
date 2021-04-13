@@ -106,10 +106,11 @@ function opendir(string $path, $context = null)
  * with opendir. If the directory handle is
  * not specified, the last link opened by opendir
  * is assumed.
+ * @return null Returns NULL on success.
  * @throws DirException
  *
  */
-function rewinddir($dir_handle = null): void
+function rewinddir($dir_handle = null)
 {
     error_clear_last();
     if ($dir_handle !== null) {
@@ -120,6 +121,7 @@ function rewinddir($dir_handle = null): void
     if ($result === false) {
         throw DirException::createFromPhpError();
     }
+    return $result;
 }
 
 

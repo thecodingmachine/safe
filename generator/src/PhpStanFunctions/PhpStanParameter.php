@@ -15,11 +15,6 @@ class PhpStanParameter
      * @var PhpStanType
      */
     private $type;
-    /**
-     * Whether the parameter is "write only" (applies only to "by reference" parameters)
-     * @var bool
-     */
-    private $writeOnly = false;
 
     public function __construct(string $name, string $type)
     {

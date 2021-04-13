@@ -301,7 +301,7 @@ function imagearc($image, int $cx, int $cy, int $width, int $height, int $start,
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param mixed $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  *
  * NULL is invalid if the compressed arguments is
  * not used.
@@ -1468,11 +1468,11 @@ function imagegammacorrect($image, float $inputgamma, float $outputgamma): void
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param string|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @throws ImageException
  *
  */
-function imagegd($image, ?string $to = null): void
+function imagegd($image, $to = null): void
 {
     error_clear_last();
     $result = \imagegd($image, $to);
@@ -1487,7 +1487,7 @@ function imagegd($image, ?string $to = null): void
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param string|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @param int $chunk_size Chunk size.
  * @param int $type Either IMG_GD2_RAW or
  * IMG_GD2_COMPRESSED. Default is
@@ -1495,7 +1495,7 @@ function imagegd($image, ?string $to = null): void
  * @throws ImageException
  *
  */
-function imagegd2($image, ?string $to = null, int $chunk_size = 128, int $type = IMG_GD2_RAW): void
+function imagegd2($image, $to = null, int $chunk_size = 128, int $type = IMG_GD2_RAW): void
 {
     error_clear_last();
     $result = \imagegd2($image, $to, $chunk_size, $type);
@@ -1519,11 +1519,11 @@ function imagegd2($image, ?string $to = null, int $chunk_size = 128, int $type =
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param string|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @throws ImageException
  *
  */
-function imagegif($image, ?string $to = null): void
+function imagegif($image, $to = null): void
 {
     error_clear_last();
     if ($to !== null) {
@@ -1581,14 +1581,14 @@ function imagegrabwindow(int $window_handle, int $client_area = 0)
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param string|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @param int $quality quality is optional, and ranges from 0 (worst
  * quality, smaller file) to 100 (best quality, biggest file). The
  * default (-1) uses the default IJG quality value (about 75).
  * @throws ImageException
  *
  */
-function imagejpeg($image, ?string $to = null, int $quality = -1): void
+function imagejpeg($image, $to = null, int $quality = -1): void
 {
     error_clear_last();
     if ($quality !== -1) {
@@ -1766,7 +1766,7 @@ function imageloadfont(string $file): int
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param string|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  *
  * NULL is invalid if the quality and
  * filters arguments are not used.
@@ -1782,7 +1782,7 @@ function imageloadfont(string $file): int
  * @throws ImageException
  *
  */
-function imagepng($image, ?string $to = null, int $quality = -1, int $filters = -1): void
+function imagepng($image, $to = null, int $quality = -1, int $filters = -1): void
 {
     error_clear_last();
     if ($filters !== -1) {
@@ -1837,15 +1837,15 @@ function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color):
  * @param float $angle Rotation angle, in degrees. The rotation angle is interpreted as the
  * number of degrees to rotate the image anticlockwise.
  * @param int $bgd_color Specifies the color of the uncovered zone after the rotation
- * @param int $dummy This parameter is unused.
+ * @param bool $ignore_transparent This parameter is unused.
  * @return resource Returns an image resource for the rotated image.
  * @throws ImageException
  *
  */
-function imagerotate($image, float $angle, int $bgd_color, int $dummy = 0)
+function imagerotate($image, float $angle, int $bgd_color, bool $ignore_transparent = false)
 {
     error_clear_last();
-    $result = \imagerotate($image, $angle, $bgd_color, $dummy);
+    $result = \imagerotate($image, $angle, $bgd_color, $ignore_transparent);
     if ($result === false) {
         throw ImageException::createFromPhpError();
     }
@@ -2477,14 +2477,14 @@ function imagettftext($image, float $size, float $angle, int $x, int $y, int $co
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param string|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @param int $foreground You can set the foreground color with this parameter by setting an
  * identifier obtained from imagecolorallocate.
  * The default foreground color is black.
  * @throws ImageException
  *
  */
-function imagewbmp($image, ?string $to = null, int $foreground = null): void
+function imagewbmp($image, $to = null, int $foreground = null): void
 {
     error_clear_last();
     if ($foreground !== null) {
@@ -2505,13 +2505,13 @@ function imagewbmp($image, ?string $to = null, int $foreground = null): void
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param string|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
+ * @param string|resource|null $to The path or an open stream resource (which is automatically being closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be outputted directly.
  * @param int $quality quality ranges from 0 (worst
  * quality, smaller file) to 100 (best quality, biggest file).
  * @throws ImageException
  *
  */
-function imagewebp($image, ?string $to = null, int $quality = 80): void
+function imagewebp($image, $to = null, int $quality = 80): void
 {
     error_clear_last();
     if ($quality !== 80) {
@@ -2533,7 +2533,7 @@ function imagewebp($image, ?string $to = null, int $quality = 80): void
  *
  * @param resource $image An image resource, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param string|null $filename The path to save the file to, given as string. If NULL, the raw image stream will be output directly.
+ * @param string|resource|null $filename The path to save the file to, given as string. If NULL, the raw image stream will be output directly.
  *
  * The filename (without the .xbm extension) is also
  * used for the C identifiers of the XBM, whereby non
@@ -2547,7 +2547,7 @@ function imagewebp($image, ?string $to = null, int $quality = 80): void
  * @throws ImageException
  *
  */
-function imagexbm($image, ?string $filename, int $foreground = null): void
+function imagexbm($image, $filename, int $foreground = null): void
 {
     error_clear_last();
     if ($foreground !== null) {

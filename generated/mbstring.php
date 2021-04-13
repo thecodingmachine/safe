@@ -35,7 +35,7 @@ function mb_chr(int $codepoint, string $encoding = null): string
  * If string is an array, all its string values will be
  * converted recursively.
  *
- * @param string $string The string or array being encoded.
+ * @param string|array $string The string or array being encoded.
  * @param string $to_encoding The type of encoding that string is being converted to.
  * @param mixed $from_encoding Is specified by character code names before conversion. It is either
  * an array, or a comma separated enumerated list.
@@ -45,11 +45,11 @@ function mb_chr(int $codepoint, string $encoding = null): string
  *
  * See supported
  * encodings.
- * @return string The encoded string or array on success.
+ * @return string|array The encoded string or array on success.
  * @throws MbstringException
  *
  */
-function mb_convert_encoding(string $string, string $to_encoding, $from_encoding = null): string
+function mb_convert_encoding($string, string $to_encoding, $from_encoding = null)
 {
     error_clear_last();
     if ($from_encoding !== null) {
@@ -328,13 +328,24 @@ function mb_eregi_replace(string $pattern, string $replacement, string $string, 
 /**
  *
  *
- * @param string $type If type isn't specified or is specified to
- * "all", an array having the elements "internal_encoding",
- * "http_output", "http_input", "func_overload", "mail_charset",
- * "mail_header_encoding", "mail_body_encoding" will be returned.
+ * @param string $type If type is not specified or is specified as "all",
+ * "internal_encoding", "http_input",
+ * "http_output", "http_output_conv_mimetypes",
+ * "mail_charset", "mail_header_encoding",
+ * "mail_body_encoding", "illegal_chars",
+ * "encoding_translation", "language",
+ * "detect_order", "substitute_character"
+ * and "strict_detection"
+ * will be returned.
  *
- * If type is specified as "http_output",
- * "http_input", "internal_encoding", "func_overload",
+ * If type is specified as
+ * "internal_encoding", "http_input",
+ * "http_output", "http_output_conv_mimetypes",
+ * "mail_charset", "mail_header_encoding",
+ * "mail_body_encoding", "illegal_chars",
+ * "encoding_translation", "language",
+ * "detect_order", "substitute_character"
+ * or "strict_detection"
  * the specified setting parameter will be returned.
  * @return mixed An array of type information if type
  * is not specified, otherwise a specific type.

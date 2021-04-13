@@ -273,12 +273,12 @@ function ini_get(string $option): string
  * @param string $option Not all the available options can be changed using
  * ini_set. There is a list of all available options
  * in the appendix.
- * @param string|int|float|bool $value The new value for the option.
+ * @param string $value The new value for the option.
  * @return string Returns the old value on success, FALSE on failure.
  * @throws InfoException
  *
  */
-function ini_set(string $option, $value): string
+function ini_set(string $option, string $value): string
 {
     error_clear_last();
     $result = \ini_set($option, $value);
@@ -301,7 +301,7 @@ function ini_set(string $option, $value): string
  * cgi-fcgi, cli, cli-server,
  * embed, fpm-fcgi,
  * litespeed,
- * nsapi, phpdbg.
+ * phpdbg.
  * @throws InfoException
  *
  */

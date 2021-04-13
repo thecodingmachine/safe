@@ -843,9 +843,8 @@ function curl_multi_init()
  *
  * TRUE to follow any
  * "Location: " header that the server sends as
- * part of the HTTP header (note this is recursive, PHP will follow as
- * many "Location: " headers that it is sent,
- * unless CURLOPT_MAXREDIRS is set).
+ * part of the HTTP header.
+ * See also CURLOPT_MAXREDIRS.
  *
  *
  *
@@ -1481,6 +1480,9 @@ function curl_multi_init()
  *
  * The maximum amount of HTTP redirections to follow. Use this option
  * alongside CURLOPT_FOLLOWLOCATION.
+ * Default value of 20 is set to prevent infinite redirects.
+ * Setting to -1 allows inifinite redirects, and 0
+ * refuses all redirects.
  *
  *
  *
@@ -3089,7 +3091,7 @@ function curl_share_errno($share_handle): int
  *
  *
  *
- * @param string $value
+ * @param mixed $value
  *
  *
  *
@@ -3126,7 +3128,7 @@ function curl_share_errno($share_handle): int
  * @throws CurlException
  *
  */
-function curl_share_setopt($share_handle, int $option, string $value): void
+function curl_share_setopt($share_handle, int $option, $value): void
 {
     error_clear_last();
     $result = \curl_share_setopt($share_handle, $option, $value);

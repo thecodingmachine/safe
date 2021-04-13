@@ -32,6 +32,13 @@ class PhpStanType
 
     public function __construct(string $data, bool $writeOnly = false)
     {
+        //weird case: null|false => null
+        if ($data === 'null|false') {
+            $this->nullable = false;
+            $this->falsable = true;
+            $this->types = ['null'];
+            return;
+        }
         //first we try to parse the type string to have a list as clean as possible.
         $nullable = false;
         $falsable = false;
@@ -50,7 +57,9 @@ class PhpStanType
             $falsable = true;
             \array_splice($returnTypes, (int) $falsablePosition, 1);
         }
-        if (\count($returnTypes) === 0) {
+        /** @var int $count */
+        $count = \count($returnTypes);
+        if ($count === 0) {
             throw new \RuntimeException('Error when trying to extract parameter type');
         }
         foreach ($returnTypes as &$returnType) {
@@ -108,6 +117,8 @@ class PhpStanType
                 $type = 'iterable'; //generics cannot be typehinted and have to be turned into iterable
             } elseif (\strpos($type, 'resource') !== false) {
                 $type = ''; // resource cant be typehinted
+            } elseif (\strpos($type, 'null') !== false) {
+                $type = ''; // null is a real typehint
             }
         }
         

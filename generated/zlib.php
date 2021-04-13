@@ -302,10 +302,14 @@ function gzfile(string $filename, int $use_include_path = 0): array
  * @throws ZlibException
  *
  */
-function gzgets($stream, int $length = 1024): string
+function gzgets($stream, int $length = null): string
 {
     error_clear_last();
-    $result = \gzgets($stream, $length);
+    if ($length !== null) {
+        $result = \gzgets($stream, $length);
+    } else {
+        $result = \gzgets($stream);
+    }
     if ($result === false) {
         throw ZlibException::createFromPhpError();
     }

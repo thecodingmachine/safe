@@ -381,6 +381,53 @@ function ssh2_exec($session, string $command, string $pty = null, array $env = n
 
 
 /**
+ * Accepts a connection created by a listener.
+ *
+ * @param resource $listener An SSH2 Listener resource, obtained from a call to ssh2_forward_listen.
+ * @return  Returns a stream resource.
+ * @throws Ssh2Exception
+ *
+ */
+function ssh2_forward_accept($listener)
+{
+    error_clear_last();
+    $result = \ssh2_forward_accept($listener);
+    if ($result === false) {
+        throw Ssh2Exception::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Binds a port on the remote server and listen for connections.
+ *
+ * @param resource $session An SSH Session resource, obtained from a call to ssh2_connect.
+ * @param int $port The port of the remote server.
+ * @param string $host
+ * @param int $max_connections
+ * @return  Returns an SSH2 Listener.
+ * @throws Ssh2Exception
+ *
+ */
+function ssh2_forward_listen($session, int $port, string $host = null, int $max_connections = 16)
+{
+    error_clear_last();
+    if ($max_connections !== 16) {
+        $result = \ssh2_forward_listen($session, $port, $host, $max_connections);
+    } elseif ($host !== null) {
+        $result = \ssh2_forward_listen($session, $port, $host);
+    } else {
+        $result = \ssh2_forward_listen($session, $port);
+    }
+    if ($result === false) {
+        throw Ssh2Exception::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  *
  *
  * @param resource $pkey Publickey Subsystem resource created by ssh2_publickey_init.
@@ -497,6 +544,27 @@ function ssh2_scp_send($session, string $local_file, string $remote_file, int $c
 
 
 /**
+ * Sends an EOF to the stream; this is typically used to close standard input,
+ * while keeping output and error alive. For example, one can send a remote
+ * process some data over standard input, close it to start processing, and
+ * still be able to read out the results without creating additional files.
+ *
+ * @param resource $channel An SSH stream; can be acquired through functions like ssh2_fetch_stream
+ * or ssh2_connect.
+ * @throws Ssh2Exception
+ *
+ */
+function ssh2_send_eof($channel): void
+{
+    error_clear_last();
+    $result = \ssh2_send_eof($channel);
+    if ($result === false) {
+        throw Ssh2Exception::createFromPhpError();
+    }
+}
+
+
+/**
  * Attempts to change the mode of the specified file to that given in
  * mode.
  *
@@ -526,6 +594,7 @@ function ssh2_sftp_chmod($sftp, string $filename, int $mode): void
  * @param resource $sftp An SSH2 SFTP resource opened by ssh2_sftp.
  * @param string $dirname Path of the new directory.
  * @param int $mode Permissions on the new directory.
+ * The actual mode is affected by the current umask.
  * @param bool $recursive If recursive is TRUE any parent directories
  * required for dirname will be automatically created as well.
  * @throws Ssh2Exception
@@ -634,6 +703,45 @@ function ssh2_sftp($session)
 {
     error_clear_last();
     $result = \ssh2_sftp($session);
+    if ($result === false) {
+        throw Ssh2Exception::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * Open a shell at the remote end and allocate a stream for it.
+ *
+ * @param resource $session An SSH connection link identifier, obtained from a call to
+ * ssh2_connect.
+ * @param string $term_type term_type should correspond to one of the
+ * entries in the target system's /etc/termcap file.
+ * @param array $env env may be passed as an associative array of
+ * name/value pairs to set in the target environment.
+ * @param int $width Width of the virtual terminal.
+ * @param int $height Height of the virtual terminal.
+ * @param int $width_height_type width_height_type should be one of
+ * SSH2_TERM_UNIT_CHARS or
+ * SSH2_TERM_UNIT_PIXELS.
+ * @return resource Returns a stream resource on success.
+ * @throws Ssh2Exception
+ *
+ */
+function ssh2_shell($session, string $term_type = "vanilla", array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
+{
+    error_clear_last();
+    if ($width_height_type !== SSH2_TERM_UNIT_CHARS) {
+        $result = \ssh2_shell($session, $term_type, $env, $width, $height, $width_height_type);
+    } elseif ($height !== 25) {
+        $result = \ssh2_shell($session, $term_type, $env, $width, $height);
+    } elseif ($width !== 80) {
+        $result = \ssh2_shell($session, $term_type, $env, $width);
+    } elseif ($env !== null) {
+        $result = \ssh2_shell($session, $term_type, $env);
+    } else {
+        $result = \ssh2_shell($session, $term_type);
+    }
     if ($result === false) {
         throw Ssh2Exception::createFromPhpError();
     }

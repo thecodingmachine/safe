@@ -9,6 +9,19 @@
 Safe PHP
 ========
 
+# This project is deprecated 
+
+
+
+Because of how this project needs to be in sync with the official PHP documentation, maintaining a set of functions for PHP 7 is simply too difficult, which means we have to drop support for versions below PHP 8.
+
+On the other hand, because this project is used in other libraries, I cannot actually change the PHP dependency in composer.json to ^8.0 without risking some huge versions conflicts.
+
+So the only solution I see is to create a new project: [Safe8](https://github.com/thecodingmachine/safe8/).
+
+The old safe library will stay on Packagist, but it won't be updated anymore.
+
+
 **Work in progress**
 
 A set of core PHP functions rewritten to throw exceptions instead of returning `false` when an error is encountered.

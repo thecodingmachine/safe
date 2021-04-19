@@ -1,6 +1,6 @@
 {
-    "name": "thecodingmachine/safe",
-    "description": "PHP core functions that throw exceptions instead of returning FALSE on error",
+    "name": "thecodingmachine/safe8",
+    "description": "PHP8 core functions that throw exceptions instead of returning FALSE on error",
     "license": "MIT",
     "autoload": {
         "psr-4": {

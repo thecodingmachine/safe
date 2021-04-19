@@ -1,6 +1,6 @@
 {
-  "name": "thecodingmachine/safe-generator",
-  "description": "Generated the files for thecodingmachine/safe",
+  "name": "thecodingmachine/safe8-generator",
+  "description": "Generated the files for thecodingmachine/safe8",
   "autoload": {
     "psr-4": {
       "Safe\\": "src/"

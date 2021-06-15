@@ -24,7 +24,7 @@ class DateTime extends \DateTime
      */
     public static function createFromFormat($format, $time, $timezone = null): self
     {
-        $datetime = parent::createFromFormat($format, $time, $timezone);
+        $datetime = \DateTime::createFromFormat($format, $time, $timezone);
         if ($datetime === false) {
             throw DatetimeException::createFromPhpError();
         }

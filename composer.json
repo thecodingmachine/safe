@@ -74,7 +74,6 @@
             "generated/sem.php",
             "generated/session.php",
             "generated/shmop.php",
-            "generated/simplexml.php",
             "generated/sockets.php",
             "generated/sodium.php",
             "generated/solr.php",

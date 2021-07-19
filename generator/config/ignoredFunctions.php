@@ -18,5 +18,5 @@ return [
     'filter_has_var', // this function is meant to return a boolean
     'array_multisort', // this function is too buggy, see PR #113 on GitHub
     'imagegrabwindow',
-    'get_headers'
+    'get_headers',
 ];

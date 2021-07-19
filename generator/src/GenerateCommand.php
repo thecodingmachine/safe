@@ -37,7 +37,7 @@ class GenerateCommand extends Command
         $fileCreator = new FileCreator();
         $fileCreator->generatePhpFile($functions, __DIR__ . '/../../generated/');
         $fileCreator->generateFunctionsList($functions, __DIR__ . '/../../generated/functionsList.php');
-        $fileCreator->generateRectorFileForZeroPointSeven($functions, __DIR__ . '/../../rector-migrate.php');
+        $fileCreator->generateRectorFile($functions, __DIR__ . '/../../rector-migrate.php');
 
 
         $modules = [];

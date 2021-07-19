@@ -1,6 +1,8 @@
 <?php
 namespace Safe\Exceptions;
 
+use function error_get_last;
+
 class SimplexmlException extends \ErrorException implements SafeExceptionInterface
 {
     public static function createFromPhpError(): self

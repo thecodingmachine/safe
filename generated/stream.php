@@ -8,9 +8,7 @@ use Safe\Exceptions\StreamException;
  * Sets parameters on the specified context.
  *
  * @param resource $context The stream or context to apply the parameters too.
- * @param array $params An array of parameters to set.
- *
- * params should be an associative array of the structure:
+ * @param array $params An associative array of parameters to be set in the following format:
  * $params['paramname'] = "paramvalue";.
  * @throws StreamException
  *
@@ -554,6 +552,7 @@ function stream_supports_lock($stream): void
  * fread etc.).
  *
  * @param string $protocol The wrapper name to be registered.
+ * Valid protocol names must contain alphanumerics, dots (.), plusses (+), or hyphens (-) only.
  * @param string $class The classname which implements the protocol.
  * @param int $flags Should be set to STREAM_IS_URL if
  * protocol is a URL protocol. Default is 0, local

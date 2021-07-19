@@ -168,7 +168,7 @@ function oci_bind_array_by_name($statement, string $name, array &$var_array, int
  * SQL statement, as this can be a security risk if unfiltered user
  * text is concatenated.
  *
- * @param resource $statement A valid OCI8 statement identifer.
+ * @param resource $statement A valid OCI8 statement identifier.
  * @param string $bv_name The colon-prefixed bind variable placeholder used in the
  * statement.  The colon is optional
  * in bv_name. Oracle does not use question
@@ -434,7 +434,7 @@ function oci_commit($connection): void
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * Further options were introduced with Oracle 19c, including timeout and keep-alive
  * settings.  Refer to Oracle documentation.  Service names can be found by running
  * the Oracle utility lsnrctl status on the database server
  * machine.
@@ -869,7 +869,7 @@ function oci_field_type($statement, $field)
 /**
  * Frees a descriptor allocated by oci_new_descriptor.
  *
- * @param resource $descriptor
+ * @param resource $descriptor Descriptor allocated by oci_new_descriptor.
  * @throws Oci8Exception
  *
  */
@@ -960,7 +960,7 @@ function oci_new_collection($connection, string $tdo, string $schema = null)
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * Further options were introduced with Oracle 19c, including timeout and keep-alive
  * settings.  Refer to Oracle documentation.  Service names can be found by running
  * the Oracle utility lsnrctl status on the database server
  * machine.
@@ -1182,7 +1182,7 @@ function oci_parse($connection, string $sql_text)
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * Further options were introduced with Oracle 19c, including timeout and keep-alive
  * settings.  Refer to Oracle documentation.  Service names can be found by running
  * the Oracle utility lsnrctl status on the database server
  * machine.

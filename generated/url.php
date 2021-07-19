@@ -29,35 +29,6 @@ function base64_decode(string $string, bool $strict = false): string
 
 
 /**
- * get_headers returns an array with the headers sent
- * by the server in response to a HTTP request.
- *
- * @param string $url The target URL.
- * @param int $format If the optional format parameter is set to non-zero,
- * get_headers parses the response and sets the
- * array's keys.
- * @param resource $context A valid context resource created with
- * stream_context_create.
- * @return array Returns an indexed or associative array with the headers.
- * @throws UrlException
- *
- */
-function get_headers(string $url, int $format = 0, $context = null): array
-{
-    error_clear_last();
-    if ($context !== null) {
-        $result = \get_headers($url, $format, $context);
-    } else {
-        $result = \get_headers($url, $format);
-    }
-    if ($result === false) {
-        throw UrlException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Opens filename and parses it line by line for
  * &lt;meta&gt; tags in the file. The parsing stops at
  * &lt;/head&gt;.
@@ -112,7 +83,7 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
  * The values of the array elements are not URL decoded.
  *
  * This function is not meant to validate
- * the given URL, it only breaks it up into the above listed parts. Partial
+ * the given URL, it only breaks it up into the above listed parts. Partial and invalid
  * URLs are also accepted, parse_url tries its best to
  * parse them correctly.
  *

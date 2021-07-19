@@ -151,7 +151,8 @@ function socket_bind($socket, string $address, int $port = 0): void
  * socket, which must be Socket
  * instance created with socket_create.
  *
- * @param resource $socket
+ * @param resource $socket A Socket instance created with
+ * socket_create.
  * @param string $address The address parameter is either an IPv4 address
  * in dotted-quad notation (e.g. 127.0.0.1) if
  * socket is AF_INET, a valid

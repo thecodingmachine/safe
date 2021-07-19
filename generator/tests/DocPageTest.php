@@ -28,7 +28,7 @@ class DocPageTest extends TestCase
         $this->assertTrue($fsockopen->detectFalsyFunction());
         $this->assertFalse($arrayReplace->detectFalsyFunction());
         $this->assertTrue($mktime->detectFalsyFunction());
-        $this->assertFalse($date->detectFalsyFunction());
+        $this->assertTrue($date->detectFalsyFunction());
     }
 
     public function testDetectNullsyFunction()

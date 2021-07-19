@@ -246,11 +246,7 @@ function gzdeflate(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_
  * @param int $encoding The encoding mode. Can be FORCE_GZIP (the default)
  * or FORCE_DEFLATE.
  *
- * Prior to PHP 5.4.0, using FORCE_DEFLATE results in
- * a standard zlib deflated string (inclusive zlib headers) after a gzip
- * file header but without the trailing crc32 checksum.
- *
- * In PHP 5.4.0 and later, FORCE_DEFLATE generates
+ * FORCE_DEFLATE generates
  * RFC 1950 compliant output, consisting of a zlib header, the deflated
  * data, and an Adler checksum.
  * @return string The encoded string.
@@ -470,11 +466,6 @@ function gzuncompress(string $data, int $max_length = 0): string
  * stop after length (uncompressed) bytes have been
  * written or the end of data is reached,
  * whichever comes first.
- *
- * Note that if the length argument is given,
- * then the magic_quotes_runtime
- * configuration option will be ignored and no slashes will be
- * stripped from data.
  * @return int Returns the number of (uncompressed) bytes written to the given gz-file
  * stream.
  * @throws ZlibException

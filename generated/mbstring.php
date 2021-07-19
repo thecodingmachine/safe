@@ -5,11 +5,17 @@ namespace Safe;
 use Safe\Exceptions\MbstringException;
 
 /**
+ * Returns a string containing the character specified by the Unicode code point value,
+ * encoded in the specified encoding.
  *
+ * This function complements mb_ord.
  *
- * @param int $codepoint
- * @param string $encoding
- * @return string Returns a specific character.
+ * @param int $codepoint A Unicode codepoint value, e.g. 128024 for U+1F418 ELEPHANT
+ * @param string $encoding The encoding
+ * parameter is the character encoding. If it is omitted or NULL, the internal character
+ * encoding value will be used.
+ * @return string A string containing the requested character, if it can be represented in the specified
+ * encoding.
  * @throws MbstringException
  *
  */
@@ -328,13 +334,24 @@ function mb_eregi_replace(string $pattern, string $replacement, string $string, 
 /**
  *
  *
- * @param string $type If type isn't specified or is specified to
- * "all", an array having the elements "internal_encoding",
- * "http_output", "http_input", "func_overload", "mail_charset",
- * "mail_header_encoding", "mail_body_encoding" will be returned.
+ * @param string $type If type is not specified or is specified as "all",
+ * "internal_encoding", "http_input",
+ * "http_output", "http_output_conv_mimetypes",
+ * "mail_charset", "mail_header_encoding",
+ * "mail_body_encoding", "illegal_chars",
+ * "encoding_translation", "language",
+ * "detect_order", "substitute_character"
+ * and "strict_detection"
+ * will be returned.
  *
- * If type is specified as "http_output",
- * "http_input", "internal_encoding", "func_overload",
+ * If type is specified as
+ * "internal_encoding", "http_input",
+ * "http_output", "http_output_conv_mimetypes",
+ * "mail_charset", "mail_header_encoding",
+ * "mail_body_encoding", "illegal_chars",
+ * "encoding_translation", "language",
+ * "detect_order", "substitute_character"
+ * or "strict_detection"
  * the specified setting parameter will be returned.
  * @return mixed An array of type information if type
  * is not specified, otherwise a specific type.
@@ -417,11 +434,15 @@ function mb_internal_encoding(string $encoding = null)
 
 
 /**
+ * Returns the Unicode code point value of the given character.
  *
+ * This function complements mb_chr.
  *
- * @param string $string
- * @param string $encoding
- * @return int Returns a code point of character.
+ * @param string $string A string
+ * @param string $encoding The encoding
+ * parameter is the character encoding. If it is omitted or NULL, the internal character
+ * encoding value will be used.
+ * @return int The Unicode code point for the first character of string.
  * @throws MbstringException
  *
  */

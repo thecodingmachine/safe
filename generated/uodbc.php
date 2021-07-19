@@ -390,12 +390,12 @@ function odbc_exec($odbc, string $query)
  * Executes a statement prepared with odbc_prepare.
  *
  * @param resource $statement The result id resource, from odbc_prepare.
- * @param array $params Parameters in parameter_array will be
+ * @param array $params Parameters in params will be
  * substituted for placeholders in the prepared statement in order.
  * Elements of this array will be converted to strings by calling this
  * function.
  *
- * Any parameters in parameter_array which
+ * Any parameters in params which
  * start and end with single quotes will be taken as the name of a
  * file to read and send to the database server as the data for the
  * appropriate placeholder.

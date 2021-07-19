@@ -358,38 +358,6 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, fl
 
 
 /**
- * Returns a string formatted according to the given format string using the
- * given integer timestamp or the current time
- * if no timestamp is given.  In other words, timestamp
- * is optional and defaults to the value of time.
- *
- * @param string $format Format accepted by DateTimeInterface::format.
- * @param int $timestamp The optional timestamp parameter is an
- * int Unix timestamp that defaults to the current
- * local time if timestamp is omitted or NULL. In other
- * words, it defaults to the value of time.
- * @return string Returns a formatted date string. If a non-numeric value is used for
- * timestamp, FALSE is returned and an
- * E_WARNING level error is emitted.
- * @throws DatetimeException
- *
- */
-function date(string $format, int $timestamp = null): string
-{
-    error_clear_last();
-    if ($timestamp !== null) {
-        $result = \date($format, $timestamp);
-    } else {
-        $result = \date($format);
-    }
-    if ($result === false) {
-        throw DatetimeException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Identical to mktime except the passed parameters represents a
  * GMT date. gmmktime internally uses mktime
  * so only times valid in derived local time can be used.
@@ -634,8 +602,7 @@ function idate(string $format, int $timestamp = null): int
  * with values between 0-69 mapping to 2000-2069 and 70-100 to
  * 1970-2000. On systems where time_t is a 32bit signed integer, as
  * most common today, the valid range for year
- * is somewhere between 1901 and 2038. However, before PHP 5.1.0 this
- * range was limited from 1970 to 2038 on some systems (e.g. Windows).
+ * is somewhere between 1901 and 2038.
  * @return int mktime returns the Unix timestamp of the arguments
  * given.
  * If the arguments are invalid, the function returns FALSE.

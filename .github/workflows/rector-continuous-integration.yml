@@ -9,16 +9,14 @@ on:
 jobs:
 
   rector-continuous-integration:
-    name: "Check if refactoring can be done with rector/rector:~0.7.0"
+    name: "Check if refactoring can be done with rector/rector"
 
     runs-on: "ubuntu-latest"
 
     strategy:
       matrix:
         php-version:
-          - "7.2"
-          - "7.3"
-          - "7.4"
+          - "8.0"
 
         dependencies:
           - "highest"
@@ -34,13 +32,13 @@ jobs:
 
       - name: "Composer install"
         run: "composer install && composer rector && composer test"
-        working-directory: "generator/tests/rector/0.7"
+        working-directory: "generator/tests/rector"
 
       - name: "Run rector"
         run: "composer rector"
-        working-directory: "generator/tests/rector/0.7"
+        working-directory: "generator/tests/rector"
 
       - name: "Run tests"
         run: "composer test"
-        working-directory: "generator/tests/rector/0.7"
+        working-directory: "generator/tests/rector"
 

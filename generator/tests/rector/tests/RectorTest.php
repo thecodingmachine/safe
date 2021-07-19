@@ -8,6 +8,6 @@ final class RectorTest extends TestCase
     {
         $content = file_get_contents(__DIR__.'/../src/test.php');
 
-        $this->assertContains('Safe', $content);
+        self::assertStringContainsString('Safe', $content);
     }
 }

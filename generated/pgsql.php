@@ -814,7 +814,7 @@ function pg_lo_export($connection = null, int $oid = null, string $pathname = nu
  * @param  $object_id If an object_id is given the function
  * will try to create a large object with this id, else a free
  * object id is assigned by the server. The parameter
- * was added in PHP 5.3 and relies on functionality that first
+ * relies on functionality that first
  * appeared in PostgreSQL 8.1.
  * @return int The OID of the newly created large object.
  * @throws PgsqlException

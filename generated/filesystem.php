@@ -207,7 +207,7 @@ function fflush($stream): void
  * This function is similar to file, except that
  * file_get_contents returns the file in a
  * string, starting at the specified offset
- * up to maxlen bytes. On failure,
+ * up to length bytes. On failure,
  * file_get_contents will return FALSE.
  *
  * file_get_contents is the preferred way to read the
@@ -230,18 +230,18 @@ function fflush($stream): void
  * Seeking (offset) is not supported with remote files.
  * Attempting to seek on non-local files may work with small offsets, but this
  * is unpredictable because it works on the buffered stream.
- * @param int $maxlen Maximum length of data read. The default is to read until end
+ * @param int $length Maximum length of data read. The default is to read until end
  * of file is reached. Note that this parameter is applied to the
  * stream processed by the filters.
  * @return string The function returns the read data.
  * @throws FilesystemException
  *
  */
-function file_get_contents(string $filename, bool $use_include_path = false, $context = null, int $offset = 0, int $maxlen = null): string
+function file_get_contents(string $filename, bool $use_include_path = false, $context = null, int $offset = 0, int $length = null): string
 {
     error_clear_last();
-    if ($maxlen !== null) {
-        $result = \file_get_contents($filename, $use_include_path, $context, $offset, $maxlen);
+    if ($length !== null) {
+        $result = \file_get_contents($filename, $use_include_path, $context, $offset, $length);
     } elseif ($offset !== 0) {
         $result = \file_get_contents($filename, $use_include_path, $context, $offset);
     } elseif ($context !== null) {
@@ -694,9 +694,8 @@ function flock($stream, int $operation, ?int &$would_block = null): void
  *
  * 'w+'
  *
- * Open for reading and writing; place the file pointer at
- * the beginning of the file and truncate the file to zero
- * length.  If the file does not exist, attempt to create it.
+ * Open for reading and writing; otherwise it has the
+ * same behavior as 'w'.
  *
  *
  *
@@ -837,7 +836,7 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  * fsockopen (and not yet closed by
  * fclose).
  * @param array $fields An array of strings.
- * @param string $delimiter The optional delimiter parameter sets the field
+ * @param string $separator The optional separator parameter sets the field
  * delimiter (one character only).
  * @param string $enclosure The optional enclosure parameter sets the field
  * enclosure (one character only).
@@ -848,10 +847,10 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  * @throws FilesystemException
  *
  */
-function fputcsv($handle, array $fields, string $delimiter = ",", string $enclosure = '"', string $escape_char = "\\"): int
+function fputcsv($handle, array $fields, string $separator = ",", string $enclosure = '"', string $escape_char = "\\"): int
 {
     error_clear_last();
-    $result = \fputcsv($handle, $fields, $delimiter, $enclosure, $escape_char);
+    $result = \fputcsv($handle, $fields, $separator, $enclosure, $escape_char);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -971,11 +970,6 @@ function ftruncate($stream, int $size): void
  * stop after length bytes have been written or
  * the end of string is reached, whichever comes
  * first.
- *
- * Note that if the length argument is given,
- * then the magic_quotes_runtime
- * configuration option will be ignored and no slashes will be
- * stripped from string.
  * @return int
  * @throws FilesystemException
  *
@@ -1186,32 +1180,32 @@ function lstat(string $filename): array
 
 
 /**
- * Attempts to create the directory specified by pathname.
+ * Attempts to create the directory specified by directory.
  *
- * @param string $pathname The directory path.
- * @param int $mode The mode is 0777 by default, which means the widest possible
- * access. For more information on modes, read the details
+ * @param string $directory The directory path.
+ * @param int $permissions The permissions are 0777 by default, which means the widest possible
+ * access. For more information on permissions, read the details
  * on the chmod page.
  *
- * mode is ignored on Windows.
+ * permissions is ignored on Windows.
  *
- * Note that you probably want to specify the mode as an octal number,
- * which means it should have a leading zero. The mode is also modified
+ * Note that you probably want to specify the permissions as an octal number,
+ * which means it should have a leading zero. The permissions is also modified
  * by the current umask, which you can change using
  * umask.
  * @param bool $recursive Allows the creation of nested directories specified in the
- * pathname.
+ * directory.
  * @param resource $context
  * @throws FilesystemException
  *
  */
-function mkdir(string $pathname, int $mode = 0777, bool $recursive = false, $context = null): void
+function mkdir(string $directory, int $permissions = 0777, bool $recursive = false, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \mkdir($pathname, $mode, $recursive, $context);
+        $result = \mkdir($directory, $permissions, $recursive, $context);
     } else {
-        $result = \mkdir($pathname, $mode, $recursive);
+        $result = \mkdir($directory, $permissions, $recursive);
     }
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
@@ -1435,22 +1429,22 @@ function rewind($stream): void
 
 
 /**
- * Attempts to remove the directory named by dirname.
+ * Attempts to remove the directory named by directory.
  * The directory must be empty, and the relevant permissions must permit this.
  * A E_WARNING level error will be generated on failure.
  *
- * @param string $dirname Path to the directory.
+ * @param string $directory Path to the directory.
  * @param resource $context
  * @throws FilesystemException
  *
  */
-function rmdir(string $dirname, $context = null): void
+function rmdir(string $directory, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \rmdir($dirname, $context);
+        $result = \rmdir($directory, $context);
     } else {
-        $result = \rmdir($dirname);
+        $result = \rmdir($directory);
     }
     if ($result === false) {
         throw FilesystemException::createFromPhpError();

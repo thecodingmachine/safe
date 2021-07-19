@@ -90,6 +90,11 @@ use Safe\Exceptions\PasswordException;
  *
  *
  *
+ * Only available when PHP use libargon2, not with libsodium implementation.
+ *
+ *
+ *
+ *
  *
  * @param string $password The user's password.
  *

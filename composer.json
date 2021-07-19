@@ -36,6 +36,7 @@
             "generated/fpm.php",
             "generated/ftp.php",
             "generated/funchand.php",
+            "generated/gettext.php",
             "generated/gmp.php",
             "generated/gnupg.php",
             "generated/hash.php",
@@ -45,7 +46,6 @@
             "generated/image.php",
             "generated/imap.php",
             "generated/info.php",
-            "generated/ingres-ii.php",
             "generated/inotify.php",
             "generated/json.php",
             "generated/ldap.php",
@@ -56,8 +56,6 @@
             "generated/misc.php",
             "generated/mysql.php",
             "generated/mysqli.php",
-            "generated/mysqlndMs.php",
-            "generated/mysqlndQc.php",
             "generated/network.php",
             "generated/oci8.php",
             "generated/opcache.php",
@@ -76,8 +74,8 @@
             "generated/sem.php",
             "generated/session.php",
             "generated/shmop.php",
-            "generated/simplexml.php",
             "generated/sockets.php",
+            "generated/sodium.php",
             "generated/solr.php",
             "generated/spl.php",
             "generated/sqlsrv.php",
@@ -100,7 +98,7 @@
         ]
     },
     "require": {
-        "php": ">=7.2"
+        "php": "^8.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12",

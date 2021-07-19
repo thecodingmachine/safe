@@ -11,4 +11,7 @@ return [
     'openssl_encrypt',
     'readdir',
     'socket_write',
+    'simplexml_import_dom',
+    'simplexml_load_file',
+    'simplexml_load_string',
 ];

@@ -32,38 +32,6 @@ function readline_add_history(string $prompt): void
  * stream_select as it allows interleaving of IO and
  * user input, unlike readline.
  *
- *
- * Readline Callback Interface Example
- *
- * 10) {
- * $prompting = false;
- * readline_callback_handler_remove();
- * } else {
- * readline_callback_handler_install("[$c] Enter something: ", 'rl_callback');
- * }
- * }
- *
- * $c = 1;
- * $prompting = true;
- *
- * readline_callback_handler_install("[$c] Enter something: ", 'rl_callback');
- *
- * while ($prompting) {
- * $w = NULL;
- * $e = NULL;
- * $n = stream_select($r = array(STDIN), $w, $e, null);
- * if ($n && in_array(STDIN, $r)) {
- * // read a character, will call the callback when a newline is entered
- * readline_callback_read_char();
- * }
- * }
- *
- * echo "Prompting disabled. All done.\n";
- * ?>
- * ]]>
- *
- *
- *
  * @param string $prompt The prompt message.
  * @param callable $callback The callback function takes one parameter; the
  * user input returned.

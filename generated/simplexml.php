@@ -18,7 +18,7 @@ use Safe\Exceptions\SimplexmlException;
  * @throws SimplexmlException
  *
  */
-function simplexml_import_dom(\DOMNode $node, string $class_name = SimpleXMLElement::class): \SimpleXMLElement
+function simplexml_import_dom(\DOMNode $node, string $class_name = \SimpleXMLElement::class): \SimpleXMLElement
 {
     error_clear_last();
     $result = \simplexml_import_dom($node, $class_name);
@@ -47,7 +47,7 @@ function simplexml_import_dom(\DOMNode $node, string $class_name = SimpleXMLElem
  * @throws SimplexmlException
  *
  */
-function simplexml_load_file(string $filename, string $class_name = SimpleXMLElement::class, int $options = 0, string $namespace_or_prefix = "", bool $is_prefix = false): \SimpleXMLElement
+function simplexml_load_file(string $filename, string $class_name = \SimpleXMLElement::class, int $options = 0, string $namespace_or_prefix = "", bool $is_prefix = false): \SimpleXMLElement
 {
     error_clear_last();
     $result = \simplexml_load_file($filename, $class_name, $options, $namespace_or_prefix, $is_prefix);
@@ -76,7 +76,7 @@ function simplexml_load_file(string $filename, string $class_name = SimpleXMLEle
  * @throws SimplexmlException
  *
  */
-function simplexml_load_string(string $data, string $class_name = SimpleXMLElement::class, int $options = 0, string $namespace_or_prefix = "", bool $is_prefix = false): \SimpleXMLElement
+function simplexml_load_string(string $data, string $class_name = \SimpleXMLElement::class, int $options = 0, string $namespace_or_prefix = "", bool $is_prefix = false): \SimpleXMLElement
 {
     error_clear_last();
     $result = \simplexml_load_string($data, $class_name, $options, $namespace_or_prefix, $is_prefix);

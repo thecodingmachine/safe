@@ -554,6 +554,7 @@ function stream_supports_lock($stream): void
  * fread etc.).
  *
  * @param string $protocol The wrapper name to be registered.
+ * Valid protocol names must contain alphanumerics, dots (.), plusses (+), or hyphens (-) only.
  * @param string $class The classname which implements the protocol.
  * @param int $flags Should be set to STREAM_IS_URL if
  * protocol is a URL protocol. Default is 0, local

@@ -111,28 +111,6 @@ function apache_request_headers(): array
 
 
 /**
- * apache_reset_timeout resets the Apache write timer,
- * which defaults to 300 seconds. With set_time_limit(0);
- * ignore_user_abort(true) and periodic
- * apache_reset_timeout calls, Apache can theoretically
- * run forever.
- *
- * This function requires Apache 1.
- *
- * @throws ApacheException
- *
- */
-function apache_reset_timeout(): void
-{
-    error_clear_last();
-    $result = \apache_reset_timeout();
-    if ($result === false) {
-        throw ApacheException::createFromPhpError();
-    }
-}
-
-
-/**
  * Fetch all HTTP response headers.  Works in the
  * Apache, FastCGI, CLI, and FPM webservers.
  *

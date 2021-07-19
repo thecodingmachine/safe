@@ -434,7 +434,7 @@ function oci_commit($connection): void
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * Further options were introduced with Oracle 19c, including timeout and keep-alive
  * settings.  Refer to Oracle documentation.  Service names can be found by running
  * the Oracle utility lsnrctl status on the database server
  * machine.
@@ -960,7 +960,7 @@ function oci_new_collection($connection, string $tdo, string $schema = null)
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * Further options were introduced with Oracle 19c, including timeout and keep-alive
  * settings.  Refer to Oracle documentation.  Service names can be found by running
  * the Oracle utility lsnrctl status on the database server
  * machine.
@@ -1182,7 +1182,7 @@ function oci_parse($connection, string $sql_text)
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * Further options were introduced with Oracle 19c, including timeout and keep-alive
  * settings.  Refer to Oracle documentation.  Service names can be found by running
  * the Oracle utility lsnrctl status on the database server
  * machine.

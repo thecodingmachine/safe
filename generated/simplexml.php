@@ -22,7 +22,7 @@ function simplexml_import_dom(\DOMNode $node, string $class_name = "SimpleXMLEle
 {
     error_clear_last();
     $result = \simplexml_import_dom($node, $class_name);
-    if ($result === false) {
+    if ($result === null) {
         throw SimplexmlException::createFromPhpError();
     }
     return $result;

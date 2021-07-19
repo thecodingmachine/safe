@@ -36,6 +36,7 @@
             "generated/fpm.php",
             "generated/ftp.php",
             "generated/funchand.php",
+            "generated/gettext.php",
             "generated/gmp.php",
             "generated/gnupg.php",
             "generated/hash.php",
@@ -100,7 +101,7 @@
         ]
     },
     "require": {
-        "php": ">=7.2"
+        "php": "^8.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12",

@@ -123,7 +123,7 @@ to install `rector/rector`.
 Run
 
 ```bash
-vendor/bin/rector process src/ --config vendor/thecodingmachine/safe/rector-migrate-0.7.php
+vendor/bin/rector process src/ --config vendor/thecodingmachine/safe/rector-migrate.php
 ```
 
 to run `rector/rector`.

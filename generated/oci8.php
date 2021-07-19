@@ -168,7 +168,7 @@ function oci_bind_array_by_name($statement, string $name, array &$var_array, int
  * SQL statement, as this can be a security risk if unfiltered user
  * text is concatenated.
  *
- * @param resource $statement A valid OCI8 statement identifer.
+ * @param resource $statement A valid OCI8 statement identifier.
  * @param string $bv_name The colon-prefixed bind variable placeholder used in the
  * statement.  The colon is optional
  * in bv_name. Oracle does not use question
@@ -869,7 +869,7 @@ function oci_field_type($statement, $field)
 /**
  * Frees a descriptor allocated by oci_new_descriptor.
  *
- * @param resource $descriptor
+ * @param resource $descriptor Descriptor allocated by oci_new_descriptor.
  * @throws Oci8Exception
  *
  */

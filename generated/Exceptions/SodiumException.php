@@ -1,7 +1,7 @@
 <?php
 namespace Safe\Exceptions;
 
-class MysqlndQcException extends \ErrorException implements SafeExceptionInterface
+class SodiumException extends \ErrorException implements SafeExceptionInterface
 {
     public static function createFromPhpError(): self
     {

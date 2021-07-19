@@ -7,7 +7,7 @@ use Safe\Exceptions\MiscException;
 /**
  * Defines a named constant at runtime.
  *
- * @param string $name The name of the constant.
+ * @param string $constant_name The name of the constant.
  *
  * It is possible to define constants with reserved or
  * even invalid names, whose value can (only) be retrieved with
@@ -28,10 +28,10 @@ use Safe\Exceptions\MiscException;
  * @throws MiscException
  *
  */
-function define(string $name, $value, bool $case_insensitive = false): void
+function define(string $constant_name, $value, bool $case_insensitive = false): void
 {
     error_clear_last();
-    $result = \define($name, $value, $case_insensitive);
+    $result = \define($constant_name, $value, $case_insensitive);
     if ($result === false) {
         throw MiscException::createFromPhpError();
     }
@@ -256,7 +256,7 @@ function hrtime(bool $as_number = false)
  *
  *
  * Z
- * NUL-padded string (new in PHP 5.5)
+ * NUL-padded string
  *
  *
  * @

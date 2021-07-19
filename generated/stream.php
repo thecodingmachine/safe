@@ -8,9 +8,7 @@ use Safe\Exceptions\StreamException;
  * Sets parameters on the specified context.
  *
  * @param resource $context The stream or context to apply the parameters too.
- * @param array $params An array of parameters to set.
- *
- * params should be an associative array of the structure:
+ * @param array $params An associative array of parameters to be set in the following format:
  * $params['paramname'] = "paramvalue";.
  * @throws StreamException
  *

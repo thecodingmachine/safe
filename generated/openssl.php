@@ -801,15 +801,15 @@ function openssl_pkcs7_encrypt(string $input_filename, string $output_filename, 
 /**
  *
  *
- * @param string $input_filename
- * @param array|null $certificates
+ * @param string $data The string of data you wish to parse (p7b format).
+ * @param array|null $certificates The array of PEM certificates from the p7b input data.
  * @throws OpensslException
  *
  */
-function openssl_pkcs7_read(string $input_filename, ?array &$certificates): void
+function openssl_pkcs7_read(string $data, ?array &$certificates): void
 {
     error_clear_last();
-    $result = \openssl_pkcs7_read($input_filename, $certificates);
+    $result = \openssl_pkcs7_read($data, $certificates);
     if ($result === false) {
         throw OpensslException::createFromPhpError();
     }

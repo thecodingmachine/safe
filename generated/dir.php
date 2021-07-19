@@ -31,6 +31,9 @@ function chdir(string $directory): void
  * only when using the CLI, CGI or Embed SAPI. Also, this function
  * requires root privileges.
  *
+ * Calling this function does not change the values of the __DIR__
+ * and __FILE__ magic constants.
+ *
  * @param string $directory The path to change the root directory to.
  * @throws DirException
  *

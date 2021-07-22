@@ -19,3 +19,4 @@ function rpmaddtag(int $tag): void
         throw RpminfoException::createFromPhpError();
     }
 }
+

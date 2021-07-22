@@ -31,6 +31,9 @@ function chdir(string $directory): void
  * only when using the CLI, CGI or Embed SAPI. Also, this function
  * requires root privileges.
  *
+ * Calling this function does not change the values of the __DIR__
+ * and __FILE__ magic constants.
+ *
  * @param string $directory The path to change the root directory to.
  * @throws DirException
  *
@@ -82,12 +85,12 @@ function getcwd(): string
  * @throws DirException
  *
  */
-function opendir(string $path, $context = null)
+function opendir(string $path,  $context = null)
 {
     error_clear_last();
     if ($context !== null) {
         $result = \opendir($path, $context);
-    } else {
+    }else {
         $result = \opendir($path);
     }
     if ($result === false) {
@@ -110,12 +113,12 @@ function opendir(string $path, $context = null)
  * @throws DirException
  *
  */
-function rewinddir($dir_handle = null)
+function rewinddir( $dir_handle = null)
 {
     error_clear_last();
     if ($dir_handle !== null) {
         $result = \rewinddir($dir_handle);
-    } else {
+    }else {
         $result = \rewinddir();
     }
     if ($result === false) {
@@ -144,12 +147,12 @@ function rewinddir($dir_handle = null)
  * @throws DirException
  *
  */
-function scandir(string $directory, int $sorting_order = SCANDIR_SORT_ASCENDING, $context = null): array
+function scandir(string $directory, int $sorting_order = SCANDIR_SORT_ASCENDING,  $context = null): array
 {
     error_clear_last();
     if ($context !== null) {
         $result = \scandir($directory, $sorting_order, $context);
-    } else {
+    }else {
         $result = \scandir($directory, $sorting_order);
     }
     if ($result === false) {
@@ -157,3 +160,4 @@ function scandir(string $directory, int $sorting_order = SCANDIR_SORT_ASCENDING,
     }
     return $result;
 }
+

@@ -21,3 +21,4 @@ function rrd_create(string $filename, array $options): void
         throw RrdException::createFromPhpError();
     }
 }
+

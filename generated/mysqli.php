@@ -6,7 +6,6 @@ use Safe\Exceptions\MysqliException;
 
 /**
  * Returns client per-process statistics.
- * Available only with mysqlnd.
  *
  * @return array Returns an array with client stats if success, FALSE otherwise.
  * @throws MysqliException
@@ -21,3 +20,4 @@ function mysqli_get_client_stats(): array
     }
     return $result;
 }
+

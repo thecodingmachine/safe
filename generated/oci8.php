@@ -101,7 +101,7 @@ use Safe\Exceptions\Oci8Exception;
  * @throws Oci8Exception
  *
  */
-function oci_bind_array_by_name($statement, string $name, array &$var_array, int $max_table_length, int $max_item_length = -1, int $type = SQLT_AFC): void
+function oci_bind_array_by_name( $statement, string $name, array &$var_array, int $max_table_length, int $max_item_length = -1, int $type = SQLT_AFC): void
 {
     error_clear_last();
     $result = \oci_bind_array_by_name($statement, $name, $var_array, $max_table_length, $max_item_length, $type);
@@ -168,7 +168,7 @@ function oci_bind_array_by_name($statement, string $name, array &$var_array, int
  * SQL statement, as this can be a security risk if unfiltered user
  * text is concatenated.
  *
- * @param resource $statement A valid OCI8 statement identifer.
+ * @param resource $statement A valid OCI8 statement identifier.
  * @param string $bv_name The colon-prefixed bind variable placeholder used in the
  * statement.  The colon is optional
  * in bv_name. Oracle does not use question
@@ -307,7 +307,7 @@ function oci_bind_array_by_name($statement, string $name, array &$var_array, int
  * @throws Oci8Exception
  *
  */
-function oci_bind_by_name($statement, string $bv_name, &$variable, int $maxlength = -1, int $type = SQLT_CHR): void
+function oci_bind_by_name( $statement, string $bv_name,  &$variable, int $maxlength = -1, int $type = SQLT_CHR): void
 {
     error_clear_last();
     $result = \oci_bind_by_name($statement, $bv_name, $variable, $maxlength, $type);
@@ -325,7 +325,7 @@ function oci_bind_by_name($statement, string $bv_name, &$variable, int $maxlengt
  * @throws Oci8Exception
  *
  */
-function oci_cancel($statement): void
+function oci_cancel( $statement): void
 {
     error_clear_last();
     $result = \oci_cancel($statement);
@@ -350,7 +350,7 @@ function oci_cancel($statement): void
  * @throws Oci8Exception
  *
  */
-function oci_close($connection): void
+function oci_close( $connection): void
 {
     error_clear_last();
     $result = \oci_close($connection);
@@ -382,7 +382,7 @@ function oci_close($connection): void
  * @throws Oci8Exception
  *
  */
-function oci_commit($connection): void
+function oci_commit( $connection): void
 {
     error_clear_last();
     $result = \oci_commit($connection);
@@ -434,7 +434,7 @@ function oci_commit($connection): void
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * Further options were introduced with Oracle 19c, including timeout and keep-alive
  * settings.  Refer to Oracle documentation.  Service names can be found by running
  * the Oracle utility lsnrctl status on the database server
  * machine.
@@ -500,7 +500,7 @@ function oci_connect(string $username, string $password, string $connection_stri
         $result = \oci_connect($username, $password, $connection_string, $character_set);
     } elseif ($connection_string !== null) {
         $result = \oci_connect($username, $password, $connection_string);
-    } else {
+    }else {
         $result = \oci_connect($username, $password);
     }
     if ($result === false) {
@@ -536,7 +536,7 @@ function oci_connect(string $username, string $password, string $connection_stri
  * @throws Oci8Exception
  *
  */
-function oci_define_by_name($statement, string $column_name, &$variable, int $type = SQLT_CHR): void
+function oci_define_by_name( $statement, string $column_name,  &$variable, int $type = SQLT_CHR): void
 {
     error_clear_last();
     $result = \oci_define_by_name($statement, $column_name, $variable, $type);
@@ -623,7 +623,7 @@ function oci_define_by_name($statement, string $column_name, &$variable, int $ty
  * @throws Oci8Exception
  *
  */
-function oci_execute($statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
+function oci_execute( $statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
 {
     error_clear_last();
     $result = \oci_execute($statement, $mode);
@@ -725,7 +725,7 @@ function oci_execute($statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
  * @throws Oci8Exception
  *
  */
-function oci_fetch_all($statement, ?array &$output, int $skip = 0, int $maxrows = -1, int $flags = OCI_FETCHSTATEMENT_BY_COLUMN + OCI_ASSOC): int
+function oci_fetch_all( $statement, ?array &$output, int $skip = 0, int $maxrows = -1, int $flags = OCI_FETCHSTATEMENT_BY_COLUMN + OCI_ASSOC): int
 {
     error_clear_last();
     $result = \oci_fetch_all($statement, $output, $skip, $maxrows, $flags);
@@ -745,7 +745,7 @@ function oci_fetch_all($statement, ?array &$output, int $skip = 0, int $maxrows 
  * @throws Oci8Exception
  *
  */
-function oci_field_name($statement, $field): string
+function oci_field_name( $statement,  $field): string
 {
     error_clear_last();
     $result = \oci_field_name($statement, $field);
@@ -769,7 +769,7 @@ function oci_field_name($statement, $field): string
  * @throws Oci8Exception
  *
  */
-function oci_field_precision($statement, $field): int
+function oci_field_precision( $statement,  $field): int
 {
     error_clear_last();
     $result = \oci_field_precision($statement, $field);
@@ -793,7 +793,7 @@ function oci_field_precision($statement, $field): int
  * @throws Oci8Exception
  *
  */
-function oci_field_scale($statement, $field): int
+function oci_field_scale( $statement,  $field): int
 {
     error_clear_last();
     $result = \oci_field_scale($statement, $field);
@@ -813,7 +813,7 @@ function oci_field_scale($statement, $field): int
  * @throws Oci8Exception
  *
  */
-function oci_field_size($statement, $field): int
+function oci_field_size( $statement,  $field): int
 {
     error_clear_last();
     $result = \oci_field_size($statement, $field);
@@ -835,7 +835,7 @@ function oci_field_size($statement, $field): int
  * @throws Oci8Exception
  *
  */
-function oci_field_type_raw($statement, $field): int
+function oci_field_type_raw( $statement,  $field): int
 {
     error_clear_last();
     $result = \oci_field_type_raw($statement, $field);
@@ -855,7 +855,7 @@ function oci_field_type_raw($statement, $field): int
  * @throws Oci8Exception
  *
  */
-function oci_field_type($statement, $field)
+function oci_field_type( $statement,  $field)
 {
     error_clear_last();
     $result = \oci_field_type($statement, $field);
@@ -869,11 +869,11 @@ function oci_field_type($statement, $field)
 /**
  * Frees a descriptor allocated by oci_new_descriptor.
  *
- * @param resource $descriptor
+ * @param resource $descriptor Descriptor allocated by oci_new_descriptor.
  * @throws Oci8Exception
  *
  */
-function oci_free_descriptor($descriptor): void
+function oci_free_descriptor( $descriptor): void
 {
     error_clear_last();
     $result = \oci_free_descriptor($descriptor);
@@ -892,7 +892,7 @@ function oci_free_descriptor($descriptor): void
  * @throws Oci8Exception
  *
  */
-function oci_free_statement($statement): void
+function oci_free_statement( $statement): void
 {
     error_clear_last();
     $result = \oci_free_statement($statement);
@@ -914,12 +914,12 @@ function oci_free_statement($statement): void
  * @throws Oci8Exception
  *
  */
-function oci_new_collection($connection, string $tdo, string $schema = null)
+function oci_new_collection( $connection, string $tdo, string $schema = null)
 {
     error_clear_last();
     if ($schema !== null) {
         $result = \oci_new_collection($connection, $tdo, $schema);
-    } else {
+    }else {
         $result = \oci_new_collection($connection, $tdo);
     }
     if ($result === false) {
@@ -960,7 +960,7 @@ function oci_new_collection($connection, string $tdo, string $schema = null)
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * Further options were introduced with Oracle 19c, including timeout and keep-alive
  * settings.  Refer to Oracle documentation.  Service names can be found by running
  * the Oracle utility lsnrctl status on the database server
  * machine.
@@ -1026,7 +1026,7 @@ function oci_new_connect(string $username, string $password, string $connection_
         $result = \oci_new_connect($username, $password, $connection_string, $character_set);
     } elseif ($connection_string !== null) {
         $result = \oci_new_connect($username, $password, $connection_string);
-    } else {
+    }else {
         $result = \oci_new_connect($username, $password);
     }
     if ($result === false) {
@@ -1045,7 +1045,7 @@ function oci_new_connect(string $username, string $password, string $connection_
  * @throws Oci8Exception
  *
  */
-function oci_new_cursor($connection)
+function oci_new_cursor( $connection)
 {
     error_clear_last();
     $result = \oci_new_cursor($connection);
@@ -1068,7 +1068,7 @@ function oci_new_cursor($connection)
  * @throws Oci8Exception
  *
  */
-function oci_new_descriptor($connection, int $type = OCI_DTYPE_LOB)
+function oci_new_descriptor( $connection, int $type = OCI_DTYPE_LOB)
 {
     error_clear_last();
     $result = \oci_new_descriptor($connection, $type);
@@ -1087,7 +1087,7 @@ function oci_new_descriptor($connection, int $type = OCI_DTYPE_LOB)
  * @throws Oci8Exception
  *
  */
-function oci_num_fields($statement): int
+function oci_num_fields( $statement): int
 {
     error_clear_last();
     $result = \oci_num_fields($statement);
@@ -1106,7 +1106,7 @@ function oci_num_fields($statement): int
  * @throws Oci8Exception
  *
  */
-function oci_num_rows($statement): int
+function oci_num_rows( $statement): int
 {
     error_clear_last();
     $result = \oci_num_rows($statement);
@@ -1139,7 +1139,7 @@ function oci_num_rows($statement): int
  * @throws Oci8Exception
  *
  */
-function oci_parse($connection, string $sql_text)
+function oci_parse( $connection, string $sql_text)
 {
     error_clear_last();
     $result = \oci_parse($connection, $sql_text);
@@ -1182,7 +1182,7 @@ function oci_parse($connection, string $sql_text)
  * [//]host_name[:port][/service_name]. From Oracle
  * 11g, the syntax is:
  * [//]host_name[:port][/service_name][:server_type][/instance_name].
- * Futher options were introduced with Oracle 19c, including timeout and keep-alive
+ * Further options were introduced with Oracle 19c, including timeout and keep-alive
  * settings.  Refer to Oracle documentation.  Service names can be found by running
  * the Oracle utility lsnrctl status on the database server
  * machine.
@@ -1248,7 +1248,7 @@ function oci_pconnect(string $username, string $password, string $connection_str
         $result = \oci_pconnect($username, $password, $connection_string, $character_set);
     } elseif ($connection_string !== null) {
         $result = \oci_pconnect($username, $password, $connection_string);
-    } else {
+    }else {
         $result = \oci_pconnect($username, $password);
     }
     if ($result === false) {
@@ -1276,7 +1276,7 @@ function oci_pconnect(string $username, string $password, string $connection_str
  * @throws Oci8Exception
  *
  */
-function oci_result($statement, $field): string
+function oci_result( $statement,  $field): string
 {
     error_clear_last();
     $result = \oci_result($statement, $field);
@@ -1310,7 +1310,7 @@ function oci_result($statement, $field): string
  * @throws Oci8Exception
  *
  */
-function oci_rollback($connection): void
+function oci_rollback( $connection): void
 {
     error_clear_last();
     $result = \oci_rollback($connection);
@@ -1328,7 +1328,7 @@ function oci_rollback($connection): void
  * @throws Oci8Exception
  *
  */
-function oci_server_version($connection): string
+function oci_server_version( $connection): string
 {
     error_clear_last();
     $result = \oci_server_version($connection);
@@ -1360,7 +1360,7 @@ function oci_server_version($connection): string
  * @throws Oci8Exception
  *
  */
-function oci_set_action($connection, string $action_name): void
+function oci_set_action( $connection, string $action_name): void
 {
     error_clear_last();
     $result = \oci_set_action($connection, $action_name);
@@ -1402,7 +1402,7 @@ function oci_set_action($connection, string $action_name): void
  * @throws Oci8Exception
  *
  */
-function oci_set_call_timeout($connection, int $time_out): void
+function oci_set_call_timeout( $connection, int $time_out): void
 {
     error_clear_last();
     $result = \oci_set_call_timeout($connection, $time_out);
@@ -1437,7 +1437,7 @@ function oci_set_call_timeout($connection, int $time_out): void
  * @throws Oci8Exception
  *
  */
-function oci_set_client_identifier($connection, string $client_identifier): void
+function oci_set_client_identifier( $connection, string $client_identifier): void
 {
     error_clear_last();
     $result = \oci_set_client_identifier($connection, $client_identifier);
@@ -1466,7 +1466,7 @@ function oci_set_client_identifier($connection, string $client_identifier): void
  * @throws Oci8Exception
  *
  */
-function oci_set_client_info($connection, string $client_info): void
+function oci_set_client_info( $connection, string $client_info): void
 {
     error_clear_last();
     $result = \oci_set_client_info($connection, $client_info);
@@ -1496,7 +1496,7 @@ function oci_set_client_info($connection, string $client_info): void
  * @throws Oci8Exception
  *
  */
-function oci_set_db_operation($connection, string $dbop): void
+function oci_set_db_operation( $connection, string $dbop): void
 {
     error_clear_last();
     $result = \oci_set_db_operation($connection, $dbop);
@@ -1561,7 +1561,7 @@ function oci_set_edition(string $edition): void
  * @throws Oci8Exception
  *
  */
-function oci_set_module_name($connection, string $module_name): void
+function oci_set_module_name( $connection, string $module_name): void
 {
     error_clear_last();
     $result = \oci_set_module_name($connection, $module_name);
@@ -1625,7 +1625,7 @@ function oci_set_module_name($connection, string $module_name): void
  * @throws Oci8Exception
  *
  */
-function oci_set_prefetch($statement, int $rows): void
+function oci_set_prefetch( $statement, int $rows): void
 {
     error_clear_last();
     $result = \oci_set_prefetch($statement, $rows);
@@ -1697,7 +1697,7 @@ function oci_set_prefetch($statement, int $rows): void
  * @throws Oci8Exception
  *
  */
-function oci_statement_type($statement): string
+function oci_statement_type( $statement): string
 {
     error_clear_last();
     $result = \oci_statement_type($statement);
@@ -1718,7 +1718,7 @@ function oci_statement_type($statement): string
  * @throws Oci8Exception
  *
  */
-function oci_unregister_taf_callback($connection): void
+function oci_unregister_taf_callback( $connection): void
 {
     error_clear_last();
     $result = \oci_unregister_taf_callback($connection);
@@ -1726,3 +1726,4 @@ function oci_unregister_taf_callback($connection): void
         throw Oci8Exception::createFromPhpError();
     }
 }
+

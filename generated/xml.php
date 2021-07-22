@@ -11,8 +11,7 @@ use Safe\Exceptions\XmlException;
  *
  * @param string $encoding The input encoding is automatically detected, so that the
  * encoding parameter specifies only the output
- * encoding. In PHP 5.0.0 and 5.0.1, the default output charset is
- * ISO-8859-1, while in PHP 5.0.2 and upper is UTF-8. The supported
+ * encoding. The default output charset is UTF-8. The supported
  * encodings are ISO-8859-1, UTF-8 and
  * US-ASCII.
  * @param string $separator With a namespace aware parser tag parameters passed to the various
@@ -29,7 +28,7 @@ function xml_parser_create_ns(string $encoding = null, string $separator = ":")
         $result = \xml_parser_create_ns($encoding, $separator);
     } elseif ($encoding !== null) {
         $result = \xml_parser_create_ns($encoding);
-    } else {
+    }else {
         $result = \xml_parser_create_ns();
     }
     if ($result === false) {
@@ -44,15 +43,12 @@ function xml_parser_create_ns(string $encoding = null, string $separator = ":")
  * and returns a XMLParser instance to be used by the
  * other XML functions.
  *
- * @param string $encoding The optional encoding specifies the character
- * encoding for the input/output in PHP 4. Starting from PHP 5, the input
+ * @param string $encoding The input
  * encoding is automatically detected, so that the
  * encoding parameter specifies only the output
- * encoding. In PHP 4, the default output encoding is the same as the
- * input charset. If empty string is passed, the parser attempts to identify
+ * encoding. If empty string is passed, the parser attempts to identify
  * which encoding the document is encoded in by looking at the heading 3 or
- * 4 bytes. In PHP 5.0.0 and 5.0.1, the default output charset is
- * ISO-8859-1, while in PHP 5.0.2 and upper is UTF-8. The supported
+ * 4 bytes. The default output charset is UTF-8. The supported
  * encodings are ISO-8859-1, UTF-8 and
  * US-ASCII.
  * @return resource Returns a new XMLParser instance.
@@ -64,7 +60,7 @@ function xml_parser_create(string $encoding = null)
     error_clear_last();
     if ($encoding !== null) {
         $result = \xml_parser_create($encoding);
-    } else {
+    }else {
         $result = \xml_parser_create();
     }
     if ($result === false) {
@@ -81,7 +77,7 @@ function xml_parser_create(string $encoding = null)
  * @throws XmlException
  *
  */
-function xml_parser_free($parser): void
+function xml_parser_free( $parser): void
 {
     error_clear_last();
     $result = \xml_parser_free($parser);
@@ -102,7 +98,7 @@ function xml_parser_free($parser): void
  * @throws XmlException
  *
  */
-function xml_set_object($parser, object $object): void
+function xml_set_object( $parser, object $object): void
 {
     error_clear_last();
     $result = \xml_set_object($parser, $object);
@@ -110,3 +106,4 @@ function xml_set_object($parser, object $object): void
         throw XmlException::createFromPhpError();
     }
 }
+

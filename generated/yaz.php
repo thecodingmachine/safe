@@ -47,7 +47,7 @@ use Safe\Exceptions\YazException;
  * @throws YazException
  *
  */
-function yaz_ccl_parse($id, string $query, ?array &$result): void
+function yaz_ccl_parse( $id, string $query, ?array &$result): void
 {
     error_clear_last();
     $result = \yaz_ccl_parse($id, $query, $result);
@@ -64,7 +64,7 @@ function yaz_ccl_parse($id, string $query, ?array &$result): void
  * @throws YazException
  *
  */
-function yaz_close($id): void
+function yaz_close( $id): void
 {
     error_clear_last();
     $result = \yaz_close($id);
@@ -265,12 +265,12 @@ function yaz_close($id): void
  * @throws YazException
  *
  */
-function yaz_connect(string $zurl, $options = null)
+function yaz_connect(string $zurl,  $options = null)
 {
     error_clear_last();
     if ($options !== null) {
         $result = \yaz_connect($zurl, $options);
-    } else {
+    }else {
         $result = \yaz_connect($zurl);
     }
     if ($result === false) {
@@ -292,7 +292,7 @@ function yaz_connect(string $zurl, $options = null)
  * @throws YazException
  *
  */
-function yaz_database($id, string $databases): void
+function yaz_database( $id, string $databases): void
 {
     error_clear_last();
     $result = \yaz_database($id, $databases);
@@ -315,7 +315,7 @@ function yaz_database($id, string $databases): void
  * @throws YazException
  *
  */
-function yaz_element($id, string $elementset): void
+function yaz_element( $id, string $elementset): void
 {
     error_clear_last();
     $result = \yaz_element($id, $elementset);
@@ -335,7 +335,7 @@ function yaz_element($id, string $elementset): void
  * @throws YazException
  *
  */
-function yaz_present($id): void
+function yaz_present( $id): void
 {
     error_clear_last();
     $result = \yaz_present($id);
@@ -375,7 +375,7 @@ function yaz_present($id): void
  * @throws YazException
  *
  */
-function yaz_search($id, string $type, string $query): void
+function yaz_search( $id, string $type, string $query): void
 {
     error_clear_last();
     $result = \yaz_search($id, $type, $query);
@@ -436,3 +436,4 @@ function yaz_wait(array &$options = null)
     }
     return $result;
 }
+

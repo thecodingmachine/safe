@@ -208,7 +208,7 @@ function closelog(): void
  *
  *
  *
- * A6(PHP &gt;= 5.1.0)
+ * A6
  *
  * masklen: Length (in bits) to inherit from the target
  * specified by chain.
@@ -309,7 +309,7 @@ function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?
     error_clear_last();
     if ($timeout !== null) {
         $result = \fsockopen($hostname, $port, $error_code, $error_message, $timeout);
-    } else {
+    }else {
         $result = \fsockopen($hostname, $port, $error_code, $error_message);
     }
     if ($result === false) {
@@ -609,6 +609,39 @@ function openlog(string $prefix, int $flags, int $facility): void
 
 
 /**
+ * This function behaves exactly as fsockopen with the
+ * difference that the connection is not closed after the script finishes.
+ * It is the persistent version of fsockopen.
+ *
+ * @param string $hostname
+ * @param int $port
+ * @param int|null $errno
+ * @param string|null $errstr
+ * @param float $timeout
+ * @return resource pfsockopen returns a file pointer which may be used
+ * together with the other file functions (such as
+ * fgets, fgetss,
+ * fwrite, fclose, and
+ * feof).
+ * @throws NetworkException
+ *
+ */
+function pfsockopen(string $hostname, int $port = -1, ?int &$errno = null, ?string &$errstr = null, float $timeout = null)
+{
+    error_clear_last();
+    if ($timeout !== null) {
+        $result = \pfsockopen($hostname, $port, $errno, $errstr, $timeout);
+    }else {
+        $result = \pfsockopen($hostname, $port, $errno, $errstr);
+    }
+    if ($result === false) {
+        throw NetworkException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * syslog generates a log message that will be
  * distributed by the system logger.
  *
@@ -666,10 +699,7 @@ function openlog(string $prefix, int $flags, int $facility): void
  *
  *
  *
- * @param string $message The message to send, except that the two characters
- * %m will be replaced by the error message string
- * (strerror) corresponding to the present value of
- * errno.
+ * @param string $message The message to send.
  * @throws NetworkException
  *
  */
@@ -681,3 +711,4 @@ function syslog(int $priority, string $message): void
         throw NetworkException::createFromPhpError();
     }
 }
+

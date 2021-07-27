@@ -33,7 +33,7 @@ function base64_decode(string $string, bool $strict = false): string
  * by the server in response to a HTTP request.
  *
  * @param string $url The target URL.
- * @param int $format If the optional format parameter is set to non-zero,
+ * @param int $associative If the optional associative parameter is set to true,
  * get_headers parses the response and sets the
  * array's keys.
  * @param resource $context A valid context resource created with
@@ -42,13 +42,13 @@ function base64_decode(string $string, bool $strict = false): string
  * @throws UrlException
  *
  */
-function get_headers(string $url, int $format = 0, $context = null): array
+function get_headers(string $url, int $associative = false,  $context = null): array
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \get_headers($url, $format, $context);
-    } else {
-        $result = \get_headers($url, $format);
+        $result = \get_headers($url, $associative, $context);
+    }else {
+        $result = \get_headers($url, $associative);
     }
     if ($result === false) {
         throw UrlException::createFromPhpError();
@@ -112,7 +112,7 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
  * The values of the array elements are not URL decoded.
  *
  * This function is not meant to validate
- * the given URL, it only breaks it up into the above listed parts. Partial
+ * the given URL, it only breaks it up into the above listed parts. Partial and invalid
  * URLs are also accepted, parse_url tries its best to
  * parse them correctly.
  *
@@ -191,3 +191,4 @@ function parse_url(string $url, int $component = -1)
     }
     return $result;
 }
+

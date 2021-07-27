@@ -56,10 +56,11 @@ function hash_update_file(\HashContext $context, string $filename, ?\HashContext
     error_clear_last();
     if ($stream_context !== null) {
         $result = \hash_update_file($context, $filename, $stream_context);
-    } else {
+    }else {
         $result = \hash_update_file($context, $filename);
     }
     if ($result === false) {
         throw HashException::createFromPhpError();
     }
 }
+

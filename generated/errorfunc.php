@@ -73,10 +73,11 @@ function error_log(string $message, int $message_type = 0, string $destination =
         $result = \error_log($message, $message_type, $destination, $extra_headers);
     } elseif ($destination !== null) {
         $result = \error_log($message, $message_type, $destination);
-    } else {
+    }else {
         $result = \error_log($message, $message_type);
     }
     if ($result === false) {
         throw ErrorfuncException::createFromPhpError();
     }
 }
+

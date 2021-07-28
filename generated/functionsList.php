@@ -991,6 +991,7 @@ return [
     'sodium_crypto_sign_verify_detached',
     'solr_get_version',
     'sort',
+    'spl_autoload_register',
     'spl_autoload_unregister',
     'sprintf',
     'sqlsrv_begin_transaction',

@@ -565,9 +565,8 @@ function filesize(string $filename): int
  * model which can be used on virtually every platform (including most Unix
  * derivatives and even Windows).
  *
- * On versions of PHP before 5.3.2, the lock is released also by
- * fclose (which is also called automatically when script
- * finished).
+ * The lock is released also by fclose,
+ * or when stream is garbage collected.
  *
  * PHP supports a portable way of locking complete files in an advisory way
  * (which means all accessing programs have to use the same way of locking
@@ -837,11 +836,11 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  * fclose).
  * @param array $fields An array of strings.
  * @param string $separator The optional separator parameter sets the field
- * delimiter (one character only).
+ * delimiter (one single-byte character only).
  * @param string $enclosure The optional enclosure parameter sets the field
- * enclosure (one character only).
+ * enclosure (one single-byte character only).
  * @param string $escape_char The optional escape_char parameter sets the
- * escape character (at most one character).
+ * escape character (at most one single-byte character).
  * An empty string ("") disables the proprietary escape mechanism.
  * @return int Returns the length of the written string.
  * @throws FilesystemException

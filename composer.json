@@ -27,6 +27,7 @@
             "generated/curl.php",
             "generated/datetime.php",
             "generated/dir.php",
+            "generated/dom.php",
             "generated/eio.php",
             "generated/errorfunc.php",
             "generated/exec.php",

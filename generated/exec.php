@@ -167,6 +167,26 @@ function proc_nice(int $priority): void
 
 
 /**
+ * This function is identical to the backtick operator.
+ *
+ * @param string $cmd The command that will be executed.
+ * @return string A string containing the output from the executed command, FALSE if the pipe
+ * cannot be established or NULL if an error occurs or the command produces no output.
+ * @throws ExecException
+ *
+ */
+function shell_exec(string $cmd): string
+{
+    error_clear_last();
+    $result = \shell_exec($cmd);
+    if ($result === null) {
+        throw ExecException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * system is just like the C version of the
  * function in that it executes the given
  * command and outputs the result.

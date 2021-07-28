@@ -1776,12 +1776,12 @@ function imagegrabscreen()
  * Grabs a window or its client area using a windows handle (HWND property in COM instance)
  *
  * @param int $handle The HWND window ID.
- * @param int $client_area Include the client area of the application window.
+ * @param bool $client_area Include the client area of the application window.
  * @return resource Returns an image object on success, FALSE on failure.
  * @throws ImageException
  *
  */
-function imagegrabwindow(int $handle, int $client_area = false)
+function imagegrabwindow(int $handle, bool $client_area = false)
 {
     error_clear_last();
     $result = \imagegrabwindow($handle, $client_area);

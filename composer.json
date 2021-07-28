@@ -100,7 +100,7 @@
         ]
     },
     "require": {
-        "php": ">=7.2"
+        "php": "^8.0"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12",

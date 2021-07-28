@@ -36,6 +36,7 @@
             "generated/fpm.php",
             "generated/ftp.php",
             "generated/funchand.php",
+            "generated/gettext.php",
             "generated/gmp.php",
             "generated/gnupg.php",
             "generated/hash.php",

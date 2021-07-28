@@ -2096,12 +2096,12 @@ function imageresolution( $image, int $resolution_x = null, int $resolution_y = 
  * @param float $angle Rotation angle, in degrees. The rotation angle is interpreted as the
  * number of degrees to rotate the image anticlockwise.
  * @param int $background_color Specifies the color of the uncovered zone after the rotation
- * @param int $ignore_transparent This parameter is unused.
+ * @param bool $ignore_transparent This parameter is unused.
  * @return resource Returns an image object for the rotated image.
  * @throws ImageException
  *
  */
-function imagerotate( $image, float $angle, int $background_color, int $ignore_transparent = false)
+function imagerotate( $image, float $angle, int $background_color, bool $ignore_transparent = false)
 {
     error_clear_last();
     $result = \imagerotate($image, $angle, $background_color, $ignore_transparent);

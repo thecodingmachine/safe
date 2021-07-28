@@ -42,7 +42,7 @@ use Safe\Exceptions\JsonException;
  * @throws JsonException
  *
  */
-function json_encode($value, int $flags = 0, int $depth = 512): string
+function json_encode( $value, int $flags = 0, int $depth = 512): string
 {
     error_clear_last();
     $result = \json_encode($value, $flags, $depth);
@@ -51,3 +51,4 @@ function json_encode($value, int $flags = 0, int $depth = 512): string
     }
     return $result;
 }
+

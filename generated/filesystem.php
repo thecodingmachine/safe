@@ -16,7 +16,7 @@ use Safe\Exceptions\FilesystemException;
  * @throws FilesystemException
  *
  */
-function chgrp(string $filename, $group): void
+function chgrp(string $filename,  $group): void
 {
     error_clear_last();
     $result = \chgrp($filename, $group);
@@ -78,7 +78,7 @@ function chmod(string $filename, int $permissions): void
  * @throws FilesystemException
  *
  */
-function chown(string $filename, $user): void
+function chown(string $filename,  $user): void
 {
     error_clear_last();
     $result = \chown($filename, $user);
@@ -105,12 +105,12 @@ function chown(string $filename, $user): void
  * @throws FilesystemException
  *
  */
-function copy(string $source, string $dest, $context = null): void
+function copy(string $source, string $dest,  $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
         $result = \copy($source, $dest, $context);
-    } else {
+    }else {
         $result = \copy($source, $dest);
     }
     if ($result === false) {
@@ -172,7 +172,7 @@ function disk_total_space(string $directory): float
  * @throws FilesystemException
  *
  */
-function fclose($stream): void
+function fclose( $stream): void
 {
     error_clear_last();
     $result = \fclose($stream);
@@ -193,7 +193,7 @@ function fclose($stream): void
  * @throws FilesystemException
  *
  */
-function fflush($stream): void
+function fflush( $stream): void
 {
     error_clear_last();
     $result = \fflush($stream);
@@ -207,7 +207,7 @@ function fflush($stream): void
  * This function is similar to file, except that
  * file_get_contents returns the file in a
  * string, starting at the specified offset
- * up to maxlen bytes. On failure,
+ * up to length bytes. On failure,
  * file_get_contents will return FALSE.
  *
  * file_get_contents is the preferred way to read the
@@ -230,23 +230,23 @@ function fflush($stream): void
  * Seeking (offset) is not supported with remote files.
  * Attempting to seek on non-local files may work with small offsets, but this
  * is unpredictable because it works on the buffered stream.
- * @param int $maxlen Maximum length of data read. The default is to read until end
+ * @param int $length Maximum length of data read. The default is to read until end
  * of file is reached. Note that this parameter is applied to the
  * stream processed by the filters.
  * @return string The function returns the read data.
  * @throws FilesystemException
  *
  */
-function file_get_contents(string $filename, bool $use_include_path = false, $context = null, int $offset = 0, int $maxlen = null): string
+function file_get_contents(string $filename, bool $use_include_path = false,  $context = null, int $offset = 0, int $length = null): string
 {
     error_clear_last();
-    if ($maxlen !== null) {
-        $result = \file_get_contents($filename, $use_include_path, $context, $offset, $maxlen);
+    if ($length !== null) {
+        $result = \file_get_contents($filename, $use_include_path, $context, $offset, $length);
     } elseif ($offset !== 0) {
         $result = \file_get_contents($filename, $use_include_path, $context, $offset);
     } elseif ($context !== null) {
         $result = \file_get_contents($filename, $use_include_path, $context);
-    } else {
+    }else {
         $result = \file_get_contents($filename, $use_include_path);
     }
     if ($result === false) {
@@ -330,12 +330,12 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
  * @throws FilesystemException
  *
  */
-function file_put_contents(string $filename, $data, int $flags = 0, $context = null): int
+function file_put_contents(string $filename,  $data, int $flags = 0,  $context = null): int
 {
     error_clear_last();
     if ($context !== null) {
         $result = \file_put_contents($filename, $data, $flags, $context);
-    } else {
+    }else {
         $result = \file_put_contents($filename, $data, $flags);
     }
     if ($result === false) {
@@ -390,12 +390,12 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  * @throws FilesystemException
  *
  */
-function file(string $filename, int $flags = 0, $context = null): array
+function file(string $filename, int $flags = 0,  $context = null): array
 {
     error_clear_last();
     if ($context !== null) {
         $result = \file($filename, $flags, $context);
-    } else {
+    }else {
         $result = \file($filename, $flags);
     }
     if ($result === false) {
@@ -565,9 +565,8 @@ function filesize(string $filename): int
  * model which can be used on virtually every platform (including most Unix
  * derivatives and even Windows).
  *
- * On versions of PHP before 5.3.2, the lock is released also by
- * fclose (which is also called automatically when script
- * finished).
+ * The lock is released also by fclose,
+ * or when stream is garbage collected.
  *
  * PHP supports a portable way of locking complete files in an advisory way
  * (which means all accessing programs have to use the same way of locking
@@ -603,7 +602,7 @@ function filesize(string $filename): int
  * @throws FilesystemException
  *
  */
-function flock($stream, int $operation, ?int &$would_block = null): void
+function flock( $stream, int $operation, ?int &$would_block = null): void
 {
     error_clear_last();
     $result = \flock($stream, $operation, $would_block);
@@ -694,9 +693,8 @@ function flock($stream, int $operation, ?int &$would_block = null): void
  *
  * 'w+'
  *
- * Open for reading and writing; place the file pointer at
- * the beginning of the file and truncate the file to zero
- * length.  If the file does not exist, attempt to create it.
+ * Open for reading and writing; otherwise it has the
+ * same behavior as 'w'.
  *
  *
  *
@@ -812,12 +810,12 @@ function flock($stream, int $operation, ?int &$would_block = null): void
  * @throws FilesystemException
  *
  */
-function fopen(string $filename, string $mode, bool $use_include_path = false, $context = null)
+function fopen(string $filename, string $mode, bool $use_include_path = false,  $context = null)
 {
     error_clear_last();
     if ($context !== null) {
         $result = \fopen($filename, $mode, $use_include_path, $context);
-    } else {
+    }else {
         $result = \fopen($filename, $mode, $use_include_path);
     }
     if ($result === false) {
@@ -837,21 +835,21 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  * fsockopen (and not yet closed by
  * fclose).
  * @param array $fields An array of strings.
- * @param string $delimiter The optional delimiter parameter sets the field
- * delimiter (one character only).
+ * @param string $separator The optional separator parameter sets the field
+ * delimiter (one single-byte character only).
  * @param string $enclosure The optional enclosure parameter sets the field
- * enclosure (one character only).
+ * enclosure (one single-byte character only).
  * @param string $escape_char The optional escape_char parameter sets the
- * escape character (at most one character).
+ * escape character (at most one single-byte character).
  * An empty string ("") disables the proprietary escape mechanism.
  * @return int Returns the length of the written string.
  * @throws FilesystemException
  *
  */
-function fputcsv($handle, array $fields, string $delimiter = ",", string $enclosure = '"', string $escape_char = "\\"): int
+function fputcsv( $handle, array $fields, string $separator = ",", string $enclosure = '"', string $escape_char = "\\"): int
 {
     error_clear_last();
-    $result = \fputcsv($handle, $fields, $delimiter, $enclosure, $escape_char);
+    $result = \fputcsv($handle, $fields, $separator, $enclosure, $escape_char);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -898,7 +896,7 @@ function fputcsv($handle, array $fields, string $delimiter = ",", string $enclos
  * @throws FilesystemException
  *
  */
-function fread($stream, int $length): string
+function fread( $stream, int $length): string
 {
     error_clear_last();
     $result = \fread($stream, $length);
@@ -923,7 +921,7 @@ function fread($stream, int $length): string
  * @throws FilesystemException
  *
  */
-function fstat($stream): array
+function fstat( $stream): array
 {
     error_clear_last();
     $result = \fstat($stream);
@@ -951,7 +949,7 @@ function fstat($stream): array
  * @throws FilesystemException
  *
  */
-function ftruncate($stream, int $size): void
+function ftruncate( $stream, int $size): void
 {
     error_clear_last();
     $result = \ftruncate($stream, $size);
@@ -971,21 +969,16 @@ function ftruncate($stream, int $size): void
  * stop after length bytes have been written or
  * the end of string is reached, whichever comes
  * first.
- *
- * Note that if the length argument is given,
- * then the magic_quotes_runtime
- * configuration option will be ignored and no slashes will be
- * stripped from string.
  * @return int
  * @throws FilesystemException
  *
  */
-function fwrite($handle, string $string, int $length = null): int
+function fwrite( $handle, string $string, int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {
         $result = \fwrite($handle, $string, $length);
-    } else {
+    }else {
         $result = \fwrite($handle, $string);
     }
     if ($result === false) {
@@ -1109,7 +1102,7 @@ function glob(string $pattern, int $flags = 0): array
  * @throws FilesystemException
  *
  */
-function lchgrp(string $filename, $group): void
+function lchgrp(string $filename,  $group): void
 {
     error_clear_last();
     $result = \lchgrp($filename, $group);
@@ -1130,7 +1123,7 @@ function lchgrp(string $filename, $group): void
  * @throws FilesystemException
  *
  */
-function lchown(string $filename, $user): void
+function lchown(string $filename,  $user): void
 {
     error_clear_last();
     $result = \lchown($filename, $user);
@@ -1186,32 +1179,32 @@ function lstat(string $filename): array
 
 
 /**
- * Attempts to create the directory specified by pathname.
+ * Attempts to create the directory specified by directory.
  *
- * @param string $pathname The directory path.
- * @param int $mode The mode is 0777 by default, which means the widest possible
- * access. For more information on modes, read the details
+ * @param string $directory The directory path.
+ * @param int $permissions The permissions are 0777 by default, which means the widest possible
+ * access. For more information on permissions, read the details
  * on the chmod page.
  *
- * mode is ignored on Windows.
+ * permissions is ignored on Windows.
  *
- * Note that you probably want to specify the mode as an octal number,
- * which means it should have a leading zero. The mode is also modified
+ * Note that you probably want to specify the permissions as an octal number,
+ * which means it should have a leading zero. The permissions is also modified
  * by the current umask, which you can change using
  * umask.
  * @param bool $recursive Allows the creation of nested directories specified in the
- * pathname.
+ * directory.
  * @param resource $context
  * @throws FilesystemException
  *
  */
-function mkdir(string $pathname, int $mode = 0777, bool $recursive = false, $context = null): void
+function mkdir(string $directory, int $permissions = 0777, bool $recursive = false,  $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \mkdir($pathname, $mode, $recursive, $context);
-    } else {
-        $result = \mkdir($pathname, $mode, $recursive);
+        $result = \mkdir($directory, $permissions, $recursive, $context);
+    }else {
+        $result = \mkdir($directory, $permissions, $recursive);
     }
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
@@ -1307,12 +1300,12 @@ function parse_ini_string(string $ini_string, bool $process_sections = false, in
  * @throws FilesystemException
  *
  */
-function readfile(string $filename, bool $use_include_path = false, $context = null): int
+function readfile(string $filename, bool $use_include_path = false,  $context = null): int
 {
     error_clear_last();
     if ($context !== null) {
         $result = \readfile($filename, $use_include_path, $context);
-    } else {
+    }else {
         $result = \readfile($filename, $use_include_path);
     }
     if ($result === false) {
@@ -1401,12 +1394,12 @@ function realpath(string $path): string
  * @throws FilesystemException
  *
  */
-function rename(string $oldname, string $newname, $context = null): void
+function rename(string $oldname, string $newname,  $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
         $result = \rename($oldname, $newname, $context);
-    } else {
+    }else {
         $result = \rename($oldname, $newname);
     }
     if ($result === false) {
@@ -1424,7 +1417,7 @@ function rename(string $oldname, string $newname, $context = null): void
  * @throws FilesystemException
  *
  */
-function rewind($stream): void
+function rewind( $stream): void
 {
     error_clear_last();
     $result = \rewind($stream);
@@ -1435,22 +1428,22 @@ function rewind($stream): void
 
 
 /**
- * Attempts to remove the directory named by dirname.
+ * Attempts to remove the directory named by directory.
  * The directory must be empty, and the relevant permissions must permit this.
  * A E_WARNING level error will be generated on failure.
  *
- * @param string $dirname Path to the directory.
+ * @param string $directory Path to the directory.
  * @param resource $context
  * @throws FilesystemException
  *
  */
-function rmdir(string $dirname, $context = null): void
+function rmdir(string $directory,  $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \rmdir($dirname, $context);
-    } else {
-        $result = \rmdir($dirname);
+        $result = \rmdir($directory, $context);
+    }else {
+        $result = \rmdir($directory);
     }
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
@@ -1552,7 +1545,7 @@ function touch(string $filename, int $time = null, int $atime = null): void
         $result = \touch($filename, $time, $atime);
     } elseif ($time !== null) {
         $result = \touch($filename, $time);
-    } else {
+    }else {
         $result = \touch($filename);
     }
     if ($result === false) {
@@ -1571,15 +1564,16 @@ function touch(string $filename, int $time = null, int $atime = null): void
  * @throws FilesystemException
  *
  */
-function unlink(string $filename, $context = null): void
+function unlink(string $filename,  $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
         $result = \unlink($filename, $context);
-    } else {
+    }else {
         $result = \unlink($filename);
     }
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
+

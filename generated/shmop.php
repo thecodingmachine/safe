@@ -12,7 +12,7 @@ use Safe\Exceptions\ShmopException;
  * @throws ShmopException
  *
  */
-function shmop_delete($shmop): void
+function shmop_delete( $shmop): void
 {
     error_clear_last();
     $result = \shmop_delete($shmop);
@@ -34,7 +34,7 @@ function shmop_delete($shmop): void
  * @throws ShmopException
  *
  */
-function shmop_read($shmop, int $offset, int $size): string
+function shmop_read( $shmop, int $offset, int $size): string
 {
     error_clear_last();
     $result = \shmop_read($shmop, $offset, $size);
@@ -43,3 +43,4 @@ function shmop_read($shmop, int $offset, int $size): string
     }
     return $result;
 }
+

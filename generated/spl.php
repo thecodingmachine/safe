@@ -9,13 +9,12 @@ use Safe\Exceptions\SplException;
  * given class and its parents implement.
  *
  * @param object|string $class An object (class instance) or a string (class or interface name).
- * @param bool $autoload Whether to allow this function to load the class automatically through
- * the __autoload magic method.
+ * @param bool $autoload Whether to call __autoload by default.
  * @return array An array on success.
  * @throws SplException
  *
  */
-function class_implements($class, bool $autoload = true): array
+function class_implements( $class, bool $autoload = true): array
 {
     error_clear_last();
     $result = \class_implements($class, $autoload);
@@ -31,13 +30,12 @@ function class_implements($class, bool $autoload = true): array
  * the given class.
  *
  * @param object|string $class An object (class instance) or a string (class name).
- * @param bool $autoload Whether to allow this function to load the class automatically through
- * the __autoload magic method.
+ * @param bool $autoload Whether to call __autoload by default.
  * @return array An array on success.
  * @throws SplException
  *
  */
-function class_parents($class, bool $autoload = true): array
+function class_parents( $class, bool $autoload = true): array
 {
     error_clear_last();
     $result = \class_parents($class, $autoload);
@@ -54,13 +52,12 @@ function class_parents($class, bool $autoload = true): array
  * any traits used by a parent class.
  *
  * @param object|string $class An object (class instance) or a string (class name).
- * @param bool $autoload Whether to allow this function to load the class automatically through
- * the __autoload magic method.
+ * @param bool $autoload Whether to call __autoload by default.
  * @return array An array on success.
  * @throws SplException
  *
  */
-function class_uses($class, bool $autoload = true): array
+function class_uses( $class, bool $autoload = true): array
 {
     error_clear_last();
     $result = \class_uses($class, $autoload);
@@ -69,7 +66,6 @@ function class_uses($class, bool $autoload = true): array
     }
     return $result;
 }
-
 
 /**
  * Register a function with the spl provided __autoload queue. If the queue
@@ -96,6 +92,7 @@ function class_uses($class, bool $autoload = true): array
  * cannot be registered.
  * @param bool $prepend If true, spl_autoload_register will prepend
  * the autoloader on the autoload queue instead of appending it.
+ *
  * @throws SplException
  *
  */
@@ -116,7 +113,6 @@ function spl_autoload_register(callable $autoload_function = null, bool $throw =
     }
 }
 
-
 /**
  * Removes a function from the autoload queue. If the queue
  * is activated and empty after removing the given function then it will
@@ -129,7 +125,7 @@ function spl_autoload_register(callable $autoload_function = null, bool $throw =
  * @throws SplException
  *
  */
-function spl_autoload_unregister($autoload_function): void
+function spl_autoload_unregister( $autoload_function): void
 {
     error_clear_last();
     $result = \spl_autoload_unregister($autoload_function);
@@ -137,3 +133,4 @@ function spl_autoload_unregister($autoload_function): void
         throw SplException::createFromPhpError();
     }
 }
+

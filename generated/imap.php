@@ -42,14 +42,14 @@ function imap_8bit(string $string): string
  * @throws ImapException
  *
  */
-function imap_append( $imap, string $folder, string $message, string $options = null, string $internal_date = null): void
+function imap_append($imap, string $folder, string $message, string $options = null, string $internal_date = null): void
 {
     error_clear_last();
     if ($internal_date !== null) {
         $result = \imap_append($imap, $folder, $message, $options, $internal_date);
     } elseif ($options !== null) {
         $result = \imap_append($imap, $folder, $message, $options);
-    }else {
+    } else {
         $result = \imap_append($imap, $folder, $message);
     }
     if ($result === false) {
@@ -134,7 +134,7 @@ function imap_binary(string $string): string
  * @throws ImapException
  *
  */
-function imap_body( $imap, int $message_num, int $flags = 0): string
+function imap_body($imap, int $message_num, int $flags = 0): string
 {
     error_clear_last();
     $result = \imap_body($imap, $message_num, $flags);
@@ -159,7 +159,7 @@ function imap_body( $imap, int $message_num, int $flags = 0): string
  * @throws ImapException
  *
  */
-function imap_bodystruct( $imap, int $message_num, string $section): \stdClass
+function imap_bodystruct($imap, int $message_num, string $section): \stdClass
 {
     error_clear_last();
     $result = \imap_bodystruct($imap, $message_num, $section);
@@ -209,7 +209,7 @@ function imap_bodystruct( $imap, int $message_num, string $section): \stdClass
  * @throws ImapException
  *
  */
-function imap_check( $imap): \stdClass
+function imap_check($imap): \stdClass
 {
     error_clear_last();
     $result = \imap_check($imap);
@@ -245,7 +245,7 @@ function imap_check( $imap): \stdClass
  * @throws ImapException
  *
  */
-function imap_clearflag_full( $imap, string $sequence, string $flag, int $options = 0): void
+function imap_clearflag_full($imap, string $sequence, string $flag, int $options = 0): void
 {
     error_clear_last();
     $result = \imap_clearflag_full($imap, $sequence, $flag, $options);
@@ -267,7 +267,7 @@ function imap_clearflag_full( $imap, string $sequence, string $flag, int $option
  * @throws ImapException
  *
  */
-function imap_close( $imap, int $flags = 0): void
+function imap_close($imap, int $flags = 0): void
 {
     error_clear_last();
     $result = \imap_close($imap, $flags);
@@ -288,7 +288,7 @@ function imap_close( $imap, int $flags = 0): void
  * @throws ImapException
  *
  */
-function imap_createmailbox( $imap, string $mailbox): void
+function imap_createmailbox($imap, string $mailbox): void
 {
     error_clear_last();
     $result = \imap_createmailbox($imap, $mailbox);
@@ -308,7 +308,7 @@ function imap_createmailbox( $imap, string $mailbox): void
  * @throws ImapException
  *
  */
-function imap_deletemailbox( $imap, string $mailbox): void
+function imap_deletemailbox($imap, string $mailbox): void
 {
     error_clear_last();
     $result = \imap_deletemailbox($imap, $mailbox);
@@ -425,7 +425,7 @@ function imap_deletemailbox( $imap, string $mailbox): void
  * @throws ImapException
  *
  */
-function imap_fetch_overview( $imap, string $sequence, int $flags = 0): array
+function imap_fetch_overview($imap, string $sequence, int $flags = 0): array
 {
     error_clear_last();
     $result = \imap_fetch_overview($imap, $sequence, $flags);
@@ -470,7 +470,7 @@ function imap_fetch_overview( $imap, string $sequence, int $flags = 0): array
  * @throws ImapException
  *
  */
-function imap_fetchbody( $imap, int $message_num, string $section, int $flags = 0): string
+function imap_fetchbody($imap, int $message_num, string $section, int $flags = 0): string
 {
     error_clear_last();
     $result = \imap_fetchbody($imap, $message_num, $section, $flags);
@@ -516,7 +516,7 @@ function imap_fetchbody( $imap, int $message_num, string $section, int $flags = 
  * @throws ImapException
  *
  */
-function imap_fetchheader( $imap, int $message_num, int $flags = 0): string
+function imap_fetchheader($imap, int $message_num, int $flags = 0): string
 {
     error_clear_last();
     $result = \imap_fetchheader($imap, $message_num, $flags);
@@ -560,7 +560,7 @@ function imap_fetchheader( $imap, int $message_num, int $flags = 0): string
  * @throws ImapException
  *
  */
-function imap_fetchmime( $imap, int $message_num, string $section, int $flags = 0): string
+function imap_fetchmime($imap, int $message_num, string $section, int $flags = 0): string
 {
     error_clear_last();
     $result = \imap_fetchmime($imap, $message_num, $section, $flags);
@@ -708,7 +708,7 @@ function imap_fetchmime( $imap, int $message_num, string $section, int $flags = 
  * @throws ImapException
  *
  */
-function imap_fetchstructure( $imap, int $message_num, int $flags = 0): \stdClass
+function imap_fetchstructure($imap, int $message_num, int $flags = 0): \stdClass
 {
     error_clear_last();
     $result = \imap_fetchstructure($imap, $message_num, $flags);
@@ -732,7 +732,7 @@ function imap_fetchstructure( $imap, int $message_num, int $flags = 0): \stdClas
  * @throws ImapException
  *
  */
-function imap_gc( $imap, int $flags): void
+function imap_gc($imap, int $flags): void
 {
     error_clear_last();
     $result = \imap_gc($imap, $flags);
@@ -753,7 +753,7 @@ function imap_gc( $imap, int $flags): void
  * @throws ImapException
  *
  */
-function imap_getacl( $imap, string $mailbox): array
+function imap_getacl($imap, string $mailbox): array
 {
     error_clear_last();
     $result = \imap_getacl($imap, $mailbox);
@@ -840,7 +840,7 @@ function imap_getacl( $imap, string $mailbox): array
  * @throws ImapException
  *
  */
-function imap_getmailboxes( $imap, string $reference, string $pattern): array
+function imap_getmailboxes($imap, string $reference, string $pattern): array
 {
     error_clear_last();
     $result = \imap_getmailboxes($imap, $reference, $pattern);
@@ -927,7 +927,7 @@ function imap_getmailboxes( $imap, string $reference, string $pattern): array
  * @throws ImapException
  *
  */
-function imap_getsubscribed( $imap, string $reference, string $pattern): array
+function imap_getsubscribed($imap, string $reference, string $pattern): array
 {
     error_clear_last();
     $result = \imap_getsubscribed($imap, $reference, $pattern);
@@ -1153,7 +1153,7 @@ function imap_getsubscribed( $imap, string $reference, string $pattern): array
  * @throws ImapException
  *
  */
-function imap_headerinfo( $imap, int $message_num, int $from_length = 0, int $subject_length = 0): \stdClass
+function imap_headerinfo($imap, int $message_num, int $from_length = 0, int $subject_length = 0): \stdClass
 {
     error_clear_last();
     $result = \imap_headerinfo($imap, $message_num, $from_length, $subject_length);
@@ -1175,7 +1175,7 @@ function imap_headerinfo( $imap, int $message_num, int $from_length = 0, int $su
  * @throws ImapException
  *
  */
-function imap_headers( $imap): array
+function imap_headers($imap): array
 {
     error_clear_last();
     $result = \imap_headers($imap);
@@ -1218,7 +1218,7 @@ function imap_headers( $imap): array
  * @throws ImapException
  *
  */
-function imap_listscan( $imap, string $reference, string $pattern, string $content): array
+function imap_listscan($imap, string $reference, string $pattern, string $content): array
 {
     error_clear_last();
     $result = \imap_listscan($imap, $reference, $pattern, $content);
@@ -1254,7 +1254,7 @@ function imap_listscan( $imap, string $reference, string $pattern, string $conte
  * @throws ImapException
  *
  */
-function imap_lsub( $imap, string $reference, string $pattern): array
+function imap_lsub($imap, string $reference, string $pattern): array
 {
     error_clear_last();
     $result = \imap_lsub($imap, $reference, $pattern);
@@ -1410,7 +1410,7 @@ function imap_mail_compose(array $envelope, array $bodies): string
  * @throws ImapException
  *
  */
-function imap_mail_copy( $imap, string $message_nums, string $mailbox, int $flags = 0): void
+function imap_mail_copy($imap, string $message_nums, string $mailbox, int $flags = 0): void
 {
     error_clear_last();
     $result = \imap_mail_copy($imap, $message_nums, $mailbox, $flags);
@@ -1441,7 +1441,7 @@ function imap_mail_copy( $imap, string $message_nums, string $mailbox, int $flag
  * @throws ImapException
  *
  */
-function imap_mail_move( $imap, string $message_nums, string $mailbox, int $flags = 0): void
+function imap_mail_move($imap, string $message_nums, string $mailbox, int $flags = 0): void
 {
     error_clear_last();
     $result = \imap_mail_move($imap, $message_nums, $mailbox, $flags);
@@ -1482,7 +1482,7 @@ function imap_mail(string $to, string $subject, string $message, string $additio
         $result = \imap_mail($to, $subject, $message, $additional_headers, $cc);
     } elseif ($additional_headers !== null) {
         $result = \imap_mail($to, $subject, $message, $additional_headers);
-    }else {
+    } else {
         $result = \imap_mail($to, $subject, $message);
     }
     if ($result === false) {
@@ -1544,7 +1544,7 @@ function imap_mail(string $to, string $subject, string $message, string $additio
  * @throws ImapException
  *
  */
-function imap_mailboxmsginfo( $imap): \stdClass
+function imap_mailboxmsginfo($imap): \stdClass
 {
     error_clear_last();
     $result = \imap_mailboxmsginfo($imap);
@@ -1610,7 +1610,7 @@ function imap_mutf7_to_utf8(string $string): string
  * @throws ImapException
  *
  */
-function imap_num_msg( $imap): int
+function imap_num_msg($imap): int
 {
     error_clear_last();
     $result = \imap_num_msg($imap);
@@ -1869,7 +1869,7 @@ function imap_qprint(string $string): string
  * @throws ImapException
  *
  */
-function imap_renamemailbox( $imap, string $from, string $to): void
+function imap_renamemailbox($imap, string $from, string $to): void
 {
     error_clear_last();
     $result = \imap_renamemailbox($imap, $from, $to);
@@ -1934,7 +1934,7 @@ function imap_rfc822_write_address(?string $mailbox, ?string $hostname, ?string 
  * @throws ImapException
  *
  */
-function imap_savebody( $imap,  $file, int $message_num, string $section = "", int $flags = 0): void
+function imap_savebody($imap, $file, int $message_num, string $section = "", int $flags = 0): void
 {
     error_clear_last();
     $result = \imap_savebody($imap, $file, $message_num, $section, $flags);
@@ -1955,7 +1955,7 @@ function imap_savebody( $imap,  $file, int $message_num, string $section = "", i
  * @throws ImapException
  *
  */
-function imap_set_quota( $imap, string $quota_root, int $mailbox_size): void
+function imap_set_quota($imap, string $quota_root, int $mailbox_size): void
 {
     error_clear_last();
     $result = \imap_set_quota($imap, $quota_root, $mailbox_size);
@@ -1978,7 +1978,7 @@ function imap_set_quota( $imap, string $quota_root, int $mailbox_size): void
  * @throws ImapException
  *
  */
-function imap_setacl( $imap, string $mailbox, string $user_id, string $rights): void
+function imap_setacl($imap, string $mailbox, string $user_id, string $rights): void
 {
     error_clear_last();
     $result = \imap_setacl($imap, $mailbox, $user_id, $rights);
@@ -2014,7 +2014,7 @@ function imap_setacl( $imap, string $mailbox, string $user_id, string $rights): 
  * @throws ImapException
  *
  */
-function imap_setflag_full( $imap, string $sequence, string $flag, int $options = 0): void
+function imap_setflag_full($imap, string $sequence, string $flag, int $options = 0): void
 {
     error_clear_last();
     $result = \imap_setflag_full($imap, $sequence, $flag, $options);
@@ -2090,14 +2090,14 @@ function imap_setflag_full( $imap, string $sequence, string $flag, int $options 
  * @throws ImapException
  *
  */
-function imap_sort( $imap, int $criteria, int $reverse, int $flags = 0, string $search_criteria = null, string $charset = null): array
+function imap_sort($imap, int $criteria, int $reverse, int $flags = 0, string $search_criteria = null, string $charset = null): array
 {
     error_clear_last();
     if ($charset !== null) {
         $result = \imap_sort($imap, $criteria, $reverse, $flags, $search_criteria, $charset);
     } elseif ($search_criteria !== null) {
         $result = \imap_sort($imap, $criteria, $reverse, $flags, $search_criteria);
-    }else {
+    } else {
         $result = \imap_sort($imap, $criteria, $reverse, $flags);
     }
     if ($result === false) {
@@ -2163,7 +2163,7 @@ function imap_sort( $imap, int $criteria, int $reverse, int $flags = 0, string $
  * @throws ImapException
  *
  */
-function imap_status( $imap, string $mailbox, int $flags): \stdClass
+function imap_status($imap, string $mailbox, int $flags): \stdClass
 {
     error_clear_last();
     $result = \imap_status($imap, $mailbox, $flags);
@@ -2184,7 +2184,7 @@ function imap_status( $imap, string $mailbox, int $flags): \stdClass
  * @throws ImapException
  *
  */
-function imap_subscribe( $imap, string $mailbox): void
+function imap_subscribe($imap, string $mailbox): void
 {
     error_clear_last();
     $result = \imap_subscribe($imap, $mailbox);
@@ -2219,7 +2219,7 @@ function imap_subscribe( $imap, string $mailbox): void
  * @throws ImapException
  *
  */
-function imap_thread( $imap, int $flags = SE_FREE): array
+function imap_thread($imap, int $flags = SE_FREE): array
 {
     error_clear_last();
     $result = \imap_thread($imap, $flags);
@@ -2270,7 +2270,7 @@ function imap_timeout(int $timeout_type, int $timeout = -1)
  * @throws ImapException
  *
  */
-function imap_undelete( $imap, int $message_num, int $flags = 0): void
+function imap_undelete($imap, int $message_num, int $flags = 0): void
 {
     error_clear_last();
     $result = \imap_undelete($imap, $message_num, $flags);
@@ -2290,7 +2290,7 @@ function imap_undelete( $imap, int $message_num, int $flags = 0): void
  * @throws ImapException
  *
  */
-function imap_unsubscribe( $imap, string $mailbox): void
+function imap_unsubscribe($imap, string $mailbox): void
 {
     error_clear_last();
     $result = \imap_unsubscribe($imap, $mailbox);
@@ -2317,4 +2317,3 @@ function imap_utf8_to_mutf7(string $string): string
     }
     return $result;
 }
-

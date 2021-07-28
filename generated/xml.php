@@ -28,7 +28,7 @@ function xml_parser_create_ns(string $encoding = null, string $separator = ":")
         $result = \xml_parser_create_ns($encoding, $separator);
     } elseif ($encoding !== null) {
         $result = \xml_parser_create_ns($encoding);
-    }else {
+    } else {
         $result = \xml_parser_create_ns();
     }
     if ($result === false) {
@@ -60,7 +60,7 @@ function xml_parser_create(string $encoding = null)
     error_clear_last();
     if ($encoding !== null) {
         $result = \xml_parser_create($encoding);
-    }else {
+    } else {
         $result = \xml_parser_create();
     }
     if ($result === false) {
@@ -77,7 +77,7 @@ function xml_parser_create(string $encoding = null)
  * @throws XmlException
  *
  */
-function xml_parser_free( $parser): void
+function xml_parser_free($parser): void
 {
     error_clear_last();
     $result = \xml_parser_free($parser);
@@ -98,7 +98,7 @@ function xml_parser_free( $parser): void
  * @throws XmlException
  *
  */
-function xml_set_object( $parser, object $object): void
+function xml_set_object($parser, object $object): void
 {
     error_clear_last();
     $result = \xml_set_object($parser, $object);
@@ -106,4 +106,3 @@ function xml_set_object( $parser, object $object): void
         throw XmlException::createFromPhpError();
     }
 }
-

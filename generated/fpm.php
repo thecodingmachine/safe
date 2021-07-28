@@ -20,4 +20,3 @@ function fastcgi_finish_request(): void
         throw FpmException::createFromPhpError();
     }
 }
-

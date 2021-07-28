@@ -14,7 +14,7 @@ use Safe\Exceptions\SplException;
  * @throws SplException
  *
  */
-function class_implements( $class, bool $autoload = true): array
+function class_implements($class, bool $autoload = true): array
 {
     error_clear_last();
     $result = \class_implements($class, $autoload);
@@ -35,7 +35,7 @@ function class_implements( $class, bool $autoload = true): array
  * @throws SplException
  *
  */
-function class_parents( $class, bool $autoload = true): array
+function class_parents($class, bool $autoload = true): array
 {
     error_clear_last();
     $result = \class_parents($class, $autoload);
@@ -57,7 +57,7 @@ function class_parents( $class, bool $autoload = true): array
  * @throws SplException
  *
  */
-function class_uses( $class, bool $autoload = true): array
+function class_uses($class, bool $autoload = true): array
 {
     error_clear_last();
     $result = \class_uses($class, $autoload);
@@ -125,7 +125,7 @@ function spl_autoload_register(callable $autoload_function = null, bool $throw =
  * @throws SplException
  *
  */
-function spl_autoload_unregister( $autoload_function): void
+function spl_autoload_unregister($autoload_function): void
 {
     error_clear_last();
     $result = \spl_autoload_unregister($autoload_function);
@@ -133,4 +133,3 @@ function spl_autoload_unregister( $autoload_function): void
         throw SplException::createFromPhpError();
     }
 }
-

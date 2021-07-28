@@ -110,4 +110,3 @@ function apcu_sma_info(bool $limited = false): array
     }
     return $result;
 }
-

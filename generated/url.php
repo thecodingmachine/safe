@@ -42,12 +42,12 @@ function base64_decode(string $string, bool $strict = false): string
  * @throws UrlException
  *
  */
-function get_headers(string $url, bool $associative = false,  $context = null): array
+function get_headers(string $url, bool $associative = false, $context = null): array
 {
     error_clear_last();
     if ($context !== null) {
         $result = \get_headers($url, $associative, $context);
-    }else {
+    } else {
         $result = \get_headers($url, $associative);
     }
     if ($result === false) {
@@ -191,4 +191,3 @@ function parse_url(string $url, int $component = -1)
     }
     return $result;
 }
-

@@ -88,7 +88,7 @@ function array_replace_recursive(array $array, array  ...$replacements): array
     error_clear_last();
     if ($replacements !== []) {
         $result = \array_replace_recursive($array, ...$replacements);
-    }else {
+    } else {
         $result = \array_replace_recursive($array);
     }
     if ($result === null) {
@@ -123,7 +123,7 @@ function array_replace(array $array, array  ...$replacements): array
     error_clear_last();
     if ($replacements !== []) {
         $result = \array_replace($array, ...$replacements);
-    }else {
+    } else {
         $result = \array_replace($array);
     }
     if ($result === null) {
@@ -155,12 +155,12 @@ function array_replace(array $array, array  ...$replacements): array
  * @throws ArrayException
  *
  */
-function array_walk_recursive(array &$array, callable $callback,  $arg = null): void
+function array_walk_recursive(array &$array, callable $callback, $arg = null): void
 {
     error_clear_last();
     if ($arg !== null) {
         $result = \array_walk_recursive($array, $callback, $arg);
-    }else {
+    } else {
         $result = \array_walk_recursive($array, $callback);
     }
     if ($result === false) {
@@ -633,4 +633,3 @@ function usort(array &$array, callable $callback): void
         throw ArrayException::createFromPhpError();
     }
 }
-

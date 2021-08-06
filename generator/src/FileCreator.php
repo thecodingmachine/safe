@@ -81,12 +81,12 @@ return [\n");
     }
 
     /**
-     * Generates a configuration file for replacing all functions when using rector/rector:~0.6.
+     * Generates a configuration file for replacing all functions when using rector/rector.
      *
      * @param Method[] $functions
      * @param string $path
      */
-    public function generateRectorFileForZeroPointSeven(array $functions, string $path): void
+    public function generateRectorFile(array $functions, string $path): void
     {
         $functionNames = $this->getFunctionsNameList($functions);
 
@@ -104,7 +104,7 @@ declare(strict_types=1);
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-# This file configures rector/rector:~0.7.0 to replace all PHP functions with their equivalent "safe" functions
+# This file configures rector/rector to replace all PHP functions with their equivalent "safe" functions
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 

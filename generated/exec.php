@@ -125,7 +125,7 @@ function exec(string $command, ?array &$output = null, ?int &$result_code = null
  * @throws ExecException
  *
  */
-function proc_get_status( $process): array
+function proc_get_status($process): array
 {
     error_clear_last();
     $result = \proc_get_status($process);
@@ -216,4 +216,3 @@ function system(string $command, ?int &$result_code = null): string
     }
     return $result;
 }
-

@@ -309,7 +309,7 @@ function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?
     error_clear_last();
     if ($timeout !== null) {
         $result = \fsockopen($hostname, $port, $error_code, $error_message, $timeout);
-    }else {
+    } else {
         $result = \fsockopen($hostname, $port, $error_code, $error_message);
     }
     if ($result === false) {
@@ -631,7 +631,7 @@ function pfsockopen(string $hostname, int $port = -1, ?int &$errno = null, ?stri
     error_clear_last();
     if ($timeout !== null) {
         $result = \pfsockopen($hostname, $port, $errno, $errstr, $timeout);
-    }else {
+    } else {
         $result = \pfsockopen($hostname, $port, $errno, $errstr);
     }
     if ($result === false) {
@@ -711,4 +711,3 @@ function syslog(int $priority, string $message): void
         throw NetworkException::createFromPhpError();
     }
 }
-

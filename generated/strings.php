@@ -478,12 +478,12 @@ function sha1_file(string $filename, bool $binary = false): string
  * @throws StringsException
  *
  */
-function sprintf(string $format,   ...$values): string
+function sprintf(string $format, ...$values): string
 {
     error_clear_last();
     if ($values !== []) {
         $result = \sprintf($format, ...$values);
-    }else {
+    } else {
         $result = \sprintf($format);
     }
     if ($result === false) {
@@ -548,7 +548,7 @@ function substr(string $string, int $offset, int $length = null): string
     error_clear_last();
     if ($length !== null) {
         $result = \substr($string, $offset, $length);
-    }else {
+    } else {
         $result = \substr($string, $offset);
     }
     if ($result === false) {
@@ -871,4 +871,3 @@ function vsprintf(string $format, array $values): string
     }
     return $result;
 }
-

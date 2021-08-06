@@ -33,7 +33,7 @@ function base64_decode(string $string, bool $strict = false): string
  * by the server in response to a HTTP request.
  *
  * @param string $url The target URL.
- * @param int $associative If the optional associative parameter is set to true,
+ * @param bool $associative If the optional associative parameter is set to true,
  * get_headers parses the response and sets the
  * array's keys.
  * @param resource $context A valid context resource created with
@@ -42,12 +42,12 @@ function base64_decode(string $string, bool $strict = false): string
  * @throws UrlException
  *
  */
-function get_headers(string $url, int $associative = false,  $context = null): array
+function get_headers(string $url, bool $associative = false, $context = null): array
 {
     error_clear_last();
     if ($context !== null) {
         $result = \get_headers($url, $associative, $context);
-    }else {
+    } else {
         $result = \get_headers($url, $associative);
     }
     if ($result === false) {
@@ -191,4 +191,3 @@ function parse_url(string $url, int $component = -1)
     }
     return $result;
 }
-

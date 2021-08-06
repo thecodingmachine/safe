@@ -301,4 +301,3 @@ function sodium_crypto_sign_verify_detached(string $signature, string $message, 
         throw SodiumException::createFromPhpError();
     }
 }
-

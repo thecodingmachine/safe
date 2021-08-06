@@ -27,7 +27,7 @@ function pcntl_exec(string $path, array $args = null, array $envs = null): void
         $result = \pcntl_exec($path, $args, $envs);
     } elseif ($args !== null) {
         $result = \pcntl_exec($path, $args);
-    }else {
+    } else {
         $result = \pcntl_exec($path);
     }
     if ($result === false) {
@@ -57,7 +57,7 @@ function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCE
         $result = \pcntl_getpriority($pid, $process_identifier);
     } elseif ($pid !== null) {
         $result = \pcntl_getpriority($pid);
-    }else {
+    } else {
         $result = \pcntl_getpriority();
     }
     if ($result === false) {
@@ -90,7 +90,7 @@ function pcntl_setpriority(int $priority, int $pid = null, int $process_identifi
         $result = \pcntl_setpriority($priority, $pid, $process_identifier);
     } elseif ($pid !== null) {
         $result = \pcntl_setpriority($priority, $pid);
-    }else {
+    } else {
         $result = \pcntl_setpriority($priority);
     }
     if ($result === false) {
@@ -164,4 +164,3 @@ function pcntl_strerror(int $errno): string
     }
     return $result;
 }
-

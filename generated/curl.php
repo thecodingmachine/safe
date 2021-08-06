@@ -13,7 +13,7 @@ use Safe\Exceptions\CurlException;
  * @throws CurlException
  *
  */
-function curl_copy_handle( $handle)
+function curl_copy_handle($handle)
 {
     error_clear_last();
     $result = \curl_copy_handle($handle);
@@ -34,7 +34,7 @@ function curl_copy_handle( $handle)
  * @throws CurlException
  *
  */
-function curl_escape( $handle, string $string): string
+function curl_escape($handle, string $string): string
 {
     error_clear_last();
     $result = \curl_escape($handle, $string);
@@ -59,7 +59,7 @@ function curl_escape( $handle, string $string): string
  * @throws CurlException
  *
  */
-function curl_exec( $handle)
+function curl_exec($handle)
 {
     error_clear_last();
     $result = \curl_exec($handle);
@@ -532,12 +532,12 @@ function curl_exec( $handle)
  * @throws CurlException
  *
  */
-function curl_getinfo( $handle, int $option = null)
+function curl_getinfo($handle, int $option = null)
 {
     error_clear_last();
     if ($option !== null) {
         $result = \curl_getinfo($handle, $option);
-    }else {
+    } else {
         $result = \curl_getinfo($handle);
     }
     if ($result === false) {
@@ -567,7 +567,7 @@ function curl_init(string $url = null)
     error_clear_last();
     if ($url !== null) {
         $result = \curl_init($url);
-    }else {
+    } else {
         $result = \curl_init();
     }
     if ($result === false) {
@@ -586,7 +586,7 @@ function curl_init(string $url = null)
  * @throws CurlException
  *
  */
-function curl_multi_errno( $multi_handle): int
+function curl_multi_errno($multi_handle): int
 {
     error_clear_last();
     $result = \curl_multi_errno($multi_handle);
@@ -642,7 +642,7 @@ function curl_multi_errno( $multi_handle): int
  * @throws CurlException
  *
  */
-function curl_multi_info_read( $multi_handle, ?int &$queued_messages = null): array
+function curl_multi_info_read($multi_handle, ?int &$queued_messages = null): array
 {
     error_clear_last();
     $result = \curl_multi_info_read($multi_handle, $queued_messages);
@@ -3010,7 +3010,7 @@ function curl_multi_init()
  * @throws CurlException
  *
  */
-function curl_setopt( $handle, int $option,  $value): void
+function curl_setopt($handle, int $option, $value): void
 {
     error_clear_last();
     $result = \curl_setopt($handle, $option, $value);
@@ -3029,7 +3029,7 @@ function curl_setopt( $handle, int $option,  $value): void
  * @throws CurlException
  *
  */
-function curl_share_errno( $share_handle): int
+function curl_share_errno($share_handle): int
 {
     error_clear_last();
     $result = \curl_share_errno($share_handle);
@@ -3106,7 +3106,7 @@ function curl_share_errno( $share_handle): int
  * @throws CurlException
  *
  */
-function curl_share_setopt( $share_handle, int $option,  $value): void
+function curl_share_setopt($share_handle, int $option, $value): void
 {
     error_clear_last();
     $result = \curl_share_setopt($share_handle, $option, $value);
@@ -3126,7 +3126,7 @@ function curl_share_setopt( $share_handle, int $option,  $value): void
  * @throws CurlException
  *
  */
-function curl_unescape( $handle, string $string): string
+function curl_unescape($handle, string $string): string
 {
     error_clear_last();
     $result = \curl_unescape($handle, $string);
@@ -3135,4 +3135,3 @@ function curl_unescape( $handle, string $string): string
     }
     return $result;
 }
-

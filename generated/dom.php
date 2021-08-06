@@ -24,4 +24,3 @@ function dom_import_simplexml(\SimpleXMLElement $node): \DOMElement
     }
     return $result;
 }
-

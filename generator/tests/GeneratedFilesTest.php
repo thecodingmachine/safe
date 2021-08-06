@@ -5,7 +5,6 @@ namespace Safe;
 use PHPUnit\Framework\TestCase;
 use Safe\Exceptions\DatetimeException;
 use function restore_error_handler;
-use Safe\Exceptions\StringsException;
 use SimpleXMLElement;
 
 /**
@@ -26,7 +25,7 @@ class GeneratedFilesTest extends TestCase
         set_error_handler(function () {
         });
         try {
-            $this->expectException(StringsException::class);
+            $this->expectException(\ArgumentCountError::class);
             sprintf('foo%s%s', 'bar');
         } finally {
             restore_error_handler();
@@ -49,9 +48,9 @@ class GeneratedFilesTest extends TestCase
 
     public function testObjects()
     {
-        require_once __DIR__ . '/../../generated/simplexml.php';
+        require_once __DIR__ . '/../../lib/special_cases.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
-        require_once __DIR__ . '/../../generated/Exceptions/SimplexmlException.php';
+        require_once __DIR__ . '/../../lib/Exceptions/SimplexmlException.php';
 
         $xmlStr = <<<XML
 <?xml version='1.0' standalone='yes'?>

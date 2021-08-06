@@ -11,7 +11,7 @@ use Safe\Exceptions\FileinfoException;
  * @throws FileinfoException
  *
  */
-function finfo_close( $finfo): void
+function finfo_close($finfo): void
 {
     error_clear_last();
     $result = \finfo_close($finfo);
@@ -48,7 +48,7 @@ function finfo_open(int $flags = FILEINFO_NONE, string $magic_database = null)
     error_clear_last();
     if ($magic_database !== null) {
         $result = \finfo_open($flags, $magic_database);
-    }else {
+    } else {
         $result = \finfo_open($flags);
     }
     if ($result === false) {
@@ -68,7 +68,7 @@ function finfo_open(int $flags = FILEINFO_NONE, string $magic_database = null)
  * @throws FileinfoException
  *
  */
-function mime_content_type( $filename): string
+function mime_content_type($filename): string
 {
     error_clear_last();
     $result = \mime_content_type($filename);
@@ -77,4 +77,3 @@ function mime_content_type( $filename): string
     }
     return $result;
 }
-

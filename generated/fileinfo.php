@@ -24,7 +24,7 @@ function finfo_close($finfo): void
 /**
  * Procedural style
  *
- * Object oriented style (constructor):
+ * Object-oriented style (constructor):
  *
  * This function opens a magic database and returns its resource.
  *

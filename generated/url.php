@@ -29,35 +29,6 @@ function base64_decode(string $string, bool $strict = false): string
 
 
 /**
- * get_headers returns an array with the headers sent
- * by the server in response to a HTTP request.
- *
- * @param string $url The target URL.
- * @param bool $associative If the optional associative parameter is set to true,
- * get_headers parses the response and sets the
- * array's keys.
- * @param resource $context A valid context resource created with
- * stream_context_create.
- * @return array Returns an indexed or associative array with the headers.
- * @throws UrlException
- *
- */
-function get_headers(string $url, bool $associative = false, $context = null): array
-{
-    error_clear_last();
-    if ($context !== null) {
-        $result = \get_headers($url, $associative, $context);
-    } else {
-        $result = \get_headers($url, $associative);
-    }
-    if ($result === false) {
-        throw UrlException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Opens filename and parses it line by line for
  * &lt;meta&gt; tags in the file. The parsing stops at
  * &lt;/head&gt;.

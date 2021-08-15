@@ -672,6 +672,151 @@ function curl_multi_init()
 
 
 /**
+ *
+ *
+ * @param resource $multi_handle
+ * @param int $option One of the CURLMOPT_* constants.
+ * @param mixed $value The value to be set on option.
+ *
+ * value should be an int for the
+ * following values of the option parameter:
+ *
+ *
+ *
+ *
+ * Option
+ * Set value to
+ *
+ *
+ *
+ *
+ * CURLMOPT_PIPELINING
+ *
+ * Pass 1 to enable or 0 to disable. Enabling pipelining on a multi
+ * handle will make it attempt to perform HTTP Pipelining as far as
+ * possible for transfers using this handle. This means that if you add
+ * a second request that can use an already existing connection, the
+ * second request will be "piped" on the same connection.
+ * As of cURL 7.43.0, the value is a bitmask, and you can also pass 2 to try to multiplex the new
+ * transfer over an existing HTTP/2 connection if possible.
+ * Passing 3 instructs cURL to ask for pipelining and multiplexing
+ * independently of each other.
+ * As of cURL 7.62.0, setting the pipelining bit has no effect.
+ * Instead of integer literals, you can also use the CURLPIPE_*
+ * constants if available.
+ *
+ *
+ *
+ * CURLMOPT_MAXCONNECTS
+ *
+ * Pass a number that will be used as the maximum amount of
+ * simultaneously open connections that libcurl may cache.
+ * By default the size will be enlarged to fit four times the number
+ * of handles added via curl_multi_add_handle.
+ * When the cache is full, curl closes the oldest one in the cache
+ * to prevent the number of open connections from increasing.
+ *
+ *
+ *
+ * CURLMOPT_CHUNK_LENGTH_PENALTY_SIZE
+ *
+ * Pass a number that specifies the chunk length threshold for pipelining
+ * in bytes.
+ *
+ *
+ *
+ * CURLMOPT_CONTENT_LENGTH_PENALTY_SIZE
+ *
+ * Pass a number that specifies the size threshold for pipelining
+ * penalty in bytes.
+ *
+ *
+ *
+ * CURLMOPT_MAX_HOST_CONNECTIONS
+ *
+ * Pass a number that specifies the maximum number of connections to a
+ * single host.
+ *
+ *
+ *
+ * CURLMOPT_MAX_PIPELINE_LENGTH
+ *
+ * Pass a number that specifies the maximum number of requests in a
+ * pipeline.
+ *
+ *
+ *
+ * CURLMOPT_MAX_TOTAL_CONNECTIONS
+ *
+ * Pass a number that specifies the maximum number of simultaneously
+ * open connections.
+ *
+ *
+ *
+ * CURLMOPT_PUSHFUNCTION
+ *
+ * Pass a callable that will be registered to handle server
+ * pushes and should have the following signature:
+ *
+ * intpushfunction
+ * resourceparent_ch
+ * resourcepushed_ch
+ * arrayheaders
+ *
+ *
+ *
+ * parent_ch
+ *
+ *
+ * The parent cURL handle (the request the client made).
+ *
+ *
+ *
+ *
+ * pushed_ch
+ *
+ *
+ * A new cURL handle for the pushed request.
+ *
+ *
+ *
+ *
+ * headers
+ *
+ *
+ * The push promise headers.
+ *
+ *
+ *
+ *
+ * The push function is supposed to return either
+ * CURL_PUSH_OK if it can handle the push, or
+ * CURL_PUSH_DENY to reject it.
+ *
+ *
+ *
+ *
+ *
+ *
+ * The parent cURL handle (the request the client made).
+ *
+ * A new cURL handle for the pushed request.
+ *
+ * The push promise headers.
+ * @throws CurlException
+ *
+ */
+function curl_multi_setopt($multi_handle, int $option, $value): void
+{
+    error_clear_last();
+    $result = \curl_multi_setopt($multi_handle, $option, $value);
+    if ($result === false) {
+        throw CurlException::createFromPhpError();
+    }
+}
+
+
+/**
  * Sets an option on the given cURL session handle.
  *
  * @param resource $handle A cURL handle returned by
@@ -1780,10 +1925,13 @@ function curl_multi_init()
  * a "304 Not Modified" header will be returned
  * assuming CURLOPT_HEADER is TRUE.
  * Use CURL_TIMECOND_IFUNMODSINCE for the reverse
- * effect. CURL_TIMECOND_IFMODSINCE is the
- * default.
+ * effect. Use CURL_TIMECOND_NONE to ignore
+ * CURLOPT_TIMEVALUE and always return the page.
+ * CURL_TIMECOND_NONE is the default.
  *
  *
+ * Before cURL 7.46.0 the default was
+ * CURL_TIMECOND_IFMODSINCE.
  *
  *
  *
@@ -1812,8 +1960,7 @@ function curl_multi_init()
  * CURLOPT_TIMEVALUE
  *
  * The time in seconds since January 1st, 1970. The time will be used
- * by CURLOPT_TIMECONDITION. By default,
- * CURL_TIMECOND_IFMODSINCE is used.
+ * by CURLOPT_TIMECONDITION.
  *
  *
  *

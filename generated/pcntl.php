@@ -118,6 +118,61 @@ function pcntl_signal_dispatch(): void
 
 
 /**
+ * The pcntl_signal function installs a new
+ * signal handler or replaces the current signal handler for the signal indicated by signo.
+ *
+ * @param int $signo The signal number.
+ * @param callable|int $handler The signal handler. This may be either a callable, which
+ * will be invoked to handle the signal, or either of the two global
+ * constants SIG_IGN or SIG_DFL,
+ * which will ignore the signal or restore the default signal handler
+ * respectively.
+ *
+ * If a callable is given, it must implement the following
+ * signature:
+ *
+ *
+ * voidhandler
+ * intsigno
+ * mixedsiginfo
+ *
+ *
+ *
+ * signo
+ *
+ *
+ * The signal being handled.
+ *
+ *
+ *
+ *
+ * siginfo
+ *
+ *
+ * If operating systems supports siginfo_t structures, this will be an array of signal information dependent on the signal.
+ *
+ *
+ *
+ *
+ *
+ * Note that when you set a handler to an object method, that object's
+ * reference count is increased which makes it persist until you either
+ * change the handler to something else, or your script ends.
+ * @param bool $restart_syscalls
+ * @throws PcntlException
+ *
+ */
+function pcntl_signal(int $signo, $handler, bool $restart_syscalls = true): void
+{
+    error_clear_last();
+    $result = \pcntl_signal($signo, $handler, $restart_syscalls);
+    if ($result === false) {
+        throw PcntlException::createFromPhpError();
+    }
+}
+
+
+/**
  * The pcntl_sigprocmask function adds, removes or sets blocked
  * signals, depending on the how parameter.
  *

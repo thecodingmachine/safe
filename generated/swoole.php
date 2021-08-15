@@ -7,6 +7,46 @@ use Safe\Exceptions\SwooleException;
 /**
  *
  *
+ * @param string $hostname The host name.
+ * @param callable $callback The host name.
+ *
+ * The IP address.
+ * @throws SwooleException
+ *
+ */
+function swoole_async_dns_lookup(string $hostname, callable $callback): void
+{
+    error_clear_last();
+    $result = \swoole_async_dns_lookup($hostname, $callback);
+    if ($result === false) {
+        throw SwooleException::createFromPhpError();
+    }
+}
+
+
+/**
+ *
+ *
+ * @param string $filename The filename of the file being read.
+ * @param string $callback The name of the file.
+ *
+ * The content read from the file.
+ * @throws SwooleException
+ *
+ */
+function swoole_async_readfile(string $filename, string $callback): void
+{
+    error_clear_last();
+    $result = \swoole_async_readfile($filename, $callback);
+    if ($result === false) {
+        throw SwooleException::createFromPhpError();
+    }
+}
+
+
+/**
+ *
+ *
  * @param string $filename The filename being written.
  * @param string $content The content writing to the file.
  * @param int $offset The offset.

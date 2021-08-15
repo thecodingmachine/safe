@@ -348,6 +348,47 @@ function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
 
 
 /**
+ * Sets or removes a CTRL event handler, which allows Windows
+ * CLI processes to intercept or ignore CTRL+C and
+ * CTRL+BREAK events. Note that in multithreaded environments,
+ * this is only possible when called from the main thread.
+ *
+ * @param callable $callable A callback function to set or remove. If set, this function will be called
+ * whenever a CTRL+C or CTRL+BREAK event
+ * occurs. The function is supposed to have the following signature:
+ *
+ * voidhandler
+ * intevent
+ *
+ *
+ *
+ * event
+ *
+ *
+ * The CTRL event which has been received;
+ * either PHP_WINDOWS_EVENT_CTRL_C
+ * or PHP_WINDOWS_EVENT_CTRL_BREAK.
+ *
+ *
+ *
+ *
+ * Setting a NULL callable causes the process to ignore
+ * CTRL+C events, but not CTRL+BREAK events.
+ * @param bool $add
+ * @throws MiscException
+ *
+ */
+function sapi_windows_set_ctrl_handler(callable $callable, bool $add = true): void
+{
+    error_clear_last();
+    $result = \sapi_windows_set_ctrl_handler($callable, $add);
+    if ($result === false) {
+        throw MiscException::createFromPhpError();
+    }
+}
+
+
+/**
  * If enable is omitted, the function returns TRUE if the stream stream has VT100 control codes enabled, FALSE otherwise.
  *
  * If enable is specified, the function will try to enable or disable the VT100 features of the stream stream.

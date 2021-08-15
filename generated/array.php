@@ -47,7 +47,7 @@ function array_combine(array $keys, array $values): array
  * @throws ArrayException
  *
  */
-function array_flip(array $array): array
+function array_flip($array): array
 {
     error_clear_last();
     $result = \array_flip($array);
@@ -138,7 +138,7 @@ function array_replace(array $array, array  ...$replacements): array
  * element of the array. This function will recurse
  * into deeper arrays.
  *
- * @param array $array The input array.
+ * @param array|object $array The input array.
  * @param callable $callback Typically, callback takes on two parameters.
  * The array parameter's value being the first, and
  * the key/index second.
@@ -155,7 +155,7 @@ function array_replace(array $array, array  ...$replacements): array
  * @throws ArrayException
  *
  */
-function array_walk_recursive(array &$array, callable $callback, $arg = null): void
+function array_walk_recursive(&$array, callable $callback, $arg = null): void
 {
     error_clear_last();
     if ($arg !== null) {
@@ -228,63 +228,6 @@ function arsort(array &$array, int $flags = SORT_REGULAR): void
 
 
 /**
- * This function sorts an array in ascending order such that array indices maintain
- * their correlation with the array elements they are associated
- * with.  This is used mainly when sorting associative arrays where
- * the actual element order is significant.
- *
- * @param array $array The input array.
- * @param int $flags The optional second parameter flags
- * may be used to modify the sorting behavior using these values:
- *
- * Sorting type flags:
- *
- *
- * SORT_REGULAR - compare items normally;
- * the details are described in the comparison operators section
- *
- *
- * SORT_NUMERIC - compare items numerically
- *
- *
- * SORT_STRING - compare items as strings
- *
- *
- *
- * SORT_LOCALE_STRING - compare items as
- * strings, based on the current locale. It uses the locale,
- * which can be changed using setlocale
- *
- *
- *
- *
- * SORT_NATURAL - compare items as strings
- * using "natural ordering" like natsort
- *
- *
- *
- *
- * SORT_FLAG_CASE - can be combined
- * (bitwise OR) with
- * SORT_STRING or
- * SORT_NATURAL to sort strings case-insensitively
- *
- *
- *
- * @throws ArrayException
- *
- */
-function asort(array &$array, int $flags = SORT_REGULAR): void
-{
-    error_clear_last();
-    $result = \asort($array, $flags);
-    if ($result === false) {
-        throw ArrayException::createFromPhpError();
-    }
-}
-
-
-/**
  * Sorts an array by key in descending order, maintaining key to data
  * correlations. This is useful mainly for associative arrays.
  *
@@ -333,83 +276,6 @@ function krsort(array &$array, int $flags = SORT_REGULAR): void
 {
     error_clear_last();
     $result = \krsort($array, $flags);
-    if ($result === false) {
-        throw ArrayException::createFromPhpError();
-    }
-}
-
-
-/**
- * Sorts an array by key in ascending order, maintaining key to data correlations. This is
- * useful mainly for associative arrays.
- *
- * @param array $array The input array.
- * @param int $flags The optional second parameter flags
- * may be used to modify the sorting behavior using these values:
- *
- * Sorting type flags:
- *
- *
- * SORT_REGULAR - compare items normally;
- * the details are described in the comparison operators section
- *
- *
- * SORT_NUMERIC - compare items numerically
- *
- *
- * SORT_STRING - compare items as strings
- *
- *
- *
- * SORT_LOCALE_STRING - compare items as
- * strings, based on the current locale. It uses the locale,
- * which can be changed using setlocale
- *
- *
- *
- *
- * SORT_NATURAL - compare items as strings
- * using "natural ordering" like natsort
- *
- *
- *
- *
- * SORT_FLAG_CASE - can be combined
- * (bitwise OR) with
- * SORT_STRING or
- * SORT_NATURAL to sort strings case-insensitively
- *
- *
- *
- * @throws ArrayException
- *
- */
-function ksort(array &$array, int $flags = SORT_REGULAR): void
-{
-    error_clear_last();
-    $result = \ksort($array, $flags);
-    if ($result === false) {
-        throw ArrayException::createFromPhpError();
-    }
-}
-
-
-/**
- * natcasesort is a case insensitive version of
- * natsort.
- *
- * This function implements a sort algorithm that orders
- * alphanumeric strings in the way a human being would while maintaining
- * key/value associations.  This is described as a "natural ordering".
- *
- * @param array $array The input array.
- * @throws ArrayException
- *
- */
-function natcasesort(array &$array): void
-{
-    error_clear_last();
-    $result = \natcasesort($array);
     if ($result === false) {
         throw ArrayException::createFromPhpError();
     }
@@ -595,7 +461,7 @@ function uasort(array &$array, callable $callback): void
  * this function.
  *
  * @param array $array The input array.
- * @param callable(mixed,mixed):int $callback The comparison function must return an integer less than, equal to, or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than the second.
+ * @param callable(array-key,array-key):int $callback The comparison function must return an integer less than, equal to, or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than the second.
  * @throws ArrayException
  *
  */

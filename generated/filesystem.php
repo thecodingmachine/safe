@@ -324,7 +324,7 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
  *
  *
  *
- * @param resource $context A valid context resource created with
+ * @param resource|null $context A valid context resource created with
  * stream_context_create.
  * @return int This function returns the number of bytes that were written to the file.
  * @throws FilesystemException

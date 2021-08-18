@@ -1259,48 +1259,6 @@ function oci_pconnect(string $username, string $password, string $connection_str
 
 
 /**
- * Registers a user-defined callback function to connection.
- * If connection fails due to instance or network failure,
- * the registered callback function will be invoked for several times during
- * failover. See OCI8 Transparent Application Failover
- * (TAF) Support for information.
- *
- * When oci_register_taf_callback is called multiple times,
- * each registration overwrites the previous one.
- *
- * Use oci_unregister_taf_callback to explicitly unregister a
- * user-defined callback.
- *
- * TAF callback registration will NOT be saved across
- * persistent connections, therefore the callback needs to be re-registered for
- * a new persistent connection.
- *
- * @param resource $connection An Oracle connection identifier.
- * @param callable $callbackFn A user-defined callback to register for Oracle TAF. It can be a
- * string of the function name or a Closure (anonymous function).
- *
- * The interface of a TAF user-defined callback function is as follows:
- *
- * See the parameter description and an example on
- * OCI8 Transparent Application Failover (TAF) Support page.
- * @throws Oci8Exception
- *
- */
-function oci_register_taf_callback($connection, callable $callbackFn = null): void
-{
-    error_clear_last();
-    if ($callbackFn !== null) {
-        $result = \oci_register_taf_callback($connection, $callbackFn);
-    } else {
-        $result = \oci_register_taf_callback($connection);
-    }
-    if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
-    }
-}
-
-
-/**
  * Returns the data from field in the current row,
  * fetched by oci_fetch.
  *

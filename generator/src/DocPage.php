@@ -163,9 +163,17 @@ class DocPage
         if ($file === false) {
             throw new \RuntimeException('An error occured while reading '.$this->path);
         }
-        if (!preg_match_all('/<\/?methodsynopsis[\s\S]*?>[\s\S]*?<\/methodsynopsis>/m', $file, $functions, PREG_SET_ORDER, 0)) {
+
+        // Only evaluate the synopsis inside the `<refsect1 role="description">...</refsect1>` section of the doc page.
+        // Other synopses might occur in the `<refsect1 role="parameters">...</refsect1>` section, but these describe
+        // handlers, callbacks, and other callable-type arguments, not the function itself.
+        preg_match_all('/<refsect1\s+role="description">[\s\S]*?<\/refsect1>/m', $file, $fileDescriptionSection);
+        $fileDescriptionSection = implode('', $this->arrayFlatten((array) $fileDescriptionSection));
+
+        if (!preg_match_all('/<\/?methodsynopsis[\s\S]*?>[\s\S]*?<\/methodsynopsis>/m', $fileDescriptionSection, $functions, PREG_SET_ORDER, 0)) {
             return [];
         }
+
         $functions = $this->arrayFlatten($functions);
         foreach ($functions as $function) {
             $cleaningFunction = \str_replace(['&false;', '&true;', '&null;'], ['false', 'true', 'null'], $function);

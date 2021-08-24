@@ -46,6 +46,14 @@ class PhpStanType
         if ($writeOnly && $data !== 'resource' && $data !== 'mixed') {
             $data .= '|null';
         }
+
+        // Remove generic syntax, which could also contain a | character
+        if (false != \preg_match_all('/(<(.*?)>)|({(.*?)})/', $data, $matches, PREG_OFFSET_CAPTURE)) {
+            foreach ($matches[0] as $match) {
+                $data = \str_replace($match[0], '', $data);
+            }
+        }
+
         $returnTypes = \explode('|', $data);
         //remove 'null' from the list to identify if the signature type should be nullable
         if (($nullablePosition = \array_search('null', $returnTypes)) !== false) {

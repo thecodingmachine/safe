@@ -1,0 +1,6 @@
+[submodule "generator/doc/doc-en/doc-base"]
+	path = generator/doc/doc-en/doc-base
+	url = https://github.com/salathe/phpdoc-base
+[submodule "generator/doc/doc-en/en"]
+	path = generator/doc/doc-en/en
+	url = https://github.com/php/doc-en

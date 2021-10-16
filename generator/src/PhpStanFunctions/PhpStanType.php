@@ -81,32 +81,6 @@ class PhpStanType
         $this->falsable = $falsable;
     }
 
-    private function explodeTypes(string $data): array
-    {
-        $types = [];
-        $depth = 0;
-        $index = 0;
-
-        foreach (str_split($data) as $character) {
-            if ($character === '<' || $character === '{') {
-                $depth++;
-            }
-
-            if ($character === '>' || $character === '}') {
-                $depth--;
-            }
-
-            if ($depth === 0 && $character === '|') {
-                $index++;
-                continue;
-            }
-
-            $types[$index] = ($types[$index] ?? '') . $character;
-        }
-
-        return $types;
-    }
-    
     public function getDocBlockType(?int $errorType = null): string
     {
         $returnTypes = $this->types;
@@ -135,7 +109,7 @@ class PhpStanType
         if (\array_intersect(self::NO_SIGNATURE_TYPES, $types)) {
             return '';
         }
-        
+
         foreach ($types as &$type) {
             if (\strpos($type, 'callable(') > -1) {
                 $type = 'callable'; //strip callable type of its possible parenthesis and return (ex: callable(): void)
@@ -149,14 +123,14 @@ class PhpStanType
                 $type = ''; // null is a real typehint
             }
         }
-        
+
         //if there are several distinct types, no typehint (we use distinct in case doc block contains several times the same type, for example array<int>|array<string>)
         if (count(array_unique($types)) > 1) {
             return '';
         } elseif (\in_array('void', $types) || (count($types) === 0 && !$nullable && !$falsable)) {
             return 'void';
         }
-            
+
 
         $finalType = $types[0];
         if ($finalType === 'bool' && !$nullable && $errorType === Method::FALSY_TYPE) {
@@ -166,7 +140,7 @@ class PhpStanType
         }
         return ($nullable !== false ? '?' : '').$finalType;
     }
-    
+
     public function isNullable(): bool
     {
         return $this->nullable;
@@ -175,5 +149,34 @@ class PhpStanType
     public function isFalsable(): bool
     {
         return $this->falsable;
+    }
+
+    /**
+     * @return array<string>
+     */
+    private function explodeTypes(string $data): array
+    {
+        $types = [];
+        $depth = 0;
+        $index = 0;
+
+        foreach (\str_split($data) as $character) {
+            if ($character === '<' || $character === '{') {
+                $depth++;
+            }
+
+            if ($character === '>' || $character === '}') {
+                $depth--;
+            }
+
+            if ($depth === 0 && $character === '|') {
+                $index++;
+                continue;
+            }
+
+            $types[$index] = ($types[$index] ?? '') . $character;
+        }
+
+        return $types;
     }
 }

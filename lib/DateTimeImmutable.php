@@ -190,7 +190,7 @@ class DateTimeImmutable extends \DateTimeImmutable
 
     /**
      * @param \DateInterval $interval
-     * @return \DateTimeImmutable
+     * @return DateTimeImmutable
      * @throws DatetimeException
      */
     public function sub($interval): self
@@ -234,12 +234,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public static function createFromMutable($dateTime): self
     {
-        $date = parent::createFromMutable($dateTime);
-
-        if ($date instanceof DateTimeImmutable) {
-            // parent::createFromMutable() apparantly returns a \Safe\DateTimeImmutable instead of \DateTimeImmutable
-            $date->innerDateTime = $dateTime;
-        }
+        $date = \DateTimeImmutable::createFromMutable($dateTime);
 
         return self::createFromRegular($date);
     }

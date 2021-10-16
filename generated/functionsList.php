@@ -367,6 +367,7 @@ return [
     'imagegd2',
     'imagegif',
     'imagegrabscreen',
+    'imagegrabwindow',
     'imagejpeg',
     'imagelayereffect',
     'imageline',

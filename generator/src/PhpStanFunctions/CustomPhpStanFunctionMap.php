@@ -13,4 +13,5 @@ return [
     'imagerotate' => ['resource|false', 'src_im'=>'resource', 'angle'=>'float', 'bgdcolor'=>'int', 'ignoretransparent='=>'bool'], //ignoretransparent is a bool instead of a int
     'pg_pconnect' => ['resource|false', 'connection_string'=>'string', 'flags' => 'int'], //flags is an int instead of a string
     'get_headers' => ['array|false', 'url'=>'string', 'format='=>'bool', 'context='=>'resource'], // format is a bool instead of int
+    'imagegrabwindow' => ['GdImage|false', 'handle'=>'int', 'client_area'=>'bool'], // client_ara is a bool instead of an int
 ];

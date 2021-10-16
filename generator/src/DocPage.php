@@ -123,6 +123,11 @@ class DocPage
             return true;
         }
 
+        //used to detect class_implements
+        if (preg_match("/&false; when the given class doesn't exist/m", $file)) {
+            return true;
+        }
+
         return false;
     }
 

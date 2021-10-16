@@ -5,9 +5,9 @@ namespace Safe;
 use Safe\Exceptions\FileinfoException;
 
 /**
- * This function closes the resource opened by finfo_open.
+ * This function closes the instance opened by finfo_open.
  *
- * @param resource $finfo Fileinfo resource returned by finfo_open.
+ * @param resource $finfo An finfo instance, returned by finfo_open.
  * @throws FileinfoException
  *
  */
@@ -24,9 +24,9 @@ function finfo_close($finfo): void
 /**
  * Procedural style
  *
- * Object oriented style (constructor):
+ * Object-oriented style (constructor):
  *
- * This function opens a magic database and returns its resource.
+ * This function opens a magic database and returns its instance.
  *
  * @param int $flags One or disjunction of more Fileinfo
  * constants.
@@ -39,7 +39,7 @@ function finfo_close($finfo): void
  * Passing NULL or an empty string will be equivalent to the default
  * value.
  * @return resource (Procedural style only)
- * Returns a magic database resource on success.
+ * Returns an finfo instance on success.
  * @throws FileinfoException
  *
  */

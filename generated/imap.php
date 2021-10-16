@@ -27,8 +27,7 @@ function imap_8bit(string $string): string
 /**
  * Appends a string message to the specified folder.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $folder The mailbox name, see imap_open for more
  * information
  * @param string $message The message to be append, as a string
@@ -107,8 +106,7 @@ function imap_binary(string $string): string
  * analyze its structure and imap_fetchbody to
  * extract a copy of a single body component.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $message_num The message number
  * @param int $flags The optional flags are a bit mask
  * with one or more of the following:
@@ -148,8 +146,7 @@ function imap_body($imap, int $message_num, int $flags = 0): string
 /**
  * Read the structure of a specified body section of a specific message.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $message_num The message number
  * @param string $section The body section to read
  * @return \stdClass Returns the information in an object.
@@ -173,8 +170,7 @@ function imap_bodystruct($imap, int $message_num, string $section): \stdClass
 /**
  * Checks information about the current mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @return \stdClass Returns the information in an object with following properties:
  *
  *
@@ -225,8 +221,7 @@ function imap_check($imap): \stdClass
  * flag to the flags set for the
  * messages in the specified sequence.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $sequence A sequence of message numbers. You can enumerate desired messages
  * with the X,Y syntax, or retrieve all messages
  * within an interval with the X:Y syntax
@@ -258,8 +253,7 @@ function imap_clearflag_full($imap, string $sequence, string $flag, int $options
 /**
  * Closes the imap stream.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $flags If set to CL_EXPUNGE, the function will silently
  * expunge the mailbox before closing, removing all messages marked for
  * deletion. You can achieve the same thing by using
@@ -280,8 +274,7 @@ function imap_close($imap, int $flags = 0): void
 /**
  * Creates a new mailbox specified by mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $mailbox The mailbox name, see imap_open for more
  * information. Names containing international characters should be
  * encoded by imap_utf7_encode
@@ -301,8 +294,7 @@ function imap_createmailbox($imap, string $mailbox): void
 /**
  * Deletes the specified mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $mailbox The mailbox name, see imap_open for more
  * information
  * @throws ImapException
@@ -323,8 +315,7 @@ function imap_deletemailbox($imap, string $mailbox): void
  * sequence and returns an overview of their
  * contents.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $sequence A message sequence description. You can enumerate desired messages
  * with the X,Y syntax, or retrieve all messages
  * within an interval with the X:Y syntax
@@ -440,8 +431,7 @@ function imap_fetch_overview($imap, string $sequence, int $flags = 0): array
  * Fetch of a particular section of the body of the specified messages.
  * Body parts are not decoded by this function.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $message_num The message number
  * @param string $section The part number. It is a string of integers delimited by period which
  * index into a body part list as per the IMAP4 specification
@@ -485,8 +475,7 @@ function imap_fetchbody($imap, int $message_num, string $section, int $flags = 0
  * This function causes a fetch of the complete, unfiltered RFC2822 format header of the specified
  * message.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $message_num The message number
  * @param int $flags The possible flags are:
  *
@@ -530,8 +519,7 @@ function imap_fetchheader($imap, int $message_num, int $flags = 0): string
 /**
  * Fetch the MIME headers of a particular section of the body of the specified messages.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $message_num The message number
  * @param string $section The part number. It is a string of integers delimited by period which
  * index into a body part list as per the IMAP4 specification
@@ -574,8 +562,7 @@ function imap_fetchmime($imap, int $message_num, string $section, int $flags = 0
 /**
  * Fetches all the structured information for a given message.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $message_num The message number
  * @param int $flags This optional parameter only has a single option,
  * FT_UID, which tells the function to treat the
@@ -722,8 +709,7 @@ function imap_fetchstructure($imap, int $message_num, int $flags = 0): \stdClass
 /**
  * Purges the cache of entries of a specific type.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $flags Specifies the cache to purge. It may one or a combination
  * of the following constants:
  * IMAP_GC_ELT (message cache elements),
@@ -745,8 +731,7 @@ function imap_gc($imap, int $flags): void
 /**
  * Gets the ACL for a given mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $mailbox The mailbox name, see imap_open for more
  * information
  * @return array Returns an associative array of "folder" =&gt; "acl" pairs.
@@ -767,8 +752,7 @@ function imap_getacl($imap, string $mailbox): array
 /**
  * Gets information on the mailboxes.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $reference reference should normally be just the server
  * specification as described in imap_open
  * @param string $pattern Specifies where in the mailbox hierarchy
@@ -857,8 +841,7 @@ function imap_getmailboxes($imap, string $reference, string $pattern): array
  * Identical to imap_getmailboxes, except that it only
  * returns mailboxes that the user is subscribed to.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $reference reference should normally be just the server
  * specification as described in imap_open
  * @param string $pattern Specifies where in the mailbox hierarchy
@@ -941,8 +924,7 @@ function imap_getsubscribed($imap, string $reference, string $pattern): array
 /**
  * Gets information about the given message number by reading its headers.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $message_num The message number
  * @param int $from_length Number of characters for the fetchfrom property.
  * Must be greater than or equal to zero.
@@ -1167,8 +1149,7 @@ function imap_headerinfo($imap, int $message_num, int $from_length = 0, int $sub
 /**
  * Returns headers for all messages in a mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @return array Returns an array of string formatted with header info. One
  * element per mail message.
  * Returns FALSE on failure.
@@ -1194,8 +1175,7 @@ function imap_headers($imap): array
  * but it will additionally check for the presence of the string
  * content inside the mailbox data.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $reference reference should normally be just the server
  * specification as described in imap_open
  * @param string $pattern Specifies where in the mailbox hierarchy
@@ -1232,8 +1212,7 @@ function imap_listscan($imap, string $reference, string $pattern, string $conten
 /**
  * Gets an array of all the mailboxes that you have subscribed.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $reference reference should normally be just the server
  * specification as described in imap_open
  * @param string $pattern Specifies where in the mailbox hierarchy
@@ -1387,8 +1366,7 @@ function imap_mail_compose(array $envelope, array $bodies): string
  * Copies mail messages specified by message_nums
  * to specified mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $message_nums message_nums is a range not just message
  * numbers (as described in RFC2060).
  * @param string $mailbox The mailbox name, see imap_open for more
@@ -1424,8 +1402,7 @@ function imap_mail_copy($imap, string $message_nums, string $mailbox, int $flags
  * Moves mail messages specified by message_nums to the
  * specified mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $message_nums message_nums is a range not just message numbers
  * (as described in RFC2060).
  * @param string $mailbox The mailbox name, see imap_open for more
@@ -1497,8 +1474,7 @@ function imap_mail(string $to, string $subject, string $message, string $additio
  * all messages in the mailbox, which will take some additional time to
  * execute.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @return \stdClass Returns the information in an object with following properties:
  *
  * Mailbox properties
@@ -1604,8 +1580,7 @@ function imap_mutf7_to_utf8(string $string): string
 /**
  * Gets the number of messages in the current mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @return int Return the number of messages in the current mailbox, as an integer.
  * @throws ImapException
  *
@@ -1821,7 +1796,7 @@ function imap_num_msg($imap): int
  *
  *
  *
- * @return resource Returns an IMAP stream on success.
+ * @return resource Returns an IMAP\Connection instance on success.
  * @throws ImapException
  *
  */
@@ -1860,8 +1835,7 @@ function imap_qprint(string $string): string
  * imap_open for the format of
  * mbox names).
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $from The old mailbox name, see imap_open for more
  * information
  * @param string $to The new mailbox name, see imap_open for more
@@ -1904,8 +1878,7 @@ function imap_rfc822_write_address(?string $mailbox, ?string $hostname, ?string 
 /**
  * Saves a part or the whole body of the specified message.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string|resource $file The path to the saved file as a string, or a valid file descriptor
  * returned by fopen.
  * @param int $message_num The message number
@@ -1947,8 +1920,7 @@ function imap_savebody($imap, $file, int $message_num, string $section = "", int
 /**
  * Sets an upper limit quota on a per mailbox basis.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $quota_root The mailbox to have a quota set. This should follow the IMAP standard
  * format for a mailbox: user.name.
  * @param int $mailbox_size The maximum size (in KB) for the quota_root
@@ -1968,8 +1940,7 @@ function imap_set_quota($imap, string $quota_root, int $mailbox_size): void
 /**
  * Sets the ACL for a giving mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $mailbox The mailbox name, see imap_open for more
  * information
  * @param string $user_id The user to give the rights to.
@@ -1993,8 +1964,7 @@ function imap_setacl($imap, string $mailbox, string $user_id, string $rights): v
  * flags set for the messages in the specified
  * sequence.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $sequence A sequence of message numbers. You can enumerate desired messages
  * with the X,Y syntax, or retrieve all messages
  * within an interval with the X:Y syntax
@@ -2027,8 +1997,7 @@ function imap_setflag_full($imap, string $sequence, string $flag, int $options =
 /**
  * Gets and sorts message numbers by the given parameters.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $criteria Criteria can be one (and only one) of the following:
  *
  *
@@ -2110,8 +2079,7 @@ function imap_sort($imap, int $criteria, int $reverse, int $flags = 0, string $s
 /**
  * Gets status information about the given mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $mailbox The mailbox name, see imap_open for more
  * information
  * @param int $flags Valid flags are:
@@ -2177,8 +2145,7 @@ function imap_status($imap, string $mailbox, int $flags): \stdClass
 /**
  * Subscribe to a new mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $mailbox The mailbox name, see imap_open for more
  * information
  * @throws ImapException
@@ -2197,8 +2164,7 @@ function imap_subscribe($imap, string $mailbox): void
 /**
  * Gets a tree of a threaded message.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $flags
  * @return array imap_thread returns an associative array containing
  * a tree of messages threaded by REFERENCES.
@@ -2263,8 +2229,7 @@ function imap_timeout(int $timeout_type, int $timeout = -1)
  * Removes the deletion flag for a specified message, which is set by
  * imap_delete or imap_mail_move.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param int $message_num The message number
  * @param int $flags
  * @throws ImapException
@@ -2283,8 +2248,7 @@ function imap_undelete($imap, int $message_num, int $flags = 0): void
 /**
  * Unsubscribe from the specified mailbox.
  *
- * @param resource $imap An IMAP stream returned by
- * imap_open.
+ * @param resource $imap An IMAP\Connection instance.
  * @param string $mailbox The mailbox name, see imap_open for more
  * information
  * @throws ImapException

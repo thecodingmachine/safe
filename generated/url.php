@@ -116,8 +116,7 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
  * URLs are also accepted, parse_url tries its best to
  * parse them correctly.
  *
- * @param string $url The URL to parse. Invalid characters are replaced by
- * _.
+ * @param string $url The URL to parse.
  * @param int $component Specify one of PHP_URL_SCHEME,
  * PHP_URL_HOST, PHP_URL_PORT,
  * PHP_URL_USER, PHP_URL_PASS,
@@ -179,6 +178,19 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
  * int, in the case of PHP_URL_PORT)
  * instead of an array. If the requested component doesn't exist
  * within the given URL, NULL will be returned.
+ * As of PHP 8.0.0, parse_url distinguishes absent and empty
+ * queries and fragments:
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * Previously all cases resulted in query and fragment being NULL.
+ *
+ * Note that control characters (cf. ctype_cntrl) in the
+ * components are replaced with underscores (_).
  * @throws UrlException
  *
  */

@@ -5,58 +5,26 @@ namespace Safe;
 use Safe\Exceptions\PcntlException;
 
 /**
- * Executes the program with the given arguments.
- *
- * @param string $path path must be the path to a binary executable or a
- * script with a valid path pointing to an executable in the shebang (
- * #!/usr/local/bin/perl for example) as the first line.  See your system's
- * man execve(2) page for additional information.
- * @param array $args args is an array of argument strings passed to the
- * program.
- * @param array $envs envs is an array of strings which are passed as
- * environment to the program.  The array is in the format of name =&gt; value,
- * the key being the name of the environmental variable and the value being
- * the value of that variable.
- * @throws PcntlException
- *
- */
-function pcntl_exec(string $path, array $args = null, array $envs = null): void
-{
-    error_clear_last();
-    if ($envs !== null) {
-        $result = \pcntl_exec($path, $args, $envs);
-    } elseif ($args !== null) {
-        $result = \pcntl_exec($path, $args);
-    } else {
-        $result = \pcntl_exec($path);
-    }
-    if ($result === false) {
-        throw PcntlException::createFromPhpError();
-    }
-}
-
-
-/**
  * pcntl_getpriority gets the priority of
- * pid. Because priority levels can differ between
+ * process_id. Because priority levels can differ between
  * system types and kernel versions, please see your system's getpriority(2)
  * man page for specific details.
  *
- * @param int $pid If not specified, the pid of the current process is used.
- * @param int $process_identifier One of PRIO_PGRP, PRIO_USER
+ * @param int $process_id If NULL, the process id of the current process is used.
+ * @param int $mode One of PRIO_PGRP, PRIO_USER
  * or PRIO_PROCESS.
  * @return int pcntl_getpriority returns the priority of the process.  A lower numerical value causes more favorable
  * scheduling.
  * @throws PcntlException
  *
  */
-function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCESS): int
+function pcntl_getpriority(int $process_id = null, int $mode = PRIO_PROCESS): int
 {
     error_clear_last();
-    if ($process_identifier !== PRIO_PROCESS) {
-        $result = \pcntl_getpriority($pid, $process_identifier);
-    } elseif ($pid !== null) {
-        $result = \pcntl_getpriority($pid);
+    if ($mode !== PRIO_PROCESS) {
+        $result = \pcntl_getpriority($process_id, $mode);
+    } elseif ($process_id !== null) {
+        $result = \pcntl_getpriority($process_id);
     } else {
         $result = \pcntl_getpriority();
     }
@@ -69,7 +37,7 @@ function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCE
 
 /**
  * pcntl_setpriority sets the priority of
- * pid.
+ * process_id.
  *
  * @param int $priority priority is generally a value in the range
  * -20 to 20. The default priority
@@ -77,19 +45,19 @@ function pcntl_getpriority(int $pid = null, int $process_identifier = PRIO_PROCE
  * favorable scheduling.  Because priority levels can differ between
  * system types and kernel versions, please see your system's setpriority(2)
  * man page for specific details.
- * @param int $pid If not specified, the pid of the current process is used.
- * @param int $process_identifier One of PRIO_PGRP, PRIO_USER
+ * @param int $process_id If NULL, the process id of the current process is used.
+ * @param int $mode One of PRIO_PGRP, PRIO_USER
  * or PRIO_PROCESS.
  * @throws PcntlException
  *
  */
-function pcntl_setpriority(int $priority, int $pid = null, int $process_identifier = PRIO_PROCESS): void
+function pcntl_setpriority(int $priority, int $process_id = null, int $mode = PRIO_PROCESS): void
 {
     error_clear_last();
-    if ($process_identifier !== PRIO_PROCESS) {
-        $result = \pcntl_setpriority($priority, $pid, $process_identifier);
-    } elseif ($pid !== null) {
-        $result = \pcntl_setpriority($priority, $pid);
+    if ($mode !== PRIO_PROCESS) {
+        $result = \pcntl_setpriority($priority, $process_id, $mode);
+    } elseif ($process_id !== null) {
+        $result = \pcntl_setpriority($priority, $process_id);
     } else {
         $result = \pcntl_setpriority($priority);
     }
@@ -118,10 +86,65 @@ function pcntl_signal_dispatch(): void
 
 
 /**
- * The pcntl_sigprocmask function adds, removes or sets blocked
- * signals, depending on the how parameter.
+ * The pcntl_signal function installs a new
+ * signal handler or replaces the current signal handler for the signal indicated by signal.
  *
- * @param int $how Sets the behavior of pcntl_sigprocmask. Possible
+ * @param int $signal The signal number.
+ * @param callable|int $handler The signal handler. This may be either a callable, which
+ * will be invoked to handle the signal, or either of the two global
+ * constants SIG_IGN or SIG_DFL,
+ * which will ignore the signal or restore the default signal handler
+ * respectively.
+ *
+ * If a callable is given, it must implement the following
+ * signature:
+ *
+ *
+ * voidhandler
+ * intsigno
+ * mixedsiginfo
+ *
+ *
+ *
+ * signal
+ *
+ *
+ * The signal being handled.
+ *
+ *
+ *
+ *
+ * siginfo
+ *
+ *
+ * If operating systems supports siginfo_t structures, this will be an array of signal information dependent on the signal.
+ *
+ *
+ *
+ *
+ *
+ * Note that when you set a handler to an object method, that object's
+ * reference count is increased which makes it persist until you either
+ * change the handler to something else, or your script ends.
+ * @param bool $restart_syscalls
+ * @throws PcntlException
+ *
+ */
+function pcntl_signal(int $signal, $handler, bool $restart_syscalls = true): void
+{
+    error_clear_last();
+    $result = \pcntl_signal($signal, $handler, $restart_syscalls);
+    if ($result === false) {
+        throw PcntlException::createFromPhpError();
+    }
+}
+
+
+/**
+ * The pcntl_sigprocmask function adds, removes or sets blocked
+ * signals, depending on the mode parameter.
+ *
+ * @param int $mode Sets the behavior of pcntl_sigprocmask. Possible
  * values:
  *
  * SIG_BLOCK: Add the signals to the
@@ -131,16 +154,16 @@ function pcntl_signal_dispatch(): void
  * SIG_SETMASK: Replace the currently
  * blocked signals by the given list of signals.
  *
- * @param array $set List of signals.
- * @param array|null $oldset The oldset parameter is set to an array
+ * @param array $signals List of signals.
+ * @param array|null $old_signals The old_signals parameter is set to an array
  * containing the list of the previously blocked signals.
  * @throws PcntlException
  *
  */
-function pcntl_sigprocmask(int $how, array $set, ?array &$oldset = null): void
+function pcntl_sigprocmask(int $mode, array $signals, ?array &$old_signals = null): void
 {
     error_clear_last();
-    $result = \pcntl_sigprocmask($how, $set, $oldset);
+    $result = \pcntl_sigprocmask($mode, $signals, $old_signals);
     if ($result === false) {
         throw PcntlException::createFromPhpError();
     }
@@ -148,17 +171,81 @@ function pcntl_sigprocmask(int $how, array $set, ?array &$oldset = null): void
 
 
 /**
+ * The pcntl_sigtimedwait function operates in exactly
+ * the same way as pcntl_sigwaitinfo except that it takes
+ * two additional parameters, seconds and
+ * nanoseconds, which enable an upper bound to be placed
+ * on the time for which the script is suspended.
  *
- *
- * @param int $errno
- * @return string Returns error description on success.
+ * @param array $signals Array of signals to wait for.
+ * @param array|null $info The info is set to an array containing
+ * information about the signal. See
+ * pcntl_sigwaitinfo.
+ * @param int $seconds Timeout in seconds.
+ * @param int $nanoseconds Timeout in nanoseconds.
+ * @return int pcntl_sigtimedwait returns a signal number on success.
  * @throws PcntlException
  *
  */
-function pcntl_strerror(int $errno): string
+function pcntl_sigtimedwait(array $signals, ?array &$info = [], int $seconds = 0, int $nanoseconds = 0): int
 {
     error_clear_last();
-    $result = \pcntl_strerror($errno);
+    $result = \pcntl_sigtimedwait($signals, $info, $seconds, $nanoseconds);
+    if ($result === false) {
+        throw PcntlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
+ * The pcntl_sigwaitinfo function suspends execution of the
+ * calling script until one of the signals given in signals
+ * are delivered. If one of the signal is already pending (e.g. blocked by
+ * pcntl_sigprocmask),
+ * pcntl_sigwaitinfo will return immediately.
+ *
+ * @param array $signals Array of signals to wait for.
+ * @param array|null $info The info parameter is set to an array containing
+ * information about the signal.
+ *
+ * The following elements are set for all signals:
+ *
+ * signo: Signal number
+ * errno: An error number
+ * code: Signal code
+ *
+ *
+ * The following elements may be set for the SIGCHLD signal:
+ *
+ * status: Exit value or signal
+ * utime: User time consumed
+ * stime: System time consumed
+ * pid: Sending process ID
+ * uid: Real user ID of sending process
+ *
+ *
+ * The following elements may be set for the SIGILL,
+ * SIGFPE, SIGSEGV and
+ * SIGBUS signals:
+ *
+ * addr: Memory location which caused fault
+ *
+ *
+ * The following element may be set for the SIGPOLL
+ * signal:
+ *
+ * band: Band event
+ * fd: File descriptor number
+ *
+ * @return int Returns a signal number on success.
+ * @throws PcntlException
+ *
+ */
+function pcntl_sigwaitinfo(array $signals, ?array &$info = []): int
+{
+    error_clear_last();
+    $result = \pcntl_sigwaitinfo($signals, $info);
     if ($result === false) {
         throw PcntlException::createFromPhpError();
     }

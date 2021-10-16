@@ -11,7 +11,7 @@ use Safe\Exceptions\DomException;
  * as a native DOMElement node.
  *
  * @param \SimpleXMLElement $node The SimpleXMLElement node.
- * @return \DOMElement The DOMElement node added.
+ * @return \DOMElement|false The DOMElement node added.
  * @throws DomException
  *
  */

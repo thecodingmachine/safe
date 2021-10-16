@@ -170,27 +170,6 @@ function array_walk_recursive(&$array, callable $callback, $arg = null): void
 
 
 /**
- * This function implements a sort algorithm that orders alphanumeric strings
- * in the way a human being would while maintaining key/value associations.
- * This is described as a "natural ordering".  An example of the difference
- * between this algorithm and the regular computer string sorting algorithms
- * (used in sort) can be seen in the example below.
- *
- * @param array $array The input array.
- * @throws ArrayException
- *
- */
-function natsort(array &$array): void
-{
-    error_clear_last();
-    $result = \natsort($array);
-    if ($result === false) {
-        throw ArrayException::createFromPhpError();
-    }
-}
-
-
-/**
  * This function shuffles (randomizes the order of the elements in) an array.
  * It uses a pseudo random number generator that is not suitable for
  * cryptographic purposes.

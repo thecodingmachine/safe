@@ -72,7 +72,7 @@ function highlight_file(string $filename, bool $return = false)
 /**
  *
  *
- * @param string $str The PHP code to be highlighted. This should include the opening tag.
+ * @param string $string The PHP code to be highlighted. This should include the opening tag.
  * @param bool $return Set this parameter to TRUE to make this function return the
  * highlighted code.
  * @return string|bool If return is set to TRUE, returns the highlighted
@@ -81,10 +81,10 @@ function highlight_file(string $filename, bool $return = false)
  * @throws MiscException
  *
  */
-function highlight_string(string $str, bool $return = false)
+function highlight_string(string $string, bool $return = false)
 {
     error_clear_last();
-    $result = \highlight_string($str, $return);
+    $result = \highlight_string($string, $return);
     if ($result === false) {
         throw MiscException::createFromPhpError();
     }
@@ -312,14 +312,14 @@ function sapi_windows_cp_conv($in_codepage, $out_codepage, string $subject): str
 /**
  * Set the codepage of the current process.
  *
- * @param int $cp A codepage identifier.
+ * @param int $codepage A codepage identifier.
  * @throws MiscException
  *
  */
-function sapi_windows_cp_set(int $cp): void
+function sapi_windows_cp_set(int $codepage): void
 {
     error_clear_last();
-    $result = \sapi_windows_cp_set($cp);
+    $result = \sapi_windows_cp_set($codepage);
     if ($result === false) {
         throw MiscException::createFromPhpError();
     }
@@ -348,9 +348,50 @@ function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
 
 
 /**
- * If enable is omitted, the function returns TRUE if the stream stream has VT100 control codes enabled, FALSE otherwise.
+ * Sets or removes a CTRL event handler, which allows Windows
+ * CLI processes to intercept or ignore CTRL+C and
+ * CTRL+BREAK events. Note that in multithreaded environments,
+ * this is only possible when called from the main thread.
  *
- * If enable is specified, the function will try to enable or disable the VT100 features of the stream stream.
+ * @param  $handler A callback function to set or remove. If set, this function will be called
+ * whenever a CTRL+C or CTRL+BREAK event
+ * occurs. The function is supposed to have the following signature:
+ *
+ * voidhandler
+ * intevent
+ *
+ *
+ *
+ * event
+ *
+ *
+ * The CTRL event which has been received;
+ * either PHP_WINDOWS_EVENT_CTRL_C
+ * or PHP_WINDOWS_EVENT_CTRL_BREAK.
+ *
+ *
+ *
+ *
+ * Setting a NULL handler causes the process to ignore
+ * CTRL+C events, but not CTRL+BREAK events.
+ * @param bool $add
+ * @throws MiscException
+ *
+ */
+function sapi_windows_set_ctrl_handler($handler, bool $add = true): void
+{
+    error_clear_last();
+    $result = \sapi_windows_set_ctrl_handler($handler, $add);
+    if ($result === false) {
+        throw MiscException::createFromPhpError();
+    }
+}
+
+
+/**
+ * If enable is NULL, the function returns TRUE if the stream stream has VT100 control codes enabled, FALSE otherwise.
+ *
+ * If enable is a bool, the function will try to enable or disable the VT100 features of the stream stream.
  * If the feature has been successfully enabled (or disabled).
  *
  * At startup, PHP tries to enable the VT100 feature of the STDOUT/STDERR streams. By the way, if those streams are redirected to a file, the VT100 features may not be enabled.
@@ -359,7 +400,7 @@ function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
  * They allow the modification of the terminal's output. On Windows these sequences are called Console Virtual Terminal Sequences.
  *
  * @param resource $stream The stream on which the function will operate.
- * @param bool $enable If specified, the VT100 feature will be enabled (if TRUE) or disabled (if FALSE).
+ * @param bool $enable If bool, the VT100 feature will be enabled (if TRUE) or disabled (if FALSE).
  * @throws MiscException
  *
  */

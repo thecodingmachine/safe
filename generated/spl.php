@@ -6,18 +6,18 @@ use Safe\Exceptions\SplException;
 
 /**
  * This function returns an array with the names of the interfaces that the
- * given class and its parents implement.
+ * given object_or_class and its parents implement.
  *
- * @param object|string $class An object (class instance) or a string (class or interface name).
+ * @param object|string $object_or_class An object (class instance) or a string (class or interface name).
  * @param bool $autoload Whether to call __autoload by default.
- * @return array An array on success.
+ * @return array An array on success, or FALSE when the given class doesn't exist.
  * @throws SplException
  *
  */
-function class_implements($class, bool $autoload = true): array
+function class_implements($object_or_class, bool $autoload = true): array
 {
     error_clear_last();
-    $result = \class_implements($class, $autoload);
+    $result = \class_implements($object_or_class, $autoload);
     if ($result === false) {
         throw SplException::createFromPhpError();
     }
@@ -27,18 +27,18 @@ function class_implements($class, bool $autoload = true): array
 
 /**
  * This function returns an array with the name of the parent classes of
- * the given class.
+ * the given object_or_class.
  *
- * @param object|string $class An object (class instance) or a string (class name).
+ * @param object|string $object_or_class An object (class instance) or a string (class name).
  * @param bool $autoload Whether to call __autoload by default.
- * @return array An array on success.
+ * @return array An array on success, or FALSE when the given class doesn't exist.
  * @throws SplException
  *
  */
-function class_parents($class, bool $autoload = true): array
+function class_parents($object_or_class, bool $autoload = true): array
 {
     error_clear_last();
-    $result = \class_parents($class, $autoload);
+    $result = \class_parents($object_or_class, $autoload);
     if ($result === false) {
         throw SplException::createFromPhpError();
     }
@@ -48,24 +48,25 @@ function class_parents($class, bool $autoload = true): array
 
 /**
  * This function returns an array with the names of the traits that the
- * given class uses. This does however not include
+ * given object_or_class uses. This does however not include
  * any traits used by a parent class.
  *
- * @param object|string $class An object (class instance) or a string (class name).
+ * @param object|string $object_or_class An object (class instance) or a string (class name).
  * @param bool $autoload Whether to call __autoload by default.
- * @return array An array on success.
+ * @return array An array on success, or FALSE when the given class doesn't exist.
  * @throws SplException
  *
  */
-function class_uses($class, bool $autoload = true): array
+function class_uses($object_or_class, bool $autoload = true): array
 {
     error_clear_last();
-    $result = \class_uses($class, $autoload);
+    $result = \class_uses($object_or_class, $autoload);
     if ($result === false) {
         throw SplException::createFromPhpError();
     }
     return $result;
 }
+
 
 /**
  * Register a function with the spl provided __autoload queue. If the queue
@@ -83,28 +84,27 @@ function class_uses($class, bool $autoload = true): array
  * runs through each of them in the order they are defined. By contrast,
  * __autoload may only be defined once.
  *
- * @param callable(string):void $autoload_function The autoload function being registered.
- * If no parameter is provided, then the default implementation of
+ * @param callable(string):void $callback The autoload function being registered.
+ * If NULL, then the default implementation of
  * spl_autoload will be registered.
  * @param bool $throw This parameter specifies whether
  * spl_autoload_register should throw
- * exceptions when the autoload_function
+ * exceptions when the callback
  * cannot be registered.
  * @param bool $prepend If true, spl_autoload_register will prepend
  * the autoloader on the autoload queue instead of appending it.
- *
  * @throws SplException
  *
  */
-function spl_autoload_register(callable $autoload_function = null, bool $throw = true, bool $prepend = false): void
+function spl_autoload_register(callable $callback = null, bool $throw = true, bool $prepend = false): void
 {
     error_clear_last();
     if ($prepend !== false) {
-        $result = \spl_autoload_register($autoload_function, $throw, $prepend);
+        $result = \spl_autoload_register($callback, $throw, $prepend);
     } elseif ($throw !== true) {
-        $result = \spl_autoload_register($autoload_function, $throw);
-    } elseif ($autoload_function !== null) {
-        $result = \spl_autoload_register($autoload_function);
+        $result = \spl_autoload_register($callback, $throw);
+    } elseif ($callback !== null) {
+        $result = \spl_autoload_register($callback);
     } else {
         $result = \spl_autoload_register();
     }
@@ -112,6 +112,7 @@ function spl_autoload_register(callable $autoload_function = null, bool $throw =
         throw SplException::createFromPhpError();
     }
 }
+
 
 /**
  * Removes a function from the autoload queue. If the queue
@@ -121,14 +122,14 @@ function spl_autoload_register(callable $autoload_function = null, bool $throw =
  * When this function results in the queue being deactivated, any
  * __autoload function that previously existed will not be reactivated.
  *
- * @param mixed $autoload_function The autoload function being unregistered.
+ * @param mixed $callback The autoload function being unregistered.
  * @throws SplException
  *
  */
-function spl_autoload_unregister($autoload_function): void
+function spl_autoload_unregister($callback): void
 {
     error_clear_last();
-    $result = \spl_autoload_unregister($autoload_function);
+    $result = \spl_autoload_unregister($callback);
     if ($result === false) {
         throw SplException::createFromPhpError();
     }

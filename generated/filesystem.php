@@ -183,6 +183,29 @@ function fclose($stream): void
 
 
 /**
+ * This function synchronizes stream contents to storage media, just like fsync does,
+ * but it does not synchronize file meta-data.
+ * Note that this function is only effectively different in POSIX systems.
+ * In Windows, this function is aliased to fsync.
+ *
+ * @param resource $stream The file pointer must be valid, and must point to
+ * a file successfully opened by fopen or
+ * fsockopen (and not yet closed by
+ * fclose).
+ * @throws FilesystemException
+ *
+ */
+function fdatasync($stream): void
+{
+    error_clear_last();
+    $result = \fdatasync($stream);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+}
+
+
+/**
  * This function forces a write of all buffered output to the resource
  * pointed to by the file stream.
  *
@@ -324,7 +347,7 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
  *
  *
  *
- * @param resource $context A valid context resource created with
+ * @param resource|null $context A valid context resource created with
  * stream_context_create.
  * @return int This function returns the number of bytes that were written to the file.
  * @throws FilesystemException
@@ -805,7 +828,8 @@ function flock($stream, int $operation, ?int &$would_block = null): void
  * @param bool $use_include_path The optional third use_include_path parameter
  * can be set to '1' or TRUE if you want to search for the file in the
  * include_path, too.
- * @param resource $context
+ * @param resource $context A context stream
+ * resource.
  * @return resource Returns a file pointer resource on success
  * @throws FilesystemException
  *
@@ -828,9 +852,9 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
 /**
  * fputcsv formats a line (passed as a
  * fields array) as CSV and writes it (terminated by a
- * newline) to the specified file handle.
+ * newline) to the specified file stream.
  *
- * @param resource $handle The file pointer must be valid, and must point to
+ * @param resource $stream The file pointer must be valid, and must point to
  * a file successfully opened by fopen or
  * fsockopen (and not yet closed by
  * fclose).
@@ -839,17 +863,19 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  * delimiter (one single-byte character only).
  * @param string $enclosure The optional enclosure parameter sets the field
  * enclosure (one single-byte character only).
- * @param string $escape_char The optional escape_char parameter sets the
+ * @param string $escape The optional escape parameter sets the
  * escape character (at most one single-byte character).
  * An empty string ("") disables the proprietary escape mechanism.
+ * @param string $eol The optional eol parameter sets
+ * a custom End of Line sequence.
  * @return int Returns the length of the written string.
  * @throws FilesystemException
  *
  */
-function fputcsv($handle, array $fields, string $separator = ",", string $enclosure = '"', string $escape_char = "\\"): int
+function fputcsv($stream, array $fields, string $separator = ",", string $enclosure = '"', string $escape = "\\", string $eol = "\n"): int
 {
     error_clear_last();
-    $result = \fputcsv($handle, $fields, $separator, $enclosure, $escape_char);
+    $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape, $eol);
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
@@ -929,6 +955,27 @@ function fstat($stream): array
         throw FilesystemException::createFromPhpError();
     }
     return $result;
+}
+
+
+/**
+ * This function synchronizes changes to the file, including its meta-data. This is similar to fflush,
+ * but it also instructs the operating system to write to the storage media.
+ *
+ * @param resource $stream The file pointer must be valid, and must point to
+ * a file successfully opened by fopen or
+ * fsockopen (and not yet closed by
+ * fclose).
+ * @throws FilesystemException
+ *
+ */
+function fsync($stream): void
+{
+    error_clear_last();
+    $result = \fsync($stream);
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
 }
 
 
@@ -1070,7 +1117,7 @@ function fwrite($handle, string $string, int $length = null): int
  *
  *
  * The GLOB_BRACE flag is not available on some non GNU
- * systems, like Solaris.
+ * systems, like Solaris or Alpine Linux.
  *
  *
  * @return array Returns an array containing the matched files/directories, an empty array
@@ -1194,7 +1241,8 @@ function lstat(string $filename): array
  * umask.
  * @param bool $recursive Allows the creation of nested directories specified in the
  * directory.
- * @param resource $context
+ * @param resource $context A context stream
+ * resource.
  * @throws FilesystemException
  *
  */
@@ -1295,7 +1343,8 @@ function parse_ini_string(string $ini_string, bool $process_sections = false, in
  * @param string $filename The filename being read.
  * @param bool $use_include_path You can use the optional second parameter and set it to TRUE, if
  * you want to search for the file in the include_path, too.
- * @param resource $context A context stream resource.
+ * @param resource $context A context stream
+ * resource.
  * @return int Returns the number of bytes read from the file on success
  * @throws FilesystemException
  *
@@ -1390,7 +1439,8 @@ function realpath(string $path): string
  * Otherwise rename fails and issues E_WARNING.
  *
  *
- * @param resource $context
+ * @param resource $context A context stream
+ * resource.
  * @throws FilesystemException
  *
  */
@@ -1433,7 +1483,8 @@ function rewind($stream): void
  * A E_WARNING level error will be generated on failure.
  *
  * @param string $directory Path to the directory.
- * @param resource $context
+ * @param resource $context A context stream
+ * resource.
  * @throws FilesystemException
  *
  */
@@ -1560,7 +1611,11 @@ function touch(string $filename, int $time = null, int $atime = null): void
  * failure.
  *
  * @param string $filename Path to the file.
- * @param resource $context
+ *
+ * If the file is a symlink, the symlink will be deleted. On Windows, to delete
+ * a symlink to a directory, rmdir has to be used instead.
+ * @param resource $context A context stream
+ * resource.
  * @throws FilesystemException
  *
  */

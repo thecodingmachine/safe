@@ -102,6 +102,111 @@ function ob_flush(): void
 
 
 /**
+ * This function will turn output buffering on. While output buffering is
+ * active no output is sent from the script (other than headers), instead the
+ * output is stored in an internal buffer.
+ *
+ * The contents of this internal buffer may be copied into a string variable
+ * using ob_get_contents.  To output what is stored in
+ * the internal buffer, use ob_end_flush. Alternatively,
+ * ob_end_clean will silently discard the buffer
+ * contents.
+ *
+ * Output buffers are stackable, that is, you may call
+ * ob_start while another
+ * ob_start is active. Just make
+ * sure that you call ob_end_flush
+ * the appropriate number of times. If multiple output callback
+ * functions are active, output is being filtered sequentially
+ * through each of them in nesting order.
+ *
+ * If output buffering is still active when the script ends, PHP outputs the
+ * contents automatically.
+ *
+ * @param string|array|callable|null $callback An optional callback function may be
+ * specified. This function takes a string as a parameter and should
+ * return a string. The function will be called when
+ * the output buffer is flushed (sent) or cleaned (with
+ * ob_flush, ob_clean or similar
+ * function) or when the output buffer
+ * is flushed to the browser at the end of the request.  When
+ * callback is called, it will receive the
+ * contents of the output buffer as its parameter and is expected to
+ * return a new output buffer as a result, which will be sent to the
+ * browser. If the callback is not a
+ * callable function, this function will return FALSE.
+ * This is the callback signature:
+ *
+ *
+ * stringhandler
+ * stringbuffer
+ * intphase
+ *
+ *
+ *
+ * buffer
+ *
+ *
+ * Contents of the output buffer.
+ *
+ *
+ *
+ *
+ * phase
+ *
+ *
+ * Bitmask of PHP_OUTPUT_HANDLER_* constants.
+ *
+ *
+ *
+ *
+ *
+ * If callback returns FALSE original
+ * input is sent to the browser.
+ *
+ * The callback parameter may be bypassed
+ * by passing a NULL value.
+ *
+ * ob_end_clean, ob_end_flush,
+ * ob_clean, ob_flush and
+ * ob_start may not be called from a callback
+ * function. If you call them from callback function, the behavior is
+ * undefined. If you would like to delete the contents of a buffer,
+ * return "" (a null string) from callback function.
+ * You can't even call functions using the output buffering functions like
+ * print_r($expression, true) or
+ * highlight_file($filename, true) from a callback
+ * function.
+ *
+ * ob_gzhandler function exists to
+ * facilitate sending gz-encoded data to web browsers that support
+ * compressed web pages.  ob_gzhandler determines
+ * what type of content encoding the browser will accept and will return
+ * its output accordingly.
+ * @param int $chunk_size
+ * @param int $flags
+ * @throws OutcontrolException
+ *
+ */
+function ob_start( $callback = null, int $chunk_size = 0, int $flags = PHP_OUTPUT_HANDLER_STDFLAGS): void
+{
+    error_clear_last();
+    if ($flags !== PHP_OUTPUT_HANDLER_STDFLAGS) {
+        $result = \ob_start($callback, $chunk_size, $flags);
+    } elseif ($chunk_size !== 0) {
+        $result = \ob_start($callback, $chunk_size);
+    } elseif ($callback !== null) {
+        $result = \ob_start($callback);
+    }else {
+        $result = \ob_start();
+    }
+    if ($result === false) {
+        throw OutcontrolException::createFromPhpError();
+    }
+}
+
+
+/**
  * This function adds another name/value pair to the URL rewrite mechanism.
  * The name and value will be added to URLs (as GET parameter) and forms
  * (as hidden input fields) the same way as the session ID when transparent
@@ -144,3 +249,4 @@ function output_reset_rewrite_vars(): void
         throw OutcontrolException::createFromPhpError();
     }
 }
+

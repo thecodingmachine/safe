@@ -11,7 +11,7 @@ use Safe\Exceptions\DomException;
  * as a native DOMElement node.
  *
  * @param \SimpleXMLElement $node The SimpleXMLElement node.
- * @return \DOMElement The DOMElement node added.
+ * @return \DOMElement|false The DOMElement node added.
  * @throws DomException
  *
  */
@@ -24,3 +24,4 @@ function dom_import_simplexml(\SimpleXMLElement $node): \DOMElement
     }
     return $result;
 }
+

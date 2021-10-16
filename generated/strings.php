@@ -478,78 +478,13 @@ function sha1_file(string $filename, bool $binary = false): string
  * @throws StringsException
  *
  */
-function sprintf(string $format, ...$values): string
+function sprintf(string $format,   ...$values): string
 {
     error_clear_last();
     if ($values !== []) {
         $result = \sprintf($format, ...$values);
-    } else {
+    }else {
         $result = \sprintf($format);
-    }
-    if ($result === false) {
-        throw StringsException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
- * Returns the portion of string specified by the
- * offset and length parameters.
- *
- * @param string $string The input string.
- * @param int $offset If offset is non-negative, the returned string
- * will start at the offset'th position in
- * string, counting from zero. For instance,
- * in the string 'abcdef', the character at
- * position 0 is 'a', the
- * character at position 2 is
- * 'c', and so forth.
- *
- * If offset is negative, the returned string
- * will start at the offset'th character
- * from the end of string.
- *
- * If string is less than
- * offset characters long, FALSE will be returned.
- *
- *
- * Using a negative offset
- *
- *
- * ]]>
- *
- *
- * @param int $length If length is given and is positive, the string
- * returned will contain at most length characters
- * beginning from offset (depending on the length of
- * string).
- *
- * If length is given and is negative, then that many
- * characters will be omitted from the end of string
- * (after the start position has been calculated when a
- * offset is negative).  If
- * offset denotes the position of this truncation or
- * beyond, FALSE will be returned.
- *
- * If length is given and is 0,
- * FALSE or NULL, an empty string will be returned.
- *
- * If length is omitted, the substring starting from
- * offset until the end of the string will be
- * returned.
- * @return string Returns the extracted part of string;, or
- * an empty string.
- * @throws StringsException
- *
- */
-function substr(string $string, int $offset, int $length = null): string
-{
-    error_clear_last();
-    if ($length !== null) {
-        $result = \substr($string, $offset, $length);
-    } else {
-        $result = \substr($string, $offset);
     }
     if ($result === false) {
         throw StringsException::createFromPhpError();
@@ -871,3 +806,4 @@ function vsprintf(string $format, array $values): string
     }
     return $result;
 }
+

@@ -34,7 +34,7 @@ use Safe\Exceptions\SocketsException;
  * @throws SocketsException
  *
  */
-function socket_accept($socket)
+function socket_accept( $socket)
 {
     error_clear_last();
     $result = \socket_accept($socket);
@@ -54,7 +54,7 @@ function socket_accept($socket)
  * @throws SocketsException
  *
  */
-function socket_addrinfo_bind($address)
+function socket_addrinfo_bind( $address)
 {
     error_clear_last();
     $result = \socket_addrinfo_bind($address);
@@ -74,7 +74,7 @@ function socket_addrinfo_bind($address)
  * @throws SocketsException
  *
  */
-function socket_addrinfo_connect($address)
+function socket_addrinfo_connect( $address)
 {
     error_clear_last();
     $result = \socket_addrinfo_connect($address);
@@ -99,14 +99,14 @@ function socket_addrinfo_connect($address)
  * @throws SocketsException
  *
  */
-function socket_addrinfo_lookup(string $host, $service = null, array $hints = []): iterable
+function socket_addrinfo_lookup(string $host,  $service = null, array $hints = []): iterable
 {
     error_clear_last();
     if ($hints !== []) {
         $result = \socket_addrinfo_lookup($host, $service, $hints);
     } elseif ($service !== null) {
         $result = \socket_addrinfo_lookup($host, $service);
-    } else {
+    }else {
         $result = \socket_addrinfo_lookup($host);
     }
     if ($result === false) {
@@ -136,7 +136,7 @@ function socket_addrinfo_lookup(string $host, $service = null, array $hints = []
  * @throws SocketsException
  *
  */
-function socket_bind($socket, string $address, int $port = 0): void
+function socket_bind( $socket, string $address, int $port = 0): void
 {
     error_clear_last();
     $result = \socket_bind($socket, $address, $port);
@@ -167,12 +167,12 @@ function socket_bind($socket, string $address, int $port = 0): void
  * @throws SocketsException
  *
  */
-function socket_connect($socket, string $address, int $port = null): void
+function socket_connect( $socket, string $address, int $port = null): void
 {
     error_clear_last();
     if ($port !== null) {
         $result = \socket_connect($socket, $address, $port);
-    } else {
+    }else {
         $result = \socket_connect($socket, $address);
     }
     if ($result === false) {
@@ -291,7 +291,7 @@ function socket_create(int $domain, int $type, int $protocol)
  * @throws SocketsException
  *
  */
-function socket_export_stream($socket)
+function socket_export_stream( $socket)
 {
     error_clear_last();
     $result = \socket_export_stream($socket);
@@ -334,11 +334,11 @@ function socket_export_stream($socket)
  * is sent or the time specified in l_linger
  * elapses. If the socket is non-blocking,
  * socket_close will fail and return an error.
- * @return mixed Returns the value of the given options.
+ * @return mixed Returns the value of the given option.
  * @throws SocketsException
  *
  */
-function socket_get_option($socket, int $level, int $option)
+function socket_get_option( $socket, int $level, int $option)
 {
     error_clear_last();
     $result = \socket_get_option($socket, $level, $option);
@@ -372,7 +372,7 @@ function socket_get_option($socket, int $level, int $option)
  * @throws SocketsException
  *
  */
-function socket_getpeername($socket, ?string &$address, ?int &$port = null): void
+function socket_getpeername( $socket, ?string &$address, ?int &$port = null): void
 {
     error_clear_last();
     $result = \socket_getpeername($socket, $address, $port);
@@ -402,7 +402,7 @@ function socket_getpeername($socket, ?string &$address, ?int &$port = null): voi
  * @throws SocketsException
  *
  */
-function socket_getsockname($socket, ?string &$address, ?int &$port = null): void
+function socket_getsockname( $socket, ?string &$address, ?int &$port = null): void
 {
     error_clear_last();
     $result = \socket_getsockname($socket, $address, $port);
@@ -420,7 +420,7 @@ function socket_getsockname($socket, ?string &$address, ?int &$port = null): voi
  * @throws SocketsException
  *
  */
-function socket_import_stream($stream)
+function socket_import_stream( $stream)
 {
     error_clear_last();
     $result = \socket_import_stream($stream);
@@ -459,7 +459,7 @@ function socket_import_stream($stream)
  * @throws SocketsException
  *
  */
-function socket_listen($socket, int $backlog = 0): void
+function socket_listen( $socket, int $backlog = 0): void
 {
     error_clear_last();
     $result = \socket_listen($socket, $backlog);
@@ -505,7 +505,7 @@ function socket_listen($socket, int $backlog = 0): void
  * @throws SocketsException
  *
  */
-function socket_read($socket, int $length, int $mode = PHP_BINARY_READ): string
+function socket_read( $socket, int $length, int $mode = PHP_BINARY_READ): string
 {
     error_clear_last();
     $result = \socket_read($socket, $length, $mode);
@@ -566,7 +566,7 @@ function socket_read($socket, int $length, int $mode = PHP_BINARY_READ): string
  * @throws SocketsException
  *
  */
-function socket_send($socket, string $data, int $length, int $flags): int
+function socket_send( $socket, string $data, int $length, int $flags): int
 {
     error_clear_last();
     $result = \socket_send($socket, $data, $length, $flags);
@@ -587,7 +587,7 @@ function socket_send($socket, string $data, int $length, int $flags): int
  * @throws SocketsException
  *
  */
-function socket_sendmsg($socket, array $message, int $flags = 0): int
+function socket_sendmsg( $socket, array $message, int $flags = 0): int
 {
     error_clear_last();
     $result = \socket_sendmsg($socket, $message, $flags);
@@ -652,12 +652,12 @@ function socket_sendmsg($socket, array $message, int $flags = 0): int
  * @throws SocketsException
  *
  */
-function socket_sendto($socket, string $data, int $length, int $flags, string $address, int $port = null): int
+function socket_sendto( $socket, string $data, int $length, int $flags, string $address, int $port = null): int
 {
     error_clear_last();
     if ($port !== null) {
         $result = \socket_sendto($socket, $data, $length, $flags, $address, $port);
-    } else {
+    }else {
         $result = \socket_sendto($socket, $data, $length, $flags, $address);
     }
     if ($result === false) {
@@ -681,7 +681,7 @@ function socket_sendto($socket, string $data, int $length, int $flags, string $a
  * @throws SocketsException
  *
  */
-function socket_set_block($socket): void
+function socket_set_block( $socket): void
 {
     error_clear_last();
     $result = \socket_set_block($socket);
@@ -706,7 +706,7 @@ function socket_set_block($socket): void
  * @throws SocketsException
  *
  */
-function socket_set_nonblock($socket): void
+function socket_set_nonblock( $socket): void
 {
     error_clear_last();
     $result = \socket_set_nonblock($socket);
@@ -738,7 +738,7 @@ function socket_set_nonblock($socket): void
  * @throws SocketsException
  *
  */
-function socket_set_option($socket, int $level, int $option, $value): void
+function socket_set_option( $socket, int $level, int $option,  $value): void
 {
     error_clear_last();
     $result = \socket_set_option($socket, $level, $option, $value);
@@ -783,7 +783,7 @@ function socket_set_option($socket, int $level, int $option, $value): void
  * @throws SocketsException
  *
  */
-function socket_shutdown($socket, int $mode = 2): void
+function socket_shutdown( $socket, int $mode = 2): void
 {
     error_clear_last();
     $result = \socket_shutdown($socket, $mode);
@@ -804,7 +804,7 @@ function socket_shutdown($socket, int $mode = 2): void
  * @throws SocketsException
  *
  */
-function socket_wsaprotocol_info_export($socket, int $process_id): string
+function socket_wsaprotocol_info_export( $socket, int $process_id): string
 {
     error_clear_last();
     $result = \socket_wsaprotocol_info_export($socket, $process_id);
@@ -851,3 +851,4 @@ function socket_wsaprotocol_info_release(string $info_id): void
         throw SocketsException::createFromPhpError();
     }
 }
+

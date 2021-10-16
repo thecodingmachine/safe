@@ -244,7 +244,7 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, f
         $result = \date_sunrise($timestamp, $returnFormat, $latitude, $longitude);
     } elseif ($latitude !== null) {
         $result = \date_sunrise($timestamp, $returnFormat, $latitude);
-    } else {
+    }else {
         $result = \date_sunrise($timestamp, $returnFormat);
     }
     if ($result === false) {
@@ -347,7 +347,7 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, fl
         $result = \date_sunset($timestamp, $returnFormat, $latitude, $longitude);
     } elseif ($latitude !== null) {
         $result = \date_sunset($timestamp, $returnFormat, $latitude);
-    } else {
+    }else {
         $result = \date_sunset($timestamp, $returnFormat);
     }
     if ($result === false) {
@@ -379,7 +379,7 @@ function date(string $format, int $timestamp = null): string
     error_clear_last();
     if ($timestamp !== null) {
         $result = \date($format, $timestamp);
-    } else {
+    }else {
         $result = \date($format);
     }
     if ($result === false) {
@@ -434,7 +434,7 @@ function gmmktime(int $hour, int $minute = null, int $second = null, int $month 
         $result = \gmmktime($hour, $minute, $second);
     } elseif ($minute !== null) {
         $result = \gmmktime($hour, $minute);
-    } else {
+    }else {
         $result = \gmmktime($hour);
     }
     if ($result === false) {
@@ -470,7 +470,7 @@ function gmstrftime(string $format, int $timestamp = null): string
     error_clear_last();
     if ($timestamp !== null) {
         $result = \gmstrftime($format, $timestamp);
-    } else {
+    }else {
         $result = \gmstrftime($format);
     }
     if ($result === false) {
@@ -592,7 +592,7 @@ function idate(string $format, int $timestamp = null): int
     error_clear_last();
     if ($timestamp !== null) {
         $result = \idate($format, $timestamp);
-    } else {
+    }else {
         $result = \idate($format);
     }
     if ($result === false) {
@@ -654,7 +654,7 @@ function mktime(int $hour, int $minute = null, int $second = null, int $month = 
         $result = \mktime($hour, $minute, $second);
     } elseif ($minute !== null) {
         $result = \mktime($hour, $minute);
-    } else {
+    }else {
         $result = \mktime($hour);
     }
     if ($result === false) {
@@ -766,7 +766,7 @@ function strtotime(string $datetime, int $baseTimestamp = null): int
     error_clear_last();
     if ($baseTimestamp !== null) {
         $result = \strtotime($datetime, $baseTimestamp);
-    } else {
+    }else {
         $result = \strtotime($datetime);
     }
     if ($result === false) {
@@ -806,3 +806,4 @@ function timezone_name_from_abbr(string $abbr, int $utcOffset = -1, int $isDST =
     }
     return $result;
 }
+

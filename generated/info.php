@@ -5,6 +5,123 @@ namespace Safe;
 use Safe\Exceptions\InfoException;
 
 /**
+ * Set the various assert control options or just query
+ * their current settings.
+ *
+ * @param int $what
+ * Assert Options
+ *
+ *
+ *
+ * Option
+ * INI Setting
+ * Default value
+ * Description
+ *
+ *
+ *
+ *
+ * ASSERT_ACTIVE
+ * assert.active
+ * 1
+ * enable assert evaluation
+ *
+ *
+ * ASSERT_WARNING
+ * assert.warning
+ * 1
+ * issue a PHP warning for each failed assertion
+ *
+ *
+ * ASSERT_BAIL
+ * assert.bail
+ * 0
+ * terminate execution on failed assertions
+ *
+ *
+ * ASSERT_QUIET_EVAL
+ * assert.quiet_eval
+ * 0
+ *
+ * disable error_reporting during assertion expression
+ * evaluation
+ *
+ *
+ *
+ * ASSERT_CALLBACK
+ * assert.callback
+ * (NULL)
+ * Callback to call on failed assertions
+ *
+ *
+ *
+ *
+ * @param mixed $value An optional new value for the option.
+ *
+ * The callback function set via ASSERT_CALLBACK or assert.callback should
+ * have the following signature:
+ *
+ * voidassert_callback
+ * stringfile
+ * intline
+ * stringassertion
+ * stringdescription
+ *
+ *
+ *
+ * file
+ *
+ *
+ * The file where assert has been called.
+ *
+ *
+ *
+ *
+ * line
+ *
+ *
+ * The line where assert has been called.
+ *
+ *
+ *
+ *
+ * assertion
+ *
+ *
+ * The assertion that has been passed to assert,
+ * converted to a string.
+ *
+ *
+ *
+ *
+ * description
+ *
+ *
+ * The description that has been passed to assert.
+ *
+ *
+ *
+ *
+ * @return mixed Returns the original setting of any options.
+ * @throws InfoException
+ *
+ */
+function assert_options(int $what,  $value = null)
+{
+    error_clear_last();
+    if ($value !== null) {
+        $result = \assert_options($what, $value);
+    }else {
+        $result = \assert_options($what);
+    }
+    if ($result === false) {
+        throw InfoException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Sets the process title visible in tools such as top and
  * ps. This function is available only in
  * CLI mode.
@@ -571,3 +688,4 @@ function set_time_limit(int $seconds): void
         throw InfoException::createFromPhpError();
     }
 }
+

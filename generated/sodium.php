@@ -265,6 +265,29 @@ function sodium_crypto_generichash_update(string &$state, string $message): void
 
 
 /**
+ * Decrypt an encrypted message with a symmetric (shared) key.
+ *
+ * @param string $ciphertext Must be in the format provided by sodium_crypto_secretbox
+ * (ciphertext and tag, concatenated).
+ * @param string $nonce A number that must be only used once, per message. 24 bytes long.
+ * This is a large enough bound to generate randomly (i.e. random_bytes).
+ * @param string $key Encryption key (256-bit).
+ * @return string The decrypted string on success.
+ * @throws SodiumException
+ *
+ */
+function sodium_crypto_secretbox_open(string $ciphertext, string $nonce, string $key): string
+{
+    error_clear_last();
+    $result = \sodium_crypto_secretbox_open($ciphertext, $nonce, $key);
+    if ($result === false) {
+        throw SodiumException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Verify the signature attached to a message and return the message
  *
  * @param string $signed_message A message signed with sodium_crypto_sign
@@ -301,3 +324,4 @@ function sodium_crypto_sign_verify_detached(string $signature, string $message, 
         throw SodiumException::createFromPhpError();
     }
 }
+

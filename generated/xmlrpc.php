@@ -12,7 +12,7 @@ use Safe\Exceptions\XmlrpcException;
  * @throws XmlrpcException
  *
  */
-function xmlrpc_set_type(&$value, string $type): void
+function xmlrpc_set_type( &$value, string $type): void
 {
     error_clear_last();
     $result = \xmlrpc_set_type($value, $type);
@@ -20,3 +20,4 @@ function xmlrpc_set_type(&$value, string $type): void
         throw XmlrpcException::createFromPhpError();
     }
 }
+

@@ -29,35 +29,6 @@ function base64_decode(string $string, bool $strict = false): string
 
 
 /**
- * get_headers returns an array with the headers sent
- * by the server in response to a HTTP request.
- *
- * @param string $url The target URL.
- * @param bool $associative If the optional associative parameter is set to true,
- * get_headers parses the response and sets the
- * array's keys.
- * @param resource $context A valid context resource created with
- * stream_context_create.
- * @return array Returns an indexed or associative array with the headers.
- * @throws UrlException
- *
- */
-function get_headers(string $url, bool $associative = false, $context = null): array
-{
-    error_clear_last();
-    if ($context !== null) {
-        $result = \get_headers($url, $associative, $context);
-    } else {
-        $result = \get_headers($url, $associative);
-    }
-    if ($result === false) {
-        throw UrlException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Opens filename and parses it line by line for
  * &lt;meta&gt; tags in the file. The parsing stops at
  * &lt;/head&gt;.
@@ -116,8 +87,7 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
  * URLs are also accepted, parse_url tries its best to
  * parse them correctly.
  *
- * @param string $url The URL to parse. Invalid characters are replaced by
- * _.
+ * @param string $url The URL to parse.
  * @param int $component Specify one of PHP_URL_SCHEME,
  * PHP_URL_HOST, PHP_URL_PORT,
  * PHP_URL_USER, PHP_URL_PASS,
@@ -179,6 +149,19 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
  * int, in the case of PHP_URL_PORT)
  * instead of an array. If the requested component doesn't exist
  * within the given URL, NULL will be returned.
+ * As of PHP 8.0.0, parse_url distinguishes absent and empty
+ * queries and fragments:
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * Previously all cases resulted in query and fragment being NULL.
+ *
+ * Note that control characters (cf. ctype_cntrl) in the
+ * components are replaced with underscores (_).
  * @throws UrlException
  *
  */
@@ -191,3 +174,4 @@ function parse_url(string $url, int $component = -1)
     }
     return $result;
 }
+

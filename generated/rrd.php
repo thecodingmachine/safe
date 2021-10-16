@@ -120,7 +120,7 @@ function rrd_restore(string $xml_file, string $rrd_file, array $options = null):
     error_clear_last();
     if ($options !== null) {
         $result = \rrd_restore($xml_file, $rrd_file, $options);
-    } else {
+    }else {
         $result = \rrd_restore($xml_file, $rrd_file);
     }
     if ($result === false) {
@@ -188,3 +188,4 @@ function rrd_xport(array $options): array
     }
     return $result;
 }
+

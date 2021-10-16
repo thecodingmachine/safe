@@ -53,7 +53,8 @@ function closelog(): void
  * always return every record, the slower DNS_ALL
  * will collect all records more reliably.
  *
- * DNS_CAA is not supported on Windows.
+ * Windows: DNS_CAA is not supported.
+ * Support for DNS_A6 is not implemented.
  * @param array|null $authoritative_name_servers Passed by reference and, if given, will be populated with Resource
  * Records for the Authoritative Name Servers.
  * @param array|null $additional_records Passed by reference and, if given, will be populated with any
@@ -289,7 +290,8 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authorit
  * connect() call. This is most likely due to a
  * problem initializing the socket.
  * @param string|null $error_message The error message as a string.
- * @param float $timeout The connection timeout, in seconds.
+ * @param float $timeout The connection timeout, in seconds. When NULL, the
+ * default_socket_timeout php.ini setting is used.
  *
  * If you need to set a timeout for reading/writing data over the
  * socket, use stream_set_timeout, as the
@@ -309,7 +311,7 @@ function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?
     error_clear_last();
     if ($timeout !== null) {
         $result = \fsockopen($hostname, $port, $error_code, $error_message, $timeout);
-    } else {
+    }else {
         $result = \fsockopen($hostname, $port, $error_code, $error_message);
     }
     if ($result === false) {
@@ -615,8 +617,8 @@ function openlog(string $prefix, int $flags, int $facility): void
  *
  * @param string $hostname
  * @param int $port
- * @param int|null $errno
- * @param string|null $errstr
+ * @param int|null $error_code
+ * @param string|null $error_message
  * @param float $timeout
  * @return resource pfsockopen returns a file pointer which may be used
  * together with the other file functions (such as
@@ -626,13 +628,13 @@ function openlog(string $prefix, int $flags, int $facility): void
  * @throws NetworkException
  *
  */
-function pfsockopen(string $hostname, int $port = -1, ?int &$errno = null, ?string &$errstr = null, float $timeout = null)
+function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null)
 {
     error_clear_last();
     if ($timeout !== null) {
-        $result = \pfsockopen($hostname, $port, $errno, $errstr, $timeout);
-    } else {
-        $result = \pfsockopen($hostname, $port, $errno, $errstr);
+        $result = \pfsockopen($hostname, $port, $error_code, $error_message, $timeout);
+    }else {
+        $result = \pfsockopen($hostname, $port, $error_code, $error_message);
     }
     if ($result === false) {
         throw NetworkException::createFromPhpError();
@@ -711,3 +713,4 @@ function syslog(int $priority, string $message): void
         throw NetworkException::createFromPhpError();
     }
 }
+

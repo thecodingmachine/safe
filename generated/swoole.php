@@ -7,6 +7,46 @@ use Safe\Exceptions\SwooleException;
 /**
  *
  *
+ * @param string $hostname The host name.
+ * @param callable $callback The host name.
+ *
+ * The IP address.
+ * @throws SwooleException
+ *
+ */
+function swoole_async_dns_lookup(string $hostname, callable $callback): void
+{
+    error_clear_last();
+    $result = \swoole_async_dns_lookup($hostname, $callback);
+    if ($result === false) {
+        throw SwooleException::createFromPhpError();
+    }
+}
+
+
+/**
+ *
+ *
+ * @param string $filename The filename of the file being read.
+ * @param string $callback The name of the file.
+ *
+ * The content read from the file.
+ * @throws SwooleException
+ *
+ */
+function swoole_async_readfile(string $filename, string $callback): void
+{
+    error_clear_last();
+    $result = \swoole_async_readfile($filename, $callback);
+    if ($result === false) {
+        throw SwooleException::createFromPhpError();
+    }
+}
+
+
+/**
+ *
+ *
  * @param string $filename The filename being written.
  * @param string $content The content writing to the file.
  * @param int $offset The offset.
@@ -21,7 +61,7 @@ function swoole_async_write(string $filename, string $content, int $offset = nul
         $result = \swoole_async_write($filename, $content, $offset, $callback);
     } elseif ($offset !== null) {
         $result = \swoole_async_write($filename, $content, $offset);
-    } else {
+    }else {
         $result = \swoole_async_write($filename, $content);
     }
     if ($result === false) {
@@ -47,7 +87,7 @@ function swoole_async_writefile(string $filename, string $content, callable $cal
         $result = \swoole_async_writefile($filename, $content, $callback, $flags);
     } elseif ($callback !== null) {
         $result = \swoole_async_writefile($filename, $content, $callback);
-    } else {
+    }else {
         $result = \swoole_async_writefile($filename, $content);
     }
     if ($result === false) {
@@ -106,3 +146,4 @@ function swoole_event_write(int $fd, string $data): void
         throw SwooleException::createFromPhpError();
     }
 }
+

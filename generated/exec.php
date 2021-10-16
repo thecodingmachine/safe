@@ -44,99 +44,6 @@ function exec(string $command, ?array &$output = null, ?int &$result_code = null
 
 
 /**
- * proc_get_status fetches data about a
- * process opened using proc_open.
- *
- * @param resource $process The proc_open resource that will
- * be evaluated.
- * @return array{command: string, pid: int, running: bool, signaled: bool, stopped: bool, exitcode: int, termsig: int, stopsig: int} An array of collected information on success. The returned array contains the following elements:
- *
- *
- *
- *
- * elementtypedescription
- *
- *
- *
- * command
- * string
- *
- * The command string that was passed to proc_open.
- *
- *
- *
- * pid
- * int
- * process id
- *
- *
- * running
- * bool
- *
- * TRUE if the process is still running, FALSE if it has
- * terminated.
- *
- *
- *
- * signaled
- * bool
- *
- * TRUE if the child process has been terminated by
- * an uncaught signal. Always set to FALSE on Windows.
- *
- *
- *
- * stopped
- * bool
- *
- * TRUE if the child process has been stopped by a
- * signal. Always set to FALSE on Windows.
- *
- *
- *
- * exitcode
- * int
- *
- * The exit code returned by the process (which is only
- * meaningful if running is FALSE).
- * Only first call of this function return real value, next calls return
- * -1.
- *
- *
- *
- * termsig
- * int
- *
- * The number of the signal that caused the child process to terminate
- * its execution (only meaningful if signaled is TRUE).
- *
- *
- *
- * stopsig
- * int
- *
- * The number of the signal that caused the child process to stop its
- * execution (only meaningful if stopped is TRUE).
- *
- *
- *
- *
- *
- * @throws ExecException
- *
- */
-function proc_get_status($process): array
-{
-    error_clear_last();
-    $result = \proc_get_status($process);
-    if ($result === false) {
-        throw ExecException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * proc_nice changes the priority of the current
  * process by the amount specified in priority. A
  * positive priority will lower the priority of the
@@ -169,16 +76,16 @@ function proc_nice(int $priority): void
 /**
  * This function is identical to the backtick operator.
  *
- * @param string $cmd The command that will be executed.
+ * @param string $command The command that will be executed.
  * @return string A string containing the output from the executed command, FALSE if the pipe
  * cannot be established or NULL if an error occurs or the command produces no output.
  * @throws ExecException
  *
  */
-function shell_exec(string $cmd): string
+function shell_exec(string $command): string
 {
     error_clear_last();
-    $result = \shell_exec($cmd);
+    $result = \shell_exec($command);
     if ($result === null) {
         throw ExecException::createFromPhpError();
     }

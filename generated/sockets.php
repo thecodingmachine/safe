@@ -334,7 +334,7 @@ function socket_export_stream($socket)
  * is sent or the time specified in l_linger
  * elapses. If the socket is non-blocking,
  * socket_close will fail and return an error.
- * @return mixed Returns the value of the given options.
+ * @return mixed Returns the value of the given option.
  * @throws SocketsException
  *
  */

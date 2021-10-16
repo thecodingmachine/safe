@@ -139,7 +139,10 @@ class WritePhpFunction
         $optDetected = false;
 
         foreach ($params as $param) {
-            $paramAsString = $param->getSignatureType().' ';
+            $paramAsString = $param->getSignatureType();
+            if ($paramAsString !== '') {
+                $paramAsString .= ' ';
+            }
 
             $paramName = $param->getParameter();
             if ($param->isVariadic()) {

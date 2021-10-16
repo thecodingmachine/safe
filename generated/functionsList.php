@@ -245,6 +245,7 @@ return [
     'getprotobynumber',
     'getrusage',
     'getservbyport',
+    'get_headers',
     'get_include_path',
     'get_meta_tags',
     'glob',

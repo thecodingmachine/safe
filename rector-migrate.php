@@ -255,6 +255,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'getprotobynumber' => 'Safe\getprotobynumber',
             'getrusage' => 'Safe\getrusage',
             'getservbyport' => 'Safe\getservbyport',
+            'get_headers' => 'Safe\get_headers',
             'get_include_path' => 'Safe\get_include_path',
             'get_meta_tags' => 'Safe\get_meta_tags',
             'glob' => 'Safe\glob',

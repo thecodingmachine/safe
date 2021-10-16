@@ -377,6 +377,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'imagegd2' => 'Safe\imagegd2',
             'imagegif' => 'Safe\imagegif',
             'imagegrabscreen' => 'Safe\imagegrabscreen',
+            'imagegrabwindow' => 'Safe\imagegrabwindow',
             'imagejpeg' => 'Safe\imagejpeg',
             'imagelayereffect' => 'Safe\imagelayereffect',
             'imageline' => 'Safe\imageline',

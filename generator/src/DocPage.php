@@ -128,6 +128,11 @@ class DocPage
             return true;
         }
 
+        //used to detect get_headers and ldap_search
+        if (preg_match("/&false; on failure/m", $file)) {
+            return true;
+        }
+
         return false;
     }
 

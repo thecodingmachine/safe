@@ -47,14 +47,8 @@ class PhpStanType
             $data .= '|null';
         }
 
-        // Remove generic syntax, which could also contain a | character
-        if (false != \preg_match_all('/(<(.*?)>)|({(.*?)})/', $data, $matches, PREG_OFFSET_CAPTURE)) {
-            foreach ($matches[0] as $match) {
-                $data = \str_replace($match[0], '', $data);
-            }
-        }
 
-        $returnTypes = \explode('|', $data);
+        $returnTypes = $this->explodeTypes($data);
         //remove 'null' from the list to identify if the signature type should be nullable
         if (($nullablePosition = \array_search('null', $returnTypes)) !== false) {
             $nullable = true;
@@ -85,6 +79,32 @@ class PhpStanType
         $this->types = $returnTypes;
         $this->nullable = $nullable;
         $this->falsable = $falsable;
+    }
+
+    private function explodeTypes(string $data): array
+    {
+        $types = [];
+        $depth = 0;
+        $index = 0;
+
+        foreach (str_split($data) as $character) {
+            if ($character === '<' || $character === '{') {
+                $depth++;
+            }
+
+            if ($character === '>' || $character === '}') {
+                $depth--;
+            }
+
+            if ($depth === 0 && $character === '|') {
+                $index++;
+                continue;
+            }
+
+            $types[$index] = ($types[$index] ?? '') . $character;
+        }
+
+        return $types;
     }
     
     public function getDocBlockType(?int $errorType = null): string

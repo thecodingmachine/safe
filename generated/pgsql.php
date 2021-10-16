@@ -385,6 +385,35 @@ function pg_free_result($result): void
 
 
 /**
+ * pg_host returns the host name of the given
+ * PostgreSQL connection instance is
+ * connected to.
+ *
+ * @param resource $connection An PgSql\Connection instance.
+ * When connection is NULL, the default connection is used.
+ * The default connection is the last connection made by pg_connect
+ * or pg_pconnect.
+ * @return string A string containing the name of the host the
+ * connection is to.
+ * @throws PgsqlException
+ *
+ */
+function pg_host($connection = null): string
+{
+    error_clear_last();
+    if ($connection !== null) {
+        $result = \pg_host($connection);
+    } else {
+        $result = \pg_host();
+    }
+    if ($result === '') {
+        throw PgsqlException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * pg_insert inserts the values
  * of values into the table specified
  * by table_name.

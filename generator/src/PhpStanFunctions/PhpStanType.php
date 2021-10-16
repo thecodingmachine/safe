@@ -47,7 +47,6 @@ class PhpStanType
             $data .= '|null';
         }
 
-
         $returnTypes = $this->explodeTypes($data);
         //remove 'null' from the list to identify if the signature type should be nullable
         if (($nullablePosition = \array_search('null', $returnTypes)) !== false) {

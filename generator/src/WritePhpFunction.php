@@ -84,7 +84,7 @@ class WritePhpFunction
                     break;
                 }
             } while (true);
-            $phpFunction .= 'else {'."\n";
+            $phpFunction .= ' else {'."\n";
             $phpFunction .= '        $result = '.$this->printFunctionCall($method)."\n";
             $phpFunction .= '    }';
         }

@@ -12,5 +12,10 @@ final class DateTimeImmutableTest extends TestCase
         $safeImmutableDate = \Safe\DateTimeImmutable::createFromMutable($unsafeDate);
 
         self::assertSame($unsafeDate->format(\DateTimeInterface::ATOM), $safeImmutableDate->format(\DateTimeInterface::ATOM));
+
+        $safeDate = new \Safe\DateTime('2021-10-16T12:30:16+00:00');
+        $safeImmutableDate = \Safe\DateTimeImmutable::createFromMutable($safeDate);
+
+        self::assertSame($safeDate->format(\DateTimeInterface::ATOM), $safeImmutableDate->format(\DateTimeInterface::ATOM));
     }
 }

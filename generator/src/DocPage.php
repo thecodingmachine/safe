@@ -160,6 +160,26 @@ class DocPage
         return false;
     }
 
+    /*
+     * Detect function which return an empty string on error.
+     */
+    public function detectEmptyFunction(): bool
+    {
+        $file = file_get_contents($this->path);
+        if ($file === false) {
+            throw new \RuntimeException('An error occured while reading '.$this->path);
+        }
+        if ($this->getIsDeprecated($file)) {
+            return false;
+        }
+
+        if (preg_match('/an\s+empty\s+string\s+on\s+error/', $file)) {
+            return true;
+        }
+
+        return false;
+    }
+
 
     /**
      * @return \SimpleXMLElement[]

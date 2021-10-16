@@ -97,13 +97,15 @@ class WritePhpFunction
 
     private function generateExceptionCode(string $moduleName, Method $method) : string
     {
-        $errorValue = null;
         switch ($method->getErrorType()) {
             case Method::FALSY_TYPE:
                 $errorValue = 'false';
                 break;
             case Method::NULLSY_TYPE:
                 $errorValue = 'null';
+                break;
+            case Method::EMPTY_TYPE:
+                $errorValue = "''";
                 break;
             default:
                 throw new \LogicException("Method doesn't have an error type");

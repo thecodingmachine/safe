@@ -102,8 +102,9 @@ class Scanner
             $docPage = new DocPage($path);
             $isFalsy = $docPage->detectFalsyFunction();
             $isNullsy = $docPage->detectNullsyFunction();
-            if ($isFalsy || $isNullsy) {
-                $errorType = $isFalsy ? Method::FALSY_TYPE : Method::NULLSY_TYPE;
+            $isEmpty = $docPage->detectEmptyFunction();
+            if ($isFalsy || $isNullsy || $isEmpty) {
+                $errorType = $isFalsy ? Method::FALSY_TYPE : ($isNullsy ? Method::NULLSY_TYPE : Method::EMPTY_TYPE);
 
                 $functionObjects = $docPage->getMethodSynopsis();
                 if (count($functionObjects) > 1) {

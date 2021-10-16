@@ -1201,7 +1201,7 @@ function openssl_random_pseudo_bytes(int $length, ?bool &$strong_result = null):
  * It is strongly recommended to explicitly specify a secure cipher method.
  *
  *
- * @param string $iv The initialization vector.
+ * @param string|null $iv The initialization vector.
  * @return int Returns the length of the sealed data on success.
  * If successful the sealed data is returned in
  * sealed_data, and the envelope keys in
@@ -1209,7 +1209,7 @@ function openssl_random_pseudo_bytes(int $length, ?bool &$strong_result = null):
  * @throws OpensslException
  *
  */
-function openssl_seal(string $data, ?string &$sealed_data, ?array &$encrypted_keys, array $public_key, string $cipher_algo, string &$iv = null): int
+function openssl_seal(string $data, ?string &$sealed_data, ?array &$encrypted_keys, array $public_key, string $cipher_algo, ?string &$iv = null): int
 {
     error_clear_last();
     $result = \openssl_seal($data, $sealed_data, $encrypted_keys, $public_key, $cipher_algo, $iv);

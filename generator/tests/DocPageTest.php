@@ -47,4 +47,11 @@ class DocPageTest extends TestCase
         $this->assertFalse($implode->detectNullsyFunction());
         $this->assertTrue($arrayReplace->detectNullsyFunction());
     }
+
+    public function testDetectEmptyFunction()
+    {
+        $pgHost = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pgsql/functions/pg-host.xml');
+
+        $this->assertTrue($pgHost->detectEmptyFunction());
+    }
 }

@@ -721,6 +721,7 @@ return [
     'pg_field_table',
     'pg_flush',
     'pg_free_result',
+    'pg_host',
     'pg_insert',
     'pg_last_oid',
     'pg_lo_close',

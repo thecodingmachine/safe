@@ -16,6 +16,7 @@
             "deprecated/mssql.php",
             "deprecated/stats.php",
             "lib/special_cases.php",
+            "lib/deprecations.php",
             "generated/apache.php",
             "generated/apcu.php",
             "generated/array.php",

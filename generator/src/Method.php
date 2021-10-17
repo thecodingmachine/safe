@@ -10,6 +10,7 @@ class Method
 {
     const FALSY_TYPE = 1;
     const NULLSY_TYPE = 2;
+    const EMPTY_TYPE = 3;
     /**
      * @var \SimpleXMLElement
      */
@@ -162,7 +163,11 @@ class Method
                 $string = $this->removeString($string, ' and FALSE if an error occurred');
                 $string = $this->removeString($string, 'the function will return TRUE, or FALSE otherwise');
                 break;
-                
+
+            case self::EMPTY_TYPE:
+                $string = $this->removeString($string, ' or an empty string on error');
+                break;
+
             default:
                 throw new \RuntimeException('Incorrect error type.');
         }

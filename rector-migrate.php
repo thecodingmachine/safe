@@ -722,6 +722,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'pg_field_table' => 'Safe\pg_field_table',
             'pg_flush' => 'Safe\pg_flush',
             'pg_free_result' => 'Safe\pg_free_result',
+            'pg_host' => 'Safe\pg_host',
             'pg_insert' => 'Safe\pg_insert',
             'pg_last_oid' => 'Safe\pg_last_oid',
             'pg_lo_close' => 'Safe\pg_lo_close',

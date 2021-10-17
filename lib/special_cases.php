@@ -330,7 +330,7 @@ function simplexml_load_string(string $data, string $class_name = \SimpleXMLElem
  * (the number of processes in the system run queue) over the last 1, 5 and 15
  * minutes, respectively. Returns FALSE on failure.
  *
- * @return array Returns an array with three samples (last 1, 5 and 15
+ * @return array<int,float> Returns an array with three samples (last 1, 5 and 15
  * minutes).
  * @throws MiscException
  *

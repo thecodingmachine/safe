@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Safe;
+
 use Safe\Exceptions\StringsException;
 
 function trigger_php8_deprecation(string $reason): void {

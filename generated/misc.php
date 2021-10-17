@@ -445,27 +445,6 @@ function sleep(int $seconds): int
 
 
 /**
- * Returns three samples representing the average system load
- * (the number of processes in the system run queue) over the last 1, 5 and 15
- * minutes, respectively. Returns FALSE on failure.
- *
- * @return array Returns an array with three samples (last 1, 5 and 15
- * minutes).
- * @throws MiscException
- *
- */
-function sys_getloadavg(): array
-{
-    error_clear_last();
-    $result = \sys_getloadavg();
-    if ($result === false) {
-        throw MiscException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Delays program execution for the given number of
  * seconds and nanoseconds.
  *

@@ -599,34 +599,3 @@ function mb_split(string $pattern, string $string, int $limit = -1): array
     }
     return $result;
 }
-
-
-/**
- * This function will return an array of strings, it is a version of str_split with support for encodings of variable character size as well as fixed-size encodings of 1,2 or 4 byte characters.
- * If the length parameter is specified, the string is broken down into chunks of the specified length in characters (not bytes).
- * The encoding parameter can be optionally specified and it is good practice to do so.
- *
- * @param string $string The string to split into characters or chunks.
- * @param int $length If specified, each element of the returned array will be composed of multiple characters instead of a single character.
- * @param  $encoding The encoding
- * parameter is the character encoding. If it is omitted or NULL, the internal character
- * encoding value will be used.
- *
- * A string specifying one of the supported encodings.
- * @return array mb_str_split returns an array of strings.
- * @throws MbstringException
- *
- */
-function mb_str_split(string $string, int $length = 1, $encoding = null): array
-{
-    error_clear_last();
-    if ($encoding !== null) {
-        $result = \mb_str_split($string, $length, $encoding);
-    } else {
-        $result = \mb_str_split($string, $length);
-    }
-    if ($result === false) {
-        throw MbstringException::createFromPhpError();
-    }
-    return $result;
-}

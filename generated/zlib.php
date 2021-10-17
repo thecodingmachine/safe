@@ -367,6 +367,43 @@ function gzinflate(string $data, int $max_length = 0): string
 
 
 /**
+ * Opens a gzip (.gz) file for reading or writing.
+ *
+ * gzopen can be used to read a file which is
+ * not in gzip format; in this case gzread will
+ * directly read from the file without decompression.
+ *
+ * @param string $filename The file name.
+ * @param string $mode As in fopen (rb or
+ * wb) but can also include a compression level
+ * (wb9) or a strategy: f for
+ * filtered data as in wb6f, h for
+ * Huffman only compression as in wb1h.
+ * (See the description of deflateInit2
+ * in zlib.h for
+ * more information about the strategy parameter.)
+ * @param int $use_include_path You can set this optional parameter to 1, if you
+ * want to search for the file in the include_path too.
+ * @return resource Returns a file pointer to the file opened, after that, everything you read
+ * from this file descriptor will be transparently decompressed and what you
+ * write gets compressed.
+ *
+ * If the open fails, the function returns FALSE.
+ * @throws ZlibException
+ *
+ */
+function gzopen(string $filename, string $mode, int $use_include_path = 0)
+{
+    error_clear_last();
+    $result = \gzopen($filename, $mode, $use_include_path);
+    if ($result === false) {
+        throw ZlibException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * Reads to EOF on the given gz-file pointer from the current position and
  * writes the (uncompressed) results to standard output.
  *

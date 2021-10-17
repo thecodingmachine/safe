@@ -196,26 +196,6 @@ function posix_getlogin(): string
 
 
 /**
- * Returns the process group identifier of the process
- * process_id.
- *
- * @param int $process_id The process id.
- * @return int Returns the identifier, as an int.
- * @throws PosixException
- *
- */
-function posix_getpgid(int $process_id): int
-{
-    error_clear_last();
-    $result = \posix_getpgid($process_id);
-    if ($result === false) {
-        throw PosixException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Returns an array of information about the user
  * referenced by the given user ID.
  *

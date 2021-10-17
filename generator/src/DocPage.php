@@ -57,79 +57,88 @@ class DocPage
             return false;
         }
 
-        if (preg_match('/&false;\s+on\s+error/m', $file)) {
-            return true;
-        }
-        if (preg_match('/&false;\s+on\s+failure/m', $file)) {
-            return true;
-        }
-        if (preg_match('/&false;\s+otherwise/m', $file) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $file)) {
-            return true;
-        }
-        if (preg_match('/may\s+return\s+&false;/m', $file) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $file)) {
-            return true;
-        }
-        if (preg_match('/&false;\s+if\s+an\s+error\s+occurred/m', $file)) {
-            return true;
-        }
-        if (preg_match('/&return.success;/m', $file)) {
-            return true;
-        }
-        if (preg_match('/&return.nullorfalse;/m', $file)) {
-            return true;
-        }
-        if (preg_match('/&return.falseforfailure;/m', $file)) {
-            return true;
-        }
-        if (preg_match('/&date.datetime.return.modifiedobjectorfalseforfailure;/m', $file)) {
-            return true;
-        }
-        if (preg_match('/ or &false; \\(and generates an error/m', $file)) {
-            return true;
-        }
-        if (preg_match('/&false;\s+if\s+the\s+number\s+of\s+elements\s+for\s+each\s+array\s+isn\'t\s+equal/m', $file)) {
-            return true;
-        }
-        if (preg_match('/If\s+the\s+call\s+fails,\s+it\s+will\s+return\s+&false;/m', $file)) {
-            return true;
-        }
-        if (preg_match('/Upon\s+failure,?\s+\<function\>[\w_]{1,15}?\<\/function\>\s+returns\s+&false;/m', $file)) {
-            return true;
-        }
-        if (preg_match('/On\s+failure,\s+&false;\s+is\s+returned/m', $file)) {
-            return true;
-        }
-        if (preg_match('/on\s+success,\s+otherwise\s+&false;\s+is\s+returned/m', $file)) {
-            return true;
-        }
-        if (preg_match('/Returns.*on success[.\s\S]+Returns &false;\s+if/m', $file)) {
+        // Only evaluate the text inside the `<refsect1 role="returnvalues">...</refsect1>` section of the doc page.
+        // This minimizes 'false positives', where text such as "returns false when ..." could be matched outside
+        // the function's dedicated Return Values section.
+        $returnValuesSection = $this->extractSection('returnvalues', $file);
+
+        if (preg_match('/[Tt]he function returns &false;/m', $returnValuesSection)) {
             return true;
         }
 
-        if (preg_match('/&gd\.return\.identifier;/m', $file)) {
+        if (preg_match('/&false;\s+on\s+error/m', $returnValuesSection)) {
             return true;
         }
-        if (preg_match('/&gd\.return\.identifier;/m', $file)) {
+        if (preg_match('/&false;\s+on\s+failure/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/&false;\s+otherwise/m', $returnValuesSection) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/may\s+return\s+&false;/m', $returnValuesSection) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/&false;\s+if\s+an\s+error\s+occurred/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/&return.success;/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/&return.nullorfalse;/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/&return.falseforfailure;/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/&date.datetime.return.modifiedobjectorfalseforfailure;/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/ or &false; \\(and generates an error/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/&false;\s+if\s+the\s+number\s+of\s+elements\s+for\s+each\s+array\s+isn\'t\s+equal/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/If\s+the\s+call\s+fails,\s+it\s+will\s+return\s+&false;/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/Upon\s+failure,?\s+\<function\>[\w_]{1,15}?\<\/function\>\s+returns\s+&false;/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/On\s+failure,\s+&false;\s+is\s+returned/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/on\s+success,\s+otherwise\s+&false;\s+is\s+returned/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/Returns.*on success[.\s\S]+Returns &false;\s+if/m', $returnValuesSection)) {
+            return true;
+        }
+
+        if (preg_match('/&gd\.return\.identifier;/m', $returnValuesSection)) {
+            return true;
+        }
+        if (preg_match('/&gd\.return\.identifier;/m', $returnValuesSection)) {
             return true;
         }
         //used for date
         if (preg_match('/If a non-numeric value is used for 
-   \<parameter\>timestamp\<\/parameter\>, &false; is returned/m', $file)) {
+   \<parameter\>timestamp\<\/parameter\>, &false; is returned/m', $returnValuesSection)) {
             return true;
         }
 
         //used to detect imagecreatefromstring
-        if (preg_match('/If the arguments are invalid, the function returns &false;/m', $file)) {
+        if (preg_match('/If the arguments are invalid, the function returns &false;/m', $returnValuesSection)) {
             return true;
         }
 
         //used to detect class_implements
-        if (preg_match("/&false; when the given class doesn't exist/m", $file)) {
+        if (preg_match("/&false; when the given class doesn't exist/m", $returnValuesSection)) {
             return true;
         }
 
         //used to detect get_headers and ldap_search
-        if (preg_match("/&false; on failure/m", $file)) {
+        if (preg_match("/&false; on failure/m", $returnValuesSection)) {
             return true;
         }
 
@@ -150,16 +159,20 @@ class DocPage
             return false;
         }
 
-        if (preg_match('/&null;\s+on\s+failure/', $file)) {
+        // Only evaluate the text inside the `<refsect1 role="returnvalues">...</refsect1>` section of the doc page.
+        // This minimizes 'false positives', where text such as "returns false when ..." could be matched outside
+        // the function's dedicated Return Values section.
+        $returnValuesSection = $this->extractSection('returnvalues', $file);
+
+        if (preg_match('/&null;\s+on\s+failure/', $returnValuesSection)) {
             return true;
         }
-        if (preg_match('/&null;\s+if\s+an\s+error\s+occurs/', $file)) {
+        if (preg_match('/&null;\s+if\s+an\s+error\s+occurs/', $returnValuesSection)) {
             return true;
         }
 
         return false;
     }
-
 
     /**
      * @return \SimpleXMLElement[]
@@ -177,8 +190,7 @@ class DocPage
         // Only evaluate the synopsis inside the `<refsect1 role="description">...</refsect1>` section of the doc page.
         // Other synopses might occur in the `<refsect1 role="parameters">...</refsect1>` section, but these describe
         // handlers, callbacks, and other callable-type arguments, not the function itself.
-        preg_match_all('/<refsect1\s+role="description">[\s\S]*?<\/refsect1>/m', $file, $fileDescriptionSection);
-        $fileDescriptionSection = implode('', $this->arrayFlatten((array) $fileDescriptionSection));
+        $fileDescriptionSection = $this->extractSection('description', $file);
 
         if (!preg_match_all('/<\/?methodsynopsis[\s\S]*?>[\s\S]*?<\/methodsynopsis>/m', $fileDescriptionSection, $functions, PREG_SET_ORDER, 0)) {
             return [];
@@ -243,6 +255,15 @@ class DocPage
     public function getModule(): string
     {
         return $this->toCamelCase(\basename(\dirname($this->path, 2)));
+    }
+
+    private function extractSection(string $sectionName, string $file): string
+    {
+        $regexpBase = '/<refsect1\s+role="%s">[\s\S]*?<\/refsect1>/m';
+        $regexpString = sprintf($regexpBase, preg_quote($sectionName, '/'));
+        preg_match_all($regexpString, $file, $output);
+        $output = implode('', $this->arrayFlatten((array) $output));
+        return $output;
     }
 
     private function toCamelCase(string $str): string

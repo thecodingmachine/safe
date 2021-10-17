@@ -578,26 +578,6 @@ function curl_init(string $url = null)
 
 
 /**
- * Return an integer containing the last multi curl error number.
- *
- * @param resource $multi_handle A cURL multi handle returned by
- * curl_multi_init.
- * @return int Return an integer containing the last multi curl error number.
- * @throws CurlException
- *
- */
-function curl_multi_errno($multi_handle): int
-{
-    error_clear_last();
-    $result = \curl_multi_errno($multi_handle);
-    if ($result === false) {
-        throw CurlException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Ask the multi handle if there are any messages or information from the individual transfers.
  * Messages may include information such as an error code from the transfer or just the fact
  * that a transfer is completed.

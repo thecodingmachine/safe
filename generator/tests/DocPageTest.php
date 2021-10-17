@@ -20,6 +20,7 @@ class DocPageTest extends TestCase
         $date = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/datetime/functions/date.xml');
         $classImplement = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/spl/functions/class-implements.xml');
         $getHeaders = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/url/functions/get-headers.xml');
+        $gzopen = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/zlib/functions/gzopen.xml');
         //$ldapSearch = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/ldap/functions/ldap-search.xml');
 
         $this->assertTrue($pregMatch->detectFalsyFunction());
@@ -34,6 +35,7 @@ class DocPageTest extends TestCase
         $this->assertTrue($date->detectFalsyFunction());
         $this->assertTrue($classImplement->detectFalsyFunction());
         $this->assertTrue($getHeaders->detectFalsyFunction());
+        $this->assertTrue($gzopen->detectFalsyFunction());
         //$this->assertTrue($ldapSearch->detectFalsyFunction());
     }
 

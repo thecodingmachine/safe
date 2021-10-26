@@ -99,8 +99,10 @@ function openssl_cms_read(string $input_filename, array &$certificates): void
  *
  * @param string $input_filename The name of the file to be signed.
  * @param string $output_filename The name of the file to deposit the results.
- * @param  $certificate The name of the file containing the signing certificate.
- * @param  $private_key The name of file containing the key associated with certificate.
+ * @param  $certificate The signing certificate.
+ * See Key/Certificate parameters for a list of valid values.
+ * @param  $private_key The key associated with certificate.
+ * See Key/Certificate parameters for a list of valid values.
  * @param  $headers An array of headers to be included in S/MIME output.
  * @param int $flags Flags to be passed to cms_sign.
  * @param int $encoding The encoding of the output file. One of OPENSSL_CMS_SMIME,

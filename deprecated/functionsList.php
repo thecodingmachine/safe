@@ -48,6 +48,7 @@ return [
     'mssql_pconnect',
     'mssql_query',
     'mssql_select_db',
+    'mysqli_get_client_stats',
     'stats_covariance',
     'stats_standard_deviation',
     'stats_stat_correlation',

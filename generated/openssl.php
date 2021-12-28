@@ -66,7 +66,7 @@ function openssl_cms_decrypt(string $input_filename, string $output_filename, $c
  * @throws OpensslException
  *
  */
-function openssl_cms_encrypt(string $input_filename, string $output_filename, $certificate, $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, int $cipher_algo = OPENSSL_CIPHER_RC2_40): void
+function openssl_cms_encrypt(string $input_filename, string $output_filename, $certificate, $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, int $cipher_algo = OPENSSL_CIPHER_AES_128_CBC): void
 {
     error_clear_last();
     $result = \openssl_cms_encrypt($input_filename, $output_filename, $certificate, $headers, $flags, $encoding, $cipher_algo);
@@ -448,10 +448,16 @@ function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, array 
  * @throws OpensslException
  *
  */
-function openssl_decrypt(string $data, string $cipher_algo, string $passphrase, int $options = 0, string $iv = "", string $tag = "", string $aad = ""): string
+function openssl_decrypt(string $data, string $cipher_algo, string $passphrase, int $options = 0, string $iv = "", string $tag = null, string $aad = ""): string
 {
     error_clear_last();
-    $result = \openssl_decrypt($data, $cipher_algo, $passphrase, $options, $iv, $tag, $aad);
+    if ($aad !== "") {
+        $result = \openssl_decrypt($data, $cipher_algo, $passphrase, $options, $iv, $tag, $aad);
+    } elseif ($tag !== null) {
+        $result = \openssl_decrypt($data, $cipher_algo, $passphrase, $options, $iv, $tag);
+    } else {
+        $result = \openssl_decrypt($data, $cipher_algo, $passphrase, $options, $iv);
+    }
     if ($result === false) {
         throw OpensslException::createFromPhpError();
     }
@@ -790,7 +796,7 @@ function openssl_pkcs7_decrypt(string $input_filename, string $output_filename, 
  * @throws OpensslException
  *
  */
-function openssl_pkcs7_encrypt(string $input_filename, string $output_filename, $certificate, array $headers, int $flags = 0, int $cipher_algo = OPENSSL_CIPHER_RC2_40): void
+function openssl_pkcs7_encrypt(string $input_filename, string $output_filename, $certificate, array $headers, int $flags = 0, int $cipher_algo = OPENSSL_CIPHER_AES_128_CBC): void
 {
     error_clear_last();
     $result = \openssl_pkcs7_encrypt($input_filename, $output_filename, $certificate, $headers, $flags, $cipher_algo);

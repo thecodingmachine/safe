@@ -30,7 +30,7 @@ use Safe\Exceptions\ErrorfuncException;
  * message is sent by email to the address in
  * the destination parameter.  This is the only
  * message type where the fourth parameter,
- * extra_headers is used.
+ * additional_headers is used.
  *
  *
  *
@@ -59,18 +59,18 @@ use Safe\Exceptions\ErrorfuncException;
  *
  * @param string $destination The destination. Its meaning depends on the
  * message_type parameter as described above.
- * @param string $extra_headers The extra headers. It's used when the message_type
+ * @param string $additional_headers The extra headers. It's used when the message_type
  * parameter is set to 1.
  * This message type uses the same internal function as
  * mail does.
  * @throws ErrorfuncException
  *
  */
-function error_log(string $message, int $message_type = 0, string $destination = null, string $extra_headers = null): void
+function error_log(string $message, int $message_type = 0, string $destination = null, string $additional_headers = null): void
 {
     error_clear_last();
-    if ($extra_headers !== null) {
-        $result = \error_log($message, $message_type, $destination, $extra_headers);
+    if ($additional_headers !== null) {
+        $result = \error_log($message, $message_type, $destination, $additional_headers);
     } elseif ($destination !== null) {
         $result = \error_log($message, $message_type, $destination);
     } else {

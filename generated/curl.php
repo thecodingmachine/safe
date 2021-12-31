@@ -2354,7 +2354,7 @@ function curl_multi_setopt($multi_handle, int $option, $value): void
  * multipart/form-data.
  *
  *
- * Files can be sent using CURLFile,
+ * Files can be sent using CURLFile or CURLStringFile,
  * in which case value must be an array.
  *
  *

@@ -346,12 +346,12 @@ function gzgetss($zp, int $length, string $allowable_tags = null): string
  * This function inflates a deflated string.
  *
  * @param string $data The data compressed by gzdeflate.
- * @param int $max_length The maximum length of data to decode.
+ * @param int $max_length The maximum length of decoded data.
  * @return string The original uncompressed data.
  *
  * The function will return an error if the uncompressed data is more than
  * 32768 times the length of the compressed input data
- * or more than the optional parameter max_length.
+ * or, unless max_length is 0, more than the optional parameter max_length.
  * @throws ZlibException
  *
  */

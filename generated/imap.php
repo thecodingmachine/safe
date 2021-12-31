@@ -1381,7 +1381,8 @@ function imap_mail_compose(array $envelope, array $bodies): string
  *
  *
  * CP_MOVE - Delete the messages from
- * the current mailbox after copying
+ * the current mailbox after copying. If this flag is set, the function
+ * behaves identically to imap_mail_move.
  *
  *
  *
@@ -1401,6 +1402,9 @@ function imap_mail_copy($imap, string $message_nums, string $mailbox, int $flags
 /**
  * Moves mail messages specified by message_nums to the
  * specified mailbox.
+ * Note that the mail messages are actually copied to the
+ * mailbox, and the original messages are flagged for deletion.
+ * That implies that the messages in mailbox are assigned new UIDs.
  *
  * @param resource $imap An IMAP\Connection instance.
  * @param string $message_nums message_nums is a range not just message numbers
@@ -2230,15 +2234,17 @@ function imap_timeout(int $timeout_type, int $timeout = -1)
  * imap_delete or imap_mail_move.
  *
  * @param resource $imap An IMAP\Connection instance.
- * @param int $message_num The message number
+ * @param int $message_nums A string representing one or more messages in IMAP4-style sequence format
+ * ("n", "n:m", or combination of these
+ * delimited by commas).
  * @param int $flags
  * @throws ImapException
  *
  */
-function imap_undelete($imap, int $message_num, int $flags = 0): void
+function imap_undelete($imap, int $message_nums, int $flags = 0): void
 {
     error_clear_last();
-    $result = \imap_undelete($imap, $message_num, $flags);
+    $result = \imap_undelete($imap, $message_nums, $flags);
     if ($result === false) {
         throw ImapException::createFromPhpError();
     }

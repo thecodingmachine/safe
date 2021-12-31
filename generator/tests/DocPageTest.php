@@ -41,11 +41,9 @@ class DocPageTest extends TestCase
 
     public function testDetectNullsyFunction()
     {
-        $pregMatch = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-flip.xml');
         $implode = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/implode.xml');
         $arrayReplace = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-replace.xml');
 
-        $this->assertTrue($pregMatch->detectNullsyFunction());
         $this->assertFalse($implode->detectNullsyFunction());
         $this->assertTrue($arrayReplace->detectNullsyFunction());
     }

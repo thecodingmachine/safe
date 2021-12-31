@@ -89,13 +89,13 @@ function chown(string $filename, $user): void
 
 
 /**
- * Makes a copy of the file source to
- * dest.
+ * Makes a copy of the file from to
+ * to.
  *
  * If you wish to move a file, use the rename function.
  *
- * @param string $source Path to the source file.
- * @param string $dest The destination path. If dest is a URL, the
+ * @param string $from Path to the source file.
+ * @param string $to The destination path. If to is a URL, the
  * copy operation may fail if the wrapper does not support overwriting of
  * existing files.
  *
@@ -105,13 +105,13 @@ function chown(string $filename, $user): void
  * @throws FilesystemException
  *
  */
-function copy(string $source, string $dest, $context = null): void
+function copy(string $from, string $to, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \copy($source, $dest, $context);
+        $result = \copy($from, $to, $context);
     } else {
-        $result = \copy($source, $dest);
+        $result = \copy($from, $to);
     }
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
@@ -223,6 +223,52 @@ function fflush($stream): void
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
     }
+}
+
+
+/**
+ * Similar to fgets except that
+ * fgetcsv parses the line it reads for fields in
+ * CSV format and returns an array containing the fields
+ * read.
+ *
+ * @param resource $stream A valid file pointer to a file successfully opened by
+ * fopen, popen, or
+ * fsockopen.
+ * @param int $length Must be greater than the longest line (in characters) to be found in
+ * the CSV file (allowing for trailing line-end characters). Otherwise the
+ * line is split in chunks of length characters,
+ * unless the split would occur inside an enclosure.
+ *
+ * Omitting this parameter (or setting it to 0,
+ * or NULL in PHP 8.0.0 or later) the maximum line length is not limited,
+ * which is slightly slower.
+ * @param string $separator The optional separator parameter sets the field separator (one single-byte character only).
+ * @param string $enclosure The optional enclosure parameter sets the field enclosure character (one single-byte character only).
+ * @param string $escape The optional escape parameter sets the escape character (at most one single-byte character).
+ * An empty string ("") disables the proprietary escape mechanism.
+ * @return array|false|null Returns an indexed array containing the fields read on success.
+ * @throws FilesystemException
+ *
+ */
+function fgetcsv($stream, int $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\")
+{
+    error_clear_last();
+    if ($escape !== "\\") {
+        $result = \fgetcsv($stream, $length, $separator, $enclosure, $escape);
+    } elseif ($enclosure !== "\"") {
+        $result = \fgetcsv($stream, $length, $separator, $enclosure);
+    } elseif ($separator !== ",") {
+        $result = \fgetcsv($stream, $length, $separator);
+    } elseif ($length !== null) {
+        $result = \fgetcsv($stream, $length);
+    } else {
+        $result = \fgetcsv($stream);
+    }
+    if ($result === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $result;
 }
 
 
@@ -872,7 +918,7 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  * @throws FilesystemException
  *
  */
-function fputcsv($stream, array $fields, string $separator = ",", string $enclosure = '"', string $escape = "\\", string $eol = "\n"): int
+function fputcsv($stream, array $fields, string $separator = ",", string $enclosure = "\"", string $escape = "\\", string $eol = "\n"): int
 {
     error_clear_last();
     $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape, $eol);
@@ -1009,24 +1055,23 @@ function ftruncate($stream, int $size): void
 /**
  *
  *
- * @param resource $handle A file system pointer resource
+ * @param resource $stream A file system pointer resource
  * that is typically created using fopen.
- * @param string $string The string that is to be written.
- * @param int $length If the length argument is given, writing will
- * stop after length bytes have been written or
- * the end of string is reached, whichever comes
- * first.
+ * @param string $data The string that is to be written.
+ * @param int $length If length is an integer, writing will stop
+ * after length bytes have been written or the
+ * end of data is reached, whichever comes first.
  * @return int
  * @throws FilesystemException
  *
  */
-function fwrite($handle, string $string, int $length = null): int
+function fwrite($stream, string $data, int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {
-        $result = \fwrite($handle, $string, $length);
+        $result = \fwrite($stream, $data, $length);
     } else {
-        $result = \fwrite($handle, $string);
+        $result = \fwrite($stream, $data);
     }
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
@@ -1420,22 +1465,22 @@ function realpath(string $path): string
 
 
 /**
- * Attempts to rename oldname to
- * newname, moving it between directories if necessary.
- * If renaming a file and newname exists,
+ * Attempts to rename from to
+ * to, moving it between directories if necessary.
+ * If renaming a file and to exists,
  * it will be overwritten. If renaming a directory and
- * newname exists,
+ * to exists,
  * this function will emit a warning.
  *
- * @param string $oldname The old name.
+ * @param string $from The old name.
  *
- * The wrapper used in oldname
+ * The wrapper used in from
  * must match the wrapper used in
- * newname.
- * @param string $newname The new name.
+ * to.
+ * @param string $to The new name.
  *
  *
- * On Windows, if newname already exists, it must be writable.
+ * On Windows, if to already exists, it must be writable.
  * Otherwise rename fails and issues E_WARNING.
  *
  *
@@ -1444,13 +1489,13 @@ function realpath(string $path): string
  * @throws FilesystemException
  *
  */
-function rename(string $oldname, string $newname, $context = null): void
+function rename(string $from, string $to, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \rename($oldname, $newname, $context);
+        $result = \rename($from, $to, $context);
     } else {
-        $result = \rename($oldname, $newname);
+        $result = \rename($from, $to);
     }
     if ($result === false) {
         throw FilesystemException::createFromPhpError();
@@ -1573,29 +1618,29 @@ function tmpfile()
 /**
  * Attempts to set the access and modification times of the file named in the
  * filename parameter to the value given in
- * time.
+ * mtime.
  * Note that the access time is always modified, regardless of the number
  * of parameters.
  *
  * If the file does not exist, it will be created.
  *
  * @param string $filename The name of the file being touched.
- * @param int $time The touch time. If time is not supplied,
+ * @param int $mtime The touch time. If mtime is NULL,
  * the current system time is used.
- * @param int $atime If present, the access time of the given filename is set to
+ * @param int $atime If NULL, the access time of the given filename is set to
  * the value of atime. Otherwise, it is set to
- * the value passed to the time parameter.
- * If neither are present, the current system time is used.
+ * the value passed to the mtime parameter.
+ * If both are NULL, the current system time is used.
  * @throws FilesystemException
  *
  */
-function touch(string $filename, int $time = null, int $atime = null): void
+function touch(string $filename, int $mtime = null, int $atime = null): void
 {
     error_clear_last();
     if ($atime !== null) {
-        $result = \touch($filename, $time, $atime);
-    } elseif ($time !== null) {
-        $result = \touch($filename, $time);
+        $result = \touch($filename, $mtime, $atime);
+    } elseif ($mtime !== null) {
+        $result = \touch($filename, $mtime);
     } else {
         $result = \touch($filename);
     }

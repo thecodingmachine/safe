@@ -504,28 +504,6 @@ function imagecolorset($image, int $color, int $red, int $green, int $blue, int 
 
 
 /**
- * Gets the color for a specified index.
- *
- * @param resource $image A GdImage object, returned by one of the image creation functions,
- * such as imagecreatetruecolor.
- * @param int $color The color index.
- * @return array Returns an associative array with red, green, blue and alpha keys that
- * contain the appropriate values for the specified color index.
- * @throws ImageException
- *
- */
-function imagecolorsforindex($image, int $color): array
-{
-    error_clear_last();
-    $result = \imagecolorsforindex($image, $color);
-    if ($result === false) {
-        throw ImageException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * Applies a convolution matrix on the image, using the given coefficient and
  * offset.
  *
@@ -976,6 +954,7 @@ function imagecreatefromwbmp(string $filename)
 /**
  * imagecreatefromwebp returns an image identifier
  * representing the image obtained from the given filename.
+ * Note that animated WebP files cannot be read.
  *
  * @param string $filename Path to the WebP image.
  * @return resource Returns an image object on success, FALSE on errors.
@@ -1632,12 +1611,6 @@ function imageftbbox(float $size, float $angle, string $font_filename, string $s
  * / then .ttf will be appended
  * to the filename and the library will attempt to search for that
  * filename along a library-defined font path.
- *
- * When using versions of the GD library lower than 2.0.18, a space character,
- * rather than a semicolon, was used as the 'path separator' for different font files.
- * Unintentional use of this feature will result in the warning message:
- * Warning: Could not find/open font. For these affected versions, the
- * only solution is moving the font to a path which does not contain spaces.
  *
  * In many cases where a font resides in the same directory as the script using it
  * the following trick will alleviate any include problems.

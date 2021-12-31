@@ -1463,6 +1463,42 @@ function oci_set_module_name($connection, string $name): void
 
 
 /**
+ * Sets the internal buffer size used to fetch each CLOB or BLOB value when the
+ * implementation gets the internal Oracle LOB locator from the database after
+ * a successful query call to oci_execute and for each
+ * subsequent internal fetch request to the database.  Increasing this value
+ * can improve the performance of fetching smaller LOBs by reducing round-trips
+ * between PHP and the database.  Memory usage will change.
+ *
+ * The value affects LOBs returned as OCI-Lob instances and also those returned
+ * using OCI_RETURN_LOBS.
+ *
+ * Call oci_set_prefetch_lob before
+ * calling oci_execute.  If it is not called, the value
+ * of oci8.prefetch_lob_size
+ * is used.
+ *
+ * The LOB prefetch value should only be set with Oracle Database 12.2 or later.
+ *
+ * @param resource $statement A valid OCI8 statement
+ * identifier created by oci_parse and executed
+ * by oci_execute, or a REF
+ * CURSOR statement identifier.
+ * @param int $prefetch_lob_size The number of bytes of each LOB to be prefetched, &gt;= 0
+ * @throws Oci8Exception
+ *
+ */
+function oci_set_prefetch_lob($statement, int $prefetch_lob_size): void
+{
+    error_clear_last();
+    $result = \oci_set_prefetch_lob($statement, $prefetch_lob_size);
+    if ($result === false) {
+        throw Oci8Exception::createFromPhpError();
+    }
+}
+
+
+/**
  * Sets the number of rows to be buffered by the Oracle Client
  * libraries after a successful query call
  * to oci_execute and for each subsequent

@@ -469,6 +469,111 @@ function long2ip(int $ip): string
 
 
 /**
+ * Returns an enumeration of network interfaces (adapters) on the local machine.
+ *
+ * @return array Returns an associative array where the key is the name of the interface and
+ * the value an associative array of interface attributes.
+ *
+ * Each interface associative array contains:
+ *
+ * Interface attributes
+ *
+ *
+ *
+ * Name
+ * Description
+ *
+ *
+ *
+ *
+ * description
+ *
+ * Optional string value for description of the interface.
+ * Windows only.
+ *
+ *
+ *
+ * mac
+ *
+ * Optional string value for MAC address of the interface.
+ * Windows only.
+ *
+ *
+ *
+ * mtu
+ *
+ * Integer value for Maximum transmission unit (MTU) of the interface.
+ * Windows only.
+ *
+ *
+ *
+ * unicast
+ *
+ * Array of associative arrays, see Unicast attributes below.
+ *
+ *
+ *
+ * up
+ *
+ * Boolean status (on/off) for interface.
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * Unicast attributes
+ *
+ *
+ *
+ * Name
+ * Description
+ *
+ *
+ *
+ *
+ * flags
+ *
+ * Integer value.
+ *
+ *
+ *
+ * family
+ *
+ * Integer value.
+ *
+ *
+ *
+ * address
+ *
+ * String value for address in either IPv4 or IPv6.
+ *
+ *
+ *
+ * netmask
+ *
+ * String value for netmask in either IPv4 or IPv6.
+ *
+ *
+ *
+ *
+ *
+ * @throws NetworkException
+ *
+ */
+function net_get_interfaces(): array
+{
+    error_clear_last();
+    $result = \net_get_interfaces();
+    if ($result === false) {
+        throw NetworkException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * openlog opens a connection to the system
  * logger for a program.
  *

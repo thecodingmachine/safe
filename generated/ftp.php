@@ -412,6 +412,28 @@ function ftp_pwd($ftp): string
 
 
 /**
+ * Sends an arbitrary command to the FTP server.
+ *
+ * @param resource $ftp An FTP\Connection instance.
+ * @param string $command The command to execute.
+ * @return array Returns the server's response as an array of strings.
+ * No parsing is performed on the response string, nor does
+ * ftp_raw determine if the command succeeded.
+ * @throws FtpException
+ *
+ */
+function ftp_raw($ftp, string $command): array
+{
+    error_clear_last();
+    $result = \ftp_raw($ftp, $command);
+    if ($result === null) {
+        throw FtpException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * ftp_rename renames a file or a directory on the FTP
  * server.
  *

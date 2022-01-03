@@ -40,19 +40,9 @@ jobs:
           path: "generator/doc/doc-en"
           key: "php-doc"
 
-      - name: "Check out salathe/phpdoc-base"
-        uses: "actions/checkout@v2"
+      - name: "Check out submodules"
         if: steps.cache-php-doc.outputs.cache-hit != 'true'
-        with:
-          path: "generator/doc/doc-en/doc-base"
-          repository: "salathe/phpdoc-base"
-
-      - name: "Check out php/doc-en"
-        uses: "actions/checkout@v2"
-        if: steps.cache-php-doc.outputs.cache-hit != 'true'
-        with:
-          path: "generator/doc/doc-en/en"
-          repository: "php/doc-en"
+        run: "git submodule init"
 
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v1"

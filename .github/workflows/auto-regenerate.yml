@@ -20,17 +20,8 @@ jobs:
           coverage: "pcov"
           php-version: "7.4"
   
-      - name: "Check out salathe/phpdoc-base"
-        uses: "actions/checkout@v2"
-        with:
-          path: "generator/doc/doc-en/doc-base"
-          repository: "salathe/phpdoc-base"
-  
-      - name: "Check out php/doc-en"
-        uses: "actions/checkout@v2"
-        with:
-          path: "generator/doc/doc-en/en"
-          repository: "php/doc-en"
+      - name: "Check out submodules"
+        run: "git submodule init"
     
       - name: "Install dependencies with composer in generator/ directory"
         run: "composer install --no-interaction"
@@ -72,4 +63,3 @@ jobs:
           assignees: "kharhamel, moufmouf"
           
   
-   

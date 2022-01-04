@@ -37,7 +37,8 @@ function base64_decode(string $string, bool $strict = false): string
  * get_headers parses the response and sets the
  * array's keys.
  * @param resource $context A valid context resource created with
- * stream_context_create.
+ * stream_context_create, or NULL to use the
+ * default context.
  * @return array Returns an indexed or associative array with the headers.
  * @throws UrlException
  *

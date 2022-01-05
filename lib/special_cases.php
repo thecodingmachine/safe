@@ -375,7 +375,7 @@ function posix_getpgid(int $process_id): int
  * a file successfully opened by fopen or
  * fsockopen (and not yet closed by
  * fclose).
- * @param array $fields An array of strings.
+ * @param string[] $fields An array of strings.
  * @param string $separator The optional separator parameter sets the field
  * delimiter (one single-byte character only).
  * @param string $enclosure The optional enclosure parameter sets the field
@@ -393,6 +393,7 @@ function fputcsv($stream, array $fields, string $separator = ",", string $enclos
 {
     error_clear_last();
     if (PHP_VERSION_ID >= 80100) {
+        /** @phpstan-ignore-next-line */
         $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape, $eol);
     } else {
         $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape);

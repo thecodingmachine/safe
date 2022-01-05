@@ -31,12 +31,16 @@ jobs:
           coverage: "pcov"
           php-version: "${{ matrix.php-version }}"
 
+      - name: "Get current date for the daily cache"
+        id: 'date'
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
       - name: "Cache the php documentation"
         id: cache-php-doc
         uses: "actions/cache@v1"
         with:
           path: "generator/doc/doc-en"
-          key: "php-doc"
+          key: php-doc-${{ steps.date.outputs.date }}
 
       - name: "Check out salathe/phpdoc-base"
         uses: "actions/checkout@v2"

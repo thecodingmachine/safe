@@ -558,11 +558,11 @@ function curl_getinfo($handle, int $option = null)
  *
  * The file protocol is disabled by cURL if
  * open_basedir is set.
- * @return resource Returns a cURL handle on success, FALSE on errors.
+ * @return \CurlHandle Returns a cURL handle on success, FALSE on errors.
  * @throws CurlException
  *
  */
-function curl_init(string $url = null)
+function curl_init(string $url = null): \CurlHandle
 {
     error_clear_last();
     if ($url !== null) {

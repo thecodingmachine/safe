@@ -7,6 +7,7 @@ return [
     'json_decode',
     'apc_fetch',
     'apcu_fetch',
+    'fputcsv',
     'preg_replace',
     'openssl_encrypt',
     'readdir',

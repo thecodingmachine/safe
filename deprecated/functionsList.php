@@ -54,4 +54,5 @@ return [
     'stats_stat_correlation',
     'stats_stat_innerproduct',
     'stats_variance',
+    'substr',
 ];

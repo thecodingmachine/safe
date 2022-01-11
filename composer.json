@@ -15,6 +15,7 @@
             "deprecated/libevent.php",
             "deprecated/mssql.php",
             "deprecated/stats.php",
+            "deprecated/strings.php",
             "lib/special_cases.php",
             "deprecated/mysqli.php",
             "generated/apache.php",

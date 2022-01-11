@@ -11,6 +11,7 @@ return [
     'apc_inc',
     'apc_load_constants',
     'apc_sma_info',
+    'array_flip',
     'event_add',
     'event_base_loopbreak',
     'event_base_loopexit',

@@ -12,6 +12,7 @@
         },
         "files": [
             "deprecated/apc.php",
+            "deprecated/arrays.php",
             "deprecated/libevent.php",
             "deprecated/mssql.php",
             "deprecated/stats.php",

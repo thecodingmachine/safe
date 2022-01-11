@@ -298,11 +298,10 @@ use Safe\Exceptions\StringsException;
 function sprintf(string $format, ...$params): string
 {
     if ($params !== []) {
-        $result = \sprintf($format, ...$params);
+        return \sprintf($format, ...$params);
     } else {
-        $result = \sprintf($format);
+        return \sprintf($format);
     }
-    return $result;
 }
 
 /**
@@ -358,9 +357,8 @@ function sprintf(string $format, ...$params): string
 function substr(string $string, int $start, int $length = null): string
 {
     if ($length !== null) {
-        $result = \substr($string, $start, $length);
+        return \substr($string, $start, $length);
     } else {
-        $result = \substr($string, $start);
+        return \substr($string, $start);
     }
-    return $result;
 }

@@ -896,40 +896,6 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
 
 
 /**
- * fputcsv formats a line (passed as a
- * fields array) as CSV and writes it (terminated by a
- * newline) to the specified file stream.
- *
- * @param resource $stream The file pointer must be valid, and must point to
- * a file successfully opened by fopen or
- * fsockopen (and not yet closed by
- * fclose).
- * @param array $fields An array of strings.
- * @param string $separator The optional separator parameter sets the field
- * delimiter (one single-byte character only).
- * @param string $enclosure The optional enclosure parameter sets the field
- * enclosure (one single-byte character only).
- * @param string $escape The optional escape parameter sets the
- * escape character (at most one single-byte character).
- * An empty string ("") disables the proprietary escape mechanism.
- * @param string $eol The optional eol parameter sets
- * a custom End of Line sequence.
- * @return int Returns the length of the written string.
- * @throws FilesystemException
- *
- */
-function fputcsv($stream, array $fields, string $separator = ",", string $enclosure = "\"", string $escape = "\\", string $eol = "\n"): int
-{
-    error_clear_last();
-    $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape, $eol);
-    if ($result === false) {
-        throw FilesystemException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * fread reads up to
  * length bytes from the file pointer
  * referenced by stream. Reading stops as soon as one

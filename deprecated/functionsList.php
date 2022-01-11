@@ -55,6 +55,7 @@ return [
     'mssql_query',
     'mssql_select_db',
     'mysqli_get_client_stats',
+    'password_hash',
     'sort',
     'stats_covariance',
     'stats_standard_deviation',

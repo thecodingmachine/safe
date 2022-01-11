@@ -293,15 +293,21 @@ use Safe\Exceptions\StringsException;
  * @return string Returns a string produced according to the formatting string
  * format.
  * @throws StringsException
+ * @deprecated The Safe version of this function is no longer needed in PHP 8.0+
  *
  */
 function sprintf(string $format, ...$params): string
 {
+    error_clear_last();
     if ($params !== []) {
-        return \sprintf($format, ...$params);
+        $result = \sprintf($format, ...$params);
     } else {
-        return \sprintf($format);
+        $result = \sprintf($format);
     }
+    if ($result === false) {
+        throw StringsException::createFromPhpError();
+    }
+    return $result;
 }
 
 /**
@@ -352,13 +358,19 @@ function sprintf(string $format, ...$params): string
  * @return string Returns the extracted part of string;, or
  * an empty string.
  * @throws StringsException
+ * @deprecated The Safe version of this function is no longer needed in PHP 8.0+
  *
  */
 function substr(string $string, int $start, int $length = null): string
 {
+    error_clear_last();
     if ($length !== null) {
-        return \substr($string, $start, $length);
+        $result = \substr($string, $start, $length);
     } else {
-        return \substr($string, $start);
+        $result = \substr($string, $start);
     }
+    if ($result === false) {
+        throw StringsException::createFromPhpError();
+    }
+    return $result;
 }

@@ -64,4 +64,5 @@ return [
     'stats_variance',
     'substr',
     'usort',
+    'vsprintf',
 ];

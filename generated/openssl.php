@@ -30,8 +30,8 @@ function openssl_cipher_iv_length(string $cipher_algo): int
  * @param string $output_filename The name of the file to deposit the decrypted content.
  * @param  $certificate The name of the file containing a certificate of the recipient.
  * @param  $private_key The name of the file containing a PKCS#8 key.
- * @param int $encoding The encoding of the input file. One of OPENSSL_CMS_SMIME,
- * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
+ * @param int $encoding The encoding of the input file. One of OPENSSL_ENCODING_SMIME,
+ * OPENSSL_ENCODING_DER or OPENSSL_ENCODING_PEM.
  * @throws OpensslException
  *
  */
@@ -60,8 +60,8 @@ function openssl_cms_decrypt(string $input_filename, string $output_filename, $c
  * @param  $certificate Recipients to encrypt to.
  * @param  $headers Headers to include when S/MIME is used.
  * @param int $flags Flags to be passed to CMS_sign.
- * @param int $encoding An encoding to output. One of OPENSSL_CMS_SMIME,
- * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
+ * @param int $encoding An encoding to output. One of OPENSSL_ENCODING_SMIME,
+ * OPENSSL_ENCODING_DER or OPENSSL_ENCODING_PEM.
  * @param int $cipher_algo A cypher to use.
  * @throws OpensslException
  *
@@ -105,8 +105,8 @@ function openssl_cms_read(string $input_filename, array &$certificates): void
  * See Key/Certificate parameters for a list of valid values.
  * @param  $headers An array of headers to be included in S/MIME output.
  * @param int $flags Flags to be passed to cms_sign.
- * @param int $encoding The encoding of the output file. One of OPENSSL_CMS_SMIME,
- * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
+ * @param int $encoding The encoding of the output file. One of OPENSSL_ENCODING_SMIME,
+ * OPENSSL_ENCODING_DER or OPENSSL_ENCODING_PEM.
  * @param  $untrusted_certificates_filename Intermediate certificates to be included in the signature.
  * @throws OpensslException
  *
@@ -136,8 +136,8 @@ function openssl_cms_sign(string $input_filename, string $output_filename, $cert
  * @param  $content A file pointing to the content when signatures are detached.
  * @param  $pk7
  * @param  $sigfile A file to save the signature to.
- * @param int $encoding The encoding of the input file. One of OPENSSL_CMS_SMIME,
- * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
+ * @param int $encoding The encoding of the input file. One of OPENSSL_ENCODING_SMIME,
+ * OPENSSL_ENCODING_DER or OPENSSL_ENCODING_PEM.
  * @throws OpensslException
  *
  */

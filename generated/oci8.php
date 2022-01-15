@@ -1470,7 +1470,7 @@ function oci_set_module_name($connection, string $name): void
  * can improve the performance of fetching smaller LOBs by reducing round-trips
  * between PHP and the database.  Memory usage will change.
  *
- * The value affects LOBs returned as OCI-Lob instances and also those returned
+ * The value affects LOBs returned as OCILob instances and also those returned
  * using OCI_RETURN_LOBS.
  *
  * Call oci_set_prefetch_lob before

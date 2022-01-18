@@ -12,9 +12,13 @@
         },
         "files": [
             "deprecated/apc.php",
+            "deprecated/array.php",
+            "deprecated/datetime.php",
             "deprecated/libevent.php",
+            "deprecated/password.php",
             "deprecated/mssql.php",
             "deprecated/stats.php",
+            "deprecated/strings.php",
             "lib/special_cases.php",
             "deprecated/mysqli.php",
             "generated/apache.php",

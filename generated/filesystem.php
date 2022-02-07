@@ -1593,7 +1593,7 @@ function tmpfile()
  * @param string $filename The name of the file being touched.
  * @param int $mtime The touch time. If mtime is NULL,
  * the current system time is used.
- * @param int $atime If NULL, the access time of the given filename is set to
+ * @param int $atime If not NULL, the access time of the given filename is set to
  * the value of atime. Otherwise, it is set to
  * the value passed to the mtime parameter.
  * If both are NULL, the current system time is used.

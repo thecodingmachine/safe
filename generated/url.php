@@ -113,7 +113,7 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
  * The values of the array elements are not URL decoded.
  *
  * This function is not meant to validate
- * the given URL, it only breaks it up into the above listed parts. Partial and invalid
+ * the given URL, it only breaks it up into the parts listed below. Partial and invalid
  * URLs are also accepted, parse_url tries its best to
  * parse them correctly.
  *

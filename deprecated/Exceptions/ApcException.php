@@ -3,9 +3,8 @@ namespace Safe\Exceptions;
 
 class ApcException extends \ErrorException implements SafeExceptionInterface
 {
-    public static function createFromPhpError(): self
+    public static function createFromPhpError(array $error = []): self
     {
-        $error = error_get_last();
         return new self($error['message'] ?? 'An error occured', 0, $error['type'] ?? 1);
     }
 }

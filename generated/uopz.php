@@ -14,10 +14,21 @@ use Safe\Exceptions\UopzException;
  */
 function uopz_extend(string $class, string $parent): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \uopz_extend($class, $parent);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UopzException::createFromPhpError();
+        throw UopzException::createFromPhpError($error);
     }
 }
 
@@ -32,9 +43,20 @@ function uopz_extend(string $class, string $parent): void
  */
 function uopz_implement(string $class, string $interface): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \uopz_implement($class, $interface);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UopzException::createFromPhpError();
+        throw UopzException::createFromPhpError($error);
     }
 }

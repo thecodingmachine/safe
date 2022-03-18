@@ -68,7 +68,16 @@ use Safe\Exceptions\ErrorfuncException;
  */
 function error_log(string $message, int $message_type = 0, string $destination = null, string $additional_headers = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($additional_headers !== null) {
         $result = \error_log($message, $message_type, $destination, $additional_headers);
     } elseif ($destination !== null) {
@@ -76,7 +85,9 @@ function error_log(string $message, int $message_type = 0, string $destination =
     } else {
         $result = \error_log($message, $message_type);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ErrorfuncException::createFromPhpError();
+        throw ErrorfuncException::createFromPhpError($error);
     }
 }

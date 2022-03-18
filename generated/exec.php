@@ -34,10 +34,21 @@ use Safe\Exceptions\ExecException;
  */
 function exec(string $command, ?array &$output = null, ?int &$result_code = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \exec($command, $output, $result_code);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ExecException::createFromPhpError();
+        throw ExecException::createFromPhpError($error);
     }
     return $result;
 }
@@ -64,10 +75,21 @@ function exec(string $command, ?array &$output = null, ?int &$result_code = null
  */
 function passthru(string $command, ?int &$result_code = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \passthru($command, $result_code);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ExecException::createFromPhpError();
+        throw ExecException::createFromPhpError($error);
     }
 }
 
@@ -94,10 +116,21 @@ function passthru(string $command, ?int &$result_code = null): void
  */
 function proc_nice(int $priority): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \proc_nice($priority);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ExecException::createFromPhpError();
+        throw ExecException::createFromPhpError($error);
     }
 }
 
@@ -113,10 +146,21 @@ function proc_nice(int $priority): void
  */
 function shell_exec(string $command): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \shell_exec($command);
+    restore_error_handler();
+
     if ($result === null) {
-        throw ExecException::createFromPhpError();
+        throw ExecException::createFromPhpError($error);
     }
     return $result;
 }
@@ -145,10 +189,21 @@ function shell_exec(string $command): string
  */
 function system(string $command, ?int &$result_code = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \system($command, $result_code);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ExecException::createFromPhpError();
+        throw ExecException::createFromPhpError($error);
     }
     return $result;
 }

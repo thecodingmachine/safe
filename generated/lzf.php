@@ -15,10 +15,21 @@ use Safe\Exceptions\LzfException;
  */
 function lzf_compress(string $data): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \lzf_compress($data);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LzfException::createFromPhpError();
+        throw LzfException::createFromPhpError($error);
     }
     return $result;
 }
@@ -35,10 +46,21 @@ function lzf_compress(string $data): string
  */
 function lzf_decompress(string $data): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \lzf_decompress($data);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LzfException::createFromPhpError();
+        throw LzfException::createFromPhpError($error);
     }
     return $result;
 }

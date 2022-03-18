@@ -48,14 +48,25 @@ use Safe\Exceptions\IbmDb2Exception;
  */
 function db2_autocommit($connection, int $value = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($value !== null) {
         $result = \db2_autocommit($connection, $value);
     } else {
         $result = \db2_autocommit($connection);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -98,7 +109,16 @@ function db2_autocommit($connection, int $value = null)
  */
 function db2_bind_param($stmt, int $parameter_number, string $variable_name, int $parameter_type = null, int $data_type = 0, int $precision = -1, int $scale = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($scale !== 0) {
         $result = \db2_bind_param($stmt, $parameter_number, $variable_name, $parameter_type, $data_type, $precision, $scale);
     } elseif ($precision !== -1) {
@@ -110,8 +130,10 @@ function db2_bind_param($stmt, int $parameter_number, string $variable_name, int
     } else {
         $result = \db2_bind_param($stmt, $parameter_number, $variable_name);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
 }
 
@@ -227,10 +249,21 @@ function db2_bind_param($stmt, int $parameter_number, string $variable_name, int
  */
 function db2_client_info($connection): object
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \db2_client_info($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -251,10 +284,21 @@ function db2_client_info($connection): object
  */
 function db2_close($connection): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \db2_close($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
 }
 
@@ -272,10 +316,21 @@ function db2_close($connection): void
  */
 function db2_commit($connection): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \db2_commit($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
 }
 
@@ -306,14 +361,25 @@ function db2_commit($connection): void
  */
 function db2_execute($stmt, array $parameters = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($parameters !== null) {
         $result = \db2_execute($stmt, $parameters);
     } else {
         $result = \db2_execute($stmt);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
 }
 
@@ -330,10 +396,21 @@ function db2_execute($stmt, array $parameters = null): void
  */
 function db2_free_result($stmt): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \db2_free_result($stmt);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
 }
 
@@ -350,10 +427,21 @@ function db2_free_result($stmt): void
  */
 function db2_free_stmt($stmt): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \db2_free_stmt($stmt);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
 }
 
@@ -510,10 +598,21 @@ function db2_free_stmt($stmt): void
  */
 function db2_get_option($resource, string $option): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \db2_get_option($resource, $option);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -543,10 +642,21 @@ function db2_get_option($resource, string $option): string
  */
 function db2_pclose($resource): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \db2_pclose($resource);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
 }
 
@@ -564,10 +674,21 @@ function db2_pclose($resource): void
  */
 function db2_rollback($connection): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \db2_rollback($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
 }
 
@@ -825,10 +946,21 @@ function db2_rollback($connection): void
  */
 function db2_server_info($connection): object
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \db2_server_info($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -1213,9 +1345,20 @@ function db2_server_info($connection): object
  */
 function db2_set_option($resource, array $options, int $type): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \db2_set_option($resource, $options, $type);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbmDb2Exception::createFromPhpError();
+        throw IbmDb2Exception::createFromPhpError($error);
     }
 }

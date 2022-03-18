@@ -14,10 +14,21 @@ use Safe\Exceptions\LibxmlException;
  */
 function libxml_get_last_error(): \LibXMLError
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \libxml_get_last_error();
+    restore_error_handler();
+
     if ($result === false) {
-        throw LibxmlException::createFromPhpError();
+        throw LibxmlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -70,9 +81,20 @@ function libxml_get_last_error(): \LibXMLError
  */
 function libxml_set_external_entity_loader(callable $resolver_function): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \libxml_set_external_entity_loader($resolver_function);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LibxmlException::createFromPhpError();
+        throw LibxmlException::createFromPhpError($error);
     }
 }

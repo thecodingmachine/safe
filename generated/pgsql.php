@@ -16,10 +16,21 @@ use Safe\Exceptions\PgsqlException;
  */
 function pg_cancel_query($connection): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_cancel_query($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -73,10 +84,21 @@ function pg_cancel_query($connection): void
  */
 function pg_connect(string $connection_string, int $flags = 0)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_connect($connection_string, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -92,10 +114,21 @@ function pg_connect(string $connection_string, int $flags = 0)
  */
 function pg_connection_reset($connection): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_connection_reset($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -123,10 +156,21 @@ function pg_connection_reset($connection): void
  */
 function pg_convert($connection, string $table_name, array $values, int $flags = 0): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_convert($connection, $table_name, $values, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -152,10 +196,21 @@ function pg_convert($connection, string $table_name, array $values, int $flags =
  */
 function pg_copy_from($connection, string $table_name, array $rows, string $separator = "\t", string $null_as = "\\\\N"): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_copy_from($connection, $table_name, $rows, $separator, $null_as);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -177,10 +232,21 @@ function pg_copy_from($connection, string $table_name, array $rows, string $sepa
  */
 function pg_copy_to($connection, string $table_name, string $separator = "\t", string $null_as = "\\\\N"): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_copy_to($connection, $table_name, $separator, $null_as);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -223,10 +289,21 @@ function pg_copy_to($connection, string $table_name, string $separator = "\t", s
  */
 function pg_delete($connection, string $table_name, array $conditions, int $flags = PGSQL_DML_EXEC)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_delete($connection, $table_name, $conditions, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -249,14 +326,25 @@ function pg_delete($connection, string $table_name, array $conditions, int $flag
  */
 function pg_end_copy($connection = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($connection !== null) {
         $result = \pg_end_copy($connection);
     } else {
         $result = \pg_end_copy();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -297,7 +385,16 @@ function pg_end_copy($connection = null): void
  */
 function pg_execute($connection = null, string $stmtname = null, array $params = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($params !== null) {
         $result = \pg_execute($connection, $stmtname, $params);
     } elseif ($stmtname !== null) {
@@ -307,8 +404,10 @@ function pg_execute($connection = null, string $stmtname = null, array $params =
     } else {
         $result = \pg_execute();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -330,10 +429,21 @@ function pg_execute($connection = null, string $stmtname = null, array $params =
  */
 function pg_field_table($result, int $field, bool $oid_only = false)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_field_table($result, $field, $oid_only);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -352,10 +462,21 @@ function pg_field_table($result, int $field, bool $oid_only = false)
  */
 function pg_flush($connection)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_flush($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -376,10 +497,21 @@ function pg_flush($connection)
  */
 function pg_free_result($result): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_free_result($result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -400,14 +532,25 @@ function pg_free_result($result): void
  */
 function pg_host($connection = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($connection !== null) {
         $result = \pg_host($connection);
     } else {
         $result = \pg_host();
     }
+    restore_error_handler();
+
     if ($result === '') {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -452,10 +595,21 @@ function pg_host($connection = null): string
  */
 function pg_insert($connection, string $table_name, array $values, int $flags = PGSQL_DML_EXEC)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_insert($connection, $table_name, $values, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -491,10 +645,21 @@ function pg_insert($connection, string $table_name, array $values, int $flags = 
  */
 function pg_last_oid($result): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_last_oid($result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -512,10 +677,21 @@ function pg_last_oid($result): string
  */
 function pg_lo_close($lob): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_lo_close($lob);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -540,7 +716,16 @@ function pg_lo_close($lob): void
  */
 function pg_lo_export($connection = null, int $oid = null, string $pathname = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($pathname !== null) {
         $result = \pg_lo_export($connection, $oid, $pathname);
     } elseif ($oid !== null) {
@@ -550,8 +735,10 @@ function pg_lo_export($connection = null, int $oid = null, string $pathname = nu
     } else {
         $result = \pg_lo_export();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -581,7 +768,16 @@ function pg_lo_export($connection = null, int $oid = null, string $pathname = nu
  */
 function pg_lo_import($connection = null, string $pathname = null, $object_id = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($object_id !== null) {
         $result = \pg_lo_import($connection, $pathname, $object_id);
     } elseif ($pathname !== null) {
@@ -591,8 +787,10 @@ function pg_lo_import($connection = null, string $pathname = null, $object_id = 
     } else {
         $result = \pg_lo_import();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -618,10 +816,21 @@ function pg_lo_import($connection = null, string $pathname = null, $object_id = 
  */
 function pg_lo_open($connection, int $oid, string $mode)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_lo_open($connection, $oid, $mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -644,10 +853,21 @@ function pg_lo_open($connection, int $oid, string $mode)
  */
 function pg_lo_read($lob, int $length = 8192): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_lo_read($lob, $length);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -669,10 +889,21 @@ function pg_lo_read($lob, int $length = 8192): string
  */
 function pg_lo_seek($lob, int $offset, int $whence = SEEK_CUR): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_lo_seek($lob, $offset, $whence);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -690,10 +921,21 @@ function pg_lo_seek($lob, int $offset, int $whence = SEEK_CUR): void
  */
 function pg_lo_truncate($lob, int $size): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_lo_truncate($lob, $size);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -715,10 +957,21 @@ function pg_lo_truncate($lob, int $size): void
  */
 function pg_lo_unlink($connection, int $oid): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_lo_unlink($connection, $oid);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -743,14 +996,25 @@ function pg_lo_unlink($connection, int $oid): void
  */
 function pg_lo_write($lob, string $data, int $length = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($length !== null) {
         $result = \pg_lo_write($lob, $data, $length);
     } else {
         $result = \pg_lo_write($lob, $data);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -769,10 +1033,21 @@ function pg_lo_write($lob, string $data, int $length = null): int
  */
 function pg_meta_data($connection, string $table_name, bool $extended = false): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_meta_data($connection, $table_name, $extended);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -818,7 +1093,16 @@ function pg_meta_data($connection, string $table_name, bool $extended = false): 
  */
 function pg_parameter_status($connection = null, string $param_name = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($param_name !== null) {
         $result = \pg_parameter_status($connection, $param_name);
     } elseif ($connection !== null) {
@@ -826,8 +1110,10 @@ function pg_parameter_status($connection = null, string $param_name = null): str
     } else {
         $result = \pg_parameter_status();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -879,10 +1165,21 @@ function pg_parameter_status($connection = null, string $param_name = null): str
  */
 function pg_pconnect(string $connection_string, int $flags = 0)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_pconnect($connection_string, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -901,14 +1198,25 @@ function pg_pconnect(string $connection_string, int $flags = 0)
  */
 function pg_ping($connection = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($connection !== null) {
         $result = \pg_ping($connection);
     } else {
         $result = \pg_ping();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -950,7 +1258,16 @@ function pg_ping($connection = null): void
  */
 function pg_prepare($connection = null, string $stmtname = null, string $query = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($query !== null) {
         $result = \pg_prepare($connection, $stmtname, $query);
     } elseif ($stmtname !== null) {
@@ -960,8 +1277,10 @@ function pg_prepare($connection = null, string $stmtname = null, string $query =
     } else {
         $result = \pg_prepare();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -991,7 +1310,16 @@ function pg_prepare($connection = null, string $stmtname = null, string $query =
  */
 function pg_put_line($connection = null, string $data = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($data !== null) {
         $result = \pg_put_line($connection, $data);
     } elseif ($connection !== null) {
@@ -999,8 +1327,10 @@ function pg_put_line($connection = null, string $data = null): void
     } else {
         $result = \pg_put_line();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -1057,7 +1387,16 @@ function pg_put_line($connection = null, string $data = null): void
  */
 function pg_query_params($connection = null, string $query = null, array $params = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($params !== null) {
         $result = \pg_query_params($connection, $query, $params);
     } elseif ($query !== null) {
@@ -1067,8 +1406,10 @@ function pg_query_params($connection = null, string $query = null, array $params
     } else {
         $result = \pg_query_params();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1115,7 +1456,16 @@ function pg_query_params($connection = null, string $query = null, array $params
  */
 function pg_query($connection = null, string $query = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($query !== null) {
         $result = \pg_query($connection, $query);
     } elseif ($connection !== null) {
@@ -1123,8 +1473,10 @@ function pg_query($connection = null, string $query = null)
     } else {
         $result = \pg_query();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1161,10 +1513,21 @@ function pg_query($connection = null, string $query = null)
  */
 function pg_result_error_field($result, int $field_code): ?string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_result_error_field($result, $field_code);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1183,10 +1546,21 @@ function pg_result_error_field($result, int $field_code): ?string
  */
 function pg_result_seek($result, int $row): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_result_seek($result, $row);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -1232,10 +1606,21 @@ function pg_result_seek($result, int $row): void
  */
 function pg_select($connection, string $table_name, array $conditions, int $flags = PGSQL_DML_EXEC, int $mode = PGSQL_ASSOC)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_select($connection, $table_name, $conditions, $flags, $mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1252,10 +1637,21 @@ function pg_select($connection, string $table_name, array $conditions, int $flag
  */
 function pg_socket($connection)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_socket($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1286,14 +1682,25 @@ function pg_socket($connection)
  */
 function pg_trace(string $filename, string $mode = "w", $connection = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($connection !== null) {
         $result = \pg_trace($filename, $mode, $connection);
     } else {
         $result = \pg_trace($filename, $mode);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
 }
 
@@ -1337,10 +1744,21 @@ function pg_trace(string $filename, string $mode = "w", $connection = null): voi
  */
 function pg_update($connection, string $table_name, array $values, array $conditions, int $flags = PGSQL_DML_EXEC)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pg_update($connection, $table_name, $values, $conditions, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PgsqlException::createFromPhpError();
+        throw PgsqlException::createFromPhpError($error);
     }
     return $result;
 }

@@ -18,10 +18,21 @@ use Safe\Exceptions\XdiffException;
  */
 function xdiff_file_bdiff(string $old_file, string $new_file, string $dest): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xdiff_file_bdiff($old_file, $new_file, $dest);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XdiffException::createFromPhpError();
+        throw XdiffException::createFromPhpError($error);
     }
 }
 
@@ -40,10 +51,21 @@ function xdiff_file_bdiff(string $old_file, string $new_file, string $dest): voi
  */
 function xdiff_file_bpatch(string $file, string $patch, string $dest): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xdiff_file_bpatch($file, $patch, $dest);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XdiffException::createFromPhpError();
+        throw XdiffException::createFromPhpError($error);
     }
 }
 
@@ -64,10 +86,21 @@ function xdiff_file_bpatch(string $file, string $patch, string $dest): void
  */
 function xdiff_file_diff_binary(string $old_file, string $new_file, string $dest): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xdiff_file_diff_binary($old_file, $new_file, $dest);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XdiffException::createFromPhpError();
+        throw XdiffException::createFromPhpError($error);
     }
 }
 
@@ -92,10 +125,21 @@ function xdiff_file_diff_binary(string $old_file, string $new_file, string $dest
  */
 function xdiff_file_diff(string $old_file, string $new_file, string $dest, int $context = 3, bool $minimal = false): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xdiff_file_diff($old_file, $new_file, $dest, $context, $minimal);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XdiffException::createFromPhpError();
+        throw XdiffException::createFromPhpError($error);
     }
 }
 
@@ -116,10 +160,21 @@ function xdiff_file_diff(string $old_file, string $new_file, string $dest, int $
  */
 function xdiff_file_patch_binary(string $file, string $patch, string $dest): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xdiff_file_patch_binary($file, $patch, $dest);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XdiffException::createFromPhpError();
+        throw XdiffException::createFromPhpError($error);
     }
 }
 
@@ -143,10 +198,21 @@ function xdiff_file_patch_binary(string $file, string $patch, string $dest): voi
  */
 function xdiff_file_rabdiff(string $old_file, string $new_file, string $dest): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xdiff_file_rabdiff($old_file, $new_file, $dest);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XdiffException::createFromPhpError();
+        throw XdiffException::createFromPhpError($error);
     }
 }
 
@@ -164,10 +230,21 @@ function xdiff_file_rabdiff(string $old_file, string $new_file, string $dest): v
  */
 function xdiff_string_bpatch(string $str, string $patch): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xdiff_string_bpatch($str, $patch);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XdiffException::createFromPhpError();
+        throw XdiffException::createFromPhpError($error);
     }
     return $result;
 }
@@ -188,10 +265,21 @@ function xdiff_string_bpatch(string $str, string $patch): string
  */
 function xdiff_string_patch_binary(string $str, string $patch): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xdiff_string_patch_binary($str, $patch);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XdiffException::createFromPhpError();
+        throw XdiffException::createFromPhpError($error);
     }
     return $result;
 }
@@ -221,7 +309,16 @@ function xdiff_string_patch_binary(string $str, string $patch): string
  */
 function xdiff_string_patch(string $str, string $patch, int $flags = null, ?string &$error = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($error !== null) {
         $result = \xdiff_string_patch($str, $patch, $flags, $error);
     } elseif ($flags !== null) {
@@ -229,8 +326,10 @@ function xdiff_string_patch(string $str, string $patch, int $flags = null, ?stri
     } else {
         $result = \xdiff_string_patch($str, $patch);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw XdiffException::createFromPhpError();
+        throw XdiffException::createFromPhpError($error);
     }
     return $result;
 }

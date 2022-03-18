@@ -14,9 +14,20 @@ use Safe\Exceptions\FpmException;
  */
 function fastcgi_finish_request(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fastcgi_finish_request();
+    restore_error_handler();
+
     if ($result === false) {
-        throw FpmException::createFromPhpError();
+        throw FpmException::createFromPhpError($error);
     }
 }

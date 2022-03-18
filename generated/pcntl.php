@@ -20,7 +20,16 @@ use Safe\Exceptions\PcntlException;
  */
 function pcntl_getpriority(int $process_id = null, int $mode = PRIO_PROCESS): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($mode !== PRIO_PROCESS) {
         $result = \pcntl_getpriority($process_id, $mode);
     } elseif ($process_id !== null) {
@@ -28,8 +37,10 @@ function pcntl_getpriority(int $process_id = null, int $mode = PRIO_PROCESS): in
     } else {
         $result = \pcntl_getpriority();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -53,7 +64,16 @@ function pcntl_getpriority(int $process_id = null, int $mode = PRIO_PROCESS): in
  */
 function pcntl_setpriority(int $priority, int $process_id = null, int $mode = PRIO_PROCESS): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($mode !== PRIO_PROCESS) {
         $result = \pcntl_setpriority($priority, $process_id, $mode);
     } elseif ($process_id !== null) {
@@ -61,8 +81,10 @@ function pcntl_setpriority(int $priority, int $process_id = null, int $mode = PR
     } else {
         $result = \pcntl_setpriority($priority);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError($error);
     }
 }
 
@@ -77,10 +99,21 @@ function pcntl_setpriority(int $priority, int $process_id = null, int $mode = PR
  */
 function pcntl_signal_dispatch(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pcntl_signal_dispatch();
+    restore_error_handler();
+
     if ($result === false) {
-        throw PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError($error);
     }
 }
 
@@ -132,10 +165,21 @@ function pcntl_signal_dispatch(): void
  */
 function pcntl_signal(int $signal, $handler, bool $restart_syscalls = true): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pcntl_signal($signal, $handler, $restart_syscalls);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError($error);
     }
 }
 
@@ -162,10 +206,21 @@ function pcntl_signal(int $signal, $handler, bool $restart_syscalls = true): voi
  */
 function pcntl_sigprocmask(int $mode, array $signals, ?array &$old_signals = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pcntl_sigprocmask($mode, $signals, $old_signals);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError($error);
     }
 }
 
@@ -189,10 +244,21 @@ function pcntl_sigprocmask(int $mode, array $signals, ?array &$old_signals = nul
  */
 function pcntl_sigtimedwait(array $signals, ?array &$info = [], int $seconds = 0, int $nanoseconds = 0): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pcntl_sigtimedwait($signals, $info, $seconds, $nanoseconds);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -244,10 +310,21 @@ function pcntl_sigtimedwait(array $signals, ?array &$info = [], int $seconds = 0
  */
 function pcntl_sigwaitinfo(array $signals, ?array &$info = []): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \pcntl_sigwaitinfo($signals, $info);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PcntlException::createFromPhpError();
+        throw PcntlException::createFromPhpError($error);
     }
     return $result;
 }

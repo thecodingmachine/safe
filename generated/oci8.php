@@ -103,10 +103,21 @@ use Safe\Exceptions\Oci8Exception;
  */
 function oci_bind_array_by_name($statement, string $param, array &$var, int $max_array_length, int $max_item_length = -1, int $type = SQLT_AFC): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_bind_array_by_name($statement, $param, $var, $max_array_length, $max_item_length, $type);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -309,10 +320,21 @@ function oci_bind_array_by_name($statement, string $param, array &$var, int $max
  */
 function oci_bind_by_name($statement, string $param, &$var, int $max_length = -1, int $type = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_bind_by_name($statement, $param, $var, $max_length, $type);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -327,10 +349,21 @@ function oci_bind_by_name($statement, string $param, &$var, int $max_length = -1
  */
 function oci_cancel($statement): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_cancel($statement);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -359,10 +392,21 @@ function oci_cancel($statement): void
  */
 function oci_commit($connection): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_commit($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -468,7 +512,16 @@ function oci_commit($connection): void
  */
 function oci_connect(string $username, string $password, string $connection_string = null, string $encoding = "", int $session_mode = OCI_DEFAULT)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($session_mode !== OCI_DEFAULT) {
         $result = \oci_connect($username, $password, $connection_string, $encoding, $session_mode);
     } elseif ($encoding !== "") {
@@ -478,8 +531,10 @@ function oci_connect(string $username, string $password, string $connection_stri
     } else {
         $result = \oci_connect($username, $password);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -513,10 +568,21 @@ function oci_connect(string $username, string $password, string $connection_stri
  */
 function oci_define_by_name($statement, string $column, &$var, int $type = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_define_by_name($statement, $column, $var, $type);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -600,10 +666,21 @@ function oci_define_by_name($statement, string $column, &$var, int $type = 0): v
  */
 function oci_execute($statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_execute($statement, $mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -619,10 +696,21 @@ function oci_execute($statement, int $mode = OCI_COMMIT_ON_SUCCESS): void
  */
 function oci_field_name($statement, $column): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_field_name($statement, $column);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -643,10 +731,21 @@ function oci_field_name($statement, $column): string
  */
 function oci_field_precision($statement, $column): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_field_precision($statement, $column);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -667,10 +766,21 @@ function oci_field_precision($statement, $column): int
  */
 function oci_field_scale($statement, $column): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_field_scale($statement, $column);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -687,10 +797,21 @@ function oci_field_scale($statement, $column): int
  */
 function oci_field_size($statement, $column): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_field_size($statement, $column);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -709,10 +830,21 @@ function oci_field_size($statement, $column): int
  */
 function oci_field_type_raw($statement, $column): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_field_type_raw($statement, $column);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -729,10 +861,21 @@ function oci_field_type_raw($statement, $column): int
  */
 function oci_field_type($statement, $column)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_field_type($statement, $column);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -747,10 +890,21 @@ function oci_field_type($statement, $column)
  */
 function oci_free_descriptor(\OCILob $lob): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_free_descriptor($lob);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -766,10 +920,21 @@ function oci_free_descriptor(\OCILob $lob): void
  */
 function oci_free_statement($statement): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_free_statement($statement);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -788,14 +953,25 @@ function oci_free_statement($statement): void
  */
 function oci_new_collection($connection, string $type_name, string $schema = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($schema !== null) {
         $result = \oci_new_collection($connection, $type_name, $schema);
     } else {
         $result = \oci_new_collection($connection, $type_name);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -891,7 +1067,16 @@ function oci_new_collection($connection, string $type_name, string $schema = nul
  */
 function oci_new_connect(string $username, string $password, string $connection_string = null, string $encoding = "", int $session_mode = OCI_DEFAULT)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($session_mode !== OCI_DEFAULT) {
         $result = \oci_new_connect($username, $password, $connection_string, $encoding, $session_mode);
     } elseif ($encoding !== "") {
@@ -901,8 +1086,10 @@ function oci_new_connect(string $username, string $password, string $connection_
     } else {
         $result = \oci_new_connect($username, $password);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -919,10 +1106,21 @@ function oci_new_connect(string $username, string $password, string $connection_
  */
 function oci_new_cursor($connection)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_new_cursor($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -942,10 +1140,21 @@ function oci_new_cursor($connection)
  */
 function oci_new_descriptor($connection, int $type = OCI_DTYPE_LOB)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_new_descriptor($connection, $type);
+    restore_error_handler();
+
     if ($result === null) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -961,10 +1170,21 @@ function oci_new_descriptor($connection, int $type = OCI_DTYPE_LOB)
  */
 function oci_num_rows($statement): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_num_rows($statement);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -994,10 +1214,21 @@ function oci_num_rows($statement): int
  */
 function oci_parse($connection, string $sql)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_parse($connection, $sql);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -1094,7 +1325,16 @@ function oci_parse($connection, string $sql)
  */
 function oci_pconnect(string $username, string $password, string $connection_string = null, string $encoding = "", int $session_mode = OCI_DEFAULT)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($session_mode !== OCI_DEFAULT) {
         $result = \oci_pconnect($username, $password, $connection_string, $encoding, $session_mode);
     } elseif ($encoding !== "") {
@@ -1104,8 +1344,10 @@ function oci_pconnect(string $username, string $password, string $connection_str
     } else {
         $result = \oci_pconnect($username, $password);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -1141,10 +1383,21 @@ function oci_pconnect(string $username, string $password, string $connection_str
  */
 function oci_register_taf_callback($connection, callable $callback): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_register_taf_callback($connection, $callback);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -1169,10 +1422,21 @@ function oci_register_taf_callback($connection, callable $callback): void
  */
 function oci_result($statement, $column): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_result($statement, $column);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -1203,10 +1467,21 @@ function oci_result($statement, $column): string
  */
 function oci_rollback($connection): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_rollback($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -1221,10 +1496,21 @@ function oci_rollback($connection): void
  */
 function oci_server_version($connection): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_server_version($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -1253,10 +1539,21 @@ function oci_server_version($connection): string
  */
 function oci_set_action($connection, string $action): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_set_action($connection, $action);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -1295,10 +1592,21 @@ function oci_set_action($connection, string $action): void
  */
 function oci_set_call_timeout($connection, int $timeout): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_set_call_timeout($connection, $timeout);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -1330,10 +1638,21 @@ function oci_set_call_timeout($connection, int $timeout): void
  */
 function oci_set_client_identifier($connection, string $client_id): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_set_client_identifier($connection, $client_id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -1359,10 +1678,21 @@ function oci_set_client_identifier($connection, string $client_id): void
  */
 function oci_set_client_info($connection, string $client_info): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_set_client_info($connection, $client_info);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -1389,10 +1719,21 @@ function oci_set_client_info($connection, string $client_info): void
  */
 function oci_set_db_operation($connection, string $action): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_set_db_operation($connection, $action);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -1423,10 +1764,21 @@ function oci_set_db_operation($connection, string $action): void
  */
 function oci_set_edition(string $edition): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_set_edition($edition);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -1454,10 +1806,21 @@ function oci_set_edition(string $edition): void
  */
 function oci_set_module_name($connection, string $name): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_set_module_name($connection, $name);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -1490,10 +1853,21 @@ function oci_set_module_name($connection, string $name): void
  */
 function oci_set_prefetch_lob($statement, int $prefetch_lob_size): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_set_prefetch_lob($statement, $prefetch_lob_size);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -1554,10 +1928,21 @@ function oci_set_prefetch_lob($statement, int $prefetch_lob_size): void
  */
 function oci_set_prefetch($statement, int $rows): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_set_prefetch($statement, $rows);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }
 
@@ -1626,10 +2011,21 @@ function oci_set_prefetch($statement, int $rows): void
  */
 function oci_statement_type($statement): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_statement_type($statement);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -1647,9 +2043,20 @@ function oci_statement_type($statement): string
  */
 function oci_unregister_taf_callback($connection): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \oci_unregister_taf_callback($connection);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Oci8Exception::createFromPhpError();
+        throw Oci8Exception::createFromPhpError($error);
     }
 }

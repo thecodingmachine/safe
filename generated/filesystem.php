@@ -18,10 +18,21 @@ use Safe\Exceptions\FilesystemException;
  */
 function chgrp(string $filename, $group): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \chgrp($filename, $group);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -60,10 +71,21 @@ function chgrp(string $filename, $group): void
  */
 function chmod(string $filename, int $permissions): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \chmod($filename, $permissions);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -80,10 +102,21 @@ function chmod(string $filename, int $permissions): void
  */
 function chown(string $filename, $user): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \chown($filename, $user);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -107,14 +140,25 @@ function chown(string $filename, $user): void
  */
 function copy(string $from, string $to, $context = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \copy($from, $to, $context);
     } else {
         $result = \copy($from, $to);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -135,10 +179,21 @@ function copy(string $from, string $to, $context = null): void
  */
 function disk_free_space(string $directory): float
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \disk_free_space($directory);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -155,10 +210,21 @@ function disk_free_space(string $directory): float
  */
 function disk_total_space(string $directory): float
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \disk_total_space($directory);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -174,10 +240,21 @@ function disk_total_space(string $directory): float
  */
 function fclose($stream): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fclose($stream);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -197,10 +274,21 @@ function fclose($stream): void
  */
 function fdatasync($stream): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fdatasync($stream);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -218,10 +306,21 @@ function fdatasync($stream): void
  */
 function fflush($stream): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fflush($stream);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -253,7 +352,16 @@ function fflush($stream): void
  */
 function fgetcsv($stream, int $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\")
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($escape !== "\\") {
         $result = \fgetcsv($stream, $length, $separator, $enclosure, $escape);
     } elseif ($enclosure !== "\"") {
@@ -265,8 +373,10 @@ function fgetcsv($stream, int $length = null, string $separator = ",", string $e
     } else {
         $result = \fgetcsv($stream);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -308,7 +418,16 @@ function fgetcsv($stream, int $length = null, string $separator = ",", string $e
  */
 function file_get_contents(string $filename, bool $use_include_path = false, $context = null, int $offset = 0, int $length = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($length !== null) {
         $result = \file_get_contents($filename, $use_include_path, $context, $offset, $length);
     } elseif ($offset !== 0) {
@@ -318,8 +437,10 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
     } else {
         $result = \file_get_contents($filename, $use_include_path);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -401,14 +522,25 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
  */
 function file_put_contents(string $filename, $data, int $flags = 0, $context = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \file_put_contents($filename, $data, $flags, $context);
     } else {
         $result = \file_put_contents($filename, $data, $flags);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -461,14 +593,25 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  */
 function file(string $filename, int $flags = 0, $context = null): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \file($filename, $flags, $context);
     } else {
         $result = \file($filename, $flags);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -485,10 +628,21 @@ function file(string $filename, int $flags = 0, $context = null): array
  */
 function fileatime(string $filename): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fileatime($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -505,10 +659,21 @@ function fileatime(string $filename): int
  */
 function filectime(string $filename): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \filectime($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -524,10 +689,21 @@ function filectime(string $filename): int
  */
 function fileinode(string $filename): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fileinode($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -546,10 +722,21 @@ function fileinode(string $filename): int
  */
 function filemtime(string $filename): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \filemtime($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -567,10 +754,21 @@ function filemtime(string $filename): int
  */
 function fileowner(string $filename): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fileowner($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -600,10 +798,21 @@ function fileowner(string $filename): int
  */
 function fileperms(string $filename): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fileperms($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -620,10 +829,21 @@ function fileperms(string $filename): int
  */
 function filesize(string $filename): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \filesize($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -673,10 +893,21 @@ function filesize(string $filename): int
  */
 function flock($stream, int $operation, ?int &$would_block = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \flock($stream, $operation, $would_block);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -882,14 +1113,25 @@ function flock($stream, int $operation, ?int &$would_block = null): void
  */
 function fopen(string $filename, string $mode, bool $use_include_path = false, $context = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \fopen($filename, $mode, $use_include_path, $context);
     } else {
         $result = \fopen($filename, $mode, $use_include_path);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -936,10 +1178,21 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  */
 function fread($stream, int $length): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fread($stream, $length);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -961,10 +1214,21 @@ function fread($stream, int $length): string
  */
 function fstat($stream): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fstat($stream);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -983,10 +1247,21 @@ function fstat($stream): array
  */
 function fsync($stream): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fsync($stream);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -1010,10 +1285,21 @@ function fsync($stream): void
  */
 function ftruncate($stream, int $size): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftruncate($stream, $size);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -1033,14 +1319,25 @@ function ftruncate($stream, int $size): void
  */
 function fwrite($stream, string $data, int $length = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($length !== null) {
         $result = \fwrite($stream, $data, $length);
     } else {
         $result = \fwrite($stream, $data);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1138,10 +1435,21 @@ function fwrite($stream, string $data, int $length = null): int
  */
 function glob(string $pattern, int $flags = 0): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \glob($pattern, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1162,10 +1470,21 @@ function glob(string $pattern, int $flags = 0): array
  */
 function lchgrp(string $filename, $group): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \lchgrp($filename, $group);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -1183,10 +1502,21 @@ function lchgrp(string $filename, $group): void
  */
 function lchown(string $filename, $user): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \lchown($filename, $user);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -1201,10 +1531,21 @@ function lchown(string $filename, $user): void
  */
 function link(string $target, string $link): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \link($target, $link);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -1227,10 +1568,21 @@ function link(string $target, string $link): void
  */
 function lstat(string $filename): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \lstat($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1259,14 +1611,25 @@ function lstat(string $filename): array
  */
 function mkdir(string $directory, int $permissions = 0777, bool $recursive = false, $context = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \mkdir($directory, $permissions, $recursive, $context);
     } else {
         $result = \mkdir($directory, $permissions, $recursive);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -1302,10 +1665,21 @@ function mkdir(string $directory, int $permissions = 0777, bool $recursive = fal
  */
 function parse_ini_file(string $filename, bool $process_sections = false, int $scanner_mode = INI_SCANNER_NORMAL): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \parse_ini_file($filename, $process_sections, $scanner_mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1339,10 +1713,21 @@ function parse_ini_file(string $filename, bool $process_sections = false, int $s
  */
 function parse_ini_string(string $ini_string, bool $process_sections = false, int $scanner_mode = INI_SCANNER_NORMAL): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \parse_ini_string($ini_string, $process_sections, $scanner_mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1362,14 +1747,25 @@ function parse_ini_string(string $ini_string, bool $process_sections = false, in
  */
 function readfile(string $filename, bool $use_include_path = false, $context = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \readfile($filename, $use_include_path, $context);
     } else {
         $result = \readfile($filename, $use_include_path);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1385,10 +1781,21 @@ function readfile(string $filename, bool $use_include_path = false, $context = n
  */
 function readlink(string $path): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \readlink($path);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1421,10 +1828,21 @@ function readlink(string $path): string
  */
 function realpath(string $path): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \realpath($path);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1457,14 +1875,25 @@ function realpath(string $path): string
  */
 function rename(string $from, string $to, $context = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \rename($from, $to, $context);
     } else {
         $result = \rename($from, $to);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -1480,10 +1909,21 @@ function rename(string $from, string $to, $context = null): void
  */
 function rewind($stream): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \rewind($stream);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -1501,14 +1941,25 @@ function rewind($stream): void
  */
 function rmdir(string $directory, $context = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \rmdir($directory, $context);
     } else {
         $result = \rmdir($directory);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -1525,10 +1976,21 @@ function rmdir(string $directory, $context = null): void
  */
 function symlink(string $target, string $link): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \symlink($target, $link);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -1547,10 +2009,21 @@ function symlink(string $target, string $link): void
  */
 function tempnam(string $directory, string $prefix): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \tempnam($directory, $prefix);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1572,10 +2045,21 @@ function tempnam(string $directory, string $prefix): string
  */
 function tmpfile()
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \tmpfile();
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1602,7 +2086,16 @@ function tmpfile()
  */
 function touch(string $filename, int $mtime = null, int $atime = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($atime !== null) {
         $result = \touch($filename, $mtime, $atime);
     } elseif ($mtime !== null) {
@@ -1610,8 +2103,10 @@ function touch(string $filename, int $mtime = null, int $atime = null): void
     } else {
         $result = \touch($filename);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }
 
@@ -1632,13 +2127,24 @@ function touch(string $filename, int $mtime = null, int $atime = null): void
  */
 function unlink(string $filename, $context = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \unlink($filename, $context);
     } else {
         $result = \unlink($filename);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
 }

@@ -14,10 +14,21 @@ use Safe\Exceptions\StringsException;
  */
 function convert_uudecode(string $string): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \convert_uudecode($string);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StringsException::createFromPhpError();
+        throw StringsException::createFromPhpError($error);
     }
     return $result;
 }
@@ -33,10 +44,21 @@ function convert_uudecode(string $string): string
  */
 function hex2bin(string $string): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \hex2bin($string);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StringsException::createFromPhpError();
+        throw StringsException::createFromPhpError($error);
     }
     return $result;
 }
@@ -58,10 +80,21 @@ function hex2bin(string $string): string
  */
 function md5_file(string $filename, bool $binary = false): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \md5_file($filename, $binary);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StringsException::createFromPhpError();
+        throw StringsException::createFromPhpError($error);
     }
     return $result;
 }
@@ -79,10 +112,21 @@ function md5_file(string $filename, bool $binary = false): string
  */
 function sha1_file(string $filename, bool $binary = false): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sha1_file($filename, $binary);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StringsException::createFromPhpError();
+        throw StringsException::createFromPhpError($error);
     }
     return $result;
 }

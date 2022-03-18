@@ -18,10 +18,21 @@ use Safe\Exceptions\FunchandException;
  */
 function create_function(string $args, string $code): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \create_function($args, $code);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FunchandException::createFromPhpError();
+        throw FunchandException::createFromPhpError($error);
     }
     return $result;
 }
@@ -37,13 +48,24 @@ function create_function(string $args, string $code): string
  */
 function register_tick_function(callable $callback, ...$args): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($args !== []) {
         $result = \register_tick_function($callback, ...$args);
     } else {
         $result = \register_tick_function($callback);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FunchandException::createFromPhpError();
+        throw FunchandException::createFromPhpError($error);
     }
 }

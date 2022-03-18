@@ -19,10 +19,21 @@ use Safe\Exceptions\OutcontrolException;
  */
 function ob_clean(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ob_clean();
+    restore_error_handler();
+
     if ($result === false) {
-        throw OutcontrolException::createFromPhpError();
+        throw OutcontrolException::createFromPhpError($error);
     }
 }
 
@@ -44,10 +55,21 @@ function ob_clean(): void
  */
 function ob_end_clean(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ob_end_clean();
+    restore_error_handler();
+
     if ($result === false) {
-        throw OutcontrolException::createFromPhpError();
+        throw OutcontrolException::createFromPhpError($error);
     }
 }
 
@@ -70,10 +92,21 @@ function ob_end_clean(): void
  */
 function ob_end_flush(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ob_end_flush();
+    restore_error_handler();
+
     if ($result === false) {
-        throw OutcontrolException::createFromPhpError();
+        throw OutcontrolException::createFromPhpError($error);
     }
 }
 
@@ -93,10 +126,21 @@ function ob_end_flush(): void
  */
 function ob_flush(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ob_flush();
+    restore_error_handler();
+
     if ($result === false) {
-        throw OutcontrolException::createFromPhpError();
+        throw OutcontrolException::createFromPhpError($error);
     }
 }
 
@@ -190,7 +234,16 @@ function ob_flush(): void
  */
 function ob_start($callback = null, int $chunk_size = 0, int $flags = PHP_OUTPUT_HANDLER_STDFLAGS): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($flags !== PHP_OUTPUT_HANDLER_STDFLAGS) {
         $result = \ob_start($callback, $chunk_size, $flags);
     } elseif ($chunk_size !== 0) {
@@ -200,8 +253,10 @@ function ob_start($callback = null, int $chunk_size = 0, int $flags = PHP_OUTPUT
     } else {
         $result = \ob_start();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OutcontrolException::createFromPhpError();
+        throw OutcontrolException::createFromPhpError($error);
     }
 }
 
@@ -225,10 +280,21 @@ function ob_start($callback = null, int $chunk_size = 0, int $flags = PHP_OUTPUT
  */
 function output_add_rewrite_var(string $name, string $value): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \output_add_rewrite_var($name, $value);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OutcontrolException::createFromPhpError();
+        throw OutcontrolException::createFromPhpError($error);
     }
 }
 
@@ -243,9 +309,20 @@ function output_add_rewrite_var(string $name, string $value): void
  */
 function output_reset_rewrite_vars(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \output_reset_rewrite_vars();
+    restore_error_handler();
+
     if ($result === false) {
-        throw OutcontrolException::createFromPhpError();
+        throw OutcontrolException::createFromPhpError($error);
     }
 }

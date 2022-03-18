@@ -24,10 +24,21 @@ use Safe\Exceptions\ZlibException;
  */
 function deflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \deflate_add($context, $data, $flush_mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -125,10 +136,21 @@ function deflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH):
  */
 function deflate_init(int $encoding, array $options = [])
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \deflate_init($encoding, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -144,10 +166,21 @@ function deflate_init(int $encoding, array $options = [])
  */
 function gzclose($stream): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzclose($stream);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
 }
 
@@ -172,10 +205,21 @@ function gzclose($stream): void
  */
 function gzcompress(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_DEFLATE): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzcompress($data, $level, $encoding);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -193,10 +237,21 @@ function gzcompress(string $data, int $level = -1, int $encoding = ZLIB_ENCODING
  */
 function gzdecode(string $data, int $max_length = 0): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzdecode($data, $max_length);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -221,10 +276,21 @@ function gzdecode(string $data, int $max_length = 0): string
  */
 function gzdeflate(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_RAW): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzdeflate($data, $level, $encoding);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -255,10 +321,21 @@ function gzdeflate(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_
  */
 function gzencode(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_GZIP): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzencode($data, $level, $encoding);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -277,10 +354,21 @@ function gzencode(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_G
  */
 function gzfile(string $filename, int $use_include_path = 0): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzfile($filename, $use_include_path);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -300,14 +388,25 @@ function gzfile(string $filename, int $use_include_path = 0): array
  */
 function gzgets($stream, int $length = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($length !== null) {
         $result = \gzgets($stream, $length);
     } else {
         $result = \gzgets($stream);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -329,14 +428,25 @@ function gzgets($stream, int $length = null): string
  */
 function gzgetss($zp, int $length, string $allowable_tags = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($allowable_tags !== null) {
         $result = \gzgetss($zp, $length, $allowable_tags);
     } else {
         $result = \gzgetss($zp, $length);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -357,10 +467,21 @@ function gzgetss($zp, int $length, string $allowable_tags = null): string
  */
 function gzinflate(string $data, int $max_length = 0): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzinflate($data, $max_length);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -394,10 +515,21 @@ function gzinflate(string $data, int $max_length = 0): string
  */
 function gzopen(string $filename, string $mode, int $use_include_path = 0)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzopen($filename, $mode, $use_include_path);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -416,10 +548,21 @@ function gzopen(string $filename, string $mode, int $use_include_path = 0)
  */
 function gzpassthru($stream): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzpassthru($stream);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -440,10 +583,21 @@ function gzpassthru($stream): int
  */
 function gzread($stream, int $length): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzread($stream, $length);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -460,10 +614,21 @@ function gzread($stream, int $length): string
  */
 function gzrewind($stream): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzrewind($stream);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
 }
 
@@ -483,10 +648,21 @@ function gzrewind($stream): void
  */
 function gzuncompress(string $data, int $max_length = 0): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gzuncompress($data, $max_length);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -510,14 +686,25 @@ function gzuncompress(string $data, int $max_length = 0): string
  */
 function gzwrite($stream, string $data, int $length = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($length !== null) {
         $result = \gzwrite($stream, $data, $length);
     } else {
         $result = \gzwrite($stream, $data);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -533,10 +720,21 @@ function gzwrite($stream, string $data, int $length = null): int
  */
 function inflate_get_read_len($context): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \inflate_get_read_len($context);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -552,10 +750,21 @@ function inflate_get_read_len($context): int
  */
 function inflate_get_status($context): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \inflate_get_status($context);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -584,10 +793,21 @@ function inflate_get_status($context): int
  */
 function inflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \inflate_add($context, $data, $flush_mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -666,10 +886,21 @@ function inflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH):
  */
 function inflate_init(int $encoding, array $options = [])
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \inflate_init($encoding, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -692,10 +923,21 @@ function inflate_init(int $encoding, array $options = [])
  */
 function readgzfile(string $filename, int $use_include_path = 0): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \readgzfile($filename, $use_include_path);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }
@@ -712,10 +954,21 @@ function readgzfile(string $filename, int $use_include_path = 0): int
  */
 function zlib_decode(string $data, int $max_length = 0): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \zlib_decode($data, $max_length);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ZlibException::createFromPhpError();
+        throw ZlibException::createFromPhpError($error);
     }
     return $result;
 }

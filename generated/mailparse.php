@@ -28,14 +28,25 @@ use Safe\Exceptions\MailparseException;
  */
 function mailparse_msg_extract_part_file($mimemail, $filename, callable $callbackfunc = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($callbackfunc !== null) {
         $result = \mailparse_msg_extract_part_file($mimemail, $filename, $callbackfunc);
     } else {
         $result = \mailparse_msg_extract_part_file($mimemail, $filename);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw MailparseException::createFromPhpError();
+        throw MailparseException::createFromPhpError($error);
     }
     return $result;
 }
@@ -52,10 +63,21 @@ function mailparse_msg_extract_part_file($mimemail, $filename, callable $callbac
  */
 function mailparse_msg_free($mimemail): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mailparse_msg_free($mimemail);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MailparseException::createFromPhpError();
+        throw MailparseException::createFromPhpError($error);
     }
 }
 
@@ -75,10 +97,21 @@ function mailparse_msg_free($mimemail): void
  */
 function mailparse_msg_parse_file(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mailparse_msg_parse_file($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MailparseException::createFromPhpError();
+        throw MailparseException::createFromPhpError($error);
     }
     return $result;
 }
@@ -98,10 +131,21 @@ function mailparse_msg_parse_file(string $filename)
  */
 function mailparse_msg_parse($mimemail, string $data): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mailparse_msg_parse($mimemail, $data);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MailparseException::createFromPhpError();
+        throw MailparseException::createFromPhpError($error);
     }
 }
 
@@ -119,9 +163,20 @@ function mailparse_msg_parse($mimemail, string $data): void
  */
 function mailparse_stream_encode($sourcefp, $destfp, string $encoding): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mailparse_stream_encode($sourcefp, $destfp, $encoding);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MailparseException::createFromPhpError();
+        throw MailparseException::createFromPhpError($error);
     }
 }

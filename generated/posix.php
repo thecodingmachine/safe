@@ -22,10 +22,21 @@ use Safe\Exceptions\PosixException;
  */
 function posix_access(string $filename, int $flags = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_access($filename, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
 }
 
@@ -85,10 +96,21 @@ function posix_access(string $filename, int $flags = 0): void
  */
 function posix_getgrgid(int $group_id): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_getgrgid($group_id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
     return $result;
 }
@@ -149,10 +171,21 @@ function posix_getgrgid(int $group_id): array
  */
 function posix_getgrnam(string $name): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_getgrnam($name);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
     return $result;
 }
@@ -168,10 +201,21 @@ function posix_getgrnam(string $name): array
  */
 function posix_getgroups(): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_getgroups();
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
     return $result;
 }
@@ -186,10 +230,21 @@ function posix_getgroups(): array
  */
 function posix_getlogin(): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_getlogin();
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
     return $result;
 }
@@ -278,10 +333,21 @@ function posix_getlogin(): string
  */
 function posix_getpwuid(int $user_id): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_getpwuid($user_id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
     return $result;
 }
@@ -388,10 +454,21 @@ function posix_getpwuid(int $user_id): array
  */
 function posix_getrlimit(): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_getrlimit();
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
     return $result;
 }
@@ -411,10 +488,21 @@ function posix_getrlimit(): array
  */
 function posix_getsid(int $process_id): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_getsid($process_id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
     return $result;
 }
@@ -430,10 +518,21 @@ function posix_getsid(int $process_id): int
  */
 function posix_initgroups(string $username, int $group_id): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_initgroups($username, $group_id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
 }
 
@@ -449,10 +548,21 @@ function posix_initgroups(string $username, int $group_id): void
  */
 function posix_kill(int $process_id, int $signal): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_kill($process_id, $signal);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
 }
 
@@ -473,10 +583,21 @@ function posix_kill(int $process_id, int $signal): void
  */
 function posix_mkfifo(string $filename, int $permissions): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_mkfifo($filename, $permissions);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
 }
 
@@ -498,10 +619,21 @@ function posix_mkfifo(string $filename, int $permissions): void
  */
 function posix_mknod(string $filename, int $flags, int $major = 0, int $minor = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_mknod($filename, $flags, $major, $minor);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
 }
 
@@ -517,10 +649,21 @@ function posix_mknod(string $filename, int $flags, int $major = 0, int $minor = 
  */
 function posix_setegid(int $group_id): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_setegid($group_id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
 }
 
@@ -536,10 +679,21 @@ function posix_setegid(int $group_id): void
  */
 function posix_seteuid(int $user_id): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_seteuid($user_id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
 }
 
@@ -558,10 +712,21 @@ function posix_seteuid(int $user_id): void
  */
 function posix_setgid(int $group_id): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_setgid($group_id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
 }
 
@@ -577,10 +742,21 @@ function posix_setgid(int $group_id): void
  */
 function posix_setpgid(int $process_id, int $process_group_id): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_setpgid($process_id, $process_group_id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
 }
 
@@ -608,10 +784,21 @@ function posix_setpgid(int $process_id, int $process_group_id): void
  */
 function posix_setrlimit(int $resource, int $soft_limit, int $hard_limit): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_setrlimit($resource, $soft_limit, $hard_limit);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
 }
 
@@ -627,10 +814,21 @@ function posix_setrlimit(int $resource, int $soft_limit, int $hard_limit): void
  */
 function posix_setuid(int $user_id): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_setuid($user_id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
 }
 
@@ -674,10 +872,21 @@ function posix_setuid(int $user_id): void
  */
 function posix_times(): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_times();
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
     return $result;
 }
@@ -724,10 +933,21 @@ function posix_times(): array
  */
 function posix_uname(): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_uname();
+    restore_error_handler();
+
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
     return $result;
 }

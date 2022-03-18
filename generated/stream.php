@@ -15,10 +15,21 @@ use Safe\Exceptions\StreamException;
  */
 function stream_context_set_params($context, array $params): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_context_set_params($context, $params);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
 }
 
@@ -41,7 +52,16 @@ function stream_context_set_params($context, array $params): void
  */
 function stream_copy_to_stream($from, $to, int $length = null, int $offset = 0): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($offset !== 0) {
         $result = \stream_copy_to_stream($from, $to, $length, $offset);
     } elseif ($length !== null) {
@@ -49,8 +69,10 @@ function stream_copy_to_stream($from, $to, int $length = null, int $offset = 0):
     } else {
         $result = \stream_copy_to_stream($from, $to);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -89,7 +111,16 @@ function stream_copy_to_stream($from, $to, int $length = null, int $offset = 0):
  */
 function stream_filter_append($stream, string $filtername, int $read_write = null, array $params = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($params !== null) {
         $result = \stream_filter_append($stream, $filtername, $read_write, $params);
     } elseif ($read_write !== null) {
@@ -97,8 +128,10 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
     } else {
         $result = \stream_filter_append($stream, $filtername);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -138,7 +171,16 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
  */
 function stream_filter_prepend($stream, string $filtername, int $read_write = null, array $params = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($params !== null) {
         $result = \stream_filter_prepend($stream, $filtername, $read_write, $params);
     } elseif ($read_write !== null) {
@@ -146,8 +188,10 @@ function stream_filter_prepend($stream, string $filtername, int $read_write = nu
     } else {
         $result = \stream_filter_prepend($stream, $filtername);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -173,10 +217,21 @@ function stream_filter_prepend($stream, string $filtername, int $read_write = nu
  */
 function stream_filter_register(string $filter_name, string $class): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_filter_register($filter_name, $class);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
 }
 
@@ -194,10 +249,21 @@ function stream_filter_register(string $filter_name, string $class): void
  */
 function stream_filter_remove($stream_filter): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_filter_remove($stream_filter);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
 }
 
@@ -220,7 +286,16 @@ function stream_filter_remove($stream_filter): void
  */
 function stream_get_contents($stream, int $length = null, int $offset = -1): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($offset !== -1) {
         $result = \stream_get_contents($stream, $length, $offset);
     } elseif ($length !== null) {
@@ -228,8 +303,10 @@ function stream_get_contents($stream, int $length = null, int $offset = -1): str
     } else {
         $result = \stream_get_contents($stream);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -260,10 +337,21 @@ function stream_get_contents($stream, int $length = null, int $offset = -1): str
  */
 function stream_get_line($stream, int $length, string $ending = ""): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_get_line($stream, $length, $ending);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -279,10 +367,21 @@ function stream_get_line($stream, int $length, string $ending = ""): string
  */
 function stream_isatty($stream): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_isatty($stream);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
 }
 
@@ -297,10 +396,21 @@ function stream_isatty($stream): void
  */
 function stream_resolve_include_path(string $filename): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_resolve_include_path($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -326,10 +436,21 @@ function stream_resolve_include_path(string $filename): string
  */
 function stream_set_blocking($stream, bool $enable): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_set_blocking($stream, $enable);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
 }
 
@@ -351,10 +472,21 @@ function stream_set_blocking($stream, bool $enable): void
  */
 function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_set_timeout($stream, $seconds, $microseconds);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
 }
 
@@ -378,7 +510,16 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
  */
 function stream_socket_accept($socket, float $timeout = null, ?string &$peer_name = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($peer_name !== null) {
         $result = \stream_socket_accept($socket, $timeout, $peer_name);
     } elseif ($timeout !== null) {
@@ -386,8 +527,10 @@ function stream_socket_accept($socket, float $timeout = null, ?string &$peer_nam
     } else {
         $result = \stream_socket_accept($socket);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -445,7 +588,16 @@ function stream_socket_accept($socket, float $timeout = null, ?string &$peer_nam
  */
 function stream_socket_client(string $address, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null, int $flags = STREAM_CLIENT_CONNECT, $context = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \stream_socket_client($address, $error_code, $error_message, $timeout, $flags, $context);
     } elseif ($flags !== STREAM_CLIENT_CONNECT) {
@@ -455,8 +607,10 @@ function stream_socket_client(string $address, ?int &$error_code = null, ?string
     } else {
         $result = \stream_socket_client($address, $error_code, $error_message);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -474,10 +628,21 @@ function stream_socket_client(string $address, ?int &$error_code = null, ?string
  */
 function stream_socket_get_name($socket, bool $remote): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_socket_get_name($socket, $remote);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -508,10 +673,21 @@ function stream_socket_get_name($socket, bool $remote): string
  */
 function stream_socket_pair(int $domain, int $type, int $protocol): iterable
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_socket_pair($domain, $type, $protocol);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -555,10 +731,21 @@ function stream_socket_pair(int $domain, int $type, int $protocol): iterable
  */
 function stream_socket_recvfrom($socket, int $length, int $flags = 0, ?string &$address = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_socket_recvfrom($socket, $length, $flags, $address);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -595,10 +782,21 @@ function stream_socket_recvfrom($socket, int $length, int $flags = 0, ?string &$
  */
 function stream_socket_sendto($socket, string $data, int $flags = 0, string $address = ""): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_socket_sendto($socket, $data, $flags, $address);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -648,14 +846,25 @@ function stream_socket_sendto($socket, string $data, int $flags = 0, string $add
  */
 function stream_socket_server(string $address, ?int &$error_code = null, ?string &$error_message = null, int $flags = STREAM_SERVER_BIND | STREAM_SERVER_LISTEN, $context = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \stream_socket_server($address, $error_code, $error_message, $flags, $context);
     } else {
         $result = \stream_socket_server($address, $error_code, $error_message, $flags);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
     return $result;
 }
@@ -676,10 +885,21 @@ function stream_socket_server(string $address, ?int &$error_code = null, ?string
  */
 function stream_socket_shutdown($stream, int $mode): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_socket_shutdown($stream, $mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
 }
 
@@ -694,10 +914,21 @@ function stream_socket_shutdown($stream, int $mode): void
  */
 function stream_supports_lock($stream): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_supports_lock($stream);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
 }
 
@@ -718,10 +949,21 @@ function stream_supports_lock($stream): void
  */
 function stream_wrapper_register(string $protocol, string $class, int $flags = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_wrapper_register($protocol, $class, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
 }
 
@@ -736,10 +978,21 @@ function stream_wrapper_register(string $protocol, string $class, int $flags = 0
  */
 function stream_wrapper_restore(string $protocol): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_wrapper_restore($protocol);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
 }
 
@@ -756,9 +1009,20 @@ function stream_wrapper_restore(string $protocol): void
  */
 function stream_wrapper_unregister(string $protocol): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \stream_wrapper_unregister($protocol);
+    restore_error_handler();
+
     if ($result === false) {
-        throw StreamException::createFromPhpError();
+        throw StreamException::createFromPhpError($error);
     }
 }

@@ -16,10 +16,21 @@ use Safe\Exceptions\SplException;
  */
 function class_implements($object_or_class, bool $autoload = true): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \class_implements($object_or_class, $autoload);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SplException::createFromPhpError();
+        throw SplException::createFromPhpError($error);
     }
     return $result;
 }
@@ -37,10 +48,21 @@ function class_implements($object_or_class, bool $autoload = true): array
  */
 function class_parents($object_or_class, bool $autoload = true): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \class_parents($object_or_class, $autoload);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SplException::createFromPhpError();
+        throw SplException::createFromPhpError($error);
     }
     return $result;
 }
@@ -59,10 +81,21 @@ function class_parents($object_or_class, bool $autoload = true): array
  */
 function class_uses($object_or_class, bool $autoload = true): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \class_uses($object_or_class, $autoload);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SplException::createFromPhpError();
+        throw SplException::createFromPhpError($error);
     }
     return $result;
 }
@@ -98,7 +131,16 @@ function class_uses($object_or_class, bool $autoload = true): array
  */
 function spl_autoload_register(callable $callback = null, bool $throw = true, bool $prepend = false): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($prepend !== false) {
         $result = \spl_autoload_register($callback, $throw, $prepend);
     } elseif ($throw !== true) {
@@ -108,8 +150,10 @@ function spl_autoload_register(callable $callback = null, bool $throw = true, bo
     } else {
         $result = \spl_autoload_register();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw SplException::createFromPhpError();
+        throw SplException::createFromPhpError($error);
     }
 }
 
@@ -128,9 +172,20 @@ function spl_autoload_register(callable $callback = null, bool $throw = true, bo
  */
 function spl_autoload_unregister($callback): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \spl_autoload_unregister($callback);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SplException::createFromPhpError();
+        throw SplException::createFromPhpError($error);
     }
 }

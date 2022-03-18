@@ -23,10 +23,21 @@ use Safe\Exceptions\SemException;
  */
 function msg_get_queue(int $key, int $permissions = 0666)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \msg_get_queue($key, $permissions);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -41,10 +52,21 @@ function msg_get_queue(int $key, int $permissions = 0666)
  */
 function msg_queue_exists(int $key): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \msg_queue_exists($key);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }
 
@@ -122,10 +144,21 @@ function msg_queue_exists(int $key): void
  */
 function msg_receive($queue, int $desired_message_type, ?int &$received_message_type, int $max_message_size, &$message, bool $unserialize = true, int $flags = 0, ?int &$error_code = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \msg_receive($queue, $desired_message_type, $received_message_type, $max_message_size, $message, $unserialize, $flags, $error_code);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }
 
@@ -142,10 +175,21 @@ function msg_receive($queue, int $desired_message_type, ?int &$received_message_
  */
 function msg_remove_queue($queue): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \msg_remove_queue($queue);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }
 
@@ -185,10 +229,21 @@ function msg_remove_queue($queue): void
  */
 function msg_send($queue, int $message_type, $message, bool $serialize = true, bool $blocking = true, ?int &$error_code = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \msg_send($queue, $message_type, $message, $serialize, $blocking, $error_code);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }
 
@@ -212,10 +267,21 @@ function msg_send($queue, int $message_type, $message, bool $serialize = true, b
  */
 function msg_set_queue($queue, array $data): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \msg_set_queue($queue, $data);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }
 
@@ -305,10 +371,21 @@ function msg_set_queue($queue, array $data): void
  */
 function msg_stat_queue($queue): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \msg_stat_queue($queue);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -335,10 +412,21 @@ function msg_stat_queue($queue): array
  */
 function sem_acquire($semaphore, bool $non_blocking = false): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sem_acquire($semaphore, $non_blocking);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }
 
@@ -368,10 +456,21 @@ function sem_acquire($semaphore, bool $non_blocking = false): void
  */
 function sem_get(int $key, int $max_acquire = 1, int $permissions = 0666, bool $auto_release = true)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sem_get($key, $max_acquire, $permissions, $auto_release);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -392,10 +491,21 @@ function sem_get(int $key, int $max_acquire = 1, int $permissions = 0666, bool $
  */
 function sem_release($semaphore): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sem_release($semaphore);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }
 
@@ -412,10 +522,21 @@ function sem_release($semaphore): void
  */
 function sem_remove($semaphore): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sem_remove($semaphore);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }
 
@@ -444,7 +565,16 @@ function sem_remove($semaphore): void
  */
 function shm_attach(int $key, int $size = null, int $permissions = 0666)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($permissions !== 0666) {
         $result = \shm_attach($key, $size, $permissions);
     } elseif ($size !== null) {
@@ -452,8 +582,10 @@ function shm_attach(int $key, int $size = null, int $permissions = 0666)
     } else {
         $result = \shm_attach($key);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
     return $result;
 }
@@ -471,10 +603,21 @@ function shm_attach(int $key, int $size = null, int $permissions = 0666)
  */
 function shm_detach($shm): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \shm_detach($shm);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }
 
@@ -500,10 +643,21 @@ function shm_detach($shm): void
  */
 function shm_put_var($shm, int $key, $value): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \shm_put_var($shm, $key, $value);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }
 
@@ -519,10 +673,21 @@ function shm_put_var($shm, int $key, $value): void
  */
 function shm_remove_var($shm, int $key): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \shm_remove_var($shm, $key);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }
 
@@ -537,9 +702,20 @@ function shm_remove_var($shm, int $key): void
  */
 function shm_remove($shm): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \shm_remove($shm);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SemException::createFromPhpError();
+        throw SemException::createFromPhpError($error);
     }
 }

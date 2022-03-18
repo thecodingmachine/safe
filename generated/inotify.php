@@ -14,10 +14,21 @@ use Safe\Exceptions\InotifyException;
  */
 function inotify_init()
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \inotify_init();
+    restore_error_handler();
+
     if ($result === false) {
-        throw InotifyException::createFromPhpError();
+        throw InotifyException::createFromPhpError($error);
     }
     return $result;
 }
@@ -36,9 +47,20 @@ function inotify_init()
  */
 function inotify_rm_watch($inotify_instance, int $watch_descriptor): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \inotify_rm_watch($inotify_instance, $watch_descriptor);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InotifyException::createFromPhpError();
+        throw InotifyException::createFromPhpError($error);
     }
 }

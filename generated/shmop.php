@@ -14,10 +14,21 @@ use Safe\Exceptions\ShmopException;
  */
 function shmop_delete($shmop): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \shmop_delete($shmop);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ShmopException::createFromPhpError();
+        throw ShmopException::createFromPhpError($error);
     }
 }
 
@@ -36,10 +47,21 @@ function shmop_delete($shmop): void
  */
 function shmop_read($shmop, int $offset, int $size): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \shmop_read($shmop, $offset, $size);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ShmopException::createFromPhpError();
+        throw ShmopException::createFromPhpError($error);
     }
     return $result;
 }

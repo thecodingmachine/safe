@@ -38,10 +38,21 @@ use Safe\Exceptions\FilterException;
  */
 function filter_input_array(int $type, $options = FILTER_DEFAULT, bool $add_empty = true): ?array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \filter_input_array($type, $options, $add_empty);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilterException::createFromPhpError();
+        throw FilterException::createFromPhpError($error);
     }
     return $result;
 }
@@ -72,10 +83,21 @@ function filter_input_array(int $type, $options = FILTER_DEFAULT, bool $add_empt
  */
 function filter_var_array(array $array, $options = FILTER_DEFAULT, bool $add_empty = true): ?array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \filter_var_array($array, $options, $add_empty);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FilterException::createFromPhpError();
+        throw FilterException::createFromPhpError($error);
     }
     return $result;
 }

@@ -49,10 +49,21 @@ use Safe\Exceptions\YazException;
  */
 function yaz_ccl_parse($id, string $query, ?array &$result): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \yaz_ccl_parse($id, $query, $result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw YazException::createFromPhpError();
+        throw YazException::createFromPhpError($error);
     }
 }
 
@@ -66,10 +77,21 @@ function yaz_ccl_parse($id, string $query, ?array &$result): void
  */
 function yaz_close($id): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \yaz_close($id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw YazException::createFromPhpError();
+        throw YazException::createFromPhpError($error);
     }
 }
 
@@ -267,14 +289,25 @@ function yaz_close($id): void
  */
 function yaz_connect(string $zurl, $options = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($options !== null) {
         $result = \yaz_connect($zurl, $options);
     } else {
         $result = \yaz_connect($zurl);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw YazException::createFromPhpError();
+        throw YazException::createFromPhpError($error);
     }
     return $result;
 }
@@ -294,10 +327,21 @@ function yaz_connect(string $zurl, $options = null)
  */
 function yaz_database($id, string $databases): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \yaz_database($id, $databases);
+    restore_error_handler();
+
     if ($result === false) {
-        throw YazException::createFromPhpError();
+        throw YazException::createFromPhpError($error);
     }
 }
 
@@ -317,10 +361,21 @@ function yaz_database($id, string $databases): void
  */
 function yaz_element($id, string $elementset): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \yaz_element($id, $elementset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw YazException::createFromPhpError();
+        throw YazException::createFromPhpError($error);
     }
 }
 
@@ -337,10 +392,21 @@ function yaz_element($id, string $elementset): void
  */
 function yaz_present($id): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \yaz_present($id);
+    restore_error_handler();
+
     if ($result === false) {
-        throw YazException::createFromPhpError();
+        throw YazException::createFromPhpError($error);
     }
 }
 
@@ -377,10 +443,21 @@ function yaz_present($id): void
  */
 function yaz_search($id, string $type, string $query): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \yaz_search($id, $type, $query);
+    restore_error_handler();
+
     if ($result === false) {
-        throw YazException::createFromPhpError();
+        throw YazException::createFromPhpError($error);
     }
 }
 
@@ -429,10 +506,21 @@ function yaz_search($id, string $type, string $query): void
  */
 function yaz_wait(array &$options = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \yaz_wait($options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw YazException::createFromPhpError();
+        throw YazException::createFromPhpError($error);
     }
     return $result;
 }

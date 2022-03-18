@@ -15,10 +15,21 @@ use Safe\Exceptions\ImapException;
  */
 function imap_8bit(string $string): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_8bit($string);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -43,7 +54,16 @@ function imap_8bit(string $string): string
  */
 function imap_append($imap, string $folder, string $message, string $options = null, string $internal_date = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($internal_date !== null) {
         $result = \imap_append($imap, $folder, $message, $options, $internal_date);
     } elseif ($options !== null) {
@@ -51,8 +71,10 @@ function imap_append($imap, string $folder, string $message, string $options = n
     } else {
         $result = \imap_append($imap, $folder, $message);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -67,10 +89,21 @@ function imap_append($imap, string $folder, string $message, string $options = n
  */
 function imap_base64(string $string): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_base64($string);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -86,10 +119,21 @@ function imap_base64(string $string): string
  */
 function imap_binary(string $string): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_binary($string);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -134,10 +178,21 @@ function imap_binary(string $string): string
  */
 function imap_body($imap, int $message_num, int $flags = 0): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_body($imap, $message_num, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -158,10 +213,21 @@ function imap_body($imap, int $message_num, int $flags = 0): string
  */
 function imap_bodystruct($imap, int $message_num, string $section): \stdClass
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_bodystruct($imap, $message_num, $section);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -207,10 +273,21 @@ function imap_bodystruct($imap, int $message_num, string $section): \stdClass
  */
 function imap_check($imap): \stdClass
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_check($imap);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -242,10 +319,21 @@ function imap_check($imap): \stdClass
  */
 function imap_clearflag_full($imap, string $sequence, string $flag, int $options = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_clearflag_full($imap, $sequence, $flag, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -263,10 +351,21 @@ function imap_clearflag_full($imap, string $sequence, string $flag, int $options
  */
 function imap_close($imap, int $flags = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_close($imap, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -283,10 +382,21 @@ function imap_close($imap, int $flags = 0): void
  */
 function imap_createmailbox($imap, string $mailbox): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_createmailbox($imap, $mailbox);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -302,10 +412,21 @@ function imap_createmailbox($imap, string $mailbox): void
  */
 function imap_deletemailbox($imap, string $mailbox): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_deletemailbox($imap, $mailbox);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -418,10 +539,21 @@ function imap_deletemailbox($imap, string $mailbox): void
  */
 function imap_fetch_overview($imap, string $sequence, int $flags = 0): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_fetch_overview($imap, $sequence, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -462,10 +594,21 @@ function imap_fetch_overview($imap, string $sequence, int $flags = 0): array
  */
 function imap_fetchbody($imap, int $message_num, string $section, int $flags = 0): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_fetchbody($imap, $message_num, $section, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -507,10 +650,21 @@ function imap_fetchbody($imap, int $message_num, string $section, int $flags = 0
  */
 function imap_fetchheader($imap, int $message_num, int $flags = 0): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_fetchheader($imap, $message_num, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -550,10 +704,21 @@ function imap_fetchheader($imap, int $message_num, int $flags = 0): string
  */
 function imap_fetchmime($imap, int $message_num, string $section, int $flags = 0): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_fetchmime($imap, $message_num, $section, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -697,10 +862,21 @@ function imap_fetchmime($imap, int $message_num, string $section, int $flags = 0
  */
 function imap_fetchstructure($imap, int $message_num, int $flags = 0): \stdClass
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_fetchstructure($imap, $message_num, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -720,10 +896,21 @@ function imap_fetchstructure($imap, int $message_num, int $flags = 0): \stdClass
  */
 function imap_gc($imap, int $flags): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_gc($imap, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -740,10 +927,21 @@ function imap_gc($imap, int $flags): void
  */
 function imap_getacl($imap, string $mailbox): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_getacl($imap, $mailbox);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -826,10 +1024,21 @@ function imap_getacl($imap, string $mailbox): array
  */
 function imap_getmailboxes($imap, string $reference, string $pattern): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_getmailboxes($imap, $reference, $pattern);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -912,10 +1121,21 @@ function imap_getmailboxes($imap, string $reference, string $pattern): array
  */
 function imap_getsubscribed($imap, string $reference, string $pattern): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_getsubscribed($imap, $reference, $pattern);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1137,10 +1357,21 @@ function imap_getsubscribed($imap, string $reference, string $pattern): array
  */
 function imap_headerinfo($imap, int $message_num, int $from_length = 0, int $subject_length = 0): \stdClass
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_headerinfo($imap, $message_num, $from_length, $subject_length);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1158,10 +1389,21 @@ function imap_headerinfo($imap, int $message_num, int $from_length = 0, int $sub
  */
 function imap_headers($imap): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_headers($imap);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1200,10 +1442,21 @@ function imap_headers($imap): array
  */
 function imap_listscan($imap, string $reference, string $pattern, string $content): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_listscan($imap, $reference, $pattern, $content);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1235,10 +1488,21 @@ function imap_listscan($imap, string $reference, string $pattern, string $conten
  */
 function imap_lsub($imap, string $reference, string $pattern): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_lsub($imap, $reference, $pattern);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1353,10 +1617,21 @@ function imap_lsub($imap, string $reference, string $pattern): array
  */
 function imap_mail_compose(array $envelope, array $bodies): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_mail_compose($envelope, $bodies);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1391,10 +1666,21 @@ function imap_mail_compose(array $envelope, array $bodies): string
  */
 function imap_mail_copy($imap, string $message_nums, string $mailbox, int $flags = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_mail_copy($imap, $message_nums, $mailbox, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -1424,10 +1710,21 @@ function imap_mail_copy($imap, string $message_nums, string $mailbox, int $flags
  */
 function imap_mail_move($imap, string $message_nums, string $mailbox, int $flags = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_mail_move($imap, $message_nums, $mailbox, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -1454,7 +1751,16 @@ function imap_mail_move($imap, string $message_nums, string $mailbox, int $flags
  */
 function imap_mail(string $to, string $subject, string $message, string $additional_headers = null, string $cc = null, string $bcc = null, string $return_path = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($return_path !== null) {
         $result = \imap_mail($to, $subject, $message, $additional_headers, $cc, $bcc, $return_path);
     } elseif ($bcc !== null) {
@@ -1466,8 +1772,10 @@ function imap_mail(string $to, string $subject, string $message, string $additio
     } else {
         $result = \imap_mail($to, $subject, $message);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -1526,10 +1834,21 @@ function imap_mail(string $to, string $subject, string $message, string $additio
  */
 function imap_mailboxmsginfo($imap): \stdClass
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_mailboxmsginfo($imap);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1553,10 +1872,21 @@ function imap_mailboxmsginfo($imap): \stdClass
  */
 function imap_mime_header_decode(string $string): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_mime_header_decode($string);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1572,10 +1902,21 @@ function imap_mime_header_decode(string $string): array
  */
 function imap_mutf7_to_utf8(string $string): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_mutf7_to_utf8($string);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1591,10 +1932,21 @@ function imap_mutf7_to_utf8(string $string): string
  */
 function imap_num_msg($imap): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_num_msg($imap);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1806,10 +2158,21 @@ function imap_num_msg($imap): int
  */
 function imap_open(string $mailbox, string $user, string $password, int $flags = 0, int $retries = 0, array $options = [])
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_open($mailbox, $user, $password, $flags, $retries, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1825,10 +2188,21 @@ function imap_open(string $mailbox, string $user, string $password, int $flags =
  */
 function imap_qprint(string $string): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_qprint($string);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1849,10 +2223,21 @@ function imap_qprint(string $string): string
  */
 function imap_renamemailbox($imap, string $from, string $to): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_renamemailbox($imap, $from, $to);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -1870,10 +2255,21 @@ function imap_renamemailbox($imap, string $from, string $to): void
  */
 function imap_rfc822_write_address(?string $mailbox, ?string $hostname, ?string $personal): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_rfc822_write_address($mailbox, $hostname, $personal);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1913,10 +2309,21 @@ function imap_rfc822_write_address(?string $mailbox, ?string $hostname, ?string 
  */
 function imap_savebody($imap, $file, int $message_num, string $section = "", int $flags = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_savebody($imap, $file, $message_num, $section, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -1933,10 +2340,21 @@ function imap_savebody($imap, $file, int $message_num, string $section = "", int
  */
 function imap_set_quota($imap, string $quota_root, int $mailbox_size): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_set_quota($imap, $quota_root, $mailbox_size);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -1955,10 +2373,21 @@ function imap_set_quota($imap, string $quota_root, int $mailbox_size): void
  */
 function imap_setacl($imap, string $mailbox, string $user_id, string $rights): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_setacl($imap, $mailbox, $user_id, $rights);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -1990,10 +2419,21 @@ function imap_setacl($imap, string $mailbox, string $user_id, string $rights): v
  */
 function imap_setflag_full($imap, string $sequence, string $flag, int $options = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_setflag_full($imap, $sequence, $flag, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -2065,7 +2505,16 @@ function imap_setflag_full($imap, string $sequence, string $flag, int $options =
  */
 function imap_sort($imap, int $criteria, int $reverse, int $flags = 0, string $search_criteria = null, string $charset = null): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($charset !== null) {
         $result = \imap_sort($imap, $criteria, $reverse, $flags, $search_criteria, $charset);
     } elseif ($search_criteria !== null) {
@@ -2073,8 +2522,10 @@ function imap_sort($imap, int $criteria, int $reverse, int $flags = 0, string $s
     } else {
         $result = \imap_sort($imap, $criteria, $reverse, $flags);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2137,10 +2588,21 @@ function imap_sort($imap, int $criteria, int $reverse, int $flags = 0, string $s
  */
 function imap_status($imap, string $mailbox, int $flags): \stdClass
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_status($imap, $mailbox, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2157,10 +2619,21 @@ function imap_status($imap, string $mailbox, int $flags): \stdClass
  */
 function imap_subscribe($imap, string $mailbox): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_subscribe($imap, $mailbox);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -2191,10 +2664,21 @@ function imap_subscribe($imap, string $mailbox): void
  */
 function imap_thread($imap, int $flags = SE_FREE): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_thread($imap, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2220,10 +2704,21 @@ function imap_thread($imap, int $flags = SE_FREE): array
  */
 function imap_timeout(int $timeout_type, int $timeout = -1)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_timeout($timeout_type, $timeout);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2243,10 +2738,21 @@ function imap_timeout(int $timeout_type, int $timeout = -1)
  */
 function imap_undelete($imap, string $message_nums, int $flags = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_undelete($imap, $message_nums, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -2262,10 +2768,21 @@ function imap_undelete($imap, string $message_nums, int $flags = 0): void
  */
 function imap_unsubscribe($imap, string $mailbox): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_unsubscribe($imap, $mailbox);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
 }
 
@@ -2280,10 +2797,21 @@ function imap_unsubscribe($imap, string $mailbox): void
  */
 function imap_utf8_to_mutf7(string $string): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imap_utf8_to_mutf7($string);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImapException::createFromPhpError();
+        throw ImapException::createFromPhpError($error);
     }
     return $result;
 }

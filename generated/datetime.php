@@ -15,10 +15,21 @@ use Safe\Exceptions\DatetimeException;
  */
 function date_parse_from_format(string $format, string $datetime): ?array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \date_parse_from_format($format, $datetime);
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -36,10 +47,21 @@ function date_parse_from_format(string $format, string $datetime): ?array
  */
 function date_parse(string $datetime): ?array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \date_parse($datetime);
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -142,10 +164,21 @@ function date_parse(string $datetime): ?array
  */
 function date_sun_info(int $timestamp, float $latitude, float $longitude): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \date_sun_info($timestamp, $latitude, $longitude);
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -235,7 +268,16 @@ function date_sun_info(int $timestamp, float $latitude, float $longitude): array
  */
 function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, float $latitude = null, float $longitude = null, float $zenith = null, float $utcOffset = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($utcOffset !== null) {
         $result = \date_sunrise($timestamp, $returnFormat, $latitude, $longitude, $zenith, $utcOffset);
     } elseif ($zenith !== null) {
@@ -247,8 +289,10 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, f
     } else {
         $result = \date_sunrise($timestamp, $returnFormat);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -338,7 +382,16 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, f
  */
 function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, float $latitude = null, float $longitude = null, float $zenith = null, float $utcOffset = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($utcOffset !== null) {
         $result = \date_sunset($timestamp, $returnFormat, $latitude, $longitude, $zenith, $utcOffset);
     } elseif ($zenith !== null) {
@@ -350,8 +403,10 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, fl
     } else {
         $result = \date_sunset($timestamp, $returnFormat);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -376,14 +431,25 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, fl
  */
 function date(string $format, int $timestamp = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($timestamp !== null) {
         $result = \date($format, $timestamp);
     } else {
         $result = \date($format);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -423,7 +489,16 @@ function date(string $format, int $timestamp = null): string
  */
 function gmmktime(int $hour, int $minute = null, int $second = null, int $month = null, int $day = null, int $year = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($year !== null) {
         $result = \gmmktime($hour, $minute, $second, $month, $day, $year);
     } elseif ($day !== null) {
@@ -437,8 +512,10 @@ function gmmktime(int $hour, int $minute = null, int $second = null, int $month 
     } else {
         $result = \gmmktime($hour);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -467,14 +544,25 @@ function gmmktime(int $hour, int $minute = null, int $second = null, int $month 
  */
 function gmstrftime(string $format, int $timestamp = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($timestamp !== null) {
         $result = \gmstrftime($format, $timestamp);
     } else {
         $result = \gmstrftime($format);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -589,14 +677,25 @@ function gmstrftime(string $format, int $timestamp = null): string
  */
 function idate(string $format, int $timestamp = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($timestamp !== null) {
         $result = \idate($format, $timestamp);
     } else {
         $result = \idate($format);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -643,7 +742,16 @@ function idate(string $format, int $timestamp = null): int
  */
 function mktime(int $hour, int $minute = null, int $second = null, int $month = null, int $day = null, int $year = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($year !== null) {
         $result = \mktime($hour, $minute, $second, $month, $day, $year);
     } elseif ($day !== null) {
@@ -657,8 +765,10 @@ function mktime(int $hour, int $minute = null, int $second = null, int $month = 
     } else {
         $result = \mktime($hour);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -974,14 +1084,25 @@ function mktime(int $hour, int $minute = null, int $second = null, int $month = 
  */
 function strftime(string $format, int $timestamp = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($timestamp !== null) {
         $result = \strftime($format, $timestamp);
     } else {
         $result = \strftime($format);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1061,10 +1182,21 @@ function strftime(string $format, int $timestamp = null): string
  */
 function strptime(string $timestamp, string $format): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \strptime($timestamp, $format);
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1086,14 +1218,25 @@ function strptime(string $timestamp, string $format): array
  */
 function strtotime(string $datetime, int $baseTimestamp = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($baseTimestamp !== null) {
         $result = \strtotime($datetime, $baseTimestamp);
     } else {
         $result = \strtotime($datetime);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1122,10 +1265,21 @@ function strtotime(string $datetime, int $baseTimestamp = null): int
  */
 function timezone_name_from_abbr(string $abbr, int $utcOffset = -1, int $isDST = -1): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \timezone_name_from_abbr($abbr, $utcOffset, $isDST);
+    restore_error_handler();
+
     if ($result === false) {
-        throw DatetimeException::createFromPhpError();
+        throw DatetimeException::createFromPhpError($error);
     }
     return $result;
 }

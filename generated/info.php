@@ -108,14 +108,25 @@ use Safe\Exceptions\InfoException;
  */
 function assert_options(int $what, $value = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($value !== null) {
         $result = \assert_options($what, $value);
     } else {
         $result = \assert_options($what);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -132,10 +143,21 @@ function assert_options(int $what, $value = null)
  */
 function cli_set_process_title(string $title): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \cli_set_process_title($title);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
 }
 
@@ -196,10 +218,21 @@ function cli_set_process_title(string $title): void
  */
 function dl(string $extension_filename): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \dl($extension_filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
 }
 
@@ -213,10 +246,21 @@ function dl(string $extension_filename): void
  */
 function get_include_path(): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \get_include_path();
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -236,10 +280,21 @@ function get_include_path(): string
  */
 function getlastmod(): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getlastmod();
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -254,10 +309,21 @@ function getlastmod(): int
  */
 function getmygid(): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getmygid();
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -272,10 +338,21 @@ function getmygid(): int
  */
 function getmyinode(): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getmyinode();
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -290,10 +367,21 @@ function getmyinode(): int
  */
 function getmypid(): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getmypid();
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -308,10 +396,21 @@ function getmypid(): int
  */
 function getmyuid(): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getmyuid();
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -329,10 +428,21 @@ function getmyuid(): int
  */
 function getopt(string $short_options, array $long_options = [], ?int &$rest_index = null): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getopt($short_options, $long_options, $rest_index);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -352,10 +462,21 @@ function getopt(string $short_options, array $long_options = [], ?int &$rest_ind
  */
 function getrusage(int $mode = 0): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getrusage($mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -373,10 +494,21 @@ function getrusage(int $mode = 0): array
  */
 function ini_get(string $option): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ini_get($option);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -397,10 +529,21 @@ function ini_get(string $option): string
  */
 function ini_set(string $option, string $value): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ini_set($option, $value);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -424,10 +567,21 @@ function ini_set(string $option, string $value): string
  */
 function php_sapi_name(): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \php_sapi_name();
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -504,10 +658,21 @@ function php_sapi_name(): string
  */
 function phpcredits(int $flags = CREDITS_ALL): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \phpcredits($flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
 }
 
@@ -614,10 +779,21 @@ function phpcredits(int $flags = CREDITS_ALL): void
  */
 function phpinfo(int $flags = INFO_ALL): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \phpinfo($flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
 }
 
@@ -634,10 +810,21 @@ function phpinfo(int $flags = INFO_ALL): void
  */
 function putenv(string $assignment): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \putenv($assignment);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
 }
 
@@ -654,10 +841,21 @@ function putenv(string $assignment): void
  */
 function set_include_path(string $include_path): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \set_include_path($include_path);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -682,9 +880,20 @@ function set_include_path(string $include_path): string
  */
 function set_time_limit(int $seconds): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \set_time_limit($seconds);
+    restore_error_handler();
+
     if ($result === false) {
-        throw InfoException::createFromPhpError();
+        throw InfoException::createFromPhpError($error);
     }
 }

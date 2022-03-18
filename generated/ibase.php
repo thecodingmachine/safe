@@ -14,10 +14,21 @@ use Safe\Exceptions\IbaseException;
  */
 function fbird_blob_cancel($blob_handle): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \fbird_blob_cancel($blob_handle);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -36,7 +47,16 @@ function fbird_blob_cancel($blob_handle): void
  */
 function ibase_add_user($service_handle, string $user_name, string $password, string $first_name = null, string $middle_name = null, string $last_name = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($last_name !== null) {
         $result = \ibase_add_user($service_handle, $user_name, $password, $first_name, $middle_name, $last_name);
     } elseif ($middle_name !== null) {
@@ -46,8 +66,10 @@ function ibase_add_user($service_handle, string $user_name, string $password, st
     } else {
         $result = \ibase_add_user($service_handle, $user_name, $password);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -81,10 +103,21 @@ function ibase_add_user($service_handle, string $user_name, string $password, st
  */
 function ibase_backup($service_handle, string $source_db, string $dest_file, int $options = 0, bool $verbose = false)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_backup($service_handle, $source_db, $dest_file, $options, $verbose);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
     return $result;
 }
@@ -100,10 +133,21 @@ function ibase_backup($service_handle, string $source_db, string $dest_file, int
  */
 function ibase_blob_cancel($blob_handle): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_blob_cancel($blob_handle);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -121,14 +165,25 @@ function ibase_blob_cancel($blob_handle): void
  */
 function ibase_blob_create($link_identifier = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($link_identifier !== null) {
         $result = \ibase_blob_create($link_identifier);
     } else {
         $result = \ibase_blob_create();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
     return $result;
 }
@@ -146,10 +201,21 @@ function ibase_blob_create($link_identifier = null)
  */
 function ibase_blob_get($blob_handle, int $len): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_blob_get($blob_handle, $len);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
     return $result;
 }
@@ -169,14 +235,25 @@ function ibase_blob_get($blob_handle, int $len): string
  */
 function ibase_close($connection_id = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($connection_id !== null) {
         $result = \ibase_close($connection_id);
     } else {
         $result = \ibase_close();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -196,14 +273,25 @@ function ibase_close($connection_id = null): void
  */
 function ibase_commit_ret($link_or_trans_identifier = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($link_or_trans_identifier !== null) {
         $result = \ibase_commit_ret($link_or_trans_identifier);
     } else {
         $result = \ibase_commit_ret();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -221,14 +309,25 @@ function ibase_commit_ret($link_or_trans_identifier = null): void
  */
 function ibase_commit($link_or_trans_identifier = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($link_or_trans_identifier !== null) {
         $result = \ibase_commit($link_or_trans_identifier);
     } else {
         $result = \ibase_commit();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -268,7 +367,16 @@ function ibase_commit($link_or_trans_identifier = null): void
  */
 function ibase_connect(string $database = null, string $username = null, string $password = null, string $charset = null, int $buffers = null, int $dialect = null, string $role = null, int $sync = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($sync !== null) {
         $result = \ibase_connect($database, $username, $password, $charset, $buffers, $dialect, $role, $sync);
     } elseif ($role !== null) {
@@ -288,8 +396,10 @@ function ibase_connect(string $database = null, string $username = null, string 
     } else {
         $result = \ibase_connect();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
     return $result;
 }
@@ -305,10 +415,21 @@ function ibase_connect(string $database = null, string $username = null, string 
  */
 function ibase_delete_user($service_handle, string $user_name): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_delete_user($service_handle, $user_name);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -324,14 +445,25 @@ function ibase_delete_user($service_handle, string $user_name): void
  */
 function ibase_drop_db($connection = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($connection !== null) {
         $result = \ibase_drop_db($connection);
     } else {
         $result = \ibase_drop_db();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -348,10 +480,21 @@ function ibase_drop_db($connection = null): void
  */
 function ibase_free_event_handler($event): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_free_event_handler($event);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -365,10 +508,21 @@ function ibase_free_event_handler($event): void
  */
 function ibase_free_query($query): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_free_query($query);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -383,10 +537,21 @@ function ibase_free_query($query): void
  */
 function ibase_free_result($result_identifier): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_free_result($result_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -403,10 +568,21 @@ function ibase_free_result($result_identifier): void
  */
 function ibase_maintain_db($service_handle, string $db, int $action, int $argument = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_maintain_db($service_handle, $db, $action, $argument);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -425,7 +601,16 @@ function ibase_maintain_db($service_handle, string $db, int $action, int $argume
  */
 function ibase_modify_user($service_handle, string $user_name, string $password, string $first_name = null, string $middle_name = null, string $last_name = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($last_name !== null) {
         $result = \ibase_modify_user($service_handle, $user_name, $password, $first_name, $middle_name, $last_name);
     } elseif ($middle_name !== null) {
@@ -435,8 +620,10 @@ function ibase_modify_user($service_handle, string $user_name, string $password,
     } else {
         $result = \ibase_modify_user($service_handle, $user_name, $password);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -452,10 +639,21 @@ function ibase_modify_user($service_handle, string $user_name, string $password,
  */
 function ibase_name_result($result, string $name): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_name_result($result, $name);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -502,7 +700,16 @@ function ibase_name_result($result, string $name): void
  */
 function ibase_pconnect(string $database = null, string $username = null, string $password = null, string $charset = null, int $buffers = null, int $dialect = null, string $role = null, int $sync = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($sync !== null) {
         $result = \ibase_pconnect($database, $username, $password, $charset, $buffers, $dialect, $role, $sync);
     } elseif ($role !== null) {
@@ -522,8 +729,10 @@ function ibase_pconnect(string $database = null, string $username = null, string
     } else {
         $result = \ibase_pconnect();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
     return $result;
 }
@@ -561,10 +770,21 @@ function ibase_pconnect(string $database = null, string $username = null, string
  */
 function ibase_restore($service_handle, string $source_file, string $dest_db, int $options = 0, bool $verbose = false)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_restore($service_handle, $source_file, $dest_db, $options, $verbose);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
     return $result;
 }
@@ -585,14 +805,25 @@ function ibase_restore($service_handle, string $source_file, string $dest_db, in
  */
 function ibase_rollback_ret($link_or_trans_identifier = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($link_or_trans_identifier !== null) {
         $result = \ibase_rollback_ret($link_or_trans_identifier);
     } else {
         $result = \ibase_rollback_ret();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -610,14 +841,25 @@ function ibase_rollback_ret($link_or_trans_identifier = null): void
  */
 function ibase_rollback($link_or_trans_identifier = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($link_or_trans_identifier !== null) {
         $result = \ibase_rollback($link_or_trans_identifier);
     } else {
         $result = \ibase_rollback();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }
 
@@ -635,10 +877,21 @@ function ibase_rollback($link_or_trans_identifier = null): void
  */
 function ibase_service_attach(string $host, string $dba_username, string $dba_password)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_service_attach($host, $dba_username, $dba_password);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
     return $result;
 }
@@ -653,9 +906,20 @@ function ibase_service_attach(string $host, string $dba_username, string $dba_pa
  */
 function ibase_service_detach($service_handle): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ibase_service_detach($service_handle);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IbaseException::createFromPhpError();
+        throw IbaseException::createFromPhpError($error);
     }
 }

@@ -13,10 +13,21 @@ use Safe\Exceptions\ApacheException;
  */
 function apache_get_version(): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apache_get_version();
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError($error);
     }
     return $result;
 }
@@ -34,10 +45,21 @@ function apache_get_version(): string
  */
 function apache_getenv(string $variable, bool $walk_to_top = false): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apache_getenv($variable, $walk_to_top);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError($error);
     }
     return $result;
 }
@@ -82,10 +104,21 @@ function apache_getenv(string $variable, bool $walk_to_top = false): string
  */
 function apache_lookup_uri(string $filename): object
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apache_lookup_uri($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError($error);
     }
     return $result;
 }
@@ -101,10 +134,21 @@ function apache_lookup_uri(string $filename): object
  */
 function apache_request_headers(): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apache_request_headers();
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError($error);
     }
     return $result;
 }
@@ -120,10 +164,21 @@ function apache_request_headers(): array
  */
 function apache_response_headers(): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apache_response_headers();
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError($error);
     }
     return $result;
 }
@@ -142,10 +197,21 @@ function apache_response_headers(): array
  */
 function apache_setenv(string $variable, string $value, bool $walk_to_top = false): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apache_setenv($variable, $value, $walk_to_top);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError($error);
     }
 }
 
@@ -163,10 +229,21 @@ function apache_setenv(string $variable, string $value, bool $walk_to_top = fals
  */
 function getallheaders(): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getallheaders();
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError($error);
     }
     return $result;
 }
@@ -191,9 +268,20 @@ function getallheaders(): array
  */
 function virtual(string $uri): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \virtual($uri);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApacheException::createFromPhpError();
+        throw ApacheException::createFromPhpError($error);
     }
 }

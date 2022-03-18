@@ -30,10 +30,21 @@ use Safe\Exceptions\MiscException;
  */
 function define(string $constant_name, $value, bool $case_insensitive = false): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \define($constant_name, $value, $case_insensitive);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
 }
 
@@ -60,10 +71,21 @@ function define(string $constant_name, $value, bool $case_insensitive = false): 
  */
 function highlight_file(string $filename, bool $return = false)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \highlight_file($filename, $return);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
     return $result;
 }
@@ -83,10 +105,21 @@ function highlight_file(string $filename, bool $return = false)
  */
 function highlight_string(string $string, bool $return = false)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \highlight_string($string, $return);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
     return $result;
 }
@@ -107,10 +140,21 @@ function highlight_string(string $string, bool $return = false)
  */
 function hrtime(bool $as_number = false)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \hrtime($as_number);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
     return $result;
 }
@@ -272,14 +316,25 @@ function hrtime(bool $as_number = false)
  */
 function pack(string $format, ...$values): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($values !== []) {
         $result = \pack($format, ...$values);
     } else {
         $result = \pack($format);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
     return $result;
 }
@@ -300,10 +355,21 @@ function pack(string $format, ...$values): string
  */
 function sapi_windows_cp_conv($in_codepage, $out_codepage, string $subject): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sapi_windows_cp_conv($in_codepage, $out_codepage, $subject);
+    restore_error_handler();
+
     if ($result === null) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
     return $result;
 }
@@ -318,10 +384,21 @@ function sapi_windows_cp_conv($in_codepage, $out_codepage, string $subject): str
  */
 function sapi_windows_cp_set(int $codepage): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sapi_windows_cp_set($codepage);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
 }
 
@@ -339,10 +416,21 @@ function sapi_windows_cp_set(int $codepage): void
  */
 function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sapi_windows_generate_ctrl_event($event, $pid);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
 }
 
@@ -380,10 +468,21 @@ function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
  */
 function sapi_windows_set_ctrl_handler($handler, bool $add = true): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sapi_windows_set_ctrl_handler($handler, $add);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
 }
 
@@ -406,14 +505,25 @@ function sapi_windows_set_ctrl_handler($handler, bool $add = true): void
  */
 function sapi_windows_vt100_support($stream, bool $enable = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($enable !== null) {
         $result = \sapi_windows_vt100_support($stream, $enable);
     } else {
         $result = \sapi_windows_vt100_support($stream);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
 }
 
@@ -435,10 +545,21 @@ function sapi_windows_vt100_support($stream, bool $enable = null): void
  */
 function sleep(int $seconds): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sleep($seconds);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
     return $result;
 }
@@ -473,10 +594,21 @@ function sleep(int $seconds): int
  */
 function time_nanosleep(int $seconds, int $nanoseconds)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \time_nanosleep($seconds, $nanoseconds);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
     return $result;
 }
@@ -492,10 +624,21 @@ function time_nanosleep(int $seconds, int $nanoseconds)
  */
 function time_sleep_until(float $timestamp): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \time_sleep_until($timestamp);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
 }
 
@@ -535,10 +678,21 @@ function time_sleep_until(float $timestamp): void
  */
 function unpack(string $format, string $string, int $offset = 0): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \unpack($format, $string, $offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
     return $result;
 }

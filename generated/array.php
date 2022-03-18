@@ -5,30 +5,6 @@ namespace Safe;
 use Safe\Exceptions\ArrayException;
 
 /**
- * Creates an array by using the values from the
- * keys array as keys and the values from the
- * values array as the corresponding values.
- *
- * @param array $keys Array of keys to be used. Illegal values for key will be
- * converted to string.
- * @param array $values Array of values to be used
- * @return array Returns the combined array, FALSE if the number of elements
- * for each array isn't equal.
- * @throws ArrayException
- *
- */
-function array_combine(array $keys, array $values): array
-{
-    error_clear_last();
-    $result = \array_combine($keys, $values);
-    if ($result === false) {
-        throw ArrayException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * array_replace_recursive replaces the values of
  * array with the same values from all the following
  * arrays. If a key from the first array exists in the second array, its value
@@ -55,14 +31,25 @@ function array_combine(array $keys, array $values): array
  */
 function array_replace_recursive(array $array, array  ...$replacements): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($replacements !== []) {
         $result = \array_replace_recursive($array, ...$replacements);
     } else {
         $result = \array_replace_recursive($array);
     }
+    restore_error_handler();
+
     if ($result === null) {
-        throw ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError($error);
     }
     return $result;
 }
@@ -90,14 +77,25 @@ function array_replace_recursive(array $array, array  ...$replacements): array
  */
 function array_replace(array $array, array  ...$replacements): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($replacements !== []) {
         $result = \array_replace($array, ...$replacements);
     } else {
         $result = \array_replace($array);
     }
+    restore_error_handler();
+
     if ($result === null) {
-        throw ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError($error);
     }
     return $result;
 }
@@ -127,14 +125,25 @@ function array_replace(array $array, array  ...$replacements): array
  */
 function array_walk_recursive(&$array, callable $callback, $arg = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($arg !== null) {
         $result = \array_walk_recursive($array, $callback, $arg);
     } else {
         $result = \array_walk_recursive($array, $callback);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError($error);
     }
 }
 
@@ -150,9 +159,20 @@ function array_walk_recursive(&$array, callable $callback, $arg = null): void
  */
 function shuffle(array &$array): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \shuffle($array);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ArrayException::createFromPhpError();
+        throw ArrayException::createFromPhpError($error);
     }
 }

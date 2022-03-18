@@ -14,10 +14,21 @@ use Safe\Exceptions\Bzip2Exception;
  */
 function bzclose($bz): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \bzclose($bz);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Bzip2Exception::createFromPhpError();
+        throw Bzip2Exception::createFromPhpError($error);
     }
 }
 
@@ -34,10 +45,21 @@ function bzclose($bz): void
  */
 function bzflush($bz): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \bzflush($bz);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Bzip2Exception::createFromPhpError();
+        throw Bzip2Exception::createFromPhpError($error);
     }
 }
 
@@ -59,10 +81,21 @@ function bzflush($bz): void
  */
 function bzread($bz, int $length = 1024): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \bzread($bz, $length);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Bzip2Exception::createFromPhpError();
+        throw Bzip2Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -84,14 +117,25 @@ function bzread($bz, int $length = 1024): string
  */
 function bzwrite($bz, string $data, int $length = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($length !== null) {
         $result = \bzwrite($bz, $data, $length);
     } else {
         $result = \bzwrite($bz, $data);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Bzip2Exception::createFromPhpError();
+        throw Bzip2Exception::createFromPhpError($error);
     }
     return $result;
 }

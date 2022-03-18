@@ -9,10 +9,10 @@ use Safe\Exceptions\ArrayException;
  * keys array as keys and the values from the
  * values array as the corresponding values.
  *
- * @param array $keys Array of keys to be used. Illegal values for key will be
+ * @param \array $keys Array of keys to be used. Illegal values for key will be
  * converted to string.
- * @param array $values Array of values to be used
- * @return array Returns the combined array, FALSE if the number of elements
+ * @param \array $values Array of values to be used
+ * @return \array Returns the combined array, FALSE if the number of elements
  * for each array isn't equal.
  * @throws ArrayException
  *
@@ -47,9 +47,9 @@ function array_combine(array $keys, array $values): array
  * are both arrays, array_replace_recursive will replace
  * their respective value recursively.
  *
- * @param array $array The array in which elements are replaced.
- * @param array $replacements Arrays from which elements will be extracted.
- * @return array Returns an array.
+ * @param \array $array The array in which elements are replaced.
+ * @param \array $replacements Arrays from which elements will be extracted.
+ * @return \array Returns an array.
  * @throws ArrayException
  *
  */
@@ -81,10 +81,10 @@ function array_replace_recursive(array $array, array  ...$replacements): array
  * array_replace is not recursive : it will replace
  * values in the first array by whatever type is in the second array.
  *
- * @param array $array The array in which elements are replaced.
- * @param array $replacements Arrays from which elements will be extracted.
+ * @param \array $array The array in which elements are replaced.
+ * @param \array $replacements Arrays from which elements will be extracted.
  * Values from later arrays overwrite the previous values.
- * @return array Returns an array.
+ * @return \array Returns an array.
  * @throws ArrayException
  *
  */
@@ -108,7 +108,7 @@ function array_replace(array $array, array  ...$replacements): array
  * element of the array. This function will recurse
  * into deeper arrays.
  *
- * @param array|object $array The input array.
+ * @param \array|object $array The input array.
  * @param callable $callback Typically, callback takes on two parameters.
  * The array parameter's value being the first, and
  * the key/index second.
@@ -144,7 +144,7 @@ function array_walk_recursive(&$array, callable $callback, $arg = null): void
  * It uses a pseudo random number generator that is not suitable for
  * cryptographic purposes.
  *
- * @param array $array The array.
+ * @param \array $array The array.
  * @throws ArrayException
  *
  */

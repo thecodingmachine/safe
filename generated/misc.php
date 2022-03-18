@@ -528,7 +528,7 @@ function time_sleep_until(float $timestamp): void
  * @param string $format See pack for an explanation of the format codes.
  * @param string $string The packed data.
  * @param int $offset The offset to begin unpacking from.
- * @return array Returns an associative array containing unpacked elements of binary
+ * @return \array Returns an associative array containing unpacked elements of binary
  * string.
  * @throws MiscException
  *

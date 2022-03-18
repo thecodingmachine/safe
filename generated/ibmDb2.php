@@ -299,7 +299,7 @@ function db2_commit($connection): void
  * db2_execute rather than db2_exec.
  *
  * @param resource $stmt A prepared statement returned from db2_prepare.
- * @param array $parameters An array of input parameters matching any parameter markers contained
+ * @param \array $parameters An array of input parameters matching any parameter markers contained
  * in the prepared statement.
  * @throws IbmDb2Exception
  *
@@ -842,7 +842,7 @@ function db2_server_info($connection): object
  * db2_prepare or a valid connection resource as
  * returned from db2_connect or
  * db2_pconnect.
- * @param array $options An associative array containing valid statement or connection
+ * @param \array $options An associative array containing valid statement or connection
  * options. This parameter can be used to change autocommit values,
  * cursor types (scrollable or forward), and to specify the case of
  * the column names (lower, upper, or natural) that will appear in a

@@ -279,7 +279,7 @@ function ftp_mkdir($ftp, string $directory): string
  *
  * @param resource $ftp An FTP\Connection instance.
  * @param string $directory The directory to be listed.
- * @return array Returns an array of arrays with file infos from the specified directory on success.
+ * @return \array Returns an array of arrays with file infos from the specified directory on success.
  * @throws FtpException
  *
  */
@@ -331,7 +331,7 @@ function ftp_nb_put($ftp, string $remote_filename, string $local_filename, int $
  * ftp_nlist($ftp, "-la /your/dir");.
  * Note that this parameter isn't escaped so there may be some issues with
  * filenames containing spaces and other characters.
- * @return array Returns an array of filenames from the specified directory on success.
+ * @return \array Returns an array of filenames from the specified directory on success.
  * @throws FtpException
  *
  */
@@ -416,7 +416,7 @@ function ftp_pwd($ftp): string
  *
  * @param resource $ftp An FTP\Connection instance.
  * @param string $command The command to execute.
- * @return array Returns the server's response as an array of strings.
+ * @return \array Returns the server's response as an array of strings.
  * No parsing is performed on the response string, nor does
  * ftp_raw determine if the command succeeded.
  * @throws FtpException

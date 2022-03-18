@@ -114,7 +114,7 @@ function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, s
  *
  * @param string $host
  * @param int $port
- * @param array $methods methods may be an associative array with up to four parameters
+ * @param \array $methods methods may be an associative array with up to four parameters
  * as described below.
  *
  *
@@ -248,7 +248,7 @@ function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, s
  * libssh2 library unless explicitly enabled
  * during build time by using the appropriate ./configure options.  See documentation
  * for the underlying library for more information.
- * @param array $callbacks callbacks may be an associative array with any
+ * @param \array $callbacks callbacks may be an associative array with any
  * or all of the following parameters.
  *
  *
@@ -346,7 +346,7 @@ function ssh2_disconnect($session): void
  * ssh2_connect.
  * @param string $command
  * @param string $pty
- * @param array $env env may be passed as an associative array of
+ * @param \array $env env may be passed as an associative array of
  * name/value pairs to set in the target environment.
  * @param int $width Width of the virtual terminal.
  * @param int $height Height of the virtual terminal.
@@ -434,7 +434,7 @@ function ssh2_forward_listen($session, int $port, string $host = null, int $max_
  * @param string $algoname Publickey algorithm (e.g.): ssh-dss, ssh-rsa
  * @param string $blob Publickey blob as raw binary data
  * @param bool $overwrite If the specified key already exists, should it be overwritten?
- * @param array $attributes Associative array of attributes to assign to this public key.
+ * @param \array $attributes Associative array of attributes to assign to this public key.
  * Refer to ietf-secsh-publickey-subsystem for a list of supported attributes.
  * To mark an attribute as mandatory, precede its name with an asterisk.
  * If the server is unable to support an attribute marked mandatory,
@@ -717,7 +717,7 @@ function ssh2_sftp($session)
  * ssh2_connect.
  * @param string $term_type term_type should correspond to one of the
  * entries in the target system's /etc/termcap file.
- * @param array $env env may be passed as an associative array of
+ * @param \array $env env may be passed as an associative array of
  * name/value pairs to set in the target environment.
  * @param int $width Width of the virtual terminal.
  * @param int $height Height of the virtual terminal.

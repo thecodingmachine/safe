@@ -247,7 +247,7 @@ function fflush($stream): void
  * @param string $enclosure The optional enclosure parameter sets the field enclosure character (one single-byte character only).
  * @param string $escape The optional escape parameter sets the escape character (at most one single-byte character).
  * An empty string ("") disables the proprietary escape mechanism.
- * @return array|false|null Returns an indexed array containing the fields read on success.
+ * @return \array|false|null Returns an indexed array containing the fields read on success.
  * @throws FilesystemException
  *
  */
@@ -953,7 +953,7 @@ function fread($stream, int $length): string
  *
  * @param resource $stream A file system pointer resource
  * that is typically created using fopen.
- * @return array Returns an array with the statistics of the file; the format of the array
+ * @return \array Returns an array with the statistics of the file; the format of the array
  * is described in detail on the stat manual page.
  * Returns FALSE on failure.
  * @throws FilesystemException
@@ -1214,7 +1214,7 @@ function link(string $target, string $link): void
  * filename.
  *
  * @param string $filename Path to a file or a symbolic link.
- * @return array See the manual page for stat for information on
+ * @return \array See the manual page for stat for information on
  * the structure of the array that lstat returns.
  * This function is identical to the stat function
  * except that if the filename parameter is a symbolic
@@ -1296,7 +1296,7 @@ function mkdir(string $directory, int $permissions = 0777, bool $recursive = fal
  * are converted to TRUE. "false", "off", "no"
  * and "none" are considered FALSE. "null" is converted to NULL
  * in typed mode. Also, all numeric strings are converted to integer type if it is possible.
- * @return array The settings are returned as an associative array on success.
+ * @return \array The settings are returned as an associative array on success.
  * @throws FilesystemException
  *
  */
@@ -1333,7 +1333,7 @@ function parse_ini_file(string $filename, bool $process_sections = false, int $s
  * are converted to TRUE. "false", "off", "no"
  * and "none" are considered FALSE. "null" is converted to NULL
  * in typed mode. Also, all numeric strings are converted to integer type if it is possible.
- * @return array The settings are returned as an associative array on success.
+ * @return \array The settings are returned as an associative array on success.
  * @throws FilesystemException
  *
  */

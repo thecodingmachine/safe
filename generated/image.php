@@ -17,7 +17,7 @@ use Safe\Exceptions\ImageException;
  * @param string $filename This parameter specifies the file you wish to retrieve information
  * about. It can reference a local file or (configuration permitting) a
  * remote file using one of the supported streams.
- * @param array|null $image_info This optional parameter allows you to extract some extended
+ * @param \array|null $image_info This optional parameter allows you to extract some extended
  * information from the image file. Currently, this will return the
  * different JPG APP markers as an associative array.
  * Some programs use these APP markers to embed text information in
@@ -28,7 +28,7 @@ use Safe\Exceptions\ImageException;
  *
  * The image_info only supports
  * JFIF files.
- * @return array Returns an array with up to 7 elements. Not all image types will include
+ * @return \array Returns an array with up to 7 elements. Not all image types will include
  * the channels and bits elements.
  *
  * Index 0 and 1 contains respectively the width and the height of the image.
@@ -133,8 +133,8 @@ function image2wbmp($image, ?string $filename = null, int $foreground = null): v
  *
  * @param resource $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param array $affine Array with keys 0 to 5.
- * @param array $clip Array with keys "x", "y", "width" and "height"; or NULL.
+ * @param \array $affine Array with keys 0 to 5.
+ * @param \array $clip Array with keys "x", "y", "width" and "height"; or NULL.
  * @return resource Return affined image object on success.
  * @throws ImageException
  *
@@ -159,9 +159,9 @@ function imageaffine($image, array $affine, array $clip = null)
  * what is useful if multiple transformations should be applied to the same
  * image in one go.
  *
- * @param array $matrix1 An affine transformation matrix (an array with keys
+ * @param \array $matrix1 An affine transformation matrix (an array with keys
  * 0 to 5 and float values).
- * @param array $matrix2 An affine transformation matrix (an array with keys
+ * @param \array $matrix2 An affine transformation matrix (an array with keys
  * 0 to 5 and float values).
  * @return array{0:float,1:float,2:float,3:float,4:float,5:float} An affine transformation matrix (an array with keys
  * 0 to 5 and float values).
@@ -183,7 +183,7 @@ function imageaffinematrixconcat(array $matrix1, array $matrix2): array
  * Returns an affine transformation matrix.
  *
  * @param int $type One of the IMG_AFFINE_* constants.
- * @param array|float $options If type is IMG_AFFINE_TRANSLATE
+ * @param \array|float $options If type is IMG_AFFINE_TRANSLATE
  * or IMG_AFFINE_SCALE,
  * options has to be an array with keys x
  * and y, both having float values.
@@ -509,7 +509,7 @@ function imagecolorset($image, int $color, int $red, int $green, int $blue, int 
  *
  * @param resource $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param array $matrix A 3x3 matrix: an array of three arrays of three floats.
+ * @param \array $matrix A 3x3 matrix: an array of three arrays of three floats.
  * @param float $divisor The divisor of the result of the convolution, used for normalization.
  * @param float $offset Color offset.
  * @throws ImageException
@@ -1039,7 +1039,7 @@ function imagecreatetruecolor(int $width, int $height)
  *
  * @param resource $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param array $rectangle The cropping rectangle as array with keys
+ * @param \array $rectangle The cropping rectangle as array with keys
  * x, y, width and
  * height.
  * @return resource Return cropped image object on success.
@@ -1504,7 +1504,7 @@ function imageflip($image, int $mode): void
  * search for files that do not begin with a leading '/' by appending
  * '.ttf' to the filename and searching along a library-defined font path.
  * @param string $string The string to be measured.
- * @param array $options
+ * @param \array $options
  * Possible array indexes for options
  *
  *
@@ -1523,7 +1523,7 @@ function imageflip($image, int $mode): void
  *
  *
  *
- * @return array imageftbbox returns an array with 8
+ * @return \array imageftbbox returns an array with 8
  * elements representing four points making the bounding box of the
  * text:
  *
@@ -1619,7 +1619,7 @@ function imageftbbox(float $size, float $angle, string $font_filename, string $s
  * ]]>
  *
  * @param string $text Text to be inserted into image.
- * @param array $options
+ * @param \array $options
  * Possible array indexes for options
  *
  *
@@ -1638,7 +1638,7 @@ function imageftbbox(float $size, float $angle, string $font_filename, string $s
  *
  *
  *
- * @return array This function returns an array defining the four points of the box, starting in the lower left and moving counter-clockwise:
+ * @return \array This function returns an array defining the four points of the box, starting in the lower left and moving counter-clockwise:
  *
  *
  *
@@ -2419,7 +2419,7 @@ function imagesetpixel($image, int $x, int $y, int $color): void
  *
  * @param resource $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param array $style An array of pixel colors. You can use the
+ * @param \array $style An array of pixel colors. You can use the
  * IMG_COLOR_TRANSPARENT constant to add a
  * transparent pixel.
  * Note that style must not be an empty array.
@@ -2634,8 +2634,8 @@ function imagetruecolortopalette($image, bool $dither, int $num_colors): void
  * Note that open_basedir does
  * not apply to fontfile.
  * @param string $string The string to be measured.
- * @param array $options
- * @return array imagettfbbox returns an array with 8
+ * @param \array $options
+ * @return \array imagettfbbox returns an array with 8
  * elements representing four points making the bounding box of the
  * text on success and FALSE on error.
  *
@@ -2757,8 +2757,8 @@ function imagettfbbox(float $size, float $angle, string $font_filename, string $
  *
  * If a character is used in the string which is not supported by the
  * font, a hollow rectangle will replace the character.
- * @param array $options
- * @return array Returns an array with 8 elements representing four points making the
+ * @param \array $options
+ * @return \array Returns an array with 8 elements representing four points making the
  * bounding box of the text. The order of the points is lower left, lower
  * right, upper right, upper left. The points are relative to the text
  * regardless of the angle, so "upper left" means in the top left-hand
@@ -2893,7 +2893,7 @@ function iptcembed(string $iptc_data, string $filename, int $spool = 0)
  * Parses an IPTC block into its single tags.
  *
  * @param string $iptc_block A binary IPTC block.
- * @return array Returns an array using the tagmarker as an index and the value as the
+ * @return \array Returns an array using the tagmarker as an index and the value as the
  * value. It returns FALSE on error or if no IPTC data was found.
  * @throws ImageException
  *

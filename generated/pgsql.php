@@ -113,11 +113,11 @@ function pg_connection_reset($connection): void
  *
  * @param resource $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table against which to convert types.
- * @param array $values Data to be converted.
+ * @param \array $values Data to be converted.
  * @param int $flags Any number of PGSQL_CONV_IGNORE_DEFAULT,
  * PGSQL_CONV_FORCE_NULL or
  * PGSQL_CONV_IGNORE_NOT_NULL, combined.
- * @return array An array of converted values.
+ * @return \array An array of converted values.
  * @throws PgsqlException
  *
  */
@@ -139,7 +139,7 @@ function pg_convert($connection, string $table_name, array $values, int $flags =
  *
  * @param resource $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table into which to copy the rows.
- * @param array $rows An array of data to be copied into table_name.
+ * @param \array $rows An array of data to be copied into table_name.
  * Each value in rows becomes a row in table_name.
  * Each value in rows should be a delimited string of the values
  * to insert into each field.  Values should be linefeed terminated.
@@ -171,7 +171,7 @@ function pg_copy_from($connection, string $table_name, array $rows, string $sepa
  * rows.  Default is \t.
  * @param string $null_as How SQL NULL values are represented in the
  * rows.  Default is \\N ("\\\\N").
- * @return array An array with one element for each line of COPY data.
+ * @return \array An array with one element for each line of COPY data.
  * @throws PgsqlException
  *
  */
@@ -206,7 +206,7 @@ function pg_copy_to($connection, string $table_name, string $separator = "\t", s
  *
  * @param resource $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table from which to delete rows.
- * @param array $conditions An array whose keys are field names in the table table_name,
+ * @param \array $conditions An array whose keys are field names in the table table_name,
  * and whose values are the values of those fields that are to be deleted.
  * @param int $flags Any number of PGSQL_CONV_FORCE_NULL,
  * PGSQL_DML_NO_CONV,
@@ -286,7 +286,7 @@ function pg_end_copy($connection = null): void
  * been previously prepared using pg_prepare,
  * pg_send_prepare or a PREPARE SQL
  * command.
- * @param array $params An array of parameter values to substitute for the $1, $2, etc. placeholders
+ * @param \array $params An array of parameter values to substitute for the $1, $2, etc. placeholders
  * in the original prepared query string.  The number of elements in the array
  * must match the number of placeholders.
  *
@@ -435,7 +435,7 @@ function pg_host($connection = null): string
  * @param resource $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table into which to insert rows.  The table table_name must at least
  * have as many columns as values has elements.
- * @param array $values An array whose keys are field names in the table table_name,
+ * @param \array $values An array whose keys are field names in the table table_name,
  * and whose values are the values of those fields that are to be inserted.
  * @param int $flags Any number of PGSQL_CONV_OPTS,
  * PGSQL_DML_NO_CONV,
@@ -763,7 +763,7 @@ function pg_lo_write($lob, string $data, int $length = null): int
  * @param resource $connection An PgSql\Connection instance.
  * @param string $table_name The name of the table.
  * @param bool $extended Flag for returning extended meta data. Default to FALSE.
- * @return array An array of the table definition.
+ * @return \array An array of the table definition.
  * @throws PgsqlException
  *
  */
@@ -1044,7 +1044,7 @@ function pg_put_line($connection = null, string $data = null): void
  * attack vectors and introduce bugs when handling data containing quotes.
  * If for some reason you cannot use a parameter, ensure that interpolated
  * values are properly escaped.
- * @param array $params An array of parameter values to substitute for the $1, $2, etc. placeholders
+ * @param \array $params An array of parameter values to substitute for the $1, $2, etc. placeholders
  * in the original prepared query string.  The number of elements in the array
  * must match the number of placeholders.
  *
@@ -1214,7 +1214,7 @@ function pg_result_seek($result, int $row): void
  *
  * @param resource $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table from which to select rows.
- * @param array $conditions An array whose keys are field names in the table table_name,
+ * @param \array $conditions An array whose keys are field names in the table table_name,
  * and whose values are the conditions that a row must meet to be retrieved.
  * @param int $flags Any number of PGSQL_CONV_FORCE_NULL,
  * PGSQL_DML_NO_CONV,
@@ -1318,9 +1318,9 @@ function pg_trace(string $filename, string $mode = "w", $connection = null): voi
  *
  * @param resource $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table into which to update rows.
- * @param array $values An array whose keys are field names in the table table_name,
+ * @param \array $values An array whose keys are field names in the table table_name,
  * and whose values are what matched rows are to be updated to.
- * @param array $conditions An array whose keys are field names in the table table_name,
+ * @param \array $conditions An array whose keys are field names in the table table_name,
  * and whose values are the conditions that a row must meet to be updated.
  * @param int $flags Any number of PGSQL_CONV_FORCE_NULL,
  * PGSQL_DML_NO_CONV,

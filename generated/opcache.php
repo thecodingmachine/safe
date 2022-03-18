@@ -28,7 +28,7 @@ function opcache_compile_file(string $filename): void
  * information about the file cache.
  *
  * @param bool $include_scripts Include script specific state information
- * @return array Returns an array of information, optionally containing script specific state information.
+ * @return \array Returns an array of information, optionally containing script specific state information.
  * @throws OpcacheException
  *
  */

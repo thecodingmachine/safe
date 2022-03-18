@@ -49,7 +49,7 @@ function deflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH):
  * (\x00 = Windows, \x03 = Unix, etc.)
  *
  * @param int $encoding One of the ZLIB_ENCODING_* constants.
- * @param array $options An associative array which may contain the following elements:
+ * @param \array $options An associative array which may contain the following elements:
  *
  *
  * level
@@ -271,7 +271,7 @@ function gzencode(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_G
  * @param string $filename The file name.
  * @param int $use_include_path You can set this optional parameter to 1, if you
  * want to search for the file in the include_path too.
- * @return array An array containing the file, one line per cell, empty lines included, and with newlines still attached.
+ * @return \array An array containing the file, one line per cell, empty lines included, and with newlines still attached.
  * @throws ZlibException
  *
  */
@@ -598,7 +598,7 @@ function inflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH):
  * encoding.
  *
  * @param int $encoding One of the ZLIB_ENCODING_* constants.
- * @param array $options An associative array which may contain the following elements:
+ * @param \array $options An associative array which may contain the following elements:
  *
  *
  * level

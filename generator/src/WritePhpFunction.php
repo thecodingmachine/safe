@@ -132,16 +132,29 @@ class WritePhpFunction
             default:
                 throw new \LogicException("Method doesn't have an error type");
         }
-
         // Special case for CURL: we need the first argument of the method if this is a resource.
         if ($moduleName === 'Curl') {
             $params = $method->getParams();
-            if (\count($params) > 0 && $params[0]->getParameter() === 'ch') {
-                return "
+            if (\count($params) > 0) {
+                if ($params[0]->getParameter() === 'handle') {
+                    return "
     if (\$result === $errorValue) {
-        throw CurlException::createFromCurlResource(\$ch);
+        throw CurlException::createFromCurlHandle(\$handle);
     }
 ";
+                } elseif ($params[0]->getParameter() === 'multi_handle') {
+                    return "
+    if (\$result === $errorValue) {
+        throw CurlException::createFromCurlMultiHandle(\$multi_handle);
+    }
+";
+                } elseif ($params[0]->getParameter() === 'share_handle') {
+                    return "
+    if (\$result === $errorValue) {
+        throw CurlException::createFromCurlShareHandle(\$share_handle);
+    }
+";
+                }
             }
         }
 

@@ -24,9 +24,20 @@ class DateTime extends \DateTime
      */
     public static function createFromFormat($format, $time, $timezone = null): self
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         $datetime = \DateTime::createFromFormat($format, $time, $timezone);
+        restore_error_handler();
         if ($datetime === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return self::createFromRegular($datetime);
     }
@@ -39,10 +50,21 @@ class DateTime extends \DateTime
      */
     public function diff($datetime2, $absolute = false): DateInterval
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var \DateInterval|false $result */
         $result = parent::diff($datetime2, $absolute);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return $result;
     }
@@ -54,10 +76,21 @@ class DateTime extends \DateTime
      */
     public function modify($modify): self
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var DateTime|false $result */
         $result = parent::modify($modify);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return $result;
     }
@@ -71,10 +104,21 @@ class DateTime extends \DateTime
      */
     public function setDate($year, $month, $day): self
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var DateTime|false $result */
         $result = parent::setDate($year, $month, $day);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return $result;
     }

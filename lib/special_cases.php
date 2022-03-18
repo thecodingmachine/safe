@@ -55,10 +55,20 @@ function json_decode(string $json, bool $assoc = false, int $depth = 512, int $o
  */
 function apc_fetch($key)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apc_fetch($key, $success);
+    restore_error_handler();
     if ($success === false) {
-        throw ApcException::createFromPhpError();
+        throw ApcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -75,10 +85,20 @@ function apc_fetch($key)
  */
 function apcu_fetch($key)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apcu_fetch($key, $success);
+    restore_error_handler();
     if ($success === false) {
-        throw ApcuException::createFromPhpError();
+        throw ApcuException::createFromPhpError($error);
     }
     return $result;
 }
@@ -159,7 +179,6 @@ function apcu_fetch($key)
  */
 function preg_replace($pattern, $replacement, $subject, int $limit = -1, int &$count = null)
 {
-    error_clear_last();
     $result = \preg_replace($pattern, $replacement, $subject, $limit, $count);
     if (preg_last_error() !== PREG_NO_ERROR || $result === null) {
         throw PcreException::createFromPhpError();
@@ -203,7 +222,6 @@ function readdir($dir_handle = null)
  */
 function openssl_encrypt(string $data, string $method, string $key, int $options = 0, string $iv = "", string &$tag = "", string $aad = "", int $tag_length = 16): string
 {
-    error_clear_last();
     // The $tag parameter is handled in a weird way by openssl_encrypt. It cannot be provided unless encoding is AEAD
     if (func_num_args() <= 5) {
         $result = \openssl_encrypt($data, $method, $key, $options, $iv);
@@ -218,8 +236,7 @@ function openssl_encrypt(string $data, string $method, string $key, int $options
 
 /**
  * The function socket_write writes to the
- * socket from the given
- * buffer.
+ * socket from the given buffer.
  *
  * @param \Socket $socket
  * @param string $buffer The buffer to be written.
@@ -237,10 +254,20 @@ function openssl_encrypt(string $data, string $method, string $key, int $options
  */
 function socket_write(\Socket $socket, string $buffer, int $length = 0): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = $length === 0 ? \socket_write($socket, $buffer) : \socket_write($socket, $buffer, $length);
+    restore_error_handler();
     if ($result === false) {
-        throw SocketsException::createFromPhpError();
+        throw SocketsException::createFromPhpError($error);
     }
     return $result;
 }
@@ -261,10 +288,21 @@ function socket_write(\Socket $socket, string $buffer, int $length = 0): int
  */
 function simplexml_import_dom(\DOMNode $node, string $class_name = \SimpleXMLElement::class): \SimpleXMLElement
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \simplexml_import_dom($node, $class_name);
+    restore_error_handler();
     if ($result === null) {
-        throw SimplexmlException::createFromPhpError();
+        /** @var array{type?: int, message?: string, file?: string, line?: int} $error */
+        throw SimplexmlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -289,10 +327,21 @@ function simplexml_import_dom(\DOMNode $node, string $class_name = \SimpleXMLEle
  */
 function simplexml_load_file(string $filename, string $class_name = \SimpleXMLElement::class, int $options = 0, string $namespace_or_prefix = "", bool $is_prefix = false): \SimpleXMLElement
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \simplexml_load_file($filename, $class_name, $options, $namespace_or_prefix, $is_prefix);
+    restore_error_handler();
     if ($result === false) {
-        throw SimplexmlException::createFromPhpError();
+        /** @var array{type?: int, message?: string, file?: string, line?: int} $error */
+        throw SimplexmlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -318,10 +367,21 @@ function simplexml_load_file(string $filename, string $class_name = \SimpleXMLEl
  */
 function simplexml_load_string(string $data, string $class_name = \SimpleXMLElement::class, int $options = 0, string $namespace_or_prefix = "", bool $is_prefix = false): \SimpleXMLElement
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \simplexml_load_string($data, $class_name, $options, $namespace_or_prefix, $is_prefix);
+    restore_error_handler();
     if ($result === false) {
-        throw SimplexmlException::createFromPhpError();
+        /** @var array{type?: int, message?: string, file?: string, line?: int} $error */
+        throw SimplexmlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -338,10 +398,20 @@ function simplexml_load_string(string $data, string $class_name = \SimpleXMLElem
  */
 function sys_getloadavg(): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sys_getloadavg();
+    restore_error_handler();
     if ($result === false) {
-        throw MiscException::createFromPhpError();
+        throw MiscException::createFromPhpError($error);
     }
     return $result;
 }
@@ -357,10 +427,20 @@ function sys_getloadavg(): array
  */
 function posix_getpgid(int $process_id): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \posix_getpgid($process_id);
+    restore_error_handler();
     if ($result === false) {
-        throw PosixException::createFromPhpError();
+        throw PosixException::createFromPhpError($error);
     }
     return $result;
 }
@@ -392,16 +472,25 @@ function posix_getpgid(int $process_id): int
  */
 function fputcsv($stream, array $fields, string $separator = ",", string $enclosure = "\"", string $escape = "\\", string $eol = "\n"): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if (PHP_VERSION_ID >= 80100) {
         /** @phpstan-ignore-next-line */
         $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape, $eol);
     } else {
         $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape);
     }
-
+    restore_error_handler();
     if ($result === false) {
-        throw FilesystemException::createFromPhpError();
+        throw FilesystemException::createFromPhpError($error);
     }
     return $result;
 }

@@ -161,13 +161,13 @@ function mb_encoding_aliases(string $encoding): array
  * not used anywhere else.
  * @param string $string The string being checked.
  * @param string $options The search option. See mb_regex_set_options for explanation.
- * @return string The resultant string on success.
+ * @return string|null The resultant string on success.
  * If string is not valid for the current encoding, NULL
  * is returned.
  * @throws MbstringException
  *
  */
-function mb_ereg_replace_callback(string $pattern, callable $callback, string $string, string $options = null): string
+function mb_ereg_replace_callback(string $pattern, callable $callback, string $string, string $options = null): ?string
 {
     error_clear_last();
     if ($options !== null) {
@@ -191,13 +191,13 @@ function mb_ereg_replace_callback(string $pattern, callable $callback, string $s
  * @param string $replacement The replacement text.
  * @param string $string The string being checked.
  * @param string $options
- * @return string The resultant string on success.
+ * @return string|null The resultant string on success.
  * If string is not valid for the current encoding, NULL
  * is returned.
  * @throws MbstringException
  *
  */
-function mb_ereg_replace(string $pattern, string $replacement, string $string, string $options = null): string
+function mb_ereg_replace(string $pattern, string $replacement, string $string, string $options = null): ?string
 {
     error_clear_last();
     if ($options !== null) {

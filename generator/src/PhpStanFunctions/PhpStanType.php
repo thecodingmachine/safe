@@ -71,7 +71,16 @@ class PhpStanType
             }
             //remove the parenthesis only if we are not dealing with a callable
             if (\strpos($returnType, 'callable') === false) {
-                $returnType = str_replace(['(', ')'], '', $returnType);
+                $returnType = \str_replace(['(', ')'], '', $returnType);
+            }
+            //here we deal with some weird phpstan typings
+            if ($returnType === 'non-empty-string') {
+                $returnType = 'string';
+            } elseif ($returnType === 'positive-int') {
+                $returnType = 'int';
+            }
+            if (\strpos($returnType, 'list<') !== false) {
+                $returnType = \str_replace('list', 'array', $returnType);
             }
             $returnType = Type::toRootNamespace($returnType);
         }

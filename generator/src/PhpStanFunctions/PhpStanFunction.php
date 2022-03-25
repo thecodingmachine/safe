@@ -16,10 +16,13 @@ class PhpStanFunction
     private $parameters = [];
 
     /**
-     * @param mixed[] $signature
+     * @param string[] $signature
      */
     public function __construct(array $signature)
     {
+        if (count($signature) < 1) {
+            throw new \RuntimeException('Invalid signoatures');
+        }
         $this->returnType = new PhpStanType(\array_shift($signature));
         foreach ($signature as $name => $type) {
             $param = new PhpStanParameter($name, $type);

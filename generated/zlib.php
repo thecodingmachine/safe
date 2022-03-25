@@ -686,11 +686,11 @@ function inflate_init(int $encoding, array $options = [])
  * contents written to standard output.
  * @param int $use_include_path You can set this optional parameter to 1, if you
  * want to search for the file in the include_path too.
- * @return int Returns the number of (uncompressed) bytes read from the file on success
+ * @return \0|int Returns the number of (uncompressed) bytes read from the file on success
  * @throws ZlibException
  *
  */
-function readgzfile(string $filename, int $use_include_path = 0): int
+function readgzfile(string $filename, int $use_include_path = 0)
 {
     error_clear_last();
     $result = \readgzfile($filename, $use_include_path);

@@ -161,4 +161,25 @@ class PhpStanTypeTest extends TestCase
         $this->assertEquals('', $param->getSignatureType(Method::FALSY_TYPE));
     }
 
+    public function testNotEmptyStringBecomingString(): void
+    {
+        $param = new PhpStanType('non-empty-string|false');
+        $this->assertEquals('string', $param->getDocBlockType(Method::FALSY_TYPE));
+        $this->assertEquals('string', $param->getSignatureType(Method::FALSY_TYPE));
+    }
+
+    public function testPositiveIntBecomingInt(): void
+    {
+        $param = new PhpStanType('positive-int');
+        $this->assertEquals('int', $param->getDocBlockType());
+        $this->assertEquals('int', $param->getSignatureType());
+    }
+
+    public function testListBecomingArray(): void
+    {
+        $param = new PhpStanType('list<string>|false');
+        $this->assertEquals('array<string>', $param->getDocBlockType(Method::FALSY_TYPE));
+        $this->assertEquals('array', $param->getSignatureType(Method::FALSY_TYPE));
+    }
+
 }

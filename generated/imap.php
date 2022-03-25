@@ -2234,14 +2234,14 @@ function imap_timeout(int $timeout_type, int $timeout = -1)
  * imap_delete or imap_mail_move.
  *
  * @param resource $imap An IMAP\Connection instance.
- * @param int $message_nums A string representing one or more messages in IMAP4-style sequence format
+ * @param string $message_nums A string representing one or more messages in IMAP4-style sequence format
  * ("n", "n:m", or combination of these
  * delimited by commas).
  * @param int $flags
  * @throws ImapException
  *
  */
-function imap_undelete($imap, int $message_nums, int $flags = 0): void
+function imap_undelete($imap, string $message_nums, int $flags = 0): void
 {
     error_clear_last();
     $result = \imap_undelete($imap, $message_nums, $flags);

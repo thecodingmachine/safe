@@ -17,6 +17,7 @@ class ComposerJsonEditor
         if ($composerContent === false) {
             throw new \RuntimeException('Error while loading composer.json file for edition.');
         }
+        /** @var array<string, array<string, string[]>> $composerJson */
         $composerJson = \json_decode($composerContent, true);
         $composerJson['autoload']['files'] = self::editFileListForDeprecation($composerJson['autoload']['files'], $moduleName);
 
@@ -34,6 +35,7 @@ class ComposerJsonEditor
         if ($composerContent === false) {
             throw new \RuntimeException('Error while loading composer.json file for edition.');
         }
+        /** @var array<string, array<string, string[]>> $composerJson */
         $composerJson = \json_decode($composerContent, true);
         $composerJson['autoload']['files'] = self::editFilesListForGeneration($composerJson['autoload']['files'], $modules);
 

@@ -6,11 +6,12 @@ namespace Safe\PhpStanFunctions;
 class PhpStanFunctionMapReader
 {
     /**
-     * @var array<string, array>
+     * @var array<string, string[]>
      */
     private $functionMap;
+
     /**
-     * @var array<string, array>
+     * @var array<string, string[]>
      */
     private $customFunctionMap;
 

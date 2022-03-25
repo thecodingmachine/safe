@@ -323,7 +323,7 @@ function getmyuid(): int
  * @param string $short_options
  * @param array $long_options
  * @param int|null $rest_index
- * @return array|array|array This function will return an array of option / argument pairs.
+ * @return \__benevolent This function will return an array of option / argument pairs.
  * @throws InfoException
  *
  */

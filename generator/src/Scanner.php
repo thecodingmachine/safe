@@ -59,8 +59,8 @@ class Scanner
     private function getIgnoredFunctions(): array
     {
         if ($this->ignoredFunctions === null) {
-            $ignoredFunctions = require __DIR__.'/../config/ignoredFunctions.php';
-            $specialCaseFunctions = require __DIR__.'/../config/specialCasesFunctions.php';
+            $ignoredFunctions = require __DIR__ . '/../config/ignoredFunctions.php';
+            $specialCaseFunctions = require __DIR__ . '/../config/specialCasesFunctions.php';
 
             $this->ignoredFunctions = array_merge($ignoredFunctions, $specialCaseFunctions);
         }
@@ -81,11 +81,12 @@ class Scanner
 
     /**
      * @param SplFileInfo[] $paths
-     * @return mixed[] Structure: ['functions'=>Method[], 'overloadedFunctions'=>string[]]
      */
-    public function getMethods(array $paths): array
+    public function getMethods(array $paths): ScannerResponse
     {
+        /** @var Method[] $functions */
         $functions = [];
+        /** @var string[] $overloadedFunctions */
         $overloadedFunctions = [];
 
         $phpStanFunctionMapReader = new PhpStanFunctionMapReader();
@@ -127,9 +128,6 @@ class Scanner
             }
         }
 
-        return [
-            'functions' => $functions,
-            'overloadedFunctions' => \array_unique($overloadedFunctions)
-        ];
+        return new ScannerResponse($functions, $overloadedFunctions);
     }
 }

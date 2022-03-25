@@ -26,7 +26,7 @@ use Safe\Exceptions\SimplexmlException;
  * @param string $json    JSON data to parse
  * @param bool $assoc     When true, returned objects will be converted
  *                        into associative arrays.
- * @param int $depth   User specified recursion depth.
+ * @param int<1, max> $depth   User specified recursion depth.
  * @param int $options Bitmask of JSON decode options.
  *
  * @return mixed
@@ -88,12 +88,12 @@ function apcu_fetch($key)
  * pattern and replaces them with
  * replacement.
  *
- * @param mixed $pattern The pattern to search for. It can be either a string or an array with
+ * @param string[]|string $pattern The pattern to search for. It can be either a string or an array with
  * strings.
  *
  * Several PCRE modifiers
  * are also available.
- * @param mixed $replacement The string or an array with strings to replace. If this parameter is a
+ * @param string[]|string $replacement The string or an array with strings to replace. If this parameter is a
  * string and the pattern parameter is an array,
  * all patterns will be replaced by that string. If both
  * pattern and replacement

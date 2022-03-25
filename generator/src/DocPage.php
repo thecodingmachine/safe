@@ -118,9 +118,6 @@ class DocPage
         if (preg_match('/&gd\.return\.identifier;/m', $returnValuesSection)) {
             return true;
         }
-        if (preg_match('/&gd\.return\.identifier;/m', $returnValuesSection)) {
-            return true;
-        }
         //used for date
         if (preg_match('/If a non-numeric value is used for 
    \<parameter\>timestamp\<\/parameter\>, &false; is returned/m', $returnValuesSection)) {
@@ -309,13 +306,13 @@ class DocPage
      */
     private function arrayFlatten(array $array): array
     {
-        $result = array();
+        $result = [];
 
         foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $result = array_merge($result, $this->arrayFlatten($value));
             } else {
-                $result[$key] = $value;
+                $result[$key] = strval($value);
             }
         }
         return $result;

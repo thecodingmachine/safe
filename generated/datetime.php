@@ -9,11 +9,11 @@ use Safe\Exceptions\DatetimeException;
  *
  * @param string $format Format accepted by DateTime::createFromFormat.
  * @param string $datetime String representing the date/time.
- * @return array Returns associative array with detailed info about given date/time.
+ * @return array{year: int|false, month: int|false, day: int|false, hour: int|false, minute: int|false, second: int|false, fraction: float|false, warning_count: int, warnings: string[], error_count: int, errors: string[], is_localtime: bool, zone_type: int|bool, zone: int|bool, is_dst: bool, tz_abbr: string, tz_id: string, relative: array{year: int, month: int, day: int, hour: int, minute: int, second: int, weekday: int, weekdays: int, first_day_of_month: bool, last_day_of_month: bool}}|null Returns associative array with detailed info about given date/time.
  * @throws DatetimeException
  *
  */
-function date_parse_from_format(string $format, string $datetime): array
+function date_parse_from_format(string $format, string $datetime): ?array
 {
     error_clear_last();
     $result = \date_parse_from_format($format, $datetime);
@@ -29,12 +29,12 @@ function date_parse_from_format(string $format, string $datetime): array
  *
  * @param string $datetime Date/time in format accepted by
  * DateTimeImmutable::__construct.
- * @return array Returns array with information about the parsed date/time
+ * @return array{year: int|false, month: int|false, day: int|false, hour: int|false, minute: int|false, second: int|false, fraction: float|false, warning_count: int, warnings: string[], error_count: int, errors: string[], is_localtime: bool, zone_type: int|bool, zone: int|bool, is_dst: bool, tz_abbr: string, tz_id: string, relative: array{year: int, month: int, day: int, hour: int, minute: int, second: int, weekday: int, weekdays: int, first_day_of_month: bool, last_day_of_month: bool}}|null Returns array with information about the parsed date/time
  * on success.
  * @throws DatetimeException
  *
  */
-function date_parse(string $datetime): array
+function date_parse(string $datetime): ?array
 {
     error_clear_last();
     $result = \date_parse($datetime);

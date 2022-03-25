@@ -28,9 +28,9 @@ class GenerateCommand extends Command
 
         $paths = $scanner->getFunctionsPaths();
 
-        /** @var Method[] $functions */
-        /** @var string[] $overloadedFunctions */
-        ['functions' => $functions,'overloadedFunctions' => $overloadedFunctions] = $scanner->getMethods($paths);
+        $res = $scanner->getMethods($paths);
+        $functions = $res->methods;
+        $overloadedFunctions = $res->overloadedFunctions;
 
         $output->writeln('These functions have been ignored and must be dealt with manually: '.\implode(', ', $overloadedFunctions));
 

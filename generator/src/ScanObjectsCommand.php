@@ -23,17 +23,14 @@ class ScanObjectsCommand extends Command
 
         $paths = $scanner->getMethodsPaths();
 
-        [
-            'functions' => $functions,
-            'overloadedFunctions' => $overloadedFunctions
-        ] = $scanner->getMethods($paths);
+        $res = $scanner->getMethods($paths);
 
-        foreach ($functions as $function) {
+        foreach ($res->methods as $function) {
             $name = $function->getFunctionName();
             $output->writeln('Found method '.$name);
         }
 
-        $output->writeln('These methods are overloaded: '.\implode(', ', $overloadedFunctions));
+        $output->writeln('These methods are overloaded: '.\implode(', ', $res->overloadedFunctions));
         return 0;
     }
 }

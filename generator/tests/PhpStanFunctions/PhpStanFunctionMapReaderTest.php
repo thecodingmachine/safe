@@ -2,7 +2,7 @@
 
 namespace Safe\PhpStanFunctions;
 
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class PhpStanFunctionMapReaderTest extends TestCase
 {

@@ -26,4 +26,7 @@ return [
     'curl_share_errno' => ['int', 'share_handle' => 'CurlShareHandle'],
     'curl_share_setopt' => ['void', 'share_handle' => 'CurlShareHandle', 'option' => 'int', 'value' => 'mixed'],
     'curl_unescape' => ['string', 'handle' => 'CurlHandle', 'string' => 'string'],
+
+    //todo: edit the reader to turn 0|1 into int
+    'preg_match' => ['int|false', 'pattern'=>'string', 'subject'=>'string', '&w_subpatterns='=>'string[]', 'flags='=>'int', 'offset='=>'int'], //int|false instead of 0|1|false
 ];

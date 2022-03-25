@@ -4,7 +4,7 @@
 namespace Safe\PhpStanFunctions;
 
 
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 use Safe\Method;
 
 class PhpStanTypeTest extends TestCase

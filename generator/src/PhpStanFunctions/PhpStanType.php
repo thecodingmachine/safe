@@ -78,13 +78,15 @@ class PhpStanType
                 $returnType = 'string';
             } elseif ($returnType === 'positive-int') {
                 $returnType = 'int';
+            } elseif (is_numeric($returnType)) {
+                $returnType = 'int';
             }
             if (\strpos($returnType, 'list<') !== false) {
                 $returnType = \str_replace('list', 'array', $returnType);
             }
             $returnType = Type::toRootNamespace($returnType);
         }
-        $this->types = $returnTypes;
+        $this->types = array_unique($returnTypes);
         $this->nullable = $nullable;
         $this->falsable = $falsable;
     }

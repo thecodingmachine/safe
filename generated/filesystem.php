@@ -235,7 +235,7 @@ function fflush($stream): void
  * @param resource $stream A valid file pointer to a file successfully opened by
  * fopen, popen, or
  * fsockopen.
- * @param \0|int $length Must be greater than the longest line (in characters) to be found in
+ * @param int $length Must be greater than the longest line (in characters) to be found in
  * the CSV file (allowing for trailing line-end characters). Otherwise the
  * line is split in chunks of length characters,
  * unless the split would occur inside an enclosure.
@@ -251,7 +251,7 @@ function fflush($stream): void
  * @throws FilesystemException
  *
  */
-function fgetcsv($stream, $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\")
+function fgetcsv($stream, int $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\")
 {
     error_clear_last();
     if ($escape !== "\\") {
@@ -299,14 +299,14 @@ function fgetcsv($stream, $length = null, string $separator = ",", string $enclo
  * Seeking (offset) is not supported with remote files.
  * Attempting to seek on non-local files may work with small offsets, but this
  * is unpredictable because it works on the buffered stream.
- * @param \0|int $length Maximum length of data read. The default is to read until end
+ * @param int $length Maximum length of data read. The default is to read until end
  * of file is reached. Note that this parameter is applied to the
  * stream processed by the filters.
  * @return string The function returns the read data.
  * @throws FilesystemException
  *
  */
-function file_get_contents(string $filename, bool $use_include_path = false, $context = null, int $offset = 0, $length = null): string
+function file_get_contents(string $filename, bool $use_include_path = false, $context = null, int $offset = 0, int $length = null): string
 {
     error_clear_last();
     if ($length !== null) {
@@ -395,11 +395,11 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
  *
  * @param resource|null $context A valid context resource created with
  * stream_context_create.
- * @return \0|int This function returns the number of bytes that were written to the file.
+ * @return int This function returns the number of bytes that were written to the file.
  * @throws FilesystemException
  *
  */
-function file_put_contents(string $filename, $data, int $flags = 0, $context = null)
+function file_put_contents(string $filename, $data, int $flags = 0, $context = null): int
 {
     error_clear_last();
     if ($context !== null) {
@@ -613,12 +613,12 @@ function fileperms(string $filename): int
  * Gets the size for the given file.
  *
  * @param string $filename Path to the file.
- * @return \0|int Returns the size of the file in bytes, or FALSE (and generates an error
+ * @return int Returns the size of the file in bytes, or FALSE (and generates an error
  * of level E_WARNING) in case of an error.
  * @throws FilesystemException
  *
  */
-function filesize(string $filename)
+function filesize(string $filename): int
 {
     error_clear_last();
     $result = \filesize($filename);
@@ -929,12 +929,12 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  *
  * @param resource $stream A file system pointer resource
  * that is typically created using fopen.
- * @param \0|int $length Up to length number of bytes read.
+ * @param int $length Up to length number of bytes read.
  * @return string Returns the read string.
  * @throws FilesystemException
  *
  */
-function fread($stream, $length): string
+function fread($stream, int $length): string
 {
     error_clear_last();
     $result = \fread($stream, $length);
@@ -998,7 +998,7 @@ function fsync($stream): void
  * @param resource $stream The file pointer.
  *
  * The stream must be open for writing.
- * @param \0|int $size The size to truncate to.
+ * @param int $size The size to truncate to.
  *
  * If size is larger than the file then the file
  * is extended with null bytes.
@@ -1008,7 +1008,7 @@ function fsync($stream): void
  * @throws FilesystemException
  *
  */
-function ftruncate($stream, $size): void
+function ftruncate($stream, int $size): void
 {
     error_clear_last();
     $result = \ftruncate($stream, $size);
@@ -1024,14 +1024,14 @@ function ftruncate($stream, $size): void
  * @param resource $stream A file system pointer resource
  * that is typically created using fopen.
  * @param string $data The string that is to be written.
- * @param \0|int $length If length is an integer, writing will stop
+ * @param int $length If length is an integer, writing will stop
  * after length bytes have been written or the
  * end of data is reached, whichever comes first.
- * @return \0|int
+ * @return int
  * @throws FilesystemException
  *
  */
-function fwrite($stream, string $data, $length = null)
+function fwrite($stream, string $data, int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {
@@ -1356,11 +1356,11 @@ function parse_ini_string(string $ini_string, bool $process_sections = false, in
  * you want to search for the file in the include_path, too.
  * @param resource $context A context stream
  * resource.
- * @return \0|int Returns the number of bytes read from the file on success
+ * @return int Returns the number of bytes read from the file on success
  * @throws FilesystemException
  *
  */
-function readfile(string $filename, bool $use_include_path = false, $context = null)
+function readfile(string $filename, bool $use_include_path = false, $context = null): int
 {
     error_clear_last();
     if ($context !== null) {

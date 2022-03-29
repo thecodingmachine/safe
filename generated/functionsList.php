@@ -693,6 +693,7 @@ return [
     'parse_ini_file',
     'parse_ini_string',
     'parse_url',
+    'passthru',
     'pcntl_getpriority',
     'pcntl_setpriority',
     'pcntl_signal',

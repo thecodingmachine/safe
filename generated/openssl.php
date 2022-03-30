@@ -1353,12 +1353,12 @@ function openssl_spki_verify(string $spki): void
  * @param int|string $algorithm int - one of these Signature Algorithms.
  *
  * string - a valid string returned by openssl_get_md_methods example, "sha1WithRSAEncryption" or "sha512".
- * @return \-1|\0|\1 Returns 1 if the signature is correct, 0 if it is incorrect, and
+ * @return int Returns 1 if the signature is correct, 0 if it is incorrect, and
  * -1.
  * @throws OpensslException
  *
  */
-function openssl_verify(string $data, string $signature, $public_key, $algorithm = OPENSSL_ALGO_SHA1)
+function openssl_verify(string $data, string $signature, $public_key, $algorithm = OPENSSL_ALGO_SHA1): int
 {
     error_clear_last();
     $result = \openssl_verify($data, $signature, $public_key, $algorithm);

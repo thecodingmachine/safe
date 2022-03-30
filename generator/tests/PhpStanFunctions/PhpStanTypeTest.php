@@ -182,4 +182,11 @@ class PhpStanTypeTest extends TestCase
         $this->assertEquals('array', $param->getSignatureType(Method::FALSY_TYPE));
     }
 
+    public function testNumbersAreRemoved(): void
+    {
+        $param = new PhpStanType('0|positive-int');
+        $this->assertEquals('int', $param->getDocBlockType());
+        $this->assertEquals('int', $param->getSignatureType());
+    }
+
 }

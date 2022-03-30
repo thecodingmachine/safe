@@ -12,7 +12,7 @@ class PhpStanTypeTest extends TestCase
     public function testMixedTypes(): void 
     {
         $param = new PhpStanType('array|string|int');
-        $this->assertEquals('array|string|int', $param->getDocBlockType());
+        $this->assertEquals('\array|string|int', $param->getDocBlockType());
         $this->assertEquals('', $param->getSignatureType());
     }
 
@@ -34,23 +34,23 @@ class PhpStanTypeTest extends TestCase
         $this->assertEquals('iterable', $param->getSignatureType());
 
         $param = new PhpStanType('array<string,mixed>');
-        $this->assertEquals('array<string,mixed>', $param->getDocBlockType());
+        $this->assertEquals('\array<string,mixed>', $param->getDocBlockType());
         $this->assertEquals('array', $param->getSignatureType());
 
         $param = new PhpStanType('array<string,mixed>|array<int,string>');
-        $this->assertEquals('array<string,mixed>|array<int,string>', $param->getDocBlockType());
+        $this->assertEquals('\array<string,mixed>|\array<int,string>', $param->getDocBlockType());
         $this->assertEquals('array', $param->getSignatureType());
 
         $param = new PhpStanType('array<int|string,object|bool>');
-        $this->assertEquals('array<int|string,object|bool>', $param->getDocBlockType());
+        $this->assertEquals('\array<int|string,object|bool>', $param->getDocBlockType());
         $this->assertEquals('array', $param->getSignatureType());
 
         $param = new PhpStanType('array<int|string,array<int|string>>|array{1: int, 2: string}');
-        $this->assertEquals('array<int|string,array<int|string>>|array{1: int, 2: string}', $param->getDocBlockType());
+        $this->assertEquals('\array<int|string,\array<int|string>>|\array{1: int, 2: string}', $param->getDocBlockType());
         $this->assertEquals('array', $param->getSignatureType());
 
         $param = new PhpStanType('array{0:float,1:float,2:float,3:float,4:float,5:float}');
-        $this->assertEquals('array{0:float,1:float,2:float,3:float,4:float,5:float}', $param->getDocBlockType());
+        $this->assertEquals('\array{0:float,1:float,2:float,3:float,4:float,5:float}', $param->getDocBlockType());
         $this->assertEquals('array', $param->getSignatureType());
     }
     
@@ -58,7 +58,7 @@ class PhpStanTypeTest extends TestCase
     {
         $param = new PhpStanType('array|null');
         $this->assertEquals(true, $param->isNullable());
-        $this->assertEquals('array|null', $param->getDocBlockType());
+        $this->assertEquals('\array|null', $param->getDocBlockType());
         $this->assertEquals('?array', $param->getSignatureType());
 
         $param = new PhpStanType('?int|?string');
@@ -150,7 +150,7 @@ class PhpStanTypeTest extends TestCase
     public function testDuplicateType(): void 
     {
         $param = new PhpStanType('array<string,string>|array<string,false>|array<string,array<int,mixed>>');
-        $this->assertEquals('array<string,string>|array<string,false>|array<string,array<int,mixed>>', $param->getDocBlockType());
+        $this->assertEquals('\array<string,string>|\array<string,false>|\array<string,\array<int,mixed>>', $param->getDocBlockType());
         $this->assertEquals('array', $param->getSignatureType());
     }
 
@@ -178,7 +178,7 @@ class PhpStanTypeTest extends TestCase
     public function testListBecomingArray(): void
     {
         $param = new PhpStanType('list<string>|false');
-        $this->assertEquals('array<string>', $param->getDocBlockType(Method::FALSY_TYPE));
+        $this->assertEquals('\array<string>', $param->getDocBlockType(Method::FALSY_TYPE));
         $this->assertEquals('array', $param->getSignatureType(Method::FALSY_TYPE));
     }
 

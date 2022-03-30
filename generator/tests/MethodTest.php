@@ -80,7 +80,7 @@ class MethodTest extends TestCase
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
-        $this->assertEquals('array', $params[5]->getDocBlockType());
+        $this->assertEquals('\array', $params[5]->getDocBlockType());
         $this->assertEquals('array', $params[5]->getSignatureType());        
     }
 
@@ -100,7 +100,7 @@ class MethodTest extends TestCase
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-replace.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::NULLSY_TYPE);
-        $this->assertEquals("@return array Returns an array.\n", $method->getReturnDocBlock());
+        $this->assertEquals("@return \array Returns an array.\n", $method->getReturnDocBlock());
 
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/shmop/functions/shmop-delete.xml');
         $xmlObject = $docPage->getMethodSynopsis();

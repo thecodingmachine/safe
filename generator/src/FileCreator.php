@@ -25,7 +25,7 @@ class FileCreator
 
         foreach ($phpFunctionsByModule as $module => $phpFunctions) {
             $lcModule = \lcfirst($module);
-            $stream = \fopen($path.$lcModule.'.php', 'w');
+            $stream = \fopen($path.$lcModule.'_func.php', 'w');
             if ($stream === false) {
                 throw new \RuntimeException('Unable to write to '.$path);
             }

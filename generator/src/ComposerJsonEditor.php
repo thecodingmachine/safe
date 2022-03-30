@@ -57,7 +57,7 @@ class ComposerJsonEditor
             return strpos($file, 'generated/') === false;
         }));
         foreach ($modules as $module) {
-            $files[] = 'generated/'.lcfirst($module).'.php';
+            $files[] = 'generated/'.lcfirst($module).'_func.php';
         }
         return $files;
     }
@@ -69,9 +69,10 @@ class ComposerJsonEditor
     public static function editFileListForDeprecation(array $fileList, string $moduleName): array
     {
         $newList = [];
+
         foreach ($fileList as $fileName) {
-            if ($fileName === "generated/$moduleName.php") {
-                $newList[] = "deprecated/$moduleName.php";
+            if ($fileName === "generated/{$moduleName}_func.php") {
+                $newList[] = "deprecated/{$moduleName}_func.php";
             } else {
                 $newList[] = $fileName;
             }

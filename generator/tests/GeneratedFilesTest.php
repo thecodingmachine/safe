@@ -14,7 +14,7 @@ class GeneratedFilesTest extends TestCase
 {
     public function testSprintf()
     {
-        require_once __DIR__ . '/../../generated/strings.php';
+        require_once __DIR__ . '/../../generated/strings_func.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
         require_once __DIR__ . '/../../generated/Exceptions/StringsException.php';
 
@@ -34,7 +34,7 @@ class GeneratedFilesTest extends TestCase
 
     public function testPregMatch()
     {
-        require_once __DIR__ . '/../../generated/pcre.php';
+        require_once __DIR__ . '/../../generated/pcre_func.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
         require_once __DIR__ . '/../../lib/Exceptions/PcreException.php';
 
@@ -78,7 +78,7 @@ XML;
      */
     public function testPregSplit()
     {
-        require_once __DIR__ . '/../../generated/pcre.php';
+        require_once __DIR__ . '/../../generated/pcre_func.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
         require_once __DIR__ . '/../../lib/Exceptions/PcreException.php';
 
@@ -92,7 +92,7 @@ XML;
      */
     public function testStrtotime()
     {
-        require_once __DIR__ . '/../../generated/datetime.php';
+        require_once __DIR__ . '/../../generated/datetime_func.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
         require_once __DIR__ . '/../../generated/Exceptions/DatetimeException.php';
 
@@ -113,7 +113,7 @@ XML;
      */
     public function testOpenSslSign()
     {
-        require_once __DIR__ . '/../../generated/openssl.php';
+        require_once __DIR__ . '/../../generated/openssl_func.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
         require_once __DIR__ . '/../../lib/Exceptions/OpensslException.php';
 

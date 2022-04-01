@@ -256,6 +256,7 @@ return [
     'gnupg_cleardecryptkeys',
     'gnupg_clearencryptkeys',
     'gnupg_clearsignkeys',
+    'gnupg_deletekey',
     'gnupg_setarmor',
     'gnupg_setsignmode',
     'gzclose',

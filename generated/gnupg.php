@@ -122,6 +122,26 @@ function gnupg_clearsignkeys($identifier): void
 
 
 /**
+ *
+ *
+ * @param resource $identifier The gnupg identifier, from a call to
+ * gnupg_init or gnupg.
+ * @param string $key The key to delete.
+ * @param bool $allow_secret It specifies whether to delete secret keys as well.
+ * @throws GnupgException
+ *
+ */
+function gnupg_deletekey($identifier, string $key, bool $allow_secret): void
+{
+    error_clear_last();
+    $result = \gnupg_deletekey($identifier, $key, $allow_secret);
+    if ($result === false) {
+        throw GnupgException::createFromPhpError();
+    }
+}
+
+
+/**
  * Toggle the armored output.
  *
  * @param resource $identifier The gnupg identifier, from a call to

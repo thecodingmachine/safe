@@ -266,6 +266,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'gnupg_cleardecryptkeys' => 'Safe\gnupg_cleardecryptkeys',
             'gnupg_clearencryptkeys' => 'Safe\gnupg_clearencryptkeys',
             'gnupg_clearsignkeys' => 'Safe\gnupg_clearsignkeys',
+            'gnupg_deletekey' => 'Safe\gnupg_deletekey',
             'gnupg_setarmor' => 'Safe\gnupg_setarmor',
             'gnupg_setsignmode' => 'Safe\gnupg_setsignmode',
             'gzclose' => 'Safe\gzclose',

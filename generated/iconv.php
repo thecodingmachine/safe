@@ -59,18 +59,17 @@ function iconv_set_encoding(string $type, string $encoding): void
 
 
 /**
- * Performs a character set conversion on the string
- * string from from_encoding
+ * Converts string from from_encoding
  * to to_encoding.
  *
- * @param string $from_encoding The input charset.
- * @param string $to_encoding The output charset.
+ * @param string $from_encoding The current encoding used to interpret string.
+ * @param string $to_encoding The desired encoding of the result.
  *
- * If you append the string //TRANSLIT to
- * to_encoding transliteration is activated. This
+ * If the string //TRANSLIT is appended to
+ * to_encoding, then transliteration is activated. This
  * means that when a character can't be represented in the target charset,
- * it can be approximated through one or several similarly looking
- * characters. If you append the string //IGNORE,
+ * it may be approximated through one or several similarly looking
+ * characters. If the string //IGNORE is appended,
  * characters that cannot be represented in the target charset are silently
  * discarded. Otherwise, E_NOTICE is generated and the function
  * will return FALSE.

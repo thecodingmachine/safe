@@ -35,22 +35,25 @@ function mb_chr(int $codepoint, string $encoding = null): string
 
 
 /**
- * Converts the character encoding of string
- * to to_encoding
- * from optionally from_encoding.
+ * Converts string from from_encoding,
+ * or the current internal encoding, to to_encoding.
  * If string is an array, all its string values will be
  * converted recursively.
  *
- * @param string|array $string The string or array being encoded.
- * @param string $to_encoding The type of encoding that string is being converted to.
- * @param mixed $from_encoding Is specified by character code names before conversion. It is either
- * an array, or a comma separated enumerated list.
- * If from_encoding is not specified, the internal
- * encoding will be used.
+ * @param string|array $string The string or array to be converted.
+ * @param string $to_encoding The desired encoding of the result.
+ * @param mixed $from_encoding The current encoding used to interpret string.
+ * Multiple encodings may be specified as an array or comma separated
+ * list, in which case the correct encoding will be guessed using the
+ * same algorithm as mb_detect_encoding.
  *
+ * If from_encoding is NULL or not specified, the
+ * mbstring.internal_encoding setting
+ * will be used if set, otherwise the default_charset setting.
  *
- * See supported
- * encodings.
+ * See supported encodings
+ * for valid values of to_encoding
+ * and from_encoding.
  * @return string|array The encoded string or array on success.
  * @throws MbstringException
  *

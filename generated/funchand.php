@@ -5,12 +5,14 @@ namespace Safe;
 use Safe\Exceptions\FunchandException;
 
 /**
- * Creates an anonymous function from the parameters passed, and
- * returns a unique name for it.
+ * Creates a function dynamically from the parameters passed, and returns a unique name for it.
  *
- * @param string $args The function arguments.
+ * @param string $args The function arguments, as a single comma-separated string.
  * @param string $code The function code.
  * @return string Returns a unique function name as a string.
+ * Note that the name contains a non-printable character ("\0"),
+ * so care should be taken when printing the name or incorporating it in any other
+ * string.
  * @throws FunchandException
  *
  */

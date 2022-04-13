@@ -10,7 +10,7 @@ use Safe\Exceptions\ApcuException;
  * @param bool $limited If limited is TRUE, the
  * return value will exclude the individual list of cache entries.  This
  * is useful when trying to optimize calls for statistics gathering.
- * @return array Array of cached data (and meta-data)
+ * @return \array Array of cached data (and meta-data)
  * @throws ApcuException
  *
  */

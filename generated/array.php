@@ -5,30 +5,6 @@ namespace Safe;
 use Safe\Exceptions\ArrayException;
 
 /**
- * Creates an array by using the values from the
- * keys array as keys and the values from the
- * values array as the corresponding values.
- *
- * @param \array $keys Array of keys to be used. Illegal values for key will be
- * converted to string.
- * @param \array $values Array of values to be used
- * @return \array Returns the combined array, FALSE if the number of elements
- * for each array isn't equal.
- * @throws ArrayException
- *
- */
-function array_combine(array $keys, array $values): array
-{
-    error_clear_last();
-    $result = \array_combine($keys, $values);
-    if ($result === false) {
-        throw ArrayException::createFromPhpError();
-    }
-    return $result;
-}
-
-
-/**
  * array_replace_recursive replaces the values of
  * array with the same values from all the following
  * arrays. If a key from the first array exists in the second array, its value

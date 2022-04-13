@@ -40,7 +40,7 @@ function mb_chr(int $codepoint, string $encoding = null): string
  * If string is an array, all its string values will be
  * converted recursively.
  *
- * @param string|array $string The string or array to be converted.
+ * @param string|\array $string The string or array to be converted.
  * @param string $to_encoding The desired encoding of the result.
  * @param mixed $from_encoding The current encoding used to interpret string.
  * Multiple encodings may be specified as an array or comma separated
@@ -54,7 +54,7 @@ function mb_chr(int $codepoint, string $encoding = null): string
  * See supported encodings
  * for valid values of to_encoding
  * and from_encoding.
- * @return string|array The encoded string or array on success.
+ * @return string|\array The encoded string or array on success.
  * @throws MbstringException
  *
  */

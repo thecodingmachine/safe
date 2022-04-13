@@ -24,7 +24,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'apcu_inc' => 'Safe\apcu_inc',
             'apcu_sma_info' => 'Safe\apcu_sma_info',
             'apc_fetch' => 'Safe\apc_fetch',
-            'array_combine' => 'Safe\array_combine',
             'array_replace' => 'Safe\array_replace',
             'array_replace_recursive' => 'Safe\array_replace_recursive',
             'array_walk_recursive' => 'Safe\array_walk_recursive',

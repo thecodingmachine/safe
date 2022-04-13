@@ -557,7 +557,7 @@ function openssl_digest(string $data, string $digest_algo, bool $binary = false)
  * NIST
  * recommends using ECC curves with at least 256 bits.
  *
- * @return array An array of available curve names.
+ * @return \array An array of available curve names.
  * @throws OpensslException
  *
  */

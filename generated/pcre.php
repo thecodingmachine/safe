@@ -669,7 +669,7 @@ function preg_match(string $pattern, string $subject, ?iterable &$matches = null
  * value in an array where every element is an array consisting of the
  * matched string at offset 0 and its string offset
  * into subject at offset 1.
- * @return array Returns an array containing substrings of subject
+ * @return \array Returns an array containing substrings of subject
  * split along boundaries matched by pattern.
  * @throws PcreException
  *

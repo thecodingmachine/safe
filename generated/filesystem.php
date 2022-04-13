@@ -453,7 +453,7 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  *
  *
  * @param resource $context
- * @return array Returns the file in an array. Each element of the array corresponds to a
+ * @return \array Returns the file in an array. Each element of the array corresponds to a
  * line in the file, with the newline still attached. Upon failure,
  * file returns FALSE.
  * @throws FilesystemException
@@ -1131,7 +1131,7 @@ function fwrite($stream, string $data, int $length = null): int
  * systems, like Solaris or Alpine Linux.
  *
  *
- * @return array Returns an array containing the matched files/directories, an empty array
+ * @return \array Returns an array containing the matched files/directories, an empty array
  * if no file matched.
  * @throws FilesystemException
  *

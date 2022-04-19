@@ -12,6 +12,7 @@ return [
     'apc_load_constants',
     'apc_sma_info',
     'arsort',
+    'array_combine',
     'array_flip',
     'asort',
     'event_add',

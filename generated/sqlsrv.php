@@ -54,7 +54,7 @@ function sqlsrv_cancel($stmt): void
  * Returns information about the client and specified connection
  *
  * @param resource $conn The connection about which information is returned.
- * @return \array Returns an associative array with keys described in the table below.
+ * @return array Returns an associative array with keys described in the table below.
  *
  * Array returned by sqlsrv_client_info
  *
@@ -342,7 +342,7 @@ function sqlsrv_num_rows($stmt): int
  *
  * @param resource $conn A connection resource returned by sqlsrv_connect.
  * @param string $sql The string that defines the query to be prepared and executed.
- * @param \array $params An array specifying parameter information when executing a parameterized
+ * @param array $params An array specifying parameter information when executing a parameterized
  * query. Array elements can be any of the following:
  *
  * A literal value
@@ -351,7 +351,7 @@ function sqlsrv_num_rows($stmt): int
  * array($value [, $direction [, $phpType [, $sqlType]]])
  *
  * The following table describes the elements in the array structure above:
- * @param \array $options An array specifying query property options. The supported keys are described
+ * @param array $options An array specifying query property options. The supported keys are described
  * in the following table:
  * @return resource Returns a statement resource on success.
  * @throws SqlsrvException
@@ -379,7 +379,7 @@ function sqlsrv_prepare($conn, string $sql, array $params = null, array $options
  *
  * @param resource $conn A connection resource returned by sqlsrv_connect.
  * @param string $sql The string that defines the query to be prepared and executed.
- * @param \array $params An array specifying parameter information when executing a parameterized query.
+ * @param array $params An array specifying parameter information when executing a parameterized query.
  * Array elements can be any of the following:
  *
  * A literal value
@@ -388,7 +388,7 @@ function sqlsrv_prepare($conn, string $sql, array $params = null, array $options
  * array($value [, $direction [, $phpType [, $sqlType]]])
  *
  * The following table describes the elements in the array structure above:
- * @param \array $options An array specifying query property options. The supported keys are described
+ * @param array $options An array specifying query property options. The supported keys are described
  * in the following table:
  * @return resource Returns a statement resource on success.
  * @throws SqlsrvException

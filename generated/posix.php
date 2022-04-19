@@ -34,7 +34,7 @@ function posix_access(string $filename, int $flags = 0): void
  * Gets information about a group provided its id.
  *
  * @param int $group_id The group id.
- * @return \array The array elements returned are:
+ * @return array The array elements returned are:
  *
  * The group information array
  *
@@ -98,7 +98,7 @@ function posix_getgrgid(int $group_id): array
  * Gets information about a group provided its name.
  *
  * @param string $name The name of the group
- * @return \array Returns an array on success.
+ * @return array Returns an array on success.
  * The array elements returned are:
  *
  * The group information array
@@ -161,7 +161,7 @@ function posix_getgrnam(string $name): array
 /**
  * Gets the group set of the current process.
  *
- * @return \array Returns an array of integers containing the numeric group ids of the group
+ * @return array Returns an array of integers containing the numeric group ids of the group
  * set of the current process.
  * @throws PosixException
  *
@@ -200,7 +200,7 @@ function posix_getlogin(): string
  * referenced by the given user ID.
  *
  * @param int $user_id The user identifier.
- * @return \array Returns an associative array with the following elements:
+ * @return array Returns an associative array with the following elements:
  *
  * The user information array
  *
@@ -298,7 +298,7 @@ function posix_getpwuid(int $user_id): array
  * An unprivileged process may only set its soft limit to a value
  * from 0 to the hard limit, and irreversibly lower its hard limit.
  *
- * @return \array Returns an associative array of elements for each
+ * @return array Returns an associative array of elements for each
  * limit that is defined. Each limit has a soft and a hard limit.
  *
  * List of possible limits returned
@@ -638,7 +638,7 @@ function posix_setuid(int $user_id): void
 /**
  * Gets information about the current CPU usage.
  *
- * @return \array Returns a hash of strings with information about the current
+ * @return array Returns a hash of strings with information about the current
  * process CPU usage. The indices of the hash are:
  *
  *
@@ -690,7 +690,7 @@ function posix_times(): array
  * format of the values, e.g. the assumption that a release may contain
  * three digits or anything else returned by this function.
  *
- * @return \array Returns a hash of strings with information about the
+ * @return array Returns a hash of strings with information about the
  * system. The indices of the hash are
  *
  *

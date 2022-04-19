@@ -10,7 +10,7 @@ use Safe\Exceptions\ApcuException;
  * @param bool $limited If limited is TRUE, the
  * return value will exclude the individual list of cache entries.  This
  * is useful when trying to optimize calls for statistics gathering.
- * @return \array Array of cached data (and meta-data)
+ * @return array Array of cached data (and meta-data)
  * @throws ApcuException
  *
  */
@@ -97,7 +97,7 @@ function apcu_inc(string $key, int $step = 1, ?bool &$success = null, int $ttl =
  *
  * @param bool $limited When set to FALSE (default) apcu_sma_info will
  * return a detailed information about each segment.
- * @return \array Array of Shared Memory Allocation data; FALSE on failure.
+ * @return array Array of Shared Memory Allocation data; FALSE on failure.
  * @throws ApcuException
  *
  */

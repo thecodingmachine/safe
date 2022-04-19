@@ -249,7 +249,7 @@ function mysql_drop_db(string $database_name, $link_identifier = null): void
  * @param resource $result The result resource that
  * is being evaluated. This result comes from a call to
  * mysql_query.
- * @return \array An array of lengths on success.
+ * @return array An array of lengths on success.
  * @throws MysqlException
  *
  */

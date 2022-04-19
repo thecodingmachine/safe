@@ -590,7 +590,7 @@ function curl_init(string $url = null): \CurlHandle
  * @param \CurlMultiHandle $multi_handle A cURL multi handle returned by
  * curl_multi_init.
  * @param int|null $queued_messages Number of messages that are still in the queue
- * @return \array On success, returns an associative array for the message, FALSE on failure.
+ * @return array On success, returns an associative array for the message, FALSE on failure.
  *
  *
  * Contents of the returned array

@@ -55,15 +55,15 @@ function closelog(): void
  *
  * Windows: DNS_CAA is not supported.
  * Support for DNS_A6 is not implemented.
- * @param \array|null $authoritative_name_servers Passed by reference and, if given, will be populated with Resource
+ * @param array|null $authoritative_name_servers Passed by reference and, if given, will be populated with Resource
  * Records for the Authoritative Name Servers.
- * @param \array|null $additional_records Passed by reference and, if given, will be populated with any
+ * @param array|null $additional_records Passed by reference and, if given, will be populated with any
  * Additional Records.
  * @param bool $raw The type will be interpreted as a raw DNS type ID
  * (the DNS_* constants cannot be used).
  * The return value will contain a data key, which needs
  * to be manually parsed.
- * @return \array This function returns an array of associative arrays. Each associative array contains
+ * @return array This function returns an array of associative arrays. Each associative array contains
  * at minimum the following keys:
  *
  * Basic DNS attributes
@@ -471,7 +471,7 @@ function long2ip(int $ip): string
 /**
  * Returns an enumeration of network interfaces (adapters) on the local machine.
  *
- * @return \array Returns an associative array where the key is the name of the interface and
+ * @return array Returns an associative array where the key is the name of the interface and
  * the value an associative array of interface attributes.
  *
  * Each interface associative array contains:

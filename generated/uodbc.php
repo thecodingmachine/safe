@@ -348,7 +348,7 @@ function odbc_cursor($statement): string
  * SQL_FETCH_FIRST, SQL_FETCH_NEXT.
  * Use SQL_FETCH_FIRST the first time this function is
  * called, thereafter use the SQL_FETCH_NEXT.
- * @return \array Returns FALSE on error, an array upon success, and NULL after fetching
+ * @return array Returns FALSE on error, an array upon success, and NULL after fetching
  * the last available DSN.
  * @throws UodbcException
  *
@@ -390,7 +390,7 @@ function odbc_exec($odbc, string $query)
  * Executes a statement prepared with odbc_prepare.
  *
  * @param resource $statement The result id resource, from odbc_prepare.
- * @param \array $params Parameters in params will be
+ * @param array $params Parameters in params will be
  * substituted for placeholders in the prepared statement in order.
  * Elements of this array will be converted to strings by calling this
  * function.
@@ -416,7 +416,7 @@ function odbc_execute($statement, array $params = []): void
  * Fetch one result row into array.
  *
  * @param resource $statement The result resource.
- * @param \array|null $array The result array
+ * @param array|null $array The result array
  * that can be of any type since it will be converted to type
  * array. The array will contain the column values starting at array
  * index 0.

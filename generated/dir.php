@@ -113,7 +113,7 @@ function opendir(string $directory, $context = null)
  * @param resource $context For a description of the context parameter,
  * refer to the streams section of
  * the manual.
- * @return \array Returns an array of filenames on success. If directory is not a directory, then
+ * @return array Returns an array of filenames on success. If directory is not a directory, then
  * boolean FALSE is returned, and an error of level
  * E_WARNING is generated.
  * @throws DirException

@@ -14,6 +14,7 @@ return [
     'apcu_inc',
     'apcu_sma_info',
     'apc_fetch',
+    'array_combine',
     'array_replace',
     'array_replace_recursive',
     'array_walk_recursive',

@@ -809,7 +809,7 @@ function ps_get_parameter($psdoc, string $name, float $modifier = null): string
  * characters. Possible positions for breaks are returned in an array of
  * interger numbers. Each number is the position of the char in
  * text after which a hyphenation can take place.
- * @return \array An array of integers indicating the position of possible breaks in
+ * @return array An array of integers indicating the position of possible breaks in
  * the text.
  * @throws PsException
  *

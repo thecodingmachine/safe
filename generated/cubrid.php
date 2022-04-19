@@ -166,7 +166,7 @@ function cubrid_col_size($conn_identifier, string $oid, string $attr_name): int
  * column names of the query result by using req_identifier.
  *
  * @param resource $req_identifier Request identifier.
- * @return \array Array of string values containing the column names, when process is successful.
+ * @return array Array of string values containing the column names, when process is successful.
  * @throws CubridException
  *
  */
@@ -186,7 +186,7 @@ function cubrid_column_names($req_identifier): array
  * query results by using req_identifier.
  *
  * @param resource $req_identifier Request identifier.
- * @return \array Array of string values containing the column types, when process is successful.
+ * @return array Array of string values containing the column types, when process is successful.
  * @throws CubridException
  *
  */
@@ -621,7 +621,7 @@ function cubrid_get_client_info(): string
  *
  * @param resource $conn_identifier The CUBRID connection. If the connection identifier is not specified,
  * the last link opened by cubrid_connect is assumed.
- * @return \array An associative array with CUBRID database parameters; on success.
+ * @return array An associative array with CUBRID database parameters; on success.
  * @throws CubridException
  *
  */
@@ -711,7 +711,7 @@ function cubrid_insert_id($conn_identifier = null): string
  * cubrid_lob_close is used to close all BLOB/CLOB
  * returned from cubrid_lob_get.
  *
- * @param \array $lob_identifier_array LOB identifier array returned from cubrid_lob_get.
+ * @param array $lob_identifier_array LOB identifier array returned from cubrid_lob_get.
  * @throws CubridException
  *
  */
@@ -754,7 +754,7 @@ function cubrid_lob_export($conn_identifier, $lob_identifier, string $path_name)
  *
  * @param resource $conn_identifier Connection identifier.
  * @param string $sql SQL statement to be executed.
- * @return \array Return an array of LOB resources, when process is successful.
+ * @return array Return an array of LOB resources, when process is successful.
  * @throws CubridException
  *
  */
@@ -1833,7 +1833,7 @@ function cubrid_rollback($conn_identifier): void
  * @param int $schema_type Schema data that you want to know.
  * @param string $class_name Class you want to know the schema of.
  * @param string $attr_name Attribute you want to know the schema of.
- * @return \array Array containing the schema information, when process is successful.
+ * @return array Array containing the schema information, when process is successful.
  * @throws CubridException
  *
  */

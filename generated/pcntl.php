@@ -154,8 +154,8 @@ function pcntl_signal(int $signal, $handler, bool $restart_syscalls = true): voi
  * SIG_SETMASK: Replace the currently
  * blocked signals by the given list of signals.
  *
- * @param \array $signals List of signals.
- * @param \array|null $old_signals The old_signals parameter is set to an array
+ * @param array $signals List of signals.
+ * @param array|null $old_signals The old_signals parameter is set to an array
  * containing the list of the previously blocked signals.
  * @throws PcntlException
  *
@@ -177,8 +177,8 @@ function pcntl_sigprocmask(int $mode, array $signals, ?array &$old_signals = nul
  * nanoseconds, which enable an upper bound to be placed
  * on the time for which the script is suspended.
  *
- * @param \array $signals Array of signals to wait for.
- * @param \array|null $info The info is set to an array containing
+ * @param array $signals Array of signals to wait for.
+ * @param array|null $info The info is set to an array containing
  * information about the signal. See
  * pcntl_sigwaitinfo.
  * @param int $seconds Timeout in seconds.
@@ -205,8 +205,8 @@ function pcntl_sigtimedwait(array $signals, ?array &$info = [], int $seconds = 0
  * pcntl_sigprocmask),
  * pcntl_sigwaitinfo will return immediately.
  *
- * @param \array $signals Array of signals to wait for.
- * @param \array|null $info The info parameter is set to an array containing
+ * @param array $signals Array of signals to wait for.
+ * @param array|null $info The info parameter is set to an array containing
  * information about the signal.
  *
  * The following elements are set for all signals:

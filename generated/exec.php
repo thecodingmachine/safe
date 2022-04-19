@@ -9,7 +9,7 @@ use Safe\Exceptions\ExecException;
  * command.
  *
  * @param string $command The command that will be executed.
- * @param \array|null $output If the output argument is present, then the
+ * @param array|null $output If the output argument is present, then the
  * specified array will be filled with every line of output from the
  * command.  Trailing whitespace, such as \n, is not
  * included in this array.  Note that if the array already contains some

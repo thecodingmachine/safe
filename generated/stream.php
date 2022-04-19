@@ -8,7 +8,7 @@ use Safe\Exceptions\StreamException;
  * Sets parameters on the specified context.
  *
  * @param resource $context The stream or context to apply the parameters too.
- * @param \array $params An associative array of parameters to be set in the following format:
+ * @param array $params An associative array of parameters to be set in the following format:
  * $params['paramname'] = "paramvalue";.
  * @throws StreamException
  *
@@ -73,7 +73,7 @@ function stream_copy_to_stream($from, $to, int $length = null, int $offset = 0):
  * STREAM_FILTER_WRITE, and/or
  * STREAM_FILTER_ALL can also be passed to the
  * read_write parameter to override this behavior.
- * @param \array $params This filter will be added with the specified
+ * @param array $params This filter will be added with the specified
  * params to the end of
  * the list and will therefore be called last during stream operations.
  * To add a filter to the beginning of the list, use
@@ -123,7 +123,7 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
  * read_write parameter to override this behavior.
  * See stream_filter_append for an example of
  * using this parameter.
- * @param \array $params This filter will be added with the specified params
+ * @param array $params This filter will be added with the specified params
  * to the beginning of the list and will therefore be
  * called first during stream operations.  To add a filter to the end of the
  * list, use stream_filter_append.

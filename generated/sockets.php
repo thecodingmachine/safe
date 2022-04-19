@@ -92,7 +92,7 @@ function socket_addrinfo_connect($address)
  * @param string $host Hostname to search.
  * @param mixed $service The service to connect to.  If service is a name, it is translated to the corresponding
  * port number.
- * @param \array $hints Hints provide criteria for selecting addresses returned.  You may specify the
+ * @param array $hints Hints provide criteria for selecting addresses returned.  You may specify the
  * hints as defined by getadrinfo.
  * @return resource[] Returns an array of AddressInfo instances that can be used with the other socket_addrinfo functions.
  * On failure, FALSE is returned.
@@ -581,7 +581,7 @@ function socket_send($socket, string $data, int $length, int $flags): int
  *
  *
  * @param resource $socket
- * @param \array $message
+ * @param array $message
  * @param int $flags
  * @return int Returns the number of bytes sent.
  * @throws SocketsException
@@ -734,7 +734,7 @@ function socket_set_nonblock($socket): void
  * getprotobyname function.
  * @param int $option The available socket options are the same as those for the
  * socket_get_option function.
- * @param int|string|\array $value The option value.
+ * @param int|string|array $value The option value.
  * @throws SocketsException
  *
  */

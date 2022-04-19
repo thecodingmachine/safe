@@ -12,7 +12,7 @@ use Safe\Exceptions\Oci8Exception;
  *
  * @param resource $statement A valid OCI statement identifier.
  * @param string $param The Oracle placeholder.
- * @param array $var An array.
+ * @param \array $var An array.
  * @param int $max_array_length Sets the maximum length both for incoming and result arrays.
  * @param int $max_item_length Sets maximum length for array items. If not specified or equals to -1,
  * oci_bind_array_by_name will find the longest

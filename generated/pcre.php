@@ -10,11 +10,11 @@ use Safe\Exceptions\PcreException;
  * pattern.
  *
  * @param string $pattern The pattern to search for, as a string.
- * @param array $array The input array.
+ * @param \array $array The input array.
  * @param int $flags If set to PREG_GREP_INVERT, this function returns
  * the elements of the input array that do not match
  * the given pattern.
- * @return array Returns an array indexed using the keys from the
+ * @return \array Returns an array indexed using the keys from the
  * array array.
  * @throws PcreException
  *
@@ -41,7 +41,7 @@ function preg_grep(string $pattern, array $array, int $flags = 0): array
  *
  * @param string $pattern The pattern to search for, as a string.
  * @param string $subject The input string.
- * @param array|null $matches Array of all matches in multi-dimensional array ordered according to
+ * @param \array|null $matches Array of all matches in multi-dimensional array ordered according to
  * flags.
  * @param int $flags Can be a combination of the following flags (note that it doesn't make
  * sense to use PREG_PATTERN_ORDER together with
@@ -669,7 +669,7 @@ function preg_match(string $pattern, string $subject, ?iterable &$matches = null
  * value in an array where every element is an array consisting of the
  * matched string at offset 0 and its string offset
  * into subject at offset 1.
- * @return array Returns an array containing substrings of subject
+ * @return \array Returns an array containing substrings of subject
  * split along boundaries matched by pattern.
  * @throws PcreException
  *

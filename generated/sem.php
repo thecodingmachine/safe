@@ -205,7 +205,7 @@ function msg_send($queue, int $message_type, $message, bool $serialize = true, b
  * system defined limit.
  *
  * @param resource $queue The message queue.
- * @param array $data You specify the values you require by setting the value of the keys
+ * @param \array $data You specify the values you require by setting the value of the keys
  * that you require in the data array.
  * @throws SemException
  *
@@ -227,7 +227,7 @@ function msg_set_queue($queue, array $data): void
  * that was just received.
  *
  * @param resource $queue The message queue.
- * @return array On success, the return value is an array whose keys and values have the following
+ * @return \array On success, the return value is an array whose keys and values have the following
  * meanings:
  *
  * Array structure for msg_stat_queue

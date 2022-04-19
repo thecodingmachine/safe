@@ -40,7 +40,7 @@ function mb_chr(int $codepoint, string $encoding = null): string
  * If string is an array, all its string values will be
  * converted recursively.
  *
- * @param string|array $string The string or array to be converted.
+ * @param string|\array $string The string or array to be converted.
  * @param string $to_encoding The desired encoding of the result.
  * @param mixed $from_encoding The current encoding used to interpret string.
  * Multiple encodings may be specified as an array or comma separated
@@ -54,7 +54,7 @@ function mb_chr(int $codepoint, string $encoding = null): string
  * See supported encodings
  * for valid values of to_encoding
  * and from_encoding.
- * @return string|array The encoded string or array on success.
+ * @return string|\array The encoded string or array on success.
  * @throws MbstringException
  *
  */
@@ -96,7 +96,7 @@ function mb_convert_encoding($string, string $to_encoding, $from_encoding = null
  * For UTF-16, UTF-32,
  * UCS2 and UCS4, encoding
  * detection will fail always.
- * @return bool|array When setting the encoding detection order, TRUE is returned on success.
+ * @return bool|\array When setting the encoding detection order, TRUE is returned on success.
  *
  * When getting the encoding detection order, an ordered array of the encodings is returned.
  * @throws MbstringException
@@ -121,7 +121,7 @@ function mb_detect_order($encoding = null)
  * Returns an array of aliases for a known encoding type.
  *
  * @param string $encoding The encoding type being checked, for aliases.
- * @return array Returns a numerically indexed array of encoding aliases on success
+ * @return \array Returns a numerically indexed array of encoding aliases on success
  * @throws MbstringException
  *
  */
@@ -218,7 +218,7 @@ function mb_ereg_replace(string $pattern, string $replacement, string $string, s
 /**
  *
  *
- * @return array
+ * @return \array
  * @throws MbstringException
  *
  */
@@ -268,7 +268,7 @@ function mb_ereg_search_init(string $string, string $pattern = null, string $opt
  *
  * @param string $pattern The search pattern.
  * @param string $options The search option. See mb_regex_set_options for explanation.
- * @return array
+ * @return \array
  * @throws MbstringException
  *
  */
@@ -473,7 +473,7 @@ function mb_ord(string $string, string $encoding = null): int
  * global variables.
  *
  * @param string $string The URL encoded data.
- * @param array|null $result An array containing decoded and character encoded converted values.
+ * @param \array|null $result An array containing decoded and character encoded converted values.
  * @throws MbstringException
  *
  */
@@ -523,7 +523,7 @@ function mb_regex_encoding(string $encoding = null)
  * This parameter is not automatically encoded.
  * @param string $subject The subject of the mail.
  * @param string $message The message of the mail.
- * @param string|array|null $additional_headers String or array to be inserted at the end of the email header.
+ * @param string|\array|null $additional_headers String or array to be inserted at the end of the email header.
  *
  * This is typically used to add extra headers (From, Cc, and Bcc).
  * Multiple extra headers should be separated with a CRLF (\r\n).
@@ -589,7 +589,7 @@ function mb_send_mail(string $to, string $subject, string $message, $additional_
  * @param string $pattern The regular expression pattern.
  * @param string $string The string being split.
  * @param int $limit
- * @return array The result as an array.
+ * @return \array The result as an array.
  * @throws MbstringException
  *
  */

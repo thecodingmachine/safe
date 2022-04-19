@@ -39,7 +39,7 @@ function base64_decode(string $string, bool $strict = false): string
  * @param resource $context A valid context resource created with
  * stream_context_create, or NULL to use the
  * default context.
- * @return array Returns an indexed or associative array with the headers.
+ * @return \array Returns an indexed or associative array with the headers.
  * @throws UrlException
  *
  */
@@ -83,7 +83,7 @@ function get_headers(string $url, bool $associative = false, $context = null): a
  * in PHP trying to open the file along the standard include path as per
  * the include_path directive.
  * This is used for local files, not URLs.
- * @return array Returns an array with all the parsed meta tags.
+ * @return \array Returns an array with all the parsed meta tags.
  *
  * The value of the name property becomes the key, the value of the content
  * property becomes the value of the returned array, so you can easily use
@@ -126,7 +126,7 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
  * URL component as a string (except when
  * PHP_URL_PORT is given, in which case the return
  * value will be an int).
- * @return array|int|string|null On seriously malformed URLs, parse_url.
+ * @return \array|int|string|null On seriously malformed URLs, parse_url.
  *
  * If the component parameter is omitted, an
  * associative array is returned. At least one element will be

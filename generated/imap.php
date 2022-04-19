@@ -322,7 +322,7 @@ function imap_deletemailbox($imap, string $mailbox): void
  * @param int $flags sequence will contain a sequence of message
  * indices or UIDs, if this parameter is set to
  * FT_UID.
- * @return array Returns an array of objects describing one message header each.
+ * @return \array Returns an array of objects describing one message header each.
  * The object will only define a property if it exists. The possible
  * properties are:
  *
@@ -734,7 +734,7 @@ function imap_gc($imap, int $flags): void
  * @param resource $imap An IMAP\Connection instance.
  * @param string $mailbox The mailbox name, see imap_open for more
  * information
- * @return array Returns an associative array of "folder" =&gt; "acl" pairs.
+ * @return \array Returns an associative array of "folder" =&gt; "acl" pairs.
  * @throws ImapException
  *
  */
@@ -769,7 +769,7 @@ function imap_getacl($imap, string $mailbox): array
  * '%' as the pattern
  * parameter will return only the top level
  * mailboxes; '~/mail/%' on UW_IMAPD will return every mailbox in the ~/mail directory, but none in subfolders of that directory.
- * @return array Returns an array of objects containing mailbox information. Each
+ * @return \array Returns an array of objects containing mailbox information. Each
  * object has the attributes name, specifying
  * the full name of the mailbox; delimiter,
  * which is the hierarchy delimiter for the part of the hierarchy
@@ -858,7 +858,7 @@ function imap_getmailboxes($imap, string $reference, string $pattern): array
  * '%' as the pattern
  * parameter will return only the top level
  * mailboxes; '~/mail/%' on UW_IMAPD will return every mailbox in the ~/mail directory, but none in subfolders of that directory.
- * @return array Returns an array of objects containing mailbox information. Each
+ * @return \array Returns an array of objects containing mailbox information. Each
  * object has the attributes name, specifying
  * the full name of the mailbox; delimiter,
  * which is the hierarchy delimiter for the part of the hierarchy
@@ -1150,7 +1150,7 @@ function imap_headerinfo($imap, int $message_num, int $from_length = 0, int $sub
  * Returns headers for all messages in a mailbox.
  *
  * @param resource $imap An IMAP\Connection instance.
- * @return array Returns an array of string formatted with header info. One
+ * @return \array Returns an array of string formatted with header info. One
  * element per mail message.
  * Returns FALSE on failure.
  * @throws ImapException
@@ -1193,7 +1193,7 @@ function imap_headers($imap): array
  * parameter will return only the top level
  * mailboxes; '~/mail/%' on UW_IMAPD will return every mailbox in the ~/mail directory, but none in subfolders of that directory.
  * @param string $content The searched string
- * @return array Returns an array containing the names of the mailboxes that have
+ * @return \array Returns an array containing the names of the mailboxes that have
  * content in the text of the mailbox.
  * @throws ImapException
  *
@@ -1229,7 +1229,7 @@ function imap_listscan($imap, string $reference, string $pattern, string $conten
  * '%' as the pattern
  * parameter will return only the top level
  * mailboxes; '~/mail/%' on UW_IMAPD will return every mailbox in the ~/mail directory, but none in subfolders of that directory.
- * @return array Returns an array of all the subscribed mailboxes.
+ * @return \array Returns an array of all the subscribed mailboxes.
  * @throws ImapException
  *
  */
@@ -1248,12 +1248,12 @@ function imap_lsub($imap, string $reference, string $pattern): array
  * Create a MIME message based on the given envelope
  * and bodies sections.
  *
- * @param array $envelope An associative array of header fields. Valid keys are: "remail",
+ * @param \array $envelope An associative array of header fields. Valid keys are: "remail",
  * "return_path", "date", "from", "reply_to", "in_reply_to", "subject",
  * "to", "cc", "bcc" and "message_id", which set the respective message headers to the given string.
  * To set additional headers, the key "custom_headers" is supported, which expects
  * an array of those headers, e.g. ["User-Agent: My Mail Client"].
- * @param array $bodies An indexed array of bodies. The first body is the main body of the message;
+ * @param \array $bodies An indexed array of bodies. The first body is the main body of the message;
  * only if it has a type of TYPEMULTIPART, further bodies
  * are processed; these bodies constitute the bodies of the parts.
  *
@@ -1539,7 +1539,7 @@ function imap_mailboxmsginfo($imap): \stdClass
  * Decodes MIME message header extensions that are non ASCII text (see RFC2047).
  *
  * @param string $string The MIME text
- * @return array The decoded elements are returned in an array of objects, where each
+ * @return \array The decoded elements are returned in an array of objects, where each
  * object has two properties, charset and
  * text.
  *
@@ -1791,7 +1791,7 @@ function imap_num_msg($imap): int
  *
  *
  * @param int $retries Number of maximum connect attempts
- * @param array $options Connection parameters, the following (string) keys maybe used
+ * @param \array $options Connection parameters, the following (string) keys maybe used
  * to set one or more connection parameters:
  *
  *
@@ -2058,7 +2058,7 @@ function imap_setflag_full($imap, string $sequence, string $flag, int $options =
  * @param string $search_criteria IMAP2-format search criteria string. For details see
  * imap_search.
  * @param string $charset MIME character set to use when sorting strings.
- * @return array Returns an array of message numbers sorted by the given
+ * @return \array Returns an array of message numbers sorted by the given
  * parameters.
  * @throws ImapException
  *
@@ -2170,7 +2170,7 @@ function imap_subscribe($imap, string $mailbox): void
  *
  * @param resource $imap An IMAP\Connection instance.
  * @param int $flags
- * @return array imap_thread returns an associative array containing
+ * @return \array imap_thread returns an associative array containing
  * a tree of messages threaded by REFERENCES.
  *
  * Every message in the current mailbox will be represented by three entries

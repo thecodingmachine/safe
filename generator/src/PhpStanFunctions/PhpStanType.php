@@ -100,6 +100,9 @@ class PhpStanType
         } elseif ($this->nullable && $errorType !== Method::NULLSY_TYPE) {
             $returnTypes[] = 'null';
         }
+
+        $returnTypes = \array_map(fn (string $type) => \str_replace('array', '\array', $type), $returnTypes);
+
         $type = join('|', $returnTypes);
         if ($type === 'bool' && !$this->nullable && $errorType === Method::FALSY_TYPE) {
             // If the function only returns a boolean, since false is for error, true is for success.

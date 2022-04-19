@@ -321,7 +321,7 @@ function getmyuid(): int
  * Parses options passed to the script.
  *
  * @param string $short_options
- * @param array $long_options
+ * @param \array $long_options
  * @param int|null $rest_index
  * @return \__benevolent This function will return an array of option / argument pairs.
  * @throws InfoException
@@ -344,7 +344,7 @@ function getopt(string $short_options, array $long_options = [], ?int &$rest_ind
  *
  * @param int $mode If mode is 1, getrusage will be called with
  * RUSAGE_CHILDREN.
- * @return array Returns an associative array containing the data returned from the system
+ * @return \array Returns an associative array containing the data returned from the system
  * call. All entries are accessible by using their documented field names.
  * Returns FALSE on failure.
  * @throws InfoException

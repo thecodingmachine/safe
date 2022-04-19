@@ -33,7 +33,7 @@ function ldap_8859_to_t61(string $value): string
  *
  * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
- * @param array $entry An array that specifies the information about the entry. The values in
+ * @param \array $entry An array that specifies the information about the entry. The values in
  * the entries are indexed by individual attributes.
  * In case of multiple values for an attribute, they are indexed using
  * integers starting with 0.
@@ -43,7 +43,7 @@ function ldap_8859_to_t61(string $value): string
  * ]]>
  *
  *
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param \array $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
@@ -155,7 +155,7 @@ function ldap_count_entries($ldap, $result): int
  *
  * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param \array $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
@@ -200,7 +200,7 @@ function ldap_dn2ufn(string $dn): string
  * @param string $user dn of the user to change the password of.
  * @param string $old_password The old password of this user. May be ommited depending of server configuration.
  * @param string $new_password The new password for this user. May be omitted or empty to have a generated password.
- * @param array $controls If provided, a password policy request control is send with the request and this is
+ * @param \array $controls If provided, a password policy request control is send with the request and this is
  * filled with an array of LDAP Controls
  * returned with the request.
  * @return string|bool Returns the generated password if new_password is empty or omitted.
@@ -246,7 +246,7 @@ function ldap_exop_whoami($ldap)
  * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param string $reqoid The extended operation request OID. You may use one of LDAP_EXOP_START_TLS, LDAP_EXOP_MODIFY_PASSWD, LDAP_EXOP_REFRESH, LDAP_EXOP_WHO_AM_I, LDAP_EXOP_TURN, or a string with the OID of the operation you want to send.
  * @param string $reqdata The extended operation request data. May be NULL for some operations like LDAP_EXOP_WHO_AM_I, may also need to be BER encoded.
- * @param array|null $serverctrls Array of LDAP Controls to send with the request.
+ * @param \array|null $serverctrls Array of LDAP Controls to send with the request.
  * @param string|null $retdata Will be filled with the extended operation response data if provided.
  * If not provided you may use ldap_parse_exop on the result object
  * later to get this data.
@@ -287,7 +287,7 @@ function ldap_exop($ldap, string $reqoid, string $reqdata = null, ?array $server
  * attributes as well.  To get RDNs with the attributes (i.e. in
  * attribute=value format) set with_attrib to 0
  * and to get only values set it to 1.
- * @return array Returns an array of all DN components.
+ * @return \array Returns an array of all DN components.
  * The first element in the array has count key and
  * represents the number of returned values, next elements are numerically
  * indexed DN components.
@@ -396,7 +396,7 @@ function ldap_free_result($result): void
  *
  * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param resource $entry An LDAP\ResultEntry instance.
- * @return array Returns a complete entry information in a multi-dimensional array
+ * @return \array Returns a complete entry information in a multi-dimensional array
  * on success and FALSE on error.
  * @throws LdapException
  *
@@ -438,7 +438,7 @@ function ldap_get_dn($ldap, $entry): string
  *
  * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param resource $result An LDAP\Result instance, returned by ldap_list or ldap_search.
- * @return array Returns a complete result information in a multi-dimensional array on
+ * @return \array Returns a complete result information in a multi-dimensional array on
  * success.
  *
  * The structure of the array is as follows.
@@ -665,7 +665,7 @@ function ldap_get_option($ldap, int $option, &$value = null): void
  * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param resource $entry An LDAP\ResultEntry instance.
  * @param string $attribute
- * @return array Returns an array of values for the attribute on success and FALSE on
+ * @return \array Returns an array of values for the attribute on success and FALSE on
  * error. Individual values are accessed by integer index in the array. The
  * first index is 0. The number of values can be found by indexing "count"
  * in the resultant array.
@@ -698,7 +698,7 @@ function ldap_get_values_len($ldap, $entry, string $attribute): array
  * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param resource $entry An LDAP\ResultEntry instance.
  * @param string $attribute
- * @return array Returns an array of values for the attribute on success and FALSE on
+ * @return \array Returns an array of values for the attribute on success and FALSE on
  * error. The number of values can be found by indexing "count" in the
  * resultant array. Individual values are accessed by integer index in the
  * array.  The first index is 0.
@@ -733,8 +733,8 @@ function ldap_get_values($ldap, $entry, string $attribute): array
  *
  * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
- * @param array $entry An associative array listing the attirbute values to add. If an attribute was not existing yet it will be added. If an attribute is existing you can only add values to it if it supports multiple values.
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param \array $entry An associative array listing the attirbute values to add. If an attribute was not existing yet it will be added. If an attribute is existing you can only add values to it if it supports multiple values.
+ * @param \array $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
@@ -759,8 +759,8 @@ function ldap_mod_add($ldap, string $dn, array $entry, array $controls = null): 
  *
  * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
- * @param array $entry
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param \array $entry
+ * @param \array $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
@@ -784,8 +784,8 @@ function ldap_mod_del($ldap, string $dn, array $entry, array $controls = null): 
  *
  * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
- * @param array $entry An associative array listing the attributes to replace. Sending an empty array as value will remove the attribute, while sending an attribute not existing yet on this entry will add it.
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param \array $entry An associative array listing the attributes to replace. Sending an empty array as value will remove the attribute, while sending an attribute not existing yet on this entry will add it.
+ * @param \array $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
@@ -809,7 +809,7 @@ function ldap_mod_replace($ldap, string $dn, array $entry, array $controls = nul
  *
  * @param resource $ldap An LDAP resource, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
- * @param array $modifications_info An array that specifies the modifications to make. Each entry in this
+ * @param \array $modifications_info An array that specifies the modifications to make. Each entry in this
  * array is an associative array with two or three keys:
  * attrib maps to the name of the attribute to modify,
  * modtype maps to the type of modification to perform,
@@ -882,7 +882,7 @@ function ldap_mod_replace($ldap, string $dn, array $entry, array $controls = nul
  * value for values must be an array of strings, and
  * any value for modtype must be one of the
  * LDAP_MODIFY_BATCH_* constants listed above.
- * @param array $controls Each value specified through values is added (as
+ * @param \array $controls Each value specified through values is added (as
  * an additional value) to the attribute named by
  * attrib.
  * @throws LdapException
@@ -957,10 +957,10 @@ function ldap_parse_exop($ldap, $result, ?string &$response_data = null, ?string
  * recognised within the request, otherwise it will be set to NULL.
  * @param string|null $error_message A reference to a variable that will be set to the LDAP error message in
  * the result, or an empty string if no error occurred.
- * @param array|null $referrals A reference to a variable that will be set to an array set
+ * @param \array|null $referrals A reference to a variable that will be set to an array set
  * to all of the referral strings in the result, or an empty array if no
  * referrals were returned.
- * @param array|null $controls An array of LDAP Controls which have been sent with the response.
+ * @param \array|null $controls An array of LDAP Controls which have been sent with the response.
  * @throws LdapException
  *
  */
@@ -983,7 +983,7 @@ function ldap_parse_result($ldap, $result, ?int &$error_code, ?string &$matched_
  * @param string $new_parent The new parent/superior entry.
  * @param bool $delete_old_rdn If TRUE the old RDN value(s) is removed, else the old RDN value(s)
  * is retained as non-distinguished values of the entry.
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param \array $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */

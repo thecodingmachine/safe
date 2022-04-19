@@ -14,7 +14,7 @@ use Safe\Exceptions\YazException;
  *
  * @param resource $id The connection resource returned by yaz_connect.
  * @param string $query The CCL FIND query.
- * @param array|null $result If the function was executed successfully, this will be an array
+ * @param \array|null $result If the function was executed successfully, this will be an array
  * containing the valid RPN query under the key rpn.
  *
  * Upon failure, three indexes are set in this array to indicate the cause
@@ -395,7 +395,7 @@ function yaz_search($id, string $type, string $query): void
  * yaz_wait returns when all servers have either
  * completed all requests or aborted (in case of errors).
  *
- * @param array $options An associative array of options:
+ * @param \array $options An associative array of options:
  *
  *
  * timeout

@@ -97,7 +97,7 @@ function highlight_string(string $string, bool $return = false)
  *
  * @param bool $as_number Whether the high resolution time should be returned as array
  * or number.
- * @return array{0:int,1:int}|int|float Returns an array of integers in the form [seconds, nanoseconds], if the
+ * @return \array{0:int,1:int}|int|float Returns an array of integers in the form [seconds, nanoseconds], if the
  * parameter as_number is false. Otherwise the nanoseconds
  * are returned as int (64bit platforms) or float
  * (32bit platforms).
@@ -450,7 +450,7 @@ function sleep(int $seconds): int
  *
  * @param int $seconds Must be a non-negative integer.
  * @param int $nanoseconds Must be a non-negative integer less than 1 billion.
- * @return array{0:0|positive-int,1:0|positive-int}|bool Returns TRUE on success.
+ * @return \array{0:0|positive-int,1:0|positive-int}|bool Returns TRUE on success.
  *
  * If the delay was interrupted by a signal, an associative array will be
  * returned with the components:
@@ -528,7 +528,7 @@ function time_sleep_until(float $timestamp): void
  * @param string $format See pack for an explanation of the format codes.
  * @param string $string The packed data.
  * @param int $offset The offset to begin unpacking from.
- * @return array Returns an associative array containing unpacked elements of binary
+ * @return \array Returns an associative array containing unpacked elements of binary
  * string.
  * @throws MiscException
  *

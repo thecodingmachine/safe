@@ -10,7 +10,7 @@ use Safe\Exceptions\SplException;
  *
  * @param object|string $object_or_class An object (class instance) or a string (class or interface name).
  * @param bool $autoload Whether to call __autoload by default.
- * @return array An array on success, or FALSE when the given class doesn't exist.
+ * @return \array An array on success, or FALSE when the given class doesn't exist.
  * @throws SplException
  *
  */
@@ -31,7 +31,7 @@ function class_implements($object_or_class, bool $autoload = true): array
  *
  * @param object|string $object_or_class An object (class instance) or a string (class name).
  * @param bool $autoload Whether to call __autoload by default.
- * @return array An array on success, or FALSE when the given class doesn't exist.
+ * @return \array An array on success, or FALSE when the given class doesn't exist.
  * @throws SplException
  *
  */
@@ -53,7 +53,7 @@ function class_parents($object_or_class, bool $autoload = true): array
  *
  * @param object|string $object_or_class An object (class instance) or a string (class name).
  * @param bool $autoload Whether to call __autoload by default.
- * @return array An array on success, or FALSE when the given class doesn't exist.
+ * @return \array An array on success, or FALSE when the given class doesn't exist.
  * @throws SplException
  *
  */

@@ -11,7 +11,7 @@ use Safe\Exceptions\FilterException;
  * @param int $type One of INPUT_GET, INPUT_POST,
  * INPUT_COOKIE, INPUT_SERVER, or
  * INPUT_ENV.
- * @param int|array $options An array defining the arguments. A valid key is a string
+ * @param int|\array $options An array defining the arguments. A valid key is a string
  * containing a variable name and a valid value is either a filter type, or an array
  * optionally specifying the filter, flags and options. If the value is an
  * array, valid keys are filter which specifies the
@@ -23,7 +23,7 @@ use Safe\Exceptions\FilterException;
  * This parameter can be also an integer holding a filter constant. Then all values in the
  * input array are filtered by this filter.
  * @param bool $add_empty Add missing keys as NULL to the return value.
- * @return array|null An array containing the values of the requested variables on success.
+ * @return \array|null An array containing the values of the requested variables on success.
  * If the input array designated by type is not populated,
  * the function returns NULL if the FILTER_NULL_ON_FAILURE
  * flag is not given, or FALSE otherwise. For other failures, FALSE is returned.
@@ -51,7 +51,7 @@ function filter_input_array(int $type, $options = FILTER_DEFAULT, bool $add_empt
  * This function is useful for retrieving many values without
  * repetitively calling filter_var.
  *
- * @param array $array An array with string keys containing the data to filter.
+ * @param \array $array An array with string keys containing the data to filter.
  * @param mixed $options An array defining the arguments. A valid key is a string
  * containing a variable name and a valid value is either a
  * filter type, or an
@@ -65,7 +65,7 @@ function filter_input_array(int $type, $options = FILTER_DEFAULT, bool $add_empt
  * This parameter can be also an integer holding a filter constant. Then all values in the
  * input array are filtered by this filter.
  * @param bool $add_empty Add missing keys as NULL to the return value.
- * @return array|null An array containing the values of the requested variables on success. An array value will be FALSE if the filter fails, or NULL if
+ * @return \array|null An array containing the values of the requested variables on success. An array value will be FALSE if the filter fails, or NULL if
  * the variable is not set.
  * @throws FilterException
  *

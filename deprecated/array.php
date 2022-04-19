@@ -202,3 +202,27 @@ function usort(array &$array, callable $value_compare_func): void
         throw ArrayException::createFromPhpError();
     }
 }
+
+/**
+ * Creates an array by using the values from the
+ * keys array as keys and the values from the
+ * values array as the corresponding values.
+ *
+ * @param array $keys Array of keys to be used. Illegal values for key will be
+ * converted to string.
+ * @param array $values Array of values to be used
+ * @return array Returns the combined array, FALSE if the number of elements
+ * for each array isn't equal.
+ * @throws ArrayException
+ * @deprecated
+ *
+ */
+function array_combine(array $keys, array $values): array
+{
+    error_clear_last();
+    $result = \array_combine($keys, $values);
+    if ($result === false) {
+        throw ArrayException::createFromPhpError();
+    }
+    return $result;
+}

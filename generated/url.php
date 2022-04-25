@@ -77,8 +77,6 @@ function get_headers(string $url, bool $associative = false, $context = null): a
  * ]]>
  *
  *
- * (pay attention to line endings - PHP uses a native function to
- * parse the input, so a Mac file won't work on Unix).
  * @param bool $use_include_path Setting use_include_path to TRUE will result
  * in PHP trying to open the file along the standard include path as per
  * the include_path directive.

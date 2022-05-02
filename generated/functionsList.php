@@ -337,6 +337,7 @@ return [
     'imagecreatefromgif',
     'imagecreatefromjpeg',
     'imagecreatefrompng',
+    'imagecreatefromstring',
     'imagecreatefromtga',
     'imagecreatefromwbmp',
     'imagecreatefromwebp',

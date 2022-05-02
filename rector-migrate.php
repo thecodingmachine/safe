@@ -347,6 +347,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'imagecreatefromgif' => 'Safe\imagecreatefromgif',
             'imagecreatefromjpeg' => 'Safe\imagecreatefromjpeg',
             'imagecreatefrompng' => 'Safe\imagecreatefrompng',
+            'imagecreatefromstring' => 'Safe\imagecreatefromstring',
             'imagecreatefromtga' => 'Safe\imagecreatefromtga',
             'imagecreatefromwbmp' => 'Safe\imagecreatefromwbmp',
             'imagecreatefromwebp' => 'Safe\imagecreatefromwebp',

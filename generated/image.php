@@ -912,6 +912,30 @@ function imagecreatefrompng(string $filename)
 
 
 /**
+ * imagecreatefromstring returns an image identifier
+ * representing the image obtained from the given data.
+ * These types will be automatically detected if your build of PHP supports
+ * them: JPEG, PNG, GIF, BMP, WBMP, GD2, and WEBP.
+ *
+ * @param string $data A string containing the image data.
+ * @return resource An image object will be returned on success. FALSE is returned if
+ * the image type is unsupported, the data is not in a recognised format,
+ * or the image is corrupt and cannot be loaded.
+ * @throws ImageException
+ *
+ */
+function imagecreatefromstring(string $data)
+{
+    error_clear_last();
+    $result = \imagecreatefromstring($data);
+    if ($result === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $result;
+}
+
+
+/**
  * imagecreatefromtga returns an image object
  * representing the image obtained from the given filename.
  *

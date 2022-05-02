@@ -125,7 +125,7 @@ class DocPage
         }
 
         //used to detect imagecreatefromstring
-        if (preg_match('/If the arguments are invalid, the function returns &false;/m', $returnValuesSection)) {
+        if (preg_match('/&false; is returned if\s+the image type is unsupported, the data is not in a recognised format,\s+or the image is corrupt and cannot be loaded/m', $returnValuesSection)) {
             return true;
         }
 

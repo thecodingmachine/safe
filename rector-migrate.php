@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-# This file configures rector/rector to replace all PHP functions with their equivalent "safe" functions
+// This file configures rector/rector to replace all PHP functions with their equivalent "safe" functions.
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
@@ -1103,5 +1103,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'zip_entry_open' => 'Safe\zip_entry_open',
             'zip_entry_read' => 'Safe\zip_entry_read',
             'zlib_decode' => 'Safe\zlib_decode',
-]]]);
+        ]]]);
 };

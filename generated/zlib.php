@@ -187,7 +187,7 @@ function gzcompress(string $data, int $level = -1, int $encoding = ZLIB_ENCODING
  *
  * @param string $data The data to decode, encoded by gzencode.
  * @param int $max_length The maximum length of data to decode.
- * @return string The decoded string.
+ * @return string The decoded string, or.
  * @throws ZlibException
  *
  */

@@ -244,6 +244,7 @@ function pg_delete($connection, string $table_name, array $conditions, int $flag
  * When connection is NULL, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @throws PgsqlException
  *
  */
@@ -281,6 +282,7 @@ function pg_end_copy($connection = null): void
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @param string $stmtname The name of the prepared statement to execute.  if
  * "" is specified, then the unnamed statement is executed.  The name must have
  * been previously prepared using pg_prepare,
@@ -393,6 +395,7 @@ function pg_free_result($result): void
  * When connection is NULL, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @return string A string containing the name of the host the
  * connection is to.
  * @throws PgsqlException
@@ -532,6 +535,7 @@ function pg_lo_close($lob): void
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @param int $oid The OID of the large object in the database.
  * @param string $pathname The full path and file name of the file in which to write the
  * large object on the client filesystem.
@@ -568,6 +572,7 @@ function pg_lo_export($connection = null, int $oid = null, string $pathname = nu
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @param string $pathname The full path and file name of the file on the client
  * filesystem from which to read the large object data.
  * @param  $object_id If an object_id is given the function
@@ -609,6 +614,7 @@ function pg_lo_import($connection = null, string $pathname = null, $object_id = 
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @param int $oid The OID of the large object in the database.
  * @param string $mode Can be either "r" for read-only, "w" for write only or "rw" for read and
  * write.
@@ -709,6 +715,7 @@ function pg_lo_truncate($lob, int $size): void
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @param int $oid The OID of the large object in the database.
  * @throws PgsqlException
  *
@@ -806,6 +813,7 @@ function pg_meta_data($connection, string $table_name, bool $extended = false): 
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @param string $param_name Possible param_name values include server_version,
  * server_encoding, client_encoding,
  * is_superuser, session_authorization,
@@ -896,6 +904,7 @@ function pg_pconnect(string $connection_string, int $flags = 0)
  * When connection is NULL, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @throws PgsqlException
  *
  */
@@ -938,6 +947,7 @@ function pg_ping($connection = null): void
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @param string $stmtname The name to give the prepared statement.  Must be unique per-connection.  If
  * "" is specified, then an unnamed statement is created, overwriting any
  * previously defined unnamed statement.
@@ -984,6 +994,7 @@ function pg_prepare($connection = null, string $stmtname = null, string $query =
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @param string $data A line of text to be sent directly to the PostgreSQL backend.  A NULL
  * terminator is added automatically.
  * @throws PgsqlException
@@ -1034,6 +1045,7 @@ function pg_put_line($connection = null, string $data = null): void
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @param string $query The parameterized SQL statement.  Must contain only a single statement.
  * (multiple statements separated by semi-colons are not allowed.)  If any parameters
  * are used, they are referred to as $1, $2, etc.
@@ -1096,6 +1108,7 @@ function pg_query_params($connection = null, string $query = null, array $params
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @param string $query The SQL statement or statements to be executed. When multiple statements are passed to the function,
  * they are automatically executed as one transaction, unless there are explicit BEGIN/COMMIT commands
  * included in the query string. However, using multiple transactions in one function call is not recommended.
@@ -1281,6 +1294,7 @@ function pg_socket($connection)
  * When connection is NULL, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
+ * As of PHP 8.1.0, using the default connection is deprecated.
  * @throws PgsqlException
  *
  */

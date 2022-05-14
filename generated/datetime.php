@@ -535,6 +535,15 @@ function gmstrftime(string $format, int $timestamp = null): string
  * Month number
  *
  *
+ * N
+ * ISO-8601 day of the week (1 for Monday
+ * through 7 for Sunday)
+ *
+ *
+ * o
+ * ISO-8601 year (4 digits)
+ *
+ *
  * s
  * Seconds
  *

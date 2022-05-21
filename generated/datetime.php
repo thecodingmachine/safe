@@ -857,12 +857,17 @@ function mktime(int $hour, int $minute = null, int $second = null, int $month = 
  *
  * %p
  * UPPER-CASE 'AM' or 'PM' based on the given time
- * Example: AM for 00:31, PM for 22:23
+ * Example: AM for 00:31,
+ * PM for 22:23. The exact result depends on the
+ * Operating System, and they can also return lower-case variants, or
+ * variants with dots (such as a.m.).
  *
  *
  * %P
  * lower-case 'am' or 'pm' based on the given time
- * Example: am for 00:31, pm for 22:23
+ * Example: am for 00:31,
+ * pm for 22:23. Not supported by all Operating
+ * Systems.
  *
  *
  * %r

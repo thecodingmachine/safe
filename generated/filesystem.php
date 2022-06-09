@@ -247,11 +247,11 @@ function fflush($stream): void
  * @param string $enclosure The optional enclosure parameter sets the field enclosure character (one single-byte character only).
  * @param string $escape The optional escape parameter sets the escape character (at most one single-byte character).
  * An empty string ("") disables the proprietary escape mechanism.
- * @return array|false|null Returns an indexed array containing the fields read on success.
+ * @return array|null Returns an indexed array containing the fields read on success.
  * @throws FilesystemException
  *
  */
-function fgetcsv($stream, int $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\")
+function fgetcsv($stream, int $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\"): ?array
 {
     error_clear_last();
     if ($escape !== "\\") {

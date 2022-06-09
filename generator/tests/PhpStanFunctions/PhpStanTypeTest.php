@@ -145,6 +145,10 @@ class PhpStanTypeTest extends TestCase
         $param = new PhpStanType('int|null');
         $this->assertEquals('int', $param->getDocBlockType(Method::NULLSY_TYPE));
         $this->assertEquals('int', $param->getSignatureType(Method::NULLSY_TYPE));
+
+        $param = new PhpStanType('array|false|null');
+        $this->assertEquals('array|null', $param->getDocBlockType(Method::FALSY_TYPE));
+        $this->assertEquals('?array', $param->getSignatureType(Method::FALSY_TYPE));
     }
     
     public function testDuplicateType(): void 

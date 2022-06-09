@@ -25,7 +25,21 @@ function date_parse_from_format(string $format, string $datetime): ?array
 
 
 /**
+ * date_parse parses the given
+ * datetime string according to the same rules as
+ * strtotime and
+ * DateTimeImmutable::__construct. Instead of returning a
+ * Unix timestamp (with strtotime) or a
+ * DateTimeImmutable object (with
+ * DateTimeImmutable::__construct, it returns an
+ * associative array with the information that it could detect in the given
+ * datetime string.
  *
+ * If no information about a certain group of elements can be found, these
+ * array elements will be set to FALSE or are missing. If needed for
+ * constructing a timestamp or DateTimeImmutable object from
+ * the same datetime string, more fields can be set to
+ * a non-FALSE value. See the examples for cases where that happens.
  *
  * @param string $datetime Date/time in format accepted by
  * DateTimeImmutable::__construct.
@@ -359,9 +373,14 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, fl
 
 /**
  * Returns a string formatted according to the given format string using the
- * given integer timestamp or the current time
- * if no timestamp is given.  In other words, timestamp
+ * given integer timestamp (Unix timestamp) or the current time
+ * if no timestamp is given. In other words, timestamp
  * is optional and defaults to the value of time.
+ *
+ * Unix timestamps do not handle timezones. Use the
+ * DateTimeImmutable class, and its
+ * DateTimeInterface::format formatting method to
+ * format date/time information with a timezone attached.
  *
  * @param string $format Format accepted by DateTimeInterface::format.
  * @param int $timestamp The optional timestamp parameter is an

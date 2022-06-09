@@ -119,7 +119,7 @@ class DocPage
             return true;
         }
         //used for date
-        if (preg_match('/If a non-numeric value is used for 
+        if (preg_match('/If a non-numeric value is used for
    \<parameter\>timestamp\<\/parameter\>, &false; is returned/m', $returnValuesSection)) {
             return true;
         }

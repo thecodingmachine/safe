@@ -443,7 +443,7 @@ function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, array 
  * OPENSSL_ZERO_PADDING.
  * @param string $iv A non-NULL Initialization Vector.
  * @param string $tag The authentication tag in AEAD cipher mode. If it is incorrect, the authentication fails and the function returns FALSE.
- * @param string $aad Additional authentication data.
+ * @param string $aad Additional authenticated data.
  * @return string The decrypted string on success.
  * @throws OpensslException
  *

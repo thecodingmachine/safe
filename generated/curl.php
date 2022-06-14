@@ -1284,6 +1284,18 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ * CURLOPT_SAFE_UPLOAD
+ *
+ * Always TRUE, what disables support for the @ prefix for
+ * uploading files in CURLOPT_POSTFIELDS, which
+ * means that values starting with @ can be safely
+ * passed as fields. CURLFile may be used for
+ * uploads instead.
+ *
+ *
+ *
+ *
+ *
  * CURLOPT_SUPPRESS_CONNECT_HEADERS
  *
  * TRUE to suppress proxy CONNECT response headers from the user callback functions

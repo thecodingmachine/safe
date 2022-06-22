@@ -13,10 +13,21 @@ use Safe\Exceptions\XmlException;
  */
 function xml_parser_free($parser): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xml_parser_free($parser);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError($error);
     }
 }
 
@@ -69,10 +80,21 @@ function xml_parser_free($parser): void
  */
 function xml_set_character_data_handler($parser, callable $handler): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xml_set_character_data_handler($parser, $handler);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError($error);
     }
 }
 
@@ -127,10 +149,21 @@ function xml_set_character_data_handler($parser, callable $handler): void
  */
 function xml_set_default_handler($parser, callable $handler): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xml_set_default_handler($parser, $handler);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError($error);
     }
 }
 
@@ -197,10 +230,21 @@ function xml_set_default_handler($parser, callable $handler): void
  */
 function xml_set_element_handler($parser, callable $start_handler, callable $end_handler): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xml_set_element_handler($parser, $start_handler, $end_handler);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError($error);
     }
 }
 
@@ -254,10 +298,21 @@ function xml_set_element_handler($parser, callable $start_handler, callable $end
  */
 function xml_set_end_namespace_decl_handler($parser, callable $handler): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xml_set_end_namespace_decl_handler($parser, $handler);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError($error);
     }
 }
 
@@ -346,10 +401,21 @@ function xml_set_end_namespace_decl_handler($parser, callable $handler): void
  */
 function xml_set_external_entity_ref_handler($parser, callable $handler): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xml_set_external_entity_ref_handler($parser, $handler);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError($error);
     }
 }
 
@@ -443,10 +509,21 @@ function xml_set_external_entity_ref_handler($parser, callable $handler): void
  */
 function xml_set_notation_decl_handler($parser, callable $handler): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xml_set_notation_decl_handler($parser, $handler);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError($error);
     }
 }
 
@@ -464,10 +541,21 @@ function xml_set_notation_decl_handler($parser, callable $handler): void
  */
 function xml_set_object($parser, object $object): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xml_set_object($parser, $object);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError($error);
     }
 }
 
@@ -538,10 +626,21 @@ function xml_set_object($parser, object $object): void
  */
 function xml_set_processing_instruction_handler($parser, callable $handler): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xml_set_processing_instruction_handler($parser, $handler);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError($error);
     }
 }
 
@@ -604,10 +703,21 @@ function xml_set_processing_instruction_handler($parser, callable $handler): voi
  */
 function xml_set_start_namespace_decl_handler($parser, callable $handler): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xml_set_start_namespace_decl_handler($parser, $handler);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError($error);
     }
 }
 
@@ -708,9 +818,20 @@ function xml_set_start_namespace_decl_handler($parser, callable $handler): void
  */
 function xml_set_unparsed_entity_decl_handler($parser, callable $handler): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \xml_set_unparsed_entity_decl_handler($parser, $handler);
+    restore_error_handler();
+
     if ($result === false) {
-        throw XmlException::createFromPhpError();
+        throw XmlException::createFromPhpError($error);
     }
 }

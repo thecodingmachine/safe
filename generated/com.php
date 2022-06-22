@@ -16,10 +16,21 @@ use Safe\Exceptions\ComException;
  */
 function com_create_guid(): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \com_create_guid();
+    restore_error_handler();
+
     if ($result === false) {
-        throw ComException::createFromPhpError();
+        throw ComException::createFromPhpError($error);
     }
     return $result;
 }
@@ -49,14 +60,25 @@ function com_create_guid(): string
  */
 function com_event_sink(object $variant, object $sink_object, $sink_interface = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($sink_interface !== null) {
         $result = \com_event_sink($variant, $sink_object, $sink_interface);
     } else {
         $result = \com_event_sink($variant, $sink_object);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ComException::createFromPhpError();
+        throw ComException::createFromPhpError($error);
     }
 }
 
@@ -115,10 +137,21 @@ function com_event_sink(object $variant, object $sink_object, $sink_interface = 
  */
 function com_load_typelib(string $typelib, bool $case_insensitive = true): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \com_load_typelib($typelib, $case_insensitive);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ComException::createFromPhpError();
+        throw ComException::createFromPhpError($error);
     }
 }
 
@@ -140,7 +173,16 @@ function com_load_typelib(string $typelib, bool $case_insensitive = true): void
  */
 function com_print_typeinfo(object $variant, string $dispatch_interface = null, bool $display_sink = false): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($display_sink !== false) {
         $result = \com_print_typeinfo($variant, $dispatch_interface, $display_sink);
     } elseif ($dispatch_interface !== null) {
@@ -148,8 +190,10 @@ function com_print_typeinfo(object $variant, string $dispatch_interface = null, 
     } else {
         $result = \com_print_typeinfo($variant);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ComException::createFromPhpError();
+        throw ComException::createFromPhpError($error);
     }
 }
 
@@ -166,10 +210,21 @@ function com_print_typeinfo(object $variant, string $dispatch_interface = null, 
  */
 function variant_date_to_timestamp(object $variant): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \variant_date_to_timestamp($variant);
+    restore_error_handler();
+
     if ($result === null) {
-        throw ComException::createFromPhpError();
+        throw ComException::createFromPhpError($error);
     }
     return $result;
 }
@@ -187,10 +242,21 @@ function variant_date_to_timestamp(object $variant): int
  */
 function variant_round($value, int $decimals)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \variant_round($value, $decimals);
+    restore_error_handler();
+
     if ($result === null) {
-        throw ComException::createFromPhpError();
+        throw ComException::createFromPhpError($error);
     }
     return $result;
 }

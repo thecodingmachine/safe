@@ -26,10 +26,21 @@ use Safe\Exceptions\UodbcException;
  */
 function odbc_autocommit($odbc, bool $enable = false)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_autocommit($odbc, $enable);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -136,10 +147,21 @@ function odbc_autocommit($odbc, bool $enable = false)
  */
 function odbc_binmode(int $statement, int $mode): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_binmode($statement, $mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
 }
 
@@ -183,10 +205,21 @@ function odbc_binmode(int $statement, int $mode): void
  */
 function odbc_columnprivileges($odbc, string $catalog, string $schema, string $table, string $column)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_columnprivileges($odbc, $catalog, $schema, $table, $column);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -239,7 +272,16 @@ function odbc_columnprivileges($odbc, string $catalog, string $schema, string $t
  */
 function odbc_columns($odbc, string $catalog = null, string $schema = null, string $table = null, string $column = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($column !== null) {
         $result = \odbc_columns($odbc, $catalog, $schema, $table, $column);
     } elseif ($table !== null) {
@@ -251,8 +293,10 @@ function odbc_columns($odbc, string $catalog = null, string $schema = null, stri
     } else {
         $result = \odbc_columns($odbc);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -268,10 +312,21 @@ function odbc_columns($odbc, string $catalog = null, string $schema = null, stri
  */
 function odbc_commit($odbc): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_commit($odbc);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
 }
 
@@ -310,10 +365,21 @@ function odbc_commit($odbc): void
  */
 function odbc_connect(string $dsn, string $user, string $password, int $cursor_option = SQL_CUR_USE_DRIVER)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_connect($dsn, $user, $password, $cursor_option);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -329,10 +395,21 @@ function odbc_connect(string $dsn, string $user, string $password, int $cursor_o
  */
 function odbc_cursor($statement): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_cursor($statement);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -355,10 +432,21 @@ function odbc_cursor($statement): string
  */
 function odbc_data_source($odbc, int $fetch_type): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_data_source($odbc, $fetch_type);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -377,10 +465,21 @@ function odbc_data_source($odbc, int $fetch_type): array
  */
 function odbc_exec($odbc, string $query)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_exec($odbc, $query);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -404,10 +503,21 @@ function odbc_exec($odbc, string $query)
  */
 function odbc_execute($statement, array $params = []): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_execute($statement, $params);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
 }
 
@@ -428,10 +538,21 @@ function odbc_execute($statement, array $params = []): void
  */
 function odbc_fetch_into($statement, ?array &$array, int $row = 0): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_fetch_into($statement, $array, $row);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -449,10 +570,21 @@ function odbc_fetch_into($statement, ?array &$array, int $row = 0): int
  */
 function odbc_field_len($statement, int $field): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_field_len($statement, $field);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -470,10 +602,21 @@ function odbc_field_len($statement, int $field): int
  */
 function odbc_field_name($statement, int $field): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_field_name($statement, $field);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -492,10 +635,21 @@ function odbc_field_name($statement, int $field): string
  */
 function odbc_field_num($statement, string $field): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_field_num($statement, $field);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -513,10 +667,21 @@ function odbc_field_num($statement, string $field): int
  */
 function odbc_field_scale($statement, int $field): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_field_scale($statement, $field);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -534,10 +699,21 @@ function odbc_field_scale($statement, int $field): int
  */
 function odbc_field_type($statement, int $field): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_field_type($statement, $field);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -581,10 +757,21 @@ function odbc_field_type($statement, int $field): string
  */
 function odbc_foreignkeys($odbc, string $pk_catalog, string $pk_schema, string $pk_table, string $fk_catalog, string $fk_schema, string $fk_table)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_foreignkeys($odbc, $pk_catalog, $pk_schema, $pk_table, $fk_catalog, $fk_schema, $fk_table);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -624,10 +811,21 @@ function odbc_foreignkeys($odbc, string $pk_catalog, string $pk_schema, string $
  */
 function odbc_gettypeinfo($odbc, int $data_type = 0)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_gettypeinfo($odbc, $data_type);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -647,10 +845,21 @@ function odbc_gettypeinfo($odbc, int $data_type = 0)
  */
 function odbc_longreadlen($statement, int $length): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_longreadlen($statement, $length);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
 }
 
@@ -678,10 +887,21 @@ function odbc_longreadlen($statement, int $length): void
  */
 function odbc_pconnect(string $dsn, string $user, string $password, int $cursor_option = SQL_CUR_USE_DRIVER)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_pconnect($dsn, $user, $password, $cursor_option);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -706,10 +926,21 @@ function odbc_pconnect(string $dsn, string $user, string $password, int $cursor_
  */
 function odbc_prepare($odbc, string $query)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_prepare($odbc, $query);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -741,10 +972,21 @@ function odbc_prepare($odbc, string $query)
  */
 function odbc_primarykeys($odbc, string $catalog, string $schema, string $table)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_primarykeys($odbc, $catalog, $schema, $table);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -800,7 +1042,16 @@ function odbc_primarykeys($odbc, string $catalog, string $schema, string $table)
  */
 function odbc_procedurecolumns($odbc, string $catalog = null, string $schema = null, string $procedure = null, string $column = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($column !== null) {
         $result = \odbc_procedurecolumns($odbc, $catalog, $schema, $procedure, $column);
     } elseif ($procedure !== null) {
@@ -812,8 +1063,10 @@ function odbc_procedurecolumns($odbc, string $catalog = null, string $schema = n
     } else {
         $result = \odbc_procedurecolumns($odbc);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -853,7 +1106,16 @@ function odbc_procedurecolumns($odbc, string $catalog = null, string $schema = n
  */
 function odbc_procedures($odbc, string $catalog = null, string $schema = null, string $procedure = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($procedure !== null) {
         $result = \odbc_procedures($odbc, $catalog, $schema, $procedure);
     } elseif ($schema !== null) {
@@ -863,8 +1125,10 @@ function odbc_procedures($odbc, string $catalog = null, string $schema = null, s
     } else {
         $result = \odbc_procedures($odbc);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -886,10 +1150,21 @@ function odbc_procedures($odbc, string $catalog = null, string $schema = null, s
  */
 function odbc_result_all($statement, string $format = ""): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_result_all($statement, $format);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -909,10 +1184,21 @@ function odbc_result_all($statement, string $format = ""): int
  */
 function odbc_result($statement, $field)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_result($statement, $field);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -928,10 +1214,21 @@ function odbc_result($statement, $field)
  */
 function odbc_rollback($odbc): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_rollback($odbc);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
 }
 
@@ -968,10 +1265,21 @@ function odbc_rollback($odbc): void
  */
 function odbc_setoption($odbc, int $which, int $option, int $value): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_setoption($odbc, $which, $option, $value);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
 }
 
@@ -1011,10 +1319,21 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  */
 function odbc_specialcolumns($odbc, int $type, string $catalog, string $schema, string $table, int $scope, int $nullable)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_specialcolumns($odbc, $type, $catalog, $schema, $table, $scope, $nullable);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1057,10 +1376,21 @@ function odbc_specialcolumns($odbc, int $type, string $catalog, string $schema, 
  */
 function odbc_statistics($odbc, string $catalog, string $schema, string $table, int $unique, int $accuracy)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_statistics($odbc, $catalog, $schema, $table, $unique, $accuracy);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1099,10 +1429,21 @@ function odbc_statistics($odbc, string $catalog, string $schema, string $table, 
  */
 function odbc_tableprivileges($odbc, string $catalog, string $schema, string $table)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \odbc_tableprivileges($odbc, $catalog, $schema, $table);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1183,7 +1524,16 @@ function odbc_tableprivileges($odbc, string $catalog, string $schema, string $ta
  */
 function odbc_tables($odbc, string $catalog = null, string $schema = null, string $table = null, string $types = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($types !== null) {
         $result = \odbc_tables($odbc, $catalog, $schema, $table, $types);
     } elseif ($table !== null) {
@@ -1195,8 +1545,10 @@ function odbc_tables($odbc, string $catalog = null, string $schema = null, strin
     } else {
         $result = \odbc_tables($odbc);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw UodbcException::createFromPhpError();
+        throw UodbcException::createFromPhpError($error);
     }
     return $result;
 }

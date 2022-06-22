@@ -13,10 +13,21 @@ use Safe\Exceptions\FileinfoException;
  */
 function finfo_close($finfo): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \finfo_close($finfo);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FileinfoException::createFromPhpError();
+        throw FileinfoException::createFromPhpError($error);
     }
 }
 
@@ -45,14 +56,25 @@ function finfo_close($finfo): void
  */
 function finfo_open(int $flags = FILEINFO_NONE, string $magic_database = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($magic_database !== null) {
         $result = \finfo_open($flags, $magic_database);
     } else {
         $result = \finfo_open($flags);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw FileinfoException::createFromPhpError();
+        throw FileinfoException::createFromPhpError($error);
     }
     return $result;
 }
@@ -70,10 +92,21 @@ function finfo_open(int $flags = FILEINFO_NONE, string $magic_database = null)
  */
 function mime_content_type($filename): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mime_content_type($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FileinfoException::createFromPhpError();
+        throw FileinfoException::createFromPhpError($error);
     }
     return $result;
 }

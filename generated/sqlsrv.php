@@ -20,10 +20,21 @@ use Safe\Exceptions\SqlsrvException;
  */
 function sqlsrv_begin_transaction($conn): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_begin_transaction($conn);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
 }
 
@@ -42,10 +53,21 @@ function sqlsrv_begin_transaction($conn): void
  */
 function sqlsrv_cancel($stmt): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_cancel($stmt);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
 }
 
@@ -89,10 +111,21 @@ function sqlsrv_cancel($stmt): void
  */
 function sqlsrv_client_info($conn): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_client_info($conn);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
     return $result;
 }
@@ -107,10 +140,21 @@ function sqlsrv_client_info($conn): array
  */
 function sqlsrv_close($conn): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_close($conn);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
 }
 
@@ -131,10 +175,21 @@ function sqlsrv_close($conn): void
  */
 function sqlsrv_commit($conn): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_commit($conn);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
 }
 
@@ -183,10 +238,21 @@ function sqlsrv_commit($conn): void
  */
 function sqlsrv_configure(string $setting, $value): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_configure($setting, $value);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
 }
 
@@ -202,10 +268,21 @@ function sqlsrv_configure(string $setting, $value): void
  */
 function sqlsrv_execute($stmt): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_execute($stmt);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
 }
 
@@ -225,10 +302,21 @@ function sqlsrv_execute($stmt): void
  */
 function sqlsrv_free_stmt($stmt): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_free_stmt($stmt);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
 }
 
@@ -253,14 +341,25 @@ function sqlsrv_free_stmt($stmt): void
  */
 function sqlsrv_get_field($stmt, int $fieldIndex, int $getAsType = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($getAsType !== null) {
         $result = \sqlsrv_get_field($stmt, $fieldIndex, $getAsType);
     } else {
         $result = \sqlsrv_get_field($stmt, $fieldIndex);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
     return $result;
 }
@@ -278,10 +377,21 @@ function sqlsrv_get_field($stmt, int $fieldIndex, int $getAsType = null)
  */
 function sqlsrv_next_result($stmt): ?bool
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_next_result($stmt);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
     return $result;
 }
@@ -299,10 +409,21 @@ function sqlsrv_next_result($stmt): ?bool
  */
 function sqlsrv_num_fields($stmt): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_num_fields($stmt);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
     return $result;
 }
@@ -327,10 +448,21 @@ function sqlsrv_num_fields($stmt): int
  */
 function sqlsrv_num_rows($stmt): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_num_rows($stmt);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
     return $result;
 }
@@ -359,7 +491,16 @@ function sqlsrv_num_rows($stmt): int
  */
 function sqlsrv_prepare($conn, string $sql, array $params = null, array $options = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($options !== null) {
         $result = \sqlsrv_prepare($conn, $sql, $params, $options);
     } elseif ($params !== null) {
@@ -367,8 +508,10 @@ function sqlsrv_prepare($conn, string $sql, array $params = null, array $options
     } else {
         $result = \sqlsrv_prepare($conn, $sql);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
     return $result;
 }
@@ -396,7 +539,16 @@ function sqlsrv_prepare($conn, string $sql, array $params = null, array $options
  */
 function sqlsrv_query($conn, string $sql, array $params = null, array $options = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($options !== null) {
         $result = \sqlsrv_query($conn, $sql, $params, $options);
     } elseif ($params !== null) {
@@ -404,8 +556,10 @@ function sqlsrv_query($conn, string $sql, array $params = null, array $options =
     } else {
         $result = \sqlsrv_query($conn, $sql);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
     return $result;
 }
@@ -421,9 +575,20 @@ function sqlsrv_query($conn, string $sql, array $params = null, array $options =
  */
 function sqlsrv_rollback($conn): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \sqlsrv_rollback($conn);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SqlsrvException::createFromPhpError();
+        throw SqlsrvException::createFromPhpError($error);
     }
 }

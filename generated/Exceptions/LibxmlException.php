@@ -3,9 +3,19 @@ namespace Safe\Exceptions;
 
 class LibxmlException extends \ErrorException implements SafeExceptionInterface
 {
-    public static function createFromPhpError(): self
+    /**
+     *
+     * @param array{type?: int, message?: string, file?: string, line?: int} $error
+     * @return \Safe\Exceptions\{LibxmlException}
+     */
+    public static function createFromPhpError(array $error = null): self
     {
-        $error = error_get_last();
-        return new self($error['message'] ?? 'An error occured', 0, $error['type'] ?? 1);
+        return new self(
+            $error['message'] ?? 'An error occured',
+            0,
+            $error['type'] ?? 1,
+            $error['file'] ?? __FILE__,
+            $error['line'] ?? __LINE__,
+        );
     }
 }

@@ -18,10 +18,21 @@ use Safe\Exceptions\SsdeepException;
  */
 function ssdeep_fuzzy_compare(string $signature1, string $signature2): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssdeep_fuzzy_compare($signature1, $signature2);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SsdeepException::createFromPhpError();
+        throw SsdeepException::createFromPhpError($error);
     }
     return $result;
 }
@@ -40,10 +51,21 @@ function ssdeep_fuzzy_compare(string $signature1, string $signature2): int
  */
 function ssdeep_fuzzy_hash_filename(string $file_name): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssdeep_fuzzy_hash_filename($file_name);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SsdeepException::createFromPhpError();
+        throw SsdeepException::createFromPhpError($error);
     }
     return $result;
 }
@@ -61,10 +83,21 @@ function ssdeep_fuzzy_hash_filename(string $file_name): string
  */
 function ssdeep_fuzzy_hash(string $to_hash): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssdeep_fuzzy_hash($to_hash);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SsdeepException::createFromPhpError();
+        throw SsdeepException::createFromPhpError($error);
     }
     return $result;
 }

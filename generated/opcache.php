@@ -15,10 +15,21 @@ use Safe\Exceptions\OpcacheException;
  */
 function opcache_compile_file(string $filename): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \opcache_compile_file($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpcacheException::createFromPhpError();
+        throw OpcacheException::createFromPhpError($error);
     }
 }
 
@@ -34,10 +45,21 @@ function opcache_compile_file(string $filename): void
  */
 function opcache_get_status(bool $include_scripts = true): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \opcache_get_status($include_scripts);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpcacheException::createFromPhpError();
+        throw OpcacheException::createFromPhpError($error);
     }
     return $result;
 }

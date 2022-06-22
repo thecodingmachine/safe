@@ -13,10 +13,21 @@ use Safe\Exceptions\NetworkException;
  */
 function closelog(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \closelog();
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
 }
 
@@ -248,10 +259,21 @@ function closelog(): void
  */
 function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authoritative_name_servers = null, ?array &$additional_records = null, bool $raw = false): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \dns_get_record($hostname, $type, $authoritative_name_servers, $additional_records, $raw);
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
     return $result;
 }
@@ -308,14 +330,25 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authorit
  */
 function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($timeout !== null) {
         $result = \fsockopen($hostname, $port, $error_code, $error_message, $timeout);
     } else {
         $result = \fsockopen($hostname, $port, $error_code, $error_message);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
     return $result;
 }
@@ -332,10 +365,21 @@ function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?
  */
 function gethostname(): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \gethostname();
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
     return $result;
 }
@@ -353,10 +397,21 @@ function gethostname(): string
  */
 function getprotobyname(string $protocol): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getprotobyname($protocol);
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
     return $result;
 }
@@ -374,10 +429,21 @@ function getprotobyname(string $protocol): int
  */
 function getprotobynumber(int $protocol): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getprotobynumber($protocol);
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
     return $result;
 }
@@ -397,10 +463,21 @@ function getprotobynumber(int $protocol): string
  */
 function getservbyport(int $port, string $protocol): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getservbyport($port, $protocol);
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
     return $result;
 }
@@ -420,10 +497,21 @@ function getservbyport(int $port, string $protocol): string
  */
 function header_register_callback(callable $callback): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \header_register_callback($callback);
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
 }
 
@@ -438,10 +526,21 @@ function header_register_callback(callable $callback): void
  */
 function inet_ntop(string $ip): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \inet_ntop($ip);
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
     return $result;
 }
@@ -459,10 +558,21 @@ function inet_ntop(string $ip): string
  */
 function long2ip(int $ip): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \long2ip($ip);
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
     return $result;
 }
@@ -564,10 +674,21 @@ function long2ip(int $ip): string
  */
 function net_get_interfaces(): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \net_get_interfaces();
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
     return $result;
 }
@@ -707,10 +828,21 @@ function net_get_interfaces(): array
  */
 function openlog(string $prefix, int $flags, int $facility): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openlog($prefix, $flags, $facility);
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
 }
 
@@ -735,14 +867,25 @@ function openlog(string $prefix, int $flags, int $facility): void
  */
 function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($timeout !== null) {
         $result = \pfsockopen($hostname, $port, $error_code, $error_message, $timeout);
     } else {
         $result = \pfsockopen($hostname, $port, $error_code, $error_message);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
     return $result;
 }
@@ -812,9 +955,20 @@ function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, 
  */
 function syslog(int $priority, string $message): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \syslog($priority, $message);
+    restore_error_handler();
+
     if ($result === false) {
-        throw NetworkException::createFromPhpError();
+        throw NetworkException::createFromPhpError($error);
     }
 }

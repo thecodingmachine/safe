@@ -21,10 +21,21 @@ use Safe\Exceptions\PcreException;
  */
 function preg_grep(string $pattern, array $array, int $flags = 0): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \preg_grep($pattern, $array, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PcreException::createFromPhpError();
+        throw PcreException::createFromPhpError($error);
     }
     return $result;
 }
@@ -375,10 +386,21 @@ function preg_grep(string $pattern, array $array, int $flags = 0): array
  */
 function preg_match_all(string $pattern, string $subject, ?array &$matches = null, int $flags = 0, int $offset = 0): ?int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \preg_match_all($pattern, $subject, $matches, $flags, $offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PcreException::createFromPhpError();
+        throw PcreException::createFromPhpError($error);
     }
     return $result;
 }
@@ -612,10 +634,21 @@ function preg_match_all(string $pattern, string $subject, ?array &$matches = nul
  */
 function preg_match(string $pattern, string $subject, ?iterable &$matches = null, int $flags = 0, int $offset = 0): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \preg_match($pattern, $subject, $matches, $flags, $offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PcreException::createFromPhpError();
+        throw PcreException::createFromPhpError($error);
     }
     return $result;
 }
@@ -676,10 +709,21 @@ function preg_match(string $pattern, string $subject, ?iterable &$matches = null
  */
 function preg_split(string $pattern, string $subject, ?int $limit = -1, int $flags = 0): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \preg_split($pattern, $subject, $limit, $flags);
+    restore_error_handler();
+
     if ($result === false) {
-        throw PcreException::createFromPhpError();
+        throw PcreException::createFromPhpError($error);
     }
     return $result;
 }

@@ -16,10 +16,21 @@ use Safe\Exceptions\ApcuException;
  */
 function apcu_cache_info(bool $limited = false): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apcu_cache_info($limited);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApcuException::createFromPhpError();
+        throw ApcuException::createFromPhpError($error);
     }
     return $result;
 }
@@ -38,10 +49,21 @@ function apcu_cache_info(bool $limited = false): array
  */
 function apcu_cas(string $key, int $old, int $new): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apcu_cas($key, $old, $new);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApcuException::createFromPhpError();
+        throw ApcuException::createFromPhpError($error);
     }
 }
 
@@ -60,10 +82,21 @@ function apcu_cas(string $key, int $old, int $new): void
  */
 function apcu_dec(string $key, int $step = 1, ?bool &$success = null, int $ttl = 0): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apcu_dec($key, $step, $success, $ttl);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApcuException::createFromPhpError();
+        throw ApcuException::createFromPhpError($error);
     }
     return $result;
 }
@@ -83,10 +116,21 @@ function apcu_dec(string $key, int $step = 1, ?bool &$success = null, int $ttl =
  */
 function apcu_inc(string $key, int $step = 1, ?bool &$success = null, int $ttl = 0): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apcu_inc($key, $step, $success, $ttl);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApcuException::createFromPhpError();
+        throw ApcuException::createFromPhpError($error);
     }
     return $result;
 }
@@ -103,10 +147,21 @@ function apcu_inc(string $key, int $step = 1, ?bool &$success = null, int $ttl =
  */
 function apcu_sma_info(bool $limited = false): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \apcu_sma_info($limited);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ApcuException::createFromPhpError();
+        throw ApcuException::createFromPhpError($error);
     }
     return $result;
 }

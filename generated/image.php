@@ -68,10 +68,21 @@ use Safe\Exceptions\ImageException;
  */
 function getimagesize(string $filename, ?array &$image_info = null): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getimagesize($filename, $image_info);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -89,10 +100,21 @@ function getimagesize(string $filename, ?array &$image_info = null): array
  */
 function image_type_to_extension(int $image_type, bool $include_dot = true): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \image_type_to_extension($image_type, $include_dot);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -114,7 +136,16 @@ function image_type_to_extension(int $image_type, bool $include_dot = true): str
  */
 function image2wbmp($image, ?string $filename = null, int $foreground = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($foreground !== null) {
         $result = \image2wbmp($image, $filename, $foreground);
     } elseif ($filename !== null) {
@@ -122,8 +153,10 @@ function image2wbmp($image, ?string $filename = null, int $foreground = null): v
     } else {
         $result = \image2wbmp($image);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -141,14 +174,25 @@ function image2wbmp($image, ?string $filename = null, int $foreground = null): v
  */
 function imageaffine($image, array $affine, array $clip = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($clip !== null) {
         $result = \imageaffine($image, $affine, $clip);
     } else {
         $result = \imageaffine($image, $affine);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -170,10 +214,21 @@ function imageaffine($image, array $affine, array $clip = null)
  */
 function imageaffinematrixconcat(array $matrix1, array $matrix2): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imageaffinematrixconcat($matrix1, $matrix2);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -198,10 +253,21 @@ function imageaffinematrixconcat(array $matrix1, array $matrix2): array
  */
 function imageaffinematrixget(int $type, $options): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imageaffinematrixget($type, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -228,10 +294,21 @@ function imageaffinematrixget(int $type, $options): array
  */
 function imagealphablending($image, bool $enable): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagealphablending($image, $enable);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -256,10 +333,21 @@ function imagealphablending($image, bool $enable): void
  */
 function imageantialias($image, bool $enable): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imageantialias($image, $enable);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -284,10 +372,21 @@ function imageantialias($image, bool $enable): void
  */
 function imagearc($image, int $center_x, int $center_y, int $width, int $height, int $start_angle, int $end_angle, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagearc($image, $center_x, $center_y, $width, $height, $start_angle, $end_angle, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -309,7 +408,16 @@ function imagearc($image, int $center_x, int $center_y, int $width, int $height,
  */
 function imageavif(\GdImage $image, $file = null, int $quality = -1, int $speed = -1): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($speed !== -1) {
         $result = \imageavif($image, $file, $quality, $speed);
     } elseif ($quality !== -1) {
@@ -319,8 +427,10 @@ function imageavif(\GdImage $image, $file = null, int $quality = -1, int $speed 
     } else {
         $result = \imageavif($image);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -340,7 +450,16 @@ function imageavif(\GdImage $image, $file = null, int $quality = -1, int $speed 
  */
 function imagebmp($image, $file = null, bool $compressed = true): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($compressed !== true) {
         $result = \imagebmp($image, $file, $compressed);
     } elseif ($file !== null) {
@@ -348,8 +467,10 @@ function imagebmp($image, $file = null, bool $compressed = true): void
     } else {
         $result = \imagebmp($image);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -375,10 +496,21 @@ function imagebmp($image, $file = null, bool $compressed = true): void
  */
 function imagechar($image, int $font, int $x, int $y, string $char, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagechar($image, $font, $x, $y, $char, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -401,10 +533,21 @@ function imagechar($image, int $font, int $x, int $y, string $char, int $color):
  */
 function imagecharup($image, int $font, int $x, int $y, string $char, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecharup($image, $font, $x, $y, $char, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -428,10 +571,21 @@ function imagecharup($image, int $font, int $x, int $y, string $char, int $color
  */
 function imagecolorat($image, int $x, int $y): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecolorat($image, $x, $y);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -450,10 +604,21 @@ function imagecolorat($image, int $x, int $y): int
  */
 function imagecolordeallocate($image, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecolordeallocate($image, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -469,10 +634,21 @@ function imagecolordeallocate($image, int $color): void
  */
 function imagecolormatch($image1, $image2): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecolormatch($image1, $image2);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -495,10 +671,21 @@ function imagecolormatch($image1, $image2): void
  */
 function imagecolorset($image, int $color, int $red, int $green, int $blue, int $alpha = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecolorset($image, $color, $red, $green, $blue, $alpha);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -517,10 +704,21 @@ function imagecolorset($image, int $color, int $red, int $green, int $blue, int 
  */
 function imageconvolution($image, array $matrix, float $divisor, float $offset): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imageconvolution($image, $matrix, $divisor, $offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -547,10 +745,21 @@ function imageconvolution($image, array $matrix, float $divisor, float $offset):
  */
 function imagecopy($dst_image, $src_image, int $dst_x, int $dst_y, int $src_x, int $src_y, int $src_width, int $src_height): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecopy($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $src_width, $src_height);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -583,10 +792,21 @@ function imagecopy($dst_image, $src_image, int $dst_x, int $dst_y, int $src_x, i
  */
 function imagecopymerge($dst_image, $src_image, int $dst_x, int $dst_y, int $src_x, int $src_y, int $src_width, int $src_height, int $pct): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecopymerge($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $src_width, $src_height, $pct);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -623,10 +843,21 @@ function imagecopymerge($dst_image, $src_image, int $dst_x, int $dst_y, int $src
  */
 function imagecopymergegray($dst_image, $src_image, int $dst_x, int $dst_y, int $src_x, int $src_y, int $src_width, int $src_height, int $pct): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecopymergegray($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $src_width, $src_height, $pct);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -668,10 +899,21 @@ function imagecopymergegray($dst_image, $src_image, int $dst_x, int $dst_y, int 
  */
 function imagecopyresampled($dst_image, $src_image, int $dst_x, int $dst_y, int $src_x, int $src_y, int $dst_width, int $dst_height, int $src_width, int $src_height): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecopyresampled($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_width, $dst_height, $src_width, $src_height);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -713,10 +955,21 @@ function imagecopyresampled($dst_image, $src_image, int $dst_x, int $dst_y, int 
  */
 function imagecopyresized($dst_image, $src_image, int $dst_x, int $dst_y, int $src_x, int $src_y, int $dst_width, int $dst_height, int $src_width, int $src_height): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecopyresized($dst_image, $src_image, $dst_x, $dst_y, $src_x, $src_y, $dst_width, $dst_height, $src_width, $src_height);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -741,10 +994,21 @@ function imagecopyresized($dst_image, $src_image, int $dst_x, int $dst_y, int $s
  */
 function imagecreate(int $width, int $height)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreate($width, $height);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -761,10 +1025,21 @@ function imagecreate(int $width, int $height)
  */
 function imagecreatefromavif(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefromavif($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -781,10 +1056,21 @@ function imagecreatefromavif(string $filename)
  */
 function imagecreatefrombmp(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefrombmp($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -800,10 +1086,21 @@ function imagecreatefrombmp(string $filename)
  */
 function imagecreatefromgd(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefromgd($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -819,10 +1116,21 @@ function imagecreatefromgd(string $filename)
  */
 function imagecreatefromgd2(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefromgd2($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -842,10 +1150,21 @@ function imagecreatefromgd2(string $filename)
  */
 function imagecreatefromgd2part(string $filename, int $x, int $y, int $width, int $height)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefromgd2part($filename, $x, $y, $width, $height);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -862,10 +1181,21 @@ function imagecreatefromgd2part(string $filename, int $x, int $y, int $width, in
  */
 function imagecreatefromgif(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefromgif($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -882,10 +1212,21 @@ function imagecreatefromgif(string $filename)
  */
 function imagecreatefromjpeg(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefromjpeg($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -902,10 +1243,21 @@ function imagecreatefromjpeg(string $filename)
  */
 function imagecreatefrompng(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefrompng($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -946,10 +1298,21 @@ function imagecreatefromstring(string $data)
  */
 function imagecreatefromtga(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefromtga($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -966,10 +1329,21 @@ function imagecreatefromtga(string $filename)
  */
 function imagecreatefromwbmp(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefromwbmp($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -987,10 +1361,21 @@ function imagecreatefromwbmp(string $filename)
  */
 function imagecreatefromwebp(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefromwebp($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1007,10 +1392,21 @@ function imagecreatefromwebp(string $filename)
  */
 function imagecreatefromxbm(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefromxbm($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1027,10 +1423,21 @@ function imagecreatefromxbm(string $filename)
  */
 function imagecreatefromxpm(string $filename)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatefromxpm($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1048,10 +1455,21 @@ function imagecreatefromxpm(string $filename)
  */
 function imagecreatetruecolor(int $width, int $height)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecreatetruecolor($width, $height);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1072,10 +1490,21 @@ function imagecreatetruecolor(int $width, int $height)
  */
 function imagecrop($image, array $rectangle)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecrop($image, $rectangle);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1097,10 +1526,21 @@ function imagecrop($image, array $rectangle)
  */
 function imagecropauto($image, int $mode = IMG_CROP_DEFAULT, float $threshold = 0.5, int $color = -1)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagecropauto($image, $mode, $threshold, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1123,10 +1563,21 @@ function imagecropauto($image, int $mode = IMG_CROP_DEFAULT, float $threshold = 
  */
 function imagedashedline($image, int $x1, int $y1, int $x2, int $y2, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagedashedline($image, $x1, $y1, $x2, $y2, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1142,10 +1593,21 @@ function imagedashedline($image, int $x1, int $y1, int $x2, int $y2, int $color)
  */
 function imagedestroy($image): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagedestroy($image);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1165,10 +1627,21 @@ function imagedestroy($image): void
  */
 function imageellipse($image, int $center_x, int $center_y, int $width, int $height, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imageellipse($image, $center_x, $center_y, $width, $height, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1188,10 +1661,21 @@ function imageellipse($image, int $center_x, int $center_y, int $width, int $hei
  */
 function imagefill($image, int $x, int $y, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagefill($image, $x, $y, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1232,10 +1716,21 @@ function imagefill($image, int $x, int $y, int $color): void
  */
 function imagefilledarc($image, int $center_x, int $center_y, int $width, int $height, int $start_angle, int $end_angle, int $color, int $style): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagefilledarc($image, $center_x, $center_y, $width, $height, $start_angle, $end_angle, $color, $style);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1256,10 +1751,21 @@ function imagefilledarc($image, int $center_x, int $center_y, int $width, int $h
  */
 function imagefilledellipse($image, int $center_x, int $center_y, int $width, int $height, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagefilledellipse($image, $center_x, $center_y, $width, $height, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1281,10 +1787,21 @@ function imagefilledellipse($image, int $center_x, int $center_y, int $width, in
  */
 function imagefilledrectangle($image, int $x1, int $y1, int $x2, int $y2, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagefilledrectangle($image, $x1, $y1, $x2, $y2, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1307,10 +1824,21 @@ function imagefilledrectangle($image, int $x1, int $y1, int $x2, int $y2, int $c
  */
 function imagefilltoborder($image, int $x, int $y, int $border_color, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagefilltoborder($image, $x, $y, $border_color, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1453,14 +1981,25 @@ function imagefilltoborder($image, int $x, int $y, int $border_color, int $color
  */
 function imagefilter($image, int $filter, int  ...$args): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($args !== []) {
         $result = \imagefilter($image, $filter, ...$args);
     } else {
         $result = \imagefilter($image, $filter);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1508,10 +2047,21 @@ function imagefilter($image, int $filter, int  ...$args): void
  */
 function imageflip($image, int $mode): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imageflip($image, $mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1599,10 +2149,21 @@ function imageflip($image, int $mode): void
  */
 function imageftbbox(float $size, float $angle, string $font_filename, string $string, array $options = []): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imageftbbox($size, $angle, $font_filename, $string, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1708,10 +2269,21 @@ function imageftbbox(float $size, float $angle, string $font_filename, string $s
  */
 function imagefttext($image, float $size, float $angle, int $x, int $y, int $color, string $font_filename, string $text, array $options = []): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagefttext($image, $size, $angle, $x, $y, $color, $font_filename, $text, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1730,10 +2302,21 @@ function imagefttext($image, float $size, float $angle, int $x, int $y, int $col
  */
 function imagegammacorrect($image, float $input_gamma, float $output_gamma): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagegammacorrect($image, $input_gamma, $output_gamma);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1749,14 +2332,25 @@ function imagegammacorrect($image, float $input_gamma, float $output_gamma): voi
  */
 function imagegd($image, $file = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($file !== null) {
         $result = \imagegd($image, $file);
     } else {
         $result = \imagegd($image);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1776,7 +2370,16 @@ function imagegd($image, $file = null): void
  */
 function imagegd2($image, $file = null, int $chunk_size = 128, int $mode = IMG_GD2_RAW): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($mode !== IMG_GD2_RAW) {
         $result = \imagegd2($image, $file, $chunk_size, $mode);
     } elseif ($chunk_size !== 128) {
@@ -1786,8 +2389,10 @@ function imagegd2($image, $file = null, int $chunk_size = 128, int $mode = IMG_G
     } else {
         $result = \imagegd2($image);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1812,14 +2417,25 @@ function imagegd2($image, $file = null, int $chunk_size = 128, int $mode = IMG_G
  */
 function imagegif($image, $file = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($file !== null) {
         $result = \imagegif($image, $file);
     } else {
         $result = \imagegif($image);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1833,10 +2449,21 @@ function imagegif($image, $file = null): void
  */
 function imagegrabscreen()
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagegrabscreen();
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1853,10 +2480,11 @@ function imagegrabscreen()
  */
 function imagegrabwindow(int $handle, bool $client_area = false): \GdImage
 {
-    error_clear_last();
     $result = \imagegrabwindow($handle, $client_area);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1877,7 +2505,16 @@ function imagegrabwindow(int $handle, bool $client_area = false): \GdImage
  */
 function imagejpeg($image, $file = null, int $quality = -1): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($quality !== -1) {
         $result = \imagejpeg($image, $file, $quality);
     } elseif ($file !== null) {
@@ -1885,8 +2522,10 @@ function imagejpeg($image, $file = null, int $quality = -1): void
     } else {
         $result = \imagejpeg($image);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1948,10 +2587,21 @@ function imagejpeg($image, $file = null, int $quality = -1): void
  */
 function imagelayereffect($image, int $effect): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagelayereffect($image, $effect);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -1971,10 +2621,21 @@ function imagelayereffect($image, int $effect): void
  */
 function imageline($image, int $x1, int $y1, int $x2, int $y2, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imageline($image, $x1, $y1, $x2, $y2, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2037,10 +2698,21 @@ function imageline($image, int $x1, int $y1, int $x2, int $y2, int $color): void
  */
 function imageloadfont(string $filename): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imageloadfont($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2070,7 +2742,16 @@ function imageloadfont(string $filename): int
  */
 function imagepng($image, $file = null, int $quality = -1, int $filters = -1): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($filters !== -1) {
         $result = \imagepng($image, $file, $quality, $filters);
     } elseif ($quality !== -1) {
@@ -2080,8 +2761,10 @@ function imagepng($image, $file = null, int $quality = -1, int $filters = -1): v
     } else {
         $result = \imagepng($image);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2103,10 +2786,21 @@ function imagepng($image, $file = null, int $quality = -1, int $filters = -1): v
  */
 function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagerectangle($image, $x1, $y1, $x2, $y2, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2138,7 +2832,16 @@ function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color):
  */
 function imageresolution($image, int $resolution_x = null, int $resolution_y = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($resolution_y !== null) {
         $result = \imageresolution($image, $resolution_x, $resolution_y);
     } elseif ($resolution_x !== null) {
@@ -2146,8 +2849,10 @@ function imageresolution($image, int $resolution_x = null, int $resolution_y = n
     } else {
         $result = \imageresolution($image);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2172,10 +2877,21 @@ function imageresolution($image, int $resolution_x = null, int $resolution_y = n
  */
 function imagerotate($image, float $angle, int $background_color, bool $ignore_transparent = false)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagerotate($image, $angle, $background_color, $ignore_transparent);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2197,10 +2913,21 @@ function imagerotate($image, float $angle, int $background_color, bool $ignore_t
  */
 function imagesavealpha($image, bool $enable): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagesavealpha($image, $enable);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2230,10 +2957,21 @@ function imagesavealpha($image, bool $enable): void
  */
 function imagescale($image, int $width, int $height = -1, int $mode = IMG_BILINEAR_FIXED)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagescale($image, $width, $height, $mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2254,10 +2992,21 @@ function imagescale($image, int $width, int $height = -1, int $mode = IMG_BILINE
  */
 function imagesetbrush($image, $brush): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagesetbrush($image, $brush);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2277,10 +3026,21 @@ function imagesetbrush($image, $brush): void
  */
 function imagesetclip($image, int $x1, int $y1, int $x2, int $y2): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagesetclip($image, $x1, $y1, $x2, $y2);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2404,10 +3164,21 @@ function imagesetclip($image, int $x1, int $y1, int $x2, int $y2): void
  */
 function imagesetinterpolation($image, int $method = IMG_BILINEAR_FIXED): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagesetinterpolation($image, $method);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2426,10 +3197,21 @@ function imagesetinterpolation($image, int $method = IMG_BILINEAR_FIXED): void
  */
 function imagesetpixel($image, int $x, int $y, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagesetpixel($image, $x, $y, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2452,10 +3234,21 @@ function imagesetpixel($image, int $x, int $y, int $color): void
  */
 function imagesetstyle($image, array $style): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagesetstyle($image, $style);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2473,10 +3266,21 @@ function imagesetstyle($image, array $style): void
  */
 function imagesetthickness($image, int $thickness): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagesetthickness($image, $thickness);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2500,10 +3304,21 @@ function imagesetthickness($image, int $thickness): void
  */
 function imagesettile($image, $tile): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagesettile($image, $tile);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2525,10 +3340,21 @@ function imagesettile($image, $tile): void
  */
 function imagestring($image, int $font, int $x, int $y, string $string, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagestring($image, $font, $x, $y, $string, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2551,10 +3377,21 @@ function imagestring($image, int $font, int $x, int $y, string $string, int $col
  */
 function imagestringup($image, int $font, int $x, int $y, string $string, int $color): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagestringup($image, $font, $x, $y, $string, $color);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2570,10 +3407,21 @@ function imagestringup($image, int $font, int $x, int $y, string $string, int $c
  */
 function imagesx($image): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagesx($image);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2590,10 +3438,21 @@ function imagesx($image): int
  */
 function imagesy($image): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagesy($image);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2620,10 +3479,21 @@ function imagesy($image): int
  */
 function imagetruecolortopalette($image, bool $dither, int $num_colors): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagetruecolortopalette($image, $dither, $num_colors);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2715,10 +3585,21 @@ function imagetruecolortopalette($image, bool $dither, int $num_colors): void
  */
 function imagettfbbox(float $size, float $angle, string $font_filename, string $string, array $options = []): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagettfbbox($size, $angle, $font_filename, $string, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2792,10 +3673,21 @@ function imagettfbbox(float $size, float $angle, string $font_filename, string $
  */
 function imagettftext($image, float $size, float $angle, int $x, int $y, int $color, string $font_filename, string $text, array $options = []): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \imagettftext($image, $size, $angle, $x, $y, $color, $font_filename, $text, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2816,7 +3708,16 @@ function imagettftext($image, float $size, float $angle, int $x, int $y, int $co
  */
 function imagewbmp($image, $file = null, int $foreground_color = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($foreground_color !== null) {
         $result = \imagewbmp($image, $file, $foreground_color);
     } elseif ($file !== null) {
@@ -2824,8 +3725,10 @@ function imagewbmp($image, $file = null, int $foreground_color = null): void
     } else {
         $result = \imagewbmp($image);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2843,7 +3746,16 @@ function imagewbmp($image, $file = null, int $foreground_color = null): void
  */
 function imagewebp($image, $file = null, int $quality = -1): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($quality !== -1) {
         $result = \imagewebp($image, $file, $quality);
     } elseif ($file !== null) {
@@ -2851,8 +3763,10 @@ function imagewebp($image, $file = null, int $quality = -1): void
     } else {
         $result = \imagewebp($image);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2879,14 +3793,25 @@ function imagewebp($image, $file = null, int $quality = -1): void
  */
 function imagexbm($image, $filename, int $foreground_color = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($foreground_color !== null) {
         $result = \imagexbm($image, $filename, $foreground_color);
     } else {
         $result = \imagexbm($image, $filename);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2904,10 +3829,21 @@ function imagexbm($image, $filename, int $foreground_color = null): void
  */
 function iptcembed(string $iptc_data, string $filename, int $spool = 0)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \iptcembed($iptc_data, $filename, $spool);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2924,10 +3860,21 @@ function iptcembed(string $iptc_data, string $filename, int $spool = 0)
  */
 function iptcparse(string $iptc_block): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \iptcparse($iptc_block);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
     return $result;
 }
@@ -2946,10 +3893,21 @@ function iptcparse(string $iptc_block): array
  */
 function jpeg2wbmp(string $jpegname, string $wbmpname, int $dest_height, int $dest_width, int $threshold): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \jpeg2wbmp($jpegname, $wbmpname, $dest_height, $dest_width, $threshold);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }
 
@@ -2967,9 +3925,20 @@ function jpeg2wbmp(string $jpegname, string $wbmpname, int $dest_height, int $de
  */
 function png2wbmp(string $pngname, string $wbmpname, int $dest_height, int $dest_width, int $threshold): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \png2wbmp($pngname, $wbmpname, $dest_height, $dest_width, $threshold);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ImageException::createFromPhpError();
+        throw ImageException::createFromPhpError($error);
     }
 }

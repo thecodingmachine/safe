@@ -17,9 +17,20 @@ use Safe\Exceptions\ClassobjException;
  */
 function class_alias(string $class, string $alias, bool $autoload = true): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \class_alias($class, $alias, $autoload);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ClassobjException::createFromPhpError();
+        throw ClassobjException::createFromPhpError($error);
     }
 }

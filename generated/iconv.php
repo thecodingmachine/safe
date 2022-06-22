@@ -25,10 +25,21 @@ use Safe\Exceptions\IconvException;
  */
 function iconv_get_encoding(string $type = "all")
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \iconv_get_encoding($type);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IconvException::createFromPhpError();
+        throw IconvException::createFromPhpError($error);
     }
     return $result;
 }
@@ -50,10 +61,21 @@ function iconv_get_encoding(string $type = "all")
  */
 function iconv_set_encoding(string $type, string $encoding): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \iconv_set_encoding($type, $encoding);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IconvException::createFromPhpError();
+        throw IconvException::createFromPhpError($error);
     }
 }
 
@@ -86,10 +108,21 @@ function iconv_set_encoding(string $type, string $encoding): void
  */
 function iconv(string $from_encoding, string $to_encoding, string $string): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \iconv($from_encoding, $to_encoding, $string);
+    restore_error_handler();
+
     if ($result === false) {
-        throw IconvException::createFromPhpError();
+        throw IconvException::createFromPhpError($error);
     }
     return $result;
 }

@@ -18,10 +18,21 @@ use Safe\Exceptions\GettextException;
  */
 function bindtextdomain(string $domain, string $directory): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \bindtextdomain($domain, $directory);
+    restore_error_handler();
+
     if ($result === false) {
-        throw GettextException::createFromPhpError();
+        throw GettextException::createFromPhpError($error);
     }
     return $result;
 }

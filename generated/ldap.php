@@ -19,10 +19,21 @@ use Safe\Exceptions\LdapException;
  */
 function ldap_8859_to_t61(string $value): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_8859_to_t61($value);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -49,14 +60,25 @@ function ldap_8859_to_t61(string $value): string
  */
 function ldap_add($ldap, string $dn, array $entry, array $controls = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($controls !== null) {
         $result = \ldap_add($ldap, $dn, $entry, $controls);
     } else {
         $result = \ldap_add($ldap, $dn, $entry);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -72,7 +94,16 @@ function ldap_add($ldap, string $dn, array $entry, array $controls = null): void
  */
 function ldap_bind($ldap, ?string $dn = null, ?string $password = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($password !== null) {
         $result = \ldap_bind($ldap, $dn, $password);
     } elseif ($dn !== null) {
@@ -80,8 +111,10 @@ function ldap_bind($ldap, ?string $dn = null, ?string $password = null): void
     } else {
         $result = \ldap_bind($ldap);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -98,10 +131,21 @@ function ldap_bind($ldap, ?string $dn = null, ?string $password = null): void
  */
 function ldap_control_paged_result_response($link, $result, ?string &$cookie = null, ?int &$estimated = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_control_paged_result_response($link, $result, $cookie, $estimated);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -121,10 +165,21 @@ function ldap_control_paged_result_response($link, $result, ?string &$cookie = n
  */
 function ldap_control_paged_result($link, int $pagesize, bool $iscritical = false, string $cookie = ""): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_control_paged_result($link, $pagesize, $iscritical, $cookie);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -141,10 +196,21 @@ function ldap_control_paged_result($link, int $pagesize, bool $iscritical = fals
  */
 function ldap_count_entries($ldap, $result): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_count_entries($ldap, $result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -161,14 +227,25 @@ function ldap_count_entries($ldap, $result): int
  */
 function ldap_delete($ldap, string $dn, array $controls = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($controls !== null) {
         $result = \ldap_delete($ldap, $dn, $controls);
     } else {
         $result = \ldap_delete($ldap, $dn);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -184,10 +261,21 @@ function ldap_delete($ldap, string $dn, array $controls = null): void
  */
 function ldap_dn2ufn(string $dn): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_dn2ufn($dn);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -210,10 +298,21 @@ function ldap_dn2ufn(string $dn): string
  */
 function ldap_exop_passwd($ldap, string $user = "", string $old_password = "", string $new_password = "", array &$controls = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_exop_passwd($ldap, $user, $old_password, $new_password, $controls);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -229,10 +328,21 @@ function ldap_exop_passwd($ldap, string $user = "", string $old_password = "", s
  */
 function ldap_exop_whoami($ldap)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_exop_whoami($ldap);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -258,7 +368,16 @@ function ldap_exop_whoami($ldap)
  */
 function ldap_exop($ldap, string $reqoid, string $reqdata = null, ?array $serverctrls = null, ?string &$retdata = null, ?string &$retoid = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($retoid !== null) {
         $result = \ldap_exop($ldap, $reqoid, $reqdata, $serverctrls, $retdata, $retoid);
     } elseif ($retdata !== null) {
@@ -270,8 +389,10 @@ function ldap_exop($ldap, string $reqoid, string $reqdata = null, ?array $server
     } else {
         $result = \ldap_exop($ldap, $reqoid);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -296,10 +417,21 @@ function ldap_exop($ldap, string $reqoid, string $reqdata = null, ?array $server
  */
 function ldap_explode_dn(string $dn, int $with_attrib): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_explode_dn($dn, $with_attrib);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -321,10 +453,21 @@ function ldap_explode_dn(string $dn, int $with_attrib): array
  */
 function ldap_first_attribute($ldap, $entry): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_first_attribute($ldap, $entry);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -347,10 +490,21 @@ function ldap_first_attribute($ldap, $entry): string
  */
 function ldap_first_entry($ldap, $result)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_first_entry($ldap, $result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -371,10 +525,21 @@ function ldap_first_entry($ldap, $result)
  */
 function ldap_free_result($result): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_free_result($result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -403,10 +568,21 @@ function ldap_free_result($result): void
  */
 function ldap_get_attributes($ldap, $entry): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_get_attributes($ldap, $entry);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -423,10 +599,21 @@ function ldap_get_attributes($ldap, $entry): array
  */
 function ldap_get_dn($ldap, $entry): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_get_dn($ldap, $entry);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -455,10 +642,21 @@ function ldap_get_dn($ldap, $entry): string
  */
 function ldap_get_entries($ldap, $result): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_get_entries($ldap, $result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -648,10 +846,21 @@ function ldap_get_entries($ldap, $result): array
  */
 function ldap_get_option($ldap, int $option, &$value = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_get_option($ldap, $option, $value);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -674,10 +883,21 @@ function ldap_get_option($ldap, int $option, &$value = null): void
  */
 function ldap_get_values_len($ldap, $entry, string $attribute): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_get_values_len($ldap, $entry, $attribute);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -718,10 +938,21 @@ function ldap_get_values_len($ldap, $entry, string $attribute): array
  */
 function ldap_get_values($ldap, $entry, string $attribute): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_get_values($ldap, $entry, $attribute);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -740,14 +971,25 @@ function ldap_get_values($ldap, $entry, string $attribute): array
  */
 function ldap_mod_add($ldap, string $dn, array $entry, array $controls = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($controls !== null) {
         $result = \ldap_mod_add($ldap, $dn, $entry, $controls);
     } else {
         $result = \ldap_mod_add($ldap, $dn, $entry);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -766,14 +1008,25 @@ function ldap_mod_add($ldap, string $dn, array $entry, array $controls = null): 
  */
 function ldap_mod_del($ldap, string $dn, array $entry, array $controls = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($controls !== null) {
         $result = \ldap_mod_del($ldap, $dn, $entry, $controls);
     } else {
         $result = \ldap_mod_del($ldap, $dn, $entry);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -791,14 +1044,25 @@ function ldap_mod_del($ldap, string $dn, array $entry, array $controls = null): 
  */
 function ldap_mod_replace($ldap, string $dn, array $entry, array $controls = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($controls !== null) {
         $result = \ldap_mod_replace($ldap, $dn, $entry, $controls);
     } else {
         $result = \ldap_mod_replace($ldap, $dn, $entry);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -890,14 +1154,25 @@ function ldap_mod_replace($ldap, string $dn, array $entry, array $controls = nul
  */
 function ldap_modify_batch($ldap, string $dn, array $modifications_info, array $controls = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($controls !== null) {
         $result = \ldap_modify_batch($ldap, $dn, $modifications_info, $controls);
     } else {
         $result = \ldap_modify_batch($ldap, $dn, $modifications_info);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -917,10 +1192,21 @@ function ldap_modify_batch($ldap, string $dn, array $modifications_info, array $
  */
 function ldap_next_attribute($ldap, $entry): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_next_attribute($ldap, $entry);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
     return $result;
 }
@@ -938,10 +1224,21 @@ function ldap_next_attribute($ldap, $entry): string
  */
 function ldap_parse_exop($ldap, $result, ?string &$response_data = null, ?string &$response_oid = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_parse_exop($ldap, $result, $response_data, $response_oid);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -966,10 +1263,21 @@ function ldap_parse_exop($ldap, $result, ?string &$response_data = null, ?string
  */
 function ldap_parse_result($ldap, $result, ?int &$error_code, ?string &$matched_dn = null, ?string &$error_message = null, ?array &$referrals = null, ?array &$controls = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_parse_result($ldap, $result, $error_code, $matched_dn, $error_message, $referrals, $controls);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -989,14 +1297,25 @@ function ldap_parse_result($ldap, $result, ?int &$error_code, ?string &$matched_
  */
 function ldap_rename($ldap, string $dn, string $new_rdn, string $new_parent, bool $delete_old_rdn, array $controls = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($controls !== null) {
         $result = \ldap_rename($ldap, $dn, $new_rdn, $new_parent, $delete_old_rdn, $controls);
     } else {
         $result = \ldap_rename($ldap, $dn, $new_rdn, $new_parent, $delete_old_rdn);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -1017,7 +1336,16 @@ function ldap_rename($ldap, string $dn, string $new_rdn, string $new_parent, boo
  */
 function ldap_sasl_bind($ldap, string $dn = null, string $password = null, string $mech = null, string $realm = null, string $authc_id = null, string $authz_id = null, string $props = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($props !== null) {
         $result = \ldap_sasl_bind($ldap, $dn, $password, $mech, $realm, $authc_id, $authz_id, $props);
     } elseif ($authz_id !== null) {
@@ -1035,8 +1363,10 @@ function ldap_sasl_bind($ldap, string $dn = null, string $password = null, strin
     } else {
         $result = \ldap_sasl_bind($ldap);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -1219,10 +1549,21 @@ function ldap_sasl_bind($ldap, string $dn = null, string $password = null, strin
  */
 function ldap_set_option($ldap, int $option, $value): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_set_option($ldap, $option, $value);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }
 
@@ -1236,9 +1577,20 @@ function ldap_set_option($ldap, int $option, $value): void
  */
 function ldap_unbind($ldap): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ldap_unbind($ldap);
+    restore_error_handler();
+
     if ($result === false) {
-        throw LdapException::createFromPhpError();
+        throw LdapException::createFromPhpError($error);
     }
 }

@@ -28,10 +28,21 @@ use Safe\Exceptions\MysqlException;
  */
 function mysql_close($link_identifier = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_close($link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
 }
 
@@ -75,7 +86,16 @@ function mysql_close($link_identifier = null): void
  */
 function mysql_connect(string $server = null, string $username = null, string $password = null, bool $new_link = false, int $client_flags = 0)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($client_flags !== 0) {
         $result = \mysql_connect($server, $username, $password, $new_link, $client_flags);
     } elseif ($new_link !== false) {
@@ -89,8 +109,10 @@ function mysql_connect(string $server = null, string $username = null, string $p
     } else {
         $result = \mysql_connect();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -113,10 +135,21 @@ function mysql_connect(string $server = null, string $username = null, string $p
  */
 function mysql_create_db(string $database_name, $link_identifier = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_create_db($database_name, $link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
 }
 
@@ -144,10 +177,21 @@ function mysql_create_db(string $database_name, $link_identifier = null): void
  */
 function mysql_data_seek($result, int $row_number): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_data_seek($result, $row_number);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
 }
 
@@ -167,10 +211,21 @@ function mysql_data_seek($result, int $row_number): void
  */
 function mysql_db_name($result, int $row, $field = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_db_name($result, $row, $field);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -198,10 +253,21 @@ function mysql_db_name($result, int $row, $field = null): string
  */
 function mysql_db_query(string $database, string $query, $link_identifier = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_db_query($database, $query, $link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -226,10 +292,21 @@ function mysql_db_query(string $database, string $query, $link_identifier = null
  */
 function mysql_drop_db(string $database_name, $link_identifier = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_drop_db($database_name, $link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
 }
 
@@ -255,10 +332,21 @@ function mysql_drop_db(string $database_name, $link_identifier = null): void
  */
 function mysql_fetch_lengths($result): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_fetch_lengths($result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -291,10 +379,21 @@ function mysql_fetch_lengths($result): array
  */
 function mysql_field_flags($result, int $field_offset): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_field_flags($result, $field_offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -317,10 +416,21 @@ function mysql_field_flags($result, int $field_offset): string
  */
 function mysql_field_len($result, int $field_offset): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_field_len($result, $field_offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -343,10 +453,21 @@ function mysql_field_len($result, int $field_offset): int
  */
 function mysql_field_name($result, int $field_offset): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_field_name($result, $field_offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -370,10 +491,21 @@ function mysql_field_name($result, int $field_offset): string
  */
 function mysql_field_seek($result, int $field_offset): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_field_seek($result, $field_offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
 }
 
@@ -395,10 +527,21 @@ function mysql_field_seek($result, int $field_offset): void
  */
 function mysql_free_result($result): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_free_result($result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
 }
 
@@ -420,10 +563,21 @@ function mysql_free_result($result): void
  */
 function mysql_get_host_info($link_identifier = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_get_host_info($link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -444,10 +598,21 @@ function mysql_get_host_info($link_identifier = null): string
  */
 function mysql_get_proto_info($link_identifier = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_get_proto_info($link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -468,10 +633,21 @@ function mysql_get_proto_info($link_identifier = null): int
  */
 function mysql_get_server_info($link_identifier = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_get_server_info($link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -494,10 +670,21 @@ function mysql_get_server_info($link_identifier = null): string
  */
 function mysql_info($link_identifier = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_info($link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -521,10 +708,21 @@ function mysql_info($link_identifier = null): string
  */
 function mysql_list_dbs($link_identifier = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_list_dbs($link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -556,10 +754,21 @@ function mysql_list_dbs($link_identifier = null)
  */
 function mysql_list_fields(string $database_name, string $table_name, $link_identifier = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_list_fields($database_name, $table_name, $link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -580,10 +789,21 @@ function mysql_list_fields(string $database_name, string $table_name, $link_iden
  */
 function mysql_list_processes($link_identifier = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_list_processes($link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -613,10 +833,21 @@ function mysql_list_processes($link_identifier = null)
  */
 function mysql_list_tables(string $database, $link_identifier = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_list_tables($database, $link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -635,10 +866,21 @@ function mysql_list_tables(string $database, $link_identifier = null)
  */
 function mysql_num_fields($result): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_num_fields($result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -659,10 +901,21 @@ function mysql_num_fields($result): int
  */
 function mysql_num_rows($result): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_num_rows($result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -709,10 +962,21 @@ function mysql_num_rows($result): int
  */
 function mysql_query(string $query, $link_identifier = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_query($query, $link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -746,10 +1010,21 @@ function mysql_query(string $query, $link_identifier = null)
  */
 function mysql_real_escape_string(string $unescaped_string, $link_identifier = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_real_escape_string($unescaped_string, $link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -783,10 +1058,21 @@ function mysql_real_escape_string(string $unescaped_string, $link_identifier = n
  */
 function mysql_result($result, int $row, $field = 0): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_result($result, $row, $field);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -809,10 +1095,21 @@ function mysql_result($result, int $row, $field = 0): string
  */
 function mysql_select_db(string $database_name, $link_identifier = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_select_db($database_name, $link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
 }
 
@@ -832,10 +1129,21 @@ function mysql_select_db(string $database_name, $link_identifier = null): void
  */
 function mysql_set_charset(string $charset, $link_identifier = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_set_charset($charset, $link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
 }
 
@@ -860,10 +1168,21 @@ function mysql_set_charset(string $charset, $link_identifier = null): void
  */
 function mysql_tablename($result, int $i): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_tablename($result, $i);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -886,10 +1205,21 @@ function mysql_tablename($result, int $i): string
  */
 function mysql_thread_id($link_identifier = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_thread_id($link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -929,10 +1259,21 @@ function mysql_thread_id($link_identifier = null): int
  */
 function mysql_unbuffered_query(string $query, $link_identifier = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \mysql_unbuffered_query($query, $link_identifier);
+    restore_error_handler();
+
     if ($result === false) {
-        throw MysqlException::createFromPhpError();
+        throw MysqlException::createFromPhpError($error);
     }
     return $result;
 }

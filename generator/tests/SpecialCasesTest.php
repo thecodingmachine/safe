@@ -15,7 +15,7 @@ class SpecialCasesTest extends TestCase
         require_once __DIR__.'/../../lib/Exceptions/PcreException.php';
 
         $this->expectException(PcreException::class);
-        $this->expectExceptionMessage('PREG_BAD_UTF8_ERROR: Invalid UTF8 character');
+        $this->expectExceptionMessage('PREG_BAD_UTF8_ERROR: Malformed UTF-8 characters, possibly incorrectly encoded');
         preg_replace("/([\s,]+)/u", "foo", "\xc3\x28");
     }
 }

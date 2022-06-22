@@ -14,10 +14,21 @@ use Safe\Exceptions\DirException;
  */
 function chdir(string $directory): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \chdir($directory);
+    restore_error_handler();
+
     if ($result === false) {
-        throw DirException::createFromPhpError();
+        throw DirException::createFromPhpError($error);
     }
 }
 
@@ -40,10 +51,21 @@ function chdir(string $directory): void
  */
 function chroot(string $directory): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \chroot($directory);
+    restore_error_handler();
+
     if ($result === false) {
-        throw DirException::createFromPhpError();
+        throw DirException::createFromPhpError($error);
     }
 }
 
@@ -63,10 +85,21 @@ function chroot(string $directory): void
  */
 function getcwd(): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \getcwd();
+    restore_error_handler();
+
     if ($result === false) {
-        throw DirException::createFromPhpError();
+        throw DirException::createFromPhpError($error);
     }
     return $result;
 }
@@ -87,14 +120,25 @@ function getcwd(): string
  */
 function opendir(string $directory, $context = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \opendir($directory, $context);
     } else {
         $result = \opendir($directory);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw DirException::createFromPhpError();
+        throw DirException::createFromPhpError($error);
     }
     return $result;
 }
@@ -121,14 +165,25 @@ function opendir(string $directory, $context = null)
  */
 function scandir(string $directory, int $sorting_order = SCANDIR_SORT_ASCENDING, $context = null): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \scandir($directory, $sorting_order, $context);
     } else {
         $result = \scandir($directory, $sorting_order);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw DirException::createFromPhpError();
+        throw DirException::createFromPhpError($error);
     }
     return $result;
 }

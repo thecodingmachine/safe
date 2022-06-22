@@ -17,10 +17,21 @@ use Safe\Exceptions\FtpException;
  */
 function ftp_alloc($ftp, int $size, ?string &$response = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_alloc($ftp, $size, $response);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -37,10 +48,21 @@ function ftp_alloc($ftp, int $size, ?string &$response = null): void
  */
 function ftp_append($ftp, string $remote_filename, string $local_filename, int $mode = FTP_BINARY): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_append($ftp, $remote_filename, $local_filename, $mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -54,10 +76,21 @@ function ftp_append($ftp, string $remote_filename, string $local_filename, int $
  */
 function ftp_cdup($ftp): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_cdup($ftp);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -72,10 +105,21 @@ function ftp_cdup($ftp): void
  */
 function ftp_chdir($ftp, string $directory): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_chdir($ftp, $directory);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -93,10 +137,21 @@ function ftp_chdir($ftp, string $directory): void
  */
 function ftp_chmod($ftp, int $permissions, string $filename): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_chmod($ftp, $permissions, $filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
     return $result;
 }
@@ -112,10 +167,21 @@ function ftp_chmod($ftp, int $permissions, string $filename): int
  */
 function ftp_close($ftp): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_close($ftp);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -138,10 +204,21 @@ function ftp_close($ftp): void
  */
 function ftp_connect(string $hostname, int $port = 21, int $timeout = 90)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_connect($hostname, $port, $timeout);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
     return $result;
 }
@@ -158,10 +235,21 @@ function ftp_connect(string $hostname, int $port = 21, int $timeout = 90)
  */
 function ftp_delete($ftp, string $filename): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_delete($ftp, $filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -181,10 +269,21 @@ function ftp_delete($ftp, string $filename): void
  */
 function ftp_fget($ftp, $stream, string $remote_filename, int $mode = FTP_BINARY, int $offset = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_fget($ftp, $stream, $remote_filename, $mode, $offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -204,10 +303,21 @@ function ftp_fget($ftp, $stream, string $remote_filename, int $mode = FTP_BINARY
  */
 function ftp_fput($ftp, string $remote_filename, $stream, int $mode = FTP_BINARY, int $offset = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_fput($ftp, $remote_filename, $stream, $mode, $offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -227,10 +337,21 @@ function ftp_fput($ftp, string $remote_filename, $stream, int $mode = FTP_BINARY
  */
 function ftp_get($ftp, string $local_filename, string $remote_filename, int $mode = FTP_BINARY, int $offset = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_get($ftp, $local_filename, $remote_filename, $mode, $offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -246,10 +367,21 @@ function ftp_get($ftp, string $local_filename, string $remote_filename, int $mod
  */
 function ftp_login($ftp, string $username, string $password): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_login($ftp, $username, $password);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -265,10 +397,21 @@ function ftp_login($ftp, string $username, string $password): void
  */
 function ftp_mkdir($ftp, string $directory): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_mkdir($ftp, $directory);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
     return $result;
 }
@@ -285,10 +428,21 @@ function ftp_mkdir($ftp, string $directory): string
  */
 function ftp_mlsd($ftp, string $directory): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_mlsd($ftp, $directory);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
     return $result;
 }
@@ -314,10 +468,21 @@ function ftp_mlsd($ftp, string $directory): array
  */
 function ftp_nb_put($ftp, string $remote_filename, string $local_filename, int $mode = FTP_BINARY, int $offset = 0): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_nb_put($ftp, $remote_filename, $local_filename, $mode, $offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
     return $result;
 }
@@ -337,10 +502,21 @@ function ftp_nb_put($ftp, string $remote_filename, string $local_filename, int $
  */
 function ftp_nlist($ftp, string $directory): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_nlist($ftp, $directory);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
     return $result;
 }
@@ -362,10 +538,21 @@ function ftp_nlist($ftp, string $directory): array
  */
 function ftp_pasv($ftp, bool $enable): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_pasv($ftp, $enable);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -384,10 +571,21 @@ function ftp_pasv($ftp, bool $enable): void
  */
 function ftp_put($ftp, string $remote_filename, string $local_filename, int $mode = FTP_BINARY, int $offset = 0): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_put($ftp, $remote_filename, $local_filename, $mode, $offset);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -402,10 +600,21 @@ function ftp_put($ftp, string $remote_filename, string $local_filename, int $mod
  */
 function ftp_pwd($ftp): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_pwd($ftp);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
     return $result;
 }
@@ -424,10 +633,21 @@ function ftp_pwd($ftp): string
  */
 function ftp_raw($ftp, string $command): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_raw($ftp, $command);
+    restore_error_handler();
+
     if ($result === null) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
     return $result;
 }
@@ -445,10 +665,21 @@ function ftp_raw($ftp, string $command): array
  */
 function ftp_rename($ftp, string $from, string $to): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_rename($ftp, $from, $to);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -464,10 +695,21 @@ function ftp_rename($ftp, string $from, string $to): void
  */
 function ftp_rmdir($ftp, string $directory): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_rmdir($ftp, $directory);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -488,10 +730,21 @@ function ftp_rmdir($ftp, string $directory): void
  */
 function ftp_site($ftp, string $command): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_site($ftp, $command);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
 }
 
@@ -519,10 +772,21 @@ function ftp_site($ftp, string $command): void
  */
 function ftp_ssl_connect(string $hostname, int $port = 21, int $timeout = 90)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_ssl_connect($hostname, $port, $timeout);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
     return $result;
 }
@@ -538,10 +802,21 @@ function ftp_ssl_connect(string $hostname, int $port = 21, int $timeout = 90)
  */
 function ftp_systype($ftp): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ftp_systype($ftp);
+    restore_error_handler();
+
     if ($result === false) {
-        throw FtpException::createFromPhpError();
+        throw FtpException::createFromPhpError($error);
     }
     return $result;
 }

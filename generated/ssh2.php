@@ -15,10 +15,21 @@ use Safe\Exceptions\Ssh2Exception;
  */
 function ssh2_auth_agent($session, string $username): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_auth_agent($session, $username);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -41,7 +52,16 @@ function ssh2_auth_agent($session, string $username): void
  */
 function ssh2_auth_hostbased_file($session, string $username, string $hostname, string $pubkeyfile, string $privkeyfile, string $passphrase = null, string $local_username = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($local_username !== null) {
         $result = \ssh2_auth_hostbased_file($session, $username, $hostname, $pubkeyfile, $privkeyfile, $passphrase, $local_username);
     } elseif ($passphrase !== null) {
@@ -49,8 +69,10 @@ function ssh2_auth_hostbased_file($session, string $username, string $hostname, 
     } else {
         $result = \ssh2_auth_hostbased_file($session, $username, $hostname, $pubkeyfile, $privkeyfile);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -68,10 +90,21 @@ function ssh2_auth_hostbased_file($session, string $username, string $hostname, 
  */
 function ssh2_auth_password($session, string $username, string $password): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_auth_password($session, $username, $password);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -93,14 +126,25 @@ function ssh2_auth_password($session, string $username, string $password): void
  */
 function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, string $privkeyfile, string $passphrase = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($passphrase !== null) {
         $result = \ssh2_auth_pubkey_file($session, $username, $pubkeyfile, $privkeyfile, $passphrase);
     } else {
         $result = \ssh2_auth_pubkey_file($session, $username, $pubkeyfile, $privkeyfile);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -306,7 +350,16 @@ function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, s
  */
 function ssh2_connect(string $host, int $port = 22, array $methods = null, array $callbacks = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($callbacks !== null) {
         $result = \ssh2_connect($host, $port, $methods, $callbacks);
     } elseif ($methods !== null) {
@@ -314,8 +367,10 @@ function ssh2_connect(string $host, int $port = 22, array $methods = null, array
     } else {
         $result = \ssh2_connect($host, $port);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -331,10 +386,21 @@ function ssh2_connect(string $host, int $port = 22, array $methods = null, array
  */
 function ssh2_disconnect($session): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_disconnect($session);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -359,7 +425,16 @@ function ssh2_disconnect($session): void
  */
 function ssh2_exec($session, string $command, string $pty = null, array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($width_height_type !== SSH2_TERM_UNIT_CHARS) {
         $result = \ssh2_exec($session, $command, $pty, $env, $width, $height, $width_height_type);
     } elseif ($height !== 25) {
@@ -373,8 +448,10 @@ function ssh2_exec($session, string $command, string $pty = null, array $env = n
     } else {
         $result = \ssh2_exec($session, $command);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -390,10 +467,21 @@ function ssh2_exec($session, string $command, string $pty = null, array $env = n
  */
 function ssh2_forward_accept($listener)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_forward_accept($listener);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -412,7 +500,16 @@ function ssh2_forward_accept($listener)
  */
 function ssh2_forward_listen($session, int $port, string $host = null, int $max_connections = 16)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($max_connections !== 16) {
         $result = \ssh2_forward_listen($session, $port, $host, $max_connections);
     } elseif ($host !== null) {
@@ -420,8 +517,10 @@ function ssh2_forward_listen($session, int $port, string $host = null, int $max_
     } else {
         $result = \ssh2_forward_listen($session, $port);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -444,14 +543,25 @@ function ssh2_forward_listen($session, int $port, string $host = null, int $max_
  */
 function ssh2_publickey_add($pkey, string $algoname, string $blob, bool $overwrite = false, array $attributes = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($attributes !== null) {
         $result = \ssh2_publickey_add($pkey, $algoname, $blob, $overwrite, $attributes);
     } else {
         $result = \ssh2_publickey_add($pkey, $algoname, $blob, $overwrite);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -473,10 +583,21 @@ function ssh2_publickey_add($pkey, string $algoname, string $blob, bool $overwri
  */
 function ssh2_publickey_init($session)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_publickey_init($session);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -493,10 +614,21 @@ function ssh2_publickey_init($session)
  */
 function ssh2_publickey_remove($pkey, string $algoname, string $blob): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_publickey_remove($pkey, $algoname, $blob);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -513,10 +645,21 @@ function ssh2_publickey_remove($pkey, string $algoname, string $blob): void
  */
 function ssh2_scp_recv($session, string $remote_file, string $local_file): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_scp_recv($session, $remote_file, $local_file);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -535,10 +678,21 @@ function ssh2_scp_recv($session, string $remote_file, string $local_file): void
  */
 function ssh2_scp_send($session, string $local_file, string $remote_file, int $create_mode = 0644): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_scp_send($session, $local_file, $remote_file, $create_mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -556,10 +710,21 @@ function ssh2_scp_send($session, string $local_file, string $remote_file, int $c
  */
 function ssh2_send_eof($channel): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_send_eof($channel);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -576,10 +741,21 @@ function ssh2_send_eof($channel): void
  */
 function ssh2_sftp_chmod($sftp, string $filename, int $mode): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_sftp_chmod($sftp, $filename, $mode);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -602,10 +778,21 @@ function ssh2_sftp_chmod($sftp, string $filename, int $mode): void
  */
 function ssh2_sftp_mkdir($sftp, string $dirname, int $mode = 0777, bool $recursive = false): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_sftp_mkdir($sftp, $dirname, $mode, $recursive);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -621,10 +808,21 @@ function ssh2_sftp_mkdir($sftp, string $dirname, int $mode = 0777, bool $recursi
  */
 function ssh2_sftp_rename($sftp, string $from, string $to): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_sftp_rename($sftp, $from, $to);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -642,10 +840,21 @@ function ssh2_sftp_rename($sftp, string $from, string $to): void
  */
 function ssh2_sftp_rmdir($sftp, string $dirname): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_sftp_rmdir($sftp, $dirname);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -662,10 +871,21 @@ function ssh2_sftp_rmdir($sftp, string $dirname): void
  */
 function ssh2_sftp_symlink($sftp, string $target, string $link): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_sftp_symlink($sftp, $target, $link);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -680,10 +900,21 @@ function ssh2_sftp_symlink($sftp, string $target, string $link): void
  */
 function ssh2_sftp_unlink($sftp, string $filename): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_sftp_unlink($sftp, $filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
 }
 
@@ -701,10 +932,21 @@ function ssh2_sftp_unlink($sftp, string $filename): void
  */
 function ssh2_sftp($session)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \ssh2_sftp($session);
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
     return $result;
 }
@@ -730,7 +972,16 @@ function ssh2_sftp($session)
  */
 function ssh2_shell($session, string $term_type = "vanilla", array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($width_height_type !== SSH2_TERM_UNIT_CHARS) {
         $result = \ssh2_shell($session, $term_type, $env, $width, $height, $width_height_type);
     } elseif ($height !== 25) {
@@ -742,8 +993,10 @@ function ssh2_shell($session, string $term_type = "vanilla", array $env = null, 
     } else {
         $result = \ssh2_shell($session, $term_type);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw Ssh2Exception::createFromPhpError();
+        throw Ssh2Exception::createFromPhpError($error);
     }
     return $result;
 }

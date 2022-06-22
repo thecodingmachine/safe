@@ -14,10 +14,21 @@ use Safe\Exceptions\OpensslException;
  */
 function openssl_cipher_iv_length(string $cipher_algo): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_cipher_iv_length($cipher_algo);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -37,7 +48,16 @@ function openssl_cipher_iv_length(string $cipher_algo): int
  */
 function openssl_cms_decrypt(string $input_filename, string $output_filename, $certificate, $private_key = null, int $encoding = OPENSSL_ENCODING_SMIME): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($encoding !== OPENSSL_ENCODING_SMIME) {
         $result = \openssl_cms_decrypt($input_filename, $output_filename, $certificate, $private_key, $encoding);
     } elseif ($private_key !== null) {
@@ -45,8 +65,10 @@ function openssl_cms_decrypt(string $input_filename, string $output_filename, $c
     } else {
         $result = \openssl_cms_decrypt($input_filename, $output_filename, $certificate);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -68,10 +90,21 @@ function openssl_cms_decrypt(string $input_filename, string $output_filename, $c
  */
 function openssl_cms_encrypt(string $input_filename, string $output_filename, $certificate, $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, int $cipher_algo = OPENSSL_CIPHER_AES_128_CBC): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_cms_encrypt($input_filename, $output_filename, $certificate, $headers, $flags, $encoding, $cipher_algo);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -86,10 +119,21 @@ function openssl_cms_encrypt(string $input_filename, string $output_filename, $c
  */
 function openssl_cms_read(string $input_filename, array &$certificates): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_cms_read($input_filename, $certificates);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -113,14 +157,25 @@ function openssl_cms_read(string $input_filename, array &$certificates): void
  */
 function openssl_cms_sign(string $input_filename, string $output_filename, $certificate, $private_key, $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, $untrusted_certificates_filename = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($untrusted_certificates_filename !== null) {
         $result = \openssl_cms_sign($input_filename, $output_filename, $certificate, $private_key, $headers, $flags, $encoding, $untrusted_certificates_filename);
     } else {
         $result = \openssl_cms_sign($input_filename, $output_filename, $certificate, $private_key, $headers, $flags, $encoding);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -143,7 +198,16 @@ function openssl_cms_sign(string $input_filename, string $output_filename, $cert
  */
 function openssl_cms_verify(string $input_filename, int $flags = 0, $certificates = null, array $ca_info = [], $untrusted_certificates_filename = null, $content = null, $pk7 = null, $sigfile = null, int $encoding = OPENSSL_ENCODING_SMIME): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($encoding !== OPENSSL_ENCODING_SMIME) {
         $result = \openssl_cms_verify($input_filename, $flags, $certificates, $ca_info, $untrusted_certificates_filename, $content, $pk7, $sigfile, $encoding);
     } elseif ($sigfile !== null) {
@@ -161,8 +225,10 @@ function openssl_cms_verify(string $input_filename, int $flags = 0, $certificate
     } else {
         $result = \openssl_cms_verify($input_filename, $flags);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -184,10 +250,21 @@ function openssl_cms_verify(string $input_filename, int $flags = 0, $certificate
  */
 function openssl_csr_export_to_file($csr, string $output_filename, bool $no_text = true): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_csr_export_to_file($csr, $output_filename, $no_text);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -210,10 +287,21 @@ function openssl_csr_export_to_file($csr, string $output_filename, bool $no_text
  */
 function openssl_csr_export($csr, ?string &$output, bool $no_text = true): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_csr_export($csr, $output, $no_text);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -230,10 +318,21 @@ function openssl_csr_export($csr, ?string &$output, bool $no_text = true): void
  */
 function openssl_csr_get_public_key($csr, bool $short_names = true)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_csr_get_public_key($csr, $short_names);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -255,10 +354,21 @@ function openssl_csr_get_public_key($csr, bool $short_names = true)
  */
 function openssl_csr_get_subject($csr, bool $short_names = true): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_csr_get_subject($csr, $short_names);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -376,7 +486,16 @@ function openssl_csr_get_subject($csr, bool $short_names = true): array
  */
 function openssl_csr_new(array $distinguished_names, &$private_key, array $options = null, array $extra_attributes = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($extra_attributes !== null) {
         $result = \openssl_csr_new($distinguished_names, $private_key, $options, $extra_attributes);
     } elseif ($options !== null) {
@@ -384,8 +503,10 @@ function openssl_csr_new(array $distinguished_names, &$private_key, array $optio
     } else {
         $result = \openssl_csr_new($distinguished_names, $private_key);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -416,7 +537,16 @@ function openssl_csr_new(array $distinguished_names, &$private_key, array $optio
  */
 function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, array $options = null, int $serial = 0)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($serial !== 0) {
         $result = \openssl_csr_sign($csr, $ca_certificate, $private_key, $days, $options, $serial);
     } elseif ($options !== null) {
@@ -424,8 +554,10 @@ function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, array 
     } else {
         $result = \openssl_csr_sign($csr, $ca_certificate, $private_key, $days);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -450,7 +582,16 @@ function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, array 
  */
 function openssl_decrypt(string $data, string $cipher_algo, string $passphrase, int $options = 0, string $iv = "", string $tag = null, string $aad = ""): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($aad !== "") {
         $result = \openssl_decrypt($data, $cipher_algo, $passphrase, $options, $iv, $tag, $aad);
     } elseif ($tag !== null) {
@@ -458,8 +599,10 @@ function openssl_decrypt(string $data, string $cipher_algo, string $passphrase, 
     } else {
         $result = \openssl_decrypt($data, $cipher_algo, $passphrase, $options, $iv);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -478,10 +621,21 @@ function openssl_decrypt(string $data, string $cipher_algo, string $passphrase, 
  */
 function openssl_dh_compute_key(string $public_key, $private_key): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_dh_compute_key($public_key, $private_key);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -501,10 +655,21 @@ function openssl_dh_compute_key(string $public_key, $private_key): string
  */
 function openssl_digest(string $data, string $digest_algo, bool $binary = false): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_digest($data, $digest_algo, $binary);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -563,10 +728,21 @@ function openssl_digest(string $data, string $digest_algo, bool $binary = false)
  */
 function openssl_get_curve_names(): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_get_curve_names();
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -600,14 +776,25 @@ function openssl_get_curve_names(): array
  */
 function openssl_open(string $data, ?string &$output, string $encrypted_key, $private_key, string $cipher_algo, string $iv = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($iv !== null) {
         $result = \openssl_open($data, $output, $encrypted_key, $private_key, $cipher_algo, $iv);
     } else {
         $result = \openssl_open($data, $output, $encrypted_key, $private_key, $cipher_algo);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -628,10 +815,21 @@ function openssl_open(string $data, ?string &$output, string $encrypted_key, $pr
  */
 function openssl_pbkdf2(string $password, string $salt, int $key_length, int $iterations, string $digest_algo = "sha1"): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_pbkdf2($password, $salt, $key_length, $iterations, $digest_algo);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -673,10 +871,21 @@ function openssl_pbkdf2(string $password, string $salt, int $key_length, int $it
  */
 function openssl_pkcs12_export_to_file($certificate, string $output_filename, $private_key, string $passphrase, array $options = []): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_pkcs12_export_to_file($certificate, $output_filename, $private_key, $passphrase, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -717,10 +926,21 @@ function openssl_pkcs12_export_to_file($certificate, string $output_filename, $p
  */
 function openssl_pkcs12_export($certificate, ?string &$output, $private_key, string $passphrase, array $options = []): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_pkcs12_export($certificate, $output, $private_key, $passphrase, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -738,10 +958,21 @@ function openssl_pkcs12_export($certificate, ?string &$output, $private_key, str
  */
 function openssl_pkcs12_read(string $pkcs12, ?array &$certificates, string $passphrase): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_pkcs12_read($pkcs12, $certificates, $passphrase);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -762,14 +993,25 @@ function openssl_pkcs12_read(string $pkcs12, ?array &$certificates, string $pass
  */
 function openssl_pkcs7_decrypt(string $input_filename, string $output_filename, $certificate, $private_key = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($private_key !== null) {
         $result = \openssl_pkcs7_decrypt($input_filename, $output_filename, $certificate, $private_key);
     } else {
         $result = \openssl_pkcs7_decrypt($input_filename, $output_filename, $certificate);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -798,10 +1040,21 @@ function openssl_pkcs7_decrypt(string $input_filename, string $output_filename, 
  */
 function openssl_pkcs7_encrypt(string $input_filename, string $output_filename, $certificate, array $headers, int $flags = 0, int $cipher_algo = OPENSSL_CIPHER_AES_128_CBC): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_pkcs7_encrypt($input_filename, $output_filename, $certificate, $headers, $flags, $cipher_algo);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -816,10 +1069,21 @@ function openssl_pkcs7_encrypt(string $input_filename, string $output_filename, 
  */
 function openssl_pkcs7_read(string $data, ?array &$certificates): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_pkcs7_read($data, $certificates);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -850,14 +1114,25 @@ function openssl_pkcs7_read(string $data, ?array &$certificates): void
  */
 function openssl_pkcs7_sign(string $input_filename, string $output_filename, $certificate, $private_key, array $headers, int $flags = PKCS7_DETACHED, string $untrusted_certificates_filename = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($untrusted_certificates_filename !== null) {
         $result = \openssl_pkcs7_sign($input_filename, $output_filename, $certificate, $private_key, $headers, $flags, $untrusted_certificates_filename);
     } else {
         $result = \openssl_pkcs7_sign($input_filename, $output_filename, $certificate, $private_key, $headers, $flags);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -877,10 +1152,21 @@ function openssl_pkcs7_sign(string $input_filename, string $output_filename, $ce
  */
 function openssl_pkey_derive($public_key, $private_key, int $key_length = 0): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_pkey_derive($public_key, $private_key, $key_length);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -904,7 +1190,16 @@ function openssl_pkey_derive($public_key, $private_key, int $key_length = 0): st
  */
 function openssl_pkey_export_to_file($key, string $output_filename, ?string $passphrase = null, array $options = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($options !== null) {
         $result = \openssl_pkey_export_to_file($key, $output_filename, $passphrase, $options);
     } elseif ($passphrase !== null) {
@@ -912,8 +1207,10 @@ function openssl_pkey_export_to_file($key, string $output_filename, ?string $pas
     } else {
         $result = \openssl_pkey_export_to_file($key, $output_filename);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -935,7 +1232,16 @@ function openssl_pkey_export_to_file($key, string $output_filename, ?string $pas
  */
 function openssl_pkey_export($key, ?string &$output, ?string $passphrase = null, array $options = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($options !== null) {
         $result = \openssl_pkey_export($key, $output, $passphrase, $options);
     } elseif ($passphrase !== null) {
@@ -943,8 +1249,10 @@ function openssl_pkey_export($key, ?string &$output, ?string $passphrase = null,
     } else {
         $result = \openssl_pkey_export($key, $output);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -970,14 +1278,25 @@ function openssl_pkey_export($key, ?string &$output, ?string $passphrase = null,
  */
 function openssl_pkey_get_private(string $private_key, string $passphrase = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($passphrase !== null) {
         $result = \openssl_pkey_get_private($private_key, $passphrase);
     } else {
         $result = \openssl_pkey_get_private($private_key);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1004,10 +1323,21 @@ function openssl_pkey_get_private(string $private_key, string $passphrase = null
  */
 function openssl_pkey_get_public($public_key)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_pkey_get_public($public_key);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1028,14 +1358,25 @@ function openssl_pkey_get_public($public_key)
  */
 function openssl_pkey_new(array $options = null)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($options !== null) {
         $result = \openssl_pkey_new($options);
     } else {
         $result = \openssl_pkey_new();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1063,10 +1404,21 @@ function openssl_pkey_new(array $options = null)
  */
 function openssl_private_decrypt(string $data, ?string &$decrypted_data, $private_key, int $padding = OPENSSL_PKCS1_PADDING): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_private_decrypt($data, $decrypted_data, $private_key, $padding);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -1091,10 +1443,21 @@ function openssl_private_decrypt(string $data, ?string &$decrypted_data, $privat
  */
 function openssl_private_encrypt(string $data, ?string &$encrypted_data, $private_key, int $padding = OPENSSL_PKCS1_PADDING): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_private_encrypt($data, $encrypted_data, $private_key, $padding);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -1120,10 +1483,21 @@ function openssl_private_encrypt(string $data, ?string &$encrypted_data, $privat
  */
 function openssl_public_decrypt(string $data, ?string &$decrypted_data, $public_key, int $padding = OPENSSL_PKCS1_PADDING): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_public_decrypt($data, $decrypted_data, $public_key, $padding);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -1151,10 +1525,21 @@ function openssl_public_decrypt(string $data, ?string &$decrypted_data, $public_
  */
 function openssl_public_encrypt(string $data, ?string &$encrypted_data, $public_key, int $padding = OPENSSL_PKCS1_PADDING): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_public_encrypt($data, $encrypted_data, $public_key, $padding);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -1178,10 +1563,21 @@ function openssl_public_encrypt(string $data, ?string &$encrypted_data, $public_
  */
 function openssl_random_pseudo_bytes(int $length, ?bool &$strong_result = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_random_pseudo_bytes($length, $strong_result);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1219,10 +1615,21 @@ function openssl_random_pseudo_bytes(int $length, ?bool &$strong_result = null):
  */
 function openssl_seal(string $data, ?string &$sealed_data, ?array &$encrypted_keys, array $public_key, string $cipher_algo, ?string &$iv = null): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_seal($data, $sealed_data, $encrypted_keys, $public_key, $cipher_algo, $iv);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1249,10 +1656,21 @@ function openssl_seal(string $data, ?string &$sealed_data, ?array &$encrypted_ke
  */
 function openssl_sign(string $data, ?string &$signature, $private_key, $algorithm = OPENSSL_ALGO_SHA1): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_sign($data, $signature, $private_key, $algorithm);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -1267,10 +1685,21 @@ function openssl_sign(string $data, ?string &$signature, $private_key, $algorith
  */
 function openssl_spki_export_challenge(string $spki): ?string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_spki_export_challenge($spki);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1286,10 +1715,21 @@ function openssl_spki_export_challenge(string $spki): ?string
  */
 function openssl_spki_export(string $spki): ?string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_spki_export($spki);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1311,10 +1751,21 @@ function openssl_spki_export(string $spki): ?string
  */
 function openssl_spki_new($private_key, string $challenge, int $digest_algo = OPENSSL_ALGO_MD5): ?string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_spki_new($private_key, $challenge, $digest_algo);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1329,10 +1780,21 @@ function openssl_spki_new($private_key, string $challenge, int $digest_algo = OP
  */
 function openssl_spki_verify(string $spki): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_spki_verify($spki);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -1360,10 +1822,21 @@ function openssl_spki_verify(string $spki): void
  */
 function openssl_verify(string $data, string $signature, $public_key, $algorithm = OPENSSL_ALGO_SHA1): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_verify($data, $signature, $public_key, $algorithm);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1386,10 +1859,21 @@ function openssl_verify(string $data, string $signature, $public_key, $algorithm
  */
 function openssl_x509_export_to_file($certificate, string $output_filename, bool $no_text = true): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_x509_export_to_file($certificate, $output_filename, $no_text);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -1411,10 +1895,21 @@ function openssl_x509_export_to_file($certificate, string $output_filename, bool
  */
 function openssl_x509_export($certificate, ?string &$output, bool $no_text = true): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_x509_export($certificate, $output, $no_text);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
 }
 
@@ -1434,10 +1929,21 @@ function openssl_x509_export($certificate, ?string &$output, bool $no_text = tru
  */
 function openssl_x509_fingerprint($certificate, string $digest_algo = "sha1", bool $binary = false): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_x509_fingerprint($certificate, $digest_algo, $binary);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }
@@ -1455,10 +1961,21 @@ function openssl_x509_fingerprint($certificate, string $digest_algo = "sha1", bo
  */
 function openssl_x509_read($certificate)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \openssl_x509_read($certificate);
+    restore_error_handler();
+
     if ($result === false) {
-        throw OpensslException::createFromPhpError();
+        throw OpensslException::createFromPhpError($error);
     }
     return $result;
 }

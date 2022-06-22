@@ -53,9 +53,30 @@ class WritePhpFunction
         $moduleName = $this->method->getModuleName();
 
         $phpFunction .= "function {$this->method->getFunctionName()}({$this->displayParamsWithType($this->method->getParams())}){$returnType}
-{
-    error_clear_last();
-";
+{";
+
+        $includeErrorHandler = true;
+        // Certain methods from curl don't need the custom error handler
+        if ($moduleName !== 'Curl') {
+            $params = $this->method->getParams();
+            if (\count($params) > 0 && in_array($params[0]->getParameter(), ['handle', 'multi_handle', 'share_handle'])) {
+                $includeErrorHandler = false;
+            }
+        }
+
+        if ($includeErrorHandler) {
+            $phpFunction .= "
+    \$error = [];
+    set_error_handler( function(int \$errno, string \$errstr, string \$errfile, int \$errline) use (&\$error) {
+        \$error = [
+            'type' => \$errno,
+            'message' => \$errstr,
+            'file' => \$errfile,
+            'line' => \$errline,
+        ];
+        return false;
+    });\n";
+        }
 
         if (!$this->method->isOverloaded()) {
             $phpFunction .= '    $result = '.$this->printFunctionCall($this->method);
@@ -88,6 +109,7 @@ class WritePhpFunction
             $phpFunction .= '        $result = '.$this->printFunctionCall($method)."\n";
             $phpFunction .= '    }';
         }
+        $phpFunction .= "\n    restore_error_handler();\n";
 
         $phpFunction .= $this->generateExceptionCode($moduleName, $this->method).$returnStatement. '}
 ';
@@ -110,23 +132,36 @@ class WritePhpFunction
             default:
                 throw new \LogicException("Method doesn't have an error type");
         }
-
         // Special case for CURL: we need the first argument of the method if this is a resource.
         if ($moduleName === 'Curl') {
             $params = $method->getParams();
-            if (\count($params) > 0 && $params[0]->getParameter() === 'ch') {
-                return "
+            if (\count($params) > 0) {
+                if ($params[0]->getParameter() === 'handle') {
+                    return "
     if (\$result === $errorValue) {
-        throw CurlException::createFromCurlResource(\$ch);
+        throw CurlException::createFromCurlHandle(\$handle);
     }
 ";
+                } elseif ($params[0]->getParameter() === 'multi_handle') {
+                    return "
+    if (\$result === $errorValue) {
+        throw CurlException::createFromCurlMultiHandle(\$multi_handle);
+    }
+";
+                } elseif ($params[0]->getParameter() === 'share_handle') {
+                    return "
+    if (\$result === $errorValue) {
+        throw CurlException::createFromCurlShareHandle(\$share_handle);
+    }
+";
+                }
             }
         }
 
         $exceptionName = FileCreator::toExceptionName($moduleName);
         return "
     if (\$result === $errorValue) {
-        throw {$exceptionName}::createFromPhpError();
+        throw {$exceptionName}::createFromPhpError(\$error);
     }
 ";
     }

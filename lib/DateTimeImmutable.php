@@ -53,9 +53,20 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public static function createFromFormat($format, $time, $timezone = null): self
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         $datetime = \DateTimeImmutable::createFromFormat($format, $time, $timezone);
+        restore_error_handler();
         if ($datetime === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return self::createFromRegular($datetime);
     }
@@ -67,10 +78,21 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public function format($format): string
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var string|false $result */
         $result = $this->innerDateTime->format($format);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return $result;
     }
@@ -83,10 +105,21 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public function diff($datetime2, $absolute = false): \DateInterval
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var \DateInterval|false $result */
         $result = $this->innerDateTime->diff($datetime2, $absolute);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return $result;
     }
@@ -98,10 +131,21 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public function modify($modify): self
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var \DateTimeImmutable|false $result */
         $result = $this->innerDateTime->modify($modify);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return self::createFromRegular($result); //we have to recreate a safe datetime because modify create a new instance of \DateTimeImmutable
     }
@@ -115,10 +159,21 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public function setDate($year, $month, $day): self
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var \DateTimeImmutable|false $result */
         $result = $this->innerDateTime->setDate($year, $month, $day);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return self::createFromRegular($result); //we have to recreate a safe datetime because modify create a new instance of \DateTimeImmutable
     }
@@ -132,10 +187,21 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public function setISODate($year, $week, $day = 1): self
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var \DateTimeImmutable|false $result */
         $result = $this->innerDateTime->setISODate($year, $week, $day);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return self::createFromRegular($result); //we have to recreate a safe datetime because modify create a new instance of \DateTimeImmutable
     }
@@ -150,10 +216,21 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public function setTime($hour, $minute, $second = 0, $microseconds = 0): self
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var \DateTimeImmutable|false $result */
         $result = $this->innerDateTime->setTime($hour, $minute, $second, $microseconds);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return self::createFromRegular($result);
     }
@@ -165,10 +242,21 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public function setTimestamp($unixtimestamp): self
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var \DateTimeImmutable|false $result */
         $result = $this->innerDateTime->setTimestamp($unixtimestamp);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return self::createFromRegular($result);
     }
@@ -180,10 +268,21 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public function setTimezone($timezone): self
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var \DateTimeImmutable|false $result */
         $result = $this->innerDateTime->setTimezone($timezone);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return self::createFromRegular($result);
     }
@@ -195,10 +294,21 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public function sub($interval): self
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var \DateTimeImmutable|false $result */
         $result = $this->innerDateTime->sub($interval);
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return self::createFromRegular($result);
     }
@@ -208,10 +318,21 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public function getOffset(): int
     {
+        $error = [];
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+            $error = [
+                'type' => $errno,
+                'message' => $errstr,
+                'file' => $errfile,
+                'line' => $errline,
+            ];
+            return false;
+        });
         /** @var int|false $result */
         $result = $this->innerDateTime->getOffset();
+        restore_error_handler();
         if ($result === false) {
-            throw DatetimeException::createFromPhpError();
+            throw DatetimeException::createFromPhpError($error);
         }
         return $result;
     }

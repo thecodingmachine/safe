@@ -19,10 +19,21 @@ use Safe\Exceptions\UrlException;
  */
 function base64_decode(string $string, bool $strict = false): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \base64_decode($string, $strict);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UrlException::createFromPhpError();
+        throw UrlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -45,14 +56,25 @@ function base64_decode(string $string, bool $strict = false): string
  */
 function get_headers(string $url, bool $associative = false, $context = null): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($context !== null) {
         $result = \get_headers($url, $associative, $context);
     } else {
         $result = \get_headers($url, $associative);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw UrlException::createFromPhpError();
+        throw UrlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -96,10 +118,21 @@ function get_headers(string $url, bool $associative = false, $context = null): a
  */
 function get_meta_tags(string $filename, bool $use_include_path = false): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \get_meta_tags($filename, $use_include_path);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UrlException::createFromPhpError();
+        throw UrlException::createFromPhpError($error);
     }
     return $result;
 }
@@ -195,10 +228,21 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
  */
 function parse_url(string $url, int $component = -1)
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \parse_url($url, $component);
+    restore_error_handler();
+
     if ($result === false) {
-        throw UrlException::createFromPhpError();
+        throw UrlException::createFromPhpError($error);
     }
     return $result;
 }

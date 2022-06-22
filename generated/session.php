@@ -13,10 +13,21 @@ use Safe\Exceptions\SessionException;
  */
 function session_abort(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \session_abort();
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
 }
 
@@ -48,10 +59,21 @@ function session_abort(): void
  */
 function session_create_id(string $prefix = ""): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \session_create_id($prefix);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
     return $result;
 }
@@ -71,10 +93,21 @@ function session_create_id(string $prefix = ""): string
  */
 function session_decode(string $data): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \session_decode($data);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
 }
 
@@ -97,10 +130,21 @@ function session_decode(string $data): void
  */
 function session_destroy(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \session_destroy();
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
 }
 
@@ -118,10 +162,21 @@ function session_destroy(): void
  */
 function session_encode(): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \session_encode();
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
     return $result;
 }
@@ -151,14 +206,25 @@ function session_encode(): string
  */
 function session_id(string $id = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($id !== null) {
         $result = \session_id($id);
     } else {
         $result = \session_id();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
     return $result;
 }
@@ -180,14 +246,25 @@ function session_id(string $id = null): string
  */
 function session_module_name(string $module = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($module !== null) {
         $result = \session_module_name($module);
     } else {
         $result = \session_module_name();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
     return $result;
 }
@@ -237,14 +314,25 @@ function session_module_name(string $module = null): string
  */
 function session_name(string $name = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($name !== null) {
         $result = \session_name($name);
     } else {
         $result = \session_name();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
     return $result;
 }
@@ -267,10 +355,21 @@ function session_name(string $name = null): string
  */
 function session_regenerate_id(bool $delete_old_session = false): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \session_regenerate_id($delete_old_session);
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
 }
 
@@ -285,10 +384,21 @@ function session_regenerate_id(bool $delete_old_session = false): void
  */
 function session_reset(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \session_reset();
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
 }
 
@@ -318,14 +428,25 @@ function session_reset(): void
  */
 function session_save_path(string $path = null): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($path !== null) {
         $result = \session_save_path($path);
     } else {
         $result = \session_save_path();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
     return $result;
 }
@@ -340,10 +461,21 @@ function session_save_path(string $path = null): string
  */
 function session_unset(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \session_unset();
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
 }
 
@@ -364,9 +496,20 @@ function session_unset(): void
  */
 function session_write_close(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \session_write_close();
+    restore_error_handler();
+
     if ($result === false) {
-        throw SessionException::createFromPhpError();
+        throw SessionException::createFromPhpError($error);
     }
 }

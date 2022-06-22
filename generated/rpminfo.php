@@ -13,9 +13,20 @@ use Safe\Exceptions\RpminfoException;
  */
 function rpmaddtag(int $tag): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \rpmaddtag($tag);
+    restore_error_handler();
+
     if ($result === false) {
-        throw RpminfoException::createFromPhpError();
+        throw RpminfoException::createFromPhpError($error);
     }
 }

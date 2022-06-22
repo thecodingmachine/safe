@@ -44,10 +44,21 @@ use Safe\Exceptions\JsonException;
  */
 function json_encode($value, int $flags = 0, int $depth = 512): string
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \json_encode($value, $flags, $depth);
+    restore_error_handler();
+
     if ($result === false) {
-        throw JsonException::createFromPhpError();
+        throw JsonException::createFromPhpError($error);
     }
     return $result;
 }

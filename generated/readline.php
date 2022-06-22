@@ -13,10 +13,21 @@ use Safe\Exceptions\ReadlineException;
  */
 function readline_add_history(string $prompt): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \readline_add_history($prompt);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError($error);
     }
 }
 
@@ -40,10 +51,21 @@ function readline_add_history(string $prompt): void
  */
 function readline_callback_handler_install(string $prompt, callable $callback): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \readline_callback_handler_install($prompt, $callback);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError($error);
     }
 }
 
@@ -56,10 +78,21 @@ function readline_callback_handler_install(string $prompt, callable $callback): 
  */
 function readline_clear_history(): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \readline_clear_history();
+    restore_error_handler();
+
     if ($result === false) {
-        throw ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError($error);
     }
 }
 
@@ -75,10 +108,21 @@ function readline_clear_history(): void
  */
 function readline_completion_function(callable $callback): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \readline_completion_function($callback);
+    restore_error_handler();
+
     if ($result === false) {
-        throw ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError($error);
     }
 }
 
@@ -92,14 +136,25 @@ function readline_completion_function(callable $callback): void
  */
 function readline_read_history(string $filename = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($filename !== null) {
         $result = \readline_read_history($filename);
     } else {
         $result = \readline_read_history();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError($error);
     }
 }
 
@@ -113,13 +168,24 @@ function readline_read_history(string $filename = null): void
  */
 function readline_write_history(string $filename = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($filename !== null) {
         $result = \readline_write_history($filename);
     } else {
         $result = \readline_write_history();
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw ReadlineException::createFromPhpError();
+        throw ReadlineException::createFromPhpError($error);
     }
 }

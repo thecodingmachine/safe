@@ -15,10 +15,21 @@ use Safe\Exceptions\RrdException;
  */
 function rrd_create(string $filename, array $options): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \rrd_create($filename, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw RrdException::createFromPhpError();
+        throw RrdException::createFromPhpError($error);
     }
 }
 
@@ -34,10 +45,21 @@ function rrd_create(string $filename, array $options): void
  */
 function rrd_first(string $file, int $raaindex = 0): int
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \rrd_first($file, $raaindex);
+    restore_error_handler();
+
     if ($result === false) {
-        throw RrdException::createFromPhpError();
+        throw RrdException::createFromPhpError($error);
     }
     return $result;
 }
@@ -58,10 +80,21 @@ function rrd_first(string $file, int $raaindex = 0): int
  */
 function rrd_graph(string $filename, array $options): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \rrd_graph($filename, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw RrdException::createFromPhpError();
+        throw RrdException::createFromPhpError($error);
     }
     return $result;
 }
@@ -77,10 +110,21 @@ function rrd_graph(string $filename, array $options): array
  */
 function rrd_info(string $filename): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \rrd_info($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw RrdException::createFromPhpError();
+        throw RrdException::createFromPhpError($error);
     }
     return $result;
 }
@@ -97,10 +141,21 @@ function rrd_info(string $filename): array
  */
 function rrd_lastupdate(string $filename): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \rrd_lastupdate($filename);
+    restore_error_handler();
+
     if ($result === false) {
-        throw RrdException::createFromPhpError();
+        throw RrdException::createFromPhpError($error);
     }
     return $result;
 }
@@ -117,14 +172,25 @@ function rrd_lastupdate(string $filename): array
  */
 function rrd_restore(string $xml_file, string $rrd_file, array $options = null): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     if ($options !== null) {
         $result = \rrd_restore($xml_file, $rrd_file, $options);
     } else {
         $result = \rrd_restore($xml_file, $rrd_file);
     }
+    restore_error_handler();
+
     if ($result === false) {
-        throw RrdException::createFromPhpError();
+        throw RrdException::createFromPhpError($error);
     }
 }
 
@@ -141,10 +207,21 @@ function rrd_restore(string $xml_file, string $rrd_file, array $options = null):
  */
 function rrd_tune(string $filename, array $options): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \rrd_tune($filename, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw RrdException::createFromPhpError();
+        throw RrdException::createFromPhpError($error);
     }
 }
 
@@ -161,10 +238,21 @@ function rrd_tune(string $filename, array $options): void
  */
 function rrd_update(string $filename, array $options): void
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \rrd_update($filename, $options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw RrdException::createFromPhpError();
+        throw RrdException::createFromPhpError($error);
     }
 }
 
@@ -181,10 +269,21 @@ function rrd_update(string $filename, array $options): void
  */
 function rrd_xport(array $options): array
 {
-    error_clear_last();
+    $error = [];
+    set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use (&$error) {
+        $error = [
+            'type' => $errno,
+            'message' => $errstr,
+            'file' => $errfile,
+            'line' => $errline,
+        ];
+        return false;
+    });
     $result = \rrd_xport($options);
+    restore_error_handler();
+
     if ($result === false) {
-        throw RrdException::createFromPhpError();
+        throw RrdException::createFromPhpError($error);
     }
     return $result;
 }

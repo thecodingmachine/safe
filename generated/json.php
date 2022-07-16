@@ -6,7 +6,12 @@ use Safe\Exceptions\JsonException;
 
 /**
  * Returns a string containing the JSON representation of the supplied
- * value.
+ * value.  If the parameter is an array or object,
+ * it will be serialized recursively.
+ *
+ * If a value to be serialized is an object, then by default only publicly visible
+ * properties will be included. Alternatively, a class may implement JsonSerializable
+ * to control how its values are serialized to JSON.
  *
  * The encoding is affected by the supplied flags
  * and additionally the encoding of float values depends on the value of

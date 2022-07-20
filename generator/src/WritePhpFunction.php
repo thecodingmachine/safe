@@ -75,7 +75,7 @@ class WritePhpFunction
                     $defaultValue = $lastParameter->getDefaultValue();
                     $defaultValueToString = $this->defaultValueToString($defaultValue);
                 }
-                $phpFunction .= 'if ($'.$lastParameter->getParameter().' !== '.$defaultValueToString.') {'."\n";
+                $phpFunction .= 'if ($'.$lastParameter->getParameterName().' !== '.$defaultValueToString.') {'."\n";
                 $phpFunction .= '        $result = '.$this->printFunctionCall($method)."\n";
                 $phpFunction .= '    }';
                 $inElse = true;
@@ -114,10 +114,11 @@ class WritePhpFunction
         // Special case for CURL: we need the first argument of the method if this is a resource.
         if ($moduleName === 'Curl') {
             $params = $method->getParams();
-            if (\count($params) > 0 && $params[0]->getParameter() === 'ch') {
+            if (\count($params) > 0 && in_array($params[0]->getParameterType(), ['CurlHandle', 'CurlMultiHandle', 'CurlShareHandle'])) {
+                $name = $params[0]->getParameterName();
                 return "
     if (\$result === $errorValue) {
-        throw CurlException::createFromCurlResource(\$ch);
+        throw CurlException::createFromPhpError(\$$name);
     }
 ";
             }
@@ -146,7 +147,7 @@ class WritePhpFunction
                 $paramAsString .= ' ';
             }
 
-            $paramName = $param->getParameter();
+            $paramName = $param->getParameterName();
             if ($param->isVariadic()) {
                 $paramAsString .= ' ...$'.$paramName;
             } else {
@@ -180,7 +181,7 @@ class WritePhpFunction
             if ($parameter->isVariadic()) {
                 $str = '...';
             }
-            return $str.'$'.$parameter->getParameter();
+            return $str.'$'.$parameter->getParameterName();
         }, $function->getParams()));
         $functionCall .= ');';
         return $functionCall;

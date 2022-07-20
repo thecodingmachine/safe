@@ -19,7 +19,7 @@ class Parameter
     public function __construct(\SimpleXMLElement $parameter, ?PhpStanFunction $phpStanFunction, int $position)
     {
         $this->parameter = $parameter;
-        $phpStanParam = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameter(), $position) : null;
+        $phpStanParam = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameterName(), $position) : null;
         
         $this->type = $phpStanParam ? $phpStanParam->getType() : new PhpStanType($this->parameter->type->__toString()); //todo: is this if useful?
     }
@@ -40,10 +40,16 @@ class Parameter
         return $this->type->getDocBlockType();
     }
 
-    public function getParameter(): string
+    public function getParameterName(): string
     {
         // The db2_bind_param method has parameters with a dash in it... yep... (patch submitted)
         return \str_replace('-', '_', $this->parameter->parameter->__toString());
+    }
+    
+    public function getParameterType(): string
+    {
+        // The db2_bind_param method has parameters with a dash in it... yep... (patch submitted)
+        return \str_replace('-', '_', $this->parameter->type->__toString());
     }
 
     public function isByReference(): bool

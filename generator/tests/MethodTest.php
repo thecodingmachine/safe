@@ -32,7 +32,7 @@ class MethodTest extends TestCase
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
         $this->assertEquals('string', $params[0]->getSignatureType());
-        $this->assertEquals('pattern', $params[0]->getParameter());
+        $this->assertEquals('pattern', $params[0]->getParameterName());
     }
 
     public function testGetTypeHintFromRessource()

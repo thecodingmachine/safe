@@ -117,7 +117,7 @@ class Method
 
         $i=1;
         foreach ($this->getParams() as $parameter) {
-            $str .= '@param '.$parameter->getDocBlockType().' $'.$parameter->getParameter().' ';
+            $str .= '@param '.$parameter->getDocBlockType().' $'.$parameter->getParameterName().' ';
             $str .= $this->getStringForXPath("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[$i]//docbook:para")."\n";
             $i++;
         }

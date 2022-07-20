@@ -5,6 +5,79 @@ namespace Safe;
 use Safe\Exceptions\ArrayException;
 
 /**
+ * array_replace_recursive replaces the values of
+ * array with the same values from all the following
+ * arrays. If a key from the first array exists in the second array, its value
+ * will be replaced by the value from the second array. If the key exists in the
+ * second array, and not the first, it will be created in the first array.
+ * If a key only exists in the first array, it will be left as is.
+ * If several arrays are passed for replacement, they will be processed
+ * in order, the later array overwriting the previous values.
+ *
+ * array_replace_recursive is recursive : it will recurse into
+ * arrays and apply the same process to the inner value.
+ *
+ * When the value in the first array is scalar, it will be replaced
+ * by the value in the second array, may it be scalar or array.
+ * When the value in the first array and the second array
+ * are both arrays, array_replace_recursive will replace
+ * their respective value recursively.
+ *
+ * @param array $array The array in which elements are replaced.
+ * @param array $replacements Arrays from which elements will be extracted.
+ * @return array Returns an array.
+ * @throws ArrayException
+ *
+ */
+function array_replace_recursive(array $array, array  ...$replacements): array
+{
+    error_clear_last();
+    if ($replacements !== []) {
+        $result = \array_replace_recursive($array, ...$replacements);
+    } else {
+        $result = \array_replace_recursive($array);
+    }
+    if ($result === null) {
+        throw ArrayException::createFromPhpError();
+    }
+    return $result;
+}
+
+/**
+ * array_replace replaces the values of
+ * array with values having the same keys in each of the following
+ * arrays. If a key from the first array exists in the second array, its value
+ * will be replaced by the value from the second array. If the key exists in the
+ * second array, and not the first, it will be created in the first array.
+ * If a key only exists in the first array, it will be left as is.
+ * If several arrays are passed for replacement, they will be processed
+ * in order, the later arrays overwriting the previous values.
+ *
+ * array_replace is not recursive : it will replace
+ * values in the first array by whatever type is in the second array.
+ *
+ * @param array $array The array in which elements are replaced.
+ * @param array $replacements Arrays from which elements will be extracted.
+ * Values from later arrays overwrite the previous values.
+ * @return array Returns an array.
+ * @throws ArrayException
+ *
+ */
+function array_replace(array $array, array  ...$replacements): array
+{
+    error_clear_last();
+    if ($replacements !== []) {
+        $result = \array_replace($array, ...$replacements);
+    } else {
+        $result = \array_replace($array);
+    }
+    if ($result === null) {
+        throw ArrayException::createFromPhpError();
+    }
+    return $result;
+}
+
+/**
  * array_flip returns an array in flip
  * order, i.e. keys from array become values and values
  * from array become keys.

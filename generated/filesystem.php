@@ -1240,6 +1240,13 @@ function lstat(string $filename): array
  * Attempts to create the directory specified by directory.
  *
  * @param string $directory The directory path.
+ * A URL can be used as a
+ * filename with this function if the fopen wrappers have been enabled.
+ * See fopen for more details on how to specify the
+ * filename. See the  for links to information
+ * about what abilities the various wrappers have, notes on their usage,
+ * and information on any predefined variables they may
+ * provide.
  * @param int $permissions The permissions are 0777 by default, which means the widest possible
  * access. For more information on permissions, read the details
  * on the chmod page.
@@ -1250,8 +1257,8 @@ function lstat(string $filename): array
  * which means it should have a leading zero. The permissions is also modified
  * by the current umask, which you can change using
  * umask.
- * @param bool $recursive Allows the creation of nested directories specified in the
- * directory.
+ * @param bool $recursive If TRUE, then any parent directories to the directory specified will
+ * also be created, with the same permissions.
  * @param resource $context A context stream
  * resource.
  * @throws FilesystemException

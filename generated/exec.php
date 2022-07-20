@@ -85,10 +85,10 @@ function passthru(string $command, ?int &$result_code = null): void
  * @param int $priority The new priority value, the value of this may differ on platforms.
  *
  * On Unix, a low value, such as -20 means high priority
- * wheras a positive value have a lower priority.
+ * whereas positive values have a lower priority.
  *
- * For Windows the priority parameter have the
- * following meanings:
+ * For Windows the priority parameter has the
+ * following meaning:
  * @throws ExecException
  *
  */

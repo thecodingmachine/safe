@@ -2588,7 +2588,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  * CURLOPT_PROXY_TLSAUTH_USERNAME
  *
- * Tusername to use for the HTTPS proxy TLS authentication method specified with the
+ * The username to use for the HTTPS proxy TLS authentication method specified with the
  * CURLOPT_PROXY_TLSAUTH_TYPE option. Requires that the
  * CURLOPT_PROXY_TLSAUTH_PASSWORD option to also be set.
  *

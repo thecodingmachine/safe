@@ -12,6 +12,8 @@ return [
     'apc_load_constants',
     'apc_sma_info',
     'arsort',
+    'array_replace',
+    'array_replace_recursive',
     'array_combine',
     'array_flip',
     'asort',

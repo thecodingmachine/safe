@@ -44,10 +44,8 @@ class DocPageTest extends TestCase
     public function testDetectNullsyFunction()
     {
         $implode = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/implode.xml');
-        $arrayReplace = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-replace.xml');
 
         $this->assertFalse($implode->detectNullsyFunction());
-        $this->assertTrue($arrayReplace->detectNullsyFunction());
     }
 
     public function testDetectEmptyFunction()

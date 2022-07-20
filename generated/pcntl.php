@@ -11,8 +11,9 @@ use Safe\Exceptions\PcntlException;
  * man page for specific details.
  *
  * @param int $process_id If NULL, the process id of the current process is used.
- * @param int $mode One of PRIO_PGRP, PRIO_USER
- * or PRIO_PROCESS.
+ * @param int $mode One of PRIO_PGRP, PRIO_USER,
+ * PRIO_PROCESS,
+ * PRIO_DARWIN_BG or PRIO_DARWIN_THREAD.
  * @return int pcntl_getpriority returns the priority of the process.  A lower numerical value causes more favorable
  * scheduling.
  * @throws PcntlException
@@ -46,8 +47,9 @@ function pcntl_getpriority(int $process_id = null, int $mode = PRIO_PROCESS): in
  * system types and kernel versions, please see your system's setpriority(2)
  * man page for specific details.
  * @param int $process_id If NULL, the process id of the current process is used.
- * @param int $mode One of PRIO_PGRP, PRIO_USER
- * or PRIO_PROCESS.
+ * @param int $mode One of PRIO_PGRP, PRIO_USER,
+ * PRIO_PROCESS,
+ * PRIO_DARWIN_BG or PRIO_DARWIN_THREAD.
  * @throws PcntlException
  *
  */

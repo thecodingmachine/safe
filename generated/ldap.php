@@ -239,36 +239,36 @@ function ldap_exop_whoami($ldap)
 
 
 /**
- * Performs an extended operation on the specified link with
- * reqoid the OID of the operation and
- * reqdata the data.
+ * Performs an extended operation on the specified ldap with
+ * request_oid the OID of the operation and
+ * request_data the data.
  *
  * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param string $reqoid The extended operation request OID. You may use one of LDAP_EXOP_START_TLS, LDAP_EXOP_MODIFY_PASSWD, LDAP_EXOP_REFRESH, LDAP_EXOP_WHO_AM_I, LDAP_EXOP_TURN, or a string with the OID of the operation you want to send.
- * @param string $reqdata The extended operation request data. May be NULL for some operations like LDAP_EXOP_WHO_AM_I, may also need to be BER encoded.
- * @param array|null $serverctrls Array of LDAP Controls to send with the request.
- * @param string|null $retdata Will be filled with the extended operation response data if provided.
+ * @param string $request_oid The extended operation request OID. You may use one of LDAP_EXOP_START_TLS, LDAP_EXOP_MODIFY_PASSWD, LDAP_EXOP_REFRESH, LDAP_EXOP_WHO_AM_I, LDAP_EXOP_TURN, or a string with the OID of the operation you want to send.
+ * @param string $request_data The extended operation request data. May be NULL for some operations like LDAP_EXOP_WHO_AM_I, may also need to be BER encoded.
+ * @param array|null $controls Array of LDAP Controls to send with the request.
+ * @param string|null $response_data Will be filled with the extended operation response data if provided.
  * If not provided you may use ldap_parse_exop on the result object
  * later to get this data.
- * @param string|null $retoid Will be filled with the response OID if provided, usually equal to the request OID.
- * @return resource|bool When used with retdata, returns TRUE on success.
- * When used without retdata, returns a result identifier.
+ * @param string|null $response_oid Will be filled with the response OID if provided, usually equal to the request OID.
+ * @return resource|bool When used with response_data, returns TRUE on success.
+ * When used without response_data, returns a result identifier.
  * @throws LdapException
  *
  */
-function ldap_exop($ldap, string $reqoid, string $reqdata = null, ?array $serverctrls = null, ?string &$retdata = null, ?string &$retoid = null)
+function ldap_exop($ldap, string $request_oid, string $request_data = null, ?array $controls = null, ?string &$response_data = null, ?string &$response_oid = null)
 {
     error_clear_last();
-    if ($retoid !== null) {
-        $result = \ldap_exop($ldap, $reqoid, $reqdata, $serverctrls, $retdata, $retoid);
-    } elseif ($retdata !== null) {
-        $result = \ldap_exop($ldap, $reqoid, $reqdata, $serverctrls, $retdata);
-    } elseif ($serverctrls !== null) {
-        $result = \ldap_exop($ldap, $reqoid, $reqdata, $serverctrls);
-    } elseif ($reqdata !== null) {
-        $result = \ldap_exop($ldap, $reqoid, $reqdata);
+    if ($response_oid !== null) {
+        $result = \ldap_exop($ldap, $request_oid, $request_data, $controls, $response_data, $response_oid);
+    } elseif ($response_data !== null) {
+        $result = \ldap_exop($ldap, $request_oid, $request_data, $controls, $response_data);
+    } elseif ($controls !== null) {
+        $result = \ldap_exop($ldap, $request_oid, $request_data, $controls);
+    } elseif ($request_data !== null) {
+        $result = \ldap_exop($ldap, $request_oid, $request_data);
     } else {
-        $result = \ldap_exop($ldap, $reqoid);
+        $result = \ldap_exop($ldap, $request_oid);
     }
     if ($result === false) {
         throw LdapException::createFromPhpError();

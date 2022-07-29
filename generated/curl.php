@@ -2421,7 +2421,8 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * The proxy authentication service name.
  *
  *
- * Added in cURL 7.34.0. Available since PHP 7.0.7.
+ * Added in cURL 7.43.0 for HTTP proxies, and in cURL 7.49.0 for SOCKS5 proxies.
+ * Available since PHP 7.0.7.
  *
  *
  *

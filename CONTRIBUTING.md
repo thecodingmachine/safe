@@ -46,5 +46,5 @@ All custom objects must be located in lib/ and custom functions must be in lib/s
 The continuous integration hooks will regenerate all the functions and check that the result is exactly what has been
 committed. Therefore, before submitting a PR, please:
 
-- Perform a "svn update"
+- Perform step 1 to update doc
 - Regenerate the files using `php ./safe.php generate`

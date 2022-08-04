@@ -2,6 +2,8 @@
 
 namespace Safe;
 
+use Rector\Config\RectorConfig;
+use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use function array_merge;
 use function file_exists;
 
@@ -101,16 +103,13 @@ return [\n");
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 // This file configures rector/rector to replace all PHP functions with their equivalent "safe" functions.
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
-
-    $services->set(RenameFunctionRector::class)
-        ->call('configure', [[ RenameFunctionRector::OLD_FUNCTION_TO_NEW_FUNCTION => [
-
+return static function (RectorConfig $rectorConfig): void {
+	$rectorConfig->ruleWithConfiguration(
+		RenameFunctionRector::class,[
 TXT;
 
         fwrite($stream, $header);
@@ -119,7 +118,7 @@ TXT;
             fwrite($stream, "            '$functionName' => 'Safe\\$functionName',\n");
         }
 
-        fwrite($stream, "        ]]]);\n};\n");
+        fwrite($stream, "        ]);\n};\n");
         fclose($stream);
     }
 

@@ -674,7 +674,6 @@ return [
     'openssl_private_encrypt',
     'openssl_public_decrypt',
     'openssl_public_encrypt',
-    'openssl_random_pseudo_bytes',
     'openssl_seal',
     'openssl_sign',
     'openssl_spki_export',

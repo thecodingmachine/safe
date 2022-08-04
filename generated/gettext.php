@@ -19,9 +19,10 @@ use Safe\Exceptions\GettextException;
 function bindtextdomain(string $domain, string $directory): string
 {
     error_clear_last();
-    $result = \bindtextdomain($domain, $directory);
-    if ($result === false) {
+    $safeResult = \bindtextdomain($domain, $directory);
+    if ($safeResult === false) {
         throw GettextException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
+

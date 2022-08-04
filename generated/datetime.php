@@ -16,11 +16,11 @@ use Safe\Exceptions\DatetimeException;
 function date_parse_from_format(string $format, string $datetime): ?array
 {
     error_clear_last();
-    $result = \date_parse_from_format($format, $datetime);
-    if ($result === false) {
+    $safeResult = \date_parse_from_format($format, $datetime);
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -51,11 +51,11 @@ function date_parse_from_format(string $format, string $datetime): ?array
 function date_parse(string $datetime): ?array
 {
     error_clear_last();
-    $result = \date_parse($datetime);
-    if ($result === false) {
+    $safeResult = \date_parse($datetime);
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -157,11 +157,11 @@ function date_parse(string $datetime): ?array
 function date_sun_info(int $timestamp, float $latitude, float $longitude): array
 {
     error_clear_last();
-    $result = \date_sun_info($timestamp, $latitude, $longitude);
-    if ($result === false) {
+    $safeResult = \date_sun_info($timestamp, $latitude, $longitude);
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -251,20 +251,20 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, f
 {
     error_clear_last();
     if ($utcOffset !== null) {
-        $result = \date_sunrise($timestamp, $returnFormat, $latitude, $longitude, $zenith, $utcOffset);
+        $safeResult = \date_sunrise($timestamp, $returnFormat, $latitude, $longitude, $zenith, $utcOffset);
     } elseif ($zenith !== null) {
-        $result = \date_sunrise($timestamp, $returnFormat, $latitude, $longitude, $zenith);
+        $safeResult = \date_sunrise($timestamp, $returnFormat, $latitude, $longitude, $zenith);
     } elseif ($longitude !== null) {
-        $result = \date_sunrise($timestamp, $returnFormat, $latitude, $longitude);
+        $safeResult = \date_sunrise($timestamp, $returnFormat, $latitude, $longitude);
     } elseif ($latitude !== null) {
-        $result = \date_sunrise($timestamp, $returnFormat, $latitude);
+        $safeResult = \date_sunrise($timestamp, $returnFormat, $latitude);
     } else {
-        $result = \date_sunrise($timestamp, $returnFormat);
+        $safeResult = \date_sunrise($timestamp, $returnFormat);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -354,20 +354,20 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, fl
 {
     error_clear_last();
     if ($utcOffset !== null) {
-        $result = \date_sunset($timestamp, $returnFormat, $latitude, $longitude, $zenith, $utcOffset);
+        $safeResult = \date_sunset($timestamp, $returnFormat, $latitude, $longitude, $zenith, $utcOffset);
     } elseif ($zenith !== null) {
-        $result = \date_sunset($timestamp, $returnFormat, $latitude, $longitude, $zenith);
+        $safeResult = \date_sunset($timestamp, $returnFormat, $latitude, $longitude, $zenith);
     } elseif ($longitude !== null) {
-        $result = \date_sunset($timestamp, $returnFormat, $latitude, $longitude);
+        $safeResult = \date_sunset($timestamp, $returnFormat, $latitude, $longitude);
     } elseif ($latitude !== null) {
-        $result = \date_sunset($timestamp, $returnFormat, $latitude);
+        $safeResult = \date_sunset($timestamp, $returnFormat, $latitude);
     } else {
-        $result = \date_sunset($timestamp, $returnFormat);
+        $safeResult = \date_sunset($timestamp, $returnFormat);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -397,14 +397,14 @@ function date(string $format, int $timestamp = null): string
 {
     error_clear_last();
     if ($timestamp !== null) {
-        $result = \date($format, $timestamp);
+        $safeResult = \date($format, $timestamp);
     } else {
-        $result = \date($format);
+        $safeResult = \date($format);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -444,22 +444,22 @@ function gmmktime(int $hour, int $minute = null, int $second = null, int $month 
 {
     error_clear_last();
     if ($year !== null) {
-        $result = \gmmktime($hour, $minute, $second, $month, $day, $year);
+        $safeResult = \gmmktime($hour, $minute, $second, $month, $day, $year);
     } elseif ($day !== null) {
-        $result = \gmmktime($hour, $minute, $second, $month, $day);
+        $safeResult = \gmmktime($hour, $minute, $second, $month, $day);
     } elseif ($month !== null) {
-        $result = \gmmktime($hour, $minute, $second, $month);
+        $safeResult = \gmmktime($hour, $minute, $second, $month);
     } elseif ($second !== null) {
-        $result = \gmmktime($hour, $minute, $second);
+        $safeResult = \gmmktime($hour, $minute, $second);
     } elseif ($minute !== null) {
-        $result = \gmmktime($hour, $minute);
+        $safeResult = \gmmktime($hour, $minute);
     } else {
-        $result = \gmmktime($hour);
+        $safeResult = \gmmktime($hour);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -488,14 +488,14 @@ function gmstrftime(string $format, int $timestamp = null): string
 {
     error_clear_last();
     if ($timestamp !== null) {
-        $result = \gmstrftime($format, $timestamp);
+        $safeResult = \gmstrftime($format, $timestamp);
     } else {
-        $result = \gmstrftime($format);
+        $safeResult = \gmstrftime($format);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -619,14 +619,14 @@ function idate(string $format, int $timestamp = null): int
 {
     error_clear_last();
     if ($timestamp !== null) {
-        $result = \idate($format, $timestamp);
+        $safeResult = \idate($format, $timestamp);
     } else {
-        $result = \idate($format);
+        $safeResult = \idate($format);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -673,22 +673,22 @@ function mktime(int $hour, int $minute = null, int $second = null, int $month = 
 {
     error_clear_last();
     if ($year !== null) {
-        $result = \mktime($hour, $minute, $second, $month, $day, $year);
+        $safeResult = \mktime($hour, $minute, $second, $month, $day, $year);
     } elseif ($day !== null) {
-        $result = \mktime($hour, $minute, $second, $month, $day);
+        $safeResult = \mktime($hour, $minute, $second, $month, $day);
     } elseif ($month !== null) {
-        $result = \mktime($hour, $minute, $second, $month);
+        $safeResult = \mktime($hour, $minute, $second, $month);
     } elseif ($second !== null) {
-        $result = \mktime($hour, $minute, $second);
+        $safeResult = \mktime($hour, $minute, $second);
     } elseif ($minute !== null) {
-        $result = \mktime($hour, $minute);
+        $safeResult = \mktime($hour, $minute);
     } else {
-        $result = \mktime($hour);
+        $safeResult = \mktime($hour);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1009,14 +1009,14 @@ function strftime(string $format, int $timestamp = null): string
 {
     error_clear_last();
     if ($timestamp !== null) {
-        $result = \strftime($format, $timestamp);
+        $safeResult = \strftime($format, $timestamp);
     } else {
-        $result = \strftime($format);
+        $safeResult = \strftime($format);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1095,11 +1095,11 @@ function strftime(string $format, int $timestamp = null): string
 function strptime(string $timestamp, string $format): array
 {
     error_clear_last();
-    $result = \strptime($timestamp, $format);
-    if ($result === false) {
+    $safeResult = \strptime($timestamp, $format);
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1121,14 +1121,14 @@ function strtotime(string $datetime, int $baseTimestamp = null): int
 {
     error_clear_last();
     if ($baseTimestamp !== null) {
-        $result = \strtotime($datetime, $baseTimestamp);
+        $safeResult = \strtotime($datetime, $baseTimestamp);
     } else {
-        $result = \strtotime($datetime);
+        $safeResult = \strtotime($datetime);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1156,9 +1156,10 @@ function strtotime(string $datetime, int $baseTimestamp = null): int
 function timezone_name_from_abbr(string $abbr, int $utcOffset = -1, int $isDST = -1): string
 {
     error_clear_last();
-    $result = \timezone_name_from_abbr($abbr, $utcOffset, $isDST);
-    if ($result === false) {
+    $safeResult = \timezone_name_from_abbr($abbr, $utcOffset, $isDST);
+    if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
+

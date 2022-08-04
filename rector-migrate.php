@@ -684,7 +684,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'openssl_private_encrypt' => 'Safe\openssl_private_encrypt',
             'openssl_public_decrypt' => 'Safe\openssl_public_decrypt',
             'openssl_public_encrypt' => 'Safe\openssl_public_encrypt',
-            'openssl_random_pseudo_bytes' => 'Safe\openssl_random_pseudo_bytes',
             'openssl_seal' => 'Safe\openssl_seal',
             'openssl_sign' => 'Safe\openssl_sign',
             'openssl_spki_export' => 'Safe\openssl_spki_export',

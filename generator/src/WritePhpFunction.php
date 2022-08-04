@@ -48,7 +48,7 @@ class WritePhpFunction
         $returnType = $returnType ? ': '.$returnType : '';
         $returnStatement = '';
         if ($this->method->getSignatureReturnType() !== 'void') {
-            $returnStatement = "    return \$result;\n";
+            $returnStatement = "    return \$safeResult;\n";
         }
         $moduleName = $this->method->getModuleName();
 
@@ -58,7 +58,7 @@ class WritePhpFunction
 ";
 
         if (!$this->method->isOverloaded()) {
-            $phpFunction .= '    $result = '.$this->printFunctionCall($this->method);
+            $phpFunction .= '    $safeResult = '.$this->printFunctionCall($this->method);
         } else {
             $method = $this->method;
             $inElse = false;
@@ -76,7 +76,7 @@ class WritePhpFunction
                     $defaultValueToString = $this->defaultValueToString($defaultValue);
                 }
                 $phpFunction .= 'if ($'.$lastParameter->getParameterName().' !== '.$defaultValueToString.') {'."\n";
-                $phpFunction .= '        $result = '.$this->printFunctionCall($method)."\n";
+                $phpFunction .= '        $safeResult = '.$this->printFunctionCall($method)."\n";
                 $phpFunction .= '    }';
                 $inElse = true;
                 $method = $method->cloneAndRemoveAParameter();
@@ -85,7 +85,7 @@ class WritePhpFunction
                 }
             } while (true);
             $phpFunction .= ' else {'."\n";
-            $phpFunction .= '        $result = '.$this->printFunctionCall($method)."\n";
+            $phpFunction .= '        $safeResult = '.$this->printFunctionCall($method)."\n";
             $phpFunction .= '    }';
         }
 
@@ -117,7 +117,7 @@ class WritePhpFunction
             if (\count($params) > 0 && in_array($params[0]->getParameterType(), ['CurlHandle', 'CurlMultiHandle', 'CurlShareHandle'])) {
                 $name = $params[0]->getParameterName();
                 return "
-    if (\$result === $errorValue) {
+    if (\$safeResult === $errorValue) {
         throw CurlException::createFromPhpError(\$$name);
     }
 ";
@@ -126,7 +126,7 @@ class WritePhpFunction
 
         $exceptionName = FileCreator::toExceptionName($moduleName);
         return "
-    if (\$result === $errorValue) {
+    if (\$safeResult === $errorValue) {
         throw {$exceptionName}::createFromPhpError();
     }
 ";

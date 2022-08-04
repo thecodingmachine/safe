@@ -134,4 +134,3 @@ function spl_autoload_unregister($callback): void
         throw SplException::createFromPhpError();
     }
 }
-

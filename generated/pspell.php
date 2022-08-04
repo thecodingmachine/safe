@@ -499,4 +499,3 @@ function pspell_store_replacement(int $dictionary, string $misspelled, string $c
         throw PspellException::createFromPhpError();
     }
 }
-

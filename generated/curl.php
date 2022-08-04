@@ -3275,4 +3275,3 @@ function curl_unescape(\CurlHandle $handle, string $string): string
     }
     return $safeResult;
 }
-

@@ -714,4 +714,3 @@ function xml_set_unparsed_entity_decl_handler($parser, callable $handler): void
         throw XmlException::createFromPhpError();
     }
 }
-

@@ -747,4 +747,3 @@ function ssh2_shell($session, string $term_type = "vanilla", array $env = null, 
     }
     return $safeResult;
 }
-

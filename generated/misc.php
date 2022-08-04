@@ -270,7 +270,7 @@ function hrtime(bool $as_number = false)
  * @throws MiscException
  *
  */
-function pack(string $format,  ...$values): string
+function pack(string $format, ...$values): string
 {
     error_clear_last();
     if ($values !== []) {
@@ -542,4 +542,3 @@ function unpack(string $format, string $string, int $offset = 0): array
     }
     return $safeResult;
 }
-

@@ -57,4 +57,3 @@ function shuffle(array &$array): void
         throw ArrayException::createFromPhpError();
     }
 }
-

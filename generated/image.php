@@ -2973,4 +2973,3 @@ function png2wbmp(string $pngname, string $wbmpname, int $dest_height, int $dest
         throw ImageException::createFromPhpError();
     }
 }
-

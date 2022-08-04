@@ -188,4 +188,3 @@ function rrd_xport(array $options): array
     }
     return $safeResult;
 }
-

@@ -23,4 +23,3 @@ function gmp_random_seed($seed): void
         throw GmpException::createFromPhpError();
     }
 }
-

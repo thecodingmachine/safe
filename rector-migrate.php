@@ -2,16 +2,13 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 // This file configures rector/rector to replace all PHP functions with their equivalent "safe" functions.
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
-
-    $services->set(RenameFunctionRector::class)
-        ->call('configure', [[ RenameFunctionRector::OLD_FUNCTION_TO_NEW_FUNCTION => [
-            'apache_getenv' => 'Safe\apache_getenv',
+return static function (RectorConfig $rectorConfig): void {
+	$rectorConfig->ruleWithConfiguration(
+		RenameFunctionRector::class,[            'apache_getenv' => 'Safe\apache_getenv',
             'apache_get_version' => 'Safe\apache_get_version',
             'apache_lookup_uri' => 'Safe\apache_lookup_uri',
             'apache_request_headers' => 'Safe\apache_request_headers',
@@ -1101,5 +1098,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'zip_entry_open' => 'Safe\zip_entry_open',
             'zip_entry_read' => 'Safe\zip_entry_read',
             'zlib_decode' => 'Safe\zlib_decode',
-        ]]]);
+        ]);
 };

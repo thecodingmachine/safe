@@ -14,11 +14,11 @@ use Safe\Exceptions\ApacheException;
 function apache_get_version(): string
 {
     error_clear_last();
-    $result = \apache_get_version();
-    if ($result === false) {
+    $safeResult = \apache_get_version();
+    if ($safeResult === false) {
         throw ApacheException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -35,11 +35,11 @@ function apache_get_version(): string
 function apache_getenv(string $variable, bool $walk_to_top = false): string
 {
     error_clear_last();
-    $result = \apache_getenv($variable, $walk_to_top);
-    if ($result === false) {
+    $safeResult = \apache_getenv($variable, $walk_to_top);
+    if ($safeResult === false) {
         throw ApacheException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -83,11 +83,11 @@ function apache_getenv(string $variable, bool $walk_to_top = false): string
 function apache_lookup_uri(string $filename): object
 {
     error_clear_last();
-    $result = \apache_lookup_uri($filename);
-    if ($result === false) {
+    $safeResult = \apache_lookup_uri($filename);
+    if ($safeResult === false) {
         throw ApacheException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -102,11 +102,11 @@ function apache_lookup_uri(string $filename): object
 function apache_request_headers(): array
 {
     error_clear_last();
-    $result = \apache_request_headers();
-    if ($result === false) {
+    $safeResult = \apache_request_headers();
+    if ($safeResult === false) {
         throw ApacheException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -121,11 +121,11 @@ function apache_request_headers(): array
 function apache_response_headers(): array
 {
     error_clear_last();
-    $result = \apache_response_headers();
-    if ($result === false) {
+    $safeResult = \apache_response_headers();
+    if ($safeResult === false) {
         throw ApacheException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -143,8 +143,8 @@ function apache_response_headers(): array
 function apache_setenv(string $variable, string $value, bool $walk_to_top = false): void
 {
     error_clear_last();
-    $result = \apache_setenv($variable, $value, $walk_to_top);
-    if ($result === false) {
+    $safeResult = \apache_setenv($variable, $value, $walk_to_top);
+    if ($safeResult === false) {
         throw ApacheException::createFromPhpError();
     }
 }
@@ -164,11 +164,11 @@ function apache_setenv(string $variable, string $value, bool $walk_to_top = fals
 function getallheaders(): array
 {
     error_clear_last();
-    $result = \getallheaders();
-    if ($result === false) {
+    $safeResult = \getallheaders();
+    if ($safeResult === false) {
         throw ApacheException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -192,8 +192,8 @@ function getallheaders(): array
 function virtual(string $uri): void
 {
     error_clear_last();
-    $result = \virtual($uri);
-    if ($result === false) {
+    $safeResult = \virtual($uri);
+    if ($safeResult === false) {
         throw ApacheException::createFromPhpError();
     }
 }

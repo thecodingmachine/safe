@@ -30,14 +30,14 @@ function mailparse_msg_extract_part_file($mimemail, $filename, callable $callbac
 {
     error_clear_last();
     if ($callbackfunc !== null) {
-        $result = \mailparse_msg_extract_part_file($mimemail, $filename, $callbackfunc);
+        $safeResult = \mailparse_msg_extract_part_file($mimemail, $filename, $callbackfunc);
     } else {
-        $result = \mailparse_msg_extract_part_file($mimemail, $filename);
+        $safeResult = \mailparse_msg_extract_part_file($mimemail, $filename);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw MailparseException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -53,8 +53,8 @@ function mailparse_msg_extract_part_file($mimemail, $filename, callable $callbac
 function mailparse_msg_free($mimemail): void
 {
     error_clear_last();
-    $result = \mailparse_msg_free($mimemail);
-    if ($result === false) {
+    $safeResult = \mailparse_msg_free($mimemail);
+    if ($safeResult === false) {
         throw MailparseException::createFromPhpError();
     }
 }
@@ -76,11 +76,11 @@ function mailparse_msg_free($mimemail): void
 function mailparse_msg_parse_file(string $filename)
 {
     error_clear_last();
-    $result = \mailparse_msg_parse_file($filename);
-    if ($result === false) {
+    $safeResult = \mailparse_msg_parse_file($filename);
+    if ($safeResult === false) {
         throw MailparseException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -99,8 +99,8 @@ function mailparse_msg_parse_file(string $filename)
 function mailparse_msg_parse($mimemail, string $data): void
 {
     error_clear_last();
-    $result = \mailparse_msg_parse($mimemail, $data);
-    if ($result === false) {
+    $safeResult = \mailparse_msg_parse($mimemail, $data);
+    if ($safeResult === false) {
         throw MailparseException::createFromPhpError();
     }
 }
@@ -120,8 +120,8 @@ function mailparse_msg_parse($mimemail, string $data): void
 function mailparse_stream_encode($sourcefp, $destfp, string $encoding): void
 {
     error_clear_last();
-    $result = \mailparse_stream_encode($sourcefp, $destfp, $encoding);
-    if ($result === false) {
+    $safeResult = \mailparse_stream_encode($sourcefp, $destfp, $encoding);
+    if ($safeResult === false) {
         throw MailparseException::createFromPhpError();
     }
 }

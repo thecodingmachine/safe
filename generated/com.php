@@ -17,11 +17,11 @@ use Safe\Exceptions\ComException;
 function com_create_guid(): string
 {
     error_clear_last();
-    $result = \com_create_guid();
-    if ($result === false) {
+    $safeResult = \com_create_guid();
+    if ($safeResult === false) {
         throw ComException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -51,11 +51,11 @@ function com_event_sink(object $variant, object $sink_object, $sink_interface = 
 {
     error_clear_last();
     if ($sink_interface !== null) {
-        $result = \com_event_sink($variant, $sink_object, $sink_interface);
+        $safeResult = \com_event_sink($variant, $sink_object, $sink_interface);
     } else {
-        $result = \com_event_sink($variant, $sink_object);
+        $safeResult = \com_event_sink($variant, $sink_object);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw ComException::createFromPhpError();
     }
 }
@@ -116,8 +116,8 @@ function com_event_sink(object $variant, object $sink_object, $sink_interface = 
 function com_load_typelib(string $typelib, bool $case_insensitive = true): void
 {
     error_clear_last();
-    $result = \com_load_typelib($typelib, $case_insensitive);
-    if ($result === false) {
+    $safeResult = \com_load_typelib($typelib, $case_insensitive);
+    if ($safeResult === false) {
         throw ComException::createFromPhpError();
     }
 }
@@ -142,13 +142,13 @@ function com_print_typeinfo(object $variant, string $dispatch_interface = null, 
 {
     error_clear_last();
     if ($display_sink !== false) {
-        $result = \com_print_typeinfo($variant, $dispatch_interface, $display_sink);
+        $safeResult = \com_print_typeinfo($variant, $dispatch_interface, $display_sink);
     } elseif ($dispatch_interface !== null) {
-        $result = \com_print_typeinfo($variant, $dispatch_interface);
+        $safeResult = \com_print_typeinfo($variant, $dispatch_interface);
     } else {
-        $result = \com_print_typeinfo($variant);
+        $safeResult = \com_print_typeinfo($variant);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw ComException::createFromPhpError();
     }
 }
@@ -167,11 +167,11 @@ function com_print_typeinfo(object $variant, string $dispatch_interface = null, 
 function variant_date_to_timestamp(object $variant): int
 {
     error_clear_last();
-    $result = \variant_date_to_timestamp($variant);
-    if ($result === null) {
+    $safeResult = \variant_date_to_timestamp($variant);
+    if ($safeResult === null) {
         throw ComException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -188,9 +188,9 @@ function variant_date_to_timestamp(object $variant): int
 function variant_round($value, int $decimals)
 {
     error_clear_last();
-    $result = \variant_round($value, $decimals);
-    if ($result === null) {
+    $safeResult = \variant_round($value, $decimals);
+    if ($safeResult === null) {
         throw ComException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

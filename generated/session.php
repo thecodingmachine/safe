@@ -14,8 +14,8 @@ use Safe\Exceptions\SessionException;
 function session_abort(): void
 {
     error_clear_last();
-    $result = \session_abort();
-    if ($result === false) {
+    $safeResult = \session_abort();
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
 }
@@ -49,11 +49,11 @@ function session_abort(): void
 function session_create_id(string $prefix = ""): string
 {
     error_clear_last();
-    $result = \session_create_id($prefix);
-    if ($result === false) {
+    $safeResult = \session_create_id($prefix);
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -72,8 +72,8 @@ function session_create_id(string $prefix = ""): string
 function session_decode(string $data): void
 {
     error_clear_last();
-    $result = \session_decode($data);
-    if ($result === false) {
+    $safeResult = \session_decode($data);
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
 }
@@ -98,8 +98,8 @@ function session_decode(string $data): void
 function session_destroy(): void
 {
     error_clear_last();
-    $result = \session_destroy();
-    if ($result === false) {
+    $safeResult = \session_destroy();
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
 }
@@ -119,11 +119,11 @@ function session_destroy(): void
 function session_encode(): string
 {
     error_clear_last();
-    $result = \session_encode();
-    if ($result === false) {
+    $safeResult = \session_encode();
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -153,14 +153,14 @@ function session_id(string $id = null): string
 {
     error_clear_last();
     if ($id !== null) {
-        $result = \session_id($id);
+        $safeResult = \session_id($id);
     } else {
-        $result = \session_id();
+        $safeResult = \session_id();
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -182,14 +182,14 @@ function session_module_name(string $module = null): string
 {
     error_clear_last();
     if ($module !== null) {
-        $result = \session_module_name($module);
+        $safeResult = \session_module_name($module);
     } else {
-        $result = \session_module_name();
+        $safeResult = \session_module_name();
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -239,14 +239,14 @@ function session_name(string $name = null): string
 {
     error_clear_last();
     if ($name !== null) {
-        $result = \session_name($name);
+        $safeResult = \session_name($name);
     } else {
-        $result = \session_name();
+        $safeResult = \session_name();
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -268,8 +268,8 @@ function session_name(string $name = null): string
 function session_regenerate_id(bool $delete_old_session = false): void
 {
     error_clear_last();
-    $result = \session_regenerate_id($delete_old_session);
-    if ($result === false) {
+    $safeResult = \session_regenerate_id($delete_old_session);
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
 }
@@ -286,8 +286,8 @@ function session_regenerate_id(bool $delete_old_session = false): void
 function session_reset(): void
 {
     error_clear_last();
-    $result = \session_reset();
-    if ($result === false) {
+    $safeResult = \session_reset();
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
 }
@@ -320,14 +320,14 @@ function session_save_path(string $path = null): string
 {
     error_clear_last();
     if ($path !== null) {
-        $result = \session_save_path($path);
+        $safeResult = \session_save_path($path);
     } else {
-        $result = \session_save_path();
+        $safeResult = \session_save_path();
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -341,8 +341,8 @@ function session_save_path(string $path = null): string
 function session_unset(): void
 {
     error_clear_last();
-    $result = \session_unset();
-    if ($result === false) {
+    $safeResult = \session_unset();
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
 }
@@ -365,8 +365,8 @@ function session_unset(): void
 function session_write_close(): void
 {
     error_clear_last();
-    $result = \session_write_close();
-    if ($result === false) {
+    $safeResult = \session_write_close();
+    if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
 }

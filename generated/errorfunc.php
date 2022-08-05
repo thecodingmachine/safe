@@ -70,13 +70,13 @@ function error_log(string $message, int $message_type = 0, string $destination =
 {
     error_clear_last();
     if ($additional_headers !== null) {
-        $result = \error_log($message, $message_type, $destination, $additional_headers);
+        $safeResult = \error_log($message, $message_type, $destination, $additional_headers);
     } elseif ($destination !== null) {
-        $result = \error_log($message, $message_type, $destination);
+        $safeResult = \error_log($message, $message_type, $destination);
     } else {
-        $result = \error_log($message, $message_type);
+        $safeResult = \error_log($message, $message_type);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw ErrorfuncException::createFromPhpError();
     }
 }

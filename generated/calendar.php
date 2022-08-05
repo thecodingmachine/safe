@@ -19,12 +19,12 @@ function unixtojd(int $timestamp = null): int
 {
     error_clear_last();
     if ($timestamp !== null) {
-        $result = \unixtojd($timestamp);
+        $safeResult = \unixtojd($timestamp);
     } else {
-        $result = \unixtojd();
+        $safeResult = \unixtojd();
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw CalendarException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

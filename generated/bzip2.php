@@ -15,8 +15,8 @@ use Safe\Exceptions\Bzip2Exception;
 function bzclose($bz): void
 {
     error_clear_last();
-    $result = \bzclose($bz);
-    if ($result === false) {
+    $safeResult = \bzclose($bz);
+    if ($safeResult === false) {
         throw Bzip2Exception::createFromPhpError();
     }
 }
@@ -35,8 +35,8 @@ function bzclose($bz): void
 function bzflush($bz): void
 {
     error_clear_last();
-    $result = \bzflush($bz);
-    if ($result === false) {
+    $safeResult = \bzflush($bz);
+    if ($safeResult === false) {
         throw Bzip2Exception::createFromPhpError();
     }
 }
@@ -60,11 +60,11 @@ function bzflush($bz): void
 function bzread($bz, int $length = 1024): string
 {
     error_clear_last();
-    $result = \bzread($bz, $length);
-    if ($result === false) {
+    $safeResult = \bzread($bz, $length);
+    if ($safeResult === false) {
         throw Bzip2Exception::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -86,12 +86,12 @@ function bzwrite($bz, string $data, int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {
-        $result = \bzwrite($bz, $data, $length);
+        $safeResult = \bzwrite($bz, $data, $length);
     } else {
-        $result = \bzwrite($bz, $data);
+        $safeResult = \bzwrite($bz, $data);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw Bzip2Exception::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

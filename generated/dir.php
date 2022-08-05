@@ -15,8 +15,8 @@ use Safe\Exceptions\DirException;
 function chdir(string $directory): void
 {
     error_clear_last();
-    $result = \chdir($directory);
-    if ($result === false) {
+    $safeResult = \chdir($directory);
+    if ($safeResult === false) {
         throw DirException::createFromPhpError();
     }
 }
@@ -41,8 +41,8 @@ function chdir(string $directory): void
 function chroot(string $directory): void
 {
     error_clear_last();
-    $result = \chroot($directory);
-    if ($result === false) {
+    $safeResult = \chroot($directory);
+    if ($safeResult === false) {
         throw DirException::createFromPhpError();
     }
 }
@@ -64,11 +64,11 @@ function chroot(string $directory): void
 function getcwd(): string
 {
     error_clear_last();
-    $result = \getcwd();
-    if ($result === false) {
+    $safeResult = \getcwd();
+    if ($safeResult === false) {
         throw DirException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -89,14 +89,14 @@ function opendir(string $directory, $context = null)
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \opendir($directory, $context);
+        $safeResult = \opendir($directory, $context);
     } else {
-        $result = \opendir($directory);
+        $safeResult = \opendir($directory);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw DirException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -123,12 +123,12 @@ function scandir(string $directory, int $sorting_order = SCANDIR_SORT_ASCENDING,
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \scandir($directory, $sorting_order, $context);
+        $safeResult = \scandir($directory, $sorting_order, $context);
     } else {
-        $result = \scandir($directory, $sorting_order);
+        $safeResult = \scandir($directory, $sorting_order);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw DirException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

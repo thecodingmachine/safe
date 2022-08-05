@@ -110,14 +110,14 @@ function assert_options(int $what, $value = null)
 {
     error_clear_last();
     if ($value !== null) {
-        $result = \assert_options($what, $value);
+        $safeResult = \assert_options($what, $value);
     } else {
-        $result = \assert_options($what);
+        $safeResult = \assert_options($what);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -133,8 +133,8 @@ function assert_options(int $what, $value = null)
 function cli_set_process_title(string $title): void
 {
     error_clear_last();
-    $result = \cli_set_process_title($title);
-    if ($result === false) {
+    $safeResult = \cli_set_process_title($title);
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
 }
@@ -197,8 +197,8 @@ function cli_set_process_title(string $title): void
 function dl(string $extension_filename): void
 {
     error_clear_last();
-    $result = \dl($extension_filename);
-    if ($result === false) {
+    $safeResult = \dl($extension_filename);
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
 }
@@ -214,11 +214,11 @@ function dl(string $extension_filename): void
 function get_include_path(): string
 {
     error_clear_last();
-    $result = \get_include_path();
-    if ($result === false) {
+    $safeResult = \get_include_path();
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -237,11 +237,11 @@ function get_include_path(): string
 function getlastmod(): int
 {
     error_clear_last();
-    $result = \getlastmod();
-    if ($result === false) {
+    $safeResult = \getlastmod();
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -255,11 +255,11 @@ function getlastmod(): int
 function getmygid(): int
 {
     error_clear_last();
-    $result = \getmygid();
-    if ($result === false) {
+    $safeResult = \getmygid();
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -273,11 +273,11 @@ function getmygid(): int
 function getmyinode(): int
 {
     error_clear_last();
-    $result = \getmyinode();
-    if ($result === false) {
+    $safeResult = \getmyinode();
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -291,11 +291,11 @@ function getmyinode(): int
 function getmypid(): int
 {
     error_clear_last();
-    $result = \getmypid();
-    if ($result === false) {
+    $safeResult = \getmypid();
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -309,11 +309,11 @@ function getmypid(): int
 function getmyuid(): int
 {
     error_clear_last();
-    $result = \getmyuid();
-    if ($result === false) {
+    $safeResult = \getmyuid();
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -330,11 +330,11 @@ function getmyuid(): int
 function getopt(string $short_options, array $long_options = [], ?int &$rest_index = null): array
 {
     error_clear_last();
-    $result = \getopt($short_options, $long_options, $rest_index);
-    if ($result === false) {
+    $safeResult = \getopt($short_options, $long_options, $rest_index);
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -353,11 +353,11 @@ function getopt(string $short_options, array $long_options = [], ?int &$rest_ind
 function getrusage(int $mode = 0): array
 {
     error_clear_last();
-    $result = \getrusage($mode);
-    if ($result === false) {
+    $safeResult = \getrusage($mode);
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -374,11 +374,11 @@ function getrusage(int $mode = 0): array
 function ini_get(string $option): string
 {
     error_clear_last();
-    $result = \ini_get($option);
-    if ($result === false) {
+    $safeResult = \ini_get($option);
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -398,11 +398,11 @@ function ini_get(string $option): string
 function ini_set(string $option, string $value): string
 {
     error_clear_last();
-    $result = \ini_set($option, $value);
-    if ($result === false) {
+    $safeResult = \ini_set($option, $value);
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -425,11 +425,11 @@ function ini_set(string $option, string $value): string
 function php_sapi_name(): string
 {
     error_clear_last();
-    $result = \php_sapi_name();
-    if ($result === false) {
+    $safeResult = \php_sapi_name();
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -505,8 +505,8 @@ function php_sapi_name(): string
 function phpcredits(int $flags = CREDITS_ALL): void
 {
     error_clear_last();
-    $result = \phpcredits($flags);
-    if ($result === false) {
+    $safeResult = \phpcredits($flags);
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
 }
@@ -615,8 +615,8 @@ function phpcredits(int $flags = CREDITS_ALL): void
 function phpinfo(int $flags = INFO_ALL): void
 {
     error_clear_last();
-    $result = \phpinfo($flags);
-    if ($result === false) {
+    $safeResult = \phpinfo($flags);
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
 }
@@ -635,8 +635,8 @@ function phpinfo(int $flags = INFO_ALL): void
 function putenv(string $assignment): void
 {
     error_clear_last();
-    $result = \putenv($assignment);
-    if ($result === false) {
+    $safeResult = \putenv($assignment);
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
 }
@@ -655,11 +655,11 @@ function putenv(string $assignment): void
 function set_include_path(string $include_path): string
 {
     error_clear_last();
-    $result = \set_include_path($include_path);
-    if ($result === false) {
+    $safeResult = \set_include_path($include_path);
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -683,8 +683,8 @@ function set_include_path(string $include_path): string
 function set_time_limit(int $seconds): void
 {
     error_clear_last();
-    $result = \set_time_limit($seconds);
-    if ($result === false) {
+    $safeResult = \set_time_limit($seconds);
+    if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
 }

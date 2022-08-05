@@ -20,11 +20,11 @@ use Safe\Exceptions\UrlException;
 function base64_decode(string $string, bool $strict = false): string
 {
     error_clear_last();
-    $result = \base64_decode($string, $strict);
-    if ($result === false) {
+    $safeResult = \base64_decode($string, $strict);
+    if ($safeResult === false) {
         throw UrlException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -47,14 +47,14 @@ function get_headers(string $url, bool $associative = false, $context = null): a
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \get_headers($url, $associative, $context);
+        $safeResult = \get_headers($url, $associative, $context);
     } else {
-        $result = \get_headers($url, $associative);
+        $safeResult = \get_headers($url, $associative);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw UrlException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -97,11 +97,11 @@ function get_headers(string $url, bool $associative = false, $context = null): a
 function get_meta_tags(string $filename, bool $use_include_path = false): array
 {
     error_clear_last();
-    $result = \get_meta_tags($filename, $use_include_path);
-    if ($result === false) {
+    $safeResult = \get_meta_tags($filename, $use_include_path);
+    if ($safeResult === false) {
         throw UrlException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -196,9 +196,9 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
 function parse_url(string $url, int $component = -1)
 {
     error_clear_last();
-    $result = \parse_url($url, $component);
-    if ($result === false) {
+    $safeResult = \parse_url($url, $component);
+    if ($safeResult === false) {
         throw UrlException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

@@ -25,11 +25,11 @@ use Safe\Exceptions\ZlibException;
 function deflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH): string
 {
     error_clear_last();
-    $result = \deflate_add($context, $data, $flush_mode);
-    if ($result === false) {
+    $safeResult = \deflate_add($context, $data, $flush_mode);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -126,11 +126,11 @@ function deflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH):
 function deflate_init(int $encoding, array $options = [])
 {
     error_clear_last();
-    $result = \deflate_init($encoding, $options);
-    if ($result === false) {
+    $safeResult = \deflate_init($encoding, $options);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -145,8 +145,8 @@ function deflate_init(int $encoding, array $options = [])
 function gzclose($stream): void
 {
     error_clear_last();
-    $result = \gzclose($stream);
-    if ($result === false) {
+    $safeResult = \gzclose($stream);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
 }
@@ -173,11 +173,11 @@ function gzclose($stream): void
 function gzcompress(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_DEFLATE): string
 {
     error_clear_last();
-    $result = \gzcompress($data, $level, $encoding);
-    if ($result === false) {
+    $safeResult = \gzcompress($data, $level, $encoding);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -194,11 +194,11 @@ function gzcompress(string $data, int $level = -1, int $encoding = ZLIB_ENCODING
 function gzdecode(string $data, int $max_length = 0): string
 {
     error_clear_last();
-    $result = \gzdecode($data, $max_length);
-    if ($result === false) {
+    $safeResult = \gzdecode($data, $max_length);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -222,11 +222,11 @@ function gzdecode(string $data, int $max_length = 0): string
 function gzdeflate(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_RAW): string
 {
     error_clear_last();
-    $result = \gzdeflate($data, $level, $encoding);
-    if ($result === false) {
+    $safeResult = \gzdeflate($data, $level, $encoding);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -256,11 +256,11 @@ function gzdeflate(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_
 function gzencode(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_GZIP): string
 {
     error_clear_last();
-    $result = \gzencode($data, $level, $encoding);
-    if ($result === false) {
+    $safeResult = \gzencode($data, $level, $encoding);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -278,11 +278,11 @@ function gzencode(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_G
 function gzfile(string $filename, int $use_include_path = 0): array
 {
     error_clear_last();
-    $result = \gzfile($filename, $use_include_path);
-    if ($result === false) {
+    $safeResult = \gzfile($filename, $use_include_path);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -302,14 +302,14 @@ function gzgets($stream, int $length = null): string
 {
     error_clear_last();
     if ($length !== null) {
-        $result = \gzgets($stream, $length);
+        $safeResult = \gzgets($stream, $length);
     } else {
-        $result = \gzgets($stream);
+        $safeResult = \gzgets($stream);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -331,14 +331,14 @@ function gzgetss($zp, int $length, string $allowable_tags = null): string
 {
     error_clear_last();
     if ($allowable_tags !== null) {
-        $result = \gzgetss($zp, $length, $allowable_tags);
+        $safeResult = \gzgetss($zp, $length, $allowable_tags);
     } else {
-        $result = \gzgetss($zp, $length);
+        $safeResult = \gzgetss($zp, $length);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -358,11 +358,11 @@ function gzgetss($zp, int $length, string $allowable_tags = null): string
 function gzinflate(string $data, int $max_length = 0): string
 {
     error_clear_last();
-    $result = \gzinflate($data, $max_length);
-    if ($result === false) {
+    $safeResult = \gzinflate($data, $max_length);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -395,11 +395,11 @@ function gzinflate(string $data, int $max_length = 0): string
 function gzopen(string $filename, string $mode, int $use_include_path = 0)
 {
     error_clear_last();
-    $result = \gzopen($filename, $mode, $use_include_path);
-    if ($result === false) {
+    $safeResult = \gzopen($filename, $mode, $use_include_path);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -417,11 +417,11 @@ function gzopen(string $filename, string $mode, int $use_include_path = 0)
 function gzpassthru($stream): int
 {
     error_clear_last();
-    $result = \gzpassthru($stream);
-    if ($result === false) {
+    $safeResult = \gzpassthru($stream);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -441,11 +441,11 @@ function gzpassthru($stream): int
 function gzread($stream, int $length): string
 {
     error_clear_last();
-    $result = \gzread($stream, $length);
-    if ($result === false) {
+    $safeResult = \gzread($stream, $length);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -461,8 +461,8 @@ function gzread($stream, int $length): string
 function gzrewind($stream): void
 {
     error_clear_last();
-    $result = \gzrewind($stream);
-    if ($result === false) {
+    $safeResult = \gzrewind($stream);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
 }
@@ -484,11 +484,11 @@ function gzrewind($stream): void
 function gzuncompress(string $data, int $max_length = 0): string
 {
     error_clear_last();
-    $result = \gzuncompress($data, $max_length);
-    if ($result === false) {
+    $safeResult = \gzuncompress($data, $max_length);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -512,14 +512,14 @@ function gzwrite($stream, string $data, int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {
-        $result = \gzwrite($stream, $data, $length);
+        $safeResult = \gzwrite($stream, $data, $length);
     } else {
-        $result = \gzwrite($stream, $data);
+        $safeResult = \gzwrite($stream, $data);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -534,11 +534,11 @@ function gzwrite($stream, string $data, int $length = null): int
 function inflate_get_read_len($context): int
 {
     error_clear_last();
-    $result = \inflate_get_read_len($context);
-    if ($result === false) {
+    $safeResult = \inflate_get_read_len($context);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -553,11 +553,11 @@ function inflate_get_read_len($context): int
 function inflate_get_status($context): int
 {
     error_clear_last();
-    $result = \inflate_get_status($context);
-    if ($result === false) {
+    $safeResult = \inflate_get_status($context);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -585,11 +585,11 @@ function inflate_get_status($context): int
 function inflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH): string
 {
     error_clear_last();
-    $result = \inflate_add($context, $data, $flush_mode);
-    if ($result === false) {
+    $safeResult = \inflate_add($context, $data, $flush_mode);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -667,11 +667,11 @@ function inflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH):
 function inflate_init(int $encoding, array $options = [])
 {
     error_clear_last();
-    $result = \inflate_init($encoding, $options);
-    if ($result === false) {
+    $safeResult = \inflate_init($encoding, $options);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -693,11 +693,11 @@ function inflate_init(int $encoding, array $options = [])
 function readgzfile(string $filename, int $use_include_path = 0): int
 {
     error_clear_last();
-    $result = \readgzfile($filename, $use_include_path);
-    if ($result === false) {
+    $safeResult = \readgzfile($filename, $use_include_path);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -713,9 +713,9 @@ function readgzfile(string $filename, int $use_include_path = 0): int
 function zlib_decode(string $data, int $max_length = 0): string
 {
     error_clear_last();
-    $result = \zlib_decode($data, $max_length);
-    if ($result === false) {
+    $safeResult = \zlib_decode($data, $max_length);
+    if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

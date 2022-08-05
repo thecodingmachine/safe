@@ -16,8 +16,8 @@ use Safe\Exceptions\OpcacheException;
 function opcache_compile_file(string $filename): void
 {
     error_clear_last();
-    $result = \opcache_compile_file($filename);
-    if ($result === false) {
+    $safeResult = \opcache_compile_file($filename);
+    if ($safeResult === false) {
         throw OpcacheException::createFromPhpError();
     }
 }
@@ -35,9 +35,9 @@ function opcache_compile_file(string $filename): void
 function opcache_get_status(bool $include_scripts = true): array
 {
     error_clear_last();
-    $result = \opcache_get_status($include_scripts);
-    if ($result === false) {
+    $safeResult = \opcache_get_status($include_scripts);
+    if ($safeResult === false) {
         throw OpcacheException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

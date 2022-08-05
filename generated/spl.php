@@ -17,11 +17,11 @@ use Safe\Exceptions\SplException;
 function class_implements($object_or_class, bool $autoload = true): array
 {
     error_clear_last();
-    $result = \class_implements($object_or_class, $autoload);
-    if ($result === false) {
+    $safeResult = \class_implements($object_or_class, $autoload);
+    if ($safeResult === false) {
         throw SplException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -38,11 +38,11 @@ function class_implements($object_or_class, bool $autoload = true): array
 function class_parents($object_or_class, bool $autoload = true): array
 {
     error_clear_last();
-    $result = \class_parents($object_or_class, $autoload);
-    if ($result === false) {
+    $safeResult = \class_parents($object_or_class, $autoload);
+    if ($safeResult === false) {
         throw SplException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -60,11 +60,11 @@ function class_parents($object_or_class, bool $autoload = true): array
 function class_uses($object_or_class, bool $autoload = true): array
 {
     error_clear_last();
-    $result = \class_uses($object_or_class, $autoload);
-    if ($result === false) {
+    $safeResult = \class_uses($object_or_class, $autoload);
+    if ($safeResult === false) {
         throw SplException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -100,15 +100,15 @@ function spl_autoload_register(callable $callback = null, bool $throw = true, bo
 {
     error_clear_last();
     if ($prepend !== false) {
-        $result = \spl_autoload_register($callback, $throw, $prepend);
+        $safeResult = \spl_autoload_register($callback, $throw, $prepend);
     } elseif ($throw !== true) {
-        $result = \spl_autoload_register($callback, $throw);
+        $safeResult = \spl_autoload_register($callback, $throw);
     } elseif ($callback !== null) {
-        $result = \spl_autoload_register($callback);
+        $safeResult = \spl_autoload_register($callback);
     } else {
-        $result = \spl_autoload_register();
+        $safeResult = \spl_autoload_register();
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw SplException::createFromPhpError();
     }
 }
@@ -129,8 +129,8 @@ function spl_autoload_register(callable $callback = null, bool $throw = true, bo
 function spl_autoload_unregister($callback): void
 {
     error_clear_last();
-    $result = \spl_autoload_unregister($callback);
-    if ($result === false) {
+    $safeResult = \spl_autoload_unregister($callback);
+    if ($safeResult === false) {
         throw SplException::createFromPhpError();
     }
 }

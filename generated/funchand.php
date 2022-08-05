@@ -19,11 +19,11 @@ use Safe\Exceptions\FunchandException;
 function create_function(string $args, string $code): string
 {
     error_clear_last();
-    $result = \create_function($args, $code);
-    if ($result === false) {
+    $safeResult = \create_function($args, $code);
+    if ($safeResult === false) {
         throw FunchandException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -39,11 +39,11 @@ function register_tick_function(callable $callback, ...$args): void
 {
     error_clear_last();
     if ($args !== []) {
-        $result = \register_tick_function($callback, ...$args);
+        $safeResult = \register_tick_function($callback, ...$args);
     } else {
-        $result = \register_tick_function($callback);
+        $safeResult = \register_tick_function($callback);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FunchandException::createFromPhpError();
     }
 }

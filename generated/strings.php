@@ -15,11 +15,11 @@ use Safe\Exceptions\StringsException;
 function convert_uudecode(string $string): string
 {
     error_clear_last();
-    $result = \convert_uudecode($string);
-    if ($result === false) {
+    $safeResult = \convert_uudecode($string);
+    if ($safeResult === false) {
         throw StringsException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -34,11 +34,11 @@ function convert_uudecode(string $string): string
 function hex2bin(string $string): string
 {
     error_clear_last();
-    $result = \hex2bin($string);
-    if ($result === false) {
+    $safeResult = \hex2bin($string);
+    if ($safeResult === false) {
         throw StringsException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -59,11 +59,11 @@ function hex2bin(string $string): string
 function md5_file(string $filename, bool $binary = false): string
 {
     error_clear_last();
-    $result = \md5_file($filename, $binary);
-    if ($result === false) {
+    $safeResult = \md5_file($filename, $binary);
+    if ($safeResult === false) {
         throw StringsException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -80,9 +80,9 @@ function md5_file(string $filename, bool $binary = false): string
 function sha1_file(string $filename, bool $binary = false): string
 {
     error_clear_last();
-    $result = \sha1_file($filename, $binary);
-    if ($result === false) {
+    $safeResult = \sha1_file($filename, $binary);
+    if ($safeResult === false) {
         throw StringsException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

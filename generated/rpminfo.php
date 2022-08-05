@@ -14,8 +14,8 @@ use Safe\Exceptions\RpminfoException;
 function rpmaddtag(int $tag): void
 {
     error_clear_last();
-    $result = \rpmaddtag($tag);
-    if ($result === false) {
+    $safeResult = \rpmaddtag($tag);
+    if ($safeResult === false) {
         throw RpminfoException::createFromPhpError();
     }
 }

@@ -35,11 +35,11 @@ use Safe\Exceptions\ExecException;
 function exec(string $command, ?array &$output = null, ?int &$result_code = null): string
 {
     error_clear_last();
-    $result = \exec($command, $output, $result_code);
-    if ($result === false) {
+    $safeResult = \exec($command, $output, $result_code);
+    if ($safeResult === false) {
         throw ExecException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -65,8 +65,8 @@ function exec(string $command, ?array &$output = null, ?int &$result_code = null
 function passthru(string $command, ?int &$result_code = null): void
 {
     error_clear_last();
-    $result = \passthru($command, $result_code);
-    if ($result === false) {
+    $safeResult = \passthru($command, $result_code);
+    if ($safeResult === false) {
         throw ExecException::createFromPhpError();
     }
 }
@@ -95,8 +95,8 @@ function passthru(string $command, ?int &$result_code = null): void
 function proc_nice(int $priority): void
 {
     error_clear_last();
-    $result = \proc_nice($priority);
-    if ($result === false) {
+    $safeResult = \proc_nice($priority);
+    if ($safeResult === false) {
         throw ExecException::createFromPhpError();
     }
 }
@@ -114,11 +114,11 @@ function proc_nice(int $priority): void
 function shell_exec(string $command): string
 {
     error_clear_last();
-    $result = \shell_exec($command);
-    if ($result === null) {
+    $safeResult = \shell_exec($command);
+    if ($safeResult === null) {
         throw ExecException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -146,9 +146,9 @@ function shell_exec(string $command): string
 function system(string $command, ?int &$result_code = null): string
 {
     error_clear_last();
-    $result = \system($command, $result_code);
-    if ($result === false) {
+    $safeResult = \system($command, $result_code);
+    if ($safeResult === false) {
         throw ExecException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

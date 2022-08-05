@@ -18,8 +18,8 @@ use Safe\Exceptions\GmpException;
 function gmp_random_seed($seed): void
 {
     error_clear_last();
-    $result = \gmp_random_seed($seed);
-    if ($result === false) {
+    $safeResult = \gmp_random_seed($seed);
+    if ($safeResult === false) {
         throw GmpException::createFromPhpError();
     }
 }

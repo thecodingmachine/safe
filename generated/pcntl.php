@@ -23,16 +23,16 @@ function pcntl_getpriority(int $process_id = null, int $mode = PRIO_PROCESS): in
 {
     error_clear_last();
     if ($mode !== PRIO_PROCESS) {
-        $result = \pcntl_getpriority($process_id, $mode);
+        $safeResult = \pcntl_getpriority($process_id, $mode);
     } elseif ($process_id !== null) {
-        $result = \pcntl_getpriority($process_id);
+        $safeResult = \pcntl_getpriority($process_id);
     } else {
-        $result = \pcntl_getpriority();
+        $safeResult = \pcntl_getpriority();
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw PcntlException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -57,13 +57,13 @@ function pcntl_setpriority(int $priority, int $process_id = null, int $mode = PR
 {
     error_clear_last();
     if ($mode !== PRIO_PROCESS) {
-        $result = \pcntl_setpriority($priority, $process_id, $mode);
+        $safeResult = \pcntl_setpriority($priority, $process_id, $mode);
     } elseif ($process_id !== null) {
-        $result = \pcntl_setpriority($priority, $process_id);
+        $safeResult = \pcntl_setpriority($priority, $process_id);
     } else {
-        $result = \pcntl_setpriority($priority);
+        $safeResult = \pcntl_setpriority($priority);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw PcntlException::createFromPhpError();
     }
 }
@@ -80,8 +80,8 @@ function pcntl_setpriority(int $priority, int $process_id = null, int $mode = PR
 function pcntl_signal_dispatch(): void
 {
     error_clear_last();
-    $result = \pcntl_signal_dispatch();
-    if ($result === false) {
+    $safeResult = \pcntl_signal_dispatch();
+    if ($safeResult === false) {
         throw PcntlException::createFromPhpError();
     }
 }
@@ -135,8 +135,8 @@ function pcntl_signal_dispatch(): void
 function pcntl_signal(int $signal, $handler, bool $restart_syscalls = true): void
 {
     error_clear_last();
-    $result = \pcntl_signal($signal, $handler, $restart_syscalls);
-    if ($result === false) {
+    $safeResult = \pcntl_signal($signal, $handler, $restart_syscalls);
+    if ($safeResult === false) {
         throw PcntlException::createFromPhpError();
     }
 }
@@ -165,8 +165,8 @@ function pcntl_signal(int $signal, $handler, bool $restart_syscalls = true): voi
 function pcntl_sigprocmask(int $mode, array $signals, ?array &$old_signals = null): void
 {
     error_clear_last();
-    $result = \pcntl_sigprocmask($mode, $signals, $old_signals);
-    if ($result === false) {
+    $safeResult = \pcntl_sigprocmask($mode, $signals, $old_signals);
+    if ($safeResult === false) {
         throw PcntlException::createFromPhpError();
     }
 }
@@ -192,11 +192,11 @@ function pcntl_sigprocmask(int $mode, array $signals, ?array &$old_signals = nul
 function pcntl_sigtimedwait(array $signals, ?array &$info = [], int $seconds = 0, int $nanoseconds = 0): int
 {
     error_clear_last();
-    $result = \pcntl_sigtimedwait($signals, $info, $seconds, $nanoseconds);
-    if ($result === false) {
+    $safeResult = \pcntl_sigtimedwait($signals, $info, $seconds, $nanoseconds);
+    if ($safeResult === false) {
         throw PcntlException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -247,9 +247,9 @@ function pcntl_sigtimedwait(array $signals, ?array &$info = [], int $seconds = 0
 function pcntl_sigwaitinfo(array $signals, ?array &$info = []): int
 {
     error_clear_last();
-    $result = \pcntl_sigwaitinfo($signals, $info);
-    if ($result === false) {
+    $safeResult = \pcntl_sigwaitinfo($signals, $info);
+    if ($safeResult === false) {
         throw PcntlException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

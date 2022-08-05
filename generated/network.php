@@ -14,8 +14,8 @@ use Safe\Exceptions\NetworkException;
 function closelog(): void
 {
     error_clear_last();
-    $result = \closelog();
-    if ($result === false) {
+    $safeResult = \closelog();
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
 }
@@ -249,11 +249,11 @@ function closelog(): void
 function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authoritative_name_servers = null, ?array &$additional_records = null, bool $raw = false): array
 {
     error_clear_last();
-    $result = \dns_get_record($hostname, $type, $authoritative_name_servers, $additional_records, $raw);
-    if ($result === false) {
+    $safeResult = \dns_get_record($hostname, $type, $authoritative_name_servers, $additional_records, $raw);
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -310,14 +310,14 @@ function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?
 {
     error_clear_last();
     if ($timeout !== null) {
-        $result = \fsockopen($hostname, $port, $error_code, $error_message, $timeout);
+        $safeResult = \fsockopen($hostname, $port, $error_code, $error_message, $timeout);
     } else {
-        $result = \fsockopen($hostname, $port, $error_code, $error_message);
+        $safeResult = \fsockopen($hostname, $port, $error_code, $error_message);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -333,11 +333,11 @@ function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?
 function gethostname(): string
 {
     error_clear_last();
-    $result = \gethostname();
-    if ($result === false) {
+    $safeResult = \gethostname();
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -354,11 +354,11 @@ function gethostname(): string
 function getprotobyname(string $protocol): int
 {
     error_clear_last();
-    $result = \getprotobyname($protocol);
-    if ($result === false) {
+    $safeResult = \getprotobyname($protocol);
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -375,11 +375,11 @@ function getprotobyname(string $protocol): int
 function getprotobynumber(int $protocol): string
 {
     error_clear_last();
-    $result = \getprotobynumber($protocol);
-    if ($result === false) {
+    $safeResult = \getprotobynumber($protocol);
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -398,11 +398,11 @@ function getprotobynumber(int $protocol): string
 function getservbyport(int $port, string $protocol): string
 {
     error_clear_last();
-    $result = \getservbyport($port, $protocol);
-    if ($result === false) {
+    $safeResult = \getservbyport($port, $protocol);
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -421,8 +421,8 @@ function getservbyport(int $port, string $protocol): string
 function header_register_callback(callable $callback): void
 {
     error_clear_last();
-    $result = \header_register_callback($callback);
-    if ($result === false) {
+    $safeResult = \header_register_callback($callback);
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
 }
@@ -439,11 +439,11 @@ function header_register_callback(callable $callback): void
 function inet_ntop(string $ip): string
 {
     error_clear_last();
-    $result = \inet_ntop($ip);
-    if ($result === false) {
+    $safeResult = \inet_ntop($ip);
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -460,11 +460,11 @@ function inet_ntop(string $ip): string
 function long2ip(int $ip): string
 {
     error_clear_last();
-    $result = \long2ip($ip);
-    if ($result === false) {
+    $safeResult = \long2ip($ip);
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -565,11 +565,11 @@ function long2ip(int $ip): string
 function net_get_interfaces(): array
 {
     error_clear_last();
-    $result = \net_get_interfaces();
-    if ($result === false) {
+    $safeResult = \net_get_interfaces();
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -708,8 +708,8 @@ function net_get_interfaces(): array
 function openlog(string $prefix, int $flags, int $facility): void
 {
     error_clear_last();
-    $result = \openlog($prefix, $flags, $facility);
-    if ($result === false) {
+    $safeResult = \openlog($prefix, $flags, $facility);
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
 }
@@ -737,14 +737,14 @@ function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, 
 {
     error_clear_last();
     if ($timeout !== null) {
-        $result = \pfsockopen($hostname, $port, $error_code, $error_message, $timeout);
+        $safeResult = \pfsockopen($hostname, $port, $error_code, $error_message, $timeout);
     } else {
-        $result = \pfsockopen($hostname, $port, $error_code, $error_message);
+        $safeResult = \pfsockopen($hostname, $port, $error_code, $error_message);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -813,8 +813,8 @@ function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, 
 function syslog(int $priority, string $message): void
 {
     error_clear_last();
-    $result = \syslog($priority, $message);
-    if ($result === false) {
+    $safeResult = \syslog($priority, $message);
+    if ($safeResult === false) {
         throw NetworkException::createFromPhpError();
     }
 }

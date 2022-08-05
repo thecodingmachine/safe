@@ -16,11 +16,11 @@ use Safe\Exceptions\CurlException;
 function curl_copy_handle(\CurlHandle $handle): \CurlHandle
 {
     error_clear_last();
-    $result = \curl_copy_handle($handle);
-    if ($result === false) {
+    $safeResult = \curl_copy_handle($handle);
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError($handle);
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -37,11 +37,11 @@ function curl_copy_handle(\CurlHandle $handle): \CurlHandle
 function curl_escape(\CurlHandle $handle, string $string): string
 {
     error_clear_last();
-    $result = \curl_escape($handle, $string);
-    if ($result === false) {
+    $safeResult = \curl_escape($handle, $string);
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError($handle);
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -62,11 +62,11 @@ function curl_escape(\CurlHandle $handle, string $string): string
 function curl_exec(\CurlHandle $handle)
 {
     error_clear_last();
-    $result = \curl_exec($handle);
-    if ($result === false) {
+    $safeResult = \curl_exec($handle);
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError($handle);
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -536,14 +536,14 @@ function curl_getinfo(\CurlHandle $handle, int $option = null)
 {
     error_clear_last();
     if ($option !== null) {
-        $result = \curl_getinfo($handle, $option);
+        $safeResult = \curl_getinfo($handle, $option);
     } else {
-        $result = \curl_getinfo($handle);
+        $safeResult = \curl_getinfo($handle);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError($handle);
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -566,14 +566,14 @@ function curl_init(string $url = null): \CurlHandle
 {
     error_clear_last();
     if ($url !== null) {
-        $result = \curl_init($url);
+        $safeResult = \curl_init($url);
     } else {
-        $result = \curl_init();
+        $safeResult = \curl_init();
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -625,11 +625,11 @@ function curl_init(string $url = null): \CurlHandle
 function curl_multi_info_read(\CurlMultiHandle $multi_handle, ?int &$queued_messages = null): array
 {
     error_clear_last();
-    $result = \curl_multi_info_read($multi_handle, $queued_messages);
-    if ($result === false) {
+    $safeResult = \curl_multi_info_read($multi_handle, $queued_messages);
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError($multi_handle);
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -643,11 +643,11 @@ function curl_multi_info_read(\CurlMultiHandle $multi_handle, ?int &$queued_mess
 function curl_multi_init(): \CurlMultiHandle
 {
     error_clear_last();
-    $result = \curl_multi_init();
-    if ($result === false) {
+    $safeResult = \curl_multi_init();
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -789,8 +789,8 @@ function curl_multi_init(): \CurlMultiHandle
 function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value): void
 {
     error_clear_last();
-    $result = \curl_multi_setopt($multi_handle, $option, $value);
-    if ($result === false) {
+    $safeResult = \curl_multi_setopt($multi_handle, $option, $value);
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError($multi_handle);
     }
 }
@@ -3153,8 +3153,8 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
 function curl_setopt(\CurlHandle $handle, int $option, $value): void
 {
     error_clear_last();
-    $result = \curl_setopt($handle, $option, $value);
-    if ($result === false) {
+    $safeResult = \curl_setopt($handle, $option, $value);
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError($handle);
     }
 }
@@ -3172,11 +3172,11 @@ function curl_setopt(\CurlHandle $handle, int $option, $value): void
 function curl_share_errno(\CurlShareHandle $share_handle): int
 {
     error_clear_last();
-    $result = \curl_share_errno($share_handle);
-    if ($result === false) {
+    $safeResult = \curl_share_errno($share_handle);
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError($share_handle);
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -3249,8 +3249,8 @@ function curl_share_errno(\CurlShareHandle $share_handle): int
 function curl_share_setopt(\CurlShareHandle $share_handle, int $option, $value): void
 {
     error_clear_last();
-    $result = \curl_share_setopt($share_handle, $option, $value);
-    if ($result === false) {
+    $safeResult = \curl_share_setopt($share_handle, $option, $value);
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError($share_handle);
     }
 }
@@ -3269,9 +3269,9 @@ function curl_share_setopt(\CurlShareHandle $share_handle, int $option, $value):
 function curl_unescape(\CurlHandle $handle, string $string): string
 {
     error_clear_last();
-    $result = \curl_unescape($handle, $string);
-    if ($result === false) {
+    $safeResult = \curl_unescape($handle, $string);
+    if ($safeResult === false) {
         throw CurlException::createFromPhpError($handle);
     }
-    return $result;
+    return $safeResult;
 }

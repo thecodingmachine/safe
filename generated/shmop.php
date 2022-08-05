@@ -15,8 +15,8 @@ use Safe\Exceptions\ShmopException;
 function shmop_delete($shmop): void
 {
     error_clear_last();
-    $result = \shmop_delete($shmop);
-    if ($result === false) {
+    $safeResult = \shmop_delete($shmop);
+    if ($safeResult === false) {
         throw ShmopException::createFromPhpError();
     }
 }
@@ -37,9 +37,9 @@ function shmop_delete($shmop): void
 function shmop_read($shmop, int $offset, int $size): string
 {
     error_clear_last();
-    $result = \shmop_read($shmop, $offset, $size);
-    if ($result === false) {
+    $safeResult = \shmop_read($shmop, $offset, $size);
+    if ($safeResult === false) {
         throw ShmopException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

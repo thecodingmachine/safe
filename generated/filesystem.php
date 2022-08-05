@@ -19,8 +19,8 @@ use Safe\Exceptions\FilesystemException;
 function chgrp(string $filename, $group): void
 {
     error_clear_last();
-    $result = \chgrp($filename, $group);
-    if ($result === false) {
+    $safeResult = \chgrp($filename, $group);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -61,8 +61,8 @@ function chgrp(string $filename, $group): void
 function chmod(string $filename, int $permissions): void
 {
     error_clear_last();
-    $result = \chmod($filename, $permissions);
-    if ($result === false) {
+    $safeResult = \chmod($filename, $permissions);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -81,8 +81,8 @@ function chmod(string $filename, int $permissions): void
 function chown(string $filename, $user): void
 {
     error_clear_last();
-    $result = \chown($filename, $user);
-    if ($result === false) {
+    $safeResult = \chown($filename, $user);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -109,11 +109,11 @@ function copy(string $from, string $to, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \copy($from, $to, $context);
+        $safeResult = \copy($from, $to, $context);
     } else {
-        $result = \copy($from, $to);
+        $safeResult = \copy($from, $to);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -136,11 +136,11 @@ function copy(string $from, string $to, $context = null): void
 function disk_free_space(string $directory): float
 {
     error_clear_last();
-    $result = \disk_free_space($directory);
-    if ($result === false) {
+    $safeResult = \disk_free_space($directory);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -156,11 +156,11 @@ function disk_free_space(string $directory): float
 function disk_total_space(string $directory): float
 {
     error_clear_last();
-    $result = \disk_total_space($directory);
-    if ($result === false) {
+    $safeResult = \disk_total_space($directory);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -175,8 +175,8 @@ function disk_total_space(string $directory): float
 function fclose($stream): void
 {
     error_clear_last();
-    $result = \fclose($stream);
-    if ($result === false) {
+    $safeResult = \fclose($stream);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -198,8 +198,8 @@ function fclose($stream): void
 function fdatasync($stream): void
 {
     error_clear_last();
-    $result = \fdatasync($stream);
-    if ($result === false) {
+    $safeResult = \fdatasync($stream);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -219,8 +219,8 @@ function fdatasync($stream): void
 function fflush($stream): void
 {
     error_clear_last();
-    $result = \fflush($stream);
-    if ($result === false) {
+    $safeResult = \fflush($stream);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -255,20 +255,20 @@ function fgetcsv($stream, int $length = null, string $separator = ",", string $e
 {
     error_clear_last();
     if ($escape !== "\\") {
-        $result = \fgetcsv($stream, $length, $separator, $enclosure, $escape);
+        $safeResult = \fgetcsv($stream, $length, $separator, $enclosure, $escape);
     } elseif ($enclosure !== "\"") {
-        $result = \fgetcsv($stream, $length, $separator, $enclosure);
+        $safeResult = \fgetcsv($stream, $length, $separator, $enclosure);
     } elseif ($separator !== ",") {
-        $result = \fgetcsv($stream, $length, $separator);
+        $safeResult = \fgetcsv($stream, $length, $separator);
     } elseif ($length !== null) {
-        $result = \fgetcsv($stream, $length);
+        $safeResult = \fgetcsv($stream, $length);
     } else {
-        $result = \fgetcsv($stream);
+        $safeResult = \fgetcsv($stream);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -310,18 +310,18 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
 {
     error_clear_last();
     if ($length !== null) {
-        $result = \file_get_contents($filename, $use_include_path, $context, $offset, $length);
+        $safeResult = \file_get_contents($filename, $use_include_path, $context, $offset, $length);
     } elseif ($offset !== 0) {
-        $result = \file_get_contents($filename, $use_include_path, $context, $offset);
+        $safeResult = \file_get_contents($filename, $use_include_path, $context, $offset);
     } elseif ($context !== null) {
-        $result = \file_get_contents($filename, $use_include_path, $context);
+        $safeResult = \file_get_contents($filename, $use_include_path, $context);
     } else {
-        $result = \file_get_contents($filename, $use_include_path);
+        $safeResult = \file_get_contents($filename, $use_include_path);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -403,14 +403,14 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \file_put_contents($filename, $data, $flags, $context);
+        $safeResult = \file_put_contents($filename, $data, $flags, $context);
     } else {
-        $result = \file_put_contents($filename, $data, $flags);
+        $safeResult = \file_put_contents($filename, $data, $flags);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -463,14 +463,14 @@ function file(string $filename, int $flags = 0, $context = null): array
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \file($filename, $flags, $context);
+        $safeResult = \file($filename, $flags, $context);
     } else {
-        $result = \file($filename, $flags);
+        $safeResult = \file($filename, $flags);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -486,11 +486,11 @@ function file(string $filename, int $flags = 0, $context = null): array
 function fileatime(string $filename): int
 {
     error_clear_last();
-    $result = \fileatime($filename);
-    if ($result === false) {
+    $safeResult = \fileatime($filename);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -506,11 +506,11 @@ function fileatime(string $filename): int
 function filectime(string $filename): int
 {
     error_clear_last();
-    $result = \filectime($filename);
-    if ($result === false) {
+    $safeResult = \filectime($filename);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -525,11 +525,11 @@ function filectime(string $filename): int
 function fileinode(string $filename): int
 {
     error_clear_last();
-    $result = \fileinode($filename);
-    if ($result === false) {
+    $safeResult = \fileinode($filename);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -547,11 +547,11 @@ function fileinode(string $filename): int
 function filemtime(string $filename): int
 {
     error_clear_last();
-    $result = \filemtime($filename);
-    if ($result === false) {
+    $safeResult = \filemtime($filename);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -568,11 +568,11 @@ function filemtime(string $filename): int
 function fileowner(string $filename): int
 {
     error_clear_last();
-    $result = \fileowner($filename);
-    if ($result === false) {
+    $safeResult = \fileowner($filename);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -601,11 +601,11 @@ function fileowner(string $filename): int
 function fileperms(string $filename): int
 {
     error_clear_last();
-    $result = \fileperms($filename);
-    if ($result === false) {
+    $safeResult = \fileperms($filename);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -621,11 +621,11 @@ function fileperms(string $filename): int
 function filesize(string $filename): int
 {
     error_clear_last();
-    $result = \filesize($filename);
-    if ($result === false) {
+    $safeResult = \filesize($filename);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -674,8 +674,8 @@ function filesize(string $filename): int
 function flock($stream, int $operation, ?int &$would_block = null): void
 {
     error_clear_last();
-    $result = \flock($stream, $operation, $would_block);
-    if ($result === false) {
+    $safeResult = \flock($stream, $operation, $would_block);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -884,14 +884,14 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \fopen($filename, $mode, $use_include_path, $context);
+        $safeResult = \fopen($filename, $mode, $use_include_path, $context);
     } else {
-        $result = \fopen($filename, $mode, $use_include_path);
+        $safeResult = \fopen($filename, $mode, $use_include_path);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -937,11 +937,11 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
 function fread($stream, int $length): string
 {
     error_clear_last();
-    $result = \fread($stream, $length);
-    if ($result === false) {
+    $safeResult = \fread($stream, $length);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -962,11 +962,11 @@ function fread($stream, int $length): string
 function fstat($stream): array
 {
     error_clear_last();
-    $result = \fstat($stream);
-    if ($result === false) {
+    $safeResult = \fstat($stream);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -984,8 +984,8 @@ function fstat($stream): array
 function fsync($stream): void
 {
     error_clear_last();
-    $result = \fsync($stream);
-    if ($result === false) {
+    $safeResult = \fsync($stream);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -1011,8 +1011,8 @@ function fsync($stream): void
 function ftruncate($stream, int $size): void
 {
     error_clear_last();
-    $result = \ftruncate($stream, $size);
-    if ($result === false) {
+    $safeResult = \ftruncate($stream, $size);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -1035,14 +1035,14 @@ function fwrite($stream, string $data, int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {
-        $result = \fwrite($stream, $data, $length);
+        $safeResult = \fwrite($stream, $data, $length);
     } else {
-        $result = \fwrite($stream, $data);
+        $safeResult = \fwrite($stream, $data);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1139,11 +1139,11 @@ function fwrite($stream, string $data, int $length = null): int
 function glob(string $pattern, int $flags = 0): array
 {
     error_clear_last();
-    $result = \glob($pattern, $flags);
-    if ($result === false) {
+    $safeResult = \glob($pattern, $flags);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1163,8 +1163,8 @@ function glob(string $pattern, int $flags = 0): array
 function lchgrp(string $filename, $group): void
 {
     error_clear_last();
-    $result = \lchgrp($filename, $group);
-    if ($result === false) {
+    $safeResult = \lchgrp($filename, $group);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -1184,8 +1184,8 @@ function lchgrp(string $filename, $group): void
 function lchown(string $filename, $user): void
 {
     error_clear_last();
-    $result = \lchown($filename, $user);
-    if ($result === false) {
+    $safeResult = \lchown($filename, $user);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -1202,8 +1202,8 @@ function lchown(string $filename, $user): void
 function link(string $target, string $link): void
 {
     error_clear_last();
-    $result = \link($target, $link);
-    if ($result === false) {
+    $safeResult = \link($target, $link);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -1228,11 +1228,11 @@ function link(string $target, string $link): void
 function lstat(string $filename): array
 {
     error_clear_last();
-    $result = \lstat($filename);
-    if ($result === false) {
+    $safeResult = \lstat($filename);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1268,11 +1268,11 @@ function mkdir(string $directory, int $permissions = 0777, bool $recursive = fal
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \mkdir($directory, $permissions, $recursive, $context);
+        $safeResult = \mkdir($directory, $permissions, $recursive, $context);
     } else {
-        $result = \mkdir($directory, $permissions, $recursive);
+        $safeResult = \mkdir($directory, $permissions, $recursive);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -1310,11 +1310,11 @@ function mkdir(string $directory, int $permissions = 0777, bool $recursive = fal
 function parse_ini_file(string $filename, bool $process_sections = false, int $scanner_mode = INI_SCANNER_NORMAL): array
 {
     error_clear_last();
-    $result = \parse_ini_file($filename, $process_sections, $scanner_mode);
-    if ($result === false) {
+    $safeResult = \parse_ini_file($filename, $process_sections, $scanner_mode);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1347,11 +1347,11 @@ function parse_ini_file(string $filename, bool $process_sections = false, int $s
 function parse_ini_string(string $ini_string, bool $process_sections = false, int $scanner_mode = INI_SCANNER_NORMAL): array
 {
     error_clear_last();
-    $result = \parse_ini_string($ini_string, $process_sections, $scanner_mode);
-    if ($result === false) {
+    $safeResult = \parse_ini_string($ini_string, $process_sections, $scanner_mode);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1371,14 +1371,14 @@ function readfile(string $filename, bool $use_include_path = false, $context = n
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \readfile($filename, $use_include_path, $context);
+        $safeResult = \readfile($filename, $use_include_path, $context);
     } else {
-        $result = \readfile($filename, $use_include_path);
+        $safeResult = \readfile($filename, $use_include_path);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1393,11 +1393,11 @@ function readfile(string $filename, bool $use_include_path = false, $context = n
 function readlink(string $path): string
 {
     error_clear_last();
-    $result = \readlink($path);
-    if ($result === false) {
+    $safeResult = \readlink($path);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1429,11 +1429,11 @@ function readlink(string $path): string
 function realpath(string $path): string
 {
     error_clear_last();
-    $result = \realpath($path);
-    if ($result === false) {
+    $safeResult = \realpath($path);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1466,11 +1466,11 @@ function rename(string $from, string $to, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \rename($from, $to, $context);
+        $safeResult = \rename($from, $to, $context);
     } else {
-        $result = \rename($from, $to);
+        $safeResult = \rename($from, $to);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -1488,8 +1488,8 @@ function rename(string $from, string $to, $context = null): void
 function rewind($stream): void
 {
     error_clear_last();
-    $result = \rewind($stream);
-    if ($result === false) {
+    $safeResult = \rewind($stream);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -1510,11 +1510,11 @@ function rmdir(string $directory, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \rmdir($directory, $context);
+        $safeResult = \rmdir($directory, $context);
     } else {
-        $result = \rmdir($directory);
+        $safeResult = \rmdir($directory);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -1533,8 +1533,8 @@ function rmdir(string $directory, $context = null): void
 function symlink(string $target, string $link): void
 {
     error_clear_last();
-    $result = \symlink($target, $link);
-    if ($result === false) {
+    $safeResult = \symlink($target, $link);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -1555,11 +1555,11 @@ function symlink(string $target, string $link): void
 function tempnam(string $directory, string $prefix): string
 {
     error_clear_last();
-    $result = \tempnam($directory, $prefix);
-    if ($result === false) {
+    $safeResult = \tempnam($directory, $prefix);
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1580,11 +1580,11 @@ function tempnam(string $directory, string $prefix): string
 function tmpfile()
 {
     error_clear_last();
-    $result = \tmpfile();
-    if ($result === false) {
+    $safeResult = \tmpfile();
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -1611,13 +1611,13 @@ function touch(string $filename, int $mtime = null, int $atime = null): void
 {
     error_clear_last();
     if ($atime !== null) {
-        $result = \touch($filename, $mtime, $atime);
+        $safeResult = \touch($filename, $mtime, $atime);
     } elseif ($mtime !== null) {
-        $result = \touch($filename, $mtime);
+        $safeResult = \touch($filename, $mtime);
     } else {
-        $result = \touch($filename);
+        $safeResult = \touch($filename);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }
@@ -1641,11 +1641,11 @@ function unlink(string $filename, $context = null): void
 {
     error_clear_last();
     if ($context !== null) {
-        $result = \unlink($filename, $context);
+        $safeResult = \unlink($filename, $context);
     } else {
-        $result = \unlink($filename);
+        $safeResult = \unlink($filename);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }
 }

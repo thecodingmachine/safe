@@ -34,11 +34,11 @@ use Safe\Exceptions\HashException;
 function hash_hkdf(string $algo, string $key, int $length = 0, string $info = "", string $salt = ""): string
 {
     error_clear_last();
-    $result = \hash_hkdf($algo, $key, $length, $info, $salt);
-    if ($result === false) {
+    $safeResult = \hash_hkdf($algo, $key, $length, $info, $salt);
+    if ($safeResult === false) {
         throw HashException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -55,11 +55,11 @@ function hash_update_file(\HashContext $context, string $filename, ?\HashContext
 {
     error_clear_last();
     if ($stream_context !== null) {
-        $result = \hash_update_file($context, $filename, $stream_context);
+        $safeResult = \hash_update_file($context, $filename, $stream_context);
     } else {
-        $result = \hash_update_file($context, $filename);
+        $safeResult = \hash_update_file($context, $filename);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw HashException::createFromPhpError();
     }
 }

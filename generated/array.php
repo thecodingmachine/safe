@@ -30,11 +30,11 @@ function array_walk_recursive(&$array, callable $callback, $arg = null): void
 {
     error_clear_last();
     if ($arg !== null) {
-        $result = \array_walk_recursive($array, $callback, $arg);
+        $safeResult = \array_walk_recursive($array, $callback, $arg);
     } else {
-        $result = \array_walk_recursive($array, $callback);
+        $safeResult = \array_walk_recursive($array, $callback);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw ArrayException::createFromPhpError();
     }
 }
@@ -52,8 +52,8 @@ function array_walk_recursive(&$array, callable $callback, $arg = null): void
 function shuffle(array &$array): void
 {
     error_clear_last();
-    $result = \shuffle($array);
-    if ($result === false) {
+    $safeResult = \shuffle($array);
+    if ($safeResult === false) {
         throw ArrayException::createFromPhpError();
     }
 }

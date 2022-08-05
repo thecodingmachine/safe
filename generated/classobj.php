@@ -18,8 +18,8 @@ use Safe\Exceptions\ClassobjException;
 function class_alias(string $class, string $alias, bool $autoload = true): void
 {
     error_clear_last();
-    $result = \class_alias($class, $alias, $autoload);
-    if ($result === false) {
+    $safeResult = \class_alias($class, $alias, $autoload);
+    if ($safeResult === false) {
         throw ClassobjException::createFromPhpError();
     }
 }

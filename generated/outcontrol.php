@@ -20,8 +20,8 @@ use Safe\Exceptions\OutcontrolException;
 function ob_clean(): void
 {
     error_clear_last();
-    $result = \ob_clean();
-    if ($result === false) {
+    $safeResult = \ob_clean();
+    if ($safeResult === false) {
         throw OutcontrolException::createFromPhpError();
     }
 }
@@ -45,8 +45,8 @@ function ob_clean(): void
 function ob_end_clean(): void
 {
     error_clear_last();
-    $result = \ob_end_clean();
-    if ($result === false) {
+    $safeResult = \ob_end_clean();
+    if ($safeResult === false) {
         throw OutcontrolException::createFromPhpError();
     }
 }
@@ -71,8 +71,8 @@ function ob_end_clean(): void
 function ob_end_flush(): void
 {
     error_clear_last();
-    $result = \ob_end_flush();
-    if ($result === false) {
+    $safeResult = \ob_end_flush();
+    if ($safeResult === false) {
         throw OutcontrolException::createFromPhpError();
     }
 }
@@ -94,8 +94,8 @@ function ob_end_flush(): void
 function ob_flush(): void
 {
     error_clear_last();
-    $result = \ob_flush();
-    if ($result === false) {
+    $safeResult = \ob_flush();
+    if ($safeResult === false) {
         throw OutcontrolException::createFromPhpError();
     }
 }
@@ -192,15 +192,15 @@ function ob_start($callback = null, int $chunk_size = 0, int $flags = PHP_OUTPUT
 {
     error_clear_last();
     if ($flags !== PHP_OUTPUT_HANDLER_STDFLAGS) {
-        $result = \ob_start($callback, $chunk_size, $flags);
+        $safeResult = \ob_start($callback, $chunk_size, $flags);
     } elseif ($chunk_size !== 0) {
-        $result = \ob_start($callback, $chunk_size);
+        $safeResult = \ob_start($callback, $chunk_size);
     } elseif ($callback !== null) {
-        $result = \ob_start($callback);
+        $safeResult = \ob_start($callback);
     } else {
-        $result = \ob_start();
+        $safeResult = \ob_start();
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw OutcontrolException::createFromPhpError();
     }
 }
@@ -226,8 +226,8 @@ function ob_start($callback = null, int $chunk_size = 0, int $flags = PHP_OUTPUT
 function output_add_rewrite_var(string $name, string $value): void
 {
     error_clear_last();
-    $result = \output_add_rewrite_var($name, $value);
-    if ($result === false) {
+    $safeResult = \output_add_rewrite_var($name, $value);
+    if ($safeResult === false) {
         throw OutcontrolException::createFromPhpError();
     }
 }
@@ -244,8 +244,8 @@ function output_add_rewrite_var(string $name, string $value): void
 function output_reset_rewrite_vars(): void
 {
     error_clear_last();
-    $result = \output_reset_rewrite_vars();
-    if ($result === false) {
+    $safeResult = \output_reset_rewrite_vars();
+    if ($safeResult === false) {
         throw OutcontrolException::createFromPhpError();
     }
 }

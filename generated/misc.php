@@ -31,8 +31,8 @@ use Safe\Exceptions\MiscException;
 function define(string $constant_name, $value, bool $case_insensitive = false): void
 {
     error_clear_last();
-    $result = \define($constant_name, $value, $case_insensitive);
-    if ($result === false) {
+    $safeResult = \define($constant_name, $value, $case_insensitive);
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
 }
@@ -61,11 +61,11 @@ function define(string $constant_name, $value, bool $case_insensitive = false): 
 function highlight_file(string $filename, bool $return = false)
 {
     error_clear_last();
-    $result = \highlight_file($filename, $return);
-    if ($result === false) {
+    $safeResult = \highlight_file($filename, $return);
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -84,11 +84,11 @@ function highlight_file(string $filename, bool $return = false)
 function highlight_string(string $string, bool $return = false)
 {
     error_clear_last();
-    $result = \highlight_string($string, $return);
-    if ($result === false) {
+    $safeResult = \highlight_string($string, $return);
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -108,11 +108,11 @@ function highlight_string(string $string, bool $return = false)
 function hrtime(bool $as_number = false)
 {
     error_clear_last();
-    $result = \hrtime($as_number);
-    if ($result === false) {
+    $safeResult = \hrtime($as_number);
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -274,14 +274,14 @@ function pack(string $format, ...$values): string
 {
     error_clear_last();
     if ($values !== []) {
-        $result = \pack($format, ...$values);
+        $safeResult = \pack($format, ...$values);
     } else {
-        $result = \pack($format);
+        $safeResult = \pack($format);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -301,11 +301,11 @@ function pack(string $format, ...$values): string
 function sapi_windows_cp_conv($in_codepage, $out_codepage, string $subject): string
 {
     error_clear_last();
-    $result = \sapi_windows_cp_conv($in_codepage, $out_codepage, $subject);
-    if ($result === null) {
+    $safeResult = \sapi_windows_cp_conv($in_codepage, $out_codepage, $subject);
+    if ($safeResult === null) {
         throw MiscException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -319,8 +319,8 @@ function sapi_windows_cp_conv($in_codepage, $out_codepage, string $subject): str
 function sapi_windows_cp_set(int $codepage): void
 {
     error_clear_last();
-    $result = \sapi_windows_cp_set($codepage);
-    if ($result === false) {
+    $safeResult = \sapi_windows_cp_set($codepage);
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
 }
@@ -340,8 +340,8 @@ function sapi_windows_cp_set(int $codepage): void
 function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
 {
     error_clear_last();
-    $result = \sapi_windows_generate_ctrl_event($event, $pid);
-    if ($result === false) {
+    $safeResult = \sapi_windows_generate_ctrl_event($event, $pid);
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
 }
@@ -381,8 +381,8 @@ function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
 function sapi_windows_set_ctrl_handler($handler, bool $add = true): void
 {
     error_clear_last();
-    $result = \sapi_windows_set_ctrl_handler($handler, $add);
-    if ($result === false) {
+    $safeResult = \sapi_windows_set_ctrl_handler($handler, $add);
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
 }
@@ -408,11 +408,11 @@ function sapi_windows_vt100_support($stream, bool $enable = null): void
 {
     error_clear_last();
     if ($enable !== null) {
-        $result = \sapi_windows_vt100_support($stream, $enable);
+        $safeResult = \sapi_windows_vt100_support($stream, $enable);
     } else {
-        $result = \sapi_windows_vt100_support($stream);
+        $safeResult = \sapi_windows_vt100_support($stream);
     }
-    if ($result === false) {
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
 }
@@ -436,11 +436,11 @@ function sapi_windows_vt100_support($stream, bool $enable = null): void
 function sleep(int $seconds): int
 {
     error_clear_last();
-    $result = \sleep($seconds);
-    if ($result === false) {
+    $safeResult = \sleep($seconds);
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -474,11 +474,11 @@ function sleep(int $seconds): int
 function time_nanosleep(int $seconds, int $nanoseconds)
 {
     error_clear_last();
-    $result = \time_nanosleep($seconds, $nanoseconds);
-    if ($result === false) {
+    $safeResult = \time_nanosleep($seconds, $nanoseconds);
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }
 
 
@@ -493,8 +493,8 @@ function time_nanosleep(int $seconds, int $nanoseconds)
 function time_sleep_until(float $timestamp): void
 {
     error_clear_last();
-    $result = \time_sleep_until($timestamp);
-    if ($result === false) {
+    $safeResult = \time_sleep_until($timestamp);
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
 }
@@ -536,9 +536,9 @@ function time_sleep_until(float $timestamp): void
 function unpack(string $format, string $string, int $offset = 0): array
 {
     error_clear_last();
-    $result = \unpack($format, $string, $offset);
-    if ($result === false) {
+    $safeResult = \unpack($format, $string, $offset);
+    if ($safeResult === false) {
         throw MiscException::createFromPhpError();
     }
-    return $result;
+    return $safeResult;
 }

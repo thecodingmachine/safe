@@ -1576,9 +1576,8 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * CURLOPT_MAXCONNECTS
  *
  * The maximum amount of persistent connections that are allowed.
- * When the limit is reached,
- * CURLOPT_CLOSEPOLICY is used to determine
- * which connection to close.
+ * When the limit is reached, the oldest one in the cache is closed
+ * to prevent increasing the number of open connections.
  *
  *
  *

@@ -1420,12 +1420,12 @@ function openssl_x509_fingerprint($certificate, string $digest_algo = "sha1", bo
  * certificate and returns an OpenSSLCertificate object for
  * it.
  *
- * @param string|resource $certificate X509 certificate. See Key/Certificate parameters for a list of valid values.
- * @return resource Returns an OpenSSLCertificate on success.
+ * @param \OpenSSLCertificate|string $certificate X509 certificate. See Key/Certificate parameters for a list of valid values.
+ * @return \OpenSSLCertificate Returns an OpenSSLCertificate on success.
  * @throws OpensslException
  *
  */
-function openssl_x509_read($certificate)
+function openssl_x509_read($certificate): \OpenSSLCertificate
 {
     error_clear_last();
     $safeResult = \openssl_x509_read($certificate);

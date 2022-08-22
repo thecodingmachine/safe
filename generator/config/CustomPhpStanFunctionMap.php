@@ -26,7 +26,15 @@ return [
     'curl_share_errno' => ['int', 'share_handle' => 'CurlShareHandle'],
     'curl_share_setopt' => ['void', 'share_handle' => 'CurlShareHandle', 'option' => 'int', 'value' => 'mixed'],
     'curl_unescape' => ['string', 'handle' => 'CurlHandle', 'string' => 'string'],
-    'openssl_x509_read' => ['OpenSSLCertificate|false', 'x509certdata'=>'OpenSSLCertificate|string'], // this replace ressource by OpenSSLCertificate
+    // theses replace ressource by OpenSSLCertificate
+    'openssl_verify' => ['-1|0|1|false', 'data'=>'string', 'signature'=>'string', 'pub_key_id'=>' OpenSSLAsymmetricKey|OpenSSLCertificate|string', 'signature_alg='=>'int|string'],
+    'openssl_x509_read' => ['OpenSSLCertificate|false', 'x509certdata'=>'OpenSSLCertificate|string'], // this replaces ressource by OpenSSLCertificate
+    'openssl_x509_check_private_key' => ['bool', 'cert'=>'string|OpenSSLCertificate', 'key'=>'string|OpenSSLAsymmetricKey|OpenSSLCertificate|array'],
+    'openssl_x509_checkpurpose' => ['bool|int', 'x509cert'=>'string|OpenSSLCertificate', 'purpose'=>'int', 'cainfo='=>'array', 'untrustedfile='=>'string'],
+    'openssl_x509_export' => ['bool', 'x509'=>'string|OpenSSLCertificate', '&w_output'=>'string', 'notext='=>'bool'],
+    'openssl_x509_export_to_file' => ['bool', 'x509'=>'string|OpenSSLCertificate', 'outfilename'=>'string', 'notext='=>'bool'],
+    'openssl_x509_fingerprint' => ['string|false', 'x509'=>'string|OpenSSLCertificate', 'hash_algorithm='=>'string', 'raw_output='=>'bool'],
+    
     'fgetcsv' => ['array|false|null', 'fp'=>'resource', 'length='=>'0|positive-int', 'delimiter='=>'string', 'enclosure='=>'string', 'escape='=>'string'], //phpstan default return type is too hard to analyse
     //todo: edit the reader to turn 0|1 into int
     'preg_match' => ['int|false', 'pattern'=>'string', 'subject'=>'string', '&w_subpatterns='=>'string[]', 'flags='=>'int', 'offset='=>'int'], //int|false instead of 0|1|false

@@ -176,7 +176,7 @@ class DateTimeImmutableTest extends TestCase
 
         /** @var DateTimeImmutable $date */
         foreach ($datePeriod as $date) {
-            $this->expectException(\TypeError::class);
+            $this->expectException(\Error::class);
             $this->assertNull($date->getInnerDateTime());
         }
         

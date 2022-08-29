@@ -527,7 +527,6 @@ return static function (RectorConfig $rectorConfig): void {
             'md5_file' => 'Safe\md5_file',
             'mime_content_type' => 'Safe\mime_content_type',
             'mkdir' => 'Safe\mkdir',
-            'mktime' => 'Safe\mktime',
             'msg_get_queue' => 'Safe\msg_get_queue',
             'msg_queue_exists' => 'Safe\msg_queue_exists',
             'msg_receive' => 'Safe\msg_receive',

@@ -43,6 +43,7 @@ return [
     'imagepsslantfont',
     'krsort',
     'ksort',
+    'mktime',
     'mssql_bind',
     'mssql_close',
     'mssql_connect',

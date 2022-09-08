@@ -405,3 +405,38 @@ function fputcsv($stream, array $fields, string $separator = ",", string $enclos
     }
     return $result;
 }
+
+/**
+ * Similar to fgets except that
+ * fgetcsv parses the line it reads for fields in
+ * CSV format and returns an array containing the fields
+ * read.
+ *
+ * @param resource $stream A valid file pointer to a file successfully opened by
+ * fopen, popen, or
+ * fsockopen.
+ * @param int<0, max>|null $length Must be greater than the longest line (in characters) to be found in
+ * the CSV file (allowing for trailing line-end characters). Otherwise the
+ * line is split in chunks of length characters,
+ * unless the split would occur inside an enclosure.
+ *
+ * Omitting this parameter (or setting it to 0,
+ * or NULL in PHP 8.0.0 or later) the maximum line length is not limited,
+ * which is slightly slower.
+ * @param string $separator The optional separator parameter sets the field separator (one single-byte character only).
+ * @param string $enclosure The optional enclosure parameter sets the field enclosure character (one single-byte character only).
+ * @param string $escape The optional escape parameter sets the escape character (at most one single-byte character).
+ * An empty string ("") disables the proprietary escape mechanism.
+ * @return mixed[]|false Returns an indexed array containing the fields read on success or false when there is no more lines.
+ * @throws FilesystemException
+ *
+ */
+function fgetcsv($stream, int $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\"): array|false
+{
+    error_clear_last();
+    $safeResult = \fgetcsv($stream, $length, $separator, $enclosure, $escape);
+    if ($safeResult === false && \feof($stream) === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $safeResult;
+}

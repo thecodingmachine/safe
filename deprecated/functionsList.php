@@ -66,6 +66,7 @@ return [
     'stats_stat_correlation',
     'stats_stat_innerproduct',
     'stats_variance',
+    'sleep',
     'substr',
     'usort',
     'vsprintf',

@@ -15,6 +15,7 @@
             "deprecated/array.php",
             "deprecated/datetime.php",
             "deprecated/libevent.php",
+            "deprecated/misc.php",
             "deprecated/password.php",
             "deprecated/mssql.php",
             "deprecated/stats.php",

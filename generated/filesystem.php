@@ -227,52 +227,6 @@ function fflush($stream): void
 
 
 /**
- * Similar to fgets except that
- * fgetcsv parses the line it reads for fields in
- * CSV format and returns an array containing the fields
- * read.
- *
- * @param resource $stream A valid file pointer to a file successfully opened by
- * fopen, popen, or
- * fsockopen.
- * @param int $length Must be greater than the longest line (in characters) to be found in
- * the CSV file (allowing for trailing line-end characters). Otherwise the
- * line is split in chunks of length characters,
- * unless the split would occur inside an enclosure.
- *
- * Omitting this parameter (or setting it to 0,
- * or NULL in PHP 8.0.0 or later) the maximum line length is not limited,
- * which is slightly slower.
- * @param string $separator The optional separator parameter sets the field separator (one single-byte character only).
- * @param string $enclosure The optional enclosure parameter sets the field enclosure character (one single-byte character only).
- * @param string $escape The optional escape parameter sets the escape character (at most one single-byte character).
- * An empty string ("") disables the proprietary escape mechanism.
- * @return array|null Returns an indexed array containing the fields read on success.
- * @throws FilesystemException
- *
- */
-function fgetcsv($stream, int $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\"): ?array
-{
-    error_clear_last();
-    if ($escape !== "\\") {
-        $safeResult = \fgetcsv($stream, $length, $separator, $enclosure, $escape);
-    } elseif ($enclosure !== "\"") {
-        $safeResult = \fgetcsv($stream, $length, $separator, $enclosure);
-    } elseif ($separator !== ",") {
-        $safeResult = \fgetcsv($stream, $length, $separator);
-    } elseif ($length !== null) {
-        $safeResult = \fgetcsv($stream, $length);
-    } else {
-        $safeResult = \fgetcsv($stream);
-    }
-    if ($safeResult === false) {
-        throw FilesystemException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  * This function is similar to file, except that
  * file_get_contents returns the file in a
  * string, starting at the specified offset

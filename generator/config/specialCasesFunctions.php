@@ -15,4 +15,5 @@ return [
     'simplexml_import_dom',
     'simplexml_load_file',
     'simplexml_load_string',
+    'fgetcsv',  // This function need to return false when iterating on an end of file.
 ];

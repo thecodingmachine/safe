@@ -7,7 +7,10 @@ use Safe\Exceptions\DatetimeException;
 /**
  * Returns associative array with detailed info about given date/time.
  *
- * @param string $format Format accepted by DateTimeImmutable::createFromFormat.
+ * @param string $format Documentation on how the format is used, please
+ * refer to the documentation of
+ * DateTimeImmutable::createFromFormat. The same
+ * rules apply.
  * @param string $datetime String representing the date/time.
  * @return array{year: int|false, month: int|false, day: int|false, hour: int|false, minute: int|false, second: int|false, fraction: float|false, warning_count: int, warnings: string[], error_count: int, errors: string[], is_localtime: bool, zone_type: int|bool, zone: int|bool, is_dst: bool, tz_abbr: string, tz_id: string, relative: array{year: int, month: int, day: int, hour: int, minute: int, second: int, weekday: int, weekdays: int, first_day_of_month: bool, last_day_of_month: bool}}|null Returns associative array with detailed info about given date/time.
  *

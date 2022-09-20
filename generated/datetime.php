@@ -64,7 +64,7 @@ function date_parse_from_format(string $format, string $datetime): ?array
  * DateTimeImmutable::__construct. Instead of returning a
  * Unix timestamp (with strtotime) or a
  * DateTimeImmutable object (with
- * DateTimeImmutable::__construct, it returns an
+ * DateTimeImmutable::__construct), it returns an
  * associative array with the information that it could detect in the given
  * datetime string.
  *

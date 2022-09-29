@@ -73,7 +73,7 @@ function stream_copy_to_stream($from, $to, int $length = null, int $offset = 0):
  * STREAM_FILTER_WRITE, and/or
  * STREAM_FILTER_ALL can also be passed to the
  * read_write parameter to override this behavior.
- * @param array $params This filter will be added with the specified
+ * @param mixed $params This filter will be added with the specified
  * params to the end of
  * the list and will therefore be called last during stream operations.
  * To add a filter to the beginning of the list, use
@@ -87,7 +87,7 @@ function stream_copy_to_stream($from, $to, int $length = null, int $offset = 0):
  * @throws StreamException
  *
  */
-function stream_filter_append($stream, string $filtername, int $read_write = null, array $params = null)
+function stream_filter_append($stream, string $filtername, int $read_write = null, mixed $params = null)
 {
     error_clear_last();
     if ($params !== null) {

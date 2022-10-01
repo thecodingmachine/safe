@@ -324,3 +324,27 @@ function sodium_crypto_sign_verify_detached(string $signature, string $message, 
         throw SodiumException::createFromPhpError();
     }
 }
+
+
+/**
+ * The function is similar to sodium_crypto_stream_xchacha20_xor
+ * but adds the ability to set the initial value of the block counter to a non-zero value.
+ * This permits direct access to any block without having to compute the previous ones.
+ *
+ * @param string $message The message to encrypt.
+ * @param string $nonce 24-byte nonce.
+ * @param int $counter The initial value of the block counter.
+ * @param string $key Key, possibly generated from sodium_crypto_stream_xchacha20_keygen.
+ * @return string Encrypted message.
+ * @throws SodiumException
+ *
+ */
+function sodium_crypto_stream_xchacha20_xor_ic(string $message, string $nonce, int $counter, string $key): string
+{
+    error_clear_last();
+    $safeResult = \sodium_crypto_stream_xchacha20_xor_ic($message, $nonce, $counter, $key);
+    if ($safeResult === false) {
+        throw SodiumException::createFromPhpError();
+    }
+    return $safeResult;
+}

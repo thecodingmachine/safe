@@ -3109,17 +3109,6 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
- * CURLOPT_XFERINFOFUNCTION
- *
- * A callback accepting two parameters.
- * Has a similar purpose as CURLOPT_PROGRESSFUNCTION but is more modern
- * and the preferred option from cURL.
- *
- *
- * Added in 7.32.0. Available as of PHP 8.2.0.
- *
- *
- *
  *
  *
  *

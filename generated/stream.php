@@ -87,7 +87,7 @@ function stream_copy_to_stream($from, $to, int $length = null, int $offset = 0):
  * @throws StreamException
  *
  */
-function stream_filter_append($stream, string $filtername, int $read_write = null, mixed $params = null)
+function stream_filter_append($stream, string $filtername, int $read_write = null, $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -123,7 +123,7 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
  * read_write parameter to override this behavior.
  * See stream_filter_append for an example of
  * using this parameter.
- * @param array $params This filter will be added with the specified params
+ * @param mixed $params This filter will be added with the specified params
  * to the beginning of the list and will therefore be
  * called first during stream operations.  To add a filter to the end of the
  * list, use stream_filter_append.
@@ -136,7 +136,7 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
  * @throws StreamException
  *
  */
-function stream_filter_prepend($stream, string $filtername, int $read_write = null, array $params = null)
+function stream_filter_prepend($stream, string $filtername, int $read_write = null, $params = null)
 {
     error_clear_last();
     if ($params !== null) {

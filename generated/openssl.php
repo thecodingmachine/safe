@@ -24,6 +24,25 @@ function openssl_cipher_iv_length(string $cipher_algo): int
 
 
 /**
+ * Gets the cipher key length.
+ *
+ * @param string $cipher_algo The cipher method, see openssl_get_cipher_methods for a list of potential values.
+ * @return  Returns the cipher length on success.
+ * @throws OpensslException
+ *
+ */
+function openssl_cipher_key_length(string $cipher_algo)
+{
+    error_clear_last();
+    $safeResult = \openssl_cipher_key_length($cipher_algo);
+    if ($safeResult === false) {
+        throw OpensslException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Decrypts a CMS message.
  *
  * @param string $input_filename The name of a file containing encrypted content.

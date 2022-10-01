@@ -511,7 +511,7 @@ function ldap_get_entries($ldap, $result): array
  *
  *
  * LDAP_OPT_DIAGNOSTIC_MESSAGE
- * int
+ * string
  *
  *
  *

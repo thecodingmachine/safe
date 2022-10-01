@@ -3109,6 +3109,17 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ * CURLOPT_XFERINFOFUNCTION
+ *
+ * A callback accepting two parameters.
+ * Has a similar purpose as CURLOPT_PROGRESSFUNCTION but is more modern
+ * and the preferred option from cURL.
+ *
+ *
+ * Added in 7.32.0. Available as of PHP 8.2.0.
+ *
+ *
+ *
  *
  *
  *
@@ -3273,4 +3284,30 @@ function curl_unescape(\CurlHandle $handle, string $string): string
         throw CurlException::createFromPhpError($handle);
     }
     return $safeResult;
+}
+
+
+/**
+ * Available if built against libcurl &gt;= 7.62.0.
+ *
+ * Some protocols have "connection upkeep" mechanisms.
+ * These mechanisms usually send some traffic on existing connections in order to keep them alive;
+ * this can prevent connections from being closed due to overzealous firewalls, for example.
+ *
+ * Connection upkeep is currently available only for HTTP/2 connections.
+ * A small amount of traffic is usually sent to keep a connection alive.
+ * HTTP/2 maintains its connection by sending a HTTP/2 PING frame.
+ *
+ * @param \CurlHandle $handle A cURL handle returned by
+ * curl_init.
+ * @throws CurlException
+ *
+ */
+function curl_upkeep(\CurlHandle $handle): void
+{
+    error_clear_last();
+    $safeResult = \curl_upkeep($handle);
+    if ($safeResult === false) {
+        throw CurlException::createFromPhpError($handle);
+    }
 }

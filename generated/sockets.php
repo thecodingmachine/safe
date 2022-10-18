@@ -90,10 +90,10 @@ function socket_addrinfo_connect($address)
  * a set of AddressInfo instances that we can bind to using socket_addrinfo_bind.
  *
  * @param string $host Hostname to search.
- * @param mixed $service The service to connect to.  If service is a name, it is translated to the corresponding
- * port number.
+ * @param mixed $service The service to connect to. If service is a numeric string, it designates the port.
+ * Otherwise it designates a network service name, which is mapped to a port by the operating system.
  * @param array $hints Hints provide criteria for selecting addresses returned.  You may specify the
- * hints as defined by getadrinfo.
+ * hints as defined by getaddrinfo.
  * @return resource[] Returns an array of AddressInfo instances that can be used with the other socket_addrinfo functions.
  * On failure, FALSE is returned.
  * @throws SocketsException
@@ -726,7 +726,7 @@ function socket_set_nonblock($socket): void
  * @param resource $socket A Socket instance created with socket_create
  * or socket_accept.
  * @param int $level The level parameter specifies the protocol
- * level at which the option resides. For example, to retrieve options at
+ * level at which the option resides. For example, to set options at
  * the socket level, a level parameter of
  * SOL_SOCKET would be used. Other levels, such as
  * TCP, can be used by specifying the protocol number of that level.

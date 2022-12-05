@@ -131,7 +131,7 @@ to run `rector/rector`.
 Another way is to use it in your `rector.php` file:
 
  ```php
- $rectorConfig->import('vendor/fakerphp/faker/rector-migrate.php');
+ $rectorConfig->import('vendor/thecodingmachine/safe/rector-migrate.php');
  ```
 
 **Important:** the refactoring only performs a "dumb" replacement of functions. It will not modify the way

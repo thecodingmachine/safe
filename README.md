@@ -128,6 +128,12 @@ to run `rector/rector`.
 
 *Note:* do not forget to replace "src/" with the path to your source directory.
 
+Another way is to use it in your `rector.php` file:
+
+ ```php
+ $rectorConfig->import('vendor/fakerphp/faker/rector-migrate.php');
+ ```
+
 **Important:** the refactoring only performs a "dumb" replacement of functions. It will not modify the way
 "false" return values are handled. So if your code was already performing error handling, you will have to deal
 with it manually.

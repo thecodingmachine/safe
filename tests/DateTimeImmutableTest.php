@@ -18,4 +18,24 @@ final class DateTimeImmutableTest extends TestCase
 
         self::assertSame($safeDate->format(\DateTimeInterface::ATOM), $safeImmutableDate->format(\DateTimeInterface::ATOM));
     }
+
+    /**
+     * @dataProvider createFromInterfaces
+     */
+    public function testCreateFromInterface(\DateTimeInterface $dateTime): void
+    {
+        $safeImmutableDate = \Safe\DateTimeImmutable::createFromInterface($dateTime);
+
+        self::assertSame($dateTime->format(\DATE_ATOM), $safeImmutableDate->format(\DATE_ATOM));
+    }
+
+    public function createFromInterfaces(): array
+    {
+        return [
+            [new \DateTime('2022-11-29T14:17:34+00:00')],
+            [new \Safe\DateTime('2022-11-29T14:17:34+00:00')],
+            [new \DateTimeImmutable('2022-11-29T14:17:34+00:00')],
+            [new \Safe\DateTimeImmutable('2022-11-29T14:17:34+00:00')],
+        ];
+    }
 }

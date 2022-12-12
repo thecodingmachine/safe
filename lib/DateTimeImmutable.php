@@ -239,6 +239,16 @@ class DateTimeImmutable extends \DateTimeImmutable
         return self::createFromRegular($date);
     }
 
+    public static function createFromInterface(\DateTimeInterface $object): self
+    {
+        if ($object instanceof \DateTime) {
+            $object = self::createFromMutable($object);
+        } elseif ($object instanceof DateTimeImmutable) {
+            $object = $object->getInnerDateTime();
+        }
+        return self::createFromRegular($object);
+    }
+
     /**
      * @param mixed[] $array
      * @return DateTimeImmutable

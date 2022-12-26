@@ -9,4 +9,9 @@ class JsonException extends \JsonException implements SafeExceptionInterface
     {
         return new self(\json_last_error_msg(), \json_last_error());
     }
+
+    public static function createFromJsonException(\JsonException $e): self
+    {
+        return new self($e->getMessage(), $e->getCode());
+    }
 }

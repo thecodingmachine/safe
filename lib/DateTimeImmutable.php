@@ -232,7 +232,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @param \DateTime $dateTime
      * @return DateTimeImmutable
      */
-	#[\ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public static function createFromMutable($dateTime): self
     {
         $date = \DateTimeImmutable::createFromMutable($dateTime);

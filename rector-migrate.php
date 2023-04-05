@@ -675,6 +675,7 @@ return static function (RectorConfig $rectorConfig): void {
             'openssl_pkey_derive' => 'Safe\openssl_pkey_derive',
             'openssl_pkey_export' => 'Safe\openssl_pkey_export',
             'openssl_pkey_export_to_file' => 'Safe\openssl_pkey_export_to_file',
+            'openssl_pkey_get_details' => 'Safe\openssl_pkey_get_details',
             'openssl_pkey_get_private' => 'Safe\openssl_pkey_get_private',
             'openssl_pkey_get_public' => 'Safe\openssl_pkey_get_public',
             'openssl_pkey_new' => 'Safe\openssl_pkey_new',

@@ -969,10 +969,39 @@ function openssl_pkey_export($key, ?string &$output, ?string $passphrase = null,
 
 
 /**
+ * This function returns the key details (bits, key, type).
+ *
+ * @param \OpenSSLAsymmetricKey $key Resource holding the key.
+ * @return array Returns an array with the key details on success.
+ * Returned array has indexes bits (number of bits),
+ * key (string representation of the public key) and
+ * type (type of the key which is one of
+ * OPENSSL_KEYTYPE_RSA,
+ * OPENSSL_KEYTYPE_DSA,
+ * OPENSSL_KEYTYPE_DH,
+ * OPENSSL_KEYTYPE_EC or -1 meaning unknown).
+ *
+ * Depending on the key type used, additional details may be returned. Note that
+ * some elements may not always be available.
+ * @throws OpensslException
+ *
+ */
+function openssl_pkey_get_details(\OpenSSLAsymmetricKey $key): array
+{
+    error_clear_last();
+    $safeResult = \openssl_pkey_get_details($key);
+    if ($safeResult === false) {
+        throw OpensslException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * openssl_pkey_get_private parses
  * private_key and prepares it for use by other functions.
  *
- * @param string $private_key private_key can be one of the following:
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key private_key can be one of the following:
  *
  * a string having the format
  * file://path/to/file.pem. The named file must
@@ -981,13 +1010,13 @@ function openssl_pkey_export($key, ?string &$output, ?string $passphrase = null,
  *
  * A PEM formatted private key.
  *
- * @param string $passphrase The optional parameter passphrase must be used
+ * @param string|null $passphrase The optional parameter passphrase must be used
  * if the specified key is encrypted (protected by a passphrase).
- * @return resource Returns an OpenSSLAsymmetricKey instance on success.
+ * @return \OpenSSLAsymmetricKey Returns an OpenSSLAsymmetricKey instance on success.
  * @throws OpensslException
  *
  */
-function openssl_pkey_get_private(string $private_key, string $passphrase = null)
+function openssl_pkey_get_private($private_key, ?string $passphrase = null): \OpenSSLAsymmetricKey
 {
     error_clear_last();
     if ($passphrase !== null) {
@@ -1007,7 +1036,7 @@ function openssl_pkey_get_private(string $private_key, string $passphrase = null
  * public_key and prepares it for use by other
  * functions.
  *
- * @param resource|string $public_key public_key can be one of the following:
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $public_key public_key can be one of the following:
  *
  * an OpenSSLAsymmetricKey instance
  * a string having the format
@@ -1017,11 +1046,11 @@ function openssl_pkey_get_private(string $private_key, string $passphrase = null
  *
  * A PEM formatted public key.
  *
- * @return resource Returns an OpenSSLAsymmetricKey instance on success.
+ * @return \OpenSSLAsymmetricKey Returns an OpenSSLAsymmetricKey instance on success.
  * @throws OpensslException
  *
  */
-function openssl_pkey_get_public($public_key)
+function openssl_pkey_get_public($public_key): \OpenSSLAsymmetricKey
 {
     error_clear_last();
     $safeResult = \openssl_pkey_get_public($public_key);

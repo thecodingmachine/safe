@@ -26,6 +26,10 @@ return [
     'curl_share_errno' => ['int', 'share_handle' => 'CurlShareHandle'],
     'curl_share_setopt' => ['void', 'share_handle' => 'CurlShareHandle', 'option' => 'int', 'value' => 'mixed'],
     'curl_unescape' => ['string', 'handle' => 'CurlHandle', 'string' => 'string'],
+    // theses replace ressource by OpenSSLAsymmetricKey
+    'openssl_pkey_get_details' => ['array|false', 'key'=>'OpenSSLAsymmetricKey'],
+    'openssl_pkey_get_private' => ['OpenSSLAsymmetricKey|false', 'private_key'=>'OpenSSLAsymmetricKey|OpenSSLCertificate|array|string', 'passphrase='=>'null|string'],
+    'openssl_pkey_get_public' => ['OpenSSLAsymmetricKey|false', 'public_key'=>'OpenSSLAsymmetricKey|OpenSSLCertificate|array|string'],
     // theses replace ressource by OpenSSLCertificate
     'openssl_verify' => ['-1|0|1|false', 'data'=>'string', 'signature'=>'string', 'pub_key_id'=>' OpenSSLAsymmetricKey|OpenSSLCertificate|string', 'signature_alg='=>'int|string'],
     'openssl_x509_read' => ['OpenSSLCertificate|false', 'x509certdata'=>'OpenSSLCertificate|string'], // this replaces ressource by OpenSSLCertificate

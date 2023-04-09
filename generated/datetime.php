@@ -444,38 +444,6 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, fl
 
 
 /**
- * Returns a string formatted according to the given format string using the
- * given integer timestamp (Unix timestamp) or the current time
- * if no timestamp is given. In other words, timestamp
- * is optional and defaults to the value of time.
- *
- * @param string $format Format accepted by DateTimeInterface::format.
- * @param int $timestamp The optional timestamp parameter is an
- * int Unix timestamp that defaults to the current
- * local time if timestamp is omitted or NULL. In other
- * words, it defaults to the value of time.
- * @return string Returns a formatted date string. If a non-numeric value is used for
- * timestamp, FALSE is returned and an
- * E_WARNING level error is emitted.
- * @throws DatetimeException
- *
- */
-function date(string $format, int $timestamp = null): string
-{
-    error_clear_last();
-    if ($timestamp !== null) {
-        $safeResult = \date($format, $timestamp);
-    } else {
-        $safeResult = \date($format);
-    }
-    if ($safeResult === false) {
-        throw DatetimeException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  * Identical to mktime except the passed parameters represents a
  * GMT date. gmmktime internally uses mktime
  * so only times valid in derived local time can be used.
@@ -1157,3 +1125,4 @@ function timezone_name_from_abbr(string $abbr, int $utcOffset = -1, int $isDST =
     }
     return $safeResult;
 }
+

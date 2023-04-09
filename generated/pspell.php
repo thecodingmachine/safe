@@ -58,50 +58,6 @@ function pspell_clear_session(int $dictionary): void
 
 
 /**
- * Create a config used to open a dictionary.
- *
- * pspell_config_create has a very similar syntax to
- * pspell_new. In fact, using
- * pspell_config_create immediately followed by
- * pspell_new_config will produce the exact same result.
- * However, after creating a new config, you can also use
- * pspell_config_* functions before calling
- * pspell_new_config to take advantage of some
- * advanced functionality.
- *
- * For more information and examples, check out inline manual pspell
- * website:http://aspell.net/.
- *
- * @param string $language The language parameter is the language code which consists of the
- * two letter ISO 639 language code and an optional two letter ISO
- * 3166 country code after a dash or underscore.
- * @param string $spelling The spelling parameter is the requested spelling for languages
- * with more than one spelling such as English. Known values are
- * 'american', 'british', and 'canadian'.
- * @param string $jargon The jargon parameter contains extra information to distinguish
- * two different words lists that have the same language and
- * spelling parameters.
- * @param string $encoding The encoding parameter is the encoding that words are expected to
- * be in.  Valid values are 'utf-8', 'iso8859-*', 'koi8-r',
- * 'viscii', 'cp1252', 'machine unsigned 16', 'machine unsigned
- * 32'. This parameter is largely untested, so be careful when
- * using.
- * @return int Returns an PSpell\Config instance on success.
- * @throws PspellException
- *
- */
-function pspell_config_create(string $language, string $spelling = "", string $jargon = "", string $encoding = ""): int
-{
-    error_clear_last();
-    $safeResult = \pspell_config_create($language, $spelling, $jargon, $encoding);
-    if ($safeResult === false) {
-        throw PspellException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  * This function is
  * currently not documented; only its argument list is available.
  *
@@ -499,3 +455,4 @@ function pspell_store_replacement(int $dictionary, string $misspelled, string $c
         throw PspellException::createFromPhpError();
     }
 }
+

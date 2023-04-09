@@ -35,7 +35,7 @@ class MethodTest extends TestCase
         $this->assertEquals('pattern', $params[0]->getParameterName());
     }
 
-    public function testGetTypeHintFromRessource()
+    public function testGetTypeHintFromResource()
     {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/sprintf.xml');
         $xmlObject = $docPage->getMethodSynopsis();

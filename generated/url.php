@@ -202,3 +202,4 @@ function parse_url(string $url, int $component = -1)
     }
     return $safeResult;
 }
+

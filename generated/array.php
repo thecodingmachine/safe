@@ -42,8 +42,6 @@ function array_walk_recursive(&$array, callable $callback, $arg = null): void
 
 /**
  * This function shuffles (randomizes the order of the elements in) an array.
- * It uses a pseudo random number generator that is not suitable for
- * cryptographic purposes.
  *
  * @param array $array The array.
  * @throws ArrayException
@@ -57,3 +55,4 @@ function shuffle(array &$array): void
         throw ArrayException::createFromPhpError();
     }
 }
+

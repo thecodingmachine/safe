@@ -105,11 +105,11 @@ jobs:
             echo "Generated files are the same as committed file: OK"
           else
             # Uncommitted changes
-            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
+            echo "Generated files are different from committed files. Please run './safe.php generate' command and commit the results."
             echo "Detected changes:"
             git status
             git diff
-            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
+            echo "Generated files are different from committed files. Please run './safe.php generate' command and commit the results."
             exit 1;
           fi
 

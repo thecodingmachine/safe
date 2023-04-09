@@ -545,3 +545,4 @@ function ftp_systype($ftp): string
     }
     return $safeResult;
 }
+

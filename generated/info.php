@@ -64,7 +64,7 @@ use Safe\Exceptions\InfoException;
  * voidassert_callback
  * stringfile
  * intline
- * stringassertion
+ * stringnullassertion
  * stringdescription
  *
  *
@@ -88,8 +88,10 @@ use Safe\Exceptions\InfoException;
  * assertion
  *
  *
- * The assertion that has been passed to assert,
- * converted to a string.
+ * Prior to PHP 8.0.0, the assertion which has been passed to assert,
+ * but only when the assertion is given as a string.
+ * (If the assertion is a boolean condition, this parameter will be an empty string.)
+ * As of PHP 8.0.0, this parameter is always NULL.
  *
  *
  *
@@ -173,7 +175,7 @@ function cli_set_process_title(string $title): void
  *
  *
  *
- * whether PHP has been built with (experimental) ZTS (Zend Thread Safety)
+ * whether PHP has been built with ZTS (Zend Thread Safety)
  * support or not
  *
  *
@@ -688,3 +690,4 @@ function set_time_limit(int $seconds): void
         throw InfoException::createFromPhpError();
     }
 }
+

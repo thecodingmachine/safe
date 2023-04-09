@@ -12,7 +12,7 @@ $ sh update.sh
 ```
 
 The script can be used to both install the doc and to update it.
-All it does is pull from theses mirrors:
+All it does is pull from these mirrors:
 
 https://github.com/salathe/phpdoc-base
 

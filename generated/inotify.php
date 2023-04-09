@@ -42,3 +42,4 @@ function inotify_rm_watch($inotify_instance, int $watch_descriptor): void
         throw InotifyException::createFromPhpError();
     }
 }
+

@@ -9,7 +9,7 @@ use Safe\Exceptions\LibeventException;
  * when the event specified in event_set occurs or in at least the time
  * specified by the timeout argument. If
  * timeout was not specified, not timeout is set. The
- * event must be already initalized by event_set
+ * event must be already initialized by event_set
  * and event_base_set functions. If the
  * event already has a timeout set, it is replaced by
  * the new one.

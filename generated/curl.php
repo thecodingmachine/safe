@@ -1777,8 +1777,9 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * CURL_SSLVERSION_SSLv2 (2),
  * CURL_SSLVERSION_SSLv3 (3),
  * CURL_SSLVERSION_TLSv1_0 (4),
- * CURL_SSLVERSION_TLSv1_1 (5) or
- * CURL_SSLVERSION_TLSv1_2 (6).
+ * CURL_SSLVERSION_TLSv1_1 (5),
+ * CURL_SSLVERSION_TLSv1_2 (6) or
+ * CURL_SSLVERSION_TLSv1_3 (7).
  * The maximum TLS version can be set by using one of the CURL_SSLVERSION_MAX_*
  * constants. It is also possible to OR one of the CURL_SSLVERSION_*
  * constants with one of the CURL_SSLVERSION_MAX_* constants.
@@ -3039,6 +3040,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  * Option
  * Set value to
+ * Notes
  *
  *
  *
@@ -3053,6 +3055,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ *
  * CURLOPT_PASSWDFUNCTION
  *
  * A callback accepting three parameters.
@@ -3060,6 +3063,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * string containing a password prompt, and the third is the maximum
  * password length. Return the string containing the password.
  *
+ * Removed as of PHP 7.3.0.
  *
  *
  * CURLOPT_PROGRESSFUNCTION
@@ -3086,6 +3090,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ *
  * CURLOPT_READFUNCTION
  *
  * A callback accepting three parameters.
@@ -3099,6 +3104,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ *
  * CURLOPT_WRITEFUNCTION
  *
  * A callback accepting two parameters.
@@ -3106,6 +3112,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * string with the data to be written. The data must be saved by
  * this callback. It must return the exact number of bytes written
  * or the transfer will be aborted with an error.
+ *
  *
  *
  *
@@ -3311,3 +3318,4 @@ function curl_upkeep(\CurlHandle $handle): void
         throw CurlException::createFromPhpError($handle);
     }
 }
+

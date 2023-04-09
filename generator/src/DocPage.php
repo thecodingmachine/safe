@@ -50,7 +50,7 @@ class DocPage
     {
         $file = file_get_contents($this->path);
         if ($file === false) {
-            throw new \RuntimeException('An error occured while reading '.$this->path);
+            throw new \RuntimeException('An error occurred while reading '.$this->path);
         }
 
         if ($this->getIsDeprecated($file)) {
@@ -149,7 +149,7 @@ class DocPage
     {
         $file = \file_get_contents($this->path);
         if ($file === false) {
-            throw new \RuntimeException('An error occured while reading '.$this->path);
+            throw new \RuntimeException('An error occurred while reading '.$this->path);
         }
 
         if ($this->getIsDeprecated($file)) {
@@ -178,7 +178,7 @@ class DocPage
     {
         $file = file_get_contents($this->path);
         if ($file === false) {
-            throw new \RuntimeException('An error occured while reading '.$this->path);
+            throw new \RuntimeException('An error occurred while reading '.$this->path);
         }
         if ($this->getIsDeprecated($file)) {
             return false;
@@ -203,7 +203,7 @@ class DocPage
 
         $file = \file_get_contents($this->path);
         if ($file === false) {
-            throw new \RuntimeException('An error occured while reading '.$this->path);
+            throw new \RuntimeException('An error occurred while reading '.$this->path);
         }
 
         // Only evaluate the synopsis inside the `<refsect1 role="description">...</refsect1>` section of the doc page.
@@ -220,7 +220,7 @@ class DocPage
             $cleaningFunction = \str_replace(['&false;', '&true;', '&null;'], ['false', 'true', 'null'], $function);
             $cleaningFunction = preg_replace('/&(.*);/m', '', $cleaningFunction);
             if (!\is_string($cleaningFunction)) {
-                throw new \RuntimeException('Error occured in preg_replace');
+                throw new \RuntimeException('Error occurred in preg_replace');
             }
             $cleanedFunctions[] = $cleaningFunction;
         }
@@ -243,7 +243,7 @@ class DocPage
     {
         $content = \file_get_contents($this->path);
         if ($content === false) {
-            throw new \RuntimeException('An error occured while reading '.$this->path);
+            throw new \RuntimeException('An error occurred while reading '.$this->path);
         }
         $strpos = \strpos($content, '?>')+2;
         if (!\file_exists(__DIR__.'/../doc/entities/generated.ent')) {

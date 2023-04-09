@@ -818,3 +818,4 @@ function syslog(int $priority, string $message): void
         throw NetworkException::createFromPhpError();
     }
 }
+

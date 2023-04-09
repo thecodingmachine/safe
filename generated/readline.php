@@ -123,3 +123,4 @@ function readline_write_history(string $filename = null): void
         throw ReadlineException::createFromPhpError();
     }
 }
+

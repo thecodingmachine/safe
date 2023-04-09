@@ -87,6 +87,9 @@ function class_uses($object_or_class, bool $autoload = true): array
  * @param callable(string):void $callback The autoload function being registered.
  * If NULL, then the default implementation of
  * spl_autoload will be registered.
+ *
+ * The class will not contain the leading
+ * backslash of a fully-qualified identifier.
  * @param bool $throw This parameter specifies whether
  * spl_autoload_register should throw
  * exceptions when the callback
@@ -134,3 +137,4 @@ function spl_autoload_unregister($callback): void
         throw SplException::createFromPhpError();
     }
 }
+

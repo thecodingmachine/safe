@@ -1653,3 +1653,4 @@ function oci_unregister_taf_callback($connection): void
         throw Oci8Exception::createFromPhpError();
     }
 }
+

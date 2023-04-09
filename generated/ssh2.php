@@ -715,7 +715,7 @@ function ssh2_sftp($session)
  *
  * @param resource $session An SSH connection link identifier, obtained from a call to
  * ssh2_connect.
- * @param string $term_type term_type should correspond to one of the
+ * @param string $termtype termtype should correspond to one of the
  * entries in the target system's /etc/termcap file.
  * @param array $env env may be passed as an associative array of
  * name/value pairs to set in the target environment.
@@ -728,22 +728,23 @@ function ssh2_sftp($session)
  * @throws Ssh2Exception
  *
  */
-function ssh2_shell($session, string $term_type = "vanilla", array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
+function ssh2_shell($session, string $termtype = "vanilla", array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
 {
     error_clear_last();
     if ($width_height_type !== SSH2_TERM_UNIT_CHARS) {
-        $safeResult = \ssh2_shell($session, $term_type, $env, $width, $height, $width_height_type);
+        $safeResult = \ssh2_shell($session, $termtype, $env, $width, $height, $width_height_type);
     } elseif ($height !== 25) {
-        $safeResult = \ssh2_shell($session, $term_type, $env, $width, $height);
+        $safeResult = \ssh2_shell($session, $termtype, $env, $width, $height);
     } elseif ($width !== 80) {
-        $safeResult = \ssh2_shell($session, $term_type, $env, $width);
+        $safeResult = \ssh2_shell($session, $termtype, $env, $width);
     } elseif ($env !== null) {
-        $safeResult = \ssh2_shell($session, $term_type, $env);
+        $safeResult = \ssh2_shell($session, $termtype, $env);
     } else {
-        $safeResult = \ssh2_shell($session, $term_type);
+        $safeResult = \ssh2_shell($session, $termtype);
     }
     if ($safeResult === false) {
         throw Ssh2Exception::createFromPhpError();
     }
     return $safeResult;
 }
+

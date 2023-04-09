@@ -35,7 +35,7 @@ function create_function(string $args, string $code): string
  * @throws FunchandException
  *
  */
-function register_tick_function(callable $callback, ...$args): void
+function register_tick_function(callable $callback,  ...$args): void
 {
     error_clear_last();
     if ($args !== []) {
@@ -47,3 +47,4 @@ function register_tick_function(callable $callback, ...$args): void
         throw FunchandException::createFromPhpError();
     }
 }
+

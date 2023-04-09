@@ -1518,7 +1518,7 @@ function tempnam(string $directory, string $prefix): string
 
 
 /**
- * Creates a temporary file with a unique name in read-write (w+) mode and
+ * Creates a temporary file with a unique name in read-write-binary (w+b) mode and
  * returns a file handle.
  *
  * The file is automatically removed when closed (for example, by calling
@@ -1603,3 +1603,4 @@ function unlink(string $filename, $context = null): void
         throw FilesystemException::createFromPhpError();
     }
 }
+

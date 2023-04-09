@@ -1473,69 +1473,6 @@ function imap_mail(string $to, string $subject, string $message, string $additio
 
 
 /**
- * Checks the current mailbox status on the server. It is similar to
- * imap_status, but will additionally sum up the size of
- * all messages in the mailbox, which will take some additional time to
- * execute.
- *
- * @param resource $imap An IMAP\Connection instance.
- * @return \stdClass Returns the information in an object with following properties:
- *
- * Mailbox properties
- *
- *
- *
- * Date
- * date of last change (current datetime)
- *
- *
- * Driver
- * driver
- *
- *
- * Mailbox
- * name of the mailbox
- *
- *
- * Nmsgs
- * number of messages
- *
- *
- * Recent
- * number of recent messages
- *
- *
- * Unread
- * number of unread messages
- *
- *
- * Deleted
- * number of deleted messages
- *
- *
- * Size
- * mailbox size
- *
- *
- *
- *
- *
- * Returns FALSE on failure.
- * @throws ImapException
- *
- */
-function imap_mailboxmsginfo($imap): \stdClass
-{
-    error_clear_last();
-    $safeResult = \imap_mailboxmsginfo($imap);
-    if ($safeResult === false) {
-        throw ImapException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  * Decodes MIME message header extensions that are non ASCII text (see RFC2047).
  *
  * @param string $string The MIME text
@@ -2287,3 +2224,4 @@ function imap_utf8_to_mutf7(string $string): string
     }
     return $safeResult;
 }
+

@@ -44,4 +44,5 @@ return [
     'preg_match' => ['int|false', 'pattern'=>'string', 'subject'=>'string', '&w_subpatterns='=>'string[]', 'flags='=>'int', 'offset='=>'int'], //int|false instead of 0|1|false
     'stream_filter_prepend' => ['resource', 'stream' => 'resource', 'filtername' => 'string', 'read_write' => 'int', 'params' => 'mixed'], // params mixed instead of array
     'stream_filter_append' => ['resource', 'stream' => 'resource', 'filtername' => 'string', 'read_write' => 'int', 'params' => 'mixed'], // params mixed instead of array
+	'mb_convert_encoding' => ['($string is string ? string : array)', 'string' => 'string|array', 'to_encoding' => 'string', 'from_encoding ' => 'array|string|null']	// helps to type hint the return depending of the first argument
 ];

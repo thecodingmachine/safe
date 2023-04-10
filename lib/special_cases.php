@@ -156,6 +156,9 @@ function apcu_fetch($key)
  *
  * @throws PcreException
  *
+ * @phpstan-template T of array|string
+ * @phpstan-param T $subject
+ * @phpstan-return T
  */
 function preg_replace($pattern, $replacement, $subject, int $limit = -1, int &$count = null)
 {

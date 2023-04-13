@@ -58,78 +58,6 @@ function date_parse_from_format(string $format, string $datetime): ?array
 
 
 /**
- * date_parse parses the given
- * datetime string according to the same rules as
- * strtotime and
- * DateTimeImmutable::__construct. Instead of returning a
- * Unix timestamp (with strtotime) or a
- * DateTimeImmutable object (with
- * DateTimeImmutable::__construct), it returns an
- * associative array with the information that it could detect in the given
- * datetime string.
- *
- * If no information about a certain group of elements can be found, these
- * array elements will be set to FALSE or are missing. If needed for
- * constructing a timestamp or DateTimeImmutable object from
- * the same datetime string, more fields can be set to
- * a non-FALSE value. See the examples for cases where that happens.
- *
- * @param string $datetime Date/time in format accepted by
- * DateTimeImmutable::__construct.
- * @return array{year: int|false, month: int|false, day: int|false, hour: int|false, minute: int|false, second: int|false, fraction: float|false, warning_count: int, warnings: string[], error_count: int, errors: string[], is_localtime: bool, zone_type: int|bool, zone: int|bool, is_dst: bool, tz_abbr: string, tz_id: string, relative: array{year: int, month: int, day: int, hour: int, minute: int, second: int, weekday: int, weekdays: int, first_day_of_month: bool, last_day_of_month: bool}}|null Returns array with information about the parsed date/time
- * on success.
- *
- * The returned array has keys for year,
- * month, day, hour,
- * minute, second,
- * fraction, and is_localtime.
- *
- * If is_localtime is present then
- * zone_type indicates the type of timezone. For type
- * 1 (UTC offset) the zone,
- * is_dst fields are added; for type 2
- * (abbreviation) the fields tz_abbr,
- * is_dst are added; and for type 3
- * (timezone identifier) the tz_abbr,
- * tz_id are added.
- *
- * If relative time elements are present in the
- * datetime string such as +3 days,
- * the then returned array includes a nested array with the key
- * relative. This array then contains the keys
- * year, month, day,
- * hour, minute,
- * second, and if necessary weekday, and
- * weekdays, depending on the string that was passed in.
- *
- * The array includes warning_count and
- * warnings fields. The first one indicate how many
- * warnings there were.
- * The keys of elements warnings array indicate the
- * position in the given datetime where the warning
- * occurred, with the string value describing the warning itself.
- *
- * The array also contains error_count and
- * errors fields. The first one indicate how many errors
- * were found.
- * The keys of elements errors array indicate the
- * position in the given datetime where the error
- * occurred, with the string value describing the error itself.
- * @throws DatetimeException
- *
- */
-function date_parse(string $datetime): ?array
-{
-    error_clear_last();
-    $safeResult = \date_parse($datetime);
-    if ($safeResult === false) {
-        throw DatetimeException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  *
  *
  * @param int $timestamp Unix timestamp.
@@ -435,38 +363,6 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, fl
         $safeResult = \date_sunset($timestamp, $returnFormat, $latitude);
     } else {
         $safeResult = \date_sunset($timestamp, $returnFormat);
-    }
-    if ($safeResult === false) {
-        throw DatetimeException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
- * Returns a string formatted according to the given format string using the
- * given integer timestamp (Unix timestamp) or the current time
- * if no timestamp is given. In other words, timestamp
- * is optional and defaults to the value of time.
- *
- * @param string $format Format accepted by DateTimeInterface::format.
- * @param int $timestamp The optional timestamp parameter is an
- * int Unix timestamp that defaults to the current
- * local time if timestamp is omitted or NULL. In other
- * words, it defaults to the value of time.
- * @return string Returns a formatted date string. If a non-numeric value is used for
- * timestamp, FALSE is returned and an
- * E_WARNING level error is emitted.
- * @throws DatetimeException
- *
- */
-function date(string $format, int $timestamp = null): string
-{
-    error_clear_last();
-    if ($timestamp !== null) {
-        $safeResult = \date($format, $timestamp);
-    } else {
-        $safeResult = \date($format);
     }
     if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();

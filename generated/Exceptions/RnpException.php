@@ -1,11 +1,7 @@
 <?php
-
 namespace Safe\Exceptions;
 
-/**
- * @deprecated This exception is deprecated
- */
-class PasswordException extends \ErrorException implements SafeExceptionInterface
+class RnpException extends \ErrorException implements SafeExceptionInterface
 {
     public static function createFromPhpError(): self
     {

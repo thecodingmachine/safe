@@ -1258,7 +1258,7 @@ function openssl_seal(string $data, ?string &$sealed_data, ?array &$encrypted_ke
  * @param string $data The string of data you wish to sign
  * @param string|null $signature If the call was successful the signature is returned in
  * signature.
- * @param resource|string $private_key OpenSSLAsymmetricKey - a key, returned by openssl_get_privatekey
+ * @param \OpenSSLAsymmetricKey|resource|string $private_key OpenSSLAsymmetricKey - a key, returned by openssl_get_privatekey
  *
  * string - a PEM formatted key
  * @param int|string $algorithm int - one of these Signature Algorithms.

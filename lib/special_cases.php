@@ -35,6 +35,8 @@ use Safe\Exceptions\SimplexmlException;
  */
 function json_decode(string $json, bool $assoc = false, int $depth = 512, int $flags = 0): mixed
 {
+    // Ensure json_last_error() is cleared...
+    \json_decode('[]');
     $data = \json_decode($json, $assoc, $depth, $flags);
     if (JSON_ERROR_NONE !== json_last_error()) {
         throw JsonException::createFromPhpError();

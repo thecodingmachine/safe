@@ -8,7 +8,8 @@ final class SpecialCasesTest extends TestCase
 {
     public function testJsonDecodeThrowsNoErrorOnValidJson(): void
     {
-      \json_decode('throws an error');
-      \Safe\json_decode('[]');
+        \json_decode('throws an error');
+        $array = \Safe\json_decode('[]', false, 512, JSON_THROW_ON_ERROR);
+        $this->assertSame([], $array);
     }
 }

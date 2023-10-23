@@ -265,7 +265,7 @@ function oci_bind_array_by_name($statement, string $param, array &$var, int $max
  *
  *
  * SQLT_BOL or OCI_B_BOL
- * - for PL/SQL BOOLEANs (Requires OCI8 2.0.7 and Oracle Database 12c)
+ * - for PL/SQL BOOLEANs (Requires Oracle Database 12c)
  *
  *
  *
@@ -303,7 +303,7 @@ function oci_bind_array_by_name($statement, string $param, array &$var, int $max
  * with oci_new_cursor;
  *
  * SQLT_BOL or OCI_B_BOL
- * - for PL/SQL BOOLEANs (Requires OCI8 2.0.7 and Oracle Database 12c)
+ * - for PL/SQL BOOLEANs (Requires Oracle Database 12c)
  * @throws Oci8Exception
  *
  */
@@ -375,9 +375,6 @@ function oci_commit($connection): void
  * of oci_connect.
  * See Connection Handling for general
  * information on connection management and connection pooling.
- *
- * From PHP 5.1.2 (PECL OCI8 1.1) oci_close can
- * be used to close the connection.
  *
  * The second and subsequent calls to oci_connect
  * with the same parameters will return the connection handle returned
@@ -564,10 +561,7 @@ function oci_define_by_name($statement, string $column, &$var, int $type = 0): v
  *
  *
  * OCI_NO_AUTO_COMMIT
- * Do not automatically commit changes.  Prior to PHP
- * 5.3.2 (PECL OCI8 1.4)
- * use OCI_DEFAULT which is equivalent
- * to OCI_NO_AUTO_COMMIT.
+ * Do not automatically commit changes.
  *
  *
  *
@@ -1589,7 +1583,7 @@ function oci_set_prefetch($statement, int $rows): void
  *
  *
  * CALL
- * Introduced in PHP 5.2.1 (PECL OCI8 1.2.3)
+ *
  *
  *
  * CREATE

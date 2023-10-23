@@ -188,7 +188,17 @@ function curl_exec(\CurlHandle $handle)
  *
  *
  *
+ * CURLINFO_REFERER - The referrer header
+ *
+ *
+ *
+ *
  * CURLINFO_REQUEST_SIZE - Total size of issued requests, currently only for HTTP requests
+ *
+ *
+ *
+ *
+ * CURLINFO_RETRY_AFTER - The information from the Retry-After: header, or zero if there was no valid header.
  *
  *
  *
@@ -214,6 +224,15 @@ function curl_exec(\CurlHandle $handle)
  *
  *
  * CURLINFO_PRIVATE - Private data associated with this cURL handle, previously set with the CURLOPT_PRIVATE option of curl_setopt
+ *
+ *
+ *
+ *
+ * CURLINFO_PROXY_ERROR - The detailed (SOCKS) proxy error code when the most recent
+ * transfer returned a CURLE_PROXY error. The returned value will be exactly one
+ * of the CURLPX_* values.
+ * The error code will be CURLPX_OK if no
+ * response code was available.
  *
  *
  *
@@ -298,7 +317,7 @@ function curl_exec(\CurlHandle $handle)
  *
  *
  *
- * CURLINFO_CONTENT_LENGTH_DOWNLOAD_T - The content-length of the download. This is the value read from the Content-Type: field. -1 if the size isn't known
+ * CURLINFO_CONTENT_LENGTH_DOWNLOAD_T - The content-length of the download. This is the value read from the Content-Length: field. -1 if the size isn't known
  *
  *
  *
@@ -634,27 +653,10 @@ function curl_multi_info_read(\CurlMultiHandle $multi_handle, ?int &$queued_mess
 
 
 /**
- * Allows the processing of multiple cURL handles asynchronously.
+ * Sets an option on the given cURL multi handle.
  *
- * @return \CurlMultiHandle Returns a cURL multi handle on success, FALSE on failure.
- * @throws CurlException
- *
- */
-function curl_multi_init(): \CurlMultiHandle
-{
-    error_clear_last();
-    $safeResult = \curl_multi_init();
-    if ($safeResult === false) {
-        throw CurlException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
- *
- *
- * @param \CurlMultiHandle $multi_handle
+ * @param \CurlMultiHandle $multi_handle A cURL multi handle returned by
+ * curl_multi_init.
  * @param int $option One of the CURLMOPT_* constants.
  * @param mixed $value The value to be set on option.
  *
@@ -709,6 +711,16 @@ function curl_multi_init(): \CurlMultiHandle
  *
  * Pass a number that specifies the size threshold for pipelining
  * penalty in bytes.
+ *
+ *
+ *
+ * CURLMOPT_MAX_CONCURRENT_STREAMS
+ *
+ * The set number will be used as the maximum number of concurrent streams for a connections that cURL
+ * should support on connections done using HTTP/2. Valid values range from
+ * 1 to 2147483647 (2^31 - 1).
+ * The value passed here would be honored based on other system resources properties.
+ * Default is 100.
  *
  *
  *
@@ -1521,6 +1533,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * CURLAUTH_DIGEST,
  * CURLAUTH_GSSNEGOTIATE,
  * CURLAUTH_NTLM,
+ * CURLAUTH_AWS_SIGV4,
  * CURLAUTH_ANY, and
  * CURLAUTH_ANYSAFE.
  *
@@ -1530,12 +1543,12 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * what methods it supports and pick the best one.
  *
  *
- * CURLAUTH_ANY is an alias for
- * CURLAUTH_BASIC | CURLAUTH_DIGEST | CURLAUTH_GSSNEGOTIATE | CURLAUTH_NTLM.
+ * CURLAUTH_ANY sets all bits. cURL will automatically select
+ * the one it finds most secure.
  *
  *
- * CURLAUTH_ANYSAFE is an alias for
- * CURLAUTH_DIGEST | CURLAUTH_GSSNEGOTIATE | CURLAUTH_NTLM.
+ * CURLAUTH_ANYSAFE sets all bits except CURLAUTH_BASIC.
+ * cURL will automatically select the one it finds most secure.
  *
  *
  *
@@ -1568,6 +1581,51 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * The number of seconds the transfer speed should be below
  * CURLOPT_LOW_SPEED_LIMIT before PHP considers
  * the transfer too slow and aborts.
+ *
+ *
+ *
+ *
+ *
+ * CURLOPT_MAIL_RCPT_ALLLOWFAILS
+ *
+ * Allow RCPT TO command to fail for some recipients.
+ *
+ *
+ * When sending data to multiple recipients, by default cURL will abort SMTP conversation if at least one of
+ * the recipients causes RCPT TO command to return an error. This option tells cURL to ignore errors and
+ * proceed with the remaining valid recipients. If all recipients trigger RCPT TO failures and this flag is
+ * set, cURL will abort the SMTP conversation and return the error received from the last RCPT TO command.
+ *
+ *
+ *
+ *
+ *
+ * CURLOPT_MAXAGE_CONN
+ *
+ * The maximum idle time allowed for an existing connection to be considered for reuse.
+ * Default maximum age is set to 118 seconds.
+ *
+ *
+ *
+ *
+ *
+ * CURLOPT_MAXFILESIZE_LARGE
+ *
+ * The maximum file size in bytes allowed to download. If the file requested is found larger than this value,
+ * the transfer will not start and CURLE_FILESIZE_EXCEEDED will be returned.
+ * The file size is not always known prior to download, and for such files this option has no effect even if
+ * the file transfer ends up being larger than this given limit.
+ *
+ *
+ *
+ *
+ *
+ * CURLOPT_MAXLIFETIME_CONN
+ *
+ * The maximum time in seconds, since the creation of the connection, that is allowed for an existing
+ * connection to have for it to be considered for reuse. If a connection is found in the cache that is older
+ * than this value, it will instead be closed once any in-progress transfers are complete.
+ * Default is 0 seconds, meaning the option is disabled and all connections are eligible for reuse.
  *
  *
  *
@@ -1639,6 +1697,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * CURLPROTO_DICT,
  * CURLPROTO_FILE,
  * CURLPROTO_TFTP,
+ * CURLPROTO_MQTT,
  * CURLPROTO_ALL
  *
  *
@@ -1751,6 +1810,29 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * present.
  *
  *
+ * CURLSSLOPT_AUTO_CLIENT_CERT: automatically
+ * locate and use a client certificate for authentication, when
+ * requested by the server. This option is only supported for
+ * Schannel (the native Windows SSL library).
+ *
+ *
+ * CURLSSLOPT_NATIVE_CA: use the operating system's
+ * native CA store for certificate verification. Works only on Windows
+ * when built to use OpenSSL. This option is experimental and behavior is subject to change.
+ *
+ *
+ * CURLSSLOPT_NO_PARTIALCHAIN: do not accept "partial" certificate
+ * chains, which cURL otherwise does by default. This option is only supported for OpenSSL
+ * and will fail the certificate verification if the chain ends with
+ * an intermediate certificate and not with a root certificate.
+ *
+ *
+ * CURLSSLOPT_REVOKE_BEST_EFFORT: ignore certificate revocation checks
+ * in case of missing or offline distribution points for those SSL backends where
+ * such behavior is present. This option is only supported for Schannel (the native Windows SSL library).
+ * If combined with CURLSSLOPT_NO_REVOKE, the latter takes precedence.
+ *
+ *
  *
  * Added in cURL 7.25.0. Available since PHP 7.0.7.
  *
@@ -1777,8 +1859,9 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * CURL_SSLVERSION_SSLv2 (2),
  * CURL_SSLVERSION_SSLv3 (3),
  * CURL_SSLVERSION_TLSv1_0 (4),
- * CURL_SSLVERSION_TLSv1_1 (5) or
- * CURL_SSLVERSION_TLSv1_2 (6).
+ * CURL_SSLVERSION_TLSv1_1 (5),
+ * CURL_SSLVERSION_TLSv1_2 (6) or
+ * CURL_SSLVERSION_TLSv1_3 (7).
  * The maximum TLS version can be set by using one of the CURL_SSLVERSION_MAX_*
  * constants. It is also possible to OR one of the CURL_SSLVERSION_*
  * constants with one of the CURL_SSLVERSION_MAX_* constants.
@@ -1970,6 +2053,28 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ * CURLOPT_UPKEEP_INTERVAL_MS
+ *
+ * Some protocols have "connection upkeep" mechanisms. These mechanisms usually send some traffic
+ * on existing connections in order to keep them alive. This option defines the connection upkeep interval.
+ * Currently, the only protocol with a connection upkeep mechanism is HTTP/2. When the connection upkeep
+ * interval is exceeded, an HTTP/2 PING frame is sent on the connection.
+ * Default is 60 seconds.
+ *
+ *
+ *
+ *
+ *
+ * CURLOPT_UPLOAD_BUFFERSIZE
+ *
+ * Preferred buffer size in bytes for the cURL upload buffer.
+ * The upload buffer size by default is 64 kilobytes. The maximum buffer size allowed to be set is 2 megabytes.
+ * The minimum buffer size allowed to be set is 16 kilobytes.
+ *
+ *
+ *
+ *
+ *
  * CURLOPT_MAX_RECV_SPEED_LARGE
  *
  * If a download exceeds this speed (counted in bytes per second) on
@@ -2026,8 +2131,9 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * CURLOPT_FTP_FILEMETHOD
  *
  * Tell curl which method to use to reach a file on a FTP(S) server. Possible values are
+ * CURLFTPMETHOD_DEFAULT,
  * CURLFTPMETHOD_MULTICWD,
- * CURLFTPMETHOD_NOCWD and
+ * CURLFTPMETHOD_NOCWD, and
  * CURLFTPMETHOD_SINGLECWD.
  *
  *
@@ -2043,6 +2149,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * CURLAUTH_DIGEST,
  * CURLAUTH_GSSNEGOTIATE,
  * CURLAUTH_NTLM,
+ * CURLAUTH_AWS_SIGV4,
  * CURLAUTH_ANY, and
  * CURLAUTH_ANYSAFE.
  *
@@ -2050,11 +2157,11 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * more than one method. If this is done, cURL will poll the server to see
  * what methods it supports and pick the best one.
  *
- * CURLAUTH_ANY is an alias for
- * CURLAUTH_BASIC | CURLAUTH_DIGEST | CURLAUTH_GSSNEGOTIATE | CURLAUTH_NTLM.
+ * CURLAUTH_ANY sets all bits. cURL will automatically select
+ * the one it finds most secure.
  *
- * CURLAUTH_ANYSAFE is an alias for
- * CURLAUTH_DIGEST | CURLAUTH_GSSNEGOTIATE | CURLAUTH_NTLM.
+ * CURLAUTH_ANYSAFE sets all bits except CURLAUTH_BASIC.
+ * cURL will automatically select the one it finds most secure.
  *
  * Bitmask of CURLPROTO_* values. If used, this bitmask
  * limits what protocols libcurl may use in the transfer. This allows you to have
@@ -2076,6 +2183,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * CURLPROTO_DICT,
  * CURLPROTO_FILE,
  * CURLPROTO_TFTP,
+ * CURLPROTO_MQTT,
  * CURLPROTO_ALL
  *
  * The SOCKS5 authentication method(s) to use. The options are:
@@ -2130,6 +2238,45 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ * CURLOPT_ALTSVC
+ *
+ * Pass the filename for cURL to use as the Alt-Svc cache file to read existing cache contents from and
+ * possibly also write it back to a after a transfer, unless CURLALTSVC_READONLYFILE
+ * is set via CURLOPT_ALTSVC_CTRL.
+ *
+ *
+ *
+ *
+ *
+ * CURLOPT_ALTSVC_CTRL
+ *
+ * Populate the bitmask with the correct set of features to instruct cURL how to handle Alt-Svc for the
+ * transfers using this handle. cURL only accepts Alt-Svc headers over HTTPS. It will also only complete
+ * a request to an alternative origin if that origin is properly hosted over HTTPS.
+ * Setting any bit will enable the alt-svc engine. The options are:
+ * CURLALTSVC_H1,
+ * CURLALTSVC_H2,
+ * CURLALTSVC_H3, and
+ * CURLALTSVC_READONLYFILE.
+ *
+ *
+ *
+ *
+ *
+ * CURLOPT_AWS_SIGV4
+ *
+ *
+ * Provides AWS V4 signature authentication on HTTP(S) header.
+ *
+ *
+ * This option overrides any other authentication types that have been set in
+ * CURLOPT_HTTPAUTH. This method cannot be combined with other authentication types.
+ *
+ *
+ *
+ *
+ *
+ *
  * CURLOPT_CAINFO
  *
  * The name of a file holding one or more certificates to verify the
@@ -2138,6 +2285,16 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  * Might require an absolute path.
+ *
+ *
+ *
+ * CURLOPT_CAINFO_BLOB
+ *
+ * The name of a PEM file holding one or more certificates to verify the
+ * peer with. This option overrides CURLOPT_CAINFO.
+ *
+ *
+ * Available as of PHP 8.2.0 and cURL 7.77.0
  *
  *
  *
@@ -2292,6 +2449,29 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ * CURLOPT_HSTS
+ *
+ *
+ * HSTS (HTTP Strict Transport Security) cache file name.
+ *
+ *
+ *
+ *
+ *
+ *
+ * CURLOPT_HSTS_CTRL
+ *
+ *
+ * Controls HSTS (HTTP Strict Transport Security) behavior. Populate the bitmask with the correct set of
+ * features to instruct cURL how to handle HSTS for the transfers using this handle.
+ * CURLHSTS_ENABLE enables the in-memory HSTS cache. If the HSTS cache file is defined,
+ * set CURLHSTS_READONLYFILE to make the file read-only.
+ *
+ *
+ *
+ *
+ *
+ *
  * CURLOPT_INTERFACE
  *
  * The name of the outgoing network interface to use. This can be an
@@ -2436,6 +2616,18 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  * Available since PHP 7.3.0 and libcurl &gt;= cURL 7.52.0.
+ *
+ *
+ *
+ * CURLOPT_PROXY_CAINFO_BLOB
+ *
+ * The name of a PEM file holding one or more certificates to verify the HTTPS proxy with.
+ * This option is for connecting to an HTTPS proxy, not an HTTPS server.
+ * Defaults set to the system path where libcurl's cacert bundle is assumed
+ * to be stored.
+ *
+ *
+ * Available as of PHP 8.2.0 and libcurl &gt;= cURL 7.77.0.
  *
  *
  *
@@ -2635,6 +2827,17 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ * CURLOPT_SASL_AUTHZID
+ *
+ * The authorization identity (authzid) for the transfer. Only applicable to the PLAIN SASL
+ * authentication mechanism where it is optional. When not specified, only the authentication identity
+ * (authcid) as specified by the username will be sent to the server, along with the password.
+ * The server will derive the authzid from the authcid when not provided, which it will then use internally.
+ *
+ *
+ *
+ *
+ *
  * CURLOPT_SERVICE_NAME
  *
  * The authentication service name.
@@ -2653,6 +2856,15 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  * Added in cURL 7.17.1.
+ *
+ *
+ *
+ * CURLOPT_SSH_HOST_PUBLIC_KEY_SHA256
+ *
+ * Base64-encoded SHA256 hash of the remote host's public key.
+ * The transfer will fail if the given hash does not match the hash the remote host provides.
+ *
+ *
  *
  *
  *
@@ -2685,6 +2897,17 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * A list of ciphers to use for SSL. For example,
  * RC4-SHA and TLSv1 are valid
  * cipher lists.
+ *
+ *
+ *
+ *
+ *
+ * CURLOPT_SSL_EC_CURVES
+ *
+ * A colon delimited list of elliptic curve algorithms. For example,
+ * X25519:P-521 is a valid list of two elliptic curves.
+ * This option defines the client's key exchange algorithms in the SSL handshake,
+ * if the SSL backend cURL is built to use supports it.
  *
  *
  *
@@ -2853,6 +3076,11 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ * Provides AWS V4 signature authentication on HTTP(S) header.
+ *
+ * This option overrides any other authentication types that have been set in
+ * CURLOPT_HTTPAUTH. This method cannot be combined with other authentication types.
+ *
  * A custom request method to use instead of
  * "GET" or "HEAD" when doing
  * a HTTP request. This is useful for doing
@@ -2882,6 +3110,13 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  * Set the local IPv6 address that the resolver should bind to. The argument
  * should contain a single numerical IPv6 address as a string.
+ *
+ * HSTS (HTTP Strict Transport Security) cache file name.
+ *
+ * Controls HSTS (HTTP Strict Transport Security) behavior. Populate the bitmask with the correct set of
+ * features to instruct cURL how to handle HSTS for the transfers using this handle.
+ * CURLHSTS_ENABLE enables the in-memory HSTS cache. If the HSTS cache file is defined,
+ * set CURLHSTS_READONLYFILE to make the file read-only.
  *
  * Secure Remote Password (SRP) authentication for TLS provides mutual authentication
  * if both sides have a shared secret. To use TLS-SRP, you must also set the
@@ -3039,6 +3274,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  * Option
  * Set value to
+ * Notes
  *
  *
  *
@@ -3053,6 +3289,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ *
  * CURLOPT_PASSWDFUNCTION
  *
  * A callback accepting three parameters.
@@ -3060,6 +3297,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * string containing a password prompt, and the third is the maximum
  * password length. Return the string containing the password.
  *
+ * Removed as of PHP 7.3.0.
  *
  *
  * CURLOPT_PROGRESSFUNCTION
@@ -3086,6 +3324,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ *
  * CURLOPT_READFUNCTION
  *
  * A callback accepting three parameters.
@@ -3099,6 +3338,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  *
  *
+ *
  * CURLOPT_WRITEFUNCTION
  *
  * A callback accepting two parameters.
@@ -3106,6 +3346,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  * string with the data to be written. The data must be saved by
  * this callback. It must return the exact number of bytes written
  * or the transfer will be aborted with an error.
+ *
  *
  *
  *
@@ -3167,26 +3408,6 @@ function curl_setopt(\CurlHandle $handle, int $option, $value): void
     if ($safeResult === false) {
         throw CurlException::createFromPhpError($handle);
     }
-}
-
-
-/**
- * Return an integer containing the last share curl error number.
- *
- * @param \CurlShareHandle $share_handle A cURL share handle returned by
- * curl_share_init.
- * @return int Returns an integer containing the last share curl error number.
- * @throws CurlException
- *
- */
-function curl_share_errno(\CurlShareHandle $share_handle): int
-{
-    error_clear_last();
-    $safeResult = \curl_share_errno($share_handle);
-    if ($safeResult === false) {
-        throw CurlException::createFromPhpError($share_handle);
-    }
-    return $safeResult;
 }
 
 

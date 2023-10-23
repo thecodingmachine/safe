@@ -406,6 +406,16 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  *
  *
  *
+ *
+ * FILE_NO_DEFAULT_CONTEXT
+ *
+ *
+ *
+ * Don't use the default context
+ *
+ *
+ *
+ *
  * @param resource $context
  * @return array Returns the file in an array. Each element of the array corresponds to a
  * line in the file, with the newline still attached. Upon failure,
@@ -1518,7 +1528,7 @@ function tempnam(string $directory, string $prefix): string
 
 
 /**
- * Creates a temporary file with a unique name in read-write (w+) mode and
+ * Creates a temporary file with a unique name in read-write-binary (w+b) mode and
  * returns a file handle.
  *
  * The file is automatically removed when closed (for example, by calling

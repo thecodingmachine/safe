@@ -8,6 +8,8 @@
 namespace Safe;
 
 use Safe\Exceptions\FilesystemException;
+use Safe\Exceptions\NetworkException;
+use function error_clear_last;
 use const PREG_NO_ERROR;
 
 use Safe\Exceptions\MiscException;
@@ -437,6 +439,21 @@ function fgetcsv($stream, int $length = null, string $separator = ",", string $e
     $safeResult = \fgetcsv($stream, $length, $separator, $enclosure, $escape);
     if ($safeResult === false && \feof($stream) === false) {
         throw FilesystemException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+/**
+ * @param string $ip A human readable IPv4 or IPv6 address.
+ * @return string Returns the in_addr representation of the given ip,
+ * @throws NetworkException
+ */
+function inet_pton(string $ip): string
+{
+    error_clear_last();
+    $safeResult = \inet_pton($ip);
+    if ($safeResult === false) {
+        throw NetworkException::createFromPhpError();
     }
     return $safeResult;
 }

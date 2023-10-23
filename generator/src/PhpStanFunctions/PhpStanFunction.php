@@ -21,7 +21,7 @@ class PhpStanFunction
     public function __construct(array $signature)
     {
         if (count($signature) < 1) {
-            throw new \RuntimeException('Invalid signoatures');
+            throw new \RuntimeException('Invalid signatures');
         }
         $this->returnType = new PhpStanType(\array_shift($signature));
         foreach ($signature as $name => $type) {

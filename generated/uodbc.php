@@ -14,6 +14,8 @@ use Safe\Exceptions\UodbcException;
  * see odbc_connect for details.
  * @param bool $enable If enable is TRUE, auto-commit is enabled, if
  * it is FALSE auto-commit is disabled.
+ * If NULL is passed, this function returns the auto-commit status for
+ * odbc.
  * @return mixed Without the enable parameter, this function returns
  * auto-commit status for odbc. Non-zero is
  * returned if auto-commit is on, 0 if it is off, or FALSE if an error
@@ -24,10 +26,14 @@ use Safe\Exceptions\UodbcException;
  * @throws UodbcException
  *
  */
-function odbc_autocommit($odbc, bool $enable = false)
+function odbc_autocommit($odbc, bool $enable = null)
 {
     error_clear_last();
-    $safeResult = \odbc_autocommit($odbc, $enable);
+    if ($enable !== null) {
+        $safeResult = \odbc_autocommit($odbc, $enable);
+    } else {
+        $safeResult = \odbc_autocommit($odbc);
+    }
     if ($safeResult === false) {
         throw UodbcException::createFromPhpError();
     }
@@ -991,7 +997,7 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  * One of SQL_SCOPE_CURROW, SQL_SCOPE_TRANSACTION
  * or SQL_SCOPE_SESSION.
  * @param int $nullable Determines whether to return special columns that can have a NULL value.
- * One of SQL_NO_NULLS or SQL_NULLABLE .
+ * One of SQL_NO_NULLS or SQL_NULLABLE.
  * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
@@ -1200,3 +1206,4 @@ function odbc_tables($odbc, string $catalog = null, string $schema = null, strin
     }
     return $safeResult;
 }
+

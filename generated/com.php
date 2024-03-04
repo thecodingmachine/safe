@@ -194,3 +194,4 @@ function variant_round($value, int $decimals)
     }
     return $safeResult;
 }
+

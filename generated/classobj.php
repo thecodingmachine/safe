@@ -11,7 +11,8 @@ use Safe\Exceptions\ClassobjException;
  *
  * @param string $class The original class.
  * @param string $alias The alias name for the class.
- * @param bool $autoload Whether to autoload if the original class is not found.
+ * @param bool $autoload Whether to autoload
+ * if the original class is not found.
  * @throws ClassobjException
  *
  */
@@ -23,3 +24,4 @@ function class_alias(string $class, string $alias, bool $autoload = true): void
         throw ClassobjException::createFromPhpError();
     }
 }
+

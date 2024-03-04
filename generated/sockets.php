@@ -117,9 +117,26 @@ function socket_addrinfo_lookup(string $host, $service = null, array $hints = []
 
 
 /**
+ * Determines whether socket is at out-of-band mark.
+ *
+ * @param \Socket $socket A Socket instance created with socket_create.
+ * @throws SocketsException
+ *
+ */
+function socket_atmark(\Socket $socket): void
+{
+    error_clear_last();
+    $safeResult = \socket_atmark($socket);
+    if ($safeResult === false) {
+        throw SocketsException::createFromPhpError();
+    }
+}
+
+
+/**
  * Binds the name given in address to the socket
  * described by socket. This has to be done before
- * a connection is be established using socket_connect
+ * a connection is established using socket_connect
  * or socket_listen.
  *
  * @param resource $socket A Socket instance created with socket_create.
@@ -851,3 +868,4 @@ function socket_wsaprotocol_info_release(string $info_id): void
         throw SocketsException::createFromPhpError();
     }
 }
+

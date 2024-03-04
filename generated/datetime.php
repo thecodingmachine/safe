@@ -5,6 +5,64 @@ namespace Safe;
 use Safe\Exceptions\DatetimeException;
 
 /**
+ * This is the procedural version of
+ * DateTimeImmutable::__construct.
+ *
+ * Unlike the DateTimeImmutable constructor, it will return
+ * FALSE instead of an exception if the passed in
+ * datetime string is invalid.
+ *
+ * @param string $datetime
+ * @param \\DateTimeZone|null $timezone
+ * @return \DateTimeImmutable Returns a new DateTimeImmutable instance
+ * @throws DatetimeException
+ *
+ */
+function date_create_immutable(string $datetime = "now", ?\\DateTimeZone $timezone = null): \DateTimeImmutable
+{
+    error_clear_last();
+    if ($timezone !== null) {
+        $safeResult = \date_create_immutable($datetime, $timezone);
+    } else {
+        $safeResult = \date_create_immutable($datetime);
+    }
+    if ($safeResult === false) {
+        throw DatetimeException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * This is the procedural version of
+ * DateTime::__construct.
+ *
+ * Unlike the DateTime constructor, it will return
+ * FALSE instead of an exception if the passed in
+ * datetime string is invalid.
+ *
+ * @param string|null $datetime
+ * @param \\DateTimeZone|null $timezone
+ * @return \DateTime Returns a new DateTime instance
+ * @throws DatetimeException
+ *
+ */
+function date_create(?string $datetime = "now", ?\\DateTimeZone $timezone = null): \DateTime
+{
+    error_clear_last();
+    if ($timezone !== null) {
+        $safeResult = \date_create($datetime, $timezone);
+    } else {
+        $safeResult = \date_create($datetime);
+    }
+    if ($safeResult === false) {
+        throw DatetimeException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Returns associative array with detailed info about given date/time.
  *
  * @param string $format Documentation on how the format is used, please
@@ -50,78 +108,6 @@ function date_parse_from_format(string $format, string $datetime): ?array
 {
     error_clear_last();
     $safeResult = \date_parse_from_format($format, $datetime);
-    if ($safeResult === false) {
-        throw DatetimeException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
- * date_parse parses the given
- * datetime string according to the same rules as
- * strtotime and
- * DateTimeImmutable::__construct. Instead of returning a
- * Unix timestamp (with strtotime) or a
- * DateTimeImmutable object (with
- * DateTimeImmutable::__construct), it returns an
- * associative array with the information that it could detect in the given
- * datetime string.
- *
- * If no information about a certain group of elements can be found, these
- * array elements will be set to FALSE or are missing. If needed for
- * constructing a timestamp or DateTimeImmutable object from
- * the same datetime string, more fields can be set to
- * a non-FALSE value. See the examples for cases where that happens.
- *
- * @param string $datetime Date/time in format accepted by
- * DateTimeImmutable::__construct.
- * @return array{year: int|false, month: int|false, day: int|false, hour: int|false, minute: int|false, second: int|false, fraction: float|false, warning_count: int, warnings: string[], error_count: int, errors: string[], is_localtime: bool, zone_type: int|bool, zone: int|bool, is_dst: bool, tz_abbr: string, tz_id: string, relative: array{year: int, month: int, day: int, hour: int, minute: int, second: int, weekday: int, weekdays: int, first_day_of_month: bool, last_day_of_month: bool}}|null Returns array with information about the parsed date/time
- * on success.
- *
- * The returned array has keys for year,
- * month, day, hour,
- * minute, second,
- * fraction, and is_localtime.
- *
- * If is_localtime is present then
- * zone_type indicates the type of timezone. For type
- * 1 (UTC offset) the zone,
- * is_dst fields are added; for type 2
- * (abbreviation) the fields tz_abbr,
- * is_dst are added; and for type 3
- * (timezone identifier) the tz_abbr,
- * tz_id are added.
- *
- * If relative time elements are present in the
- * datetime string such as +3 days,
- * the then returned array includes a nested array with the key
- * relative. This array then contains the keys
- * year, month, day,
- * hour, minute,
- * second, and if necessary weekday, and
- * weekdays, depending on the string that was passed in.
- *
- * The array includes warning_count and
- * warnings fields. The first one indicate how many
- * warnings there were.
- * The keys of elements warnings array indicate the
- * position in the given datetime where the warning
- * occurred, with the string value describing the warning itself.
- *
- * The array also contains error_count and
- * errors fields. The first one indicate how many errors
- * were found.
- * The keys of elements errors array indicate the
- * position in the given datetime where the error
- * occurred, with the string value describing the error itself.
- * @throws DatetimeException
- *
- */
-function date_parse(string $datetime): ?array
-{
-    error_clear_last();
-    $safeResult = \date_parse($datetime);
     if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
     }
@@ -435,93 +421,6 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, fl
         $safeResult = \date_sunset($timestamp, $returnFormat, $latitude);
     } else {
         $safeResult = \date_sunset($timestamp, $returnFormat);
-    }
-    if ($safeResult === false) {
-        throw DatetimeException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
- * Returns a string formatted according to the given format string using the
- * given integer timestamp (Unix timestamp) or the current time
- * if no timestamp is given. In other words, timestamp
- * is optional and defaults to the value of time.
- *
- * @param string $format Format accepted by DateTimeInterface::format.
- * @param int $timestamp The optional timestamp parameter is an
- * int Unix timestamp that defaults to the current
- * local time if timestamp is omitted or NULL. In other
- * words, it defaults to the value of time.
- * @return string Returns a formatted date string. If a non-numeric value is used for
- * timestamp, FALSE is returned and an
- * E_WARNING level error is emitted.
- * @throws DatetimeException
- *
- */
-function date(string $format, int $timestamp = null): string
-{
-    error_clear_last();
-    if ($timestamp !== null) {
-        $safeResult = \date($format, $timestamp);
-    } else {
-        $safeResult = \date($format);
-    }
-    if ($safeResult === false) {
-        throw DatetimeException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
- * Identical to mktime except the passed parameters represents a
- * GMT date. gmmktime internally uses mktime
- * so only times valid in derived local time can be used.
- *
- * Like mktime, arguments may be left out in order
- * from right to left, with any omitted arguments being set to the
- * current corresponding GMT value.
- *
- * @param int $hour The number of the hour relative to the start of the day determined by
- * month, day and year.
- * Negative values reference the hour before midnight of the day in question.
- * Values greater than 23 reference the appropriate hour in the following day(s).
- * @param int $minute The number of the minute relative to the start of the hour.
- * Negative values reference the minute in the previous hour.
- * Values greater than 59 reference the appropriate minute in the following hour(s).
- * @param int $second The number of seconds relative to the start of the minute.
- * Negative values reference the second in the previous minute.
- * Values greater than 59 reference the appropriate second in the following minute(s).
- * @param int $month The number of the month relative to the end of the previous year.
- * Values 1 to 12 reference the normal calendar months of the year in question.
- * Values less than 1 (including negative values) reference the months in the previous year in reverse order, so 0 is December, -1 is November, etc.
- * Values greater than 12 reference the appropriate month in the following year(s).
- * @param int $day The number of the day relative to the end of the previous month.
- * Values 1 to 28, 29, 30 or 31 (depending upon the month) reference the normal days in the relevant month.
- * Values less than 1 (including negative values) reference the days in the previous month, so 0 is the last day of the previous month, -1 is the day before that, etc.
- * Values greater than the number of days in the relevant month reference the appropriate day in the following month(s).
- * @param int $year The year
- * @return int Returns a int Unix timestamp on success.
- * @throws DatetimeException
- *
- */
-function gmmktime(int $hour, int $minute = null, int $second = null, int $month = null, int $day = null, int $year = null): int
-{
-    error_clear_last();
-    if ($year !== null) {
-        $safeResult = \gmmktime($hour, $minute, $second, $month, $day, $year);
-    } elseif ($day !== null) {
-        $safeResult = \gmmktime($hour, $minute, $second, $month, $day);
-    } elseif ($month !== null) {
-        $safeResult = \gmmktime($hour, $minute, $second, $month);
-    } elseif ($second !== null) {
-        $safeResult = \gmmktime($hour, $minute, $second);
-    } elseif ($minute !== null) {
-        $safeResult = \gmmktime($hour, $minute);
-    } else {
-        $safeResult = \gmmktime($hour);
     }
     if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
@@ -1157,3 +1056,4 @@ function timezone_name_from_abbr(string $abbr, int $utcOffset = -1, int $isDST =
     }
     return $safeResult;
 }
+

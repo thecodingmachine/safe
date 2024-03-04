@@ -5,6 +5,31 @@ namespace Safe;
 use Safe\Exceptions\StreamException;
 
 /**
+ * Sets options on the specified context.
+ *
+ * @param resource $context The stream or context resource to apply the options to.
+ * @param array $options The options to set for context.
+ *
+ * options must be an associative
+ * array of associative arrays in the format
+ * $array['wrapper']['option'] = $value.
+ *
+ * Refer to context options and parameters
+ * for a listing of stream options.
+ * @throws StreamException
+ *
+ */
+function stream_context_set_options($context, array $options): void
+{
+    error_clear_last();
+    $safeResult = \stream_context_set_options($context, $options);
+    if ($safeResult === false) {
+        throw StreamException::createFromPhpError();
+    }
+}
+
+
+/**
  * Sets parameters on the specified context.
  *
  * @param resource $context The stream or context to apply the parameters too.
@@ -762,3 +787,4 @@ function stream_wrapper_unregister(string $protocol): void
         throw StreamException::createFromPhpError();
     }
 }
+

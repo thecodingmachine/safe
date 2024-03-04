@@ -9,7 +9,8 @@ use Safe\Exceptions\SplException;
  * given object_or_class and its parents implement.
  *
  * @param object|string $object_or_class An object (class instance) or a string (class or interface name).
- * @param bool $autoload Whether to call __autoload by default.
+ * @param bool $autoload Whether to autoload
+ * if not already loaded.
  * @return array An array on success, or FALSE when the given class doesn't exist.
  * @throws SplException
  *
@@ -30,7 +31,8 @@ function class_implements($object_or_class, bool $autoload = true): array
  * the given object_or_class.
  *
  * @param object|string $object_or_class An object (class instance) or a string (class name).
- * @param bool $autoload Whether to call __autoload by default.
+ * @param bool $autoload Whether to autoload
+ * if not already loaded.
  * @return array An array on success, or FALSE when the given class doesn't exist.
  * @throws SplException
  *
@@ -52,7 +54,8 @@ function class_parents($object_or_class, bool $autoload = true): array
  * any traits used by a parent class.
  *
  * @param object|string $object_or_class An object (class instance) or a string (class name).
- * @param bool $autoload Whether to call __autoload by default.
+ * @param bool $autoload Whether to autoload
+ * if not already loaded.
  * @return array An array on success, or FALSE when the given class doesn't exist.
  * @throws SplException
  *
@@ -87,10 +90,18 @@ function class_uses($object_or_class, bool $autoload = true): array
  * @param callable(string):void $callback The autoload function being registered.
  * If NULL, then the default implementation of
  * spl_autoload will be registered.
+ *
+ * The class will not contain the leading
+ * backslash of a fully-qualified identifier.
  * @param bool $throw This parameter specifies whether
  * spl_autoload_register should throw
  * exceptions when the callback
  * cannot be registered.
+ *
+ * This parameter is ignored as of PHP 8.0.0, and a notice will be
+ * emitted if set to FALSE. spl_autoload_register
+ * will now always throw a TypeError on invalid
+ * arguments.
  * @param bool $prepend If true, spl_autoload_register will prepend
  * the autoloader on the autoload queue instead of appending it.
  * @throws SplException
@@ -134,3 +145,4 @@ function spl_autoload_unregister($callback): void
         throw SplException::createFromPhpError();
     }
 }
+

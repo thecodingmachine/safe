@@ -31,6 +31,32 @@ function posix_access(string $filename, int $flags = 0): void
 
 
 /**
+ * posix_eaccess checks the effective user's permission of a file
+ *
+ * @param string $filename The name of a file to be tested.
+ * @param int $flags A mask consisting of one or more of POSIX_F_OK,
+ * POSIX_R_OK, POSIX_W_OK and
+ * POSIX_X_OK.
+ *
+ * POSIX_R_OK, POSIX_W_OK and
+ * POSIX_X_OK request checking whether the file
+ * exists and has read, write and execute permissions, respectively.
+ * POSIX_F_OK just requests checking for the
+ * existence of the file.
+ * @throws PosixException
+ *
+ */
+function posix_eaccess(string $filename, int $flags = 0): void
+{
+    error_clear_last();
+    $safeResult = \posix_eaccess($filename, $flags);
+    if ($safeResult === false) {
+        throw PosixException::createFromPhpError();
+    }
+}
+
+
+/**
  * Gets information about a group provided its id.
  *
  * @param int $group_id The group id.
@@ -298,6 +324,8 @@ function posix_getpwuid(int $user_id): array
  * An unprivileged process may only set its soft limit to a value
  * from 0 to the hard limit, and irreversibly lower its hard limit.
  *
+ * @param  $resource If NULL all resource limits will be fetched.
+ * Otherwise, the only limits of the resource type provided will be returned.
  * @return array Returns an associative array of elements for each
  * limit that is defined. Each limit has a soft and a hard limit.
  *
@@ -386,10 +414,14 @@ function posix_getpwuid(int $user_id): array
  * @throws PosixException
  *
  */
-function posix_getrlimit(): array
+function posix_getrlimit($resource = null): array
 {
     error_clear_last();
-    $safeResult = \posix_getrlimit();
+    if ($resource !== null) {
+        $safeResult = \posix_getrlimit($resource);
+    } else {
+        $safeResult = \posix_getrlimit();
+    }
     if ($safeResult === false) {
         throw PosixException::createFromPhpError();
     }
@@ -731,3 +763,4 @@ function posix_uname(): array
     }
     return $safeResult;
 }
+

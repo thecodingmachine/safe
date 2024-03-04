@@ -42,3 +42,4 @@ function lzf_decompress(string $data): string
     }
     return $safeResult;
 }
+

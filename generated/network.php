@@ -5,23 +5,6 @@ namespace Safe;
 use Safe\Exceptions\NetworkException;
 
 /**
- * closelog closes the descriptor being used to write to
- * the system logger.  The use of closelog is optional.
- *
- * @throws NetworkException
- *
- */
-function closelog(): void
-{
-    error_clear_last();
-    $safeResult = \closelog();
-    if ($safeResult === false) {
-        throw NetworkException::createFromPhpError();
-    }
-}
-
-
-/**
  * Fetch DNS Resource Records associated with the given
  * hostname.
  *
@@ -747,74 +730,3 @@ function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, 
     return $safeResult;
 }
 
-
-/**
- * syslog generates a log message that will be
- * distributed by the system logger.
- *
- * For information on setting up a user defined log handler, see the
- * syslog.conf
- * 5 Unix manual page.  More
- * information on the syslog facilities and option can be found in the man
- * pages for syslog
- * 3 on Unix machines.
- *
- * @param int $priority priority is a combination of the facility and
- * the level. Possible values are:
- *
- * syslog Priorities (in descending order)
- *
- *
- *
- * Constant
- * Description
- *
- *
- *
- *
- * LOG_EMERG
- * system is unusable
- *
- *
- * LOG_ALERT
- * action must be taken immediately
- *
- *
- * LOG_CRIT
- * critical conditions
- *
- *
- * LOG_ERR
- * error conditions
- *
- *
- * LOG_WARNING
- * warning conditions
- *
- *
- * LOG_NOTICE
- * normal, but significant, condition
- *
- *
- * LOG_INFO
- * informational message
- *
- *
- * LOG_DEBUG
- * debug-level message
- *
- *
- *
- *
- * @param string $message The message to send.
- * @throws NetworkException
- *
- */
-function syslog(int $priority, string $message): void
-{
-    error_clear_last();
-    $safeResult = \syslog($priority, $message);
-    if ($safeResult === false) {
-        throw NetworkException::createFromPhpError();
-    }
-}

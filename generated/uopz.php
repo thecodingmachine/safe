@@ -38,3 +38,4 @@ function uopz_implement(string $class, string $interface): void
         throw UopzException::createFromPhpError();
     }
 }
+

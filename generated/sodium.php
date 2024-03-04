@@ -247,24 +247,6 @@ function sodium_crypto_box_seal_open(string $ciphertext, string $key_pair): stri
 
 
 /**
- * Appends a message to the internal hash state.
- *
- * @param string $state The return value of sodium_crypto_generichash_init.
- * @param string $message Data to append to the hashing state.
- * @throws SodiumException
- *
- */
-function sodium_crypto_generichash_update(string &$state, string $message): void
-{
-    error_clear_last();
-    $safeResult = \sodium_crypto_generichash_update($state, $message);
-    if ($safeResult === false) {
-        throw SodiumException::createFromPhpError();
-    }
-}
-
-
-/**
  * Decrypt an encrypted message with a symmetric (shared) key.
  *
  * @param string $ciphertext Must be in the format provided by sodium_crypto_secretbox
@@ -348,3 +330,4 @@ function sodium_crypto_stream_xchacha20_xor_ic(string $message, string $nonce, i
     }
     return $safeResult;
 }
+

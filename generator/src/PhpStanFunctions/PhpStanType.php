@@ -30,7 +30,7 @@ class PhpStanType
      */
     private $types;
 
-    public function __construct(string $data, bool $writeOnly = false)
+    public function __construct(string $data, bool $writeOnly = false, bool $isReturnType = false)
     {
         //weird case: null|false => null
         if ($data === 'null|false') {
@@ -57,6 +57,9 @@ class PhpStanType
         if (($falsablePosition = \array_search('false', $returnTypes)) !== false) {
             $falsable = true;
             \array_splice($returnTypes, (int) $falsablePosition, 1);
+            if ($isReturnType === false) {
+                $returnTypes[] = 'bool';
+            }
         }
         /** @var int $count */
         $count = \count($returnTypes);
@@ -76,9 +79,13 @@ class PhpStanType
             //here we deal with some weird phpstan typings
             if ($returnType === 'non-empty-string') {
                 $returnType = 'string';
+            } elseif ($returnType === 'non-falsy-string') {
+                $returnType = 'string';
             } elseif ($returnType === 'positive-int') {
                 $returnType = 'int';
             } elseif (is_numeric($returnType)) {
+                $returnType = 'int';
+            } elseif (\strpos($returnType, 'int<') !== false) {
                 $returnType = 'int';
             }
             if (\strpos($returnType, 'list<') !== false) {

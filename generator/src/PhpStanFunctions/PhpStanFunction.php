@@ -23,7 +23,7 @@ class PhpStanFunction
         if (count($signature) < 1) {
             throw new \RuntimeException('Invalid signatures');
         }
-        $this->returnType = new PhpStanType(\array_shift($signature));
+        $this->returnType = new PhpStanType(\array_shift($signature), false, true);
         foreach ($signature as $name => $type) {
             $param = new PhpStanParameter($name, $type);
             $this->parameters[$param->getName()] = $param;

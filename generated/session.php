@@ -149,7 +149,7 @@ function session_encode(): string
  * @throws SessionException
  *
  */
-function session_id(string $id = null): string
+function session_id(?string $id = null): string
 {
     error_clear_last();
     if ($id !== null) {
@@ -178,7 +178,7 @@ function session_id(string $id = null): string
  * @throws SessionException
  *
  */
-function session_module_name(string $module = null): string
+function session_module_name(?string $module = null): string
 {
     error_clear_last();
     if ($module !== null) {
@@ -235,7 +235,7 @@ function session_module_name(string $module = null): string
  * @throws SessionException
  *
  */
-function session_name(string $name = null): string
+function session_name(?string $name = null): string
 {
     error_clear_last();
     if ($name !== null) {
@@ -316,7 +316,7 @@ function session_reset(): void
  * @throws SessionException
  *
  */
-function session_save_path(string $path = null): string
+function session_save_path(?string $path = null): string
 {
     error_clear_last();
     if ($path !== null) {

@@ -298,7 +298,7 @@ function gzfile(string $filename, int $use_include_path = 0): array
  * @throws ZlibException
  *
  */
-function gzgets($stream, int $length = null): string
+function gzgets($stream, ?int $length = null): string
 {
     error_clear_last();
     if ($length !== null) {
@@ -327,7 +327,7 @@ function gzgets($stream, int $length = null): string
  * @throws ZlibException
  *
  */
-function gzgetss($zp, int $length, string $allowable_tags = null): string
+function gzgetss($zp, int $length, ?string $allowable_tags = null): string
 {
     error_clear_last();
     if ($allowable_tags !== null) {
@@ -508,7 +508,7 @@ function gzuncompress(string $data, int $max_length = 0): string
  * @throws ZlibException
  *
  */
-function gzwrite($stream, string $data, int $length = null): int
+function gzwrite($stream, string $data, ?int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {

@@ -1810,3 +1810,4 @@ function ps_translate($psdoc, float $x, float $y): void
         throw PsException::createFromPhpError();
     }
 }
+

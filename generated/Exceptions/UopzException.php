@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class UopzException extends \ErrorException implements SafeExceptionInterface

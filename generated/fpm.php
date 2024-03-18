@@ -43,3 +43,4 @@ function fpm_get_status(): int
     }
     return $safeResult;
 }
+

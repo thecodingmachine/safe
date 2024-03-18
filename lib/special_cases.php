@@ -158,7 +158,7 @@ function apcu_fetch($key)
  * @throws PcreException
  *
  */
-function preg_replace($pattern, $replacement, $subject, int $limit = -1, int &$count = null)
+function preg_replace($pattern, $replacement, $subject, int $limit = -1, ?int &$count = null)
 {
     error_clear_last();
     $result = \preg_replace($pattern, $replacement, $subject, $limit, $count);
@@ -431,7 +431,7 @@ function fputcsv($stream, array $fields, string $separator = ",", string $enclos
  * @throws FilesystemException
  *
  */
-function fgetcsv($stream, int $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\"): array|false
+function fgetcsv($stream, ?int $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\"): array|false
 {
     error_clear_last();
     $safeResult = \fgetcsv($stream, $length, $separator, $enclosure, $escape);

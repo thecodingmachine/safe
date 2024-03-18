@@ -56,3 +56,4 @@ function json_encode($value, int $flags = 0, int $depth = 512): string
     }
     return $safeResult;
 }
+

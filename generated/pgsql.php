@@ -150,7 +150,7 @@ function pg_convert($connection, string $table_name, array $values, int $flags =
  * @throws PgsqlException
  *
  */
-function pg_copy_from($connection, string $table_name, array $rows, string $separator = "\t", string $null_as = "\\\\N"): void
+function pg_copy_from($connection, string $table_name, array $rows, string $separator = "\t", string $null_as = "\\N"): void
 {
     error_clear_last();
     $safeResult = \pg_copy_from($connection, $table_name, $rows, $separator, $null_as);
@@ -175,7 +175,7 @@ function pg_copy_from($connection, string $table_name, array $rows, string $sepa
  * @throws PgsqlException
  *
  */
-function pg_copy_to($connection, string $table_name, string $separator = "\t", string $null_as = "\\\\N"): array
+function pg_copy_to($connection, string $table_name, string $separator = "\t", string $null_as = "\\N"): array
 {
     error_clear_last();
     $safeResult = \pg_copy_to($connection, $table_name, $separator, $null_as);
@@ -1375,3 +1375,4 @@ function pg_update($connection, string $table_name, array $values, array $condit
     }
     return $safeResult;
 }
+

@@ -23,7 +23,7 @@
   },
   "scripts": {
     "test": "vendor/bin/phpunit",
-    "phpstan": "phpstan analyse src -c phpstan.neon --level=max --no-progress -vvv",
+    "phpstan": "phpstan",
     "cs-fix": "phpcbf",
     "cs-check": "phpcs"
   },

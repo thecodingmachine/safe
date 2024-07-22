@@ -94,10 +94,9 @@ class Scanner
 
         $ignoredModules = $this->getIgnoredModules();
         $ignoredModules = \array_combine($ignoredModules, $ignoredModules);
-
+        
         foreach ($paths as $path) {
-            $module = \basename(\dirname($path->getPath()));
-
+            $module = \basename(\dirname($path->getPath(), 2));
             if (isset($ignoredModules[$module])) {
                 continue;
             }

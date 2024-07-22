@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class ComException extends \ErrorException implements SafeExceptionInterface

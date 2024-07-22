@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class GnupgException extends \ErrorException implements SafeExceptionInterface

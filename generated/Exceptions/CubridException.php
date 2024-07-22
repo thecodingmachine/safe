@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class CubridException extends \ErrorException implements SafeExceptionInterface

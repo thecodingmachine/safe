@@ -2,7 +2,7 @@
 
 namespace Safe\Exceptions;
 
-class PosixException extends \ErrorException implements SafeExceptionInterface
+class ArrayException extends \ErrorException implements SafeExceptionInterface
 {
     public static function createFromPhpError(): self
     {

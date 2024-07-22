@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class NetworkException extends \ErrorException implements SafeExceptionInterface

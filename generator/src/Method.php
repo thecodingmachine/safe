@@ -35,7 +35,7 @@ class Method
      * The function prototype from the phpstan internal documentation (functionMap.php)
      * @var PhpStanFunction|null
      */
-    private $phpstanSignarure;
+    private $phpstanSignature;
     /**
      * @var PhpStanType
      */
@@ -48,8 +48,8 @@ class Method
         $this->moduleName = $moduleName;
         $this->errorType = $errorType;
         $functionName = $this->getFunctionName();
-        $this->phpstanSignarure = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
-        $this->returnType = $this->phpstanSignarure ? $this->phpstanSignarure->getReturnType() : new PhpStanType($this->functionObject->type->__toString());
+        $this->phpstanSignature = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
+        $this->returnType = $this->phpstanSignature ? $this->phpstanSignature->getReturnType() : new PhpStanType($this->functionObject->type->__toString());
     }
 
     public function getFunctionName(): string
@@ -76,7 +76,7 @@ class Method
             if (!isset($this->functionObject->methodparam)) {
                 return [];
             }
-            $phpStanFunction = $this->phpstanSignarure;
+            $phpStanFunction = $this->phpstanSignature;
             $params = [];
             $i=1;
             foreach ($this->functionObject->methodparam as $param) {

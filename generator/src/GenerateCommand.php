@@ -110,9 +110,9 @@ class GenerateCommand extends Command
         $process->setTimeout(600);
         $process->run(function ($type, $buffer) use ($output) {
             if (Process::ERR === $type) {
-                echo $output->write('<error>'.$buffer.'</error>');
+                $output->write('<error>'.$buffer.'</error>');
             } else {
-                echo $output->write($buffer);
+                $output->write($buffer);
             }
         });
     }

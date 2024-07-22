@@ -2,7 +2,7 @@ parameters:
     paths:
         - ./src
     # The level 9 is the highest level (with check for mixed type)
-    level: 4
+    level: 8
     ignoreErrors:
 includes:
     - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon

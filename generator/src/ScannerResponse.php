@@ -1,28 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 class ScannerResponse
 {
     /**
-     * @readonly
-     * @var Method[]
-     */
-    public array $methods;
-
-    /**
-     * @readonly
-     * @var string[]
-     */
-    public array $overloadedFunctions;
-
-    /**
      * @param Method[] $methods
      * @param string[] $overloadedFunctions
      */
-    public function __construct(array $methods, array $overloadedFunctions)
-    {
-        $this->methods = $methods;
-        $this->overloadedFunctions = $overloadedFunctions;
+    public function __construct(
+        /**
+         * @readonly
+         */
+        public array $methods,
+        /**
+         * @readonly
+         */
+        public array $overloadedFunctions
+    ) {
     }
 }

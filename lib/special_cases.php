@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file contains all the functions that could not be dealt with automatically using the code generator.
  * If you add a function in this list, do not forget to add it in the generator/config/specialCasesFunctions.php
@@ -8,6 +9,7 @@
 namespace Safe;
 
 use Safe\Exceptions\FilesystemException;
+
 use const PREG_NO_ERROR;
 
 use Safe\Exceptions\MiscException;

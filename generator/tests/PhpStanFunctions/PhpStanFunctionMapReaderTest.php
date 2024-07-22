@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe\PhpStanFunctions;
 
 use PHPUnit\Framework\TestCase;
@@ -8,20 +10,20 @@ class PhpStanFunctionMapReaderTest extends TestCase
 {
     public function testHas(): void
     {
-        $mapReader = new PhpStanFunctionMapReader();
-        $this->assertTrue($mapReader->hasFunction('strpos'));
-        $this->assertFalse($mapReader->hasFunction('foobar'));
+        $phpStanFunctionMapReader = new PhpStanFunctionMapReader();
+        $this->assertTrue($phpStanFunctionMapReader->hasFunction('strpos'));
+        $this->assertFalse($phpStanFunctionMapReader->hasFunction('foobar'));
     }
 
     public function testGet(): void
     {
-        $mapReader = new PhpStanFunctionMapReader();
-        $function = $mapReader->getFunction('apcu_fetch');
+        $phpStanFunctionMapReader = new PhpStanFunctionMapReader();
+        $phpStanFunction = $phpStanFunctionMapReader->getFunction('apcu_fetch');
 
 
         // 'apcu_fetch' => ['mixed', 'key'=>'string|string[]', '&w_success='=>'bool'],
-        $this->assertSame('mixed', $function->getReturnType()->getDocBlockType());
-        $parameters = $function->getParameters();
+        $this->assertSame('mixed', $phpStanFunction->getReturnType()->getDocBlockType());
+        $parameters = $phpStanFunction->getParameters();
         $this->assertCount(2, $parameters);
         $this->assertSame('success', $parameters['success']->getName());
         $this->assertSame('bool|null', $parameters['success']->getType()->getDocBlockType());

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe;
 
@@ -8,8 +9,8 @@ namespace Safe;
  */
 class ComposerJsonEditor
 {
-    private const COMPOSER_FILEPATH = __DIR__.'/../../composer.json';
-    
+    private const COMPOSER_FILEPATH = __DIR__ . '/../../composer.json';
+
     public static function editComposerFileForDeprecation(string $moduleName): void
     {
 
@@ -17,6 +18,7 @@ class ComposerJsonEditor
         if ($composerContent === false) {
             throw new \RuntimeException('Error while loading composer.json file for edition.');
         }
+
         /** @var array<string, array<string, string[]>> $composerJson */
         $composerJson = \json_decode($composerContent, true);
         $composerJson['autoload']['files'] = self::editFileListForDeprecation($composerJson['autoload']['files'], $moduleName);
@@ -30,11 +32,12 @@ class ComposerJsonEditor
      */
     public static function editComposerFileForGeneration(array $modules): void
     {
-        
+
         $composerContent = file_get_contents(self::COMPOSER_FILEPATH);
         if ($composerContent === false) {
             throw new \RuntimeException('Error while loading composer.json file for edition.');
         }
+
         /** @var array<string, array<string, string[]>> $composerJson */
         $composerJson = \json_decode($composerContent, true);
         $composerJson['autoload']['files'] = self::editFilesListForGeneration($composerJson['autoload']['files'], $modules);
@@ -42,10 +45,7 @@ class ComposerJsonEditor
         $newContent = \json_encode($composerJson, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES);
         \file_put_contents(self::COMPOSER_FILEPATH, $newContent);
     }
-    
-    
-    
-    
+
     /**
      * @param string[] $oldFiles
      * @param string[] $modules A list of modules
@@ -53,12 +53,11 @@ class ComposerJsonEditor
      */
     public static function editFilesListForGeneration(array $oldFiles, array $modules): array
     {
-        $files = array_values(array_filter($oldFiles, function ($file) {
-            return strpos($file, 'generated/') === false;
-        }));
+        $files = array_values(array_filter($oldFiles, fn($file): bool => !str_contains($file, 'generated/')));
         foreach ($modules as $module) {
-            $files[] = 'generated/'.lcfirst($module).'.php';
+            $files[] = 'generated/' . lcfirst($module) . '.php';
         }
+
         return $files;
     }
 
@@ -70,11 +69,7 @@ class ComposerJsonEditor
     {
         $newList = [];
         foreach ($fileList as $fileName) {
-            if ($fileName === "generated/$moduleName.php") {
-                $newList[] = "deprecated/$moduleName.php";
-            } else {
-                $newList[] = $fileName;
-            }
+            $newList[] = $fileName === sprintf('generated/%s.php', $moduleName) ? sprintf('deprecated/%s.php', $moduleName) : $fileName;
         }
 
         return $newList;

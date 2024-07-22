@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe\PhpStanFunctions;
 
@@ -7,31 +8,25 @@ use Safe\Type;
 
 class PhpStanParameter
 {
-    /**
-     * @var string
-     */
-    private $name;
-    /**
-     * @var PhpStanType
-     */
-    private $type;
+    private readonly string $name;
+
+    private readonly \Safe\PhpStanFunctions\PhpStanType $phpStanType;
 
     public function __construct(string $name, string $type)
     {
         $writeOnly = false;
-        if (\strpos($name, '&w_') !== false) {
+        if (str_contains($name, '&w_')) {
             $writeOnly = true;
         }
+
         $name = \str_replace(['&rw_', '&w_'], '', $name);
         $name = trim($name, '=.&');
 
         $this->name = $name;
-        $this->type = new PhpStanType($type, $writeOnly);
+
+        $this->phpStanType = new PhpStanType($type, $writeOnly);
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
@@ -39,6 +34,6 @@ class PhpStanParameter
 
     public function getType(): PhpStanType
     {
-        return $this->type;
+        return $this->phpStanType;
     }
 }

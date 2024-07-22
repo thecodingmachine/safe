@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class FilterException extends \ErrorException implements SafeExceptionInterface

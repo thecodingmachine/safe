@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class ArrayException extends \ErrorException implements SafeExceptionInterface

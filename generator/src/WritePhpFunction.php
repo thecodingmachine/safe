@@ -1,17 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 class WritePhpFunction
 {
-    /**
-     * @var Method
-     */
-    private $method;
-
-    public function __construct(Method $method)
+    public function __construct(private Method $method)
     {
-        $this->method = $method;
     }
 
     /*
@@ -19,11 +15,12 @@ class WritePhpFunction
      */
     public function getPhpPrototypeFunction(): string
     {
-        if ($this->method->getFunctionName()) {
+        if ($this->method->getFunctionName() !== '' && $this->method->getFunctionName() !== '0') {
             $returnType = $this->method->getSignatureReturnType();
-            $returnType = $returnType ? ': '.$returnType : '';
-            return 'function '.$this->method->getFunctionName().'('.$this->displayParamsWithType($this->method->getParams()).')'.$returnType.'{}';
+            $returnType = $returnType !== '' && $returnType !== '0' ? ': ' . $returnType : '';
+            return 'function ' . $this->method->getFunctionName() . '(' . $this->displayParamsWithType($this->method->getParams()) . ')' . $returnType . '{}';
         }
+
         return '';
     }
 
@@ -32,9 +29,10 @@ class WritePhpFunction
      */
     public function getPhpFunctionalFunction(): string
     {
-        if ($this->getPhpPrototypeFunction()) {
+        if ($this->getPhpPrototypeFunction() !== '' && $this->getPhpPrototypeFunction() !== '0') {
             return $this->writePhpFunction();
         }
+
         return '';
     }
 
@@ -45,11 +43,13 @@ class WritePhpFunction
     {
         $phpFunction = $this->method->getPhpDoc();
         $returnType = $this->method->getSignatureReturnType();
-        $returnType = $returnType ? ': '.$returnType : '';
+        $returnType = $returnType !== '' && $returnType !== '0' ? ': ' . $returnType : '';
+
         $returnStatement = '';
         if ($this->method->getSignatureReturnType() !== 'void') {
             $returnStatement = "    return \$safeResult;\n";
         }
+
         $moduleName = $this->method->getModuleName();
 
         $phpFunction .= "function {$this->method->getFunctionName()}({$this->displayParamsWithType($this->method->getParams())}){$returnType}
@@ -58,25 +58,27 @@ class WritePhpFunction
 ";
 
         if (!$this->method->isOverloaded()) {
-            $phpFunction .= '    $safeResult = '.$this->printFunctionCall($this->method);
+            $phpFunction .= '    $safeResult = ' . $this->printFunctionCall($this->method);
         } else {
             $method = $this->method;
             $inElse = false;
             do {
-                $lastParameter = $method->getParams()[count($method->getParams())-1];
+                $lastParameter = $method->getParams()[count($method->getParams()) - 1];
                 if ($inElse) {
                     $phpFunction .= ' else';
                 } else {
                     $phpFunction .= '    ';
                 }
+
                 if ($lastParameter->isVariadic()) {
                     $defaultValueToString = '[]';
                 } else {
                     $defaultValue = $lastParameter->getDefaultValue();
                     $defaultValueToString = $this->defaultValueToString($defaultValue);
                 }
-                $phpFunction .= 'if ($'.$lastParameter->getParameterName().' !== '.$defaultValueToString.') {'."\n";
-                $phpFunction .= '        $safeResult = '.$this->printFunctionCall($method)."\n";
+
+                $phpFunction .= 'if ($' . $lastParameter->getParameterName() . ' !== ' . $defaultValueToString . ') {' . "\n";
+                $phpFunction .= '        $safeResult = ' . $this->printFunctionCall($method) . "\n";
                 $phpFunction .= '    }';
                 $inElse = true;
                 $method = $method->cloneAndRemoveAParameter();
@@ -84,41 +86,33 @@ class WritePhpFunction
                     break;
                 }
             } while (true);
-            $phpFunction .= ' else {'."\n";
-            $phpFunction .= '        $safeResult = '.$this->printFunctionCall($method)."\n";
+
+            $phpFunction .= ' else {' . "\n";
+            $phpFunction .= '        $safeResult = ' . $this->printFunctionCall($method) . "\n";
             $phpFunction .= '    }';
         }
 
-        $phpFunction .= $this->generateExceptionCode($moduleName, $this->method).$returnStatement. '}
-';
-
-        return $phpFunction;
+        return $phpFunction . ($this->generateExceptionCode($moduleName, $this->method) . $returnStatement . '}
+');
     }
 
-    private function generateExceptionCode(string $moduleName, Method $method) : string
+    private function generateExceptionCode(string $moduleName, Method $method): string
     {
-        switch ($method->getErrorType()) {
-            case Method::FALSY_TYPE:
-                $errorValue = 'false';
-                break;
-            case Method::NULLSY_TYPE:
-                $errorValue = 'null';
-                break;
-            case Method::EMPTY_TYPE:
-                $errorValue = "''";
-                break;
-            default:
-                throw new \LogicException("Method doesn't have an error type");
-        }
+        $errorValue = match ($method->getErrorType()) {
+            Method::FALSY_TYPE => 'false',
+            Method::NULLSY_TYPE => 'null',
+            Method::EMPTY_TYPE => "''",
+            default => throw new \LogicException("Method doesn't have an error type"),
+        };
 
         // Special case for CURL: we need the first argument of the method if this is a resource.
         if ($moduleName === 'Curl') {
             $params = $method->getParams();
-            if (\count($params) > 0 && in_array($params[0]->getParameterType(), ['CurlHandle', 'CurlMultiHandle', 'CurlShareHandle'])) {
+            if ($params !== [] && in_array($params[0]->getParameterType(), ['CurlHandle', 'CurlMultiHandle', 'CurlShareHandle'])) {
                 $name = $params[0]->getParameterName();
                 return "
-    if (\$safeResult === $errorValue) {
-        throw CurlException::createFromPhpError(\$$name);
+    if (\$safeResult === {$errorValue}) {
+        throw CurlException::createFromPhpError(\${$name});
     }
 ";
             }
@@ -126,7 +120,7 @@ class WritePhpFunction
 
         $exceptionName = FileCreator::toExceptionName($moduleName);
         return "
-    if (\$safeResult === $errorValue) {
+    if (\$safeResult === {$errorValue}) {
         throw {$exceptionName}::createFromPhpError();
     }
 ";
@@ -134,7 +128,6 @@ class WritePhpFunction
 
     /**
      * @param Parameter[] $params
-     * @return string
      */
     private function displayParamsWithType(array $params): string
     {
@@ -155,42 +148,45 @@ class WritePhpFunction
 
             $paramName = $param->getParameterName();
             if ($param->isVariadic()) {
-                $paramAsString .= ' ...$'.$paramName;
+                $paramAsString .= ' ...$' . $paramName;
             } else {
                 if ($param->isByReference()) {
                     $paramAsString .= '&';
                 }
-                $paramAsString .= '$'.$paramName;
+
+                $paramAsString .= '$' . $paramName;
             }
 
 
             if ($param->hasDefaultValue() || $param->isOptionalWithNoDefault()) {
                 $optDetected = true;
             }
+
             $defaultValue = $param->getDefaultValue();
             if ($defaultValue !== null) {
-                $paramAsString .= ' = '.$this->defaultValueToString($defaultValue);
+                $paramAsString .= ' = ' . $this->defaultValueToString($defaultValue);
             } elseif ($optDetected && !$param->isVariadic()) {
                 $paramAsString .= ' = null';
             }
+
             $paramsAsString[] = $paramAsString;
         }
 
         return implode(', ', $paramsAsString);
     }
 
-    private function printFunctionCall(Method $function): string
+    private function printFunctionCall(Method $method): string
     {
-        $functionCall = '\\'.$function->getFunctionName().'(';
-        $functionCall .= implode(', ', \array_map(function (Parameter $parameter) {
+        $functionCall = '\\' . $method->getFunctionName() . '(';
+        $functionCall .= implode(', ', \array_map(function (Parameter $parameter): string {
             $str = '';
             if ($parameter->isVariadic()) {
                 $str = '...';
             }
-            return $str.'$'.$parameter->getParameterName();
-        }, $function->getParams()));
-        $functionCall .= ');';
-        return $functionCall;
+
+            return $str . '$' . $parameter->getParameterName();
+        }, $method->getParams()));
+        return $functionCall . ');';
     }
 
     private function defaultValueToString(?string $defaultValue): string
@@ -198,9 +194,11 @@ class WritePhpFunction
         if ($defaultValue === null) {
             return 'null';
         }
+
         if ($defaultValue === '') {
             return "''";
         }
+
         return $defaultValue;
     }
 }

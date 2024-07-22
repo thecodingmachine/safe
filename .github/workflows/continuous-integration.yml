@@ -120,6 +120,7 @@ jobs:
           name: "build"
           path: "generator/build"
 
-      - uses: codecov/codecov-action@v4 # upload the coverage to codecov
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
         with:
-          fail_ci_if_error: true # optional (default = false)
+          token: ${{ secrets.CODECOV_TOKEN }}

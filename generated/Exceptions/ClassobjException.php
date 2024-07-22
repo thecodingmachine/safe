@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class ClassobjException extends \ErrorException implements SafeExceptionInterface

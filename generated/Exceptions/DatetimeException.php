@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class DatetimeException extends \ErrorException implements SafeExceptionInterface

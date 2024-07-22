@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class IconvException extends \ErrorException implements SafeExceptionInterface

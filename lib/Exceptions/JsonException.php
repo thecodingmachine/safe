@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Safe\Exceptions;
 
 class JsonException extends \JsonException implements SafeExceptionInterface

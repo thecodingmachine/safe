@@ -87,6 +87,10 @@ jobs:
         run: "composer phpstan"
         working-directory: "generator"
 
+      - name: "Run static code analysis with rector/rector in generator/ directory"
+        run: "composer rector --dry-run"
+        working-directory: "generator"
+
       - name: "Dump autoloader with composer in root directory"
         run: "composer dump-autoload"
 

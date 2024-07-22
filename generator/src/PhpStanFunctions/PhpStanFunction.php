@@ -1,19 +1,17 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe\PhpStanFunctions;
 
 class PhpStanFunction
 {
-    /**
-     * @var PhpStanType
-     */
-    private $returnType;
+    private readonly \Safe\PhpStanFunctions\PhpStanType $phpStanType;
 
     /**
      * @var PhpStanParameter[]
      */
-    private $parameters = [];
+    private array $parameters = [];
 
     /**
      * @param string[] $signature
@@ -23,16 +21,17 @@ class PhpStanFunction
         if (count($signature) < 1) {
             throw new \RuntimeException('Invalid signoatures');
         }
-        $this->returnType = new PhpStanType(\array_shift($signature));
+
+        $this->phpStanType = new PhpStanType(\array_shift($signature));
         foreach ($signature as $name => $type) {
             $param = new PhpStanParameter($name, $type);
             $this->parameters[$param->getName()] = $param;
         }
     }
-    
+
     public function getReturnType(): PhpStanType
     {
-        return $this->returnType;
+        return $this->phpStanType;
     }
 
     /**

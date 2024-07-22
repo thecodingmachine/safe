@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 use PHPUnit\Framework\TestCase;
@@ -12,17 +14,17 @@ use SimpleXMLElement;
  */
 class GeneratedFilesTest extends TestCase
 {
-    public function testSprintf()
+    public function testSprintf(): void
     {
         require_once __DIR__ . '/../../generated/strings.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
         require_once __DIR__ . '/../../generated/Exceptions/StringsException.php';
 
-        $this->assertSame('foo', sprintf('foo'));
+        $this->assertSame('foo', 'foo');
         $this->assertSame('foobar', sprintf('foo%s', 'bar'));
         $this->assertSame('foobarbaz', sprintf('foo%s%s', 'bar', 'baz'));
 
-        set_error_handler(function () {
+        set_error_handler(function (): void {
         });
         try {
             $this->expectException(\ArgumentCountError::class);
@@ -32,7 +34,7 @@ class GeneratedFilesTest extends TestCase
         }
     }
 
-    public function testPregMatch()
+    public function testPregMatch(): void
     {
         require_once __DIR__ . '/../../generated/pcre.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
@@ -46,7 +48,7 @@ class GeneratedFilesTest extends TestCase
         $this->assertSame($originalMatches, $matches);
     }
 
-    public function testObjects()
+    public function testObjects(): void
     {
         require_once __DIR__ . '/../../lib/special_cases.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
@@ -76,7 +78,7 @@ XML;
      * Tests that the limit parameter is nullable.
      * See https://github.com/thecodingmachine/safe/issues/56
      */
-    public function testPregSplit()
+    public function testPregSplit(): void
     {
         require_once __DIR__ . '/../../generated/pcre.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
@@ -90,7 +92,7 @@ XML;
     /**
      * Tests that parameters with "time()" default value are correctly handled.
      */
-    public function testStrtotime()
+    public function testStrtotime(): void
     {
         require_once __DIR__ . '/../../generated/datetime.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
@@ -98,7 +100,7 @@ XML;
 
         $this->assertSame(\strtotime('+1 day'), strtotime('+1 day'));
 
-        set_error_handler(function () {
+        set_error_handler(function (): void {
         });
         try {
             $this->expectException(DatetimeException::class);
@@ -111,7 +113,7 @@ XML;
     /**
      * Tests that parameters signature can be not passed. See https://github.com/thecodingmachine/safe/issues/86
      */
-    public function testOpenSslSign()
+    public function testOpenSslSign(): void
     {
         require_once __DIR__ . '/../../generated/openssl.php';
         require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
@@ -123,7 +125,7 @@ XML;
         $this->assertSame($signature, $signatureSafe);
     }
 
-    public function testOpenSslEncrypt()
+    public function testOpenSslEncrypt(): void
     {
         $result = \openssl_encrypt(
             'test',

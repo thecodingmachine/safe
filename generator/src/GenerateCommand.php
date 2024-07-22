@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe;
 
@@ -28,11 +29,11 @@ class GenerateCommand extends Command
 
         $paths = $scanner->getFunctionsPaths();
 
-        $res = $scanner->getMethods($paths);
-        $functions = $res->methods;
-        $overloadedFunctions = $res->overloadedFunctions;
+        $scannerResponse = $scanner->getMethods($paths);
+        $functions = $scannerResponse->methods;
+        $overloadedFunctions = $scannerResponse->overloadedFunctions;
 
-        $output->writeln('These functions have been ignored and must be dealt with manually: '.\implode(', ', $overloadedFunctions));
+        $output->writeln('These functions have been ignored and must be dealt with manually: ' . \implode(', ', $overloadedFunctions));
 
         $fileCreator = new FileCreator();
         $fileCreator->generatePhpFile($functions, __DIR__ . '/../../generated/');
@@ -46,14 +47,14 @@ class GenerateCommand extends Command
             $modules[$moduleName] = $moduleName;
         }
 
-        foreach ($modules as $moduleName => $foo) {
+        foreach (array_keys($modules) as $moduleName) {
             $fileCreator->createExceptionFile((string) $moduleName);
         }
 
         $this->runCsFix($output);
 
         // Let's require the generated file to check there is no error.
-        $files = \glob(__DIR__.'/../../generated/*.php');
+        $files = \glob(__DIR__ . '/../../generated/*.php');
         if ($files === false) {
             throw new \RuntimeException('Failed to require the generated file');
         }
@@ -62,12 +63,12 @@ class GenerateCommand extends Command
             require($file);
         }
 
-        $files = \glob(__DIR__.'/../../generated/Exceptions/*.php');
+        $files = \glob(__DIR__ . '/../../generated/Exceptions/*.php');
         if ($files === false) {
             throw new \RuntimeException('Failed to require the generated exception file');
         }
 
-        require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
+        require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
         foreach ($files as $file) {
             require($file);
         }
@@ -81,7 +82,7 @@ class GenerateCommand extends Command
 
     private function rmGenerated(): void
     {
-        $exceptions = \glob(__DIR__.'/../../generated/Exceptions/*.php');
+        $exceptions = \glob(__DIR__ . '/../../generated/Exceptions/*.php');
         if ($exceptions === false) {
             throw new \RuntimeException('Failed to require the generated exception files');
         }
@@ -90,7 +91,7 @@ class GenerateCommand extends Command
             \unlink($exception);
         }
 
-        $files = \glob(__DIR__.'/../../generated/*.php');
+        $files = \glob(__DIR__ . '/../../generated/*.php');
         if ($files === false) {
             throw new \RuntimeException('Failed to require the generated files');
         }
@@ -99,18 +100,18 @@ class GenerateCommand extends Command
             \unlink($file);
         }
 
-        if (\file_exists(__DIR__.'/../doc/entities/generated.ent')) {
-            \unlink(__DIR__.'/../doc/entities/generated.ent');
+        if (\file_exists(__DIR__ . '/../doc/entities/generated.ent')) {
+            \unlink(__DIR__ . '/../doc/entities/generated.ent');
         }
     }
 
     private function runCsFix(OutputInterface $output): void
     {
-        $process = new Process(['vendor/bin/phpcbf'], __DIR__.'/../..');
+        $process = new Process(['vendor/bin/phpcbf'], __DIR__ . '/../..');
         $process->setTimeout(600);
-        $process->run(function ($type, $buffer) use ($output) {
+        $process->run(function ($type, string $buffer) use ($output): void {
             if (Process::ERR === $type) {
-                $output->write('<error>'.$buffer.'</error>');
+                $output->write('<error>' . $buffer . '</error>');
             } else {
                 $output->write($buffer);
             }

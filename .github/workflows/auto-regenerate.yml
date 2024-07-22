@@ -12,7 +12,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
   
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
@@ -21,13 +21,13 @@ jobs:
           php-version: "8.0"
   
       - name: "Check out salathe/phpdoc-base"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
         with:
           path: "generator/doc/doc-en/doc-base"
           repository: "salathe/phpdoc-base"
   
       - name: "Check out php/doc-en"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
         with:
           path: "generator/doc/doc-en/en"
           repository: "php/doc-en"

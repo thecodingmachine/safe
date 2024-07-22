@@ -1,4 +1,8 @@
 parameters:
+    paths:
+        - ./src
+    # The level 9 is the highest level (with check for mixed type)
+    level: 4
     ignoreErrors:
         # A lot of functions are in extensions so it is ok not to find those
 includes:

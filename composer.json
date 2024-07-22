@@ -111,7 +111,7 @@
         "phpunit/phpunit": "^9.5 || ^10.0 || ^11.0"
     },
     "scripts": {
-        "phpstan": "phpstan analyse lib -c phpstan.neon --level=max --no-progress -vvv",
+        "phpstan": "phpstan analyse",
         "cs-fix": "phpcbf",
         "cs-check": "phpcs"
     },

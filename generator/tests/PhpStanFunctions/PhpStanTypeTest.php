@@ -111,7 +111,7 @@ class PhpStanTypeTest extends TestCase
     {
         $param = new PhpStanType('');
         $this->assertEquals('', $param->getDocBlockType());
-        $this->assertEquals('', $param->getSignatureType());
+        $this->assertEquals('void', $param->getSignatureType());
 
         $param = new PhpStanType('void');
         $this->assertEquals('void', $param->getDocBlockType());

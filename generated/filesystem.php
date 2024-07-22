@@ -406,6 +406,16 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  *
  *
  *
+ *
+ * FILE_NO_DEFAULT_CONTEXT
+ *
+ *
+ *
+ * Don't use the default context
+ *
+ *
+ *
+ *
  * @param resource $context
  * @return array Returns the file in an array. Each element of the array corresponds to a
  * line in the file, with the newline still attached. Upon failure,
@@ -826,7 +836,7 @@ function flock($stream, int $operation, ?int &$would_block = null): void
  * mode so that it uses the correct line endings and
  * 'b' mode instead.
  * @param bool $use_include_path The optional third use_include_path parameter
- * can be set to '1' or TRUE if you want to search for the file in the
+ * can be set to TRUE if you want to search for the file in the
  * include_path, too.
  * @param resource|null $context A context stream
  * resource.
@@ -1036,53 +1046,6 @@ function fwrite($stream, string $data, int $length = null): int
  *
  * @param int $flags Valid flags:
  *
- *
- *
- * GLOB_MARK - Adds a slash (a backslash on Windows) to each directory returned
- *
- *
- *
- *
- * GLOB_NOSORT - Return files as they appear in the
- * directory (no sorting). When this flag is not used, the pathnames are
- * sorted alphabetically
- *
- *
- *
- *
- * GLOB_NOCHECK - Return the search pattern if no
- * files matching it were found
- *
- *
- *
- *
- * GLOB_NOESCAPE - Backslashes do not quote
- * metacharacters
- *
- *
- *
- *
- * GLOB_BRACE - Expands {a,b,c} to match 'a', 'b',
- * or 'c'
- *
- *
- *
- *
- * GLOB_ONLYDIR - Return only directory entries
- * which match the pattern
- *
- *
- *
- *
- * GLOB_ERR - Stop on read errors (like unreadable
- * directories), by default errors are ignored.
- *
- *
- *
- *
- *
- * The GLOB_BRACE flag is not available on some non GNU
- * systems, like Solaris or Alpine Linux.
  *
  *
  * @return array Returns an array containing the matched files/directories, an empty array
@@ -1518,7 +1481,7 @@ function tempnam(string $directory, string $prefix): string
 
 
 /**
- * Creates a temporary file with a unique name in read-write (w+) mode and
+ * Creates a temporary file with a unique name in read-write-binary (w+b) mode and
  * returns a file handle.
  *
  * The file is automatically removed when closed (for example, by calling
@@ -1526,7 +1489,7 @@ function tempnam(string $directory, string $prefix): string
  * the file handle returned by tmpfile), or when the
  * script ends.
  *
- * @return resource Returns a file handle, similar to the one returned by
+ * @return resource|false Returns a file handle, similar to the one returned by
  * fopen, for the new file.
  * @throws FilesystemException
  *

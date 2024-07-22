@@ -16,7 +16,7 @@ use Safe\Exceptions\YamlException;
  * tag =&gt; callable mappings. See
  * parse callbacks for more
  * details.
- * @return mixed Returns the value encoded in input in appropriate
+ * @return mixed Returns the value encoded in filename in appropriate
  * PHP type. If pos is -1 an
  * array will be returned with one entry for each document found
  * in the stream.

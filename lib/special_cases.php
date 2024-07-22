@@ -8,8 +8,6 @@
 
 namespace Safe;
 
-use const PREG_NO_ERROR;
-
 use Safe\Exceptions\MiscException;
 use Safe\Exceptions\PosixException;
 use Safe\Exceptions\SocketsException;
@@ -24,6 +22,8 @@ use Safe\Exceptions\FilesystemException;
 use const PREG_NO_ERROR;
 
 use Safe\Exceptions\FilesystemException;
+
+use const PREG_NO_ERROR;
 
 /**
  * Wrapper for json_decode that throws when an error occurs.

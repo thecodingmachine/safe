@@ -23,7 +23,7 @@ class DeprecateCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string $moduleName */
         $moduleName = $input->getArgument('module');

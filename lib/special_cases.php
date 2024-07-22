@@ -394,7 +394,6 @@ function fputcsv($stream, array $fields, string $separator = ",", string $enclos
 {
     error_clear_last();
     if (PHP_VERSION_ID >= 80100) {
-        /** @phpstan-ignore-next-line */
         $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape, $eol);
     } else {
         $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape);

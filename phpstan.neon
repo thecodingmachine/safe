@@ -1,6 +1,6 @@
 parameters:
     paths:
-        - ./src
+        - ./lib
     # The level 9 is the highest level (with check for mixed type)
     level: 4
     ignoreErrors:

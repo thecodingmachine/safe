@@ -104,6 +104,10 @@ class PhpStanType
                 $returnType = 'int';
             }
 
+            if (\strpos($returnType, 'int<') !== false) {
+                $returnType = 'int';
+            }
+            
             if (\preg_match('/__benevolent\<(.*)\>/', $returnType, $regs)) {
                 $returnType = $regs[1];
             }
@@ -146,7 +150,7 @@ class PhpStanType
         if (\array_intersect(self::NO_SIGNATURE_TYPES, $types) !== []) {
             return '';
         }
-
+        
         foreach ($types as &$type) {
             if (\strpos($type, 'callable(') > -1) {
                 $type = 'callable'; //strip callable type of its possible parenthesis and return (ex: callable(): void)
@@ -160,7 +164,7 @@ class PhpStanType
                 $type = ''; // null is a real typehint
             }
         }
-
+        
         //if there are several distinct types, no typehint (we use distinct in case doc block contains several times the same type, for example array<int>|array<string>)
         if (count(array_unique($types)) > 1) {
             return '';

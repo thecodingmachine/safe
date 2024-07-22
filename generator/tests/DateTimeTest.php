@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe;
 
@@ -19,16 +20,16 @@ class DateTimeTest extends TestCase
     public function testSafeDatetimeCrashOnError(): void
     {
         $this->expectException(DatetimeException::class);
-        $datetime = DateTime::createFromFormat('lol', 'super');
+        DateTime::createFromFormat('lol', 'super');
     }
 
     public function testCreateFromFormatPreserveTimeAndTimezone(): void
     {
-        $timezone = new \DateTimeZone('Pacific/Chatham');
-        $datetime = DateTime::createFromFormat('d-m-Y', '20-03-2006', $timezone);
+        $dateTimeZone = new \DateTimeZone('Pacific/Chatham');
+        $datetime = DateTime::createFromFormat('d-m-Y', '20-03-2006', $dateTimeZone);
         $this->assertInstanceOf(DateTime::class, $datetime);
         $this->assertEquals('20-03-2006', $datetime->format('d-m-Y'));
-        $this->assertEquals($timezone, $datetime->getTimezone());
+        $this->assertEquals($dateTimeZone, $datetime->getTimezone());
     }
 
     public function testSetDate(): void

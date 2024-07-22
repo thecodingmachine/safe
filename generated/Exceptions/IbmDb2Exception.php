@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class IbmDb2Exception extends \ErrorException implements SafeExceptionInterface

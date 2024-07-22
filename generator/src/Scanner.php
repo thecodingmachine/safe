@@ -1,33 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
-use function array_merge;
-use function iterator_to_array;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
 use Symfony\Component\Finder\Finder;
 use SplFileInfo;
 
+use function array_merge;
+use function iterator_to_array;
+
 class Scanner
 {
     /**
-     * @var string
-     */
-    private $path;
-
-    /**
      * @var string[]
      */
-    private $ignoredFunctions;
+    private ?array $ignoredFunctions = null;
 
     /**
      * @var string[]
      */
     private $ignoredModules;
 
-    public function __construct(string $path)
+    public function __construct(private readonly string $path)
     {
-        $this->path = $path;
     }
 
     /**
@@ -36,7 +33,7 @@ class Scanner
     public function getFunctionsPaths(): array
     {
         $finder = new Finder();
-        $finder->in($this->path.'*/functions/')->name('*.xml')->sortByName();
+        $finder->in($this->path . '*/functions/')->name('*.xml')->sortByName();
 
         return iterator_to_array($finder);
     }
@@ -64,6 +61,7 @@ class Scanner
 
             $this->ignoredFunctions = array_merge($ignoredFunctions, $specialCaseFunctions);
         }
+
         return $this->ignoredFunctions;
     }
 
@@ -74,8 +72,9 @@ class Scanner
     private function getIgnoredModules(): array
     {
         if ($this->ignoredModules === null) {
-            $this->ignoredModules = require __DIR__.'/../config/ignoredModules.php';
+            $this->ignoredModules = require __DIR__ . '/../config/ignoredModules.php';
         }
+
         return $this->ignoredModules;
     }
 
@@ -92,15 +91,17 @@ class Scanner
         $phpStanFunctionMapReader = new PhpStanFunctionMapReader();
         $ignoredFunctions = $this->getIgnoredFunctions();
         $ignoredFunctions = \array_combine($ignoredFunctions, $ignoredFunctions);
+
         $ignoredModules = $this->getIgnoredModules();
         $ignoredModules = \array_combine($ignoredModules, $ignoredModules);
+        
         foreach ($paths as $path) {
-            $module = \basename(\dirname($path, 2));
+            $module = \basename(\dirname($path->getPath(), 2));
             if (isset($ignoredModules[$module])) {
                 continue;
             }
 
-            $docPage = new DocPage($path);
+            $docPage = new DocPage($path->getPath());
             $isFalsy = $docPage->detectFalsyFunction();
             $isNullsy = $docPage->detectNullsyFunction();
             $isEmpty = $docPage->detectEmptyFunction();
@@ -109,20 +110,18 @@ class Scanner
 
                 $functionObjects = $docPage->getMethodSynopsis();
                 if (count($functionObjects) > 1) {
-                    $overloadedFunctions = array_merge($overloadedFunctions, \array_map(function ($functionObject) {
-                        return $functionObject->methodname->__toString();
-                    }, $functionObjects));
-                    $overloadedFunctions = \array_filter($overloadedFunctions, function (string $functionName) use ($ignoredFunctions) {
-                        return !isset($ignoredFunctions[$functionName]);
-                    });
+                    $overloadedFunctions = array_merge($overloadedFunctions, \array_map(fn($functionObject) => $functionObject->methodname->__toString(), $functionObjects));
+                    $overloadedFunctions = \array_filter($overloadedFunctions, fn(string $functionName): bool => !isset($ignoredFunctions[$functionName]));
                     continue;
                 }
+
                 $rootEntity = $docPage->loadAndResolveFile();
                 foreach ($functionObjects as $functionObject) {
                     $function = new Method($functionObject, $rootEntity, $docPage->getModule(), $phpStanFunctionMapReader, $errorType);
                     if (isset($ignoredFunctions[$function->getFunctionName()])) {
                         continue;
                     }
+
                     $functions[] = $function;
                 }
             }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Safe;
 
 use Safe\PhpStanFunctions\PhpStanFunction;
@@ -7,21 +10,12 @@ use Safe\PhpStanFunctions\PhpStanType;
 
 class Parameter
 {
-    /**
-     * @var \SimpleXMLElement
-     */
-    private $parameter;
-    /**
-     * @var PhpStanType
-     */
-    private $type;
+    private readonly \Safe\PhpStanFunctions\PhpStanType $phpStanType;
 
-    public function __construct(\SimpleXMLElement $parameter, ?PhpStanFunction $phpStanFunction, int $position)
+    public function __construct(private \SimpleXMLElement $parameter, ?PhpStanFunction $phpStanFunction, int $position)
     {
-        $this->parameter = $parameter;
-        $phpStanParam = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameterName(), $position) : null;
-        
-        $this->type = $phpStanParam ? $phpStanParam->getType() : new PhpStanType($this->parameter->type->__toString()); //todo: is this if useful?
+        $phpStanParam = $phpStanFunction instanceof \Safe\PhpStanFunctions\PhpStanFunction ? $phpStanFunction->getParameter($this->getParameterName(), $position) : null;
+        $this->phpStanType = $phpStanParam instanceof \Safe\PhpStanFunctions\PhpStanParameter ? $phpStanParam->getType() : new PhpStanType($this->parameter->type->__toString());  //todo: is this if useful?
     }
 
     /**
@@ -29,7 +23,7 @@ class Parameter
      */
     public function getSignatureType(): string
     {
-        return $this->type->getSignatureType();
+        return $this->phpStanType->getSignatureType();
     }
 
     /**
@@ -37,7 +31,7 @@ class Parameter
      */
     public function getDocBlockType(): string
     {
-        return $this->type->getDocBlockType();
+        return $this->phpStanType->getDocBlockType();
     }
 
     public function getParameterName(): string
@@ -45,7 +39,7 @@ class Parameter
         // The db2_bind_param method has parameters with a dash in it... yep... (patch submitted)
         return \str_replace('-', '_', $this->parameter->parameter->__toString());
     }
-    
+
     public function getParameterType(): string
     {
         // The db2_bind_param method has parameters with a dash in it... yep... (patch submitted)
@@ -60,24 +54,20 @@ class Parameter
     /**
      * Some parameters can be optional with no default value. In this case, the function is "overloaded" (which is not
      * possible in user-land but possible in core...)
-     *
-     * @return bool
      */
     public function isOptionalWithNoDefault(): bool
     {
         if (((string)$this->parameter['choice']) !== 'opt' && !$this->isVariadic()) {
             return false;
         }
+
         if (!$this->hasDefaultValue()) {
             return true;
         }
 
         $initializer = $this->getInitializer();
         // Some default value have weird values. For instance, first parameter of "mb_internal_encoding" has default value "mb_internal_encoding()"
-        if ($initializer === 'null' || ($initializer !== 'array()' && strpos($initializer, '(') !== false)) {
-            return true;
-        }
-        return false;
+        return $initializer === 'null' || ($initializer !== 'array()' && str_contains($initializer, '('));
     }
 
     public function isVariadic(): bool
@@ -87,7 +77,7 @@ class Parameter
 
     public function isNullable(): bool
     {
-        return $this->type->isNullable();
+        return $this->phpStanType->isNullable();
     }
 
     /*
@@ -100,7 +90,7 @@ class Parameter
 
     public function hasDefaultValue(): bool
     {
-        return isset($this->parameter->initializer);
+        return property_exists($this->parameter, 'initializer') && $this->parameter->initializer !== null;
     }
 
     public function getDefaultValue(): ?string
@@ -110,9 +100,8 @@ class Parameter
         }
 
         $initializer = $this->getInitializer();
-
-        // Some default value have weird values. For instance, first parameter of "mb_internal_encoding" has default value "mb_internal_encoding()"
-        if (strpos($initializer, '(') !== false) {
+// Some default value have weird values. For instance, first parameter of "mb_internal_encoding" has default value "mb_internal_encoding()"
+        if (str_contains($initializer, '(')) {
             return null;
         }
 
@@ -126,8 +115,8 @@ class Parameter
         if ($inner_xml === false) {
             throw new \RuntimeException('Unable to serialize to XML');
         }
-        $inner_xml = str_replace(['<'.$element_name.'>', '</'.$element_name.'>', '<'.$element_name.'/>'], '', $inner_xml);
-        $inner_xml = trim($inner_xml);
-        return $inner_xml;
+
+        $inner_xml = str_replace(['<' . $element_name . '>', '</' . $element_name . '>', '<' . $element_name . '/>'], '', $inner_xml);
+        return trim($inner_xml);
     }
 }

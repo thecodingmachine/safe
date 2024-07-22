@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 use PHPUnit\Framework\TestCase;
@@ -9,7 +11,7 @@ use Safe\Exceptions\PcreException;
 class SpecialCasesTest extends TestCase
 {
 
-    public function testPregReplace()
+    public function testPregReplace(): void
     {
         require_once __DIR__.'/../../lib/special_cases.php';
         require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
@@ -20,7 +22,7 @@ class SpecialCasesTest extends TestCase
         preg_replace("/([\s,]+)/u", "foo", "\xc3\x28");
     }
 
-    public function testFgetcsvWithTrailingNewline()
+    public function testFgetcsvWithTrailingNewline(): void
     {
         require_once __DIR__.'/../../lib/special_cases.php';
         require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
@@ -34,10 +36,11 @@ class SpecialCasesTest extends TestCase
         while (($data = fgetcsv($handle, 1000, ",")) !== false) {
             $this->assertEquals(['test', 'test'], $data);
         }
+        
         \fclose($handle);
     }
 
-    public function testFgetcsvReturnFalseonEndOfFile()
+    public function testFgetcsvReturnFalseonEndOfFile(): void
     {
         require_once __DIR__.'/../../lib/special_cases.php';
         require_once __DIR__.'/../../lib/Exceptions/SafeExceptionInterface.php';
@@ -51,6 +54,7 @@ class SpecialCasesTest extends TestCase
         while (($data = fgetcsv($handle, 1000, ",")) !== false) {
             $this->assertEquals(['test', 'test'], $data);
         }
+        
         $this->assertEquals(false, $data); 
         \fclose($handle);
     }

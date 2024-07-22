@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class SqlsrvException extends \ErrorException implements SafeExceptionInterface

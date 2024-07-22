@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class SsdeepException extends \ErrorException implements SafeExceptionInterface

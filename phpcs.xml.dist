@@ -7,7 +7,7 @@
     <arg name="colors"/>
 
     <!-- inherit rules from: -->
-    <rule ref="PSR2"/>
+    <rule ref="PSR12"/>
 
     <!-- Paths to check -->
     <file>lib</file>

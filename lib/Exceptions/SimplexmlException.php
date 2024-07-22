@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class SimplexmlException extends \ErrorException implements SafeExceptionInterface

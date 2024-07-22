@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class SwooleException extends \ErrorException implements SafeExceptionInterface

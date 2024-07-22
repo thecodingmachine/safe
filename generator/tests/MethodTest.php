@@ -35,7 +35,7 @@ class MethodTest extends TestCase
         $this->assertEquals('pattern', $params[0]->getParameterName());
     }
 
-    public function testGetTypeHintFromRessource()
+    public function testGetTypeHintFromResource()
     {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/sprintf.xml');
         $xmlObject = $docPage->getMethodSynopsis();
@@ -43,7 +43,7 @@ class MethodTest extends TestCase
         $params = $method->getParams();
         $this->assertEquals('string', $params[0]->getDocBlockType());
         $this->assertEquals('string', $params[0]->getSignatureType());
-        $this->assertEquals('string|int|float|bool', $params[1]->getDocBlockType());
+        $this->assertEquals('string|int|float|bool|null', $params[1]->getDocBlockType());
         $this->assertTrue($params[1]->isVariadic());
         $this->assertEquals('', $params[1]->getSignatureType());
 
@@ -52,7 +52,7 @@ class MethodTest extends TestCase
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
         $this->assertEquals('string', $params[0]->getDocBlockType());
-        $this->assertEquals('callable', $params[1]->getDocBlockType());
+        $this->assertEquals('callable(array<int|string, string>):string', $params[1]->getDocBlockType());
         $this->assertEquals('string', $params[0]->getSignatureType());
         $this->assertEquals('callable', $params[1]->getSignatureType());
 
@@ -111,7 +111,7 @@ class MethodTest extends TestCase
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/sqlsrv/functions/sqlsrv-next-result.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
-        $this->assertEquals("@return bool|null Returns TRUE if the next result was successfully retrieved, FALSE if an error \n   occurred, and NULL if there are no more results to retrieve.\n", $method->getReturnDocBlock());
+        $this->assertEquals("@return bool|null Returns &true; if the next result was successfully retrieved, &false; if an error \n   occurred, and &null; if there are no more results to retrieve.\n", $method->getReturnDocBlock());
         $this->assertEquals('?bool', $method->getSignatureReturnType());
     }
 }

@@ -47,7 +47,7 @@ function mb_chr(int $codepoint, string $encoding = null): string
  * list, in which case the correct encoding will be guessed using the
  * same algorithm as mb_detect_encoding.
  *
- * If from_encoding is NULL or not specified, the
+ * If from_encoding is omitted or NULL, the
  * mbstring.internal_encoding setting
  * will be used if set, otherwise the default_charset setting.
  *
@@ -96,7 +96,7 @@ function mb_convert_encoding($string, string $to_encoding, $from_encoding = null
  * For UTF-16, UTF-32,
  * UCS2 and UCS4, encoding
  * detection will fail always.
- * @return bool|array When setting the encoding detection order, TRUE is returned on success.
+ * @return bool|string When setting the encoding detection order, TRUE is returned on success.
  *
  * When getting the encoding detection order, an ordered array of the encodings is returned.
  * @throws MbstringException
@@ -118,25 +118,6 @@ function mb_detect_order($encoding = null)
 
 
 /**
- * Returns an array of aliases for a known encoding type.
- *
- * @param string $encoding The encoding type being checked, for aliases.
- * @return array Returns a numerically indexed array of encoding aliases on success
- * @throws MbstringException
- *
- */
-function mb_encoding_aliases(string $encoding): array
-{
-    error_clear_last();
-    $safeResult = \mb_encoding_aliases($encoding);
-    if ($safeResult === false) {
-        throw MbstringException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  * Scans string for matches to
  * pattern, then replaces the matched text
  * with the output of callback function.
@@ -149,8 +130,8 @@ function mb_encoding_aliases(string $encoding): array
  * @param string $pattern The regular expression pattern.
  *
  * Multibyte characters may be used in pattern.
- * @param callable $callback A callback that will be called and passed an array of matched elements
- * in the  subject string. The callback should
+ * @param callable(array):string $callback A callback that will be called and passed an array of matched elements
+ * in the  string string. The callback should
  * return the replacement string.
  *
  * You'll often need the callback function

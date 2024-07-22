@@ -1211,9 +1211,15 @@ function pg_result_seek($result, int $row): void
  * array containing all records and fields that match the condition
  * specified by conditions.
  *
- * If flags is specified,
+ * If flags is set,
  * pg_convert is applied to
  * conditions with the specified flags.
+ *
+ * If mode is set,
+ * the return value will be in the form of an array
+ * with PGSQL_NUM, an associative array
+ * with PGSQL_ASSOC (default) or both
+ * with PGSQL_BOTH.
  *
  * By default pg_select passes raw values. Values
  * must be escaped or PGSQL_DML_ESCAPE option must be
@@ -1235,9 +1241,15 @@ function pg_result_seek($result, int $row): void
  * PGSQL_DML_EXEC,
  * PGSQL_DML_ASYNC or
  * PGSQL_DML_STRING combined. If PGSQL_DML_STRING is part of the
- * flags then query string is returned. When PGSQL_DML_NO_CONV
+ * flags then the query string is returned. When PGSQL_DML_NO_CONV
  * or PGSQL_DML_ESCAPE is set, it does not call pg_convert internally.
- * @param int $mode
+ * @param int $mode Any number of PGSQL_ASSOC,
+ * PGSQL_NUM or
+ * PGSQL_BOTH
+ * If PGSQL_ASSOC is set the return value will be an associative array,
+ * with PGSQL_NUM the return value will be an array, and
+ * with PGSQL_BOTH the return value will be both an associative and
+ * numerically indexed array.
  * @return mixed Returns string if PGSQL_DML_STRING is passed
  * via flags, otherwise it returns an array on success.
  * @throws PgsqlException
@@ -1295,13 +1307,18 @@ function pg_socket($connection)
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
  * As of PHP 8.1.0, using the default connection is deprecated.
+ * @param int $trace_mode An optional trace mode with the following constants
+ * PGSQL_TRACE_SUPPRESS_TIMESTAMPS and
+ * PGSQL_TRACE_REGRESS_MODE
  * @throws PgsqlException
  *
  */
-function pg_trace(string $filename, string $mode = "w", $connection = null): void
+function pg_trace(string $filename, string $mode = "w", $connection = null, int $trace_mode = 0): void
 {
     error_clear_last();
-    if ($connection !== null) {
+    if ($trace_mode !== 0) {
+        $safeResult = \pg_trace($filename, $mode, $connection, $trace_mode);
+    } elseif ($connection !== null) {
         $safeResult = \pg_trace($filename, $mode, $connection);
     } else {
         $safeResult = \pg_trace($filename, $mode);

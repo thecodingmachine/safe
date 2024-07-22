@@ -90,6 +90,10 @@ class PhpStanType
                 $returnType = 'string';
             }
 
+            if (\strpos($returnType, '__stringAndStringable') !== false) {
+                $returnType = 'string';
+            }
+
             if ($returnType === 'positive-int') {
                 $returnType = 'int';
             } elseif (is_numeric($returnType)) {

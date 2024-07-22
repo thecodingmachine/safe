@@ -32,7 +32,7 @@ function libxml_get_last_error(): \LibXMLError
  * @param callable $resolver_function A callable with the following signature:
  *
  * resourcestringnullresolver
- * stringpublic_id
+ * stringnullpublic_id
  * stringsystem_id
  * arraycontext
  *
@@ -76,3 +76,4 @@ function libxml_set_external_entity_loader(callable $resolver_function): void
         throw LibxmlException::createFromPhpError();
     }
 }
+

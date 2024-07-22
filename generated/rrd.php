@@ -115,7 +115,7 @@ function rrd_lastupdate(string $filename): array
  * @throws RrdException
  *
  */
-function rrd_restore(string $xml_file, string $rrd_file, ?array $options = null): void
+function rrd_restore(string $xml_file, string $rrd_file, array $options = null): void
 {
     error_clear_last();
     if ($options !== null) {
@@ -188,3 +188,4 @@ function rrd_xport(array $options): array
     }
     return $safeResult;
 }
+

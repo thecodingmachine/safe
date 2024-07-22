@@ -5,6 +5,33 @@ namespace Safe;
 use Safe\Exceptions\StreamException;
 
 /**
+ * Sets options on the specified context.
+ *
+ * @param resource $context The stream or context resource to apply the options to.
+ * @param array $options The options to set for context.
+ *
+ * options must be an associative
+ * array of associative arrays in the format
+ * $array['wrapper']['option'] = $value.
+ *
+ * Refer to context options and parameters
+ * for a listing of stream options.
+ * @return true Returns TRUE on success.
+ * @throws StreamException
+ *
+ */
+function stream_context_set_options($context, array $options): true
+{
+    error_clear_last();
+    $safeResult = \stream_context_set_options($context, $options);
+    if ($safeResult === false) {
+        throw StreamException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Sets parameters on the specified context.
  *
  * @param resource $context The stream or context to apply the parameters too.
@@ -39,7 +66,7 @@ function stream_context_set_params($context, array $params): void
  * @throws StreamException
  *
  */
-function stream_copy_to_stream($from, $to, ?int $length = null, int $offset = 0): int
+function stream_copy_to_stream($from, $to, int $length = null, int $offset = 0): int
 {
     error_clear_last();
     if ($offset !== 0) {
@@ -87,7 +114,7 @@ function stream_copy_to_stream($from, $to, ?int $length = null, int $offset = 0)
  * @throws StreamException
  *
  */
-function stream_filter_append($stream, string $filtername, ?int $read_write = null, $params = null)
+function stream_filter_append($stream, string $filtername, int $read_write = null, $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -136,7 +163,7 @@ function stream_filter_append($stream, string $filtername, ?int $read_write = nu
  * @throws StreamException
  *
  */
-function stream_filter_prepend($stream, string $filtername, ?int $read_write = null, $params = null)
+function stream_filter_prepend($stream, string $filtername, int $read_write = null, $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -218,7 +245,7 @@ function stream_filter_remove($stream_filter): void
  * @throws StreamException
  *
  */
-function stream_get_contents($stream, ?int $length = null, int $offset = -1): string
+function stream_get_contents($stream, int $length = null, int $offset = -1): string
 {
     error_clear_last();
     if ($offset !== -1) {
@@ -376,7 +403,7 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
  * @throws StreamException
  *
  */
-function stream_socket_accept($socket, ?float $timeout = null, ?string &$peer_name = null)
+function stream_socket_accept($socket, float $timeout = null, ?string &$peer_name = null)
 {
     error_clear_last();
     if ($peer_name !== null) {
@@ -443,7 +470,7 @@ function stream_socket_accept($socket, ?float $timeout = null, ?string &$peer_na
  * @throws StreamException
  *
  */
-function stream_socket_client(string $address, ?int &$error_code = null, ?string &$error_message = null, ?float $timeout = null, int $flags = STREAM_CLIENT_CONNECT, $context = null)
+function stream_socket_client(string $address, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null, int $flags = STREAM_CLIENT_CONNECT, $context = null)
 {
     error_clear_last();
     if ($context !== null) {
@@ -762,3 +789,4 @@ function stream_wrapper_unregister(string $protocol): void
         throw StreamException::createFromPhpError();
     }
 }
+

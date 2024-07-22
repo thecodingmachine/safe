@@ -90,7 +90,7 @@ function readline_completion_function(callable $callback): void
  * @throws ReadlineException
  *
  */
-function readline_read_history(?string $filename = null): void
+function readline_read_history(string $filename = null): void
 {
     error_clear_last();
     if ($filename !== null) {
@@ -111,7 +111,7 @@ function readline_read_history(?string $filename = null): void
  * @throws ReadlineException
  *
  */
-function readline_write_history(?string $filename = null): void
+function readline_write_history(string $filename = null): void
 {
     error_clear_last();
     if ($filename !== null) {
@@ -123,3 +123,4 @@ function readline_write_history(?string $filename = null): void
         throw ReadlineException::createFromPhpError();
     }
 }
+

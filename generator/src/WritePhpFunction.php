@@ -142,7 +142,13 @@ class WritePhpFunction
         $optDetected = false;
 
         foreach ($params as $param) {
-            $paramAsString = $param->getSignatureType();
+            $paramAsString = '';
+
+            // parameters can not have type void
+            if ($param->getSignatureType() !== 'void') {
+                $paramAsString = $param->getSignatureType();
+            }
+
             if ($paramAsString !== '') {
                 $paramAsString .= ' ';
             }

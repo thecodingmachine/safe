@@ -61,7 +61,7 @@ class PhpStanType
         /** @var int $count */
         $count = \count($returnTypes);
         if ($count === 0) {
-            throw new \RuntimeException('Error when trying to extract parameter type');
+            $returnType = '';
         }
         foreach ($returnTypes as &$returnType) {
             $pos = \strpos($returnType, '?');
@@ -74,9 +74,15 @@ class PhpStanType
                 $returnType = \str_replace(['(', ')'], '', $returnType);
             }
             //here we deal with some weird phpstan typings
-            if ($returnType === 'non-empty-string') {
+            if (\strpos($returnType, 'non-falsy-string') !== false) {
                 $returnType = 'string';
-            } elseif ($returnType === 'positive-int') {
+            }
+            
+            if (\strpos($returnType, 'non-empty-string') !== false) {
+                $returnType = 'string';
+            }
+
+            if ($returnType === 'positive-int') {
                 $returnType = 'int';
             } elseif (is_numeric($returnType)) {
                 $returnType = 'int';
@@ -84,6 +90,15 @@ class PhpStanType
             if (\strpos($returnType, 'list<') !== false) {
                 $returnType = \str_replace('list', 'array', $returnType);
             }
+            
+            if (\strpos($returnType, 'int<') !== false) {
+                $returnType = 'int';
+            }
+            
+            if (\preg_match('/__benevolent\<(.*)\>/', $returnType, $regs)) {
+                $returnType = $regs[1];
+            }
+
             $returnType = Type::toRootNamespace($returnType);
         }
         $this->types = array_unique($returnTypes);
@@ -119,7 +134,7 @@ class PhpStanType
         if (\array_intersect(self::NO_SIGNATURE_TYPES, $types)) {
             return '';
         }
-
+        
         foreach ($types as &$type) {
             if (\strpos($type, 'callable(') > -1) {
                 $type = 'callable'; //strip callable type of its possible parenthesis and return (ex: callable(): void)
@@ -133,7 +148,7 @@ class PhpStanType
                 $type = ''; // null is a real typehint
             }
         }
-
+        
         //if there are several distinct types, no typehint (we use distinct in case doc block contains several times the same type, for example array<int>|array<string>)
         if (count(array_unique($types)) > 1) {
             return '';
@@ -142,7 +157,7 @@ class PhpStanType
         }
 
 
-        $finalType = $types[0];
+        $finalType = isset($types[0]) ? $types[0] : '';
         if ($finalType === 'bool' && !$nullable && $errorType === Method::FALSY_TYPE) {
             // If the function only returns a boolean, since false is for error, true is for success.
             // Let's replace this with a "void".

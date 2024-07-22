@@ -14,133 +14,30 @@ use Safe\Exceptions\UodbcException;
  * see odbc_connect for details.
  * @param bool $enable If enable is TRUE, auto-commit is enabled, if
  * it is FALSE auto-commit is disabled.
- * @return mixed Without the enable parameter, this function returns
+ * If NULL is passed, this function returns the auto-commit status for
+ * odbc.
+ * @return mixed With a NULL enable parameter, this function returns
  * auto-commit status for odbc. Non-zero is
  * returned if auto-commit is on, 0 if it is off, or FALSE if an error
  * occurs.
  *
- * If enable is set, this function returns TRUE on
+ * If enable is non-null, this function returns TRUE on
  * success.
  * @throws UodbcException
  *
  */
-function odbc_autocommit($odbc, bool $enable = false)
+function odbc_autocommit($odbc, bool $enable = null)
 {
     error_clear_last();
-    $safeResult = \odbc_autocommit($odbc, $enable);
+    if ($enable !== null) {
+        $safeResult = \odbc_autocommit($odbc, $enable);
+    } else {
+        $safeResult = \odbc_autocommit($odbc);
+    }
     if ($safeResult === false) {
         throw UodbcException::createFromPhpError();
     }
     return $safeResult;
-}
-
-
-/**
- * Controls handling of binary column data. ODBC SQL types affected are
- * BINARY, VARBINARY, and
- * LONGVARBINARY.
- * The default mode can be set using the
- * uodbc.defaultbinmode php.ini directive.
- *
- * When binary SQL data is converted to character C data (ODBC_BINMODE_CONVERT), each byte
- * (8 bits) of source data is represented as two ASCII characters.
- * These characters are the ASCII character representation of the
- * number in its hexadecimal form. For example, a binary
- * 00000001 is converted to
- * "01" and a binary 11111111
- * is converted to "FF".
- *
- * While the handling of BINARY and VARBINARY
- * columns only depend on the binmode, the handling of LONGVARBINARY
- * columns also depends on the longreadlen as well:
- *
- * LONGVARBINARY handling
- *
- *
- *
- * binmode
- * longreadlen
- * result
- *
- *
- *
- *
- * ODBC_BINMODE_PASSTHRU
- * 0
- * passthru
- *
- *
- * ODBC_BINMODE_RETURN
- * 0
- * passthru
- *
- *
- * ODBC_BINMODE_CONVERT
- * 0
- * passthru
- *
- *
- * ODBC_BINMODE_PASSTHRU
- * &gt;0
- * passthru
- *
- *
- * ODBC_BINMODE_RETURN
- * &gt;0
- * return as is
- *
- *
- * ODBC_BINMODE_CONVERT
- * &gt;0
- * return as char
- *
- *
- *
- *
- *
- * If odbc_fetch_into is used, passthru means that an
- * empty string is returned for these columns.
- * If odbc_result is used, passthru means that the data are
- * sent directly to the client (i.e. printed).
- *
- * @param int $statement The result identifier.
- *
- * If statement is 0, the
- * settings apply as default for new results.
- * @param int $mode Possible values for mode are:
- *
- *
- *
- * ODBC_BINMODE_PASSTHRU: Passthru BINARY data
- *
- *
- *
- *
- * ODBC_BINMODE_RETURN: Return as is
- *
- *
- *
- *
- * ODBC_BINMODE_CONVERT: Convert to char and return
- *
- *
- *
- *
- *
- * Handling of binary long
- * columns is also affected by odbc_longreadlen.
- *
- *
- * @throws UodbcException
- *
- */
-function odbc_binmode(int $statement, int $mode): void
-{
-    error_clear_last();
-    $safeResult = \odbc_binmode($statement, $mode);
-    if ($safeResult === false) {
-        throw UodbcException::createFromPhpError();
-    }
 }
 
 
@@ -237,7 +134,7 @@ function odbc_columnprivileges($odbc, string $catalog, string $schema, string $t
  * @throws UodbcException
  *
  */
-function odbc_columns($odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $column = null)
+function odbc_columns($odbc, string $catalog = null, string $schema = null, string $table = null, string $column = null)
 {
     error_clear_last();
     if ($column !== null) {
@@ -634,28 +531,6 @@ function odbc_gettypeinfo($odbc, int $data_type = 0)
 
 
 /**
- * Controls handling of LONG, LONGVARCHAR and LONGVARBINARY columns.
- * The default length can be set using the
- * uodbc.defaultlrl php.ini directive.
- *
- * @param resource $statement The result identifier.
- * @param int $length The number of bytes returned to PHP is controlled by the parameter
- * length. If it is set to 0, long column data is passed through to the
- * client (i.e. printed) when retrieved with odbc_result.
- * @throws UodbcException
- *
- */
-function odbc_longreadlen($statement, int $length): void
-{
-    error_clear_last();
-    $safeResult = \odbc_longreadlen($statement, $length);
-    if ($safeResult === false) {
-        throw UodbcException::createFromPhpError();
-    }
-}
-
-
-/**
  * Opens a persistent database connection.
  *
  * This function is much like
@@ -798,7 +673,7 @@ function odbc_primarykeys($odbc, string $catalog, string $schema, string $table)
  * @throws UodbcException
  *
  */
-function odbc_procedurecolumns($odbc, ?string $catalog = null, ?string $schema = null, ?string $procedure = null, ?string $column = null)
+function odbc_procedurecolumns($odbc, string $catalog = null, string $schema = null, string $procedure = null, string $column = null)
 {
     error_clear_last();
     if ($column !== null) {
@@ -851,7 +726,7 @@ function odbc_procedurecolumns($odbc, ?string $catalog = null, ?string $schema =
  * @throws UodbcException
  *
  */
-function odbc_procedures($odbc, ?string $catalog = null, ?string $schema = null, ?string $procedure = null)
+function odbc_procedures($odbc, string $catalog = null, string $schema = null, string $procedure = null)
 {
     error_clear_last();
     if ($procedure !== null) {
@@ -991,7 +866,7 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  * One of SQL_SCOPE_CURROW, SQL_SCOPE_TRANSACTION
  * or SQL_SCOPE_SESSION.
  * @param int $nullable Determines whether to return special columns that can have a NULL value.
- * One of SQL_NO_NULLS or SQL_NULLABLE .
+ * One of SQL_NO_NULLS or SQL_NULLABLE.
  * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
@@ -1181,7 +1056,7 @@ function odbc_tableprivileges($odbc, string $catalog, string $schema, string $ta
  * @throws UodbcException
  *
  */
-function odbc_tables($odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $types = null)
+function odbc_tables($odbc, string $catalog = null, string $schema = null, string $table = null, string $types = null)
 {
     error_clear_last();
     if ($types !== null) {
@@ -1200,3 +1075,4 @@ function odbc_tables($odbc, ?string $catalog = null, ?string $schema = null, ?st
     }
     return $safeResult;
 }
+

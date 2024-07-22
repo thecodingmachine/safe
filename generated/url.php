@@ -8,7 +8,7 @@ use Safe\Exceptions\UrlException;
  * Decodes a base64 encoded string.
  *
  * @param string $string The encoded data.
- * @param bool $strict If the strict parameter is set to TRUE
+ * @param false $strict If the strict parameter is set to TRUE
  * then the base64_decode function will return
  * FALSE if the input contains character from outside the base64
  * alphabet. Otherwise invalid characters will be silently discarded.
@@ -17,7 +17,7 @@ use Safe\Exceptions\UrlException;
  * @throws UrlException
  *
  */
-function base64_decode(string $string, bool $strict = false): string
+function base64_decode(string $string, $strict = false): string
 {
     error_clear_last();
     $safeResult = \base64_decode($string, $strict);
@@ -202,3 +202,4 @@ function parse_url(string $url, int $component = -1)
     }
     return $safeResult;
 }
+

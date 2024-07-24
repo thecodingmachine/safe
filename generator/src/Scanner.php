@@ -101,7 +101,7 @@ class Scanner
                 continue;
             }
 
-            $docPage = new DocPage($path->getPath());
+            $docPage = new DocPage($path->getPathname());
             $isFalsy = $docPage->detectFalsyFunction();
             $isNullsy = $docPage->detectNullsyFunction();
             $isEmpty = $docPage->detectEmptyFunction();

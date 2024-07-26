@@ -463,7 +463,8 @@ function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, array 
  * @param string $passphrase The key.
  * @param int $options options can be one of
  * OPENSSL_RAW_DATA,
- * OPENSSL_ZERO_PADDING.
+ * OPENSSL_ZERO_PADDING
+ * or OPENSSL_DONT_ZERO_PAD_KEY.
  * @param string $iv A non-NULL Initialization Vector.
  * @param string $tag The authentication tag in AEAD cipher mode. If it is incorrect, the authentication fails and the function returns FALSE.
  * @param string $aad Additional authenticated data.

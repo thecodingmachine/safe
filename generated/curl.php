@@ -4086,3 +4086,4 @@ function curl_upkeep(\CurlHandle $handle): void
         throw CurlException::createFromPhpError($handle);
     }
 }
+

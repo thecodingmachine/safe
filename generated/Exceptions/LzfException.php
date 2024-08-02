@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class LzfException extends \ErrorException implements SafeExceptionInterface

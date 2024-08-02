@@ -77,3 +77,4 @@ function mime_content_type($filename): string
     }
     return $safeResult;
 }
+

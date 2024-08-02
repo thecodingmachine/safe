@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class SplException extends \ErrorException implements SafeExceptionInterface

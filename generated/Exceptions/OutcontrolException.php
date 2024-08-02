@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class OutcontrolException extends \ErrorException implements SafeExceptionInterface

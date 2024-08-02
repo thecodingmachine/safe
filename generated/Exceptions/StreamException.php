@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class StreamException extends \ErrorException implements SafeExceptionInterface

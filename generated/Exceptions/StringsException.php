@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class StringsException extends \ErrorException implements SafeExceptionInterface

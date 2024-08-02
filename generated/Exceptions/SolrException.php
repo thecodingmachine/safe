@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class SolrException extends \ErrorException implements SafeExceptionInterface

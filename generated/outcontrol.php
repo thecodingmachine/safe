@@ -319,3 +319,4 @@ function output_reset_rewrite_vars(): void
         throw OutcontrolException::createFromPhpError();
     }
 }
+

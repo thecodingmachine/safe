@@ -1487,3 +1487,4 @@ function openssl_x509_read($certificate): \OpenSSLCertificate
     }
     return $safeResult;
 }
+

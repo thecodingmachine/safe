@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class FilesystemException extends \ErrorException implements SafeExceptionInterface

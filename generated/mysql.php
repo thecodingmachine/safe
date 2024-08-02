@@ -26,7 +26,7 @@ use Safe\Exceptions\MysqlException;
  * @throws MysqlException
  *
  */
-function mysql_close($link_identifier = null): void
+function mysql_close($link_identifier = NULL): void
 {
     error_clear_last();
     $safeResult = \mysql_close($link_identifier);
@@ -111,7 +111,7 @@ function mysql_connect(string $server = null, string $username = null, string $p
  * @throws MysqlException
  *
  */
-function mysql_create_db(string $database_name, $link_identifier = null): void
+function mysql_create_db(string $database_name, $link_identifier = NULL): void
 {
     error_clear_last();
     $safeResult = \mysql_create_db($database_name, $link_identifier);
@@ -165,7 +165,7 @@ function mysql_data_seek($result, int $row_number): void
  * @throws MysqlException
  *
  */
-function mysql_db_name($result, int $row, $field = null): string
+function mysql_db_name($result, int $row, $field = NULL): string
 {
     error_clear_last();
     $safeResult = \mysql_db_name($result, $row, $field);
@@ -196,7 +196,7 @@ function mysql_db_name($result, int $row, $field = null): string
  * @throws MysqlException
  *
  */
-function mysql_db_query(string $database, string $query, $link_identifier = null)
+function mysql_db_query(string $database, string $query, $link_identifier = NULL)
 {
     error_clear_last();
     $safeResult = \mysql_db_query($database, $query, $link_identifier);
@@ -224,7 +224,7 @@ function mysql_db_query(string $database, string $query, $link_identifier = null
  * @throws MysqlException
  *
  */
-function mysql_drop_db(string $database_name, $link_identifier = null): void
+function mysql_drop_db(string $database_name, $link_identifier = NULL): void
 {
     error_clear_last();
     $safeResult = \mysql_drop_db($database_name, $link_identifier);
@@ -418,7 +418,7 @@ function mysql_free_result($result): void
  * @throws MysqlException
  *
  */
-function mysql_get_host_info($link_identifier = null): string
+function mysql_get_host_info($link_identifier = NULL): string
 {
     error_clear_last();
     $safeResult = \mysql_get_host_info($link_identifier);
@@ -442,7 +442,7 @@ function mysql_get_host_info($link_identifier = null): string
  * @throws MysqlException
  *
  */
-function mysql_get_proto_info($link_identifier = null): int
+function mysql_get_proto_info($link_identifier = NULL): int
 {
     error_clear_last();
     $safeResult = \mysql_get_proto_info($link_identifier);
@@ -466,7 +466,7 @@ function mysql_get_proto_info($link_identifier = null): int
  * @throws MysqlException
  *
  */
-function mysql_get_server_info($link_identifier = null): string
+function mysql_get_server_info($link_identifier = NULL): string
 {
     error_clear_last();
     $safeResult = \mysql_get_server_info($link_identifier);
@@ -492,7 +492,7 @@ function mysql_get_server_info($link_identifier = null): string
  * @throws MysqlException
  *
  */
-function mysql_info($link_identifier = null): string
+function mysql_info($link_identifier = NULL): string
 {
     error_clear_last();
     $safeResult = \mysql_info($link_identifier);
@@ -519,7 +519,7 @@ function mysql_info($link_identifier = null): string
  * @throws MysqlException
  *
  */
-function mysql_list_dbs($link_identifier = null)
+function mysql_list_dbs($link_identifier = NULL)
 {
     error_clear_last();
     $safeResult = \mysql_list_dbs($link_identifier);
@@ -554,7 +554,7 @@ function mysql_list_dbs($link_identifier = null)
  * @throws MysqlException
  *
  */
-function mysql_list_fields(string $database_name, string $table_name, $link_identifier = null)
+function mysql_list_fields(string $database_name, string $table_name, $link_identifier = NULL)
 {
     error_clear_last();
     $safeResult = \mysql_list_fields($database_name, $table_name, $link_identifier);
@@ -578,7 +578,7 @@ function mysql_list_fields(string $database_name, string $table_name, $link_iden
  * @throws MysqlException
  *
  */
-function mysql_list_processes($link_identifier = null)
+function mysql_list_processes($link_identifier = NULL)
 {
     error_clear_last();
     $safeResult = \mysql_list_processes($link_identifier);
@@ -611,7 +611,7 @@ function mysql_list_processes($link_identifier = null)
  * @throws MysqlException
  *
  */
-function mysql_list_tables(string $database, $link_identifier = null)
+function mysql_list_tables(string $database, $link_identifier = NULL)
 {
     error_clear_last();
     $safeResult = \mysql_list_tables($database, $link_identifier);
@@ -707,7 +707,7 @@ function mysql_num_rows($result): int
  * @throws MysqlException
  *
  */
-function mysql_query(string $query, $link_identifier = null)
+function mysql_query(string $query, $link_identifier = NULL)
 {
     error_clear_last();
     $safeResult = \mysql_query($query, $link_identifier);
@@ -744,7 +744,7 @@ function mysql_query(string $query, $link_identifier = null)
  * @throws MysqlException
  *
  */
-function mysql_real_escape_string(string $unescaped_string, $link_identifier = null): string
+function mysql_real_escape_string(string $unescaped_string, $link_identifier = NULL): string
 {
     error_clear_last();
     $safeResult = \mysql_real_escape_string($unescaped_string, $link_identifier);
@@ -807,7 +807,7 @@ function mysql_result($result, int $row, $field = 0): string
  * @throws MysqlException
  *
  */
-function mysql_select_db(string $database_name, $link_identifier = null): void
+function mysql_select_db(string $database_name, $link_identifier = NULL): void
 {
     error_clear_last();
     $safeResult = \mysql_select_db($database_name, $link_identifier);
@@ -830,7 +830,7 @@ function mysql_select_db(string $database_name, $link_identifier = null): void
  * @throws MysqlException
  *
  */
-function mysql_set_charset(string $charset, $link_identifier = null): void
+function mysql_set_charset(string $charset, $link_identifier = NULL): void
 {
     error_clear_last();
     $safeResult = \mysql_set_charset($charset, $link_identifier);
@@ -884,7 +884,7 @@ function mysql_tablename($result, int $i): string
  * @throws MysqlException
  *
  */
-function mysql_thread_id($link_identifier = null): int
+function mysql_thread_id($link_identifier = NULL): int
 {
     error_clear_last();
     $safeResult = \mysql_thread_id($link_identifier);
@@ -927,7 +927,7 @@ function mysql_thread_id($link_identifier = null): int
  * @throws MysqlException
  *
  */
-function mysql_unbuffered_query(string $query, $link_identifier = null)
+function mysql_unbuffered_query(string $query, $link_identifier = NULL)
 {
     error_clear_last();
     $safeResult = \mysql_unbuffered_query($query, $link_identifier);
@@ -936,3 +936,4 @@ function mysql_unbuffered_query(string $query, $link_identifier = null)
     }
     return $safeResult;
 }
+

@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class YamlException extends \ErrorException implements SafeExceptionInterface

@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class SodiumException extends \ErrorException implements SafeExceptionInterface

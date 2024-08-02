@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class FileinfoException extends \ErrorException implements SafeExceptionInterface

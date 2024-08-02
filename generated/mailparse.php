@@ -125,4 +125,3 @@ function mailparse_stream_encode($sourcefp, $destfp, string $encoding): void
         throw MailparseException::createFromPhpError();
     }
 }
-

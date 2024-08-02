@@ -607,4 +607,3 @@ function rnp_supported_features(string $type): void
         throw RnpException::createFromPhpError();
     }
 }
-

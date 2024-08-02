@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class FunchandException extends \ErrorException implements SafeExceptionInterface

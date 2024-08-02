@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class SocketsException extends \ErrorException implements SafeExceptionInterface

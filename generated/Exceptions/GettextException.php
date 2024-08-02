@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class GettextException extends \ErrorException implements SafeExceptionInterface

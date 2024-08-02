@@ -20,4 +20,3 @@ function solr_get_version(): string
     }
     return $safeResult;
 }
-

@@ -1449,7 +1449,7 @@ function imagefilltoborder($image, int $x, int $y, int $border_color, int $color
  * @throws ImageException
  *
  */
-function imagefilter($image, int $filter, int  ...$args): void
+function imagefilter($image, int $filter, int ...$args): void
 {
     error_clear_last();
     if ($args !== []) {
@@ -2942,4 +2942,3 @@ function png2wbmp(string $pngname, string $wbmpname, int $dest_height, int $dest
         throw ImageException::createFromPhpError();
     }
 }
-

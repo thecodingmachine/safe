@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class UrlException extends \ErrorException implements SafeExceptionInterface

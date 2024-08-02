@@ -436,4 +436,3 @@ function yaz_wait(array &$options = null)
     }
     return $safeResult;
 }
-

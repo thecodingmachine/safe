@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class DirException extends \ErrorException implements SafeExceptionInterface

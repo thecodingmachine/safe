@@ -2036,4 +2036,3 @@ function cubrid_set_query_timeout($req_identifier, int $timeout): void
         throw CubridException::createFromPhpError();
     }
 }
-

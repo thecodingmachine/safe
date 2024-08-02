@@ -427,4 +427,3 @@ function sqlsrv_rollback($conn): void
         throw SqlsrvException::createFromPhpError();
     }
 }
-

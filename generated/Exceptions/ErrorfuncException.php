@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class ErrorfuncException extends \ErrorException implements SafeExceptionInterface

@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class EioException extends \ErrorException implements SafeExceptionInterface

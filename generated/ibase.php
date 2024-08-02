@@ -659,4 +659,3 @@ function ibase_service_detach($service_handle): void
         throw IbaseException::createFromPhpError();
     }
 }
-

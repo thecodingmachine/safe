@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class ZipException extends \ErrorException implements SafeExceptionInterface

@@ -146,4 +146,3 @@ function swoole_event_write(int $fd, string $data): void
         throw SwooleException::createFromPhpError();
     }
 }
-

@@ -789,4 +789,3 @@ function stream_wrapper_unregister(string $protocol): void
         throw StreamException::createFromPhpError();
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class InfoException extends \ErrorException implements SafeExceptionInterface

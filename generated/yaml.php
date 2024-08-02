@@ -107,4 +107,3 @@ function yaml_parse(string $input, int $pos = 0, ?int &$ndocs = null, array $cal
     }
     return $safeResult;
 }
-

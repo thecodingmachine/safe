@@ -234,4 +234,3 @@ function xdiff_string_patch(string $str, string $patch, int $flags = null, ?stri
     }
     return $safeResult;
 }
-

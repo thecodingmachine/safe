@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class MailparseException extends \ErrorException implements SafeExceptionInterface

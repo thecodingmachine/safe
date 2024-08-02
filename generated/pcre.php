@@ -683,4 +683,3 @@ function preg_split(string $pattern, string $subject, ?int $limit = -1, int $fla
     }
     return $safeResult;
 }
-

@@ -79,4 +79,3 @@ function filter_var_array(array $array, $options = FILTER_DEFAULT, bool $add_emp
     }
     return $safeResult;
 }
-

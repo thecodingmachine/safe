@@ -25,4 +25,3 @@ function bindtextdomain(string $domain, string $directory): string
     }
     return $safeResult;
 }
-

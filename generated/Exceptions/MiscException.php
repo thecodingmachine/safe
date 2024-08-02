@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class MiscException extends \ErrorException implements SafeExceptionInterface

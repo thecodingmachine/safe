@@ -869,4 +869,3 @@ function socket_wsaprotocol_info_release(string $info_id): void
         throw SocketsException::createFromPhpError();
     }
 }
-

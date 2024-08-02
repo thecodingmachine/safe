@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class ApcuException extends \ErrorException implements SafeExceptionInterface

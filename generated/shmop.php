@@ -46,4 +46,3 @@ function shmop_read($shmop, int $offset, int $size): string
     }
     return $safeResult;
 }
-

@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class VarException extends \ErrorException implements SafeExceptionInterface

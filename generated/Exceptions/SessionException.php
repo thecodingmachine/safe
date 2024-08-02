@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class SessionException extends \ErrorException implements SafeExceptionInterface

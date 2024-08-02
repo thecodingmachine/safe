@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class FtpException extends \ErrorException implements SafeExceptionInterface

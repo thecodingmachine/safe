@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class RrdException extends \ErrorException implements SafeExceptionInterface

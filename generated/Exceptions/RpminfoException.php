@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class RpminfoException extends \ErrorException implements SafeExceptionInterface

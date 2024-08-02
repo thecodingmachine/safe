@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class InotifyException extends \ErrorException implements SafeExceptionInterface

@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class PspellException extends \ErrorException implements SafeExceptionInterface

@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class RnpException extends \ErrorException implements SafeExceptionInterface

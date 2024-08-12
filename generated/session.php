@@ -38,7 +38,7 @@ function session_abort(): void
  * is prefixed by prefix. Not all
  * characters are allowed within the session id.  Characters in
  * the range a-z A-Z 0-9 , (comma) and -
- * (minus) are allowed.
+ * (minus) are allowed. Maximum length is 256 characters.
  * @return string session_create_id returns new collision free
  * session id for the current session. If it is used without active
  * session, it omits collision check.

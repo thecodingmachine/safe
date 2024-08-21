@@ -304,14 +304,12 @@ function session_reset(): void
  *
  *
  * On some operating systems, you may want to specify a path on a
- * filesystem that handles lots of small files efficiently. For example,
- * on Linux, reiserfs may provide better performance than ext2fs.
+ * filesystem that handles lots of small files efficiently.
  *
  *
  *
  * On some operating systems, you may want to specify a path on a
- * filesystem that handles lots of small files efficiently. For example,
- * on Linux, reiserfs may provide better performance than ext2fs.
+ * filesystem that handles lots of small files efficiently.
  * @return string Returns the path of the current directory used for data storage.
  * @throws SessionException
  *

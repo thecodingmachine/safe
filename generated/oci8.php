@@ -1256,7 +1256,7 @@ function oci_set_action($connection, string $action): void
 
 
 /**
- * Sets a timeout limiting the maxium time a database round-trip using this connection may take.
+ * Sets a timeout limiting the maximum time a database round-trip using this connection may take.
  *
  * Each OCI8 operation may make zero or more calls to Oracle's client
  * library.  These internal calls may then may make zero or more

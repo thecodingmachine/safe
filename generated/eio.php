@@ -1526,16 +1526,18 @@ function eio_rmdir(string $path, int $pri = EIO_PRI_DEFAULT, callable $callback 
 
 /**
  * eio_seek repositions the offset of the open file associated with
- * stream, Socket resource, or file descriptor specified by fd to the argument offset according to the directive whence as follows:
+ * stream, Socket instance, or file descriptor specified by fd to
+ * the argument offset according to
+ * the directive whence.
+ *
+ * @param mixed $fd Stream, Socket instance, or numeric file descriptor.
+ * @param int $offset Starting point from which data is to be read.
+ * @param int $whence whence values are:
  *
  * EIO_SEEK_SET - Set position equal to offset bytes.
  * EIO_SEEK_CUR - Set position to current location plus offset.
  * EIO_SEEK_END - Set position to end-of-file plus offset.
  *
- *
- * @param mixed $fd Stream, Socket resource, or numeric file descriptor
- * @param int $offset Starting point from which data is to be read.
- * @param int $whence Number of bytes to be read.
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.

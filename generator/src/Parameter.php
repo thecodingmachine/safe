@@ -75,7 +75,7 @@ class Parameter
 
     public function isNullable(): bool
     {
-        return $this->phpStanType->isNullable();
+        return $this->phpStanType->isNullable() || $this->getDefaultValue() === "null";
     }
 
     /*

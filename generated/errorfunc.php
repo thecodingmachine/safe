@@ -66,7 +66,7 @@ use Safe\Exceptions\ErrorfuncException;
  * @throws ErrorfuncException
  *
  */
-function error_log(string $message, int $message_type = 0, string $destination = null, string $additional_headers = null): void
+function error_log(string $message, int $message_type = 0, ?string $destination = null, ?string $additional_headers = null): void
 {
     error_clear_last();
     if ($additional_headers !== null) {

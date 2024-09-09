@@ -761,7 +761,7 @@ function curl_exec(\CurlHandle $handle)
  * @throws CurlException
  *
  */
-function curl_getinfo(\CurlHandle $handle, int $option = null)
+function curl_getinfo(\CurlHandle $handle, ?int $option = null)
 {
     error_clear_last();
     if ($option !== null) {
@@ -791,7 +791,7 @@ function curl_getinfo(\CurlHandle $handle, int $option = null)
  * @throws CurlException
  *
  */
-function curl_init(string $url = null): \CurlHandle
+function curl_init(?string $url = null): \CurlHandle
 {
     error_clear_last();
     if ($url !== null) {

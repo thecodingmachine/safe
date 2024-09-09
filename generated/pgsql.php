@@ -748,7 +748,7 @@ function pg_lo_unlink($connection, int $oid): void
  * @throws PgsqlException
  *
  */
-function pg_lo_write($lob, string $data, int $length = null): int
+function pg_lo_write($lob, string $data, ?int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {

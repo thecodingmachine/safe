@@ -143,6 +143,9 @@ class WritePhpFunction
             }
 
             if ($paramAsString !== '') {
+                if ($param->isNullable() && $paramAsString[0] !== "?") {
+                    $paramAsString = "?" . $paramAsString;
+                }
                 $paramAsString .= ' ';
             }
 

@@ -26,7 +26,7 @@ use Safe\Exceptions\UodbcException;
  * @throws UodbcException
  *
  */
-function odbc_autocommit($odbc, bool $enable = null)
+function odbc_autocommit($odbc, ?bool $enable = null)
 {
     error_clear_last();
     if ($enable !== null) {
@@ -134,7 +134,7 @@ function odbc_columnprivileges($odbc, string $catalog, string $schema, string $t
  * @throws UodbcException
  *
  */
-function odbc_columns($odbc, string $catalog = null, string $schema = null, string $table = null, string $column = null)
+function odbc_columns($odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $column = null)
 {
     error_clear_last();
     if ($column !== null) {
@@ -673,7 +673,7 @@ function odbc_primarykeys($odbc, string $catalog, string $schema, string $table)
  * @throws UodbcException
  *
  */
-function odbc_procedurecolumns($odbc, string $catalog = null, string $schema = null, string $procedure = null, string $column = null)
+function odbc_procedurecolumns($odbc, ?string $catalog = null, ?string $schema = null, ?string $procedure = null, ?string $column = null)
 {
     error_clear_last();
     if ($column !== null) {
@@ -726,7 +726,7 @@ function odbc_procedurecolumns($odbc, string $catalog = null, string $schema = n
  * @throws UodbcException
  *
  */
-function odbc_procedures($odbc, string $catalog = null, string $schema = null, string $procedure = null)
+function odbc_procedures($odbc, ?string $catalog = null, ?string $schema = null, ?string $procedure = null)
 {
     error_clear_last();
     if ($procedure !== null) {
@@ -1056,7 +1056,7 @@ function odbc_tableprivileges($odbc, string $catalog, string $schema, string $ta
  * @throws UodbcException
  *
  */
-function odbc_tables($odbc, string $catalog = null, string $schema = null, string $table = null, string $types = null)
+function odbc_tables($odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $types = null)
 {
     error_clear_last();
     if ($types !== null) {

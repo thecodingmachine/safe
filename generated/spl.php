@@ -107,7 +107,7 @@ function class_uses($object_or_class, bool $autoload = true): array
  * @throws SplException
  *
  */
-function spl_autoload_register(callable $callback = null, bool $throw = true, bool $prepend = false): void
+function spl_autoload_register(?callable $callback = null, bool $throw = true, bool $prepend = false): void
 {
     error_clear_last();
     if ($prepend !== false) {

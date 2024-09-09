@@ -19,7 +19,7 @@ use Safe\Exceptions\MbstringException;
  * @throws MbstringException
  *
  */
-function mb_chr(int $codepoint, string $encoding = null): string
+function mb_chr(int $codepoint, ?string $encoding = null): string
 {
     error_clear_last();
     if ($encoding !== null) {
@@ -151,7 +151,7 @@ function mb_detect_order($encoding = null)
  * @throws MbstringException
  *
  */
-function mb_ereg_replace_callback(string $pattern, callable $callback, string $string, string $options = null): ?string
+function mb_ereg_replace_callback(string $pattern, callable $callback, string $string, ?string $options = null): ?string
 {
     error_clear_last();
     if ($options !== null) {
@@ -181,7 +181,7 @@ function mb_ereg_replace_callback(string $pattern, callable $callback, string $s
  * @throws MbstringException
  *
  */
-function mb_ereg_replace(string $pattern, string $replacement, string $string, string $options = null): ?string
+function mb_ereg_replace(string $pattern, string $replacement, string $string, ?string $options = null): ?string
 {
     error_clear_last();
     if ($options !== null) {
@@ -228,7 +228,7 @@ function mb_ereg_search_getregs(): array
  * @throws MbstringException
  *
  */
-function mb_ereg_search_init(string $string, string $pattern = null, string $options = null): void
+function mb_ereg_search_init(string $string, ?string $pattern = null, ?string $options = null): void
 {
     error_clear_last();
     if ($options !== null) {
@@ -253,7 +253,7 @@ function mb_ereg_search_init(string $string, string $pattern = null, string $opt
  * @throws MbstringException
  *
  */
-function mb_ereg_search_regs(string $pattern = null, string $options = null): array
+function mb_ereg_search_regs(?string $pattern = null, ?string $options = null): array
 {
     error_clear_last();
     if ($options !== null) {
@@ -300,7 +300,7 @@ function mb_ereg_search_setpos(int $offset): void
  * @throws MbstringException
  *
  */
-function mb_eregi_replace(string $pattern, string $replacement, string $string, string $options = null): string
+function mb_eregi_replace(string $pattern, string $replacement, string $string, ?string $options = null): string
 {
     error_clear_last();
     if ($options !== null) {
@@ -371,7 +371,7 @@ function mb_get_info(string $type = "all")
  * @throws MbstringException
  *
  */
-function mb_http_output(string $encoding = null)
+function mb_http_output(?string $encoding = null)
 {
     error_clear_last();
     if ($encoding !== null) {
@@ -402,7 +402,7 @@ function mb_http_output(string $encoding = null)
  * @throws MbstringException
  *
  */
-function mb_internal_encoding(string $encoding = null)
+function mb_internal_encoding(?string $encoding = null)
 {
     error_clear_last();
     if ($encoding !== null) {
@@ -430,7 +430,7 @@ function mb_internal_encoding(string $encoding = null)
  * @throws MbstringException
  *
  */
-function mb_ord(string $string, string $encoding = null): int
+function mb_ord(string $string, ?string $encoding = null): int
 {
     error_clear_last();
     if ($encoding !== null) {
@@ -478,7 +478,7 @@ function mb_parse_str(string $string, ?array &$result): void
  * @throws MbstringException
  *
  */
-function mb_regex_encoding(string $encoding = null)
+function mb_regex_encoding(?string $encoding = null)
 {
     error_clear_last();
     if ($encoding !== null) {
@@ -550,7 +550,7 @@ function mb_regex_encoding(string $encoding = null)
  * @throws MbstringException
  *
  */
-function mb_send_mail(string $to, string $subject, string $message, $additional_headers = [], string $additional_params = null): void
+function mb_send_mail(string $to, string $subject, string $message, $additional_headers = [], ?string $additional_params = null): void
 {
     error_clear_last();
     if ($additional_params !== null) {

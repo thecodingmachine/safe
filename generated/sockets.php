@@ -185,7 +185,7 @@ function socket_bind($socket, string $address, int $port = 0): void
  * @throws SocketsException
  *
  */
-function socket_connect($socket, string $address, int $port = null): void
+function socket_connect($socket, string $address, ?int $port = null): void
 {
     error_clear_last();
     if ($port !== null) {
@@ -670,7 +670,7 @@ function socket_sendmsg($socket, array $message, int $flags = 0): int
  * @throws SocketsException
  *
  */
-function socket_sendto($socket, string $data, int $length, int $flags, string $address, int $port = null): int
+function socket_sendto($socket, string $data, int $length, int $flags, string $address, ?int $port = null): int
 {
     error_clear_last();
     if ($port !== null) {

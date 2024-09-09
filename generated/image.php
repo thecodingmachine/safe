@@ -139,7 +139,7 @@ function image2wbmp($image, ?string $filename = null, int $foreground = null): v
  * @throws ImageException
  *
  */
-function imageaffine($image, array $affine, array $clip = null)
+function imageaffine($image, array $affine, ?array $clip = null)
 {
     error_clear_last();
     if ($clip !== null) {
@@ -2134,7 +2134,7 @@ function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color):
  * @throws ImageException
  *
  */
-function imageresolution($image, int $resolution_x = null, int $resolution_y = null)
+function imageresolution($image, ?int $resolution_x = null, ?int $resolution_y = null)
 {
     error_clear_last();
     if ($resolution_y !== null) {
@@ -2783,7 +2783,7 @@ function imagettftext($image, float $size, float $angle, int $x, int $y, int $co
  * @throws ImageException
  *
  */
-function imagewbmp($image, $file = null, int $foreground_color = null): void
+function imagewbmp($image, $file = null, ?int $foreground_color = null): void
 {
     error_clear_last();
     if ($foreground_color !== null) {
@@ -2846,7 +2846,7 @@ function imagewebp($image, $file = null, int $quality = -1): void
  * @throws ImageException
  *
  */
-function imagexbm($image, $filename, int $foreground_color = null): void
+function imagexbm($image, $filename, ?int $foreground_color = null): void
 {
     error_clear_last();
     if ($foreground_color !== null) {

@@ -41,7 +41,7 @@ function imap_8bit(string $string): string
  * @throws ImapException
  *
  */
-function imap_append($imap, string $folder, string $message, string $options = null, string $internal_date = null): void
+function imap_append($imap, string $folder, string $message, ?string $options = null, ?string $internal_date = null): void
 {
     error_clear_last();
     if ($internal_date !== null) {
@@ -1375,7 +1375,7 @@ function imap_mail_move($imap, string $message_nums, string $mailbox, int $flags
  * @throws ImapException
  *
  */
-function imap_mail(string $to, string $subject, string $message, string $additional_headers = null, string $cc = null, string $bcc = null, string $return_path = null): void
+function imap_mail(string $to, string $subject, string $message, ?string $additional_headers = null, ?string $cc = null, ?string $bcc = null, ?string $return_path = null): void
 {
     error_clear_last();
     if ($return_path !== null) {
@@ -1888,7 +1888,7 @@ function imap_setacl($imap, string $mailbox, string $user_id, string $rights): v
  * @throws ImapException
  *
  */
-function imap_sort($imap, int $criteria, int $reverse, int $flags = 0, string $search_criteria = null, string $charset = null): array
+function imap_sort($imap, int $criteria, int $reverse, int $flags = 0, ?string $search_criteria = null, ?string $charset = null): array
 {
     error_clear_last();
     if ($charset !== null) {

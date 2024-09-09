@@ -726,7 +726,7 @@ function ssh2_sftp($session)
  * @throws Ssh2Exception
  *
  */
-function ssh2_shell($session, string $termtype = "vanilla", array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
+function ssh2_shell($session, string $termtype = "vanilla", ?array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
 {
     error_clear_last();
     if ($width_height_type !== SSH2_TERM_UNIT_CHARS) {

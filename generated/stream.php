@@ -66,7 +66,7 @@ function stream_context_set_params($context, array $params): void
  * @throws StreamException
  *
  */
-function stream_copy_to_stream($from, $to, int $length = null, int $offset = 0): int
+function stream_copy_to_stream($from, $to, ?int $length = null, int $offset = 0): int
 {
     error_clear_last();
     if ($offset !== 0) {
@@ -245,7 +245,7 @@ function stream_filter_remove($stream_filter): void
  * @throws StreamException
  *
  */
-function stream_get_contents($stream, int $length = null, int $offset = -1): string
+function stream_get_contents($stream, ?int $length = null, int $offset = -1): string
 {
     error_clear_last();
     if ($offset !== -1) {
@@ -403,7 +403,7 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
  * @throws StreamException
  *
  */
-function stream_socket_accept($socket, float $timeout = null, ?string &$peer_name = null)
+function stream_socket_accept($socket, ?float $timeout = null, ?string &$peer_name = null)
 {
     error_clear_last();
     if ($peer_name !== null) {
@@ -470,7 +470,7 @@ function stream_socket_accept($socket, float $timeout = null, ?string &$peer_nam
  * @throws StreamException
  *
  */
-function stream_socket_client(string $address, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null, int $flags = STREAM_CLIENT_CONNECT, $context = null)
+function stream_socket_client(string $address, ?int &$error_code = null, ?string &$error_message = null, ?float $timeout = null, int $flags = STREAM_CLIENT_CONNECT, $context = null)
 {
     error_clear_last();
     if ($context !== null) {

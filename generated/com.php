@@ -138,7 +138,7 @@ function com_load_typelib(string $typelib, bool $case_insensitive = true): void
  * @throws ComException
  *
  */
-function com_print_typeinfo(object $variant, string $dispatch_interface = null, bool $display_sink = false): void
+function com_print_typeinfo(object $variant, ?string $dispatch_interface = null, bool $display_sink = false): void
 {
     error_clear_last();
     if ($display_sink !== false) {

@@ -289,7 +289,7 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authorit
  * @throws NetworkException
  *
  */
-function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null)
+function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, ?float $timeout = null)
 {
     error_clear_last();
     if ($timeout !== null) {
@@ -574,7 +574,7 @@ function net_get_interfaces(): array
  * @throws NetworkException
  *
  */
-function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null)
+function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, ?float $timeout = null)
 {
     error_clear_last();
     if ($timeout !== null) {

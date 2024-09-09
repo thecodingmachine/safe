@@ -253,3 +253,4 @@ function pcntl_sigwaitinfo(array $signals, ?array &$info = []): int
     }
     return $safeResult;
 }
+

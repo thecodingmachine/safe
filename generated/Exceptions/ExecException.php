@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class ExecException extends \ErrorException implements SafeExceptionInterface

@@ -37,7 +37,7 @@ use const PREG_NO_ERROR;
 function json_decode(string $json, bool $associative = false, int $depth = 512, int $flags = 0): mixed
 {
     $data = \json_decode($json, $associative, $depth, $flags);
-    if (JSON_ERROR_NONE !== json_last_error()) {
+    if (!($flags & JSON_THROW_ON_ERROR) && JSON_ERROR_NONE !== json_last_error()) {
         throw JsonException::createFromPhpError();
     }
     return $data;

@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class YazException extends \ErrorException implements SafeExceptionInterface

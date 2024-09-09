@@ -587,3 +587,4 @@ function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, 
     }
     return $safeResult;
 }
+

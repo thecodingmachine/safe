@@ -368,3 +368,4 @@ function session_write_close(): void
         throw SessionException::createFromPhpError();
     }
 }
+

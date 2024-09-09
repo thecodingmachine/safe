@@ -95,4 +95,3 @@ function bzwrite($bz, string $data, ?int $length = null): int
     }
     return $safeResult;
 }
-

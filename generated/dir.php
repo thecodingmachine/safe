@@ -132,4 +132,3 @@ function scandir(string $directory, int $sorting_order = SCANDIR_SORT_ASCENDING,
     }
     return $safeResult;
 }
-

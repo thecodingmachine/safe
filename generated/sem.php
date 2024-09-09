@@ -543,4 +543,3 @@ function shm_remove($shm): void
         throw SemException::createFromPhpError();
     }
 }
-

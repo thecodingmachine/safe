@@ -186,4 +186,3 @@ function gnupg_setsignmode($identifier, int $signmode): void
         throw GnupgException::createFromPhpError();
     }
 }
-

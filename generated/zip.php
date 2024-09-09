@@ -142,4 +142,3 @@ function zip_entry_read($zip_entry, int $len = 1024): string
     }
     return $safeResult;
 }
-

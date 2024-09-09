@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class HashException extends \ErrorException implements SafeExceptionInterface

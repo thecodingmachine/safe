@@ -1075,4 +1075,3 @@ function odbc_tables($odbc, ?string $catalog = null, ?string $schema = null, ?st
     }
     return $safeResult;
 }
-

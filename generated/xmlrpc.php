@@ -20,4 +20,3 @@ function xmlrpc_set_type(&$value, string $type): void
         throw XmlrpcException::createFromPhpError();
     }
 }
-

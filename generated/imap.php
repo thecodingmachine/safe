@@ -2090,4 +2090,3 @@ function imap_utf8_to_mutf7(string $string): string
     }
     return $safeResult;
 }
-

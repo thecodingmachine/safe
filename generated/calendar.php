@@ -28,4 +28,3 @@ function unixtojd(?int $timestamp = null): int
     }
     return $safeResult;
 }
-

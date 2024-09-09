@@ -1,4 +1,5 @@
 <?php
+
 namespace Safe\Exceptions;
 
 class IbaseException extends \ErrorException implements SafeExceptionInterface

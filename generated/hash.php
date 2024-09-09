@@ -25,4 +25,3 @@ function hash_update_file(\HashContext $context, string $filename, ?\HashContext
         throw HashException::createFromPhpError();
     }
 }
-

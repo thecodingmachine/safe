@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class MysqlException extends \ErrorException implements SafeExceptionInterface

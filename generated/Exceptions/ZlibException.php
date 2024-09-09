@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class ZlibException extends \ErrorException implements SafeExceptionInterface

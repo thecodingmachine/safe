@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class ReadlineException extends \ErrorException implements SafeExceptionInterface

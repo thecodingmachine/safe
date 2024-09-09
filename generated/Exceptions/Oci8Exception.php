@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class Oci8Exception extends \ErrorException implements SafeExceptionInterface

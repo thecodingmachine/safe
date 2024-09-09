@@ -88,3 +88,4 @@ function xml_parser_set_option($parser, int $option, $value): void
         throw XmlException::createFromPhpError();
     }
 }
+

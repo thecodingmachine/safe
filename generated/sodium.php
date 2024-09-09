@@ -330,3 +330,4 @@ function sodium_crypto_stream_xchacha20_xor_ic(string $message, string $nonce, i
     }
     return $safeResult;
 }
+

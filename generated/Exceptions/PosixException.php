@@ -1,5 +1,4 @@
 <?php
-
 namespace Safe\Exceptions;
 
 class PosixException extends \ErrorException implements SafeExceptionInterface

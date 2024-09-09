@@ -58,3 +58,4 @@ function settype(&$var, string $type): void
         throw VarException::createFromPhpError();
     }
 }
+

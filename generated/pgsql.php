@@ -1375,3 +1375,4 @@ function pg_update($connection, string $table_name, array $values, array $condit
     }
     return $safeResult;
 }
+

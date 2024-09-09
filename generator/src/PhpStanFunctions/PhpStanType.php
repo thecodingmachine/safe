@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe\PhpStanFunctions;
 
@@ -11,24 +12,21 @@ use Safe\Type;
  */
 class PhpStanType
 {
-    const NO_SIGNATURE_TYPES = [
+    public const NO_SIGNATURE_TYPES = [
         'resource',
         'mixed',
         '\OCI-Lob',
         '\OCI-Collection',
     ];
-    /**
-     * @var bool
-     */
-    private $nullable;
-    /**
-     * @var bool
-     */
-    private $falsable;
+
+    private bool $nullable;
+
+    private bool $falsable;
+
     /**
      * @var string[]
      */
-    private $types;
+    private array $types;
 
     public function __construct(string $data, bool $writeOnly = false)
     {
@@ -39,6 +37,7 @@ class PhpStanType
             $this->types = ['null'];
             return;
         }
+
         //first we try to parse the type string to have a list as clean as possible.
         $nullable = false;
         $falsable = false;
@@ -49,43 +48,69 @@ class PhpStanType
 
         $returnTypes = $this->explodeTypes($data);
         //remove 'null' from the list to identify if the signature type should be nullable
-        if (($nullablePosition = \array_search('null', $returnTypes)) !== false) {
+        if (($nullablePosition = \array_search('null', $returnTypes, true)) !== false) {
             $nullable = true;
             \array_splice($returnTypes, (int) $nullablePosition, 1);
         }
+
         //remove 'false' from the list to identify if the function return false on error
-        if (($falsablePosition = \array_search('false', $returnTypes)) !== false) {
+        if (($falsablePosition = \array_search('false', $returnTypes, true)) !== false) {
             $falsable = true;
             \array_splice($returnTypes, (int) $falsablePosition, 1);
         }
+
         /** @var int $count */
         $count = \count($returnTypes);
         if ($count === 0) {
-            throw new \RuntimeException('Error when trying to extract parameter type');
+            $returnType = '';
         }
+
         foreach ($returnTypes as &$returnType) {
             $pos = \strpos($returnType, '?');
             if ($pos !== false) {
                 $nullable = true;
                 $returnType = \str_replace('?', '', $returnType);
             }
-            //remove the parenthesis only if we are not dealing with a callable
-            if (\strpos($returnType, 'callable') === false) {
+
+            // remove the parenthesis only if we are not dealing with a callable
+            if (str_contains($returnType, 'callable') === false) {
                 $returnType = \str_replace(['(', ')'], '', $returnType);
             }
-            //here we deal with some weird phpstan typings
-            if ($returnType === 'non-empty-string') {
+
+            // here we deal with some weird phpstan typings
+            if (str_contains($returnType, 'non-falsy-string')) {
                 $returnType = 'string';
-            } elseif ($returnType === 'positive-int') {
+            }
+
+            if (str_contains($returnType, 'non-empty-string')) {
+                $returnType = 'string';
+            }
+
+            if (str_contains($returnType, '__stringAndStringable')) {
+                $returnType = 'string';
+            }
+
+            if ($returnType === 'positive-int') {
                 $returnType = 'int';
             } elseif (is_numeric($returnType)) {
                 $returnType = 'int';
             }
-            if (\strpos($returnType, 'list<') !== false) {
+
+            if (str_contains($returnType, 'list<')) {
                 $returnType = \str_replace('list', 'array', $returnType);
             }
+
+            if (str_contains($returnType, 'int<')) {
+                $returnType = 'int';
+            }
+
+            if (\preg_match('/__benevolent\<(.*)\>/', $returnType, $regs)) {
+                $returnType = $regs[1];
+            }
+
             $returnType = Type::toRootNamespace($returnType);
         }
+
         $this->types = array_unique($returnTypes);
         $this->nullable = $nullable;
         $this->falsable = $falsable;
@@ -100,12 +125,14 @@ class PhpStanType
         } elseif ($this->nullable && $errorType !== Method::NULLSY_TYPE) {
             $returnTypes[] = 'null';
         }
-        $type = join('|', $returnTypes);
+
+        $type = implode('|', $returnTypes);
         if ($type === 'bool' && !$this->nullable && $errorType === Method::FALSY_TYPE) {
             // If the function only returns a boolean, since false is for error, true is for success.
             // Let's replace this with a "void".
             return 'void';
         }
+
         return $type;
     }
 
@@ -116,20 +143,20 @@ class PhpStanType
         $falsable = $errorType === Method::FALSY_TYPE ? false : $this->falsable;
         $types = $this->types;
         //no typehint exists for thoses cases
-        if (\array_intersect(self::NO_SIGNATURE_TYPES, $types)) {
+        if (\array_intersect(self::NO_SIGNATURE_TYPES, $types) !== []) {
             return '';
         }
 
         foreach ($types as &$type) {
             if (\strpos($type, 'callable(') > -1) {
                 $type = 'callable'; //strip callable type of its possible parenthesis and return (ex: callable(): void)
-            } elseif (\strpos($type, 'array<') !== false || \strpos($type, 'array{') !== false) {
+            } elseif (str_contains($type, 'array<') || str_contains($type, 'array{')) {
                 $type = 'array'; //typed array has to be untyped
-            } elseif (\strpos($type, '[]') !== false) {
+            } elseif (str_contains($type, '[]')) {
                 $type = 'iterable'; //generics cannot be typehinted and have to be turned into iterable
-            } elseif (\strpos($type, 'resource') !== false) {
+            } elseif (str_contains($type, 'resource')) {
                 $type = ''; // resource cant be typehinted
-            } elseif (\strpos($type, 'null') !== false) {
+            } elseif (str_contains($type, 'null')) {
                 $type = ''; // null is a real typehint
             }
         }
@@ -137,18 +164,21 @@ class PhpStanType
         //if there are several distinct types, no typehint (we use distinct in case doc block contains several times the same type, for example array<int>|array<string>)
         if (count(array_unique($types)) > 1) {
             return '';
-        } elseif (\in_array('void', $types) || (count($types) === 0 && !$nullable && !$falsable)) {
+        }
+
+        if (\in_array('void', $types) || ($types === [] && !$nullable && !$falsable)) {
             return 'void';
         }
 
 
-        $finalType = $types[0];
+        $finalType = $types[0] ?? '';
         if ($finalType === 'bool' && !$nullable && $errorType === Method::FALSY_TYPE) {
             // If the function only returns a boolean, since false is for error, true is for success.
             // Let's replace this with a "void".
             return 'void';
         }
-        return ($nullable !== false ? '?' : '').$finalType;
+
+        return ($nullable ? '?' : '') . $finalType;
     }
 
     public function isNullable(): bool

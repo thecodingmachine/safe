@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe;
 
@@ -17,20 +18,20 @@ class ScanObjectsCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/');
 
         $paths = $scanner->getMethodsPaths();
 
-        $res = $scanner->getMethods($paths);
+        $scannerResponse = $scanner->getMethods($paths);
 
-        foreach ($res->methods as $function) {
+        foreach ($scannerResponse->methods as $function) {
             $name = $function->getFunctionName();
-            $output->writeln('Found method '.$name);
+            $output->writeln('Found method ' . $name);
         }
 
-        $output->writeln('These methods are overloaded: '.\implode(', ', $res->overloadedFunctions));
+        $output->writeln('These methods are overloaded: ' . \implode(', ', $scannerResponse->overloadedFunctions));
         return 0;
     }
 }

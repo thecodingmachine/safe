@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 use PHPUnit\Framework\TestCase;
 
 class DocPageTest extends TestCase
 {
-    public function testDetectFalsyFunction()
+    public function testDetectFalsyFunction(): void
     {
         $pregMatch = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
         $implode = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/implode.xml');
@@ -25,29 +27,29 @@ class DocPageTest extends TestCase
         $this->assertTrue($pregMatch->detectFalsyFunction());
         $this->assertFalse($implode->detectFalsyFunction());
         $this->assertTrue($getCwd->detectFalsyFunction());
-        $this->assertTrue($setTime->detectFalsyFunction());
+        $this->assertFalse($setTime->detectFalsyFunction());
         $this->assertTrue($filesize->detectFalsyFunction());
         $this->assertTrue($mcryptDecrypt->detectFalsyFunction());
         $this->assertTrue($fsockopen->detectFalsyFunction());
         $this->assertFalse($arrayReplace->detectFalsyFunction());
-        $this->assertTrue($date->detectFalsyFunction());
+        $this->assertFalse($date->detectFalsyFunction());
         $this->assertTrue($classImplement->detectFalsyFunction());
         $this->assertTrue($getHeaders->detectFalsyFunction());
         $this->assertTrue($gzopen->detectFalsyFunction());
         $this->assertTrue($fopen->detectFalsyFunction());
     }
 
-    public function testDetectNullsyFunction()
+    public function testDetectNullsyFunction(): void
     {
-        $implode = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/implode.xml');
+        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/implode.xml');
 
-        $this->assertFalse($implode->detectNullsyFunction());
+        $this->assertFalse($docPage->detectNullsyFunction());
     }
 
-    public function testDetectEmptyFunction()
+    public function testDetectEmptyFunction(): void
     {
-        $pgHost = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pgsql/functions/pg-host.xml');
+        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pgsql/functions/pg-host.xml');
 
-        $this->assertTrue($pgHost->detectEmptyFunction());
+        $this->assertTrue($docPage->detectEmptyFunction());
     }
 }

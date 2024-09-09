@@ -38,7 +38,7 @@ function session_abort(): void
  * is prefixed by prefix. Not all
  * characters are allowed within the session id.  Characters in
  * the range a-z A-Z 0-9 , (comma) and -
- * (minus) are allowed.
+ * (minus) are allowed. Maximum length is 256 characters.
  * @return string session_create_id returns new collision free
  * session id for the current session. If it is used without active
  * session, it omits collision check.
@@ -304,14 +304,12 @@ function session_reset(): void
  *
  *
  * On some operating systems, you may want to specify a path on a
- * filesystem that handles lots of small files efficiently. For example,
- * on Linux, reiserfs may provide better performance than ext2fs.
+ * filesystem that handles lots of small files efficiently.
  *
  *
  *
  * On some operating systems, you may want to specify a path on a
- * filesystem that handles lots of small files efficiently. For example,
- * on Linux, reiserfs may provide better performance than ext2fs.
+ * filesystem that handles lots of small files efficiently.
  * @return string Returns the path of the current directory used for data storage.
  * @throws SessionException
  *

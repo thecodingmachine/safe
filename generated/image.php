@@ -28,7 +28,7 @@ use Safe\Exceptions\ImageException;
  *
  * The image_info only supports
  * JFIF files.
- * @return array Returns an array with up to 7 elements. Not all image types will include
+ * @return array{0: 0|positive-int, 1: 0|positive-int, 2: int, 3: string, mime: string, channels: int, bits: int}|null Returns an array with up to 7 elements. Not all image types will include
  * the channels and bits elements.
  *
  * Index 0 and 1 contains respectively the width and the height of the image.
@@ -66,7 +66,7 @@ use Safe\Exceptions\ImageException;
  * @throws ImageException
  *
  */
-function getimagesize(string $filename, ?array &$image_info = null): array
+function getimagesize(string $filename, ?array &$image_info = null): ?array
 {
     error_clear_last();
     $safeResult = \getimagesize($filename, $image_info);
@@ -735,7 +735,7 @@ function imagecopyresized($dst_image, $src_image, int $dst_x, int $dst_y, int $s
  *
  * @param int $width The image width.
  * @param int $height The image height.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource|false Returns an image object on success, FALSE on errors.
  * @throws ImageException
  *
  */
@@ -759,14 +759,13 @@ function imagecreate(int $width, int $height)
  * @throws ImageException
  *
  */
-function imagecreatefromavif(string $filename)
+function imagecreatefromavif(string $filename): void
 {
     error_clear_last();
     $safeResult = \imagecreatefromavif($filename);
     if ($safeResult === false) {
         throw ImageException::createFromPhpError();
     }
-    return $safeResult;
 }
 
 
@@ -915,7 +914,7 @@ function imagecreatefrompng(string $filename)
  * imagecreatefromstring returns an image identifier
  * representing the image obtained from the given data.
  * These types will be automatically detected if your build of PHP supports
- * them: JPEG, PNG, GIF, BMP, WBMP, GD2, and WEBP.
+ * them: JPEG, PNG, GIF, BMP, WBMP, GD2, WEBP and AVIF.
  *
  * @param string $data A string containing the image data.
  * @return resource An image object will be returned on success. FALSE is returned if
@@ -944,14 +943,13 @@ function imagecreatefromstring(string $data)
  * @throws ImageException
  *
  */
-function imagecreatefromtga(string $filename)
+function imagecreatefromtga(string $filename): void
 {
     error_clear_last();
     $safeResult = \imagecreatefromtga($filename);
     if ($safeResult === false) {
         throw ImageException::createFromPhpError();
     }
-    return $safeResult;
 }
 
 
@@ -1042,7 +1040,7 @@ function imagecreatefromxpm(string $filename)
  *
  * @param int $width Image width.
  * @param int $height Image height.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource|false Returns an image object on success, FALSE on errors.
  * @throws ImageException
  *
  */
@@ -1091,7 +1089,7 @@ function imagecrop($image, array $rectangle)
  * @param float $threshold
  * @param int $color
  * @return resource Returns a cropped image object on success.
- * If the complete image was cropped, imagecrop returns FALSE.
+ * FALSE is also returned if the whole image was cropped.
  * @throws ImageException
  *
  */
@@ -1451,7 +1449,7 @@ function imagefilltoborder($image, int $x, int $y, int $border_color, int $color
  * @throws ImageException
  *
  */
-function imagefilter($image, int $filter, int  ...$args): void
+function imagefilter($image, int $filter, int ...$args): void
 {
     error_clear_last();
     if ($args !== []) {
@@ -2165,15 +2163,14 @@ function imageresolution($image, int $resolution_x = null, int $resolution_y = n
  * @param float $angle Rotation angle, in degrees. The rotation angle is interpreted as the
  * number of degrees to rotate the image anticlockwise.
  * @param int $background_color Specifies the color of the uncovered zone after the rotation
- * @param bool $ignore_transparent This parameter is unused.
  * @return resource Returns an image object for the rotated image.
  * @throws ImageException
  *
  */
-function imagerotate($image, float $angle, int $background_color, bool $ignore_transparent = false)
+function imagerotate($image, float $angle, int $background_color)
 {
     error_clear_last();
-    $safeResult = \imagerotate($image, $angle, $background_color, $ignore_transparent);
+    $safeResult = \imagerotate($image, $angle, $background_color);
     if ($safeResult === false) {
         throw ImageException::createFromPhpError();
     }
@@ -2184,7 +2181,19 @@ function imagerotate($image, float $angle, int $background_color, bool $ignore_t
 /**
  * imagesavealpha sets the flag which determines whether to retain
  * full alpha channel information (as opposed to single-color transparency)
- * when saving PNG images.
+ * when saving images.
+ * This is only supported for image formats which support full alpha channel information,
+ * i.e. PNG, WebP and AVIF.
+ *
+ *
+ * imagesavealpha is only meaningful for PNG
+ * images, since the full alpha channel is always saved for WebP
+ * and AVIF. It is not recommended to rely on this behavior,
+ * as it may change in the future. Thus, imagesavealpha
+ * should be called deliberately also for WebP and
+ * AVIF images.
+ *
+ *
  *
  * Alphablending has to be disabled (imagealphablending($im, false))
  * to retain the alpha-channel in the first place.
@@ -2556,46 +2565,6 @@ function imagestringup($image, int $font, int $x, int $y, string $string, int $c
     if ($safeResult === false) {
         throw ImageException::createFromPhpError();
     }
-}
-
-
-/**
- * Returns the width of the given image object.
- *
- * @param resource $image A GdImage object, returned by one of the image creation functions,
- * such as imagecreatetruecolor.
- * @return int Return the width of the images.
- * @throws ImageException
- *
- */
-function imagesx($image): int
-{
-    error_clear_last();
-    $safeResult = \imagesx($image);
-    if ($safeResult === false) {
-        throw ImageException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
- * Returns the height of the given image object.
- *
- * @param resource $image A GdImage object, returned by one of the image creation functions,
- * such as imagecreatetruecolor.
- * @return int Return the height of the images.
- * @throws ImageException
- *
- */
-function imagesy($image): int
-{
-    error_clear_last();
-    $safeResult = \imagesy($image);
-    if ($safeResult === false) {
-        throw ImageException::createFromPhpError();
-    }
-    return $safeResult;
 }
 
 

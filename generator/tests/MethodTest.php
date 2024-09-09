@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 use PHPUnit\Framework\TestCase;
@@ -7,7 +9,7 @@ use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
 
 class MethodTest extends TestCase
 {
-    public function testGetFunctionName()
+    public function testGetFunctionName(): void
     {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
@@ -16,7 +18,7 @@ class MethodTest extends TestCase
         $this->assertEquals('preg_match', $name);
     }
 
-    public function testGetFunctionType()
+    public function testGetFunctionType(): void
     {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
@@ -25,7 +27,7 @@ class MethodTest extends TestCase
         $this->assertEquals('int', $type);
     }
 
-    public function testGetFunctionParam()
+    public function testGetFunctionParam(): void
     {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
@@ -35,7 +37,7 @@ class MethodTest extends TestCase
         $this->assertEquals('pattern', $params[0]->getParameterName());
     }
 
-    public function testGetTypeHintFromRessource()
+    public function testGetTypeHintFromResource(): void
     {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/sprintf.xml');
         $xmlObject = $docPage->getMethodSynopsis();
@@ -43,7 +45,7 @@ class MethodTest extends TestCase
         $params = $method->getParams();
         $this->assertEquals('string', $params[0]->getDocBlockType());
         $this->assertEquals('string', $params[0]->getSignatureType());
-        $this->assertEquals('string|int|float|bool', $params[1]->getDocBlockType());
+        $this->assertEquals('string|int|float|bool|null', $params[1]->getDocBlockType());
         $this->assertTrue($params[1]->isVariadic());
         $this->assertEquals('', $params[1]->getSignatureType());
 
@@ -52,7 +54,7 @@ class MethodTest extends TestCase
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
         $this->assertEquals('string', $params[0]->getDocBlockType());
-        $this->assertEquals('callable', $params[1]->getDocBlockType());
+        $this->assertEquals('callable(array<int|string, string>):string', $params[1]->getDocBlockType());
         $this->assertEquals('string', $params[0]->getSignatureType());
         $this->assertEquals('callable', $params[1]->getSignatureType());
 
@@ -74,7 +76,7 @@ class MethodTest extends TestCase
         $this->assertEquals('\HashContext', $params[0]->getSignatureType());
     }
     
-    public function testImapOpen5Parameter()
+    public function testImapOpen5Parameter(): void
     {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/imap/functions/imap-open.xml');
         $xmlObject = $docPage->getMethodSynopsis();
@@ -84,7 +86,7 @@ class MethodTest extends TestCase
         $this->assertEquals('array', $params[5]->getSignatureType());        
     }
 
-    public function testGetInitializer()
+    public function testGetInitializer(): void
     {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/apache/functions/apache-getenv.xml');
         $xmlObject = $docPage->getMethodSynopsis();

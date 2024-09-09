@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe\PhpStanFunctions;
 
@@ -11,16 +12,16 @@ class PhpStanTypeTest extends TestCase
 {
     public function testMixedTypes(): void 
     {
-        $param = new PhpStanType('array|string|int');
-        $this->assertEquals('array|string|int', $param->getDocBlockType());
-        $this->assertEquals('', $param->getSignatureType());
+        $phpStanType = new PhpStanType('array|string|int');
+        $this->assertEquals('array|string|int', $phpStanType->getDocBlockType());
+        $this->assertEquals('', $phpStanType->getSignatureType());
     }
 
     public function testCallable(): void
     {
-        $param = new PhpStanType('callable(string): void');
-        $this->assertEquals('callable(string): void', $param->getDocBlockType());
-        $this->assertEquals('callable', $param->getSignatureType());
+        $phpStanType = new PhpStanType('callable(string): void');
+        $this->assertEquals('callable(string): void', $phpStanType->getDocBlockType());
+        $this->assertEquals('callable', $phpStanType->getSignatureType());
     }
 
     public function testGenerics(): void
@@ -79,39 +80,39 @@ class PhpStanTypeTest extends TestCase
     
     public function testParenthesisOutsideOfCallable(): void 
     {
-        $param = new PhpStanType('(?int)|(?string)');
-        $this->assertEquals(true, $param->isNullable());
-        $this->assertEquals('int|string|null', $param->getDocBlockType());
-        $this->assertEquals('', $param->getSignatureType());
+        $phpStanType = new PhpStanType('(?int)|(?string)');
+        $this->assertEquals(true, $phpStanType->isNullable());
+        $this->assertEquals('int|string|null', $phpStanType->getDocBlockType());
+        $this->assertEquals('', $phpStanType->getSignatureType());
     }
 
     public function testFalsable(): void
     {
-        $param = new PhpStanType('string|false');
-        $this->assertEquals(true, $param->isFalsable());
-        $this->assertEquals('string|false', $param->getDocBlockType());
-        $this->assertEquals('string', $param->getSignatureType());
+        $phpStanType = new PhpStanType('string|false');
+        $this->assertEquals(true, $phpStanType->isFalsable());
+        $this->assertEquals('string|false', $phpStanType->getDocBlockType());
+        $this->assertEquals('string', $phpStanType->getSignatureType());
     }
     
     public function testResource(): void 
     {
-        $param = new PhpStanType('resource');
-        $this->assertEquals('resource', $param->getDocBlockType());
-        $this->assertEquals('', $param->getSignatureType());
+        $phpStanType = new PhpStanType('resource');
+        $this->assertEquals('resource', $phpStanType->getDocBlockType());
+        $this->assertEquals('', $phpStanType->getSignatureType());
     }
 
     public function testNamespace(): void
     {
-        $param = new PhpStanType('GMP');
-        $this->assertEquals('\GMP', $param->getDocBlockType());
-        $this->assertEquals('\GMP', $param->getSignatureType());
+        $phpStanType = new PhpStanType('GMP');
+        $this->assertEquals('\GMP', $phpStanType->getDocBlockType());
+        $this->assertEquals('\GMP', $phpStanType->getSignatureType());
     }
     
     public function testVoid(): void 
     {
         $param = new PhpStanType('');
         $this->assertEquals('', $param->getDocBlockType());
-        $this->assertEquals('', $param->getSignatureType());
+        $this->assertEquals('void', $param->getSignatureType());
 
         $param = new PhpStanType('void');
         $this->assertEquals('void', $param->getDocBlockType());
@@ -153,44 +154,44 @@ class PhpStanTypeTest extends TestCase
     
     public function testDuplicateType(): void 
     {
-        $param = new PhpStanType('array<string,string>|array<string,false>|array<string,array<int,mixed>>');
-        $this->assertEquals('array<string,string>|array<string,false>|array<string,array<int,mixed>>', $param->getDocBlockType());
-        $this->assertEquals('array', $param->getSignatureType());
+        $phpStanType = new PhpStanType('array<string,string>|array<string,false>|array<string,array<int,mixed>>');
+        $this->assertEquals('array<string,string>|array<string,false>|array<string,array<int,mixed>>', $phpStanType->getDocBlockType());
+        $this->assertEquals('array', $phpStanType->getSignatureType());
     }
 
     public function testNullOrFalseBecomingNull(): void
     {
-        $param = new PhpStanType('null|false');
-        $this->assertEquals('null', $param->getDocBlockType(Method::FALSY_TYPE));
-        $this->assertEquals('', $param->getSignatureType(Method::FALSY_TYPE));
+        $phpStanType = new PhpStanType('null|false');
+        $this->assertEquals('null', $phpStanType->getDocBlockType(Method::FALSY_TYPE));
+        $this->assertEquals('', $phpStanType->getSignatureType(Method::FALSY_TYPE));
     }
 
     public function testNotEmptyStringBecomingString(): void
     {
-        $param = new PhpStanType('non-empty-string|false');
-        $this->assertEquals('string', $param->getDocBlockType(Method::FALSY_TYPE));
-        $this->assertEquals('string', $param->getSignatureType(Method::FALSY_TYPE));
+        $phpStanType = new PhpStanType('non-empty-string|false');
+        $this->assertEquals('string', $phpStanType->getDocBlockType(Method::FALSY_TYPE));
+        $this->assertEquals('string', $phpStanType->getSignatureType(Method::FALSY_TYPE));
     }
 
     public function testPositiveIntBecomingInt(): void
     {
-        $param = new PhpStanType('positive-int');
-        $this->assertEquals('int', $param->getDocBlockType());
-        $this->assertEquals('int', $param->getSignatureType());
+        $phpStanType = new PhpStanType('positive-int');
+        $this->assertEquals('int', $phpStanType->getDocBlockType());
+        $this->assertEquals('int', $phpStanType->getSignatureType());
     }
 
     public function testListBecomingArray(): void
     {
-        $param = new PhpStanType('list<string>|false');
-        $this->assertEquals('array<string>', $param->getDocBlockType(Method::FALSY_TYPE));
-        $this->assertEquals('array', $param->getSignatureType(Method::FALSY_TYPE));
+        $phpStanType = new PhpStanType('list<string>|false');
+        $this->assertEquals('array<string>', $phpStanType->getDocBlockType(Method::FALSY_TYPE));
+        $this->assertEquals('array', $phpStanType->getSignatureType(Method::FALSY_TYPE));
     }
 
     public function testNumbersAreRemoved(): void
     {
-        $param = new PhpStanType('0|positive-int');
-        $this->assertEquals('int', $param->getDocBlockType());
-        $this->assertEquals('int', $param->getSignatureType());
+        $phpStanType = new PhpStanType('0|positive-int');
+        $this->assertEquals('int', $phpStanType->getDocBlockType());
+        $this->assertEquals('int', $phpStanType->getSignatureType());
     }
 
 }

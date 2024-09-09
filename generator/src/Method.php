@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 use Safe\PhpStanFunctions\PhpStanFunction;
@@ -8,48 +10,29 @@ use Safe\PhpStanFunctions\PhpStanType;
 
 class Method
 {
-    const FALSY_TYPE = 1;
-    const NULLSY_TYPE = 2;
-    const EMPTY_TYPE = 3;
-    /**
-     * @var \SimpleXMLElement
-     */
-    private $functionObject;
-    /**
-     * @var \SimpleXMLElement
-     */
-    private $rootEntity;
-    /**
-     * @var string
-     */
-    private $moduleName;
+    public const FALSY_TYPE = 1;
+
+    public const NULLSY_TYPE = 2;
+
+    public const EMPTY_TYPE = 3;
+
     /**
      * @var Parameter[]|null
      */
-    private $params = null;
-    /**
-     * @var int
-     */
-    private $errorType;
+    private ?array $params = null;
+
     /**
      * The function prototype from the phpstan internal documentation (functionMap.php)
-     * @var PhpStanFunction|null
      */
-    private $phpstanSignarure;
-    /**
-     * @var PhpStanType
-     */
-    private $returnType;
+    private ?\Safe\PhpStanFunctions\PhpStanFunction $phpStanFunction;
 
-    public function __construct(\SimpleXMLElement $_functionObject, \SimpleXMLElement $rootEntity, string $moduleName, PhpStanFunctionMapReader $phpStanFunctionMapReader, int $errorType)
+    private \Safe\PhpStanFunctions\PhpStanType $phpStanType;
+
+    public function __construct(private \SimpleXMLElement $functionObject, private \SimpleXMLElement $rootEntity, private string $moduleName, PhpStanFunctionMapReader $phpStanFunctionMapReader, private int $errorType)
     {
-        $this->functionObject = $_functionObject;
-        $this->rootEntity = $rootEntity;
-        $this->moduleName = $moduleName;
-        $this->errorType = $errorType;
         $functionName = $this->getFunctionName();
-        $this->phpstanSignarure = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
-        $this->returnType = $this->phpstanSignarure ? $this->phpstanSignarure->getReturnType() : new PhpStanType($this->functionObject->type->__toString());
+        $this->phpStanFunction = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
+        $this->phpStanType = $this->phpStanFunction instanceof \Safe\PhpStanFunctions\PhpStanFunction ? $this->phpStanFunction->getReturnType() : new PhpStanType($this->functionObject->type->__toString());
     }
 
     public function getFunctionName(): string
@@ -64,7 +47,7 @@ class Method
 
     public function getSignatureReturnType(): string
     {
-        return $this->returnType->getSignatureType($this->errorType);
+        return $this->phpStanType->getSignatureType($this->errorType);
     }
 
     /**
@@ -73,41 +56,45 @@ class Method
     public function getParams(): array
     {
         if ($this->params === null) {
-            if (!isset($this->functionObject->methodparam)) {
+            if (!property_exists($this->functionObject, 'methodparam') || $this->functionObject->methodparam === null) {
                 return [];
             }
-            $phpStanFunction = $this->phpstanSignarure;
+
+            $phpStanFunction = $this->phpStanFunction;
             $params = [];
-            $i=1;
+            $i = 1;
             foreach ($this->functionObject->methodparam as $param) {
-                $notes = $this->stripReturnFalseText($this->getStringForXPath("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[$i]//docbook:note//docbook:para"));
+                $notes = $this->stripReturnFalseText($this->getStringForXPath(sprintf("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[%d]//docbook:note//docbook:para", $i)));
                 $i++;
 
                 if (preg_match('/This parameter has been removed in PHP (\d+\.\d+\.\d+)/', $notes, $matches)) {
                     $removedVersion = $matches[1];
                     [$major, $minor] = explode('.', $removedVersion);
-                    if ($major < 7 || ($major == 7 && $minor == 0)) {
+                    if ($major < 7) {
+                        // Ignore parameter if it was removed before PHP 7.1
+                        continue;
+                    }
+
+                    if ($major == 7 && $minor == 0) {
                         // Ignore parameter if it was removed before PHP 7.1
                         continue;
                     }
                 }
 
-                $params[] = new Parameter($param, $phpStanFunction, $i-2);
+                $params[] = new Parameter($param, $phpStanFunction, $i - 2);
             }
+
             $this->params = $params;
         }
+
         return $this->params;
     }
 
     public function getPhpDoc(): string
     {
-        $str = "\n/**\n".
-            implode("\n", array_map(function (string $line) {
-                return rtrim(' * '.ltrim($line));
-            }, \explode("\n", \strip_tags($this->getDocBlock()))))
-            ."\n */\n";
-
-        return $str;
+        return "\n/**\n" .
+            implode("\n", array_map(fn(string $line): string => rtrim(' * ' . ltrim($line)), \explode("\n", \strip_tags($this->getDocBlock()))))
+            . "\n */\n";
     }
 
     private function getDocBlock(): string
@@ -115,18 +102,16 @@ class Method
         $str = $this->stripReturnFalseText($this->getStringForXPath("//docbook:refsect1[@role='description']/docbook:para"));
         $str .= "\n\n";
 
-        $i=1;
+        $i = 1;
         foreach ($this->getParams() as $parameter) {
-            $str .= '@param '.$parameter->getDocBlockType().' $'.$parameter->getParameterName().' ';
-            $str .= $this->getStringForXPath("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[$i]//docbook:para")."\n";
+            $str .= '@param ' . $parameter->getDocBlockType() . ' $' . $parameter->getParameterName() . ' ';
+            $str .= $this->getStringForXPath(sprintf("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[%d]//docbook:para", $i)) . "\n";
             $i++;
         }
 
         $str .= $this->getReturnDocBlock();
 
-        $str .= '@throws '.FileCreator::toExceptionName($this->getModuleName()). "\n";
-
-        return $str;
+        return $str . ('@throws ' . FileCreator::toExceptionName($this->getModuleName()) . "\n");
     }
 
     public function getReturnDocBlock(): string
@@ -136,8 +121,9 @@ class Method
 
         $bestReturnType = $this->getDocBlockReturnType();
         if ($bestReturnType !== 'void') {
-            return '@return '.$bestReturnType. ' ' .$returnDoc."\n";
+            return '@return ' . $bestReturnType . ' ' . $returnDoc . "\n";
         }
+
         return '';
     }
 
@@ -150,7 +136,7 @@ class Method
                 $string = $this->removeString($string, ' and NULL on failure');
                 $string = $this->removeString($string, ' or NULL on failure');
                 break;
-                
+
             case self::FALSY_TYPE:
                 $string = $this->removeString($string, 'or FALSE on failure');
                 $string = $this->removeString($string, '. Returns FALSE on error');
@@ -181,29 +167,32 @@ class Method
     private function removeString(string $string, string $search): string
     {
         $search = str_replace(' ', '\s+', $search);
-        $result = preg_replace('/[\s\,]*'.$search.'/m', '', $string);
+        $result = preg_replace('/[\s\,]*' . $search . '/m', '', $string);
         if ($result === null) {
             throw new \RuntimeException('An error occurred while calling preg_replace');
         }
+
         return $result;
     }
 
     private function getStringForXPath(string $xpath): string
     {
         $paragraphs = $this->rootEntity->xpath($xpath);
-        if ($paragraphs === false) {
+        if ($paragraphs === false || $paragraphs === null) {
             throw new \RuntimeException('Error while performing Xpath request.');
         }
+
         $str = '';
         foreach ($paragraphs as $paragraph) {
-            $str .= $this->getInnerXml($paragraph)."\n\n";
+            $str .= $this->getInnerXml($paragraph) . "\n\n";
         }
+
         return trim($str);
     }
 
     private function getDocBlockReturnType(): string
     {
-        return $this->returnType->getDocBlockType($this->errorType);
+        return $this->phpStanType->getDocBlockType($this->errorType);
     }
 
     private function getInnerXml(\SimpleXMLElement $SimpleXMLElement): string
@@ -213,9 +202,9 @@ class Method
         if ($inner_xml === false) {
             throw new \RuntimeException('Unable to serialize to XML');
         }
-        $inner_xml = str_replace(['<'.$element_name.'>', '</'.$element_name.'>'], '', $inner_xml);
-        $inner_xml = trim($inner_xml);
-        return $inner_xml;
+
+        $inner_xml = str_replace(['<' . $element_name . '>', '</' . $element_name . '>'], '', $inner_xml);
+        return trim($inner_xml);
     }
 
     public function getModuleName(): string
@@ -225,8 +214,6 @@ class Method
 
     /**
      * The function is overloaded if at least one parameter is optional with no default value and this parameter is not by reference.
-     *
-     * @return bool
      */
     public function isOverloaded(): bool
     {
@@ -235,6 +222,7 @@ class Method
                 return true;
             }
         }
+
         return false;
     }
 

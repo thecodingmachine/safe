@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe;
 
@@ -12,8 +13,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 class DeprecateCommand extends Command
 {
     public const GENERATE_DIRECTORY = __DIR__ . '/../../generated/';
+
     public const DEPRECATE_DIRECTORY = __DIR__ . '/../../deprecated/';
-    
+
     protected function configure(): void
     {
         $this
@@ -23,26 +25,26 @@ class DeprecateCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var string $moduleName */
         $moduleName = $input->getArgument('module');
-        
-        $moduleFilePath = self::GENERATE_DIRECTORY."$moduleName.php";
+
+        $moduleFilePath = self::GENERATE_DIRECTORY . ($moduleName . '.php');
         if (!\file_exists($moduleFilePath)) {
-            throw new \RuntimeException("Module $moduleName is not maintained!");
+            throw new \RuntimeException(sprintf('Module %s is not maintained!', $moduleName));
         }
 
-        $output->writeln("Move $moduleName.php to deprecated");
-        $success = \rename($moduleFilePath, self::DEPRECATE_DIRECTORY."$moduleName.php");
+        $output->writeln(sprintf('Move %s.php to deprecated', $moduleName));
+        $success = \rename($moduleFilePath, self::DEPRECATE_DIRECTORY . ($moduleName . '.php'));
         if (!$success) {
             throw new \RuntimeException("Could not move the file.");
         }
 
-        $exceptionFilePath = self::GENERATE_DIRECTORY.self::getExceptionFilePath($moduleName);
+        $exceptionFilePath = self::GENERATE_DIRECTORY . self::getExceptionFilePath($moduleName);
         if (\file_exists($exceptionFilePath)) {
             $output->writeln("Move exception file to deprecated");
-            $success = \rename($exceptionFilePath, self::DEPRECATE_DIRECTORY.self::getExceptionFilePath($moduleName));
+            $success = \rename($exceptionFilePath, self::DEPRECATE_DIRECTORY . self::getExceptionFilePath($moduleName));
             if (!$success) {
                 throw new \RuntimeException("Could not move the file.");
             }
@@ -51,15 +53,15 @@ class DeprecateCommand extends Command
         $output->writeln('Editing composer.json');
         ComposerJsonEditor::editComposerFileForDeprecation($moduleName);
 
-        $generatedListFile = self::GENERATE_DIRECTORY.'functionsList.php';
-        $deprecatedListFile = self::DEPRECATE_DIRECTORY.'functionsList.php';
-        $output->writeln("Don't forget to edit $generatedListFile and $deprecatedListFile !");
-        
+        $generatedListFile = self::GENERATE_DIRECTORY . 'functionsList.php';
+        $deprecatedListFile = self::DEPRECATE_DIRECTORY . 'functionsList.php';
+        $output->writeln(sprintf("Don't forget to edit %s and %s !", $generatedListFile, $deprecatedListFile));
+
         return 0;
     }
-    
+
     public static function getExceptionFilePath(string $moduleName): string
     {
-        return "Exceptions/".ucfirst($moduleName)."Exception.php";
+        return "Exceptions/" . ucfirst($moduleName) . "Exception.php";
     }
 }

@@ -12,22 +12,22 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
   
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "pcov"
-          php-version: "8.0"
+          php-version: "8.3"
   
       - name: "Check out salathe/phpdoc-base"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
         with:
           path: "generator/doc/doc-en/doc-base"
           repository: "salathe/phpdoc-base"
   
       - name: "Check out php/doc-en"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
         with:
           path: "generator/doc/doc-en/en"
           repository: "php/doc-en"
@@ -63,7 +63,7 @@ jobs:
   
       - name: "Create a pr if the files are different"
         if: ${{ failure() }}
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v6
         with:
           commit-message: "Automatically regenerate the files"
           branch: create-pull-request/regenerate-files

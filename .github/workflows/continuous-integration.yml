@@ -16,14 +16,15 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "8.0"
+          - "8.2"
+          - "8.3"
 
         dependencies:
           - "highest"
 
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
 
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
@@ -33,31 +34,32 @@ jobs:
 
       - name: "Get current date for the daily cache"
         id: 'date'
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+        run: |
+          echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: "Cache the php documentation"
         id: cache-php-doc
-        uses: "actions/cache@v1"
+        uses: "actions/cache@v4"
         with:
           path: "generator/doc/doc-en"
           key: php-doc-${{ steps.date.outputs.date }}
 
       - name: "Check out salathe/phpdoc-base"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
         if: steps.cache-php-doc.outputs.cache-hit != 'true'
         with:
           path: "generator/doc/doc-en/doc-base"
           repository: "salathe/phpdoc-base"
 
       - name: "Check out php/doc-en"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
         if: steps.cache-php-doc.outputs.cache-hit != 'true'
         with:
           path: "generator/doc/doc-en/en"
           repository: "php/doc-en"
 
       - name: "Cache dependencies installed with composer"
-        uses: "actions/cache@v1"
+        uses: "actions/cache@v4"
         with:
           path: "~/.composer/cache"
           key: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('**/composer.lock') }}"
@@ -83,6 +85,10 @@ jobs:
 
       - name: "Run static code analysis with phpstan/phpstan in generator/ directory"
         run: "composer phpstan"
+        working-directory: "generator"
+
+      - name: "Run static code analysis with rector/rector in generator/ directory"
+        run: "composer rector --dry-run"
         working-directory: "generator"
 
       - name: "Dump autoloader with composer in root directory"
@@ -119,6 +125,7 @@ jobs:
           name: "build"
           path: "generator/build"
 
-      - uses: codecov/codecov-action@v1 # upload the coverage to codecov
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
         with:
-          fail_ci_if_error: true # optional (default = false)
+          token: ${{ secrets.CODECOV_TOKEN }}

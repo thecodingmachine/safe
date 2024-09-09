@@ -1,6 +1,6 @@
 {
-    "name": "thecodingmachine/safe",
-    "description": "PHP core functions that throw exceptions instead of returning FALSE on error",
+    "name": "shish/safe",
+    "description": "PHP core functions that throw exceptions instead of returning FALSE on error (a less-abandoned fork of thecodingmachine/safe)",
     "license": "MIT",
     "autoload": {
         "classmap": [
@@ -119,5 +119,8 @@
         "branch-alias": {
             "dev-master": "2.2.x-dev"
         }
-    }
+    },
+	"replace": {
+		"thecodingmachine/safe": "2.5.0"
+	}
 }

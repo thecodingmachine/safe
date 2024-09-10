@@ -115,7 +115,7 @@
         "cs-fix": "phpcbf",
         "cs-check": "phpcs"
     },
-	"replace": {
-		"thecodingmachine/safe": "2.5.0"
-	}
+    "replace": {
+        "thecodingmachine/safe": "2.5.0"
+    }
 }

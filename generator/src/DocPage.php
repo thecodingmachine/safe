@@ -17,21 +17,21 @@ class DocPage
     {
     }
 
-    // Ignore function if it was removed before PHP 7.1
+    // Ignore function if it was removed before PHP 8.1
     private function getIsDeprecated(string $file): bool
     {
         if (preg_match('/&warn\.deprecated\.function-(\d+-\d+-\d+)\.removed-(\d+-\d+-\d+)/', $file, $matches)) {
             $removedVersion = $matches[2];
             [$major, $minor] = explode('-', $removedVersion);
-            if ($major < 7 || ($major == 7 && $minor == 0)) {
+            if ($major < 8 || ($major == 8 && $minor == 0)) {
                 return true;
             }
         }
 
-        if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches) && isset($matches[2])) {
-            $removedVersion = $matches[2];
+        if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches)) {
+            $removedVersion = $matches[1];
             [$major, $minor] = explode('-', $removedVersion);
-            if ($major < 7 || ($major == 7 && $minor == 0)) {
+            if ($major < 8 || ($major == 8 && $minor == 0)) {
                 return true;
             }
         }

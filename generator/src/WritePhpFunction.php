@@ -177,7 +177,6 @@ class WritePhpFunction
                 if ($typeDetected && $paramAsString[0] !== "?") {
                     $paramAsString = "?" . $paramAsString;
                 }
-
             }
 
             $paramsAsString[] = $paramAsString;

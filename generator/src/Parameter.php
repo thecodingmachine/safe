@@ -78,9 +78,11 @@ class Parameter
         if ($this->phpStanType->isNullable()) {
             return true;
         }
+
         if ($this->getDefaultValue() === "null") {
             return true;
         }
+
         return $this->getDefaultValue() === "NULL";
     }
 

@@ -17,13 +17,13 @@ class DocPage
     {
     }
 
-    // Ignore function if it was removed before PHP 8.1
+    // Ignore function if it was removed before PHP 8.2
     private function getIsDeprecated(string $file): bool
     {
         if (preg_match('/&warn\.deprecated\.function-(\d+-\d+-\d+)\.removed-(\d+-\d+-\d+)/', $file, $matches)) {
             $removedVersion = $matches[2];
             [$major, $minor] = explode('-', $removedVersion);
-            if ($major < 8 || ($major == 8 && $minor == 0)) {
+            if ($major < 8 || ($major == 8 && $minor < 2)) {
                 return true;
             }
         }
@@ -31,7 +31,7 @@ class DocPage
         if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches)) {
             $removedVersion = $matches[1];
             [$major, $minor] = explode('-', $removedVersion);
-            if ($major < 8 || ($major == 8 && $minor == 0)) {
+            if ($major < 8 || ($major == 8 && $minor < 2)) {
                 return true;
             }
         }

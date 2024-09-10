@@ -12,7 +12,7 @@ pre-installed.
 
 ### Manually
 
-- php8.1+ CLI (with dom and curl modules)
+- php8.2+ CLI (with dom and curl modules)
 - composer
 
 ## How to install Safe-PHP development environment

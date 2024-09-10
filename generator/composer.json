@@ -7,7 +7,7 @@
     }
   },
   "require": {
-    "php": "^8.1",
+    "php": "^8.2",
     "ext-simplexml": "*",
     "ext-json": "*",
     "symfony/console": "^6 || ^7",

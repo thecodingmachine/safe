@@ -114,7 +114,7 @@ function stream_copy_to_stream($from, $to, ?int $length = null, int $offset = 0)
  * @throws StreamException
  *
  */
-function stream_filter_append($stream, string $filtername, int $read_write = null, $params = null)
+function stream_filter_append($stream, string $filtername, ?int $read_write = null, $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -163,7 +163,7 @@ function stream_filter_append($stream, string $filtername, int $read_write = nul
  * @throws StreamException
  *
  */
-function stream_filter_prepend($stream, string $filtername, int $read_write = null, $params = null)
+function stream_filter_prepend($stream, string $filtername, ?int $read_write = null, $params = null)
 {
     error_clear_last();
     if ($params !== null) {

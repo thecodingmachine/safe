@@ -194,7 +194,7 @@ function rnp_key_export_autocrypt(\RnpFFI $ffi, string $key_fp, string $subkey_f
  * @throws RnpException
  *
  */
-function rnp_key_export_revocation(\RnpFFI $ffi, string $key_fp, int $flags, array $options = null): void
+function rnp_key_export_revocation(\RnpFFI $ffi, string $key_fp, int $flags, ?array $options = null): void
 {
     error_clear_last();
     if ($options !== null) {
@@ -278,7 +278,7 @@ function rnp_key_remove(\RnpFFI $ffi, string $key_fp, int $flags): void
  * @throws RnpException
  *
  */
-function rnp_key_revoke(\RnpFFI $ffi, string $key_fp, int $flags, array $options = null): void
+function rnp_key_revoke(\RnpFFI $ffi, string $key_fp, int $flags, ?array $options = null): void
 {
     error_clear_last();
     if ($options !== null) {
@@ -383,7 +383,7 @@ function rnp_locate_key(\RnpFFI $ffi, string $identifier_type, string $identifie
  * @throws RnpException
  *
  */
-function rnp_op_encrypt(\RnpFFI $ffi, string $message, array $recipient_keys_fp, array $options = null): void
+function rnp_op_encrypt(\RnpFFI $ffi, string $message, array $recipient_keys_fp, ?array $options = null): void
 {
     error_clear_last();
     if ($options !== null) {
@@ -413,7 +413,7 @@ function rnp_op_encrypt(\RnpFFI $ffi, string $message, array $recipient_keys_fp,
  * @throws RnpException
  *
  */
-function rnp_op_generate_key(\RnpFFI $ffi, string $userid, string $key_alg, string $sub_alg = null, array $options = null): void
+function rnp_op_generate_key(\RnpFFI $ffi, string $userid, string $key_alg, ?string $sub_alg = null, ?array $options = null): void
 {
     error_clear_last();
     if ($options !== null) {
@@ -442,7 +442,7 @@ function rnp_op_generate_key(\RnpFFI $ffi, string $userid, string $key_alg, stri
  * @throws RnpException
  *
  */
-function rnp_op_sign_cleartext(\RnpFFI $ffi, string $data, array $keys_fp, array $options = null): void
+function rnp_op_sign_cleartext(\RnpFFI $ffi, string $data, array $keys_fp, ?array $options = null): void
 {
     error_clear_last();
     if ($options !== null) {
@@ -468,7 +468,7 @@ function rnp_op_sign_cleartext(\RnpFFI $ffi, string $data, array $keys_fp, array
  * @throws RnpException
  *
  */
-function rnp_op_sign_detached(\RnpFFI $ffi, string $data, array $keys_fp, array $options = null): void
+function rnp_op_sign_detached(\RnpFFI $ffi, string $data, array $keys_fp, ?array $options = null): void
 {
     error_clear_last();
     if ($options !== null) {
@@ -494,7 +494,7 @@ function rnp_op_sign_detached(\RnpFFI $ffi, string $data, array $keys_fp, array 
  * @throws RnpException
  *
  */
-function rnp_op_sign(\RnpFFI $ffi, string $data, array $keys_fp, array $options = null): void
+function rnp_op_sign(\RnpFFI $ffi, string $data, array $keys_fp, ?array $options = null): void
 {
     error_clear_last();
     if ($options !== null) {

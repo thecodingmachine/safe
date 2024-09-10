@@ -1623,7 +1623,7 @@ function eio_seek($fd, int $offset, int $whence, int $pri = EIO_PRI_DEFAULT, ?ca
  * @throws EioException
  *
  */
-function eio_sendfile($out_fd, $in_fd, int $offset, int $length, int $pri = null, callable $callback = null, string $data = null)
+function eio_sendfile($out_fd, $in_fd, int $offset, int $length, ?int $pri = null, ?callable $callback = null, ?string $data = null)
 {
     error_clear_last();
     if ($data !== null) {

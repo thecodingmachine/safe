@@ -136,6 +136,7 @@ class WritePhpFunction
 
         foreach ($params as $param) {
             $paramAsString = '';
+            $typeDetected = false;
 
             // parameters can not have type void
             if ($param->getSignatureType() !== 'void') {
@@ -143,11 +144,12 @@ class WritePhpFunction
             }
 
             if ($paramAsString !== '') {
+                $paramAsString .= ' ';
                 if ($param->isNullable() && $paramAsString[0] !== "?") {
                     $paramAsString = "?" . $paramAsString;
                 }
 
-                $paramAsString .= ' ';
+                $typeDetected = true;
             }
 
             $paramName = $param->getParameterName();
@@ -171,6 +173,11 @@ class WritePhpFunction
                 $paramAsString .= ' = ' . $this->defaultValueToString($defaultValue);
             } elseif ($optDetected && !$param->isVariadic()) {
                 $paramAsString .= ' = null';
+
+                if ($typeDetected && $paramAsString[0] !== "?") {
+                    $paramAsString = "?" . $paramAsString;
+                }
+
             }
 
             $paramsAsString[] = $paramAsString;

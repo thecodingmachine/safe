@@ -7,7 +7,7 @@
     }
   },
   "require": {
-    "php": "^8.2",
+    "php": "^8.1",
     "ext-simplexml": "*",
     "ext-json": "*",
     "symfony/console": "^6 || ^7",
@@ -28,10 +28,5 @@
     "phpstan": "phpstan",
     "cs-fix": "phpcbf",
     "cs-check": "phpcs"
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "0.1-dev"
-    }
   }
 }

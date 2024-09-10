@@ -1,14 +1,16 @@
-[![Latest Stable Version](https://poser.pugx.org/thecodingmachine/safe/v/stable.svg)](https://packagist.org/packages/thecodingmachine/safe)
-[![Total Downloads](https://poser.pugx.org/thecodingmachine/safe/downloads.svg)](https://packagist.org/packages/thecodingmachine/safe)
-[![Latest Unstable Version](https://poser.pugx.org/thecodingmachine/safe/v/unstable.svg)](https://packagist.org/packages/thecodingmachine/safe)
-[![License](https://poser.pugx.org/thecodingmachine/safe/license.svg)](https://packagist.org/packages/thecodingmachine/safe)
-[![Continuous Integration](https://github.com/thecodingmachine/safe/workflows/Continuous%20Integration/badge.svg)](https://github.com/thecodingmachine/safe/actions)
-[![codecov](https://codecov.io/gh/thecodingmachine/safe/branch/master/graph/badge.svg)](https://codecov.io/gh/thecodingmachine/safe)
+[![Latest Stable Version](https://poser.pugx.org/shish/safe/v/stable.svg)](https://packagist.org/packages/shish/safe)
+[![Total Downloads](https://poser.pugx.org/shish/safe/downloads.svg)](https://packagist.org/packages/shish/safe)
+[![Latest Unstable Version](https://poser.pugx.org/shish/safe/v/unstable.svg)](https://packagist.org/packages/shish/safe)
+[![License](https://poser.pugx.org/shish/safe/license.svg)](https://packagist.org/packages/shish/safe)
+[![Continuous Integration](https://github.com/shish/safe/workflows/Continuous%20Integration/badge.svg)](https://github.com/shish/safe/actions)
 
-Safe PHP
-========
+
+Safe PHP (Shish's Version)
+==========================
 
 A set of core PHP functions rewritten to throw exceptions instead of returning `false` when an error is encountered.
+
+Forked from `thecodingmachine/safe` who did an amazing job of solving the problem for php7, and then disappeared.
 
 ## The problem
 
@@ -42,7 +44,7 @@ Obviously, while this snippet is correct, it is less easy to read.
 
 ## The solution
 
-Enter *thecodingmachine/safe* aka Safe-PHP.
+Enter *shish/safe* aka Safe-PHP.
 
 Safe-PHP redeclares all core PHP functions. The new PHP functions act exactly as the old ones, except they
 throw exceptions properly when an error is encountered. The "safe" functions have the same name as the core PHP
@@ -65,7 +67,7 @@ In addition, Safe also provide 2 'Safe' classes: `Safe\DateTime` and `Safe\DateT
 > Yeah... but I must explicitly think about importing the "safe" variant of the function, for each and every file of my application.
 > I'm sure I will forget some "use function" statements!
 
-Fear not! thecodingmachine/safe comes with a PHPStan rule.
+Fear not! shish/safe comes with a PHPStan rule.
 
 Never heard of [PHPStan](https://github.com/phpstan/phpstan) before?
 Check it out, it's an amazing code analyzer for PHP.
@@ -85,7 +87,7 @@ $content = file_get_contents('foobar.json');
 Use composer to install Safe-PHP:
 
 ```bash
-$ composer require thecodingmachine/safe
+$ composer require shish/safe
 ```
 
 *Highly recommended*: install PHPStan and PHPStan extension:
@@ -120,7 +122,7 @@ to install `rector/rector`.
 Run
 
 ```bash
-vendor/bin/rector process src/ --config vendor/thecodingmachine/safe/rector-migrate.php
+vendor/bin/rector process src/ --config vendor/shish/safe/rector-migrate.php
 ```
 
 to run `rector/rector`.

@@ -1,19 +1,10 @@
 {
-	"name": "PHP",
-	"image": "mcr.microsoft.com/devcontainers/php:8.3",
+	"name": "Safe PHP",
+	"build": {
+		"context": "..",
+		"dockerfile": "./Dockerfile"
+	},
 
 	"workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind",
-	"workspaceFolder": "/app",
-
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"recca0120.vscode-phpunit",
-				"ryanluker.vscode-coverage-gutters",
-				"xdebug.php-debug",
-				"DEVSENSE.phptools-vscode",
-				"ms-azuretools.vscode-docker"
-			]
-		}
-	}
+	"workspaceFolder": "/app"
 }

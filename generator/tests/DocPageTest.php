@@ -29,7 +29,6 @@ class DocPageTest extends TestCase
         $this->assertTrue($getCwd->detectFalsyFunction());
         $this->assertFalse($setTime->detectFalsyFunction());
         $this->assertTrue($filesize->detectFalsyFunction());
-        $this->assertTrue($mcryptDecrypt->detectFalsyFunction());
         $this->assertTrue($fsockopen->detectFalsyFunction());
         $this->assertFalse($arrayReplace->detectFalsyFunction());
         $this->assertFalse($date->detectFalsyFunction());

@@ -8,7 +8,7 @@ on:
 jobs:
 
   auto-regenerate:
-    name: "Tries to regenerate the files"
+    name: "Auto Regenerate"
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout"
@@ -43,23 +43,8 @@ jobs:
         run: "composer dump-autoload"
   
       - name: "Regenerate files"
-        run: "./safe.php generate"
+        run: "./safe.php generate && git diff --exit-code"
         working-directory: "generator"
-  
-      - name: "Check if regenerated files are different"
-        run: |
-          if output=$(git status --porcelain) && [ -z "$output" ]; then
-            # all is good
-            echo "Generated files are the same as committed file: OK"
-          else
-            # Uncommitted changes
-            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
-            echo "Detected changes:"
-            git status
-            git diff
-            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
-            exit 1;
-          fi
   
       - name: "Create a pr if the files are different"
         if: ${{ failure() }}
@@ -69,7 +54,7 @@ jobs:
           branch: create-pull-request/regenerate-files
           title: "Automatically regenerate the files"
           labels: "regenerate, auto"
-          assignees: "kharhamel, moufmouf"
+          assignees: "shish"
           
   
    

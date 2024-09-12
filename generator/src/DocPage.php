@@ -28,7 +28,8 @@ class DocPage
             }
         }
 
-        if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches) && isset($matches[2])) {
+        if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches)) {
+            // @phpstan-ignore-next-line
             $removedVersion = $matches[2];
             [$major, $minor] = explode('-', $removedVersion);
             if ($major < 7 || ($major == 7 && $minor == 0)) {

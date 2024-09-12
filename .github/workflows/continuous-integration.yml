@@ -120,7 +120,7 @@ jobs:
           fi
 
       - name: "Archive code coverage results"
-        uses: "actions/upload-artifact@v1"
+        uses: "actions/upload-artifact@v3"
         with:
           name: "build"
           path: "generator/build"

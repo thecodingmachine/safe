@@ -1075,7 +1075,8 @@ function openssl_pkey_get_public($public_key): \OpenSSLAsymmetricKey
  * bits) using options.  See
  * openssl_csr_new for more information about
  * options.
- * @return resource Returns an OpenSSLAsymmetricKey instance for the pkey on success.
+ * @return resource Returns an OpenSSLAsymmetricKey instance for
+ * the pkey on success.
  * @throws OpensslException
  *
  */

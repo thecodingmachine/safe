@@ -49,7 +49,7 @@ jobs:
         working-directory: "generator"
   
       - name: "Create a pr if the files are different"
-        if: ${{ steps.regen.outputs.regen == "diff" }}
+        if: "${{ steps.regen.outputs.regen == 'diff' }}"
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: "Automatically regenerate the files"

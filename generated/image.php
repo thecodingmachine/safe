@@ -498,7 +498,7 @@ function imageconvolution($image, array $matrix, float $divisor, float $offset):
 /**
  * Copy a part of src_image onto
  * dst_image starting at the x,y coordinates
- * src_x, src_y  with
+ * src_x, src_y with
  * a width of src_width and a height of
  * src_height.  The portion defined will be copied
  * onto the x,y coordinates, dst_x and
@@ -528,7 +528,7 @@ function imagecopy($dst_image, $src_image, int $dst_x, int $dst_y, int $src_x, i
 /**
  * Copy a part of src_image onto
  * dst_image starting at the x,y coordinates
- * src_x, src_y  with
+ * src_x, src_y with
  * a width of src_width and a height of
  * src_height.  The portion defined will be copied
  * onto the x,y coordinates, dst_x and
@@ -564,7 +564,7 @@ function imagecopymerge($dst_image, $src_image, int $dst_x, int $dst_y, int $src
 /**
  * imagecopymergegray copy a part of src_image onto
  * dst_image starting at the x,y coordinates
- * src_x, src_y  with
+ * src_x, src_y with
  * a width of src_width and a height of
  * src_height.  The portion defined will be copied
  * onto the x,y coordinates, dst_x and

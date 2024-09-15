@@ -4,12 +4,13 @@ name: "Auto Regenerate"
 on:
   schedule:
     - cron:  '0 3 * * *'
+  workflow_dispatch:
 
 jobs:
 
   auto-regenerate:
     name: "Auto Regenerate"
-    runs-on: "ubuntu-latest"
+    runs-on: "ubuntu-24.04"
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
@@ -43,11 +44,12 @@ jobs:
         run: "composer dump-autoload"
   
       - name: "Regenerate files"
-        run: "./safe.php generate && git diff --exit-code"
+        id: regen
+        run: "./safe.php generate && git diff --exit-code && (echo regen=no-diff >> $GITHUB_OUTPUT) || (echo regen=diff >> $GITHUB_OUTPUT)"
         working-directory: "generator"
   
       - name: "Create a pr if the files are different"
-        if: ${{ failure() }}
+        if: steps.regen.outputs.regen == "diff"
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: "Automatically regenerate the files"

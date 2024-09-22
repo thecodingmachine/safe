@@ -1105,8 +1105,8 @@ function openssl_pkey_new(?array $options = null)
  *
  * @param string $data
  * @param string|null $decrypted_data
- * @param string|resource|array $private_key private_key must be the private key corresponding that
- * was used to encrypt the data.
+ * @param string|resource|array $private_key private_key must be the private key that corresponds
+ * to the public key that was used to encrypt the data.
  * @param int $padding padding can be one of
  * OPENSSL_PKCS1_PADDING,
  * OPENSSL_SSLV23_PADDING,
@@ -1136,7 +1136,8 @@ function openssl_private_decrypt(string $data, ?string &$decrypted_data, $privat
  *
  * @param string $data
  * @param string|null $encrypted_data
- * @param string|resource|array $private_key
+ * @param string|resource|array $private_key private_key must be the private key that corresponds
+ * to the public key that will be used to decrypt the data.
  * @param int $padding padding can be one of
  * OPENSSL_PKCS1_PADDING,
  * OPENSSL_NO_PADDING.
@@ -1164,8 +1165,8 @@ function openssl_private_encrypt(string $data, ?string &$encrypted_data, $privat
  *
  * @param string $data
  * @param string|null $decrypted_data
- * @param string|resource $public_key public_key must be the public key corresponding that
- * was used to encrypt the data.
+ * @param string|resource $public_key public_key must be the public key that corresponds
+ * to the private key that was used to encrypt the data.
  * @param int $padding padding can be one of
  * OPENSSL_PKCS1_PADDING,
  * OPENSSL_NO_PADDING.
@@ -1194,7 +1195,8 @@ function openssl_public_decrypt(string $data, ?string &$decrypted_data, $public_
  *
  * @param string $data
  * @param string|null $encrypted_data This will hold the result of the encryption.
- * @param string|resource $public_key The public key.
+ * @param string|resource $public_key public_key must be the public key that corresponds
+ * to the private key that will be used to decrypt the data.
  * @param int $padding padding can be one of
  * OPENSSL_PKCS1_PADDING,
  * OPENSSL_SSLV23_PADDING,

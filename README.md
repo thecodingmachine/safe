@@ -1,12 +1,11 @@
 [![Latest Stable Version](https://poser.pugx.org/shish/safe/v/stable.svg)](https://packagist.org/packages/shish/safe)
 [![Total Downloads](https://poser.pugx.org/shish/safe/downloads.svg)](https://packagist.org/packages/shish/safe)
-[![Latest Unstable Version](https://poser.pugx.org/shish/safe/v/unstable.svg)](https://packagist.org/packages/shish/safe)
 [![License](https://poser.pugx.org/shish/safe/license.svg)](https://packagist.org/packages/shish/safe)
 [![Continuous Integration](https://github.com/shish/safe/workflows/Continuous%20Integration/badge.svg)](https://github.com/shish/safe/actions)
 
 
-Safe PHP (Shish's Version)
-==========================
+Safe PHP8
+=========
 
 A set of core PHP functions rewritten to throw exceptions instead of returning `false` when an error is encountered.
 

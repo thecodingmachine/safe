@@ -935,13 +935,14 @@ function pg_ping($connection = null): void
  * create an unnamed statement, in which case any pre-existing unnamed
  * statement is automatically replaced; otherwise it is an error if the
  * statement name is already defined in the current session. If any parameters
- * are used, they are referred to in the query as $1, $2, etc.
+ * are used, they are referred to in the query as $1,
+ * $2, etc.
  *
  * Prepared statements for use with pg_prepare can also be created by
- * executing SQL PREPARE statements. (But pg_prepare is more flexible since it
- * does not require parameter types to be pre-specified.) Also, although there
- * is no PHP function for deleting a prepared statement, the SQL DEALLOCATE
- * statement can be used for that purpose.
+ * executing SQL PREPARE statements. (But pg_prepare is
+ * more flexible since it  does not require parameter types to be pre-specified.) Also,
+ * although there is no PHP function for deleting a prepared statement, the
+ * SQL DEALLOCATE statement can be used for that purpose.
  *
  * @param resource $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
@@ -951,8 +952,8 @@ function pg_ping($connection = null): void
  * @param string $stmtname The name to give the prepared statement.  Must be unique per-connection.  If
  * "" is specified, then an unnamed statement is created, overwriting any
  * previously defined unnamed statement.
- * @param string $query The parameterized SQL statement.  Must contain only a single statement.
- * (multiple statements separated by semi-colons are not allowed.)  If any parameters
+ * @param string $query The parameterized SQL statement.  Must contain only a single statement
+ * (multiple statements separated by semi-colons are not allowed).  If any parameters
  * are used, they are referred to as $1, $2, etc.
  * @return resource An PgSql\Result instance on success.
  * @throws PgsqlException

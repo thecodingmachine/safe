@@ -641,11 +641,14 @@ function openssl_open(string $data, ?string &$output, string $encrypted_key, $pr
  * a key derivation function defined in PKCS5 v2.
  *
  * @param string $password Password from which the derived key is generated.
- * @param string $salt PBKDF2 recommends a crytographic salt of at least 64 bits (8 bytes).
+ * @param string $salt PBKDF2 recommends a crytographic salt of at least 128 bits (16 bytes).
  * @param int $key_length Length of desired output key.
- * @param int $iterations The number of iterations desired. NIST
- * recommends at least 10,000.
- * @param string $digest_algo Optional hash or digest algorithm from openssl_get_md_methods.  Defaults to SHA-1.
+ * @param int $iterations The number of iterations desired.
+ * NIST
+ * recommends at least 1,000. As of 2023, OWASP recommends 600,000 iterations for
+ * PBKDF2-HMAC-SHA256 and 210,000 for PBKDF2-HMAC-SHA512.
+ * @param string $digest_algo Optional hash or digest algorithm from openssl_get_md_methods.  Defaults
+ * to SHA-1. It is recommended to set it to SHA-256 or SHA-512.
  * @return string Returns raw binary string.
  * @throws OpensslException
  *

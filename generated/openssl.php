@@ -455,17 +455,21 @@ function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, array 
 
 
 /**
- * Takes a raw or base64 encoded string and decrypts it using a given method and key.
+ * Takes a raw or base64 encoded string and decrypts it using a given method and passphrase.
  *
  * @param string $data The encrypted message to be decrypted.
  * @param string $cipher_algo The cipher method. For a list of available cipher methods, use
  * openssl_get_cipher_methods.
- * @param string $passphrase The key.
+ * @param string $passphrase The passphrase. If the passphrase is shorter than expected, it is silently padded with
+ * NUL characters; if the passphrase is longer than expected, it is
+ * silently truncated.
  * @param int $options options can be one of
  * OPENSSL_RAW_DATA,
  * OPENSSL_ZERO_PADDING
  * or OPENSSL_DONT_ZERO_PAD_KEY.
- * @param string $iv A non-NULL Initialization Vector.
+ * @param string $iv A non-NULL Initialization Vector. If the IV is shorter than expected, it is padded with
+ * NUL characters and warning is emitted; if the passphrase is longer
+ * than expected, it is truncated and warning is emitted.
  * @param string $tag The authentication tag in AEAD cipher mode. If it is incorrect, the authentication fails and the function returns FALSE.
  * @param string $aad Additional authenticated data.
  * @return string The decrypted string on success.
@@ -597,28 +601,29 @@ function openssl_get_curve_names(): array
 
 
 /**
- * openssl_open opens (decrypts)
- * data using the private key associated with
- * the key identifier private_key and the envelope key
- * encrypted_key, and fills
- * output with the decrypted data.
- * The envelope key is generated when the
- * data are sealed and can only be used by one specific private key. See
- * openssl_seal for more information.
+ * openssl_open opens (decrypts) data using an envelope
+ * key that is decrypted from encrypted_key using
+ * private_key. The decryption is done using
+ * cipher_algo and iv. The IV is required only if the
+ * cipher method requires it. The function fills output with the decrypted
+ * data. The envelope key is usually generated when the data are sealed using a public key that is
+ * associated with the private key. See openssl_seal for more information.
  *
- * @param string $data
- * @param string|null $output If the call is successful the opened data is returned in this
- * parameter.
- * @param string $encrypted_key
- * @param string|array|resource $private_key
- * @param string $cipher_algo The cipher method.
+ * @param string $data The sealed data.
+ * @param string|null $output If the call is successful the opened data is returned in this parameter.
+ * @param string $encrypted_key The encrypted symmetric key that can be decrypted using private_key.
+ * @param string|array|resource $private_key The private key used for decrypting encrypted_key.
+ * @param string $cipher_algo The cipher method used for decryption of data.
  *
  *
- * The default value ('RC4') is considered insecure.
- * It is strongly recommended to explicitly specify a secure cipher method.
+ * The default value for PHP versions prior to 8.0 is ('RC4') which is
+ * considered insecure. It is strongly recommended to explicitly specify a secure cipher
+ * method.
  *
  *
- * @param string $iv The initialization vector.
+ * @param string $iv The initialization vector used for decryption of data. It is required
+ * if the cipher method requires IV. This can be found out by calling
+ * openssl_cipher_iv_length with cipher_algo.
  * @throws OpensslException
  *
  */
@@ -897,7 +902,7 @@ function openssl_pkcs7_sign(string $input_filename, string $output_filename, $ce
  * See Public/Private Key parameters for a list of valid values.
  * @param resource $private_key private_key is the private key for the derivation.
  * See Public/Private Key parameters for a list of valid values.
- * @param int $key_length If not zero, will set the desired length of the derived secret.
+ * @param int $key_length If not zero, will attempt to set the desired length of the derived secret.
  * @return string The derived secret on success.
  * @throws OpensslException
  *
@@ -1219,15 +1224,14 @@ function openssl_public_encrypt(string $data, ?string &$encrypted_data, $public_
 
 
 /**
- * openssl_seal seals (encrypts)
- * data by using the given cipher_algo with a randomly generated
- * secret key. The key is encrypted with each of the public keys
- * associated with the identifiers in public_key
- * and each encrypted key is returned
- * in encrypted_keys. This means that one can send
- * sealed data to multiple recipients (provided one has obtained their
- * public keys). Each recipient must receive both the sealed data and
- * the envelope key that was encrypted with the recipient's public key.
+ * openssl_seal seals (encrypts) data using the
+ * specified cipher_algo with a randomly generated secret key. The key is
+ * then encrypted with each of the public keys in public_key array,
+ * and each encrypted envelope key is returned in encrypted_keys. This allows
+ * sealed data to be sent to multiple recipients (provided their public keys are available). Each
+ * recipient must receive both the sealed data and the envelope key that was encrypted with the
+ * recipient's public key. The IV (Initialization Vector) is generated, and its value is returned in
+ * iv.
  *
  * @param string $data The data to seal.
  * @param string|null $sealed_data The sealed data.
@@ -1236,11 +1240,14 @@ function openssl_public_encrypt(string $data, ?string &$encrypted_data, $public_
  * @param string $cipher_algo The cipher method.
  *
  *
- * The default value ('RC4') is considered insecure.
- * It is strongly recommended to explicitly specify a secure cipher method.
+ * The default value for PHP versions prior to 8.0 is ('RC4') which is
+ * considered insecure. It is strongly recommended to explicitly specify a secure cipher
+ * method.
  *
  *
- * @param string|null $iv The initialization vector.
+ * @param string|null $iv The initialization vector for decryption of data. It is required if
+ * the cipher method requires IV. This can be found out by calling
+ * openssl_cipher_iv_length with cipher_algo.
  * @return int Returns the length of the sealed data on success.
  * If successful the sealed data is returned in
  * sealed_data, and the envelope keys in

@@ -79,7 +79,7 @@ The code below will trigger this warning:
 $content = file_get_contents('foobar.json');
 ```
 
-> Function file_get_contents is unsafe to use. It can return FALSE instead of throwing an exception. Please add 'use function Safe\\file_get_contents;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library.
+> Function file_get_contents is unsafe to use. It can return FALSE instead of throwing an exception. Please add 'use function Safe\\file_get_contents;' at the beginning of the file to use the variant provided by the 'shish/safe' library.
 
 ## Installation
 
@@ -92,14 +92,14 @@ $ composer require shish/safe
 *Highly recommended*: install PHPStan and PHPStan extension:
 
 ```bash
-$ composer require --dev thecodingmachine/phpstan-safe-rule
+$ composer require --dev shish/phpstan-safe-rule
 ```
 
 Now, edit your `phpstan.neon` file and add these rules:
 
 ```yml
 includes:
-    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+    - vendor/shish/phpstan-safe-rule/phpstan-safe-rule.neon
 ```
 
 ## Automated refactoring

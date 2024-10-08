@@ -37,8 +37,7 @@ function session_abort(): void
  * @param string $prefix If prefix is specified, new session id
  * is prefixed by prefix. Not all
  * characters are allowed within the session id.  Characters in
- * the range a-z A-Z 0-9 , (comma) and -
- * (minus) are allowed. Maximum length is 256 characters.
+ * the range [a-zA-Z0-9,-] are allowed. Maximum length is 256 characters.
  * @return string session_create_id returns new collision free
  * session id for the current session. If it is used without active
  * session, it omits collision check.
@@ -141,7 +140,7 @@ function session_encode(): string
  * session_start for that purpose. Depending on the
  * session handler, not all characters are allowed within the session id.
  * For example, the file session handler only allows characters in the
- * range a-z A-Z 0-9 , (comma) and - (minus)!
+ * range [a-zA-Z0-9,-]!
  * @return string session_id returns the session id for the current
  * session or the empty string ("") if there is no current
  * session (no current session id exists).

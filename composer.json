@@ -101,8 +101,7 @@
         ]
     },
     "require": {
-        "php": ">= 8.2",
-        "ext-intl": "*"
+        "php": ">= 8.2"
     },
     "require-dev": {
         "phpstan/phpstan": "^1",

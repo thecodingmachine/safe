@@ -200,9 +200,9 @@ function session_module_name(?string $module = null): string
  *
  * If a new session name is
  * supplied, session_name modifies the HTTP cookie
- * (and output content when session.transid is
- * enabled). Once the HTTP cookie is
- * sent, session_name raises error.
+ * (and outputs the content when session.use_trans_sid is
+ * enabled). Once the HTTP cookie has been
+ * sent, calling session_name raises an E_WARNING.
  * session_name must be called
  * before session_start for the session to work
  * properly.

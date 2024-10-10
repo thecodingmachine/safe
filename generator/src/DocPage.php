@@ -287,7 +287,7 @@ class DocPage
         $regexpBase = '/<refsect1\s+role="%s">[\s\S]*?<\/refsect1>/m';
         $regexpString = sprintf($regexpBase, preg_quote($sectionName, '/'));
         preg_match_all($regexpString, $file, $output);
-        return implode('', $this->arrayFlatten((array) $output));
+        return implode('', $this->arrayFlatten($output));
     }
 
     private function toCamelCase(string $str): string

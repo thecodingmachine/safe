@@ -6,7 +6,7 @@ namespace Safe;
 
 class WritePhpFunction
 {
-    public function __construct(private Method $method)
+    public function __construct(private readonly Method $method)
     {
     }
 

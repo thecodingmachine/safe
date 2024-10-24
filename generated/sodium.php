@@ -5,6 +5,48 @@ namespace Safe;
 use Safe\Exceptions\SodiumException;
 
 /**
+ *
+ *
+ * @param string $ciphertext
+ * @param string $additional_data
+ * @param string $nonce
+ * @param string $key
+ * @return
+ * @throws SodiumException
+ *
+ */
+function sodium_crypto_aead_aegis128l_decrypt(string $ciphertext, string $additional_data, string $nonce, string $key): void
+{
+    error_clear_last();
+    $safeResult = \sodium_crypto_aead_aegis128l_decrypt($ciphertext, $additional_data, $nonce, $key);
+    if ($safeResult === false) {
+        throw SodiumException::createFromPhpError();
+    }
+}
+
+
+/**
+ *
+ *
+ * @param string $ciphertext
+ * @param string $additional_data
+ * @param string $nonce
+ * @param string $key
+ * @return
+ * @throws SodiumException
+ *
+ */
+function sodium_crypto_aead_aegis256_decrypt(string $ciphertext, string $additional_data, string $nonce, string $key): void
+{
+    error_clear_last();
+    $safeResult = \sodium_crypto_aead_aegis256_decrypt($ciphertext, $additional_data, $nonce, $key);
+    if ($safeResult === false) {
+        throw SodiumException::createFromPhpError();
+    }
+}
+
+
+/**
  * Verify then decrypt with AES-256-GCM.
  * Only available if sodium_crypto_aead_aes256gcm_is_available returns TRUE.
  *

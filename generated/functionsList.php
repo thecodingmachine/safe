@@ -949,6 +949,8 @@ return [
     'socket_wsaprotocol_info_export',
     'socket_wsaprotocol_info_import',
     'socket_wsaprotocol_info_release',
+    'sodium_crypto_aead_aegis128l_decrypt',
+    'sodium_crypto_aead_aegis256_decrypt',
     'sodium_crypto_aead_aes256gcm_decrypt',
     'sodium_crypto_aead_chacha20poly1305_decrypt',
     'sodium_crypto_aead_chacha20poly1305_encrypt',

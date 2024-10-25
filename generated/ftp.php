@@ -530,10 +530,10 @@ function ftp_site($ftp, string $command): void
  * ftp_ssl_connect opens an explicit SSL-FTP connection to the
  * specified hostname. That implies that
  * ftp_ssl_connect will succeed even if the server is not
- * configured for SSL-FTP, or its certificate is invalid. Only when
- * ftp_login is called, the client will send the
- * appropriate AUTH FTP command, so ftp_login will fail in
- * the mentioned cases.
+ * configured for SSL-FTP. Only when ftp_login is called, the client will send the
+ * appropriate AUTH FTP command, so ftp_login will fail.
+ * The connection established by ftp_ssl_connect will not do
+ * peer-certificate verification.
  *
  * @param string $hostname The FTP server address. This parameter shouldn't have any trailing
  * slashes and shouldn't be prefixed with ftp://.

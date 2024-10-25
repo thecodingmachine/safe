@@ -185,8 +185,18 @@ function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
  * this is only possible when called from the main thread.
  *
  * @param  $handler A callback function to set or remove. If set, this function will be called
- * whenever a CTRL+C or CTRL+BREAK event
- * occurs. The function is supposed to have the following signature:
+ * whenever a
+ *
+ * CTRL
+ * C
+ *
+ * or
+ *
+ * CTRL
+ * BREAK
+ *
+ * event occurs.
+ * The function is supposed to have the following signature:
  *
  * voidhandler
  * intevent
@@ -204,7 +214,16 @@ function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
  *
  *
  * Setting a NULL handler causes the process to ignore
- * CTRL+C events, but not CTRL+BREAK events.
+ *
+ * CTRL
+ * C
+ *
+ * events, but not
+ *
+ * CTRL
+ * BREAK
+ *
+ * events.
  * @param bool $add
  * @throws MiscException
  *

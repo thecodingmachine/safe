@@ -48,6 +48,16 @@ function xml_parser_free($parser): void
  *
  *
  *
+ * XML_OPTION_PARSE_HUGE
+ * bool
+ *
+ * Allows parsing documents larger than 10 MB.
+ * This option should only be enabled when the document size is
+ * bounded because this could otherwise lead to a DoS.
+ * This option is only available when using libxml2.
+ *
+ *
+ *
  * XML_OPTION_SKIP_TAGSTART
  * integer
  *

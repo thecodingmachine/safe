@@ -1062,7 +1062,7 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
  *
  * @param \CurlHandle $handle A cURL handle returned by
  * curl_init.
- * @param int $option The CURLOPT_XXX option to set.
+ * @param int $option The CURLOPT_* option to set.
  * @param mixed $value The value to be set on option.
  *
  * value should be a bool for the

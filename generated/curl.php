@@ -53,7 +53,9 @@ function curl_escape(\CurlHandle $handle, string $string): string
  *
  * @param \CurlHandle $handle A cURL handle returned by
  * curl_init.
- * @return bool|string Returns TRUE on success. However, if the CURLOPT_RETURNTRANSFER
+ * @return bool|string On success, this function flushes the result directly to the
+ * stdout and returns TRUE.
+ * However, if the CURLOPT_RETURNTRANSFER
  * option is set, it will return
  * the result on success, FALSE on failure.
  * @throws CurlException

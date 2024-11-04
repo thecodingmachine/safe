@@ -14,6 +14,7 @@ return [
     'apcu_inc',
     'apcu_sma_info',
     'apc_fetch',
+    'array_all',
     'base64_decode',
     'bindtextdomain',
     'bzclose',

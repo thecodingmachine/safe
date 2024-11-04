@@ -24,6 +24,7 @@
             "deprecated/mysqli.php",
             "generated/apache.php",
             "generated/apcu.php",
+            "generated/array.php",
             "generated/bzip2.php",
             "generated/calendar.php",
             "generated/classobj.php",

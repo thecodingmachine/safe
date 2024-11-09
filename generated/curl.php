@@ -239,12 +239,10 @@ function curl_getinfo(\CurlHandle $handle, ?int $option = null)
 
 
 /**
- * Initializes a new session and return a cURL handle for use with the
- * curl_setopt, curl_exec,
- * and curl_close functions.
+ * Initializes a new session and returns a cURL handle.
  *
  * @param string $url If provided, the CURLOPT_URL option will be set
- * to its value. You can manually set this using the
+ * to its value. This can be set manually using the
  * curl_setopt function.
  *
  * The file protocol is disabled by cURL if

@@ -219,6 +219,11 @@ function curl_exec(\CurlHandle $handle)
  *
  *
  *
+ *
+ * "posttransfer_time_us" (Available as of PHP 8.4.0 and cURL 8.10.0)
+ *
+ *
+ *
  * Note that private data is not included in the associative array and must be retrieved individually with the CURLINFO_PRIVATE option.
  * @throws CurlException
  *

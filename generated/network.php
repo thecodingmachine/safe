@@ -431,27 +431,6 @@ function inet_ntop(string $ip): string
 
 
 /**
- * The function long2ip generates an Internet address
- * in dotted format (i.e.: aaa.bbb.ccc.ddd) from the long integer
- * representation.
- *
- * @param int $ip A proper address representation in long integer.
- * @return string Returns the Internet IP address as a string.
- * @throws NetworkException
- *
- */
-function long2ip(int $ip): string
-{
-    error_clear_last();
-    $safeResult = \long2ip($ip);
-    if ($safeResult === false) {
-        throw NetworkException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  * Returns an enumeration of network interfaces (adapters) on the local machine.
  *
  * @return array Returns an associative array where the key is the name of the interface and

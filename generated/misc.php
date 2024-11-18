@@ -72,29 +72,6 @@ function highlight_file(string $filename, bool $return = false)
 /**
  *
  *
- * @param string $string The PHP code to be highlighted. This should include the opening tag.
- * @param bool $return Set this parameter to TRUE to make this function return the
- * highlighted code.
- * @return string|bool If return is set to TRUE, returns the highlighted
- * code as a string instead of printing it out. Otherwise, it will return
- * TRUE on success, FALSE on failure.
- * @throws MiscException
- *
- */
-function highlight_string(string $string, bool $return = false)
-{
-    error_clear_last();
-    $safeResult = \highlight_string($string, $return);
-    if ($safeResult === false) {
-        throw MiscException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
- *
- *
  * @param bool $as_number Whether the high resolution time should be returned as array
  * or number.
  * @return array{0:int,1:int}|int|float Returns an array of integers in the form [seconds, nanoseconds], if the

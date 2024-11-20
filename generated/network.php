@@ -20,24 +20,9 @@ use Safe\Exceptions\NetworkException;
  * with a functions such as mail.
  * @param int $type By default, dns_get_record will search for any
  * resource records associated with hostname.
- * To limit the query, specify the optional type
- * parameter. May be any one of the following:
- * DNS_A, DNS_CNAME,
- * DNS_HINFO, DNS_CAA,
- * DNS_MX, DNS_NS,
- * DNS_PTR, DNS_SOA,
- * DNS_TXT, DNS_AAAA,
- * DNS_SRV, DNS_NAPTR,
- * DNS_A6, DNS_ALL
- * or DNS_ANY.
- *
- * Because of eccentricities in the performance of libresolv
- * between platforms, DNS_ANY will not
- * always return every record, the slower DNS_ALL
- * will collect all records more reliably.
- *
- * Windows: DNS_CAA is not supported.
- * Support for DNS_A6 is not implemented.
+ * To limit the query, use one of the
+ * DNS_*
+ * constants.
  * @param array|null $authoritative_name_servers Passed by reference and, if given, will be populated with Resource
  * Records for the Authoritative Name Servers.
  * @param array|null $additional_records Passed by reference and, if given, will be populated with any
@@ -91,7 +76,7 @@ use Safe\Exceptions\NetworkException;
  *
  *
  *
- * Other keys in associative arrays dependant on 'type'
+ * Other keys in associative arrays dependent on type
  *
  *
  *

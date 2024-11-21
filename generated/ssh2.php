@@ -39,7 +39,7 @@ function ssh2_auth_agent($session, string $username): void
  * @throws Ssh2Exception
  *
  */
-function ssh2_auth_hostbased_file($session, string $username, string $hostname, string $pubkeyfile, string $privkeyfile, string $passphrase = null, string $local_username = null): void
+function ssh2_auth_hostbased_file($session, string $username, string $hostname, string $pubkeyfile, string $privkeyfile, string|null passphrase = null, string|null local_username = null): void
 {
     error_clear_last();
     if ($local_username !== null) {
@@ -91,7 +91,7 @@ function ssh2_auth_password($session, string $username, string $password): void
  * @throws Ssh2Exception
  *
  */
-function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, string $privkeyfile, string $passphrase = null): void
+function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, string $privkeyfile, string|null passphrase = null): void
 {
     error_clear_last();
     if ($passphrase !== null) {
@@ -304,7 +304,7 @@ function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, s
  * @throws Ssh2Exception
  *
  */
-function ssh2_connect(string $host, int $port = 22, array $methods = null, array $callbacks = null)
+function ssh2_connect(string $host, int $port = 22, array|null methods = null, array|null callbacks = null)
 {
     error_clear_last();
     if ($callbacks !== null) {
@@ -357,7 +357,7 @@ function ssh2_disconnect($session): void
  * @throws Ssh2Exception
  *
  */
-function ssh2_exec($session, string $command, string $pty = null, array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
+function ssh2_exec($session, string $command, string|null pty = null, array|null env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
 {
     error_clear_last();
     if ($width_height_type !== SSH2_TERM_UNIT_CHARS) {
@@ -410,7 +410,7 @@ function ssh2_forward_accept($listener)
  * @throws Ssh2Exception
  *
  */
-function ssh2_forward_listen($session, int $port, string $host = null, int $max_connections = 16)
+function ssh2_forward_listen($session, int $port, string|null host = null, int $max_connections = 16)
 {
     error_clear_last();
     if ($max_connections !== 16) {
@@ -442,7 +442,7 @@ function ssh2_forward_listen($session, int $port, string $host = null, int $max_
  * @throws Ssh2Exception
  *
  */
-function ssh2_publickey_add($pkey, string $algoname, string $blob, bool $overwrite = false, array $attributes = null): void
+function ssh2_publickey_add($pkey, string $algoname, string $blob, bool $overwrite = false, array|null attributes = null): void
 {
     error_clear_last();
     if ($attributes !== null) {
@@ -728,7 +728,7 @@ function ssh2_sftp($session)
  * @throws Ssh2Exception
  *
  */
-function ssh2_shell($session, string $term_type = "vanilla", array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
+function ssh2_shell($session, string $term_type = "vanilla", array|null env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
 {
     error_clear_last();
     if ($width_height_type !== SSH2_TERM_UNIT_CHARS) {

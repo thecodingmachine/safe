@@ -306,7 +306,7 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authorit
  * @throws NetworkException
  *
  */
-function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null)
+function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float|null timeout = null)
 {
     error_clear_last();
     if ($timeout !== null) {
@@ -733,7 +733,7 @@ function openlog(string $prefix, int $flags, int $facility): void
  * @throws NetworkException
  *
  */
-function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null)
+function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float|null timeout = null)
 {
     error_clear_last();
     if ($timeout !== null) {

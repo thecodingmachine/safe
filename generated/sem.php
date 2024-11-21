@@ -442,7 +442,7 @@ function sem_remove($semaphore): void
  * @throws SemException
  *
  */
-function shm_attach(int $key, int $size = null, int $permissions = 0666)
+function shm_attach(int $key, int|null size = null, int $permissions = 0666)
 {
     error_clear_last();
     if ($permissions !== 0666) {

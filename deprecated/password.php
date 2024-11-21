@@ -112,7 +112,7 @@ use Safe\Exceptions\PasswordException;
  * @deprecated The Safe version of this function is no longer needed in PHP 8.0+
  *
  */
-function password_hash(string $password, $algo, array $options = null): string
+function password_hash(string $password, $algo, array|null options = null): string
 {
     error_clear_last();
     if ($options !== null) {

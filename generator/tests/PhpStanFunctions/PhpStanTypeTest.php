@@ -141,7 +141,7 @@ class PhpStanTypeTest extends TestCase
         $this->assertEquals('int', $param->getDocBlockType(Method::FALSY_TYPE));
         $this->assertEquals('int', $param->getSignatureType(Method::FALSY_TYPE));
 
-        //int|null => int if the method is nullsy
+        //int|null $=> int if the method is nullsy
         $param = new PhpStanType('int|null');
         $this->assertEquals('int', $param->getDocBlockType(Method::NULLSY_TYPE));
         $this->assertEquals('int', $param->getSignatureType(Method::NULLSY_TYPE));

@@ -393,7 +393,7 @@ function openssl_csr_get_subject($csr, bool $short_names = true): array
  * @throws OpensslException
  *
  */
-function openssl_csr_new(array $distinguished_names, &$private_key, array|null options = null, array|null extra_attributes = null)
+function openssl_csr_new(array $distinguished_names, &$private_key, array|null $options = null, array|null $extra_attributes = null)
 {
     error_clear_last();
     if ($extra_attributes !== null) {
@@ -433,7 +433,7 @@ function openssl_csr_new(array $distinguished_names, &$private_key, array|null o
  * @throws OpensslException
  *
  */
-function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, array|null options = null, int $serial = 0)
+function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, array|null $options = null, int $serial = 0)
 {
     error_clear_last();
     if ($serial !== 0) {
@@ -467,7 +467,7 @@ function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, array|
  * @throws OpensslException
  *
  */
-function openssl_decrypt(string $data, string $cipher_algo, string $passphrase, int $options = 0, string $iv = "", string|null tag = null, string $aad = ""): string
+function openssl_decrypt(string $data, string $cipher_algo, string $passphrase, int $options = 0, string $iv = "", string|null $tag = null, string $aad = ""): string
 {
     error_clear_last();
     if ($aad !== "") {
@@ -617,7 +617,7 @@ function openssl_get_curve_names(): array
  * @throws OpensslException
  *
  */
-function openssl_open(string $data, ?string &$output, string $encrypted_key, $private_key, string $cipher_algo, string|null iv = null): void
+function openssl_open(string $data, ?string &$output, string $encrypted_key, $private_key, string $cipher_algo, string|null $iv = null): void
 {
     error_clear_last();
     if ($iv !== null) {
@@ -867,7 +867,7 @@ function openssl_pkcs7_read(string $data, ?array &$certificates): void
  * @throws OpensslException
  *
  */
-function openssl_pkcs7_sign(string $input_filename, string $output_filename, $certificate, $private_key, array $headers, int $flags = PKCS7_DETACHED, string|null untrusted_certificates_filename = null): void
+function openssl_pkcs7_sign(string $input_filename, string $output_filename, $certificate, $private_key, array $headers, int $flags = PKCS7_DETACHED, string|null $untrusted_certificates_filename = null): void
 {
     error_clear_last();
     if ($untrusted_certificates_filename !== null) {
@@ -921,7 +921,7 @@ function openssl_pkey_derive($public_key, $private_key, int $key_length = 0): st
  * @throws OpensslException
  *
  */
-function openssl_pkey_export_to_file($key, string $output_filename, ?string|null passphrase = null, array|null options = null): void
+function openssl_pkey_export_to_file($key, string $output_filename, string|null $passphrase = null, array|null $options = null): void
 {
     error_clear_last();
     if ($options !== null) {
@@ -952,7 +952,7 @@ function openssl_pkey_export_to_file($key, string $output_filename, ?string|null
  * @throws OpensslException
  *
  */
-function openssl_pkey_export($key, ?string &$output, ?string|null passphrase = null, array|null options = null): void
+function openssl_pkey_export($key, ?string &$output, string|null $passphrase = null, array|null $options = null): void
 {
     error_clear_last();
     if ($options !== null) {
@@ -1016,7 +1016,7 @@ function openssl_pkey_get_details(\OpenSSLAsymmetricKey $key): array
  * @throws OpensslException
  *
  */
-function openssl_pkey_get_private($private_key, ?string|null passphrase = null): \OpenSSLAsymmetricKey
+function openssl_pkey_get_private($private_key, string|null $passphrase = null): \OpenSSLAsymmetricKey
 {
     error_clear_last();
     if ($passphrase !== null) {
@@ -1074,7 +1074,7 @@ function openssl_pkey_get_public($public_key): \OpenSSLAsymmetricKey
  * @throws OpensslException
  *
  */
-function openssl_pkey_new(array|null options = null)
+function openssl_pkey_new(array|null $options = null)
 {
     error_clear_last();
     if ($options !== null) {
@@ -1281,7 +1281,7 @@ function openssl_sign(string $data, ?string &$signature, $private_key, $algorith
  * Exports challenge from encoded signed public key and challenge
  *
  * @param string $spki Expects a valid signed public key and challenge
- * @return string|null Returns the associated challenge string.
+ * @return string|null $Returns the associated challenge string.
  * @throws OpensslException
  *
  */
@@ -1300,7 +1300,7 @@ function openssl_spki_export_challenge(string $spki): ?string
  * Exports PEM formatted public key from encoded signed public key and challenge
  *
  * @param string $spki Expects a valid signed public key and challenge
- * @return string|null Returns the associated PEM formatted public key.
+ * @return string|null $Returns the associated PEM formatted public key.
  * @throws OpensslException
  *
  */
@@ -1325,7 +1325,7 @@ function openssl_spki_export(string $spki): ?string
  * CSR.
  * @param string $challenge The challenge associated to associate with the SPKAC
  * @param int $digest_algo The digest algorithm. See openssl_get_md_method().
- * @return string|null Returns a signed public key and challenge string.
+ * @return string|null $Returns a signed public key and challenge string.
  * @throws OpensslException
  *
  */

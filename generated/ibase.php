@@ -34,7 +34,7 @@ function fbird_blob_cancel($blob_handle): void
  * @throws IbaseException
  *
  */
-function ibase_add_user($service_handle, string $user_name, string $password, string|null first_name = null, string|null middle_name = null, string|null last_name = null): void
+function ibase_add_user($service_handle, string $user_name, string $password, string|null $first_name = null, string|null $middle_name = null, string|null $last_name = null): void
 {
     error_clear_last();
     if ($last_name !== null) {
@@ -266,7 +266,7 @@ function ibase_commit($link_or_trans_identifier = null): void
  * @throws IbaseException
  *
  */
-function ibase_connect(string|null database = null, string|null username = null, string|null password = null, string|null charset = null, int|null buffers = null, int|null dialect = null, string|null role = null, int|null sync = null)
+function ibase_connect(string|null $database = null, string|null $username = null, string|null $password = null, string|null $charset = null, int|null $buffers = null, int|null $dialect = null, string|null $role = null, int|null $sync = null)
 {
     error_clear_last();
     if ($sync !== null) {
@@ -423,7 +423,7 @@ function ibase_maintain_db($service_handle, string $db, int $action, int $argume
  * @throws IbaseException
  *
  */
-function ibase_modify_user($service_handle, string $user_name, string $password, string|null first_name = null, string|null middle_name = null, string|null last_name = null): void
+function ibase_modify_user($service_handle, string $user_name, string $password, string|null $first_name = null, string|null $middle_name = null, string|null $last_name = null): void
 {
     error_clear_last();
     if ($last_name !== null) {
@@ -500,7 +500,7 @@ function ibase_name_result($result, string $name): void
  * @throws IbaseException
  *
  */
-function ibase_pconnect(string|null database = null, string|null username = null, string|null password = null, string|null charset = null, int|null buffers = null, int|null dialect = null, string|null role = null, int|null sync = null)
+function ibase_pconnect(string|null $database = null, string|null $username = null, string|null $password = null, string|null $charset = null, int|null $buffers = null, int|null $dialect = null, string|null $role = null, int|null $sync = null)
 {
     error_clear_last();
     if ($sync !== null) {

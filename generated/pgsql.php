@@ -297,7 +297,7 @@ function pg_end_copy($connection = null): void
  * @throws PgsqlException
  *
  */
-function pg_execute($connection = null, string|null stmtname = null, array|null params = null)
+function pg_execute($connection = null, string|null $stmtname = null, array|null $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -542,7 +542,7 @@ function pg_lo_close($lob): void
  * @throws PgsqlException
  *
  */
-function pg_lo_export($connection = null, int|null oid = null, string|null pathname = null): void
+function pg_lo_export($connection = null, int|null $oid = null, string|null $pathname = null): void
 {
     error_clear_last();
     if ($pathname !== null) {
@@ -584,7 +584,7 @@ function pg_lo_export($connection = null, int|null oid = null, string|null pathn
  * @throws PgsqlException
  *
  */
-function pg_lo_import($connection = null, string|null pathname = null, $object_id = null): int
+function pg_lo_import($connection = null, string|null $pathname = null, $object_id = null): int
 {
     error_clear_last();
     if ($object_id !== null) {
@@ -748,7 +748,7 @@ function pg_lo_unlink($connection, int $oid): void
  * @throws PgsqlException
  *
  */
-function pg_lo_write($lob, string $data, int|null length = null): int
+function pg_lo_write($lob, string $data, int|null $length = null): int
 {
     error_clear_last();
     if ($length !== null) {
@@ -824,7 +824,7 @@ function pg_meta_data($connection, string $table_name, bool $extended = false): 
  * @throws PgsqlException
  *
  */
-function pg_parameter_status($connection = null, string|null param_name = null): string
+function pg_parameter_status($connection = null, string|null $param_name = null): string
 {
     error_clear_last();
     if ($param_name !== null) {
@@ -958,7 +958,7 @@ function pg_ping($connection = null): void
  * @throws PgsqlException
  *
  */
-function pg_prepare($connection = null, string|null stmtname = null, string|null query = null)
+function pg_prepare($connection = null, string|null $stmtname = null, string|null $query = null)
 {
     error_clear_last();
     if ($query !== null) {
@@ -1000,7 +1000,7 @@ function pg_prepare($connection = null, string|null stmtname = null, string|null
  * @throws PgsqlException
  *
  */
-function pg_put_line($connection = null, string|null data = null): void
+function pg_put_line($connection = null, string|null $data = null): void
 {
     error_clear_last();
     if ($data !== null) {
@@ -1067,7 +1067,7 @@ function pg_put_line($connection = null, string|null data = null): void
  * @throws PgsqlException
  *
  */
-function pg_query_params($connection = null, string|null query = null, array|null params = null)
+function pg_query_params($connection = null, string|null $query = null, array|null $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -1126,7 +1126,7 @@ function pg_query_params($connection = null, string|null query = null, array|nul
  * @throws PgsqlException
  *
  */
-function pg_query($connection = null, string|null query = null)
+function pg_query($connection = null, string|null $query = null)
 {
     error_clear_last();
     if ($query !== null) {
@@ -1168,7 +1168,7 @@ function pg_query($connection = null, string|null query = null)
  * PGSQL_DIAG_CONTEXT, PGSQL_DIAG_SOURCE_FILE,
  * PGSQL_DIAG_SOURCE_LINE or
  * PGSQL_DIAG_SOURCE_FUNCTION.
- * @return string|null A string containing the contents of the error field, NULL if the field does not exist.
+ * @return string|null $A string containing the contents of the error field, NULL if the field does not exist.
  * @throws PgsqlException
  *
  */

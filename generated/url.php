@@ -124,7 +124,7 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
  * URL component as a string (except when
  * PHP_URL_PORT is given, in which case the return
  * value will be an int).
- * @return array|int|string|null On seriously malformed URLs, parse_url.
+ * @return array|int|string|null $On seriously malformed URLs, parse_url.
  *
  * If the component parameter is omitted, an
  * associative array is returned. At least one element will be

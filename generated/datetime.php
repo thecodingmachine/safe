@@ -12,7 +12,7 @@ use Safe\Exceptions\DatetimeException;
  * DateTimeImmutable::createFromFormat. The same
  * rules apply.
  * @param string $datetime String representing the date/time.
- * @return array{year: int|false, month: int|false, day: int|false, hour: int|false, minute: int|false, second: int|false, fraction: float|false, warning_count: int, warnings: string[], error_count: int, errors: string[], is_localtime: bool, zone_type: int|bool, zone: int|bool, is_dst: bool, tz_abbr: string, tz_id: string, relative: array{year: int, month: int, day: int, hour: int, minute: int, second: int, weekday: int, weekdays: int, first_day_of_month: bool, last_day_of_month: bool}}|null Returns associative array with detailed info about given date/time.
+ * @return array{year: int|false, month: int|false, day: int|false, hour: int|false, minute: int|false, second: int|false, fraction: float|false, warning_count: int, warnings: string[], error_count: int, errors: string[], is_localtime: bool, zone_type: int|bool, zone: int|bool, is_dst: bool, tz_abbr: string, tz_id: string, relative: array{year: int, month: int, day: int, hour: int, minute: int, second: int, weekday: int, weekdays: int, first_day_of_month: bool, last_day_of_month: bool}}|null $Returns associative array with detailed info about given date/time.
  *
  * The returned array has keys for year,
  * month, day, hour,
@@ -76,7 +76,7 @@ function date_parse_from_format(string $format, string $datetime): ?array
  *
  * @param string $datetime Date/time in format accepted by
  * DateTimeImmutable::__construct.
- * @return array{year: int|false, month: int|false, day: int|false, hour: int|false, minute: int|false, second: int|false, fraction: float|false, warning_count: int, warnings: string[], error_count: int, errors: string[], is_localtime: bool, zone_type: int|bool, zone: int|bool, is_dst: bool, tz_abbr: string, tz_id: string, relative: array{year: int, month: int, day: int, hour: int, minute: int, second: int, weekday: int, weekdays: int, first_day_of_month: bool, last_day_of_month: bool}}|null Returns array with information about the parsed date/time
+ * @return array{year: int|false, month: int|false, day: int|false, hour: int|false, minute: int|false, second: int|false, fraction: float|false, warning_count: int, warnings: string[], error_count: int, errors: string[], is_localtime: bool, zone_type: int|bool, zone: int|bool, is_dst: bool, tz_abbr: string, tz_id: string, relative: array{year: int, month: int, day: int, hour: int, minute: int, second: int, weekday: int, weekdays: int, first_day_of_month: bool, last_day_of_month: bool}}|null $Returns array with information about the parsed date/time
  * on success.
  *
  * The returned array has keys for year,
@@ -319,7 +319,7 @@ function date_sun_info(int $timestamp, float $latitude, float $longitude): array
  * @throws DatetimeException
  *
  */
-function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, float|null latitude = null, float|null longitude = null, float|null zenith = null, float|null utcOffset = null)
+function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, float|null $latitude = null, float|null $longitude = null, float|null $zenith = null, float|null $utcOffset = null)
 {
     error_clear_last();
     if ($utcOffset !== null) {
@@ -422,7 +422,7 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, f
  * @throws DatetimeException
  *
  */
-function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, float|null latitude = null, float|null longitude = null, float|null zenith = null, float|null utcOffset = null)
+function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, float|null $latitude = null, float|null $longitude = null, float|null $zenith = null, float|null $utcOffset = null)
 {
     error_clear_last();
     if ($utcOffset !== null) {
@@ -1112,7 +1112,7 @@ function strptime(string $timestamp, string $format): array
  * @throws DatetimeException
  *
  */
-function strtotime(string $datetime, int|null baseTimestamp = null): int
+function strtotime(string $datetime, int|null $baseTimestamp = null): int
 {
     error_clear_last();
     if ($baseTimestamp !== null) {

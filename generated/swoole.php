@@ -54,7 +54,7 @@ function swoole_async_readfile(string $filename, string $callback): void
  * @throws SwooleException
  *
  */
-function swoole_async_write(string $filename, string $content, int|null offset = null, callable|null $callback = null): void
+function swoole_async_write(string $filename, string $content, int|null $offset = null, callable|null $callback = null): void
 {
     error_clear_last();
     if ($callback !== null) {

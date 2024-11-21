@@ -361,7 +361,7 @@ function sprintf(string $format, ...$params): string
  * @deprecated The Safe version of this function is no longer needed in PHP 8.0+
  *
  */
-function substr(string $string, int $start, int|null length = null): string
+function substr(string $string, int $start, int|null $length = null): string
 {
     error_clear_last();
     if ($length !== null) {

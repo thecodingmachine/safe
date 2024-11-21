@@ -91,7 +91,7 @@ class PhpStanType
         $this->falsable = $falsable;
     }
 
-    public function getDocBlockType(?int|null errorType = null): string
+    public function getDocBlockType(int|null $errorType = null): string
     {
         $returnTypes = $this->types;
         //add back either null or false to the return types unless the target function return null or false on error (only relevant on return type)
@@ -109,7 +109,7 @@ class PhpStanType
         return $type;
     }
 
-    public function getSignatureType(?int|null errorType = null): string
+    public function getSignatureType(int|null $errorType = null): string
     {
         //We edit the return type depending of the "onErrorType" of the function. For example, a function that is both nullable and "nullsy" will created a non nullable safe function. Only relevant on return type.
         $nullable = $errorType === Method::NULLSY_TYPE ? false : $this->nullable;

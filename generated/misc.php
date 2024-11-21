@@ -404,7 +404,7 @@ function sapi_windows_set_ctrl_handler($handler, bool $add = true): void
  * @throws MiscException
  *
  */
-function sapi_windows_vt100_support($stream, bool|null enable = null): void
+function sapi_windows_vt100_support($stream, bool|null $enable = null): void
 {
     error_clear_last();
     if ($enable !== null) {

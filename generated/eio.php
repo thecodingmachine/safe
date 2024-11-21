@@ -801,7 +801,7 @@ function eio_futime($fd, float $atime, float $mtime, int $pri = EIO_PRI_DEFAULT,
  * @throws EioException
  *
  */
-function eio_grp(callable $callback, string|null data = null)
+function eio_grp(callable $callback, string|null $data = null)
 {
     error_clear_last();
     $safeResult = \eio_grp($callback, $data);
@@ -1368,7 +1368,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  * @throws EioException
  *
  */
-function eio_readdir(string $path, int $flags, int $pri, callable $callback, string|null data = null)
+function eio_readdir(string $path, int $flags, int $pri, callable $callback, string|null $data = null)
 {
     error_clear_last();
     $safeResult = \eio_readdir($path, $flags, $pri, $callback, $data);
@@ -1416,7 +1416,7 @@ function eio_readdir(string $path, int $flags, int $pri, callable $callback, str
  * @throws EioException
  *
  */
-function eio_readlink(string $path, int $pri, callable $callback, string|null data = null)
+function eio_readlink(string $path, int $pri, callable $callback, string|null $data = null)
 {
     error_clear_last();
     $safeResult = \eio_readlink($path, $pri, $callback, $data);
@@ -1621,7 +1621,7 @@ function eio_seek($fd, int $offset, int $whence, int $pri = EIO_PRI_DEFAULT, cal
  * @throws EioException
  *
  */
-function eio_sendfile($out_fd, $in_fd, int $offset, int $length, int|null pri = null, callable|null $callback = null, string|null data = null)
+function eio_sendfile($out_fd, $in_fd, int $offset, int $length, int|null $pri = null, callable|null $callback = null, string|null $data = null)
 {
     error_clear_last();
     if ($data !== null) {

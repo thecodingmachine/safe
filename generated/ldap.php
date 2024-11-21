@@ -47,7 +47,7 @@ function ldap_8859_to_t61(string $value): string
  * @throws LdapException
  *
  */
-function ldap_add($ldap, string $dn, array $entry, array|null controls = null): void
+function ldap_add($ldap, string $dn, array $entry, array|null $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -70,7 +70,7 @@ function ldap_add($ldap, string $dn, array $entry, array|null controls = null): 
  * @throws LdapException
  *
  */
-function ldap_bind($ldap, ?string|null dn = null, ?string|null password = null): void
+function ldap_bind($ldap, string|null $dn = null, string|null $password = null): void
 {
     error_clear_last();
     if ($password !== null) {
@@ -159,7 +159,7 @@ function ldap_count_entries($ldap, $result): int
  * @throws LdapException
  *
  */
-function ldap_delete($ldap, string $dn, array|null controls = null): void
+function ldap_delete($ldap, string $dn, array|null $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -256,7 +256,7 @@ function ldap_exop_whoami($ldap)
  * @throws LdapException
  *
  */
-function ldap_exop($ldap, string $request_oid, string|null request_data = null, ?array|null controls = null, ?string &$response_data = null, ?string &$response_oid = null)
+function ldap_exop($ldap, string $request_oid, string|null $request_data = null, array|null $controls = null, ?string &$response_data = null, ?string &$response_oid = null)
 {
     error_clear_last();
     if ($response_oid !== null) {
@@ -738,7 +738,7 @@ function ldap_get_values($ldap, $entry, string $attribute): array
  * @throws LdapException
  *
  */
-function ldap_mod_add($ldap, string $dn, array $entry, array|null controls = null): void
+function ldap_mod_add($ldap, string $dn, array $entry, array|null $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -764,7 +764,7 @@ function ldap_mod_add($ldap, string $dn, array $entry, array|null controls = nul
  * @throws LdapException
  *
  */
-function ldap_mod_del($ldap, string $dn, array $entry, array|null controls = null): void
+function ldap_mod_del($ldap, string $dn, array $entry, array|null $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -789,7 +789,7 @@ function ldap_mod_del($ldap, string $dn, array $entry, array|null controls = nul
  * @throws LdapException
  *
  */
-function ldap_mod_replace($ldap, string $dn, array $entry, array|null controls = null): void
+function ldap_mod_replace($ldap, string $dn, array $entry, array|null $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -888,7 +888,7 @@ function ldap_mod_replace($ldap, string $dn, array $entry, array|null controls =
  * @throws LdapException
  *
  */
-function ldap_modify_batch($ldap, string $dn, array $modifications_info, array|null controls = null): void
+function ldap_modify_batch($ldap, string $dn, array $modifications_info, array|null $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -987,7 +987,7 @@ function ldap_parse_result($ldap, $result, ?int &$error_code, ?string &$matched_
  * @throws LdapException
  *
  */
-function ldap_rename($ldap, string $dn, string $new_rdn, string $new_parent, bool $delete_old_rdn, array|null controls = null): void
+function ldap_rename($ldap, string $dn, string $new_rdn, string $new_parent, bool $delete_old_rdn, array|null $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -1015,7 +1015,7 @@ function ldap_rename($ldap, string $dn, string $new_rdn, string $new_parent, boo
  * @throws LdapException
  *
  */
-function ldap_sasl_bind($ldap, string|null dn = null, string|null password = null, string|null mech = null, string|null realm = null, string|null authc_id = null, string|null authz_id = null, string|null props = null): void
+function ldap_sasl_bind($ldap, string|null $dn = null, string|null $password = null, string|null $mech = null, string|null $realm = null, string|null $authc_id = null, string|null $authz_id = null, string|null $props = null): void
 {
     error_clear_last();
     if ($props !== null) {

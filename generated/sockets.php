@@ -50,7 +50,7 @@ function socket_accept($socket)
  * value of this function may be used with socket_listen.
  *
  * @param resource $address AddressInfo instance created from socket_addrinfo_lookup.
- * @return resource|null Returns a Socket instance on success.
+ * @return resource|null $Returns a Socket instance on success.
  * @throws SocketsException
  *
  */
@@ -70,7 +70,7 @@ function socket_addrinfo_bind($address)
  * value of this function may be used with the rest of the socket functions.
  *
  * @param resource $address AddressInfo instance created from socket_addrinfo_lookup
- * @return resource|null Returns a Socket instance on success.
+ * @return resource|null $Returns a Socket instance on success.
  * @throws SocketsException
  *
  */
@@ -167,7 +167,7 @@ function socket_bind($socket, string $address, int $port = 0): void
  * @throws SocketsException
  *
  */
-function socket_connect($socket, string $address, int|null port = null): void
+function socket_connect($socket, string $address, int|null $port = null): void
 {
     error_clear_last();
     if ($port !== null) {
@@ -652,7 +652,7 @@ function socket_sendmsg($socket, array $message, int $flags = 0): int
  * @throws SocketsException
  *
  */
-function socket_sendto($socket, string $data, int $length, int $flags, string $address, int|null port = null): int
+function socket_sendto($socket, string $data, int $length, int $flags, string $address, int|null $port = null): int
 {
     error_clear_last();
     if ($port !== null) {

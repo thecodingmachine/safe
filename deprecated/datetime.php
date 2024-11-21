@@ -75,7 +75,7 @@ function gmdate(string $format, int|null $timestamp = null): string
  * @deprecated The Safe version of this function is no longer needed in PHP 8.0+
  *
  */
-function mktime(int $hour, int|null $minute = null, int|null $second = null, int|null $month= null, int|null $day = null, int|null $year = null): int
+function mktime(int $hour, int|null $minute = null, int|null $second = null, int|null $month = null, int|null $day = null, int|null $year = null): int
 {
     error_clear_last();
     if ($year !== null) {

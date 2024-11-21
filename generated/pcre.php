@@ -369,7 +369,7 @@ function preg_grep(string $pattern, array $array, int $flags = 0): array
  *
  *
  * The above example will output:
- * @return int|null $Returns the number of full pattern matches (which might be zero).
+ * Returns the number of full pattern matches (which might be zero).
  * @throws PcreException
  *
  */

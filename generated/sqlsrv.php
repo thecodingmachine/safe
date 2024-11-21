@@ -271,7 +271,7 @@ function sqlsrv_get_field($stmt, int $fieldIndex, int|null $getAsType = null)
  * sets, row counts, and output parameters.
  *
  * @param resource $stmt The statement on which the next result is being called.
- * @return bool|null $Returns TRUE if the next result was successfully retrieved, FALSE if an error
+ * @return bool|null Returns TRUE if the next result was successfully retrieved, FALSE if an error
  * occurred, and NULL if there are no more results to retrieve.
  * @throws SqlsrvException
  *

@@ -50,7 +50,7 @@ function socket_accept($socket)
  * value of this function may be used with socket_listen.
  *
  * @param resource $address AddressInfo instance created from socket_addrinfo_lookup.
- * @return resource|null $Returns a Socket instance on success.
+ * @return resource|null Returns a Socket instance on success.
  * @throws SocketsException
  *
  */
@@ -70,7 +70,7 @@ function socket_addrinfo_bind($address)
  * value of this function may be used with the rest of the socket functions.
  *
  * @param resource $address AddressInfo instance created from socket_addrinfo_lookup
- * @return resource|null $Returns a Socket instance on success.
+ * @return resource|null Returns a Socket instance on success.
  * @throws SocketsException
  *
  */

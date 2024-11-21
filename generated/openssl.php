@@ -1281,7 +1281,7 @@ function openssl_sign(string $data, ?string &$signature, $private_key, $algorith
  * Exports challenge from encoded signed public key and challenge
  *
  * @param string $spki Expects a valid signed public key and challenge
- * @return string|null $Returns the associated challenge string.
+ * @return string|null Returns the associated challenge string.
  * @throws OpensslException
  *
  */
@@ -1300,7 +1300,7 @@ function openssl_spki_export_challenge(string $spki): ?string
  * Exports PEM formatted public key from encoded signed public key and challenge
  *
  * @param string $spki Expects a valid signed public key and challenge
- * @return string|null $Returns the associated PEM formatted public key.
+ * @return string|null Returns the associated PEM formatted public key.
  * @throws OpensslException
  *
  */
@@ -1325,7 +1325,7 @@ function openssl_spki_export(string $spki): ?string
  * CSR.
  * @param string $challenge The challenge associated to associate with the SPKAC
  * @param int $digest_algo The digest algorithm. See openssl_get_md_method().
- * @return string|null $Returns a signed public key and challenge string.
+ * @return string|null Returns a signed public key and challenge string.
  * @throws OpensslException
  *
  */

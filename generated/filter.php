@@ -23,7 +23,7 @@ use Safe\Exceptions\FilterException;
  * This parameter can be also an integer holding a filter constant. Then all values in the
  * input array are filtered by this filter.
  * @param bool $add_empty Add missing keys as NULL to the return value.
- * @return array|null $An array containing the values of the requested variables on success.
+ * @return array|null An array containing the values of the requested variables on success.
  * If the input array designated by type is not populated,
  * the function returns NULL if the FILTER_NULL_ON_FAILURE
  * flag is not given, or FALSE otherwise. For other failures, FALSE is returned.
@@ -65,7 +65,7 @@ function filter_input_array(int $type, $options = FILTER_DEFAULT, bool $add_empt
  * This parameter can be also an integer holding a filter constant. Then all values in the
  * input array are filtered by this filter.
  * @param bool $add_empty Add missing keys as NULL to the return value.
- * @return array|null $An array containing the values of the requested variables on success. An array value will be FALSE if the filter fails, or NULL if
+ * @return array|null An array containing the values of the requested variables on success. An array value will be FALSE if the filter fails, or NULL if
  * the variable is not set.
  * @throws FilterException
  *

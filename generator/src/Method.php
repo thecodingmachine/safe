@@ -26,7 +26,7 @@ class Method
     /**
      * @var Parameter[]|null
      */
-    private|null $params = null;
+    private $params = null;
     /**
      * @var int
      */

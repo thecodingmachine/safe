@@ -1268,6 +1268,24 @@ function pg_select($connection, string $table_name, array $conditions, int $flag
 
 
 /**
+ *
+ *
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
+ * @param int $size
+ * @throws PgsqlException
+ *
+ */
+function pg_set_chunked_rows_size(\PgSql\Connection $connection, int $size): void
+{
+    error_clear_last();
+    $safeResult = \pg_set_chunked_rows_size($connection, $size);
+    if ($safeResult === false) {
+        throw PgsqlException::createFromPhpError();
+    }
+}
+
+
+/**
  * pg_socket returns a read only resource
  * corresponding to the socket underlying the given PostgreSQL connection.
  *

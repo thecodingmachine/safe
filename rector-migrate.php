@@ -717,6 +717,7 @@ return static function (RectorConfig $rectorConfig): void {
             'pg_result_error_field' => 'Safe\pg_result_error_field',
             'pg_result_seek' => 'Safe\pg_result_seek',
             'pg_select' => 'Safe\pg_select',
+            'pg_set_chunked_rows_size' => 'Safe\pg_set_chunked_rows_size',
             'pg_socket' => 'Safe\pg_socket',
             'pg_trace' => 'Safe\pg_trace',
             'pg_update' => 'Safe\pg_update',

@@ -710,6 +710,7 @@ return [
     'pg_result_error_field',
     'pg_result_seek',
     'pg_select',
+    'pg_set_chunked_rows_size',
     'pg_socket',
     'pg_trace',
     'pg_update',

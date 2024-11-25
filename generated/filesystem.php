@@ -1047,6 +1047,8 @@ function fwrite($stream, string $data, ?int $length = null): int
  * @param int $flags Any of the GLOB_* constants.
  * @return array Returns an array containing the matched files/directories, an empty array
  * if no file matched.
+ * Unless GLOB_NOSORT was used, the names will
+ * be sorted alphanumerically.
  * @throws FilesystemException
  *
  */

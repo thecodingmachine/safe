@@ -17,16 +17,14 @@ use Safe\Exceptions\ArrayException;
  * If this function returns FALSE, FALSE is returned from
  * array_all and the callback will not be called for
  * further elements.
- * @return mixed
  * @throws ArrayException
  *
  */
-function array_all(array $array, callable $callback)
+function array_all(array $array, callable $callback): void
 {
     error_clear_last();
     $safeResult = \array_all($array, $callback);
     if ($safeResult === false) {
         throw ArrayException::createFromPhpError();
     }
-    return $safeResult;
 }

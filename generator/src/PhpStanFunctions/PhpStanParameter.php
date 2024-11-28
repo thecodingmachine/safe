@@ -26,7 +26,7 @@ class PhpStanParameter
         $name = trim($name, '=.&');
 
         $this->name = $name;
-        $this->type = new PhpStanType($type, $writeOnly);
+        $this->type = new PhpStanType($type, $writeOnly, false);
     }
 
     /**

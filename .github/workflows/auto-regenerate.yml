@@ -4,30 +4,31 @@ name: "Auto Regenerate"
 on:
   schedule:
     - cron:  '0 3 * * *'
+  workflow_dispatch:
 
 jobs:
 
   auto-regenerate:
-    name: "Tries to regenerate the files"
-    runs-on: "ubuntu-latest"
+    name: "Auto Regenerate"
+    runs-on: "ubuntu-24.04"
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
   
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "pcov"
-          php-version: "8.0"
+          php-version: "8.3"
   
       - name: "Check out salathe/phpdoc-base"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
         with:
           path: "generator/doc/doc-en/doc-base"
           repository: "salathe/phpdoc-base"
   
       - name: "Check out php/doc-en"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
         with:
           path: "generator/doc/doc-en/en"
           repository: "php/doc-en"
@@ -43,33 +44,19 @@ jobs:
         run: "composer dump-autoload"
   
       - name: "Regenerate files"
-        run: "./safe.php generate"
+        id: regen
+        run: "./safe.php generate && git diff --exit-code && (echo regen=no-diff >> $GITHUB_OUTPUT) || (echo regen=diff >> $GITHUB_OUTPUT)"
         working-directory: "generator"
   
-      - name: "Check if regenerated files are different"
-        run: |
-          if output=$(git status --porcelain) && [ -z "$output" ]; then
-            # all is good
-            echo "Generated files are the same as committed file: OK"
-          else
-            # Uncommitted changes
-            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
-            echo "Detected changes:"
-            git status
-            git diff
-            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
-            exit 1;
-          fi
-  
       - name: "Create a pr if the files are different"
-        if: ${{ failure() }}
-        uses: peter-evans/create-pull-request@v3
+        if: "${{ steps.regen.outputs.regen == 'diff' }}"
+        uses: peter-evans/create-pull-request@v6
         with:
           commit-message: "Automatically regenerate the files"
           branch: create-pull-request/regenerate-files
           title: "Automatically regenerate the files"
           labels: "regenerate, auto"
-          assignees: "kharhamel, moufmouf"
+          assignees: "shish, OskarStark, silasjoisten, moufmouf"
           
   
    

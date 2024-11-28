@@ -108,9 +108,10 @@
         "phpstan/phpstan": "^1.5",
         "thecodingmachine/phpstan-strict-rules": "^1.0",
         "squizlabs/php_codesniffer": "^3.2",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^10"
     },
     "scripts": {
+        "test": "phpunit",
         "phpstan": "phpstan analyse lib -c phpstan.neon --level=max --no-progress -vvv",
         "cs-fix": "phpcbf",
         "cs-check": "phpcs"

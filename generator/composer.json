@@ -19,11 +19,11 @@
     "thecodingmachine/phpstan-strict-rules": "^1.0",
     "squizlabs/php_codesniffer": "^3.2",
     "php-coveralls/php-coveralls": "^2.1",
-    "phpstan/phpstan": "^1.5"
+    "phpstan/phpstan": "^1"
   },
   "scripts": {
     "test": "vendor/bin/phpunit",
-    "phpstan": "phpstan analyse src -c phpstan.neon --level=max --no-progress -vvv",
+    "phpstan": "phpstan analyse",
     "cs-fix": "phpcbf",
     "cs-check": "phpcs"
   }

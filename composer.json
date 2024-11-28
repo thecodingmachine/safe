@@ -105,14 +105,14 @@
         "php": "^8.0"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.5",
+        "phpstan/phpstan": "^1",
         "thecodingmachine/phpstan-strict-rules": "^1.0",
         "squizlabs/php_codesniffer": "^3.2",
         "phpunit/phpunit": "^10"
     },
     "scripts": {
         "test": "phpunit",
-        "phpstan": "phpstan analyse lib -c phpstan.neon --level=max --no-progress -vvv",
+        "phpstan": "phpstan analyse",
         "cs-fix": "phpcbf",
         "cs-check": "phpcs"
     }

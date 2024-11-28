@@ -42,14 +42,12 @@ class Parameter
 
     public function getParameterName(): string
     {
-        // The db2_bind_param method has parameters with a dash in it... yep... (patch submitted)
-        return \str_replace('-', '_', $this->parameter->parameter->__toString());
+        return $this->parameter->parameter->__toString();
     }
     
     public function getParameterType(): string
     {
-        // The db2_bind_param method has parameters with a dash in it... yep... (patch submitted)
-        return \str_replace('-', '_', $this->parameter->type->__toString());
+        return $this->parameter->type->__toString();
     }
 
     public function isByReference(): bool

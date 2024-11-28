@@ -24,7 +24,7 @@ use Safe\Exceptions\SimplexmlException;
  * Wrapper for json_decode that throws when an error occurs.
  *
  * @param string $json    JSON data to parse
- * @param bool $assoc     When true, returned objects will be converted
+ * @param bool $associative     When true, returned objects will be converted
  *                        into associative arrays.
  * @param int<1, max> $depth   User specified recursion depth.
  * @param int $flags Bitmask of JSON decode options.
@@ -33,10 +33,10 @@ use Safe\Exceptions\SimplexmlException;
  * @throws JsonException if the JSON cannot be decoded.
  * @link http://www.php.net/manual/en/function.json-decode.php
  */
-function json_decode(string $json, bool $assoc = false, int $depth = 512, int $flags = 0): mixed
+function json_decode(string $json, bool $associative = false, int $depth = 512, int $flags = 0): mixed
 {
-    $data = \json_decode($json, $assoc, $depth, $flags);
-    if (JSON_ERROR_NONE !== json_last_error()) {
+    $data = \json_decode($json, $associative, $depth, $flags);
+    if (!($flags & JSON_THROW_ON_ERROR) && JSON_ERROR_NONE !== json_last_error()) {
         throw JsonException::createFromPhpError();
     }
     return $data;

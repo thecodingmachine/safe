@@ -2,6 +2,19 @@
 
 Safe-PHP code is generated automatically from the PHP doc.
 
+## Install dependencies
+
+### With a devcontainer
+
+If you use VSCode or similar, opening the project folder should prompt you to
+re-open the folder inside a docker container with all the relevant tools
+pre-installed.
+
+### Manually
+
+- php8.2+ CLI (with dom and curl modules)
+- composer
+
 ## How to install Safe-PHP development environment
 
 The first step is to download the PHP documentation project locally, using git.

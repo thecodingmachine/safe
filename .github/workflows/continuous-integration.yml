@@ -45,6 +45,7 @@ jobs:
     runs-on: "ubuntu-24.04"
     needs: "fetch_defs"
     strategy:
+      fail-fast: false
       matrix:
         php-version:
           - "8.1"
@@ -92,6 +93,7 @@ jobs:
     runs-on: "ubuntu-24.04"
     needs: "fetch_defs"
     strategy:
+      fail-fast: false
       matrix:
         php-version:
           - "8.1"

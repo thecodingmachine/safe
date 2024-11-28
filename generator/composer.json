@@ -11,7 +11,7 @@
     "ext-simplexml": "*",
     "ext-json": "*",
     "symfony/console": "^4.1.4",
-    "symfony/process": "^4.1",
+    "symfony/process": "^5.4",
     "symfony/finder": "^4.1"
   },
   "require-dev": {

@@ -170,7 +170,7 @@ class WritePhpFunction
             $paramsAsString[] = $paramAsString;
         }
 
-        return implode(', ', $paramsAsString);
+        return str_replace('\\\\', '\\', implode(', ', $paramsAsString));
     }
 
     private function printFunctionCall(Method $function): string

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file contains all the functions that could not be dealt with automatically using the code generator.
  * If you add a function in this list, do not forget to add it in the generator/config/specialCasesFunctions.php
@@ -6,9 +7,6 @@
  */
 
 namespace Safe;
-
-use Safe\Exceptions\FilesystemException;
-use const PREG_NO_ERROR;
 
 use Safe\Exceptions\MiscException;
 use Safe\Exceptions\PosixException;
@@ -19,6 +17,9 @@ use Safe\Exceptions\JsonException;
 use Safe\Exceptions\OpensslException;
 use Safe\Exceptions\PcreException;
 use Safe\Exceptions\SimplexmlException;
+use Safe\Exceptions\FilesystemException;
+
+use const PREG_NO_ERROR;
 
 /**
  * Wrapper for json_decode that throws when an error occurs.
@@ -157,7 +158,7 @@ function apcu_fetch($key)
  * @throws PcreException
  *
  */
-function preg_replace($pattern, $replacement, $subject, int $limit = -1, int &$count = null)
+function preg_replace($pattern, $replacement, $subject, int $limit = -1, ?int &$count = null)
 {
     error_clear_last();
     $result = \preg_replace($pattern, $replacement, $subject, $limit, $count);
@@ -394,7 +395,6 @@ function fputcsv($stream, array $fields, string $separator = ",", string $enclos
 {
     error_clear_last();
     if (PHP_VERSION_ID >= 80100) {
-        /** @phpstan-ignore-next-line */
         $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape, $eol);
     } else {
         $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape);
@@ -431,7 +431,7 @@ function fputcsv($stream, array $fields, string $separator = ",", string $enclos
  * @throws FilesystemException
  *
  */
-function fgetcsv($stream, int $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\"): array|false
+function fgetcsv($stream, ?int $length = null, string $separator = ",", string $enclosure = "\"", string $escape = "\\"): array|false
 {
     error_clear_last();
     $safeResult = \fgetcsv($stream, $length, $separator, $enclosure, $escape);

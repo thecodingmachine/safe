@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Safe\Exceptions;
 
 class OpensslException extends \Exception implements SafeExceptionInterface

@@ -11,17 +11,7 @@
             "generated/Exceptions/"
         ],
         "files": [
-            "deprecated/apc.php",
-            "deprecated/array.php",
-            "deprecated/datetime.php",
-            "deprecated/libevent.php",
-            "deprecated/misc.php",
-            "deprecated/password.php",
-            "deprecated/mssql.php",
-            "deprecated/stats.php",
-            "deprecated/strings.php",
             "lib/special_cases.php",
-            "deprecated/mysqli.php",
             "generated/apache.php",
             "generated/apcu.php",
             "generated/array.php",
@@ -43,7 +33,6 @@
             "generated/ftp.php",
             "generated/funchand.php",
             "generated/gettext.php",
-            "generated/gmp.php",
             "generated/gnupg.php",
             "generated/hash.php",
             "generated/ibase.php",
@@ -73,6 +62,7 @@
             "generated/ps.php",
             "generated/pspell.php",
             "generated/readline.php",
+            "generated/rnp.php",
             "generated/rpminfo.php",
             "generated/rrd.php",
             "generated/sem.php",
@@ -102,7 +92,7 @@
         ]
     },
     "require": {
-        "php": "^8.0"
+        "php": "^8.1"
     },
     "require-dev": {
         "phpstan/phpstan": "^1.5",

@@ -43,7 +43,7 @@ jobs:
   
       - name: "Regenerate files"
         id: regen
-        run: "./safe.php generate && git diff --exit-code && (echo regen=no-diff >> $GITHUB_OUTPUT) || (echo regen=diff >> $GITHUB_OUTPUT)"
+        run: "./safe.php generate -vvv && git diff --exit-code && (echo regen=no-diff >> $GITHUB_OUTPUT) || (echo regen=diff >> $GITHUB_OUTPUT)"
         working-directory: "generator"
   
       - name: "Create a pr if the files are different"

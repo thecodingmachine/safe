@@ -54,7 +54,7 @@ jobs:
           branch: create-pull-request/regenerate-files
           title: "Automatically regenerate the files"
           labels: "regenerate, auto"
-          assignees: "shish, OskarStark, silasjoisten, moufmouf"
+          # assignees: "shish, OskarStark, silasjoisten, moufmouf"
           
   
    

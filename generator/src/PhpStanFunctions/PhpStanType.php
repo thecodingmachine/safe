@@ -61,7 +61,7 @@ class PhpStanType
         /** @var int $count */
         $count = \count($returnTypes);
         if ($count === 0) {
-            throw new \RuntimeException('Error when trying to extract parameter type');
+            throw new \RuntimeException('Error when trying to extract parameter type: '.$data);
         }
         foreach ($returnTypes as &$returnType) {
             $pos = \strpos($returnType, '?');

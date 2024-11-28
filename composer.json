@@ -114,10 +114,5 @@
         "phpstan": "phpstan analyse lib -c phpstan.neon --level=max --no-progress -vvv",
         "cs-fix": "phpcbf",
         "cs-check": "phpcs"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.2.x-dev"
-        }
     }
 }

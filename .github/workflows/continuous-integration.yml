@@ -1,124 +1,184 @@
-# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
-
-name: "Continuous Integration"
+name: "Tests"
 
 on:
-  - "pull_request"
-  - "push"
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - 'v*'
+  pull_request:
 
 jobs:
-
-  continuous-integration:
-    name: "Continuous Integration"
-
-    runs-on: "ubuntu-latest"
-
-    strategy:
-      matrix:
-        php-version:
-          - "8.0"
-
-        dependencies:
-          - "highest"
-
+  fetch_defs:
+    name: "Fetch Definitions"
+    runs-on: "ubuntu-24.04"
+    outputs:
+      date: ${{ steps.date.outputs.date }}
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
-
-      - name: "Install PHP with extensions"
-        uses: "shivammathur/setup-php@v2"
-        with:
-          coverage: "pcov"
-          php-version: "${{ matrix.php-version }}"
-
+        uses: "actions/checkout@v4"
       - name: "Get current date for the daily cache"
         id: 'date'
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
-
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
       - name: "Cache the php documentation"
         id: cache-php-doc
-        uses: "actions/cache@v1"
+        uses: "actions/cache@v4"
         with:
           path: "generator/doc/doc-en"
           key: php-doc-${{ steps.date.outputs.date }}
-
       - name: "Check out salathe/phpdoc-base"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
         if: steps.cache-php-doc.outputs.cache-hit != 'true'
         with:
           path: "generator/doc/doc-en/doc-base"
           repository: "salathe/phpdoc-base"
-
       - name: "Check out php/doc-en"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
         if: steps.cache-php-doc.outputs.cache-hit != 'true'
         with:
           path: "generator/doc/doc-en/en"
           repository: "php/doc-en"
 
+  generator_tests:
+    name: "Generator Tests"
+    runs-on: "ubuntu-24.04"
+    needs: "fetch_defs"
+    strategy:
+      matrix:
+        php-version:
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+      - name: "Install PHP with extensions"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "pcov"
+          php-version: "${{ matrix.php-version }}"
+      - name: "Fetch cached docs"
+        id: cache-php-doc
+        uses: "actions/cache@v4"
+        with:
+          path: "generator/doc/doc-en"
+          key: php-doc-${{ needs.fetch_defs.outputs.date }}
       - name: "Cache dependencies installed with composer"
-        uses: "actions/cache@v1"
+        uses: "actions/cache@v4"
         with:
           path: "~/.composer/cache"
-          key: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('**/composer.lock') }}"
-          restore-keys: "php-${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-"
-
+          key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.lock') }}"
+          restore-keys: "php-${{ matrix.php-version }}-composer-"
       - name: "Install dependencies with composer in generator/ directory"
         run: "composer install --no-interaction"
         working-directory: "generator"
-
-      - name: "Install dependencies with composer in root directory"
-        run: "composer install --no-interaction"
-
-      - name: "Run tests with phpunit/phpunit in root directory"
-        run: "vendor/bin/phpunit"
-
       - name: "Run tests with phpunit/phpunit in generator/ directory"
         run: "vendor/bin/phpunit"
         working-directory: "generator"
-
       - name: "Run coding standard checks with squizlabs/php_codesniffer in generator/ directory"
         run: "composer cs-check"
         working-directory: "generator"
-
       - name: "Run static code analysis with phpstan/phpstan in generator/ directory"
         run: "composer phpstan"
         working-directory: "generator"
+      - name: "Run static code analysis with rector/rector in generator/ directory"
+        run: "composer rector --dry-run"
+        working-directory: "generator"
 
+  generated_tests:
+    name: "Generated Tests"
+    runs-on: "ubuntu-24.04"
+    needs: "fetch_defs"
+    strategy:
+      matrix:
+        php-version:
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+      - name: "Install PHP with extensions"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "pcov"
+          php-version: "${{ matrix.php-version }}"
+      - name: "Fetch cached docs"
+        id: cache-php-doc
+        uses: "actions/cache@v4"
+        with:
+          path: "generator/doc/doc-en"
+          key: php-doc-${{ needs.fetch_defs.outputs.date }}
+      - name: "Cache dependencies installed with composer"
+        uses: "actions/cache@v4"
+        with:
+          path: "~/.composer/cache"
+          key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.lock') }}"
+          restore-keys: "php-${{ matrix.php-version }}-composer-"
+      - name: "Install dependencies with composer in root directory"
+        run: "composer install --no-interaction"
+      - name: "Run tests with phpunit/phpunit in root directory"
+        run: "vendor/bin/phpunit"
       - name: "Dump autoloader with composer in root directory"
         run: "composer dump-autoload"
-
       - name: "Run coding standard checks with squizlabs/php_codesniffer in root directory"
         run: "composer cs-check"
-
       - name: "Run static code analysis with phpstan/phpstan in root directory"
         run: "composer phpstan"
 
-      - name: "Regenerate files"
-        run: "./safe.php generate"
+  check_sync:
+    name: "Check Sync"
+    runs-on: "ubuntu-24.04"
+    needs: "fetch_defs"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+      - name: "Install PHP with extensions"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "pcov"
+          php-version: "8.4"
+      - name: "Fetch cached docs"
+        id: cache-php-doc
+        uses: "actions/cache@v4"
+        with:
+          path: "generator/doc/doc-en"
+          key: php-doc-${{ needs.fetch_defs.outputs.date }}
+      - name: "Cache dependencies installed with composer"
+        uses: "actions/cache@v4"
+        with:
+          path: "~/.composer/cache"
+          key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.lock') }}"
+          restore-keys: "php-${{ matrix.php-version }}-composer-"
+      - name: "Install dependencies with composer in generator/ directory"
+        run: "composer install --no-interaction"
+        working-directory: "generator"
+      - name: "Install dependencies with composer in root directory"
+        run: "composer install --no-interaction"
+      - name: "Regenerate files and check for differences"
+        run: "./safe.php generate && git diff --exit-code"
         working-directory: "generator"
 
-      - name: "Check if regenerated files are different"
-        run: |
-          if output=$(git status --porcelain) && [ -z "$output" ]; then
-            # all is good
-            echo "Generated files are the same as committed file: OK"
-          else
-            # Uncommitted changes
-            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
-            echo "Detected changes:"
-            git status
-            git diff
-            echo "Generated files are different from commited files. Please run './safe.php generate' command and commit the results."
-            exit 1;
-          fi
-
-      - name: "Archive code coverage results"
-        uses: "actions/upload-artifact@v1"
+  rector:
+    name: "Rector Tests"
+    runs-on: "ubuntu-24.04"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+      - name: "Install PHP with extensions"
+        uses: "shivammathur/setup-php@v2"
         with:
-          name: "build"
-          path: "generator/build"
+          php-version: "8.4"
+      - name: "Composer install"
+        run: "composer install && composer rector && composer test"
+        working-directory: "generator/tests/rector"
+      - name: "Run rector"
+        run: "composer rector"
+        working-directory: "generator/tests/rector"
+      - name: "Run tests"
+        run: "composer test"
+        working-directory: "generator/tests/rector"
 
-      - uses: codecov/codecov-action@v1 # upload the coverage to codecov
-        with:
-          fail_ci_if_error: true # optional (default = false)

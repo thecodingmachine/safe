@@ -26,5 +26,10 @@
     "phpstan": "phpstan analyse",
     "cs-fix": "phpcbf",
     "cs-check": "phpcs"
+  },
+  "config": {
+    "platform": {
+      "php": "8.1.31"
+    }
   }
 }

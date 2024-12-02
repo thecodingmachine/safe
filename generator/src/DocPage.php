@@ -72,10 +72,12 @@ class DocPage
         if (preg_match('/&false;\s+on\s+failure/m', $returnValuesSection)) {
             return true;
         }
-        if (preg_match('/&false;\s+otherwise/m', $returnValuesSection) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $returnValuesSection)) {
+
+        if (preg_match('/&false;\s+otherwise/m', $returnValuesSection) && (preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $returnValuesSection) === 0 || preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $returnValuesSection) === false)) {
             return true;
         }
-        if (preg_match('/may\s+return\s+&false;/m', $returnValuesSection) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $returnValuesSection)) {
+
+        if (preg_match('/may\s+return\s+&false;/m', $returnValuesSection) && (preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $returnValuesSection) === 0 || preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $returnValuesSection) === false)) {
             return true;
         }
         if (preg_match('/&false;\s+if\s+an\s+error\s+occurred/m', $returnValuesSection)) {
@@ -211,7 +213,7 @@ class DocPage
         // handlers, callbacks, and other callable-type arguments, not the function itself.
         $fileDescriptionSection = $this->extractSection('description', $file);
 
-        if (!preg_match_all('/<\/?methodsynopsis[\s\S]*?>[\s\S]*?<\/methodsynopsis>/m', $fileDescriptionSection, $functions, PREG_SET_ORDER, 0)) {
+        if (preg_match_all('/<\/?methodsynopsis[\s\S]*?>[\s\S]*?<\/methodsynopsis>/m', $fileDescriptionSection, $functions, PREG_SET_ORDER, 0) === 0 || preg_match_all('/<\/?methodsynopsis[\s\S]*?>[\s\S]*?<\/methodsynopsis>/m', $fileDescriptionSection, $functions, PREG_SET_ORDER, 0) === false) {
             return [];
         }
 

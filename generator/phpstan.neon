@@ -1,8 +1,10 @@
+includes:
+    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
+    - phar://phpstan.phar/conf/bleedingEdge.neon
+
 parameters:
     paths:
         - ./src
     # The level 9 is the highest level (with check for mixed type)
     level: 8
     ignoreErrors:
-includes:
-    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon

@@ -147,6 +147,8 @@ function apcu_fetch($key)
  * -1 (no limit).
  * @param int $count If specified, this variable will be filled with the number of
  * replacements done.
+ * @param-out int $count
+ *
  * @return string|array|string[] preg_replace returns an array if the
  * subject parameter is an array, or a string
  * otherwise.

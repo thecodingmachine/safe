@@ -1,3 +1,7 @@
+includes:
+    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
+    - phar://phpstan.phar/conf/bleedingEdge.neon
+
 parameters:
     paths:
         - ./lib
@@ -5,5 +9,3 @@ parameters:
     level: 8
     ignoreErrors:
         # A lot of functions are in extensions so it is ok not to find those
-includes:
-    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon

@@ -8,17 +8,12 @@ use Safe\PhpStanFunctions\PhpStanType;
 class Parameter
 {
     /**
-     * @var \SimpleXMLElement
-     */
-    private $parameter;
-    /**
      * @var PhpStanType
      */
     private $type;
 
-    public function __construct(\SimpleXMLElement $parameter, ?PhpStanFunction $phpStanFunction, int $position)
+    public function __construct(private \SimpleXMLElement $parameter, ?PhpStanFunction $phpStanFunction, int $position)
     {
-        $this->parameter = $parameter;
         $phpStanParam = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameterName(), $position) : null;
         
         $this->type = $phpStanParam ? $phpStanParam->getType() : new PhpStanType($this->parameter->type->__toString()); //todo: is this if useful?

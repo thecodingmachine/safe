@@ -1211,9 +1211,15 @@ function pg_result_seek($result, int $row): void
  * array containing all records and fields that match the condition
  * specified by conditions.
  *
- * If flags is specified,
+ * If flags is set,
  * pg_convert is applied to
  * conditions with the specified flags.
+ *
+ * If mode is set,
+ * the return value will be in the form of an array
+ * with PGSQL_NUM, an associative array
+ * with PGSQL_ASSOC (default) or both
+ * with PGSQL_BOTH.
  *
  * By default pg_select passes raw values. Values
  * must be escaped or PGSQL_DML_ESCAPE option must be
@@ -1235,9 +1241,15 @@ function pg_result_seek($result, int $row): void
  * PGSQL_DML_EXEC,
  * PGSQL_DML_ASYNC or
  * PGSQL_DML_STRING combined. If PGSQL_DML_STRING is part of the
- * flags then query string is returned. When PGSQL_DML_NO_CONV
+ * flags then the query string is returned. When PGSQL_DML_NO_CONV
  * or PGSQL_DML_ESCAPE is set, it does not call pg_convert internally.
- * @param int $mode
+ * @param int $mode Any number of PGSQL_ASSOC,
+ * PGSQL_NUM or
+ * PGSQL_BOTH
+ * If PGSQL_ASSOC is set the return value will be an associative array,
+ * with PGSQL_NUM the return value will be an array, and
+ * with PGSQL_BOTH the return value will be both an associative and
+ * numerically indexed array.
  * @return mixed Returns string if PGSQL_DML_STRING is passed
  * via flags, otherwise it returns an array on success.
  * @throws PgsqlException

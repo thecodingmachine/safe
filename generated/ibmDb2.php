@@ -9,7 +9,7 @@ use Safe\Exceptions\IbmDb2Exception;
  *
  * @param resource $connection A valid database connection resource variable as returned from
  * db2_connect or db2_pconnect.
- * @param int $value One of the following constants:
+ * @param \DB2_AUTOCOMMIT_OFF|\DB2_AUTOCOMMIT_ON $value One of the following constants:
  *
  *
  * DB2_AUTOCOMMIT_OFF
@@ -32,10 +32,11 @@ use Safe\Exceptions\IbmDb2Exception;
  * Turns AUTOCOMMIT off.
  *
  * Turns AUTOCOMMIT on.
- * @return mixed When db2_autocommit receives only the
+ * @return \DB2_AUTOCOMMIT_OFF|\DB2_AUTOCOMMIT_ON|bool When db2_autocommit receives only the
  * connection parameter, it returns the current state
  * of AUTOCOMMIT for the requested connection as an integer value. A value of
- * DB2_AUTOCOMMIT_OFF indicates that AUTOCOMMIT is off, while a value of DB2_AUTOCOMMIT_ON indicates that
+ * DB2_AUTOCOMMIT_OFF indicates that AUTOCOMMIT is off,
+ * while a value of DB2_AUTOCOMMIT_ON indicates that
  * AUTOCOMMIT is on.
  *
  * When db2_autocommit receives both the
@@ -46,7 +47,7 @@ use Safe\Exceptions\IbmDb2Exception;
  * @throws IbmDb2Exception
  *
  */
-function db2_autocommit($connection, int $value = null)
+function db2_autocommit($connection, $value = null)
 {
     error_clear_last();
     if ($value !== null) {
@@ -96,20 +97,10 @@ function db2_autocommit($connection, int $value = null)
  * @throws IbmDb2Exception
  *
  */
-function db2_bind_param($stmt, int $parameter_number, string $variable_name, int $parameter_type = null, int $data_type = 0, int $precision = -1, int $scale = 0): void
+function db2_bind_param($stmt, int $parameter_number, string $variable_name, int $parameter_type = DB2_PARAM_IN, int $data_type = 0, int $precision = -1, int $scale = 0): void
 {
     error_clear_last();
-    if ($scale !== 0) {
-        $safeResult = \db2_bind_param($stmt, $parameter_number, $variable_name, $parameter_type, $data_type, $precision, $scale);
-    } elseif ($precision !== -1) {
-        $safeResult = \db2_bind_param($stmt, $parameter_number, $variable_name, $parameter_type, $data_type, $precision);
-    } elseif ($data_type !== 0) {
-        $safeResult = \db2_bind_param($stmt, $parameter_number, $variable_name, $parameter_type, $data_type);
-    } elseif ($parameter_type !== null) {
-        $safeResult = \db2_bind_param($stmt, $parameter_number, $variable_name, $parameter_type);
-    } else {
-        $safeResult = \db2_bind_param($stmt, $parameter_number, $variable_name);
-    }
+    $safeResult = \db2_bind_param($stmt, $parameter_number, $variable_name, $parameter_type, $data_type, $precision, $scale);
     if ($safeResult === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
@@ -221,11 +212,11 @@ function db2_bind_param($stmt, int $parameter_number, string $variable_name, int
  *
  *
  * @param resource $connection Specifies an active DB2 client connection.
- * @return object Returns an object on a successful call. Returns FALSE on failure.
+ * @return \stdClass Returns an object on a successful call
  * @throws IbmDb2Exception
  *
  */
-function db2_client_info($connection): object
+function db2_client_info($connection): \stdClass
 {
     error_clear_last();
     $safeResult = \db2_client_info($connection);
@@ -304,14 +295,10 @@ function db2_commit($connection): void
  * @throws IbmDb2Exception
  *
  */
-function db2_execute($stmt, array $parameters = null): void
+function db2_execute($stmt, array $parameters = []): void
 {
     error_clear_last();
-    if ($parameters !== null) {
-        $safeResult = \db2_execute($stmt, $parameters);
-    } else {
-        $safeResult = \db2_execute($stmt);
-    }
+    $safeResult = \db2_execute($stmt, $parameters);
     if ($safeResult === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
@@ -520,6 +507,38 @@ function db2_get_option($resource, string $option): string
 
 
 /**
+ * Returns the number of rows deleted, inserted, or updated by an SQL
+ * statement.
+ *
+ * To determine the number of rows that will be returned by a SELECT
+ * statement, issue SELECT COUNT(*) with the same predicates as your
+ * intended SELECT statement and retrieve the value.
+ *
+ * If your application logic checks the number of rows returned by a SELECT
+ * statement and branches if the number of rows is 0, consider modifying your
+ * application to attempt to return the first row with one of
+ * db2_fetch_assoc, db2_fetch_both,
+ * db2_fetch_array, or db2_fetch_row,
+ * and branch if the fetch function returns FALSE.
+ *
+ * @param resource $stmt A valid stmt resource containing a result set.
+ * @return int Returns the number of rows affected by the last SQL statement issued by
+ * the specified statement handle
+ * @throws IbmDb2Exception
+ *
+ */
+function db2_num_rows($stmt): int
+{
+    error_clear_last();
+    $safeResult = \db2_num_rows($stmt);
+    if ($safeResult === false) {
+        throw IbmDb2Exception::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * This function closes a DB2 client connection created with
  * db2_pconnect and returns the corresponding resources
  * to the database server.
@@ -537,14 +556,14 @@ function db2_get_option($resource, string $option): string
  * has become unresponsive or the persistent connection will not be needed for
  * a long period of time.
  *
- * @param resource $resource Specifies an active DB2 client connection.
+ * @param resource $connection Specifies an active DB2 client connection.
  * @throws IbmDb2Exception
  *
  */
-function db2_pclose($resource): void
+function db2_pclose($connection): void
 {
     error_clear_last();
-    $safeResult = \db2_pclose($resource);
+    $safeResult = \db2_pclose($connection);
     if ($safeResult === false) {
         throw IbmDb2Exception::createFromPhpError();
     }
@@ -819,11 +838,11 @@ function db2_rollback($connection): void
  *
  *
  * @param resource $connection Specifies an active DB2 client connection.
- * @return object Returns an object on a successful call. Returns FALSE on failure.
+ * @return \stdClass Returns an object on a successful call
  * @throws IbmDb2Exception
  *
  */
-function db2_server_info($connection): object
+function db2_server_info($connection): \stdClass
 {
     error_clear_last();
     $safeResult = \db2_server_info($connection);

@@ -7,18 +7,8 @@ use function strpos;
 
 class DocPage
 {
-    /**
-     * @var string
-     */
-    private $path;
-
-    /*
-     * @return string
-     * @parameter string
-     */
-    public function __construct(string $_path)
+    public function __construct(private readonly string $path)
     {
-        $this->path = $_path;
     }
 
     // Ignore function if it was removed before PHP 7.1

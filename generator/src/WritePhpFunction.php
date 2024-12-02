@@ -4,14 +4,8 @@ namespace Safe;
 
 class WritePhpFunction
 {
-    /**
-     * @var Method
-     */
-    private $method;
-
-    public function __construct(Method $method)
+    public function __construct(private Method $method)
     {
-        $this->method = $method;
     }
 
     /*

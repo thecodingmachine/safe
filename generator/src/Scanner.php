@@ -11,11 +11,6 @@ use SplFileInfo;
 class Scanner
 {
     /**
-     * @var string
-     */
-    private $path;
-
-    /**
      * @var string[]
      */
     private $ignoredFunctions;
@@ -25,9 +20,8 @@ class Scanner
      */
     private $ignoredModules;
 
-    public function __construct(string $path)
+    public function __construct(private readonly string $path)
     {
-        $this->path = $path;
     }
 
     /**

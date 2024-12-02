@@ -32,8 +32,8 @@ class DocPage
             }
         }
 
-        if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches) && isset($matches[2])) {
-            $removedVersion = $matches[2];
+        if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches)) {
+            $removedVersion = $matches[1];
             [$major, $minor] = explode('-', $removedVersion);
             if ($major < 7 || ($major == 7 && $minor == 0)) {
                 return true;

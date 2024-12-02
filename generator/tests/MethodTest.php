@@ -45,7 +45,7 @@ class MethodTest extends TestCase
         $params = $method->getParams();
         $this->assertEquals('string', $params[0]->getDocBlockType());
         $this->assertEquals('string', $params[0]->getSignatureType());
-        $this->assertEquals('string|int|float|bool', $params[1]->getDocBlockType());
+        $this->assertEquals('string|int|float|bool|null', $params[1]->getDocBlockType());
         $this->assertTrue($params[1]->isVariadic());
         $this->assertEquals('', $params[1]->getSignatureType());
 
@@ -54,7 +54,7 @@ class MethodTest extends TestCase
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
         $this->assertEquals('string', $params[0]->getDocBlockType());
-        $this->assertEquals('callable', $params[1]->getDocBlockType());
+        $this->assertEquals('callable(array<int|string, string>):string', $params[1]->getDocBlockType());
         $this->assertEquals('string', $params[0]->getSignatureType());
         $this->assertEquals('callable', $params[1]->getSignatureType());
 

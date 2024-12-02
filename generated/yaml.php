@@ -16,14 +16,14 @@ use Safe\Exceptions\YamlException;
  * tag =&gt; callable mappings. See
  * parse callbacks for more
  * details.
- * @return mixed Returns the value encoded in input in appropriate
+ * @return mixed Returns the value encoded in filename in appropriate
  * PHP type. If pos is -1 an
  * array will be returned with one entry for each document found
  * in the stream.
  * @throws YamlException
  *
  */
-function yaml_parse_file(string $filename, int $pos = 0, ?int &$ndocs = null, array $callbacks = null)
+function yaml_parse_file(string $filename, int $pos = 0, ?int &$ndocs = null, ?array $callbacks = null)
 {
     error_clear_last();
     if ($callbacks !== null) {
@@ -52,15 +52,15 @@ function yaml_parse_file(string $filename, int $pos = 0, ?int &$ndocs = null, ar
  * number of documents found in stream.
  * @param array $callbacks Content handlers for YAML nodes. Associative array of YAML
  * tag =&gt; callable mappings. See
- * parse callbacks for more
- * @return mixed Returns the value encoded in input in appropriate
+ * parse callbacks for more details.
+ * @return mixed Returns the value encoded in url in appropriate
  * PHP type. If pos is
  * -1 an array will be returned with one entry
  * for each document found in the stream.
  * @throws YamlException
  *
  */
-function yaml_parse_url(string $url, int $pos = 0, ?int &$ndocs = null, array $callbacks = null)
+function yaml_parse_url(string $url, int $pos = 0, ?int &$ndocs = null, ?array $callbacks = null)
 {
     error_clear_last();
     if ($callbacks !== null) {
@@ -94,7 +94,7 @@ function yaml_parse_url(string $url, int $pos = 0, ?int &$ndocs = null, array $c
  * @throws YamlException
  *
  */
-function yaml_parse(string $input, int $pos = 0, ?int &$ndocs = null, array $callbacks = null)
+function yaml_parse(string $input, int $pos = 0, ?int &$ndocs = null, ?array $callbacks = null)
 {
     error_clear_last();
     if ($callbacks !== null) {

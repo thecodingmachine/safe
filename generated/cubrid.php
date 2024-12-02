@@ -124,7 +124,7 @@ use Safe\Exceptions\CubridException;
  * @throws CubridException
  *
  */
-function cubrid_bind($req_identifier, int $bind_index, $bind_value, string $bind_value_type = null): void
+function cubrid_bind($req_identifier, int $bind_index, $bind_value, ?string $bind_value_type = null): void
 {
     error_clear_last();
     if ($bind_value_type !== null) {
@@ -303,7 +303,7 @@ function cubrid_commit($conn_identifier): void
  * @throws CubridException
  *
  */
-function cubrid_connect_with_url(string $conn_url, string $userid = null, string $passwd = null, bool $new_link = false)
+function cubrid_connect_with_url(string $conn_url, ?string $userid = null, ?string $passwd = null, bool $new_link = false)
 {
     error_clear_last();
     if ($new_link !== false) {
@@ -347,7 +347,7 @@ function cubrid_connect_with_url(string $conn_url, string $userid = null, string
  * @throws CubridException
  *
  */
-function cubrid_connect(string $host, int $port, string $dbname, string $userid = null, string $passwd = null, bool $new_link = false)
+function cubrid_connect(string $host, int $port, string $dbname, ?string $userid = null, ?string $passwd = null, bool $new_link = false)
 {
     error_clear_last();
     if ($new_link !== false) {
@@ -822,7 +822,7 @@ function cubrid_lob_size($lob_identifier): string
  * @throws CubridException
  *
  */
-function cubrid_lob2_bind($req_identifier, int $bind_index, $bind_value, string $bind_value_type = null): void
+function cubrid_lob2_bind($req_identifier, int $bind_index, $bind_value, ?string $bind_value_type = null): void
 {
     error_clear_last();
     if ($bind_value_type !== null) {
@@ -1300,7 +1300,7 @@ function cubrid_next_result($result): void
  * @throws CubridException
  *
  */
-function cubrid_pconnect_with_url(string $conn_url, string $userid = null, string $passwd = null)
+function cubrid_pconnect_with_url(string $conn_url, ?string $userid = null, ?string $passwd = null)
 {
     error_clear_last();
     if ($passwd !== null) {
@@ -1345,7 +1345,7 @@ function cubrid_pconnect_with_url(string $conn_url, string $userid = null, strin
  * @throws CubridException
  *
  */
-function cubrid_pconnect(string $host, int $port, string $dbname, string $userid = null, string $passwd = null)
+function cubrid_pconnect(string $host, int $port, string $dbname, ?string $userid = null, ?string $passwd = null)
 {
     error_clear_last();
     if ($passwd !== null) {
@@ -1409,7 +1409,7 @@ function cubrid_prepare($conn_identifier, string $prepare_stmt, int $option = 0)
  * @throws CubridException
  *
  */
-function cubrid_put($conn_identifier, string $oid, string $attr = null, $value = null): void
+function cubrid_put($conn_identifier, string $oid, ?string $attr = null, $value = null): void
 {
     error_clear_last();
     if ($value !== null) {
@@ -1837,7 +1837,7 @@ function cubrid_rollback($conn_identifier): void
  * @throws CubridException
  *
  */
-function cubrid_schema($conn_identifier, int $schema_type, string $class_name = null, string $attr_name = null): array
+function cubrid_schema($conn_identifier, int $schema_type, ?string $class_name = null, ?string $attr_name = null): array
 {
     error_clear_last();
     if ($attr_name !== null) {

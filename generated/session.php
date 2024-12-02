@@ -37,8 +37,7 @@ function session_abort(): void
  * @param string $prefix If prefix is specified, new session id
  * is prefixed by prefix. Not all
  * characters are allowed within the session id.  Characters in
- * the range a-z A-Z 0-9 , (comma) and -
- * (minus) are allowed.
+ * the range [a-zA-Z0-9,-] are allowed. Maximum length is 256 characters.
  * @return string session_create_id returns new collision free
  * session id for the current session. If it is used without active
  * session, it omits collision check.
@@ -141,7 +140,7 @@ function session_encode(): string
  * session_start for that purpose. Depending on the
  * session handler, not all characters are allowed within the session id.
  * For example, the file session handler only allows characters in the
- * range a-z A-Z 0-9 , (comma) and - (minus)!
+ * range [a-zA-Z0-9,-]!
  * @return string session_id returns the session id for the current
  * session or the empty string ("") if there is no current
  * session (no current session id exists).
@@ -149,7 +148,7 @@ function session_encode(): string
  * @throws SessionException
  *
  */
-function session_id(string $id = null): string
+function session_id(?string $id = null): string
 {
     error_clear_last();
     if ($id !== null) {
@@ -178,7 +177,7 @@ function session_id(string $id = null): string
  * @throws SessionException
  *
  */
-function session_module_name(string $module = null): string
+function session_module_name(?string $module = null): string
 {
     error_clear_last();
     if ($module !== null) {
@@ -201,9 +200,9 @@ function session_module_name(string $module = null): string
  *
  * If a new session name is
  * supplied, session_name modifies the HTTP cookie
- * (and output content when session.transid is
- * enabled). Once the HTTP cookie is
- * sent, session_name raises error.
+ * (and outputs the content when session.use_trans_sid is
+ * enabled). Once the HTTP cookie has been
+ * sent, calling session_name raises an E_WARNING.
  * session_name must be called
  * before session_start for the session to work
  * properly.
@@ -235,7 +234,7 @@ function session_module_name(string $module = null): string
  * @throws SessionException
  *
  */
-function session_name(string $name = null): string
+function session_name(?string $name = null): string
 {
     error_clear_last();
     if ($name !== null) {
@@ -304,19 +303,17 @@ function session_reset(): void
  *
  *
  * On some operating systems, you may want to specify a path on a
- * filesystem that handles lots of small files efficiently. For example,
- * on Linux, reiserfs may provide better performance than ext2fs.
+ * filesystem that handles lots of small files efficiently.
  *
  *
  *
  * On some operating systems, you may want to specify a path on a
- * filesystem that handles lots of small files efficiently. For example,
- * on Linux, reiserfs may provide better performance than ext2fs.
+ * filesystem that handles lots of small files efficiently.
  * @return string Returns the path of the current directory used for data storage.
  * @throws SessionException
  *
  */
-function session_save_path(string $path = null): string
+function session_save_path(?string $path = null): string
 {
     error_clear_last();
     if ($path !== null) {

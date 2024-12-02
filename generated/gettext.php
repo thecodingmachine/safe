@@ -16,10 +16,14 @@ use Safe\Exceptions\GettextException;
  * @throws GettextException
  *
  */
-function bindtextdomain(string $domain, string $directory): string
+function bindtextdomain(string $domain, ?string $directory = null): string
 {
     error_clear_last();
-    $safeResult = \bindtextdomain($domain, $directory);
+    if ($directory !== null) {
+        $safeResult = \bindtextdomain($domain, $directory);
+    } else {
+        $safeResult = \bindtextdomain($domain);
+    }
     if ($safeResult === false) {
         throw GettextException::createFromPhpError();
     }

@@ -39,7 +39,7 @@ function ssh2_auth_agent($session, string $username): void
  * @throws Ssh2Exception
  *
  */
-function ssh2_auth_hostbased_file($session, string $username, string $hostname, string $pubkeyfile, string $privkeyfile, string $passphrase = null, string $local_username = null): void
+function ssh2_auth_hostbased_file($session, string $username, string $hostname, string $pubkeyfile, string $privkeyfile, ?string $passphrase = null, ?string $local_username = null): void
 {
     error_clear_last();
     if ($local_username !== null) {
@@ -91,7 +91,7 @@ function ssh2_auth_password($session, string $username, string $password): void
  * @throws Ssh2Exception
  *
  */
-function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, string $privkeyfile, string $passphrase = null): void
+function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, string $privkeyfile, ?string $passphrase = null): void
 {
     error_clear_last();
     if ($passphrase !== null) {
@@ -304,7 +304,7 @@ function ssh2_auth_pubkey_file($session, string $username, string $pubkeyfile, s
  * @throws Ssh2Exception
  *
  */
-function ssh2_connect(string $host, int $port = 22, array $methods = null, array $callbacks = null)
+function ssh2_connect(string $host, int $port = 22, ?array $methods = null, ?array $callbacks = null)
 {
     error_clear_last();
     if ($callbacks !== null) {
@@ -357,7 +357,7 @@ function ssh2_disconnect($session): void
  * @throws Ssh2Exception
  *
  */
-function ssh2_exec($session, string $command, string $pty = null, array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
+function ssh2_exec($session, string $command, ?string $pty = null, ?array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
 {
     error_clear_last();
     if ($width_height_type !== SSH2_TERM_UNIT_CHARS) {
@@ -388,14 +388,13 @@ function ssh2_exec($session, string $command, string $pty = null, array $env = n
  * @throws Ssh2Exception
  *
  */
-function ssh2_forward_accept($listener)
+function ssh2_forward_accept($listener): void
 {
     error_clear_last();
     $safeResult = \ssh2_forward_accept($listener);
     if ($safeResult === false) {
         throw Ssh2Exception::createFromPhpError();
     }
-    return $safeResult;
 }
 
 
@@ -410,7 +409,7 @@ function ssh2_forward_accept($listener)
  * @throws Ssh2Exception
  *
  */
-function ssh2_forward_listen($session, int $port, string $host = null, int $max_connections = 16)
+function ssh2_forward_listen($session, int $port, ?string $host = null, int $max_connections = 16): void
 {
     error_clear_last();
     if ($max_connections !== 16) {
@@ -423,7 +422,6 @@ function ssh2_forward_listen($session, int $port, string $host = null, int $max_
     if ($safeResult === false) {
         throw Ssh2Exception::createFromPhpError();
     }
-    return $safeResult;
 }
 
 
@@ -442,7 +440,7 @@ function ssh2_forward_listen($session, int $port, string $host = null, int $max_
  * @throws Ssh2Exception
  *
  */
-function ssh2_publickey_add($pkey, string $algoname, string $blob, bool $overwrite = false, array $attributes = null): void
+function ssh2_publickey_add($pkey, string $algoname, string $blob, bool $overwrite = false, ?array $attributes = null): void
 {
     error_clear_last();
     if ($attributes !== null) {
@@ -715,7 +713,7 @@ function ssh2_sftp($session)
  *
  * @param resource $session An SSH connection link identifier, obtained from a call to
  * ssh2_connect.
- * @param string $term_type term_type should correspond to one of the
+ * @param string $termtype termtype should correspond to one of the
  * entries in the target system's /etc/termcap file.
  * @param array $env env may be passed as an associative array of
  * name/value pairs to set in the target environment.
@@ -728,19 +726,19 @@ function ssh2_sftp($session)
  * @throws Ssh2Exception
  *
  */
-function ssh2_shell($session, string $term_type = "vanilla", array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
+function ssh2_shell($session, string $termtype = "vanilla", ?array $env = null, int $width = 80, int $height = 25, int $width_height_type = SSH2_TERM_UNIT_CHARS)
 {
     error_clear_last();
     if ($width_height_type !== SSH2_TERM_UNIT_CHARS) {
-        $safeResult = \ssh2_shell($session, $term_type, $env, $width, $height, $width_height_type);
+        $safeResult = \ssh2_shell($session, $termtype, $env, $width, $height, $width_height_type);
     } elseif ($height !== 25) {
-        $safeResult = \ssh2_shell($session, $term_type, $env, $width, $height);
+        $safeResult = \ssh2_shell($session, $termtype, $env, $width, $height);
     } elseif ($width !== 80) {
-        $safeResult = \ssh2_shell($session, $term_type, $env, $width);
+        $safeResult = \ssh2_shell($session, $termtype, $env, $width);
     } elseif ($env !== null) {
-        $safeResult = \ssh2_shell($session, $term_type, $env);
+        $safeResult = \ssh2_shell($session, $termtype, $env);
     } else {
-        $safeResult = \ssh2_shell($session, $term_type);
+        $safeResult = \ssh2_shell($session, $termtype);
     }
     if ($safeResult === false) {
         throw Ssh2Exception::createFromPhpError();

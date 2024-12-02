@@ -56,7 +56,6 @@ class PhpStanType
             $falsable = true;
             \array_splice($returnTypes, (int) $falsablePosition, 1);
         }
-        /** @var int $count */
         $count = \count($returnTypes);
         if ($count === 0) {
             $returnType = '';

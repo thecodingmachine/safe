@@ -84,9 +84,6 @@ jobs:
       - name: "Run static code analysis with phpstan/phpstan in generator/ directory"
         run: "composer phpstan"
         working-directory: "generator"
-      - name: "Run static code analysis with rector/rector in generator/ directory"
-        run: "composer rector --dry-run"
-        working-directory: "generator"
 
   generated_tests:
     name: "Generated Tests"

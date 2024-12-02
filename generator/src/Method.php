@@ -177,7 +177,7 @@ class Method
     private function getStringForXPath(string $xpath): string
     {
         $paragraphs = $this->rootEntity->xpath($xpath);
-        if ($paragraphs === false) {
+        if ($paragraphs === false || $paragraphs === null) {
             throw new \RuntimeException('Error while performing Xpath request.');
         }
         $str = '';

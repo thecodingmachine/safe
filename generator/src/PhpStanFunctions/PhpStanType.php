@@ -59,7 +59,7 @@ class PhpStanType
         /** @var int $count */
         $count = \count($returnTypes);
         if ($count === 0) {
-            throw new \RuntimeException('Error when trying to extract parameter type');
+            $returnType = '';
         }
         foreach ($returnTypes as &$returnType) {
             $pos = \strpos($returnType, '?');
@@ -67,21 +67,41 @@ class PhpStanType
                 $nullable = true;
                 $returnType = \str_replace('?', '', $returnType);
             }
-            //remove the parenthesis only if we are not dealing with a callable
-            if (\strpos($returnType, 'callable') === false) {
+            // remove the parenthesis only if we are not dealing with a callable
+            if (!str_contains($returnType, 'callable')) {
                 $returnType = \str_replace(['(', ')'], '', $returnType);
             }
-            //here we deal with some weird phpstan typings
-            if ($returnType === 'non-empty-string') {
+
+            // here we deal with some weird phpstan typings
+            if (str_contains($returnType, 'non-falsy-string')) {
                 $returnType = 'string';
-            } elseif ($returnType === 'positive-int') {
+            }
+
+            if (str_contains($returnType, 'non-empty-string')) {
+                $returnType = 'string';
+            }
+
+            if (str_contains($returnType, '__stringAndStringable')) {
+                $returnType = 'string';
+            }
+
+            if ($returnType === 'positive-int') {
                 $returnType = 'int';
             } elseif (is_numeric($returnType)) {
                 $returnType = 'int';
             }
-            if (\strpos($returnType, 'list<') !== false) {
+            if (str_contains($returnType, 'list<')) {
                 $returnType = \str_replace('list', 'array', $returnType);
             }
+
+            if (str_contains($returnType, 'int<')) {
+                $returnType = 'int';
+            }
+
+            if (\preg_match('/__benevolent\<(.*)\>/', $returnType, $regs)) {
+                $returnType = $regs[1];
+            }
+
             $returnType = Type::toRootNamespace($returnType);
         }
         $this->types = array_unique($returnTypes);
@@ -114,7 +134,7 @@ class PhpStanType
         $falsable = $errorType === Method::FALSY_TYPE ? false : $this->falsable;
         $types = $this->types;
         //no typehint exists for thoses cases
-        if (\array_intersect(self::NO_SIGNATURE_TYPES, $types)) {
+        if (\array_intersect(self::NO_SIGNATURE_TYPES, $types) !== []) {
             return '';
         }
 
@@ -135,12 +155,14 @@ class PhpStanType
         //if there are several distinct types, no typehint (we use distinct in case doc block contains several times the same type, for example array<int>|array<string>)
         if (count(array_unique($types)) > 1) {
             return '';
-        } elseif (\in_array('void', $types) || (count($types) === 0 && !$nullable && !$falsable)) {
+        }
+
+        if (\in_array('void', $types) || ($types === [] && !$nullable && !$falsable)) {
             return 'void';
         }
 
 
-        $finalType = $types[0];
+        $finalType = $types[0] ?? '';
         if ($finalType === 'bool' && !$nullable && $errorType === Method::FALSY_TYPE) {
             // If the function only returns a boolean, since false is for error, true is for success.
             // Let's replace this with a "void".

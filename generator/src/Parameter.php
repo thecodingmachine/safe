@@ -81,7 +81,15 @@ class Parameter
 
     public function isNullable(): bool
     {
-        return $this->type->isNullable();
+        if ($this->type->isNullable()) {
+            return true;
+        }
+
+        if ($this->getDefaultValue() === "null") {
+            return true;
+        }
+
+        return $this->getDefaultValue() === "NULL";
     }
 
     /*
@@ -94,7 +102,7 @@ class Parameter
 
     public function hasDefaultValue(): bool
     {
-        return isset($this->parameter->initializer);
+        return property_exists($this->parameter, 'initializer') && $this->parameter->initializer !== null;
     }
 
     public function getDefaultValue(): ?string

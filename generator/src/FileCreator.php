@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 use Rector\Config\RectorConfig;
@@ -14,7 +16,6 @@ class FileCreator
      * This function generate an improved php lib function in a php file
      *
      * @param Method[] $functions
-     * @param string $path
      */
     public function generatePhpFile(array $functions, string $path): void
     {
@@ -64,7 +65,6 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';
      * This function generate a PHP file containing the list of functions we can handle.
      *
      * @param Method[] $functions
-     * @param string $path
      */
     public function generateFunctionsList(array $functions, string $path): void
     {
@@ -86,7 +86,6 @@ return [\n");
      * Generates a configuration file for replacing all functions when using rector/rector.
      *
      * @param Method[] $functions
-     * @param string $path
      */
     public function generateRectorFile(array $functions, string $path): void
     {
@@ -148,9 +147,6 @@ EOF
 
     /**
      * Generates the name of the exception class
-     *
-     * @param string $moduleName
-     * @return string
      */
     public static function toExceptionName(string $moduleName): string
     {

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe;
 
@@ -17,7 +18,7 @@ class ScanObjectsCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/');
 

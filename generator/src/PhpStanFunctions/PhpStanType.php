@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe\PhpStanFunctions;
 
@@ -11,24 +12,21 @@ use Safe\Type;
  */
 class PhpStanType
 {
-    const NO_SIGNATURE_TYPES = [
+    public const NO_SIGNATURE_TYPES = [
         'resource',
         'mixed',
         '\OCI-Lob',
         '\OCI-Collection',
     ];
-    /**
-     * @var bool
-     */
-    private $nullable;
-    /**
-     * @var bool
-     */
-    private $falsable;
+
+    private bool $nullable;
+
+    private bool $falsable;
+
     /**
      * @var string[]
      */
-    private $types;
+    private array $types;
 
     public function __construct(string $data, bool $writeOnly = false)
     {
@@ -49,12 +47,12 @@ class PhpStanType
 
         $returnTypes = $this->explodeTypes($data);
         //remove 'null' from the list to identify if the signature type should be nullable
-        if (($nullablePosition = \array_search('null', $returnTypes)) !== false) {
+        if (($nullablePosition = \array_search('null', $returnTypes, true)) !== false) {
             $nullable = true;
             \array_splice($returnTypes, (int) $nullablePosition, 1);
         }
         //remove 'false' from the list to identify if the function return false on error
-        if (($falsablePosition = \array_search('false', $returnTypes)) !== false) {
+        if (($falsablePosition = \array_search('false', $returnTypes, true)) !== false) {
             $falsable = true;
             \array_splice($returnTypes, (int) $falsablePosition, 1);
         }

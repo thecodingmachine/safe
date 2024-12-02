@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 use function explode;
@@ -236,8 +238,6 @@ class DocPage
 
     /**
      * Loads the XML file, resolving all DTD declared entities.
-     *
-     * @return \SimpleXMLElement
      */
     public function loadAndResolveFile(): \SimpleXMLElement
     {
@@ -268,8 +268,6 @@ class DocPage
 
     /**
      * Returns the module name in Camelcase.
-     *
-     * @return string
      */
     public function getModule(): string
     {

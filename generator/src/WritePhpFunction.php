@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 class WritePhpFunction
@@ -134,7 +136,6 @@ class WritePhpFunction
 
     /**
      * @param Parameter[] $params
-     * @return string
      */
     private function displayParamsWithType(array $params): string
     {

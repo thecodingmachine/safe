@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Safe;
 
 use Safe\PhpStanFunctions\PhpStanFunction;
@@ -58,8 +61,6 @@ class Parameter
     /**
      * Some parameters can be optional with no default value. In this case, the function is "overloaded" (which is not
      * possible in user-land but possible in core...)
-     *
-     * @return bool
      */
     public function isOptionalWithNoDefault(): bool
     {

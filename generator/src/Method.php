@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 use Safe\PhpStanFunctions\PhpStanFunction;
@@ -11,35 +13,19 @@ class Method
     const FALSY_TYPE = 1;
     const NULLSY_TYPE = 2;
     const EMPTY_TYPE = 3;
-    /**
-     * @var \SimpleXMLElement
-     */
-    private $functionObject;
-    /**
-     * @var \SimpleXMLElement
-     */
-    private $rootEntity;
-    /**
-     * @var string
-     */
-    private $moduleName;
+    private \SimpleXMLElement $functionObject;
+    private \SimpleXMLElement $rootEntity;
+    private string $moduleName;
     /**
      * @var Parameter[]|null
      */
-    private $params = null;
-    /**
-     * @var int
-     */
-    private $errorType;
+    private ?array $params = null;
+    private int $errorType;
     /**
      * The function prototype from the phpstan internal documentation (functionMap.php)
-     * @var PhpStanFunction|null
      */
-    private $phpstanSignarure;
-    /**
-     * @var PhpStanType
-     */
-    private $returnType;
+    private ?PhpStanFunction $phpstanSignarure;
+    private PhpStanType $returnType;
 
     public function __construct(\SimpleXMLElement $_functionObject, \SimpleXMLElement $rootEntity, string $moduleName, PhpStanFunctionMapReader $phpStanFunctionMapReader, int $errorType)
     {
@@ -225,8 +211,6 @@ class Method
 
     /**
      * The function is overloaded if at least one parameter is optional with no default value and this parameter is not by reference.
-     *
-     * @return bool
      */
     public function isOverloaded(): bool
     {

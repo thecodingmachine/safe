@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe;
 
@@ -8,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class ComposerJsonEditorTest extends TestCase
 {
-    public function testFileListEditionForGeneration()
+    public function testFileListEditionForGeneration(): void
     {
         $oldList = [
             "deprecated/apc.php",
@@ -31,7 +32,7 @@ class ComposerJsonEditorTest extends TestCase
     }
     
     
-    public function testFileListEditionForDeprecation()
+    public function testFileListEditionForDeprecation(): void
     {
         $oldList = [
             "generated/apache.php",

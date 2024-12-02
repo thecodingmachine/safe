@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 use PHPUnit\Framework\TestCase;
 
 class DocPageTest extends TestCase
 {
-    public function testDetectFalsyFunction()
+    public function testDetectFalsyFunction(): void
     {
         $pregMatch = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
         $implode = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/implode.xml');
@@ -35,14 +37,14 @@ class DocPageTest extends TestCase
         $this->assertTrue($fopen->detectFalsyFunction());
     }
 
-    public function testDetectNullsyFunction()
+    public function testDetectNullsyFunction(): void
     {
         $implode = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/implode.xml');
 
         $this->assertFalse($implode->detectNullsyFunction());
     }
 
-    public function testDetectEmptyFunction()
+    public function testDetectEmptyFunction(): void
     {
         $pgHost = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pgsql/functions/pg-host.xml');
 

@@ -29,7 +29,7 @@ final class DateTimeImmutableTest extends TestCase
         self::assertSame($dateTime->format(\DATE_ATOM), $safeImmutableDate->format(\DATE_ATOM));
     }
 
-    public function createFromInterfaces(): array
+    public static function createFromInterfaces(): array
     {
         return [
             [new \DateTime('2022-11-29T14:17:34+00:00')],

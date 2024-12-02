@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe;
 
@@ -7,9 +8,6 @@ class Type
 {
     /**
      * Returns true if the type passed in parameter is a class, false if it is scalar or resource
-     *
-     * @param string $type
-     * @return bool
      */
     private static function isClass(string $type): bool
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 use PHPUnit\Framework\TestCase;
@@ -7,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 class ScannerTest extends TestCase
 {
 
-    public function testGetMethodsPaths()
+    public function testGetMethodsPaths(): void
     {
         $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/');
         $paths = $scanner->getFunctionsPaths();
@@ -16,7 +18,7 @@ class ScannerTest extends TestCase
         $this->assertArrayNotHasKey(__DIR__.'/../doc/doc-en/en/reference/spl/appenditerator/getarrayiterator.xml', $paths);
     }
 
-    public function testGetFunctionsPaths()
+    public function testGetFunctionsPaths(): void
     {
         $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/');
         $paths = $scanner->getMethodsPaths();

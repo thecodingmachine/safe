@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Safe;
 
 use function array_merge;
@@ -13,7 +15,7 @@ class Scanner
     /**
      * @var string[]
      */
-    private $ignoredFunctions;
+    private ?array $ignoredFunctions = null;
 
     /**
      * @var string[]

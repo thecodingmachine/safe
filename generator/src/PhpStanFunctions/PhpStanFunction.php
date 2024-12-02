@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe\PhpStanFunctions;
 
@@ -13,7 +14,7 @@ class PhpStanFunction
     /**
      * @var PhpStanParameter[]
      */
-    private $parameters = [];
+    private array $parameters = [];
 
     /**
      * @param string[] $signature

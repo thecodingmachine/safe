@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe\PhpStanFunctions;
 
@@ -7,14 +8,8 @@ use Safe\Type;
 
 class PhpStanParameter
 {
-    /**
-     * @var string
-     */
-    private $name;
-    /**
-     * @var PhpStanType
-     */
-    private $type;
+    private string $name;
+    private PhpStanType $type;
 
     public function __construct(string $name, string $type)
     {
@@ -29,9 +24,6 @@ class PhpStanParameter
         $this->type = new PhpStanType($type, $writeOnly);
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;

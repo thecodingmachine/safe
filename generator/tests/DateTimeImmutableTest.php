@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Safe;
 
@@ -132,7 +133,7 @@ class DateTimeImmutableTest extends TestCase
         $this->assertEquals($datetime->getTimestamp(), $safeDatime->getTimestamp());
     }
 
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $timezone = new \DateTimeZone('Pacific/Chatham');
         $safeDatetime = DateTimeImmutable::createFromFormat('d-m-Y', '20-03-2006', $timezone);

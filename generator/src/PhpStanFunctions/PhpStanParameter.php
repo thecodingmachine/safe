@@ -8,8 +8,8 @@ use Safe\Type;
 
 class PhpStanParameter
 {
-    private string $name;
-    private PhpStanType $type;
+    private readonly string $name;
+    private readonly PhpStanType $type;
 
     public function __construct(string $name, string $type)
     {

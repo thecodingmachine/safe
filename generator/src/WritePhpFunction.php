@@ -93,19 +93,12 @@ class WritePhpFunction
 
     private function generateExceptionCode(string $moduleName, Method $method) : string
     {
-        switch ($method->getErrorType()) {
-            case Method::FALSY_TYPE:
-                $errorValue = 'false';
-                break;
-            case Method::NULLSY_TYPE:
-                $errorValue = 'null';
-                break;
-            case Method::EMPTY_TYPE:
-                $errorValue = "''";
-                break;
-            default:
-                throw new \LogicException("Method doesn't have an error type");
-        }
+        $errorValue = match ($method->getErrorType()) {
+            Method::FALSY_TYPE => 'false',
+            Method::NULLSY_TYPE => 'null',
+            Method::EMPTY_TYPE => "''",
+            default => throw new \LogicException("Method doesn't have an error type"),
+        };
 
         // Special case for CURL: we need the first argument of the method if this is a resource.
         if ($moduleName === 'Curl') {

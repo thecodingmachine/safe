@@ -327,8 +327,8 @@ function msg_stat_queue($queue): array
  * @param resource $semaphore semaphore is a semaphore
  * obtained from sem_get.
  * @param bool $non_blocking Specifies if the process shouldn't wait for the semaphore to be acquired.
- * If set to true, the call will return
- * false immediately if a semaphore cannot be immediately
+ * If set to TRUE, the call will return
+ * FALSE immediately if a semaphore cannot be immediately
  * acquired.
  * @throws SemException
  *
@@ -442,7 +442,7 @@ function sem_remove($semaphore): void
  * @throws SemException
  *
  */
-function shm_attach(int $key, int $size = null, int $permissions = 0666)
+function shm_attach(int $key, ?int $size = null, int $permissions = 0666)
 {
     error_clear_last();
     if ($permissions !== 0666) {

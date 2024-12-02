@@ -47,7 +47,7 @@ function ldap_8859_to_t61(string $value): string
  * @throws LdapException
  *
  */
-function ldap_add($ldap, string $dn, array $entry, array $controls = null): void
+function ldap_add($ldap, string $dn, array $entry, ?array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -159,7 +159,7 @@ function ldap_count_entries($ldap, $result): int
  * @throws LdapException
  *
  */
-function ldap_delete($ldap, string $dn, array $controls = null): void
+function ldap_delete($ldap, string $dn, ?array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -208,7 +208,7 @@ function ldap_dn2ufn(string $dn): string
  * @throws LdapException
  *
  */
-function ldap_exop_passwd($ldap, string $user = "", string $old_password = "", string $new_password = "", array &$controls = null)
+function ldap_exop_passwd($ldap, string $user = "", string $old_password = "", string $new_password = "", ?array &$controls = null)
 {
     error_clear_last();
     $safeResult = \ldap_exop_passwd($ldap, $user, $old_password, $new_password, $controls);
@@ -256,7 +256,7 @@ function ldap_exop_whoami($ldap)
  * @throws LdapException
  *
  */
-function ldap_exop($ldap, string $request_oid, string $request_data = null, ?array $controls = null, ?string &$response_data = null, ?string &$response_oid = null)
+function ldap_exop($ldap, string $request_oid, ?string $request_data = null, ?array $controls = null, ?string &$response_data = null, ?string &$response_oid = null)
 {
     error_clear_last();
     if ($response_oid !== null) {
@@ -376,39 +376,6 @@ function ldap_free_result($result): void
     if ($safeResult === false) {
         throw LdapException::createFromPhpError();
     }
-}
-
-
-/**
- * Reads attributes and values from an entry in the search result.
- *
- * Having located a specific entry in the directory, you can find out what
- * information is held for that entry by using this call. You would use this
- * call for an application which "browses" directory entries and/or where you
- * do not know the structure of the directory entries. In many applications
- * you will be searching for a specific attribute such as an email address or
- * a surname, and won't care what other data is held.
- *
- *
- *
- *
- *
- *
- * @param resource $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param resource $entry An LDAP\ResultEntry instance.
- * @return array Returns a complete entry information in a multi-dimensional array
- * on success and FALSE on error.
- * @throws LdapException
- *
- */
-function ldap_get_attributes($ldap, $entry): array
-{
-    error_clear_last();
-    $safeResult = \ldap_get_attributes($ldap, $entry);
-    if ($safeResult === false) {
-        throw LdapException::createFromPhpError();
-    }
-    return $safeResult;
 }
 
 
@@ -738,7 +705,7 @@ function ldap_get_values($ldap, $entry, string $attribute): array
  * @throws LdapException
  *
  */
-function ldap_mod_add($ldap, string $dn, array $entry, array $controls = null): void
+function ldap_mod_add($ldap, string $dn, array $entry, ?array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -764,7 +731,7 @@ function ldap_mod_add($ldap, string $dn, array $entry, array $controls = null): 
  * @throws LdapException
  *
  */
-function ldap_mod_del($ldap, string $dn, array $entry, array $controls = null): void
+function ldap_mod_del($ldap, string $dn, array $entry, ?array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -789,7 +756,7 @@ function ldap_mod_del($ldap, string $dn, array $entry, array $controls = null): 
  * @throws LdapException
  *
  */
-function ldap_mod_replace($ldap, string $dn, array $entry, array $controls = null): void
+function ldap_mod_replace($ldap, string $dn, array $entry, ?array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -888,7 +855,7 @@ function ldap_mod_replace($ldap, string $dn, array $entry, array $controls = nul
  * @throws LdapException
  *
  */
-function ldap_modify_batch($ldap, string $dn, array $modifications_info, array $controls = null): void
+function ldap_modify_batch($ldap, string $dn, array $modifications_info, ?array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -987,7 +954,7 @@ function ldap_parse_result($ldap, $result, ?int &$error_code, ?string &$matched_
  * @throws LdapException
  *
  */
-function ldap_rename($ldap, string $dn, string $new_rdn, string $new_parent, bool $delete_old_rdn, array $controls = null): void
+function ldap_rename($ldap, string $dn, string $new_rdn, string $new_parent, bool $delete_old_rdn, ?array $controls = null): void
 {
     error_clear_last();
     if ($controls !== null) {
@@ -1015,7 +982,7 @@ function ldap_rename($ldap, string $dn, string $new_rdn, string $new_parent, boo
  * @throws LdapException
  *
  */
-function ldap_sasl_bind($ldap, string $dn = null, string $password = null, string $mech = null, string $realm = null, string $authc_id = null, string $authz_id = null, string $props = null): void
+function ldap_sasl_bind($ldap, ?string $dn = null, ?string $password = null, ?string $mech = null, ?string $realm = null, ?string $authc_id = null, ?string $authz_id = null, ?string $props = null): void
 {
     error_clear_last();
     if ($props !== null) {

@@ -69,7 +69,7 @@ function socket_addrinfo_bind($address)
  * Create a Socket instance, and connect it to the provided AddressInfo instance.  The return
  * value of this function may be used with the rest of the socket functions.
  *
- * @param resource $address AddressInfo instance created from socket_addrinfo_lookup
+ * @param resource $address AddressInfo instance created from socket_addrinfo_lookup.
  * @return resource|null Returns a Socket instance on success.
  * @throws SocketsException
  *
@@ -94,7 +94,8 @@ function socket_addrinfo_connect($address)
  * Otherwise it designates a network service name, which is mapped to a port by the operating system.
  * @param array $hints Hints provide criteria for selecting addresses returned.  You may specify the
  * hints as defined by getaddrinfo.
- * @return resource[] Returns an array of AddressInfo instances that can be used with the other socket_addrinfo functions.
+ * @return resource[] Returns an array of AddressInfo instances that can be used with
+ * the socket_addrinfo_* family of functions.
  * On failure, FALSE is returned.
  * @throws SocketsException
  *
@@ -117,9 +118,26 @@ function socket_addrinfo_lookup(string $host, $service = null, array $hints = []
 
 
 /**
+ * Determines whether socket is at out-of-band mark.
+ *
+ * @param \Socket $socket A Socket instance created with socket_create.
+ * @throws SocketsException
+ *
+ */
+function socket_atmark(\Socket $socket): void
+{
+    error_clear_last();
+    $safeResult = \socket_atmark($socket);
+    if ($safeResult === false) {
+        throw SocketsException::createFromPhpError();
+    }
+}
+
+
+/**
  * Binds the name given in address to the socket
  * described by socket. This has to be done before
- * a connection is be established using socket_connect
+ * a connection is established using socket_connect
  * or socket_listen.
  *
  * @param resource $socket A Socket instance created with socket_create.
@@ -167,7 +185,7 @@ function socket_bind($socket, string $address, int $port = 0): void
  * @throws SocketsException
  *
  */
-function socket_connect($socket, string $address, int $port = null): void
+function socket_connect($socket, string $address, ?int $port = null): void
 {
     error_clear_last();
     if ($port !== null) {
@@ -203,7 +221,7 @@ function socket_connect($socket, string $address, int $port = null): void
  * @throws SocketsException
  *
  */
-function socket_create_listen(int $port, int $backlog = 128)
+function socket_create_listen(int $port, int $backlog = SOMAXCONN)
 {
     error_clear_last();
     $safeResult = \socket_create_listen($port, $backlog);
@@ -652,7 +670,7 @@ function socket_sendmsg($socket, array $message, int $flags = 0): int
  * @throws SocketsException
  *
  */
-function socket_sendto($socket, string $data, int $length, int $flags, string $address, int $port = null): int
+function socket_sendto($socket, string $data, int $length, int $flags, string $address, ?int $port = null): int
 {
     error_clear_last();
     if ($port !== null) {

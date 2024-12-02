@@ -295,6 +295,36 @@ function ftp_mlsd($ftp, string $directory): array
 
 
 /**
+ * ftp_nb_get retrieves a remote file from the FTP server,
+ * and saves it into a local file.
+ *
+ * The difference between this function and ftp_get is that
+ * this function retrieves the file asynchronously, so your program can perform
+ * other operations while the file is being downloaded.
+ *
+ * @param resource $ftp An FTP\Connection instance.
+ * @param string $local_filename The local file path (will be overwritten if the file already exists).
+ * @param string $remote_filename The remote file path.
+ * @param int $mode The transfer mode. Must be either FTP_ASCII or
+ * FTP_BINARY.
+ * @param int $offset The position in the remote file to start downloading from.
+ * @return int Returns FTP_FAILED or FTP_FINISHED
+ * or FTP_MOREDATA to open the local file.
+ * @throws FtpException
+ *
+ */
+function ftp_nb_get($ftp, string $local_filename, string $remote_filename, int $mode = FTP_BINARY, int $offset = 0): int
+{
+    error_clear_last();
+    $safeResult = \ftp_nb_get($ftp, $local_filename, $remote_filename, $mode, $offset);
+    if ($safeResult === false) {
+        throw FtpException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * ftp_nb_put stores a local file on the FTP server.
  *
  * The difference between this function and the ftp_put
@@ -500,10 +530,10 @@ function ftp_site($ftp, string $command): void
  * ftp_ssl_connect opens an explicit SSL-FTP connection to the
  * specified hostname. That implies that
  * ftp_ssl_connect will succeed even if the server is not
- * configured for SSL-FTP, or its certificate is invalid. Only when
- * ftp_login is called, the client will send the
- * appropriate AUTH FTP command, so ftp_login will fail in
- * the mentioned cases.
+ * configured for SSL-FTP. Only when ftp_login is called, the client will send the
+ * appropriate AUTH FTP command, so ftp_login will fail.
+ * The connection established by ftp_ssl_connect will not do
+ * peer-certificate verification.
  *
  * @param string $hostname The FTP server address. This parameter shouldn't have any trailing
  * slashes and shouldn't be prefixed with ftp://.

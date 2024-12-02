@@ -81,6 +81,9 @@ jobs:
       - name: "Run coding standard checks with squizlabs/php_codesniffer in generator/ directory"
         run: "composer cs-check"
         working-directory: "generator"
+      - name: "lint generator/ directory"
+        run: "composer lint"
+        working-directory: "generator"
       - name: "Run static code analysis with phpstan/phpstan in generator/ directory"
         run: "composer phpstan"
         working-directory: "generator"
@@ -125,6 +128,8 @@ jobs:
         run: "composer dump-autoload"
       - name: "Run coding standard checks with squizlabs/php_codesniffer in root directory"
         run: "composer cs-check"
+      - name: "lint in root directory"
+        run: "composer lint"
       - name: "Run static code analysis with phpstan/phpstan in root directory"
         run: "composer phpstan"
 

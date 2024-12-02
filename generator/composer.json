@@ -19,10 +19,12 @@
     "thecodingmachine/phpstan-strict-rules": "^1.0",
     "squizlabs/php_codesniffer": "^3.2",
     "php-coveralls/php-coveralls": "^2.1",
-    "phpstan/phpstan": "^1"
+    "phpstan/phpstan": "^1",
+    "php-parallel-lint/php-parallel-lint": "^1.4"
   },
   "scripts": {
-    "test": "vendor/bin/phpunit",
+    "lint": "parallel-lint config/ src/ tests/",
+    "test": "phpunit",
     "phpstan": "phpstan analyse",
     "cs-fix": "phpcbf",
     "cs-check": "phpcs"

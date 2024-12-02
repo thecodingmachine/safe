@@ -95,12 +95,13 @@ class Scanner
         $ignoredModules = $this->getIgnoredModules();
         $ignoredModules = \array_combine($ignoredModules, $ignoredModules);
         foreach ($paths as $path) {
-            $module = \basename(\dirname($path, 2));
+            $module = \basename(\dirname($path->getPath()));
+
             if (isset($ignoredModules[$module])) {
                 continue;
             }
 
-            $docPage = new DocPage($path);
+            $docPage = new DocPage($path->getPathname());
             $isFalsy = $docPage->detectFalsyFunction();
             $isNullsy = $docPage->detectNullsyFunction();
             $isEmpty = $docPage->detectEmptyFunction();

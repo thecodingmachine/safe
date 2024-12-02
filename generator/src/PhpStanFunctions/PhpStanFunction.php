@@ -6,10 +6,7 @@ namespace Safe\PhpStanFunctions;
 
 class PhpStanFunction
 {
-    /**
-     * @var PhpStanType
-     */
-    private $returnType;
+    private readonly PhpStanType $returnType;
 
     /**
      * @var PhpStanParameter[]
@@ -24,6 +21,7 @@ class PhpStanFunction
         if (count($signature) < 1) {
             throw new \RuntimeException('Invalid signatures');
         }
+
         $this->returnType = new PhpStanType(\array_shift($signature));
         foreach ($signature as $name => $type) {
             $param = new PhpStanParameter($name, $type);

@@ -28,12 +28,12 @@ use Safe\Exceptions\ImageException;
  *
  * The image_info only supports
  * JFIF files.
- * @return array Returns an array with up to 7 elements. Not all image types will include
+ * @return array{0: 0|positive-int, 1: 0|positive-int, 2: int, 3: string, mime: string, channels: int, bits: int}|null Returns an array with up to 7 elements. Not all image types will include
  * the channels and bits elements.
  *
  * Index 0 and 1 contains respectively the width and the height of the image.
  *
- * Index 2 is one of the IMAGETYPE_XXX constants indicating
+ * Index 2 is one of the IMAGETYPE_* constants indicating
  * the type of the image.
  *
  * Index 3 is a text string with the correct
@@ -66,7 +66,7 @@ use Safe\Exceptions\ImageException;
  * @throws ImageException
  *
  */
-function getimagesize(string $filename, ?array &$image_info = null): array
+function getimagesize(string $filename, ?array &$image_info = null): ?array
 {
     error_clear_last();
     $safeResult = \getimagesize($filename, $image_info);
@@ -78,10 +78,10 @@ function getimagesize(string $filename, ?array &$image_info = null): array
 
 
 /**
- * Returns the extension for the given IMAGETYPE_XXX
+ * Returns the extension for the given IMAGETYPE_*
  * constant.
  *
- * @param int $image_type One of the IMAGETYPE_XXX constant.
+ * @param int $image_type One of the IMAGETYPE_* constant.
  * @param bool $include_dot Whether to prepend a dot to the extension or not. Default to TRUE.
  * @return string A string with the extension corresponding to the given image type.
  * @throws ImageException
@@ -112,7 +112,7 @@ function image_type_to_extension(int $image_type, bool $include_dot = true): str
  * @throws ImageException
  *
  */
-function image2wbmp($image, ?string $filename = null, int $foreground = null): void
+function image2wbmp($image, ?string $filename = null, ?int $foreground = null): void
 {
     error_clear_last();
     if ($foreground !== null) {
@@ -139,7 +139,7 @@ function image2wbmp($image, ?string $filename = null, int $foreground = null): v
  * @throws ImageException
  *
  */
-function imageaffine($image, array $affine, array $clip = null)
+function imageaffine($image, array $affine, ?array $clip = null)
 {
     error_clear_last();
     if ($clip !== null) {
@@ -528,7 +528,7 @@ function imageconvolution($image, array $matrix, float $divisor, float $offset):
 /**
  * Copy a part of src_image onto
  * dst_image starting at the x,y coordinates
- * src_x, src_y  with
+ * src_x, src_y with
  * a width of src_width and a height of
  * src_height.  The portion defined will be copied
  * onto the x,y coordinates, dst_x and
@@ -558,7 +558,7 @@ function imagecopy($dst_image, $src_image, int $dst_x, int $dst_y, int $src_x, i
 /**
  * Copy a part of src_image onto
  * dst_image starting at the x,y coordinates
- * src_x, src_y  with
+ * src_x, src_y with
  * a width of src_width and a height of
  * src_height.  The portion defined will be copied
  * onto the x,y coordinates, dst_x and
@@ -594,7 +594,7 @@ function imagecopymerge($dst_image, $src_image, int $dst_x, int $dst_y, int $src
 /**
  * imagecopymergegray copy a part of src_image onto
  * dst_image starting at the x,y coordinates
- * src_x, src_y  with
+ * src_x, src_y with
  * a width of src_width and a height of
  * src_height.  The portion defined will be copied
  * onto the x,y coordinates, dst_x and
@@ -735,7 +735,7 @@ function imagecopyresized($dst_image, $src_image, int $dst_x, int $dst_y, int $s
  *
  * @param int $width The image width.
  * @param int $height The image height.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource|false Returns an image object on success, FALSE on errors.
  * @throws ImageException
  *
  */
@@ -759,14 +759,13 @@ function imagecreate(int $width, int $height)
  * @throws ImageException
  *
  */
-function imagecreatefromavif(string $filename)
+function imagecreatefromavif(string $filename): void
 {
     error_clear_last();
     $safeResult = \imagecreatefromavif($filename);
     if ($safeResult === false) {
         throw ImageException::createFromPhpError();
     }
-    return $safeResult;
 }
 
 
@@ -915,7 +914,7 @@ function imagecreatefrompng(string $filename)
  * imagecreatefromstring returns an image identifier
  * representing the image obtained from the given data.
  * These types will be automatically detected if your build of PHP supports
- * them: JPEG, PNG, GIF, BMP, WBMP, GD2, and WEBP.
+ * them: JPEG, PNG, GIF, BMP, WBMP, GD2, WEBP and AVIF.
  *
  * @param string $data A string containing the image data.
  * @return resource An image object will be returned on success. FALSE is returned if
@@ -944,14 +943,13 @@ function imagecreatefromstring(string $data)
  * @throws ImageException
  *
  */
-function imagecreatefromtga(string $filename)
+function imagecreatefromtga(string $filename): void
 {
     error_clear_last();
     $safeResult = \imagecreatefromtga($filename);
     if ($safeResult === false) {
         throw ImageException::createFromPhpError();
     }
-    return $safeResult;
 }
 
 
@@ -1042,7 +1040,7 @@ function imagecreatefromxpm(string $filename)
  *
  * @param int $width Image width.
  * @param int $height Image height.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource|false Returns an image object on success, FALSE on errors.
  * @throws ImageException
  *
  */
@@ -1091,7 +1089,7 @@ function imagecrop($image, array $rectangle)
  * @param float $threshold
  * @param int $color
  * @return resource Returns a cropped image object on success.
- * If the complete image was cropped, imagecrop returns FALSE.
+ * FALSE is also returned if the whole image was cropped.
  * @throws ImageException
  *
  */
@@ -2060,7 +2058,7 @@ function imageloadfont(string $filename): int
  * The default (-1) uses the zlib compression default.
  * For more information see the zlib manual.
  * @param int $filters Allows reducing the PNG file size. It is a bitmask field which may be
- * set to any combination of the PNG_FILTER_XXX
+ * set to any combination of the PNG_FILTER_*
  * constants. PNG_NO_FILTER or
  * PNG_ALL_FILTERS may also be used to respectively
  * disable or activate all filters.
@@ -2136,7 +2134,7 @@ function imagerectangle($image, int $x1, int $y1, int $x2, int $y2, int $color):
  * @throws ImageException
  *
  */
-function imageresolution($image, int $resolution_x = null, int $resolution_y = null)
+function imageresolution($image, ?int $resolution_x = null, ?int $resolution_y = null)
 {
     error_clear_last();
     if ($resolution_y !== null) {
@@ -2165,15 +2163,14 @@ function imageresolution($image, int $resolution_x = null, int $resolution_y = n
  * @param float $angle Rotation angle, in degrees. The rotation angle is interpreted as the
  * number of degrees to rotate the image anticlockwise.
  * @param int $background_color Specifies the color of the uncovered zone after the rotation
- * @param bool $ignore_transparent This parameter is unused.
  * @return resource Returns an image object for the rotated image.
  * @throws ImageException
  *
  */
-function imagerotate($image, float $angle, int $background_color, bool $ignore_transparent = false)
+function imagerotate($image, float $angle, int $background_color)
 {
     error_clear_last();
-    $safeResult = \imagerotate($image, $angle, $background_color, $ignore_transparent);
+    $safeResult = \imagerotate($image, $angle, $background_color);
     if ($safeResult === false) {
         throw ImageException::createFromPhpError();
     }
@@ -2184,7 +2181,19 @@ function imagerotate($image, float $angle, int $background_color, bool $ignore_t
 /**
  * imagesavealpha sets the flag which determines whether to retain
  * full alpha channel information (as opposed to single-color transparency)
- * when saving PNG images.
+ * when saving images.
+ * This is only supported for image formats which support full alpha channel information,
+ * i.e. PNG, WebP and AVIF.
+ *
+ *
+ * imagesavealpha is only meaningful for PNG
+ * images, since the full alpha channel is always saved for WebP
+ * and AVIF. It is not recommended to rely on this behavior,
+ * as it may change in the future. Thus, imagesavealpha
+ * should be called deliberately also for WebP and
+ * AVIF images.
+ *
+ *
  *
  * Alphablending has to be disabled (imagealphablending($im, false))
  * to retain the alpha-channel in the first place.
@@ -2560,46 +2569,6 @@ function imagestringup($image, int $font, int $x, int $y, string $string, int $c
 
 
 /**
- * Returns the width of the given image object.
- *
- * @param resource $image A GdImage object, returned by one of the image creation functions,
- * such as imagecreatetruecolor.
- * @return int Return the width of the images.
- * @throws ImageException
- *
- */
-function imagesx($image): int
-{
-    error_clear_last();
-    $safeResult = \imagesx($image);
-    if ($safeResult === false) {
-        throw ImageException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
- * Returns the height of the given image object.
- *
- * @param resource $image A GdImage object, returned by one of the image creation functions,
- * such as imagecreatetruecolor.
- * @return int Return the height of the images.
- * @throws ImageException
- *
- */
-function imagesy($image): int
-{
-    error_clear_last();
-    $safeResult = \imagesy($image);
-    if ($safeResult === false) {
-        throw ImageException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  * imagetruecolortopalette converts a truecolor image
  * to a palette image. The code for this function was originally drawn from
  * the Independent JPEG Group library code, which is excellent. The code
@@ -2814,7 +2783,7 @@ function imagettftext($image, float $size, float $angle, int $x, int $y, int $co
  * @throws ImageException
  *
  */
-function imagewbmp($image, $file = null, int $foreground_color = null): void
+function imagewbmp($image, $file = null, ?int $foreground_color = null): void
 {
     error_clear_last();
     if ($foreground_color !== null) {
@@ -2877,7 +2846,7 @@ function imagewebp($image, $file = null, int $quality = -1): void
  * @throws ImageException
  *
  */
-function imagexbm($image, $filename, int $foreground_color = null): void
+function imagexbm($image, $filename, ?int $foreground_color = null): void
 {
     error_clear_last();
     if ($foreground_color !== null) {

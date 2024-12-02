@@ -5,23 +5,6 @@ namespace Safe;
 use Safe\Exceptions\NetworkException;
 
 /**
- * closelog closes the descriptor being used to write to
- * the system logger.  The use of closelog is optional.
- *
- * @throws NetworkException
- *
- */
-function closelog(): void
-{
-    error_clear_last();
-    $safeResult = \closelog();
-    if ($safeResult === false) {
-        throw NetworkException::createFromPhpError();
-    }
-}
-
-
-/**
  * Fetch DNS Resource Records associated with the given
  * hostname.
  *
@@ -37,24 +20,9 @@ function closelog(): void
  * with a functions such as mail.
  * @param int $type By default, dns_get_record will search for any
  * resource records associated with hostname.
- * To limit the query, specify the optional type
- * parameter. May be any one of the following:
- * DNS_A, DNS_CNAME,
- * DNS_HINFO, DNS_CAA,
- * DNS_MX, DNS_NS,
- * DNS_PTR, DNS_SOA,
- * DNS_TXT, DNS_AAAA,
- * DNS_SRV, DNS_NAPTR,
- * DNS_A6, DNS_ALL
- * or DNS_ANY.
- *
- * Because of eccentricities in the performance of libresolv
- * between platforms, DNS_ANY will not
- * always return every record, the slower DNS_ALL
- * will collect all records more reliably.
- *
- * Windows: DNS_CAA is not supported.
- * Support for DNS_A6 is not implemented.
+ * To limit the query, use one of the
+ * DNS_*
+ * constants.
  * @param array|null $authoritative_name_servers Passed by reference and, if given, will be populated with Resource
  * Records for the Authoritative Name Servers.
  * @param array|null $additional_records Passed by reference and, if given, will be populated with any
@@ -108,7 +76,7 @@ function closelog(): void
  *
  *
  *
- * Other keys in associative arrays dependant on 'type'
+ * Other keys in associative arrays dependent on type
  *
  *
  *
@@ -306,7 +274,7 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authorit
  * @throws NetworkException
  *
  */
-function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null)
+function fsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, ?float $timeout = null)
 {
     error_clear_last();
     if ($timeout !== null) {
@@ -448,27 +416,6 @@ function inet_ntop(string $ip): string
 
 
 /**
- * The function long2ip generates an Internet address
- * in dotted format (i.e.: aaa.bbb.ccc.ddd) from the long integer
- * representation.
- *
- * @param int $ip A proper address representation in long integer.
- * @return string Returns the Internet IP address as a string.
- * @throws NetworkException
- *
- */
-function long2ip(int $ip): string
-{
-    error_clear_last();
-    $safeResult = \long2ip($ip);
-    if ($safeResult === false) {
-        throw NetworkException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  * Returns an enumeration of network interfaces (adapters) on the local machine.
  *
  * @return array Returns an associative array where the key is the name of the interface and
@@ -574,148 +521,6 @@ function net_get_interfaces(): array
 
 
 /**
- * openlog opens a connection to the system
- * logger for a program.
- *
- * The use of openlog is optional. It
- * will automatically be called by syslog if
- * necessary, in which case prefix will default
- * to FALSE.
- *
- * @param string $prefix The string prefix is added to each message.
- * @param int $flags The flags argument is used to indicate
- * what logging options will be used when generating a log message.
- *
- * openlog Options
- *
- *
- *
- * Constant
- * Description
- *
- *
- *
- *
- * LOG_CONS
- *
- * if there is an error while sending data to the system logger,
- * write directly to the system console
- *
- *
- *
- * LOG_NDELAY
- *
- * open the connection to the logger immediately
- *
- *
- *
- * LOG_ODELAY
- *
- * (default) delay opening the connection until the first
- * message is logged
- *
- *
- *
- * LOG_PERROR
- * print log message also to standard error
- *
- *
- * LOG_PID
- * include PID with each message
- *
- *
- *
- *
- * You can use one or more of these options. When using multiple options
- * you need to OR them, i.e. to open the connection
- * immediately, write to the console and include the PID in each message,
- * you will use: LOG_CONS | LOG_NDELAY | LOG_PID
- * @param int $facility The facility argument is used to specify what
- * type of program is logging the message. This allows you to specify
- * (in your machine's syslog configuration) how messages coming from
- * different facilities will be handled.
- *
- * openlog Facilities
- *
- *
- *
- * Constant
- * Description
- *
- *
- *
- *
- * LOG_AUTH
- *
- * security/authorization messages (use
- * LOG_AUTHPRIV instead
- * in systems where that constant is defined)
- *
- *
- *
- * LOG_AUTHPRIV
- * security/authorization messages (private)
- *
- *
- * LOG_CRON
- * clock daemon (cron and at)
- *
- *
- * LOG_DAEMON
- * other system daemons
- *
- *
- * LOG_KERN
- * kernel messages
- *
- *
- * LOG_LOCAL0 ... LOG_LOCAL7
- * reserved for local use, these are not available in Windows
- *
- *
- * LOG_LPR
- * line printer subsystem
- *
- *
- * LOG_MAIL
- * mail subsystem
- *
- *
- * LOG_NEWS
- * USENET news subsystem
- *
- *
- * LOG_SYSLOG
- * messages generated internally by syslogd
- *
- *
- * LOG_USER
- * generic user-level messages
- *
- *
- * LOG_UUCP
- * UUCP subsystem
- *
- *
- *
- *
- *
- * LOG_USER is the only valid log type under Windows
- * operating systems
- * @throws NetworkException
- *
- */
-function openlog(string $prefix, int $flags, int $facility): void
-{
-    error_clear_last();
-    $safeResult = \openlog($prefix, $flags, $facility);
-    if ($safeResult === false) {
-        throw NetworkException::createFromPhpError();
-    }
-}
-
-
-/**
  * This function behaves exactly as fsockopen with the
  * difference that the connection is not closed after the script finishes.
  * It is the persistent version of fsockopen.
@@ -733,7 +538,7 @@ function openlog(string $prefix, int $flags, int $facility): void
  * @throws NetworkException
  *
  */
-function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, float $timeout = null)
+function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, ?string &$error_message = null, ?float $timeout = null)
 {
     error_clear_last();
     if ($timeout !== null) {
@@ -745,76 +550,4 @@ function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, 
         throw NetworkException::createFromPhpError();
     }
     return $safeResult;
-}
-
-
-/**
- * syslog generates a log message that will be
- * distributed by the system logger.
- *
- * For information on setting up a user defined log handler, see the
- * syslog.conf
- * 5 Unix manual page.  More
- * information on the syslog facilities and option can be found in the man
- * pages for syslog
- * 3 on Unix machines.
- *
- * @param int $priority priority is a combination of the facility and
- * the level. Possible values are:
- *
- * syslog Priorities (in descending order)
- *
- *
- *
- * Constant
- * Description
- *
- *
- *
- *
- * LOG_EMERG
- * system is unusable
- *
- *
- * LOG_ALERT
- * action must be taken immediately
- *
- *
- * LOG_CRIT
- * critical conditions
- *
- *
- * LOG_ERR
- * error conditions
- *
- *
- * LOG_WARNING
- * warning conditions
- *
- *
- * LOG_NOTICE
- * normal, but significant, condition
- *
- *
- * LOG_INFO
- * informational message
- *
- *
- * LOG_DEBUG
- * debug-level message
- *
- *
- *
- *
- * @param string $message The message to send.
- * @throws NetworkException
- *
- */
-function syslog(int $priority, string $message): void
-{
-    error_clear_last();
-    $safeResult = \syslog($priority, $message);
-    if ($safeResult === false) {
-        throw NetworkException::createFromPhpError();
-    }
 }

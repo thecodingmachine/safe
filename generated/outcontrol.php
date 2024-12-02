@@ -5,14 +5,17 @@ namespace Safe;
 use Safe\Exceptions\OutcontrolException;
 
 /**
- * This function discards the contents of the output buffer.
+ * This function calls the output handler
+ * (with the PHP_OUTPUT_HANDLER_CLEAN flag),
+ * discards it's return value
+ * and cleans (erases) the contents of the active output buffer.
  *
- * This function does not destroy the output buffer like
- * ob_end_clean does.
+ * This function does not turn off the active output buffer like
+ * ob_end_clean or ob_get_clean does.
  *
- * The output buffer must be started by
- * ob_start with PHP_OUTPUT_HANDLER_CLEANABLE
- * flag. Otherwise ob_clean will not work.
+ * ob_clean will fail
+ * without an active output buffer started with the
+ * PHP_OUTPUT_HANDLER_CLEANABLE flag.
  *
  * @throws OutcontrolException
  *
@@ -28,16 +31,21 @@ function ob_clean(): void
 
 
 /**
- * This function discards the contents of the topmost output buffer and turns
- * off this output buffering. If you want to further process the buffer's
- * contents you have to call ob_get_contents before
- * ob_end_clean as the buffer contents are discarded
- * when ob_end_clean is called.
+ * This function calls the output handler
+ * (with the PHP_OUTPUT_HANDLER_CLEAN and
+ * PHP_OUTPUT_HANDLER_FINAL flags),
+ * discards it's return value,
+ * discards the contents of the active output buffer
+ * and turns off the active output buffer.
  *
- * The output buffer must be started by
- * ob_start with PHP_OUTPUT_HANDLER_CLEANABLE
- * and PHP_OUTPUT_HANDLER_REMOVABLE
- * flags. Otherwise ob_end_clean will not work.
+ * ob_end_clean will fail
+ * without an active output buffer started with the
+ * PHP_OUTPUT_HANDLER_REMOVABLE flag.
+ *
+ * ob_end_clean
+ * will discard the contents of the active output buffer
+ * even if it was started without the
+ * PHP_OUTPUT_HANDLER_CLEANABLE flag.
  *
  * @throws OutcontrolException
  *
@@ -53,17 +61,20 @@ function ob_end_clean(): void
 
 
 /**
- * This function will send the contents of the topmost output buffer (if
- * any) and turn this output buffer off.  If you want to further
- * process the buffer's contents you have to call
- * ob_get_contents before
- * ob_end_flush as the buffer contents are
- * discarded after ob_end_flush is called.
+ * This function calls the output handler
+ * (with the PHP_OUTPUT_HANDLER_FINAL flag),
+ * flushes (sends) it's return value,
+ * discards the contents of the active output buffer
+ * and turns off the active output buffer.
  *
- * The output buffer must be started by
- * ob_start with PHP_OUTPUT_HANDLER_FLUSHABLE
- * and PHP_OUTPUT_HANDLER_REMOVABLE
- * flags. Otherwise ob_end_flush will not work.
+ * ob_end_flush will fail
+ * without an active output buffer started with the
+ * PHP_OUTPUT_HANDLER_REMOVABLE flag.
+ *
+ * ob_end_flush will flush (send)
+ * the return value of the output handler
+ * even if the active output buffer was started without the
+ * PHP_OUTPUT_HANDLER_FLUSHABLE flag.
  *
  * @throws OutcontrolException
  *
@@ -79,14 +90,17 @@ function ob_end_flush(): void
 
 
 /**
- * This function will send the contents of the output buffer (if any). If you
- * want to further process the buffer's contents you have to call
- * ob_get_contents before ob_flush
- * as the buffer contents are discarded after ob_flush
- * is called.
+ * This function calls the output handler
+ * (with the PHP_OUTPUT_HANDLER_FLUSH flag),
+ * flushes (sends) its return value
+ * and discards the contents of the active output buffer.
  *
- * This function does not destroy the output buffer like
- * ob_end_flush does.
+ * This function does not turn off the active output buffer like
+ * ob_end_flush or ob_get_flush does.
+ *
+ * ob_flush will fail
+ * without an active output buffer started with the
+ * PHP_OUTPUT_HANDLER_FLUSHABLE flag.
  *
  * @throws OutcontrolException
  *
@@ -102,40 +116,93 @@ function ob_flush(): void
 
 
 /**
- * This function will turn output buffering on. While output buffering is
- * active no output is sent from the script (other than headers), instead the
- * output is stored in an internal buffer.
+ * This function calls the output handler
+ * (with the PHP_OUTPUT_HANDLER_CLEAN and
+ * PHP_OUTPUT_HANDLER_FINAL flags),
+ * discards it's return value,
+ * returns the contents of the active output buffer
+ * and turns off the active output buffer.
  *
- * The contents of this internal buffer may be copied into a string variable
- * using ob_get_contents.  To output what is stored in
- * the internal buffer, use ob_end_flush. Alternatively,
- * ob_end_clean will silently discard the buffer
- * contents.
+ * ob_get_clean will fail
+ * without an active output buffer started with the
+ * PHP_OUTPUT_HANDLER_REMOVABLE flag.
  *
- * Output buffers are stackable, that is, you may call
- * ob_start while another
- * ob_start is active. Just make
- * sure that you call ob_end_flush
- * the appropriate number of times. If multiple output callback
- * functions are active, output is being filtered sequentially
+ * ob_get_clean
+ * will discard the contents of the active output buffer
+ * even if it was started without the
+ * PHP_OUTPUT_HANDLER_CLEANABLE flag.
+ *
+ * @return string Returns the contents of the active output buffer on success.
+ * @throws OutcontrolException
+ *
+ */
+function ob_get_clean(): string
+{
+    error_clear_last();
+    $safeResult = \ob_get_clean();
+    if ($safeResult === false) {
+        throw OutcontrolException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * This function calls the output handler
+ * (with the PHP_OUTPUT_HANDLER_FINAL flag),
+ * flushes (sends) it's return value,
+ * returns the contents of the active output buffer
+ * and turns off the active output buffer.
+ *
+ * ob_get_flush will fail
+ * without an active output buffer started with the
+ * PHP_OUTPUT_HANDLER_REMOVABLE flag.
+ *
+ * ob_get_flush will flush (send)
+ * the return value of the output handler
+ * even if the active output buffer was started without the
+ * PHP_OUTPUT_HANDLER_FLUSHABLE flag.
+ *
+ * @return string Returns the contents of the active output buffer on success.
+ * @throws OutcontrolException
+ *
+ */
+function ob_get_flush(): string
+{
+    error_clear_last();
+    $safeResult = \ob_get_flush();
+    if ($safeResult === false) {
+        throw OutcontrolException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * This function will turn output buffering on.
+ * While output buffering is active no output is sent from the script,
+ * instead the output is stored in an internal buffer.
+ * See
+ * on exactly what output is affected.
+ *
+ * Output buffers are stackable, that is,
+ * ob_start may be called while another buffer is active.
+ * If multiple output buffers are active,
+ * output is being filtered sequentially
  * through each of them in nesting order.
+ * See  for more details.
  *
- * If output buffering is still active when the script ends, PHP outputs the
- * contents automatically.
+ * See
+ * for a detailed description of output buffers.
  *
- * @param string|array|callable|null $callback An optional callback function may be
- * specified. This function takes a string as a parameter and should
- * return a string. The function will be called when
- * the output buffer is flushed (sent) or cleaned (with
- * ob_flush, ob_clean or similar
- * function) or when the output buffer
- * is flushed to the browser at the end of the request.  When
- * callback is called, it will receive the
- * contents of the output buffer as its parameter and is expected to
- * return a new output buffer as a result, which will be sent to the
- * browser. If the callback is not a
- * callable function, this function will return FALSE.
- * This is the callback signature:
+ * @param string|array|callable|null $callback An optional callback callable may be
+ * specified. It can also be bypassed by passing NULL.
+ *
+ * callback is invoked when the output buffer is
+ * flushed (sent), cleaned, or when the output buffer is flushed
+ * at the end of the script.
+ *
+ * The signature of the callback is as follows:
  *
  *
  * stringhandler
@@ -155,34 +222,26 @@ function ob_flush(): void
  * phase
  *
  *
- * Bitmask of PHP_OUTPUT_HANDLER_* constants.
+ * Bitmask of
+ *
+ * PHP_OUTPUT_HANDLER_*
+ * constants
+ * .
+ * See
+ * for more details.
  *
  *
  *
  *
  *
- * If callback returns FALSE original
- * input is sent to the browser.
+ * If callback returns FALSE
+ * the contents of the buffer are returned.
+ * See
+ * for more details.
  *
- * The callback parameter may be bypassed
- * by passing a NULL value.
- *
- * ob_end_clean, ob_end_flush,
- * ob_clean, ob_flush and
- * ob_start may not be called from a callback
- * function. If you call them from callback function, the behavior is
- * undefined. If you would like to delete the contents of a buffer,
- * return "" (a null string) from callback function.
- * You can't even call functions using the output buffering functions like
- * print_r($expression, true) or
- * highlight_file($filename, true) from a callback
- * function.
- *
- * ob_gzhandler function exists to
- * facilitate sending gz-encoded data to web browsers that support
- * compressed web pages.  ob_gzhandler determines
- * what type of content encoding the browser will accept and will return
- * its output accordingly.
+ * See
+ * and
+ * for more details on callbacks (output handlers).
  * @param int $chunk_size
  * @param int $flags
  * @throws OutcontrolException
@@ -207,16 +266,28 @@ function ob_start($callback = null, int $chunk_size = 0, int $flags = PHP_OUTPUT
 
 
 /**
- * This function adds another name/value pair to the URL rewrite mechanism.
- * The name and value will be added to URLs (as GET parameter) and forms
- * (as hidden input fields) the same way as the session ID when transparent
- * URL rewriting is enabled with session.use_trans_sid.
+ * This function starts the 'URL-Rewriter' output buffer handler
+ * if it is not active,
+ * stores the name and value parameters,
+ * and when the buffer is flushed rewrites the URLs
+ * and forms based on the applicable ini settings.
+ * Subsequent calls to this function will store all additional name/value pairs
+ * until the handler is turned off.
  *
- * This function's behaviour is controlled by the url_rewriter.tags and
- * url_rewriter.hosts php.ini
- * parameters.
+ * When the output buffer is flushed
+ * (by calling ob_flush, ob_end_flush,
+ * ob_get_flush or at the end of the script)
+ * the 'URL-Rewriter' handler adds the name/value pairs
+ * as query parameters to URLs in attributes of HTML tags
+ * and adds hidden fields to forms based on the values of the
+ * url_rewriter.tags and
+ * url_rewriter.hosts
+ * configuration directives.
  *
- * Note that this function can be successfully called at most once per request.
+ * Each name/value pair added to the 'URL-Rewriter' handler
+ * is added to the URLs and/or forms
+ * even if this results in duplicate URL query parameters
+ * or elements with the same name attributes.
  *
  * @param string $name The variable name.
  * @param string $value The variable value.
@@ -234,9 +305,8 @@ function output_add_rewrite_var(string $name, string $value): void
 
 
 /**
- * This function resets the URL rewriter and removes all rewrite
- * variables previously set by the output_add_rewrite_var
- * function.
+ * This function removes all rewrite variables previously set by
+ * the output_add_rewrite_var function.
  *
  * @throws OutcontrolException
  *

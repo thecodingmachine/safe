@@ -19,7 +19,7 @@ use Safe\Exceptions\EioException;
  * @throws EioException
  *
  */
-function eio_busy(int $delay, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_busy(int $delay, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_busy($delay, $pri, $callback, $data);
@@ -56,7 +56,7 @@ function eio_busy(int $delay, int $pri = EIO_PRI_DEFAULT, callable $callback = n
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -65,13 +65,13 @@ function eio_busy(int $delay, int $pri = EIO_PRI_DEFAULT, callable $callback = n
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_chmod returns request resource on success.
  * @throws EioException
  *
  */
-function eio_chmod(string $path, int $mode, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_chmod(string $path, int $mode, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_chmod($path, $mode, $pri, $callback, $data);
@@ -108,7 +108,7 @@ function eio_chmod(string $path, int $mode, int $pri = EIO_PRI_DEFAULT, callable
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -117,13 +117,13 @@ function eio_chmod(string $path, int $mode, int $pri = EIO_PRI_DEFAULT, callable
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_chown returns request resource on success.
  * @throws EioException
  *
  */
-function eio_chown(string $path, int $uid, int $gid = -1, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_chown(string $path, int $uid, int $gid = -1, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_chown($path, $uid, $gid, $pri, $callback, $data);
@@ -157,7 +157,7 @@ function eio_chown(string $path, int $uid, int $gid = -1, int $pri = EIO_PRI_DEF
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -166,13 +166,13 @@ function eio_chown(string $path, int $uid, int $gid = -1, int $pri = EIO_PRI_DEF
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_close returns request resource on success.
  * @throws EioException
  *
  */
-function eio_close($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_close($fd, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_close($fd, $pri, $callback, $data);
@@ -216,7 +216,7 @@ function eio_close($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -225,7 +225,7 @@ function eio_close($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_custom returns request resource on success.
  * @throws EioException
@@ -265,7 +265,7 @@ function eio_custom(callable $execute, int $pri, callable $callback, $data = nul
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -274,13 +274,13 @@ function eio_custom(callable $execute, int $pri, callable $callback, $data = nul
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_dup2 returns request resource on success.
  * @throws EioException
  *
  */
-function eio_dup2($fd, $fd2, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_dup2($fd, $fd2, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_dup2($fd, $fd2, $pri, $callback, $data);
@@ -337,7 +337,7 @@ function eio_event_loop(): void
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -346,13 +346,13 @@ function eio_event_loop(): void
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_fallocate returns request resource on success.
  * @throws EioException
  *
  */
-function eio_fallocate($fd, int $mode, int $offset, int $length, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_fallocate($fd, int $mode, int $offset, int $length, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_fallocate($fd, $mode, $offset, $length, $pri, $callback, $data);
@@ -387,7 +387,7 @@ function eio_fallocate($fd, int $mode, int $offset, int $length, int $pri = EIO_
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -396,13 +396,13 @@ function eio_fallocate($fd, int $mode, int $offset, int $length, int $pri = EIO_
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_fchmod returns request resource on success.
  * @throws EioException
  *
  */
-function eio_fchmod($fd, int $mode, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_fchmod($fd, int $mode, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_fchmod($fd, $mode, $pri, $callback, $data);
@@ -438,7 +438,7 @@ function eio_fchmod($fd, int $mode, int $pri = EIO_PRI_DEFAULT, callable $callba
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -447,13 +447,13 @@ function eio_fchmod($fd, int $mode, int $pri = EIO_PRI_DEFAULT, callable $callba
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_chmod returns request resource on success.
  * @throws EioException
  *
  */
-function eio_fchown($fd, int $uid, int $gid = -1, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_fchown($fd, int $uid, int $gid = -1, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_fchown($fd, $uid, $gid, $pri, $callback, $data);
@@ -486,7 +486,7 @@ function eio_fchown($fd, int $uid, int $gid = -1, int $pri = EIO_PRI_DEFAULT, ca
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -495,13 +495,13 @@ function eio_fchown($fd, int $uid, int $gid = -1, int $pri = EIO_PRI_DEFAULT, ca
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_fdatasync returns request resource on success.
  * @throws EioException
  *
  */
-function eio_fdatasync($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_fdatasync($fd, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_fdatasync($fd, $pri, $callback, $data);
@@ -535,7 +535,7 @@ function eio_fdatasync($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = nul
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -544,7 +544,7 @@ function eio_fdatasync($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = nul
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_busy returns request resource on success.
  * @throws EioException
@@ -588,7 +588,7 @@ function eio_fstat($fd, int $pri, callable $callback, $data = null)
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -597,7 +597,7 @@ function eio_fstat($fd, int $pri, callable $callback, $data = null)
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_fstatvfs returns request resource on success.
  * @throws EioException
@@ -640,7 +640,7 @@ function eio_fstatvfs($fd, int $pri, callable $callback, $data = null)
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -649,13 +649,13 @@ function eio_fstatvfs($fd, int $pri, callable $callback, $data = null)
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_fsync returns request resource on success.
  * @throws EioException
  *
  */
-function eio_fsync($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_fsync($fd, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_fsync($fd, $pri, $callback, $data);
@@ -691,7 +691,7 @@ function eio_fsync($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -700,13 +700,13 @@ function eio_fsync($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_ftruncate returns request resource on success.
  * @throws EioException
  *
  */
-function eio_ftruncate($fd, int $offset = 0, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_ftruncate($fd, int $offset = 0, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_ftruncate($fd, $offset, $pri, $callback, $data);
@@ -742,7 +742,7 @@ function eio_ftruncate($fd, int $offset = 0, int $pri = EIO_PRI_DEFAULT, callabl
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -751,13 +751,13 @@ function eio_ftruncate($fd, int $offset = 0, int $pri = EIO_PRI_DEFAULT, callabl
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_futime returns request resource on success.
  * @throws EioException
  *
  */
-function eio_futime($fd, float $atime, float $mtime, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_futime($fd, float $atime, float $mtime, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_futime($fd, $atime, $mtime, $pri, $callback, $data);
@@ -786,7 +786,7 @@ function eio_futime($fd, float $atime, float $mtime, int $pri = EIO_PRI_DEFAULT,
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -795,13 +795,13 @@ function eio_futime($fd, float $atime, float $mtime, int $pri = EIO_PRI_DEFAULT,
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param string $data is custom data passed to the request.
  * @return resource eio_grp returns request group resource on success.
  * @throws EioException
  *
  */
-function eio_grp(callable $callback, string $data = null)
+function eio_grp(callable $callback, ?string $data = null)
 {
     error_clear_last();
     $safeResult = \eio_grp($callback, $data);
@@ -835,7 +835,7 @@ function eio_grp(callable $callback, string $data = null)
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -844,7 +844,7 @@ function eio_grp(callable $callback, string $data = null)
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_lstat returns request resource on success.
  * @throws EioException
@@ -885,7 +885,7 @@ function eio_lstat(string $path, int $pri, callable $callback, $data = null)
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -894,13 +894,13 @@ function eio_lstat(string $path, int $pri, callable $callback, $data = null)
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_mkdir returns request resource on success.
  * @throws EioException
  *
  */
-function eio_mkdir(string $path, int $mode, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_mkdir(string $path, int $mode, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_mkdir($path, $mode, $pri, $callback, $data);
@@ -950,7 +950,7 @@ function eio_mkdir(string $path, int $mode, int $pri = EIO_PRI_DEFAULT, callable
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -959,13 +959,13 @@ function eio_mkdir(string $path, int $mode, int $pri = EIO_PRI_DEFAULT, callable
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_mknod returns request resource on success.
  * @throws EioException
  *
  */
-function eio_mknod(string $path, int $mode, int $dev, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_mknod(string $path, int $mode, int $dev, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_mknod($path, $mode, $dev, $pri, $callback, $data);
@@ -998,7 +998,7 @@ function eio_mknod(string $path, int $mode, int $dev, int $pri = EIO_PRI_DEFAULT
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1007,13 +1007,13 @@ function eio_mknod(string $path, int $mode, int $dev, int $pri = EIO_PRI_DEFAULT
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_nop returns request resource on success.
  * @throws EioException
  *
  */
-function eio_nop(int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_nop(int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_nop($pri, $callback, $data);
@@ -1049,7 +1049,7 @@ function eio_nop(int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = 
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1058,13 +1058,13 @@ function eio_nop(int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = 
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_readahead returns request resource on success.
  * @throws EioException
  *
  */
-function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_readahead($fd, $offset, $length, $pri, $callback, $data);
@@ -1101,7 +1101,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1110,7 +1110,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param string $data is custom data passed to the request.
  * @return resource eio_readdir returns request resource on success.
  * Sets result argument of
@@ -1368,7 +1368,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  * @throws EioException
  *
  */
-function eio_readdir(string $path, int $flags, int $pri, callable $callback, string $data = null)
+function eio_readdir(string $path, int $flags, int $pri, callable $callback, ?string $data = null)
 {
     error_clear_last();
     $safeResult = \eio_readdir($path, $flags, $pri, $callback, $data);
@@ -1401,7 +1401,7 @@ function eio_readdir(string $path, int $flags, int $pri, callable $callback, str
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1410,13 +1410,13 @@ function eio_readdir(string $path, int $flags, int $pri, callable $callback, str
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param string $data is custom data passed to the request.
  * @return resource eio_readlink returns request resource on success.
  * @throws EioException
  *
  */
-function eio_readlink(string $path, int $pri, callable $callback, string $data = null)
+function eio_readlink(string $path, int $pri, callable $callback, ?string $data = null)
 {
     error_clear_last();
     $safeResult = \eio_readlink($path, $pri, $callback, $data);
@@ -1450,7 +1450,7 @@ function eio_readlink(string $path, int $pri, callable $callback, string $data =
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1459,13 +1459,13 @@ function eio_readlink(string $path, int $pri, callable $callback, string $data =
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_rename returns request resource on success.
  * @throws EioException
  *
  */
-function eio_rename(string $path, string $new_path, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_rename(string $path, string $new_path, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_rename($path, $new_path, $pri, $callback, $data);
@@ -1498,7 +1498,7 @@ function eio_rename(string $path, string $new_path, int $pri = EIO_PRI_DEFAULT, 
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1507,13 +1507,13 @@ function eio_rename(string $path, string $new_path, int $pri = EIO_PRI_DEFAULT, 
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_rmdir returns request resource on success.
  * @throws EioException
  *
  */
-function eio_rmdir(string $path, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_rmdir(string $path, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_rmdir($path, $pri, $callback, $data);
@@ -1526,16 +1526,18 @@ function eio_rmdir(string $path, int $pri = EIO_PRI_DEFAULT, callable $callback 
 
 /**
  * eio_seek repositions the offset of the open file associated with
- * stream, Socket resource, or file descriptor specified by fd to the argument offset according to the directive whence as follows:
+ * stream, Socket instance, or file descriptor specified by fd to
+ * the argument offset according to
+ * the directive whence.
+ *
+ * @param mixed $fd Stream, Socket instance, or numeric file descriptor.
+ * @param int $offset Starting point from which data is to be read.
+ * @param int $whence whence values are:
  *
  * EIO_SEEK_SET - Set position equal to offset bytes.
  * EIO_SEEK_CUR - Set position to current location plus offset.
  * EIO_SEEK_END - Set position to end-of-file plus offset.
  *
- *
- * @param mixed $fd Stream, Socket resource, or numeric file descriptor
- * @param int $offset Starting point from which data is to be read.
- * @param int $whence Number of bytes to be read.
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
@@ -1554,7 +1556,7 @@ function eio_rmdir(string $path, int $pri = EIO_PRI_DEFAULT, callable $callback 
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1563,13 +1565,13 @@ function eio_rmdir(string $path, int $pri = EIO_PRI_DEFAULT, callable $callback 
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_seek returns request resource on success.
  * @throws EioException
  *
  */
-function eio_seek($fd, int $offset, int $whence, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_seek($fd, int $offset, int $whence, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_seek($fd, $offset, $whence, $pri, $callback, $data);
@@ -1606,7 +1608,7 @@ function eio_seek($fd, int $offset, int $whence, int $pri = EIO_PRI_DEFAULT, cal
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1615,13 +1617,13 @@ function eio_seek($fd, int $offset, int $whence, int $pri = EIO_PRI_DEFAULT, cal
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param string $data is custom data passed to the request.
  * @return resource eio_sendfile returns request resource on success.
  * @throws EioException
  *
  */
-function eio_sendfile($out_fd, $in_fd, int $offset, int $length, int $pri = null, callable $callback = null, string $data = null)
+function eio_sendfile($out_fd, $in_fd, int $offset, int $length, ?int $pri = null, ?callable $callback = null, ?string $data = null)
 {
     error_clear_last();
     if ($data !== null) {
@@ -1663,7 +1665,7 @@ function eio_sendfile($out_fd, $in_fd, int $offset, int $length, int $pri = null
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1672,7 +1674,7 @@ function eio_sendfile($out_fd, $in_fd, int $offset, int $length, int $pri = null
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_stat returns request resource on success. On success assigns result argument of
  * callback to an array.
@@ -1713,7 +1715,7 @@ function eio_stat(string $path, int $pri, callable $callback, $data = null)
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1722,7 +1724,7 @@ function eio_stat(string $path, int $pri, callable $callback, $data = null)
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_statvfs returns request resource on success.
  * On success assigns result argument of
@@ -1769,7 +1771,7 @@ function eio_statvfs(string $path, int $pri, callable $callback, $data = null)
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1778,13 +1780,13 @@ function eio_statvfs(string $path, int $pri, callable $callback, $data = null)
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_symlink returns request resource on success.
  * @throws EioException
  *
  */
-function eio_symlink(string $path, string $new_path, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_symlink(string $path, string $new_path, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_symlink($path, $new_path, $pri, $callback, $data);
@@ -1828,7 +1830,7 @@ function eio_symlink(string $path, string $new_path, int $pri = EIO_PRI_DEFAULT,
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1837,13 +1839,13 @@ function eio_symlink(string $path, string $new_path, int $pri = EIO_PRI_DEFAULT,
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_sync_file_range returns request resource on success.
  * @throws EioException
  *
  */
-function eio_sync_file_range($fd, int $offset, int $nbytes, int $flags, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_sync_file_range($fd, int $offset, int $nbytes, int $flags, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_sync_file_range($fd, $offset, $nbytes, $flags, $pri, $callback, $data);
@@ -1864,7 +1866,7 @@ function eio_sync_file_range($fd, int $offset, int $nbytes, int $flags, int $pri
  * @throws EioException
  *
  */
-function eio_sync(int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_sync(int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_sync($pri, $callback, $data);
@@ -1897,7 +1899,7 @@ function eio_sync(int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data =
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1906,13 +1908,13 @@ function eio_sync(int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data =
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_syncfs returns request resource on success.
  * @throws EioException
  *
  */
-function eio_syncfs($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_syncfs($fd, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_syncfs($fd, $pri, $callback, $data);
@@ -1947,7 +1949,7 @@ function eio_syncfs($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = null, 
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -1956,13 +1958,13 @@ function eio_syncfs($fd, int $pri = EIO_PRI_DEFAULT, callable $callback = null, 
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_busy returns request resource on success.
  * @throws EioException
  *
  */
-function eio_truncate(string $path, int $offset = 0, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_truncate(string $path, int $offset = 0, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_truncate($path, $offset, $pri, $callback, $data);
@@ -1995,7 +1997,7 @@ function eio_truncate(string $path, int $offset = 0, int $pri = EIO_PRI_DEFAULT,
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -2004,13 +2006,13 @@ function eio_truncate(string $path, int $offset = 0, int $pri = EIO_PRI_DEFAULT,
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_unlink returns request resource on success.
  * @throws EioException
  *
  */
-function eio_unlink(string $path, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_unlink(string $path, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_unlink($path, $pri, $callback, $data);
@@ -2045,7 +2047,7 @@ function eio_unlink(string $path, int $pri = EIO_PRI_DEFAULT, callable $callback
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -2054,13 +2056,13 @@ function eio_unlink(string $path, int $pri = EIO_PRI_DEFAULT, callable $callback
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_utime returns request resource on success.
  * @throws EioException
  *
  */
-function eio_utime(string $path, float $atime, float $mtime, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_utime(string $path, float $atime, float $mtime, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_utime($path, $atime, $mtime, $pri, $callback, $data);
@@ -2098,7 +2100,7 @@ function eio_utime(string $path, float $atime, float $mtime, int $pri = EIO_PRI_
  *
  *
  * req
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  *
  *
  *
@@ -2107,13 +2109,13 @@ function eio_utime(string $path, float $atime, float $mtime, int $pri = EIO_PRI_
  * request-specific result value; basically, the value returned by corresponding
  * system call.
  *
- * is optional request resource which can be used with functions like eio_get_last_error
+ * is optional request resource which can be used with functions like eio_get_last_error.
  * @param mixed $data is custom data passed to the request.
  * @return resource eio_write returns request resource on success.
  * @throws EioException
  *
  */
-function eio_write($fd, string $str, int $length = 0, int $offset = 0, int $pri = EIO_PRI_DEFAULT, callable $callback = null, $data = null)
+function eio_write($fd, string $str, int $length = 0, int $offset = 0, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data = null)
 {
     error_clear_last();
     $safeResult = \eio_write($fd, $str, $length, $offset, $pri, $callback, $data);

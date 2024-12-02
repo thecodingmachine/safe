@@ -15,7 +15,7 @@ use Safe\Exceptions\CalendarException;
  * @throws CalendarException
  *
  */
-function unixtojd(int $timestamp = null): int
+function unixtojd(?int $timestamp = null): int
 {
     error_clear_last();
     if ($timestamp !== null) {

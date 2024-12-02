@@ -150,7 +150,7 @@ function pg_convert($connection, string $table_name, array $values, int $flags =
  * @throws PgsqlException
  *
  */
-function pg_copy_from($connection, string $table_name, array $rows, string $separator = "\t", string $null_as = "\\\\N"): void
+function pg_copy_from($connection, string $table_name, array $rows, string $separator = "\t", string $null_as = "\\N"): void
 {
     error_clear_last();
     $safeResult = \pg_copy_from($connection, $table_name, $rows, $separator, $null_as);
@@ -175,7 +175,7 @@ function pg_copy_from($connection, string $table_name, array $rows, string $sepa
  * @throws PgsqlException
  *
  */
-function pg_copy_to($connection, string $table_name, string $separator = "\t", string $null_as = "\\\\N"): array
+function pg_copy_to($connection, string $table_name, string $separator = "\t", string $null_as = "\\N"): array
 {
     error_clear_last();
     $safeResult = \pg_copy_to($connection, $table_name, $separator, $null_as);
@@ -297,7 +297,7 @@ function pg_end_copy($connection = null): void
  * @throws PgsqlException
  *
  */
-function pg_execute($connection = null, string $stmtname = null, array $params = null)
+function pg_execute($connection = null, ?string $stmtname = null, ?array $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -542,7 +542,7 @@ function pg_lo_close($lob): void
  * @throws PgsqlException
  *
  */
-function pg_lo_export($connection = null, int $oid = null, string $pathname = null): void
+function pg_lo_export($connection = null, ?int $oid = null, ?string $pathname = null): void
 {
     error_clear_last();
     if ($pathname !== null) {
@@ -584,7 +584,7 @@ function pg_lo_export($connection = null, int $oid = null, string $pathname = nu
  * @throws PgsqlException
  *
  */
-function pg_lo_import($connection = null, string $pathname = null, $object_id = null): int
+function pg_lo_import($connection = null, ?string $pathname = null, $object_id = null): int
 {
     error_clear_last();
     if ($object_id !== null) {
@@ -748,7 +748,7 @@ function pg_lo_unlink($connection, int $oid): void
  * @throws PgsqlException
  *
  */
-function pg_lo_write($lob, string $data, int $length = null): int
+function pg_lo_write($lob, string $data, ?int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {
@@ -824,7 +824,7 @@ function pg_meta_data($connection, string $table_name, bool $extended = false): 
  * @throws PgsqlException
  *
  */
-function pg_parameter_status($connection = null, string $param_name = null): string
+function pg_parameter_status($connection = null, ?string $param_name = null): string
 {
     error_clear_last();
     if ($param_name !== null) {
@@ -935,13 +935,14 @@ function pg_ping($connection = null): void
  * create an unnamed statement, in which case any pre-existing unnamed
  * statement is automatically replaced; otherwise it is an error if the
  * statement name is already defined in the current session. If any parameters
- * are used, they are referred to in the query as $1, $2, etc.
+ * are used, they are referred to in the query as $1,
+ * $2, etc.
  *
  * Prepared statements for use with pg_prepare can also be created by
- * executing SQL PREPARE statements. (But pg_prepare is more flexible since it
- * does not require parameter types to be pre-specified.) Also, although there
- * is no PHP function for deleting a prepared statement, the SQL DEALLOCATE
- * statement can be used for that purpose.
+ * executing SQL PREPARE statements. (But pg_prepare is
+ * more flexible since it  does not require parameter types to be pre-specified.) Also,
+ * although there is no PHP function for deleting a prepared statement, the
+ * SQL DEALLOCATE statement can be used for that purpose.
  *
  * @param resource $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
@@ -951,14 +952,14 @@ function pg_ping($connection = null): void
  * @param string $stmtname The name to give the prepared statement.  Must be unique per-connection.  If
  * "" is specified, then an unnamed statement is created, overwriting any
  * previously defined unnamed statement.
- * @param string $query The parameterized SQL statement.  Must contain only a single statement.
- * (multiple statements separated by semi-colons are not allowed.)  If any parameters
+ * @param string $query The parameterized SQL statement.  Must contain only a single statement
+ * (multiple statements separated by semi-colons are not allowed).  If any parameters
  * are used, they are referred to as $1, $2, etc.
  * @return resource An PgSql\Result instance on success.
  * @throws PgsqlException
  *
  */
-function pg_prepare($connection = null, string $stmtname = null, string $query = null)
+function pg_prepare($connection = null, ?string $stmtname = null, ?string $query = null)
 {
     error_clear_last();
     if ($query !== null) {
@@ -1000,7 +1001,7 @@ function pg_prepare($connection = null, string $stmtname = null, string $query =
  * @throws PgsqlException
  *
  */
-function pg_put_line($connection = null, string $data = null): void
+function pg_put_line($connection = null, ?string $data = null): void
 {
     error_clear_last();
     if ($data !== null) {
@@ -1067,7 +1068,7 @@ function pg_put_line($connection = null, string $data = null): void
  * @throws PgsqlException
  *
  */
-function pg_query_params($connection = null, string $query = null, array $params = null)
+function pg_query_params($connection = null, ?string $query = null, ?array $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -1126,7 +1127,7 @@ function pg_query_params($connection = null, string $query = null, array $params
  * @throws PgsqlException
  *
  */
-function pg_query($connection = null, string $query = null)
+function pg_query($connection = null, ?string $query = null)
 {
     error_clear_last();
     if ($query !== null) {
@@ -1211,9 +1212,15 @@ function pg_result_seek($result, int $row): void
  * array containing all records and fields that match the condition
  * specified by conditions.
  *
- * If flags is specified,
+ * If flags is set,
  * pg_convert is applied to
  * conditions with the specified flags.
+ *
+ * If mode is set,
+ * the return value will be in the form of an array
+ * with PGSQL_NUM, an associative array
+ * with PGSQL_ASSOC (default) or both
+ * with PGSQL_BOTH.
  *
  * By default pg_select passes raw values. Values
  * must be escaped or PGSQL_DML_ESCAPE option must be
@@ -1235,9 +1242,15 @@ function pg_result_seek($result, int $row): void
  * PGSQL_DML_EXEC,
  * PGSQL_DML_ASYNC or
  * PGSQL_DML_STRING combined. If PGSQL_DML_STRING is part of the
- * flags then query string is returned. When PGSQL_DML_NO_CONV
+ * flags then the query string is returned. When PGSQL_DML_NO_CONV
  * or PGSQL_DML_ESCAPE is set, it does not call pg_convert internally.
- * @param int $mode
+ * @param int $mode Any number of PGSQL_ASSOC,
+ * PGSQL_NUM or
+ * PGSQL_BOTH
+ * If PGSQL_ASSOC is set the return value will be an associative array,
+ * with PGSQL_NUM the return value will be an array, and
+ * with PGSQL_BOTH the return value will be both an associative and
+ * numerically indexed array.
  * @return mixed Returns string if PGSQL_DML_STRING is passed
  * via flags, otherwise it returns an array on success.
  * @throws PgsqlException
@@ -1251,6 +1264,24 @@ function pg_select($connection, string $table_name, array $conditions, int $flag
         throw PgsqlException::createFromPhpError();
     }
     return $safeResult;
+}
+
+
+/**
+ *
+ *
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
+ * @param int $size
+ * @throws PgsqlException
+ *
+ */
+function pg_set_chunked_rows_size(\PgSql\Connection $connection, int $size): void
+{
+    error_clear_last();
+    $safeResult = \pg_set_chunked_rows_size($connection, $size);
+    if ($safeResult === false) {
+        throw PgsqlException::createFromPhpError();
+    }
 }
 
 
@@ -1295,13 +1326,18 @@ function pg_socket($connection)
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
  * As of PHP 8.1.0, using the default connection is deprecated.
+ * @param int $trace_mode An optional trace mode with the following constants
+ * PGSQL_TRACE_SUPPRESS_TIMESTAMPS and
+ * PGSQL_TRACE_REGRESS_MODE
  * @throws PgsqlException
  *
  */
-function pg_trace(string $filename, string $mode = "w", $connection = null): void
+function pg_trace(string $filename, string $mode = "w", $connection = null, int $trace_mode = 0): void
 {
     error_clear_last();
-    if ($connection !== null) {
+    if ($trace_mode !== 0) {
+        $safeResult = \pg_trace($filename, $mode, $connection, $trace_mode);
+    } elseif ($connection !== null) {
         $safeResult = \pg_trace($filename, $mode, $connection);
     } else {
         $safeResult = \pg_trace($filename, $mode);

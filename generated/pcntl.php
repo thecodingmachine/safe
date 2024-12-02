@@ -19,7 +19,7 @@ use Safe\Exceptions\PcntlException;
  * @throws PcntlException
  *
  */
-function pcntl_getpriority(int $process_id = null, int $mode = PRIO_PROCESS): int
+function pcntl_getpriority(?int $process_id = null, int $mode = PRIO_PROCESS): int
 {
     error_clear_last();
     if ($mode !== PRIO_PROCESS) {
@@ -53,7 +53,7 @@ function pcntl_getpriority(int $process_id = null, int $mode = PRIO_PROCESS): in
  * @throws PcntlException
  *
  */
-function pcntl_setpriority(int $priority, int $process_id = null, int $mode = PRIO_PROCESS): void
+function pcntl_setpriority(int $priority, ?int $process_id = null, int $mode = PRIO_PROCESS): void
 {
     error_clear_last();
     if ($mode !== PRIO_PROCESS) {

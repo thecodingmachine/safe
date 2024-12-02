@@ -68,8 +68,8 @@ function preg_grep(string $pattern, array $array, int $flags = 0): array
  * ]]>
  *
  *
- * So, $out[0] contains array of strings that matched full pattern,
- * and $out[1] contains array of strings enclosed by tags.
+ * So, $out[0] contains an array of strings that matched the full pattern,
+ * and $out[1] contains an array of strings enclosed by tags.
  *
  *
  *
@@ -209,15 +209,15 @@ function preg_grep(string $pattern, array $array, int $flags = 0): array
  * ]]>
  *
  *
- * So, $out[0] contains array of strings that matched full pattern,
- * and $out[1] contains array of strings enclosed by tags.
+ * So, $out[0] contains an array of strings that matched the full pattern,
+ * and $out[1] contains an array of strings enclosed by tags.
  *
  *
  *
  * The above example will output:
  *
- * So, $out[0] contains array of strings that matched full pattern,
- * and $out[1] contains array of strings enclosed by tags.
+ * So, $out[0] contains an array of strings that matched the full pattern,
+ * and $out[1] contains an array of strings enclosed by tags.
  *
  * If the pattern contains named subpatterns, $matches
  * additionally contains entries for keys with the subpattern name.
@@ -339,15 +339,15 @@ function preg_grep(string $pattern, array $array, int $flags = 0): array
  * ]]>
  *
  *
- * So, $out[0] contains array of strings that matched full pattern,
- * and $out[1] contains array of strings enclosed by tags.
+ * So, $out[0] contains an array of strings that matched the full pattern,
+ * and $out[1] contains an array of strings enclosed by tags.
  *
  *
  *
  * The above example will output:
  *
- * So, $out[0] contains array of strings that matched full pattern,
- * and $out[1] contains array of strings enclosed by tags.
+ * So, $out[0] contains an array of strings that matched the full pattern,
+ * and $out[1] contains an array of strings enclosed by tags.
  *
  * If the pattern contains named subpatterns, $matches
  * additionally contains entries for keys with the subpattern name.

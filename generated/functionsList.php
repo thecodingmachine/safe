@@ -422,6 +422,7 @@ return [
     'imap_unsubscribe',
     'imap_utf8_to_mutf7',
     'inet_ntop',
+    'inet_pton',
     'inflate_add',
     'inflate_get_read_len',
     'inflate_init',

@@ -416,6 +416,30 @@ function inet_ntop(string $ip): string
 
 
 /**
+ * This function converts a human readable IPv4 or IPv6 address (if PHP
+ * was built with IPv6 support enabled) into an address family appropriate
+ * 32bit or 128bit binary structure.
+ *
+ * @param string $ip A human readable IPv4 or IPv6 address.
+ * @return string Returns the in_addr representation of the given
+ * ip, or FALSE if a syntactically invalid
+ * ip is given (for example, an IPv4 address
+ * without dots or an IPv6 address without colons).
+ * @throws NetworkException
+ *
+ */
+function inet_pton(string $ip): string
+{
+    error_clear_last();
+    $safeResult = \inet_pton($ip);
+    if ($safeResult === false) {
+        throw NetworkException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Returns an enumeration of network interfaces (adapters) on the local machine.
  *
  * @return array Returns an associative array where the key is the name of the interface and

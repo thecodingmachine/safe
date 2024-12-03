@@ -10,15 +10,11 @@ use Safe\PhpStanFunctions\PhpStanType;
 
 class Parameter
 {
-    /**
-     * @var PhpStanType
-     */
-    private $type;
+    private readonly PhpStanType $type;
 
     public function __construct(private \SimpleXMLElement $parameter, ?PhpStanFunction $phpStanFunction, int $position)
     {
         $phpStanParam = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameterName(), $position) : null;
-        
         $this->type = $phpStanParam ? $phpStanParam->getType() : new PhpStanType($this->parameter->type->__toString()); //todo: is this if useful?
     }
 

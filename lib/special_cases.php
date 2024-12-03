@@ -17,6 +17,7 @@ use Safe\Exceptions\JsonException;
 use Safe\Exceptions\OpensslException;
 use Safe\Exceptions\PcreException;
 use Safe\Exceptions\SimplexmlException;
+use Safe\Exceptions\StreamException;
 use Safe\Exceptions\FilesystemException;
 
 use const PREG_NO_ERROR;
@@ -439,6 +440,32 @@ function fgetcsv($stream, ?int $length = null, string $separator = ",", string $
     $safeResult = \fgetcsv($stream, $length, $separator, $enclosure, $escape);
     if ($safeResult === false && \feof($stream) === false) {
         throw FilesystemException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+/**
+ * Sets options on the specified context.
+ *
+ * @param resource $context The stream or context resource to apply the options to.
+ * @param array $options The options to set for context.
+ *
+ * options must be an associative
+ * array of associative arrays in the format
+ * $array['wrapper']['option'] = $value.
+ *
+ * Refer to context options and parameters
+ * for a listing of stream options.
+ * @return true Returns TRUE on success.
+ * @throws StreamException
+ *
+ */
+function stream_context_set_options($context, array $options): bool
+{
+    error_clear_last();
+    $safeResult = \stream_context_set_options($context, $options);
+    if ($safeResult === false) {
+        throw StreamException::createFromPhpError();
     }
     return $safeResult;
 }

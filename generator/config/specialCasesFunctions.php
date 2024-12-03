@@ -15,5 +15,9 @@ return [
     'simplexml_import_dom',
     'simplexml_load_file',
     'simplexml_load_string',
-    'fgetcsv',  // This function need to return false when iterating on an end of file.
+    // returns literal "true", which php8.1 doesn't support, so we implement
+    // this one manually and return "bool"
+    'stream_context_set_options',
+    // This function need to return false when iterating on an end of file.
+    'fgetcsv',
 ];

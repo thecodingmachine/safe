@@ -148,6 +148,8 @@ class PhpStanType
                 $type = ''; // resource cant be typehinted
             } elseif (\strpos($type, 'null') !== false) {
                 $type = ''; // null is a real typehint
+            } elseif (\strpos($type, 'true') !== false) {
+                $type = 'bool'; // php8.1 doesn't support "true" as a typehint
             }
         }
 

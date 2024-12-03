@@ -20,14 +20,13 @@ use Safe\Exceptions\StreamException;
  * @throws StreamException
  *
  */
-function stream_context_set_options($context, array $options): true
+function stream_context_set_options($context, array $options): void
 {
     error_clear_last();
     $safeResult = \stream_context_set_options($context, $options);
     if ($safeResult === false) {
         throw StreamException::createFromPhpError();
     }
-    return $safeResult;
 }
 
 

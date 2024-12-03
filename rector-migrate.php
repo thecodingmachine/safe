@@ -429,6 +429,7 @@ return static function (RectorConfig $rectorConfig): void {
             'imap_unsubscribe' => 'Safe\imap_unsubscribe',
             'imap_utf8_to_mutf7' => 'Safe\imap_utf8_to_mutf7',
             'inet_ntop' => 'Safe\inet_ntop',
+            'inet_pton' => 'Safe\inet_pton',
             'inflate_add' => 'Safe\inflate_add',
             'inflate_get_read_len' => 'Safe\inflate_get_read_len',
             'inflate_init' => 'Safe\inflate_init',

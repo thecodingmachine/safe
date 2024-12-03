@@ -131,6 +131,11 @@ class DocPage
             return true;
         }
 
+        //used to detect inet_pton
+        if (preg_match("/&false; if a syntactically invalid/m", $returnValuesSection)) {
+            return true;
+        }
+
         return false;
     }
 

@@ -81,11 +81,7 @@ class Parameter
             return true;
         }
 
-        if ($this->getDefaultValue() === "null") {
-            return true;
-        }
-
-        return $this->getDefaultValue() === "NULL";
+        return ($this->getDefaultValue() === "null");
     }
 
     /*
@@ -112,6 +108,10 @@ class Parameter
         // Some default value have weird values. For instance, first parameter of "mb_internal_encoding" has default value "mb_internal_encoding()"
         if (strpos($initializer, '(') !== false) {
             return null;
+        }
+
+        if ($initializer === "NULL") {
+            return "null";
         }
 
         return $initializer;

@@ -28,6 +28,9 @@ class FileCreator
 
         foreach ($phpFunctionsByModule as $module => $phpFunctions) {
             $lcModule = \lcfirst($module);
+            if (!is_dir($path)) {
+                \mkdir($path);
+            }
             $stream = \fopen($path.$lcModule.'.php', 'w');
             if ($stream === false) {
                 throw new \RuntimeException('Unable to write to '.$path);
@@ -41,6 +44,27 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
             }
             \fclose($stream);
         }
+    }
+
+    /**
+     * @param string[] $versions
+     */
+    public function generateVersionSplitters(string $module, string $path, array $versions): void
+    {
+            $lcModule = \lcfirst($module);
+            $stream = \fopen($path.$lcModule.'.php', 'w');
+        if ($stream === false) {
+            throw new \RuntimeException('Unable to write to '.$path);
+        }
+            \fwrite($stream, "<?php\n");
+        foreach ($versions as $version) {
+            if (file_exists("$path/$version/$lcModule.php")) {
+                \fwrite($stream, "\nif(strpos(PHP_VERSION, \"$version.\") === 0) {");
+                \fwrite($stream, "\n    require_once __DIR__ . '/$version/$lcModule.php';");
+                  \fwrite($stream, "\n}");
+            }
+        }
+            \fclose($stream);
     }
 
     /**

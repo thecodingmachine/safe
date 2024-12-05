@@ -1,65 +1,17 @@
 <?php
 
-namespace Safe;
-
-use Safe\Exceptions\ReadlineException;
-
-/**
- * This function registers a completion function. This is the same kind of
- * functionality you'd get if you hit your tab key while using Bash.
- *
- * @param callable $callback You must supply the name of an existing function which accepts a
- * partial command line and returns an array of possible matches.
- * @throws ReadlineException
- *
- */
-function readline_completion_function(callable $callback): void
-{
-    error_clear_last();
-    $safeResult = \readline_completion_function($callback);
-    if ($safeResult === false) {
-        throw ReadlineException::createFromPhpError();
-    }
+if (strpos(PHP_VERSION, "8.1.") === 0) {
+    require_once __DIR__ . '/8.1/readline.php';
 }
-
-
-/**
- * This function reads a command history from a file.
- *
- * @param string $filename Path to the filename containing the command history.
- * @throws ReadlineException
- *
- */
-function readline_read_history(?string $filename = null): void
-{
-    error_clear_last();
-    if ($filename !== null) {
-        $safeResult = \readline_read_history($filename);
-    } else {
-        $safeResult = \readline_read_history();
-    }
-    if ($safeResult === false) {
-        throw ReadlineException::createFromPhpError();
-    }
+if (strpos(PHP_VERSION, "8.2.") === 0) {
+    require_once __DIR__ . '/8.2/readline.php';
 }
-
-
-/**
- * This function writes the command history to a file.
- *
- * @param string $filename Path to the saved file.
- * @throws ReadlineException
- *
- */
-function readline_write_history(?string $filename = null): void
-{
-    error_clear_last();
-    if ($filename !== null) {
-        $safeResult = \readline_write_history($filename);
-    } else {
-        $safeResult = \readline_write_history();
-    }
-    if ($safeResult === false) {
-        throw ReadlineException::createFromPhpError();
-    }
+if (strpos(PHP_VERSION, "8.3.") === 0) {
+    require_once __DIR__ . '/8.3/readline.php';
+}
+if (strpos(PHP_VERSION, "8.4.") === 0) {
+    require_once __DIR__ . '/8.4/readline.php';
+}
+if (strpos(PHP_VERSION, "8.5.") === 0) {
+    require_once __DIR__ . '/8.5/readline.php';
 }

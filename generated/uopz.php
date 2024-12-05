@@ -1,40 +1,17 @@
 <?php
 
-namespace Safe;
-
-use Safe\Exceptions\UopzException;
-
-/**
- * Makes class extend parent
- *
- * @param string $class The name of the class to extend
- * @param string $parent The name of the class to inherit
- * @throws UopzException
- *
- */
-function uopz_extend(string $class, string $parent): void
-{
-    error_clear_last();
-    $safeResult = \uopz_extend($class, $parent);
-    if ($safeResult === false) {
-        throw UopzException::createFromPhpError();
-    }
+if (strpos(PHP_VERSION, "8.1.") === 0) {
+    require_once __DIR__ . '/8.1/uopz.php';
 }
-
-
-/**
- * Makes class implement interface
- *
- * @param string $class
- * @param string $interface
- * @throws UopzException
- *
- */
-function uopz_implement(string $class, string $interface): void
-{
-    error_clear_last();
-    $safeResult = \uopz_implement($class, $interface);
-    if ($safeResult === false) {
-        throw UopzException::createFromPhpError();
-    }
+if (strpos(PHP_VERSION, "8.2.") === 0) {
+    require_once __DIR__ . '/8.2/uopz.php';
+}
+if (strpos(PHP_VERSION, "8.3.") === 0) {
+    require_once __DIR__ . '/8.3/uopz.php';
+}
+if (strpos(PHP_VERSION, "8.4.") === 0) {
+    require_once __DIR__ . '/8.4/uopz.php';
+}
+if (strpos(PHP_VERSION, "8.5.") === 0) {
+    require_once __DIR__ . '/8.5/uopz.php';
 }

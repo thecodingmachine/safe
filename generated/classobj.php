@@ -1,26 +1,17 @@
 <?php
 
-namespace Safe;
-
-use Safe\Exceptions\ClassobjException;
-
-/**
- * Creates an alias named alias
- * based on the user defined class class.
- * The aliased class is exactly the same as the original class.
- *
- * @param string $class The original class.
- * @param string $alias The alias name for the class.
- * @param bool $autoload Whether to autoload
- * if the original class is not found.
- * @throws ClassobjException
- *
- */
-function class_alias(string $class, string $alias, bool $autoload = true): void
-{
-    error_clear_last();
-    $safeResult = \class_alias($class, $alias, $autoload);
-    if ($safeResult === false) {
-        throw ClassobjException::createFromPhpError();
-    }
+if (strpos(PHP_VERSION, "8.1.") === 0) {
+    require_once __DIR__ . '/8.1/classobj.php';
+}
+if (strpos(PHP_VERSION, "8.2.") === 0) {
+    require_once __DIR__ . '/8.2/classobj.php';
+}
+if (strpos(PHP_VERSION, "8.3.") === 0) {
+    require_once __DIR__ . '/8.3/classobj.php';
+}
+if (strpos(PHP_VERSION, "8.4.") === 0) {
+    require_once __DIR__ . '/8.4/classobj.php';
+}
+if (strpos(PHP_VERSION, "8.5.") === 0) {
+    require_once __DIR__ . '/8.5/classobj.php';
 }

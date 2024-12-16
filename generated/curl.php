@@ -57,7 +57,7 @@ function curl_escape(\CurlHandle $handle, string $string): string
  * stdout and returns TRUE.
  * However, if the CURLOPT_RETURNTRANSFER
  * option is set, it will return
- * the result on success, FALSE on failure.
+ * the result on success.
  * @throws CurlException
  *
  */
@@ -284,7 +284,7 @@ function curl_init(?string $url = null): \CurlHandle
  * @param \CurlMultiHandle $multi_handle A cURL multi handle returned by
  * curl_multi_init.
  * @param int|null $queued_messages Number of messages that are still in the queue
- * @return array On success, returns an associative array for the message, FALSE on failure.
+ * @return array On success, returns an associative array for the message.
  *
  *
  * Contents of the returned array

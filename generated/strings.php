@@ -52,7 +52,7 @@ function hex2bin(string $string): string
  * @param string $filename The filename
  * @param bool $binary When TRUE, returns the digest in raw binary format with a length of
  * 16.
- * @return string Returns a string on success, FALSE otherwise.
+ * @return string Returns a string on success.
  * @throws StringsException
  *
  */
@@ -73,7 +73,7 @@ function md5_file(string $filename, bool $binary = false): string
  * @param string $filename The filename of the file to hash.
  * @param bool $binary When TRUE, returns the digest in raw binary format with a length of
  * 20.
- * @return string Returns a string on success, FALSE otherwise.
+ * @return string Returns a string on success.
  * @throws StringsException
  *
  */

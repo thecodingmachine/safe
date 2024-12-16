@@ -384,17 +384,18 @@ function ssh2_exec($session, string $command, ?string $pty = null, ?array $env =
  * Accepts a connection created by a listener.
  *
  * @param resource $listener An SSH2 Listener resource, obtained from a call to ssh2_forward_listen.
- * @return  Returns a stream resource.
+ * @return resource Returns a stream resource.
  * @throws Ssh2Exception
  *
  */
-function ssh2_forward_accept($listener): void
+function ssh2_forward_accept($listener)
 {
     error_clear_last();
     $safeResult = \ssh2_forward_accept($listener);
     if ($safeResult === false) {
         throw Ssh2Exception::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -405,11 +406,11 @@ function ssh2_forward_accept($listener): void
  * @param int $port The port of the remote server.
  * @param string $host
  * @param int $max_connections
- * @return  Returns an SSH2 Listener.
+ * @return resource Returns an SSH2 Listener.
  * @throws Ssh2Exception
  *
  */
-function ssh2_forward_listen($session, int $port, ?string $host = null, int $max_connections = 16): void
+function ssh2_forward_listen($session, int $port, ?string $host = null, int $max_connections = 16)
 {
     error_clear_last();
     if ($max_connections !== 16) {
@@ -422,6 +423,7 @@ function ssh2_forward_listen($session, int $port, ?string $host = null, int $max
     if ($safeResult === false) {
         throw Ssh2Exception::createFromPhpError();
     }
+    return $safeResult;
 }
 
 

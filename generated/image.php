@@ -755,17 +755,18 @@ function imagecreate(int $width, int $height)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the AVIF raster image.
- * @return  Returns an image object on success, FALSE on errors.
+ * @return \GdImage Returns an image object on success, FALSE on errors.
  * @throws ImageException
  *
  */
-function imagecreatefromavif(string $filename): void
+function imagecreatefromavif(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromavif($filename);
     if ($safeResult === false) {
         throw ImageException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -939,17 +940,18 @@ function imagecreatefromstring(string $data)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the Truevision TGA image.
- * @return  Returns an image object on success, FALSE on errors.
+ * @return \GdImage Returns an image object on success, FALSE on errors.
  * @throws ImageException
  *
  */
-function imagecreatefromtga(string $filename): void
+function imagecreatefromtga(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromtga($filename);
     if ($safeResult === false) {
         throw ImageException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -1825,7 +1827,7 @@ function imagegif($image, $file = null): void
 /**
  * Grabs a screenshot of the whole screen.
  *
- * @return resource Returns an image object on success, FALSE on failure.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -1845,7 +1847,7 @@ function imagegrabscreen()
  *
  * @param int $handle The HWND window ID.
  * @param bool $client_area Include the client area of the application window.
- * @return \GdImage Returns an image object on success, FALSE on failure.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */

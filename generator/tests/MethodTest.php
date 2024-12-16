@@ -116,4 +116,12 @@ class MethodTest extends TestCase
         $this->assertEquals("@return bool|null Returns TRUE if the next result was successfully retrieved, FALSE if an error \n   occurred, and NULL if there are no more results to retrieve.\n", $method->getReturnDocBlock());
         $this->assertEquals('?bool', $method->getSignatureReturnType());
     }
+
+    public function testOpensslCipherKeyLengthUnionTypeReturnDocBlocks(): void
+    {
+        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/openssl/functions/openssl-cipher-key-length.xml');
+        $xmlObject = $docPage->getMethodSynopsis();
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
+        $this->assertEquals("@return int Returns the cipher length on success,  or false on failure.\n", $method->getReturnDocBlock());
+    }
 }

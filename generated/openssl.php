@@ -995,7 +995,12 @@ function openssl_pkey_export($key, ?string &$output, ?string $passphrase = null,
  * OPENSSL_KEYTYPE_RSA,
  * OPENSSL_KEYTYPE_DSA,
  * OPENSSL_KEYTYPE_DH,
- * OPENSSL_KEYTYPE_EC or -1 meaning unknown).
+ * OPENSSL_KEYTYPE_EC,
+ * OPENSSL_KEYTYPE_X25519,
+ * OPENSSL_KEYTYPE_ED25519,
+ * OPENSSL_KEYTYPE_X448,
+ * OPENSSL_KEYTYPE_ED448,
+ * or -1 meaning unknown).
  *
  * Depending on the key type used, additional details may be returned. Note that
  * some elements may not always be available.
@@ -1082,10 +1087,344 @@ function openssl_pkey_get_public($public_key): \OpenSSLAsymmetricKey
  * key.
  * How to obtain the public component of the key is shown in an example below.
  *
- * @param array $options You can finetune the key generation (such as specifying the number of
- * bits) using options.  See
- * openssl_csr_new for more information about
- * options.
+ * @param array $options It is possible to fine-tune the key generation (e.g. specifying the number of
+ * bits or parameters) using the options parameter.
+ * These options can either be algorithm-specific parameters used for key generation,
+ * or generic options used also in CSRgeneration if not specified.
+ * See openssl_csr_new for more information
+ * about how to use options for a CSR.
+ * Among those options only private_key_bits,
+ * private_key_type, curve_name,
+ * and config are used for key generation.
+ * Algorithm-specific options are used if the associative array includes one of the specific keys.
+ *
+ *
+ *
+ * "rsa" key for setting RSA parameters.
+ *
+ *
+ *
+ *
+ *
+ * options
+ * type
+ * format
+ * required
+ * description
+ *
+ *
+ *
+ *
+ * "n"
+ * string
+ * binary number
+ * yes
+ * modulus
+ *
+ *
+ * "e"
+ * string
+ * binary number
+ * no
+ * public exponent
+ *
+ *
+ * "d"
+ * string
+ * binary number
+ * yes
+ * private exponent
+ *
+ *
+ * "p"
+ * string
+ * binary number
+ * no
+ * prime 1
+ *
+ *
+ * "q"
+ * string
+ * binary number
+ * no
+ * prime 2
+ *
+ *
+ * "dmp1"
+ * string
+ * binary number
+ * no
+ * exponent1, d mod (p-1)
+ *
+ *
+ * "dmq1"
+ * string
+ * binary number
+ * no
+ * exponent2, d mod (q-1)
+ *
+ *
+ * "iqmp"
+ * string
+ * binary number
+ * no
+ * coefficient, (inverse of q) mod p
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * "dsa" key for setting DSA parameters.
+ *
+ *
+ *
+ *
+ *
+ * options
+ * type
+ * format
+ * required
+ * description
+ *
+ *
+ *
+ *
+ * "p"
+ * string
+ * binary number
+ * no
+ * prime number (public)
+ *
+ *
+ * "q"
+ * string
+ * binary number
+ * no
+ * 160-bit subprime, q | p-1 (public)
+ *
+ *
+ * "g"
+ * string
+ * binary number
+ * no
+ * generator of subgroup (public)
+ *
+ *
+ * "priv_key"
+ * string
+ * PEM key
+ * no
+ * private key x
+ *
+ *
+ * "pub_key"
+ * string
+ * PEM key
+ * no
+ * public key y = g^x
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * "dh" key for DH (Diffie–Hellman key exchange) parameters.
+ *
+ *
+ *
+ *
+ *
+ * Options
+ * Type
+ * Format
+ * Required
+ * Description
+ *
+ *
+ *
+ *
+ * "p"
+ * string
+ * binary number
+ * no
+ * prime number (shared)
+ *
+ *
+ * "g"
+ * string
+ * binary number
+ * no
+ * generator of Z_p (shared)
+ *
+ *
+ * "priv_key"
+ * string
+ * PEM key
+ * no
+ * private DH value x
+ *
+ *
+ * "pub_key"
+ * string
+ * PEM key
+ * no
+ * public DH value g^x
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * "ec" key for Elliptic curve parameters
+ *
+ *
+ *
+ *
+ *
+ * Options
+ * Type
+ * Format
+ * Required
+ * Description
+ *
+ *
+ *
+ *
+ * "curve_name"
+ * string
+ * name
+ * no
+ * name of curve, see openssl_get_curve_names
+ *
+ *
+ * "p"
+ * string
+ * binary number
+ * no
+ * prime of the field for curve over Fp
+ *
+ *
+ * "a"
+ * string
+ * binary number
+ * no
+ * coofecient a of the curve for Fp: y^2 mod p = x^3 + ax + b mod p
+ *
+ *
+ * "b"
+ * string
+ * binary number
+ * no
+ * coofecient b of the curve for Fp: y^2 mod p = x^3 + ax + b mod p
+ *
+ *
+ * "seed"
+ * string
+ * binary number
+ * no
+ * optional random number seed used to generate coefficient b
+ *
+ *
+ * "generator"
+ * string
+ * binary encoded point
+ * no
+ * curve generator point
+ *
+ *
+ * "g_x"
+ * string
+ * binary number
+ * no
+ * curver generator point x coordinat
+ *
+ *
+ * "g_y"
+ * string
+ * binary number
+ * no
+ * curver generator point y coordinat
+ *
+ *
+ * "cofactor"
+ * string
+ * binary number
+ * no
+ * curve cofactor
+ *
+ *
+ * "order"
+ * string
+ * binary number
+ * no
+ * curve order
+ *
+ *
+ * "x"
+ * string
+ * binary number
+ * no
+ * x coordinate (public)
+ *
+ *
+ * "y"
+ * string
+ * binary number
+ * no
+ * y coordinate (public)
+ *
+ *
+ * "d"
+ * string
+ * binary number
+ * no
+ * private key
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ * "x25519", "x448",
+ * "ed25519", "ed448" keys for
+ * Curve25519 and Curve448 parameters.
+ *
+ *
+ *
+ *
+ *
+ * Options
+ * Type
+ * Format
+ * Required
+ * Description
+ *
+ *
+ *
+ *
+ * "priv_key"
+ * string
+ * PEM key
+ * no
+ * private key
+ *
+ *
+ * "pub_key"
+ * string
+ * PEM key
+ * no
+ * public key
+ *
+ *
+ *
+ *
+ *
+ *
  * @return resource Returns an OpenSSLAsymmetricKey instance for
  * the pkey on success.
  * @throws OpensslException

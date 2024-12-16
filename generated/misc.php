@@ -54,7 +54,7 @@ function define(string $constant_name, $value, bool $case_insensitive = false): 
  * highlighted code.
  * @return string|bool If return is set to TRUE, returns the highlighted
  * code as a string instead of printing it out. Otherwise, it will return
- * TRUE on success, FALSE on failure.
+ * TRUE on success.
  * @throws MiscException
  *
  */
@@ -216,7 +216,7 @@ function sapi_windows_set_ctrl_handler($handler, bool $add = true): void
 
 
 /**
- * If enable is NULL, the function returns TRUE if the stream stream has VT100 control codes enabled, FALSE otherwise.
+ * If enable is NULL, the function returns TRUE if the stream stream has VT100 control codes enabled.
  *
  * If enable is a bool, the function will try to enable or disable the VT100 features of the stream stream.
  * If the feature has been successfully enabled (or disabled).

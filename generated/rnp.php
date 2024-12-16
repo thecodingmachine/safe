@@ -11,17 +11,18 @@ use Safe\Exceptions\RnpException;
  *
  * @param \RnpFFI $ffi The FFI object returned by rnp_ffi_create.
  * @param string $input Encrypted message.
- * @return  Decrypted message on success.
+ * @return string Decrypted message on success.
  * @throws RnpException
  *
  */
-function rnp_decrypt(\RnpFFI $ffi, string $input): void
+function rnp_decrypt(\RnpFFI $ffi, string $input): string
 {
     error_clear_last();
     $safeResult = \rnp_decrypt($ffi, $input);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -30,17 +31,18 @@ function rnp_decrypt(\RnpFFI $ffi, string $input): void
  *
  * @param string $input Input string containing OpenPGP data, either in binary or ASCII-armored format.
  * @param int $flags See RNP_JSON_DUMP_* predefined constants.
- * @return  JSON string with dump.
+ * @return string JSON string with dump.
  * @throws RnpException
  *
  */
-function rnp_dump_packets_to_json(string $input, int $flags): void
+function rnp_dump_packets_to_json(string $input, int $flags): string
 {
     error_clear_last();
     $safeResult = \rnp_dump_packets_to_json($input, $flags);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -49,17 +51,18 @@ function rnp_dump_packets_to_json(string $input, int $flags): void
  *
  * @param string $input Input string containing OpenPGP data, either in binary or ASCII-armored format.
  * @param int $flags See RNP_DUMP_* predefined constants.
- * @return  Text describing packet sequence.
+ * @return string Text describing packet sequence.
  * @throws RnpException
  *
  */
-function rnp_dump_packets(string $input, int $flags): void
+function rnp_dump_packets(string $input, int $flags): string
 {
     error_clear_last();
     $safeResult = \rnp_dump_packets($input, $flags);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -70,17 +73,18 @@ function rnp_dump_packets(string $input, int $flags): void
  * RNP_KEYSTORE_* constant.
  * @param string $sec_format the format of the secret keyring, RNP_KEYSTORE_GPG or other
  * RNP_KEYSTORE_* constant
- * @return  Returns RnpFFI object on success.
+ * @return \RnpFFI Returns RnpFFI object on success.
  * @throws RnpException
  *
  */
-function rnp_ffi_create(string $pub_format, string $sec_format): void
+function rnp_ffi_create(string $pub_format, string $sec_format): \RnpFFI
 {
     error_clear_last();
     $safeResult = \rnp_ffi_create($pub_format, $sec_format);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -123,17 +127,18 @@ function rnp_ffi_set_pass_provider(\RnpFFI $ffi, callable $password_callback): v
  * @param \RnpFFI $ffi The FFI object returned by rnp_ffi_create.
  * @param string $input OpenPGP packets containing key(s) to be loaded. Can be either binary or ASCII armored.
  * @param int $flags See RNP_LOAD_SAVE_* predefined constants.
- * @return  JSON string with information about new and updated keys on success.
+ * @return string JSON string with information about new and updated keys on success.
  * @throws RnpException
  *
  */
-function rnp_import_keys(\RnpFFI $ffi, string $input, int $flags): void
+function rnp_import_keys(\RnpFFI $ffi, string $input, int $flags): string
 {
     error_clear_last();
     $safeResult = \rnp_import_keys($ffi, $input, $flags);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -143,17 +148,18 @@ function rnp_import_keys(\RnpFFI $ffi, string $input, int $flags): void
  * @param \RnpFFI $ffi The FFI object returned by rnp_ffi_create.
  * @param string $input OpenPGP packets containing signatures to be imported. Can be either binary or ASCII armored.
  * @param int $flags Currently must be 0.
- * @return  JSON string with information about updated keys on success.
+ * @return string JSON string with information about updated keys on success.
  * @throws RnpException
  *
  */
-function rnp_import_signatures(\RnpFFI $ffi, string $input, int $flags): void
+function rnp_import_signatures(\RnpFFI $ffi, string $input, int $flags): string
 {
     error_clear_last();
     $safeResult = \rnp_import_signatures($ffi, $input, $flags);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -168,17 +174,18 @@ function rnp_import_signatures(\RnpFFI $ffi, string $input, int $flags): void
  * if exported key has only one uid.
  * @param int $flags Only RNP_KEY_EXPORT_BASE64 is currently supported. Enabling
  * it would export base64-encoded key data instead of binary.
- * @return  OpenPGP packets of exported key on success.
+ * @return string OpenPGP packets of exported key on success.
  * @throws RnpException
  *
  */
-function rnp_key_export_autocrypt(\RnpFFI $ffi, string $key_fp, string $subkey_fp, string $uid, int $flags): void
+function rnp_key_export_autocrypt(\RnpFFI $ffi, string $key_fp, string $subkey_fp, string $uid, int $flags): string
 {
     error_clear_last();
     $safeResult = \rnp_key_export_autocrypt($ffi, $key_fp, $subkey_fp, $uid, $flags);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -190,11 +197,11 @@ function rnp_key_export_autocrypt(\RnpFFI $ffi, string $key_fp, string $subkey_f
  * @param string $key_fp Key fingerprint of the primary key to be revoked.
  * @param int $flags RNP_KEY_EXPORT_ARMORED or 0.
  * @param array $options An associative array with options.
- * @return  Exported revocation signature on success.
+ * @return string Exported revocation signature on success.
  * @throws RnpException
  *
  */
-function rnp_key_export_revocation(\RnpFFI $ffi, string $key_fp, int $flags, ?array $options = null): void
+function rnp_key_export_revocation(\RnpFFI $ffi, string $key_fp, int $flags, ?array $options = null): string
 {
     error_clear_last();
     if ($options !== null) {
@@ -205,6 +212,7 @@ function rnp_key_export_revocation(\RnpFFI $ffi, string $key_fp, int $flags, ?ar
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -215,17 +223,18 @@ function rnp_key_export_revocation(\RnpFFI $ffi, string $key_fp, int $flags, ?ar
  * @param string $key_fp Key fingerprint.
  * @param int $flags See RNP_KEY_EXPORT_* predefined constants
  * (except RNP_KEY_EXPORT_BASE64).
- * @return  OpenPGP packets of exported key (binary or ASCII-armored) on success.
+ * @return string OpenPGP packets of exported key (binary or ASCII-armored) on success.
  * @throws RnpException
  *
  */
-function rnp_key_export(\RnpFFI $ffi, string $key_fp, int $flags): void
+function rnp_key_export(\RnpFFI $ffi, string $key_fp, int $flags): string
 {
     error_clear_last();
     $safeResult = \rnp_key_export($ffi, $key_fp, $flags);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -234,17 +243,18 @@ function rnp_key_export(\RnpFFI $ffi, string $key_fp, int $flags): void
  *
  * @param \RnpFFI $ffi The FFI object returned by rnp_ffi_create.
  * @param string $key_fp Key fingerprint.
- * @return  An associative array with information about the key.
+ * @return array An associative array with information about the key.
  * @throws RnpException
  *
  */
-function rnp_key_get_info(\RnpFFI $ffi, string $key_fp): void
+function rnp_key_get_info(\RnpFFI $ffi, string $key_fp): array
 {
     error_clear_last();
     $safeResult = \rnp_key_get_info($ffi, $key_fp);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -297,17 +307,18 @@ function rnp_key_revoke(\RnpFFI $ffi, string $key_fp, int $flags, ?array $option
  *
  * @param \RnpFFI $ffi The FFI object returned by rnp_ffi_create.
  * @param string $identifier_type Key identifier type ("userid", "keyid", "grip", "fingerprint").
- * @return  An associative array where key is an identifier string and value is a PGP key fingerprint.
+ * @return array An associative array where key is an identifier string and value is a PGP key fingerprint.
  * @throws RnpException
  *
  */
-function rnp_list_keys(\RnpFFI $ffi, string $identifier_type): void
+function rnp_list_keys(\RnpFFI $ffi, string $identifier_type): array
 {
     error_clear_last();
     $safeResult = \rnp_list_keys($ffi, $identifier_type);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -358,17 +369,18 @@ function rnp_load_keys(\RnpFFI $ffi, string $format, string $input, int $flags):
  * @param string $identifier_type Identifier type string: "userid", "keyid", "fingerprint", "grip".
  * @param string $identifier PGP User ID (name and email) for "userid" type, hexadecimal string
  * that represents key id, fingerprint or key grip correspondingly.
- * @return  Returns hexadecimal fingerprint of the key found on success.
+ * @return string Returns hexadecimal fingerprint of the key found on success.
  * @throws RnpException
  *
  */
-function rnp_locate_key(\RnpFFI $ffi, string $identifier_type, string $identifier): void
+function rnp_locate_key(\RnpFFI $ffi, string $identifier_type, string $identifier): string
 {
     error_clear_last();
     $safeResult = \rnp_locate_key($ffi, $identifier_type, $identifier);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -379,11 +391,11 @@ function rnp_locate_key(\RnpFFI $ffi, string $identifier_type, string $identifie
  * @param string $message Message to be encrypted.
  * @param array $recipient_keys_fp Array with fingerprints of recipient's keys. At least one key must be present.
  * @param array $options An associative array with options.
- * @return  Encrypted data on success.
+ * @return string Encrypted data on success.
  * @throws RnpException
  *
  */
-function rnp_op_encrypt(\RnpFFI $ffi, string $message, array $recipient_keys_fp, ?array $options = null): void
+function rnp_op_encrypt(\RnpFFI $ffi, string $message, array $recipient_keys_fp, ?array $options = null): string
 {
     error_clear_last();
     if ($options !== null) {
@@ -394,6 +406,7 @@ function rnp_op_encrypt(\RnpFFI $ffi, string $message, array $recipient_keys_fp,
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -406,14 +419,14 @@ function rnp_op_encrypt(\RnpFFI $ffi, string $message, array $recipient_keys_fp,
  * @param string $key_alg Primary key algorithm (i.e. 'RSA', 'DSA', etc).
  * @param string $sub_alg Subkey algorithm. If not set, subkey will not be generated.
  * @param array $options An associative array with options.
- * @return  Fingerprint of the generated primary key. This fingerprint can be used
+ * @return string Fingerprint of the generated primary key. This fingerprint can be used
  * later to reference the key in sign and encrypt operations. The key data is stored in FFI
  * memory context and can be saved using
  * rnp_save_keys or rnp_save_keys_to_path.
  * @throws RnpException
  *
  */
-function rnp_op_generate_key(\RnpFFI $ffi, string $userid, string $key_alg, ?string $sub_alg = null, ?array $options = null): void
+function rnp_op_generate_key(\RnpFFI $ffi, string $userid, string $key_alg, ?string $sub_alg = null, ?array $options = null): string
 {
     error_clear_last();
     if ($options !== null) {
@@ -426,6 +439,7 @@ function rnp_op_generate_key(\RnpFFI $ffi, string $userid, string $key_alg, ?str
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -437,12 +451,12 @@ function rnp_op_generate_key(\RnpFFI $ffi, string $userid, string $key_alg, ?str
  * @param array $keys_fp Array with key fingerprints. At least one key must be provided.
  * Keys should be present in ffi.
  * @param array $options An associative array with options.
- * @return  Cleartext signed message containing source data with
+ * @return string Cleartext signed message containing source data with
  * additional headers and ASCII-armored signature on success.
  * @throws RnpException
  *
  */
-function rnp_op_sign_cleartext(\RnpFFI $ffi, string $data, array $keys_fp, ?array $options = null): void
+function rnp_op_sign_cleartext(\RnpFFI $ffi, string $data, array $keys_fp, ?array $options = null): string
 {
     error_clear_last();
     if ($options !== null) {
@@ -453,6 +467,7 @@ function rnp_op_sign_cleartext(\RnpFFI $ffi, string $data, array $keys_fp, ?arra
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -464,11 +479,11 @@ function rnp_op_sign_cleartext(\RnpFFI $ffi, string $data, array $keys_fp, ?arra
  * @param array $keys_fp Array with key fingerprints. At least one key must be provided.
  * Keys should be present in ffi.
  * @param array $options An associative array with options.
- * @return  Detached signature(s) data on success.
+ * @return string Detached signature(s) data on success.
  * @throws RnpException
  *
  */
-function rnp_op_sign_detached(\RnpFFI $ffi, string $data, array $keys_fp, ?array $options = null): void
+function rnp_op_sign_detached(\RnpFFI $ffi, string $data, array $keys_fp, ?array $options = null): string
 {
     error_clear_last();
     if ($options !== null) {
@@ -479,6 +494,7 @@ function rnp_op_sign_detached(\RnpFFI $ffi, string $data, array $keys_fp, ?array
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -490,11 +506,11 @@ function rnp_op_sign_detached(\RnpFFI $ffi, string $data, array $keys_fp, ?array
  * @param array $keys_fp Array with key fingerprints. At least one key must be provided.
  * Keys should be present in ffi.
  * @param array $options An associative array with options.
- * @return  Data with embedded signature(s) on success.
+ * @return string Data with embedded signature(s) on success.
  * @throws RnpException
  *
  */
-function rnp_op_sign(\RnpFFI $ffi, string $data, array $keys_fp, ?array $options = null): void
+function rnp_op_sign(\RnpFFI $ffi, string $data, array $keys_fp, ?array $options = null): string
 {
     error_clear_last();
     if ($options !== null) {
@@ -505,6 +521,7 @@ function rnp_op_sign(\RnpFFI $ffi, string $data, array $keys_fp, ?array $options
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -514,19 +531,20 @@ function rnp_op_sign(\RnpFFI $ffi, string $data, array $keys_fp, ?array $options
  * @param \RnpFFI $ffi The FFI object returned by rnp_ffi_create.
  * @param string $data Source data.
  * @param string $signature Detached signature data.
- * @return  An associative array with information about verification results.
+ * @return array An associative array with information about verification results.
  *
  * "signatures" sub-array.
  * @throws RnpException
  *
  */
-function rnp_op_verify_detached(\RnpFFI $ffi, string $data, string $signature): void
+function rnp_op_verify_detached(\RnpFFI $ffi, string $data, string $signature): array
 {
     error_clear_last();
     $safeResult = \rnp_op_verify_detached($ffi, $data, $signature);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -535,19 +553,20 @@ function rnp_op_verify_detached(\RnpFFI $ffi, string $data, string $signature): 
  *
  * @param \RnpFFI $ffi The FFI object returned by rnp_ffi_create.
  * @param string $data Signed data.
- * @return  An associative array with information about verification results.
+ * @return array An associative array with information about verification results.
  *
  * "signatures" sub-array.
  * @throws RnpException
  *
  */
-function rnp_op_verify(\RnpFFI $ffi, string $data): void
+function rnp_op_verify(\RnpFFI $ffi, string $data): array
 {
     error_clear_last();
     $safeResult = \rnp_op_verify($ffi, $data);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -595,15 +614,16 @@ function rnp_save_keys(\RnpFFI $ffi, string $format, string &$output, int $flags
  * Get the JSON formatted string containing array of supported rnp feature values (algorithms, curves, etc) by type.
  *
  * @param string $type See RNP_FEATURE_* constants for supported values.
- * @return  String containing JSON formatted array of supported algorithms, curves, etc.
+ * @return string String containing JSON formatted array of supported algorithms, curves, etc.
  * @throws RnpException
  *
  */
-function rnp_supported_features(string $type): void
+function rnp_supported_features(string $type): string
 {
     error_clear_last();
     $safeResult = \rnp_supported_features($type);
     if ($safeResult === false) {
         throw RnpException::createFromPhpError();
     }
+    return $safeResult;
 }

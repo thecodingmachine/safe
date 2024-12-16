@@ -899,7 +899,7 @@ function strptime(string $timestamp, string $format): array
  * @param string $datetime A date/time string. Valid formats are explained in Date and Time Formats.
  * @param int $baseTimestamp The timestamp which is used as a base for the calculation of relative
  * dates.
- * @return int Returns a timestamp on success, FALSE otherwise.
+ * @return int Returns a timestamp on success.
  * @throws DatetimeException
  *
  */

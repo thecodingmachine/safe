@@ -465,7 +465,7 @@ function stream_socket_accept($socket, ?float $timeout = null, ?string &$peer_na
  * be used together with the other file functions (such as
  * fgets, fgetss,
  * fwrite, fclose, and
- * feof), FALSE on failure.
+ * feof).
  * @throws StreamException
  *
  */

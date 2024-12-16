@@ -12,7 +12,7 @@ use Safe\Exceptions\SsdeepException;
  *
  * @param string $signature1 The first fuzzy hash signature string.
  * @param string $signature2 The second fuzzy hash signature string.
- * @return int Returns an integer from 0 to 100 on success, FALSE otherwise.
+ * @return int Returns an integer from 0 to 100 on success.
  * @throws SsdeepException
  *
  */
@@ -34,7 +34,7 @@ function ssdeep_fuzzy_compare(string $signature1, string $signature2): int
  * hashing, and returns that hash.
  *
  * @param string $file_name The filename of the file to hash.
- * @return string Returns a string on success, FALSE otherwise.
+ * @return string Returns a string on success.
  * @throws SsdeepException
  *
  */
@@ -55,7 +55,7 @@ function ssdeep_fuzzy_hash_filename(string $file_name): string
  * context-triggered piecewise hashing, and returns that hash.
  *
  * @param string $to_hash The input string.
- * @return string Returns a string on success, FALSE otherwise.
+ * @return string Returns a string on success.
  * @throws SsdeepException
  *
  */

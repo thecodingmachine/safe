@@ -35,7 +35,7 @@ class Method
         $this->errorType = $errorType;
         $functionName = $this->getFunctionName();
         $this->phpstanSignarure = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
-        $this->returnType = $this->phpstanSignarure ? $this->phpstanSignarure->getReturnType() : new PhpStanType($this->functionObject->type->__toString());
+        $this->returnType = $this->phpstanSignarure ? $this->phpstanSignarure->getReturnType() : $this->parsePHPDocType($this->functionObject);
     }
 
     public function getFunctionName(): string
@@ -139,6 +139,7 @@ class Method
                 
             case self::FALSY_TYPE:
                 $string = $this->removeString($string, 'or FALSE on failure');
+                $string = $this->removeString($string, ', FALSE on failure');
                 $string = $this->removeString($string, '. Returns FALSE on error');
                 $string = $this->removeString($string, 'may return FALSE');
                 $string = $this->removeString($string, 'and FALSE on failure');
@@ -146,6 +147,7 @@ class Method
                 $string = $this->removeString($string, 'or FALSE on error');
                 $string = $this->removeString($string, 'or FALSE if an error occurred');
                 $string = $this->removeString($string, ' Returns FALSE otherwise.');
+                $string = $this->removeString($string, ', FALSE otherwise');
                 $string = $this->removeString($string, ' and FALSE if an error occurred');
                 $string = $this->removeString($string, 'the function will return TRUE, or FALSE otherwise');
                 break;
@@ -229,5 +231,14 @@ class Method
         \array_pop($params);
         $new->params = $params;
         return $new;
+    }
+
+    public function parsePHPDocType(\SimpleXMLElement $functionObject): PhpStanType
+    {
+        if (isset($functionObject->type['class']) && ((string)$functionObject->type['class']) === 'union') {
+            return new PhpStanType(implode('|', (array)$functionObject->type->type));
+        }
+
+        return new PhpStanType($functionObject->type->__toString());
     }
 }

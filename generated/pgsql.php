@@ -108,8 +108,7 @@ function pg_connection_reset($connection): void
  * as many columns as values has elements. The
  * fieldnames in table_name must match the indices in
  * values and the corresponding datatypes must be
- * compatible. Returns an array with the converted values on success, FALSE
- * otherwise.
+ * compatible. Returns an array with the converted values on success.
  *
  * @param resource $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table against which to convert types.
@@ -819,7 +818,7 @@ function pg_meta_data($connection, string $table_name, bool $extended = false): 
  * is_superuser, session_authorization,
  * DateStyle, TimeZone, and
  * integer_datetimes.  Note that this value is case-sensitive.
- * @return string A string containing the value of the parameter, FALSE on failure or invalid
+ * @return string A string containing the value of the parameter or invalid
  * param_name.
  * @throws PgsqlException
  *

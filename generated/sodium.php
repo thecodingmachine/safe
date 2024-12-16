@@ -11,17 +11,18 @@ use Safe\Exceptions\SodiumException;
  * @param string $additional_data
  * @param string $nonce
  * @param string $key
- * @return
+ * @return string
  * @throws SodiumException
  *
  */
-function sodium_crypto_aead_aegis128l_decrypt(string $ciphertext, string $additional_data, string $nonce, string $key): void
+function sodium_crypto_aead_aegis128l_decrypt(string $ciphertext, string $additional_data, string $nonce, string $key): string
 {
     error_clear_last();
     $safeResult = \sodium_crypto_aead_aegis128l_decrypt($ciphertext, $additional_data, $nonce, $key);
     if ($safeResult === false) {
         throw SodiumException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 
@@ -32,17 +33,18 @@ function sodium_crypto_aead_aegis128l_decrypt(string $ciphertext, string $additi
  * @param string $additional_data
  * @param string $nonce
  * @param string $key
- * @return
+ * @return string
  * @throws SodiumException
  *
  */
-function sodium_crypto_aead_aegis256_decrypt(string $ciphertext, string $additional_data, string $nonce, string $key): void
+function sodium_crypto_aead_aegis256_decrypt(string $ciphertext, string $additional_data, string $nonce, string $key): string
 {
     error_clear_last();
     $safeResult = \sodium_crypto_aead_aegis256_decrypt($ciphertext, $additional_data, $nonce, $key);
     if ($safeResult === false) {
         throw SodiumException::createFromPhpError();
     }
+    return $safeResult;
 }
 
 

@@ -274,7 +274,7 @@ function ini_get(string $option): string
  * ini_set. There is a list of all available options
  * in the appendix.
  * @param string $value The new value for the option.
- * @return string Returns the old value on success, FALSE on failure.
+ * @return string Returns the old value on success.
  * @throws InfoException
  *
  */

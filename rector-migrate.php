@@ -867,6 +867,7 @@ return static function (RectorConfig $rectorConfig): void {
             'rnp_save_keys_to_path' => 'Safe\rnp_save_keys_to_path',
             'rnp_supported_features' => 'Safe\rnp_supported_features',
             'rpmaddtag' => 'Safe\rpmaddtag',
+            'rpmdefine' => 'Safe\rpmdefine',
             'rrd_create' => 'Safe\rrd_create',
             'rrd_first' => 'Safe\rrd_first',
             'rrd_graph' => 'Safe\rrd_graph',

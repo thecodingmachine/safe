@@ -860,6 +860,7 @@ return [
     'rnp_save_keys_to_path',
     'rnp_supported_features',
     'rpmaddtag',
+    'rpmdefine',
     'rrd_create',
     'rrd_first',
     'rrd_graph',

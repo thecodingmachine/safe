@@ -19,3 +19,23 @@ function rpmaddtag(int $tag): void
         throw RpminfoException::createFromPhpError();
     }
 }
+
+
+/**
+ * Define or change a RPM macro value.
+ *
+ * This can be used to select the database path and backend to use
+ * instead of system default one.
+ *
+ * @param string $text Macro name, options, body.
+ * @throws RpminfoException
+ *
+ */
+function rpmdefine(string $text): void
+{
+    error_clear_last();
+    $safeResult = \rpmdefine($text);
+    if ($safeResult === false) {
+        throw RpminfoException::createFromPhpError();
+    }
+}

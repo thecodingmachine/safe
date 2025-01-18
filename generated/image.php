@@ -1132,8 +1132,10 @@ function imagedashedline($image, int $x1, int $y1, int $x2, int $y2, int $color)
 
 
 /**
- * Prior to PHP 8.0.0, imagedestroy freed any memory associated
- * with image image.
+ * Prior to PHP 8.0.0, imagedestroy freed any memory
+ * associated with the image resource. As of 8.0.0,
+ * the GD extension uses objects instead of resources, and objects
+ * cannot be explicitly closed.
  *
  * @param resource $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.

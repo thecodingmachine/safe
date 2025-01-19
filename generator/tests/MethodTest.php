@@ -67,7 +67,7 @@ class MethodTest extends TestCase
         $this->assertEquals('', $params[0]->getSignatureType());
         $this->assertEquals('int', $params[1]->getDocBlockType());
         $this->assertEquals('int', $params[1]->getSignatureType());
-        
+
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/hash/functions/hash-update.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
@@ -75,7 +75,7 @@ class MethodTest extends TestCase
         $this->assertEquals('\HashContext', $params[0]->getDocBlockType());
         $this->assertEquals('\HashContext', $params[0]->getSignatureType());
     }
-    
+
     public function testImapOpen5Parameter(): void
     {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/imap/functions/imap-open.xml');
@@ -83,7 +83,7 @@ class MethodTest extends TestCase
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
         $this->assertEquals('array', $params[5]->getDocBlockType());
-        $this->assertEquals('array', $params[5]->getSignatureType());        
+        $this->assertEquals('array', $params[5]->getSignatureType());
     }
 
     public function testGetInitializer(): void
@@ -96,7 +96,7 @@ class MethodTest extends TestCase
         $this->assertEquals('', $params[0]->getDefaultValue());
         $this->assertEquals('false', $params[1]->getDefaultValue());
     }
-    
+
     public function testGetReturnDocBlock(): void
     {
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-replace.xml');
@@ -122,6 +122,6 @@ class MethodTest extends TestCase
         $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/openssl/functions/openssl-cipher-key-length.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
-        $this->assertEquals("@return int Returns the cipher length on success,  or false on failure.\n", $method->getReturnDocBlock());
+        $this->assertEquals("@return int Returns the cipher length on success.\n", $method->getReturnDocBlock());
     }
 }

@@ -53,16 +53,6 @@ class GenerateCommand extends Command
 
         $this->runCsFix($output);
 
-        // Let's require the generated file to check there is no error.
-        $files = \glob(__DIR__.'/../../generated/*.php');
-        if ($files === false) {
-            throw new \RuntimeException('Failed to require the generated file');
-        }
-
-        foreach ($files as $file) {
-            require($file);
-        }
-
         $files = \glob(__DIR__.'/../../generated/Exceptions/*.php');
         if ($files === false) {
             throw new \RuntimeException('Failed to require the generated exception file');

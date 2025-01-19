@@ -28,6 +28,9 @@ class FileCreator
 
         foreach ($phpFunctionsByModule as $module => $phpFunctions) {
             $lcModule = \lcfirst($module);
+            if (!is_dir($path)) {
+                \mkdir($path);
+            }
             $stream = \fopen($path.$lcModule.'.php', 'w');
             if ($stream === false) {
                 throw new \RuntimeException('Unable to write to '.$path);
@@ -41,6 +44,27 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
             }
             \fclose($stream);
         }
+    }
+
+    /**
+     * @param string[] $versions
+     */
+    public function generateVersionSplitters(string $module, string $path, array $versions): void
+    {
+        $lcModule = \lcfirst($module);
+        $stream = \fopen($path.$lcModule.'.php', 'w');
+        if ($stream === false) {
+            throw new \RuntimeException('Unable to write to '.$path);
+        }
+        \fwrite($stream, "<?php\n");
+        foreach ($versions as $version) {
+            if (file_exists("$path/$version/$lcModule.php")) {
+                \fwrite($stream, "\nif(strpos(PHP_VERSION, \"$version.\") === 0) {");
+                \fwrite($stream, "\n    require_once __DIR__ . '/$version/$lcModule.php';");
+                \fwrite($stream, "\n}");
+            }
+        }
+        \fclose($stream);
     }
 
     /**
@@ -80,6 +104,30 @@ return [\n");
         fwrite($stream, "];\n");
         fclose($stream);
     }
+
+    /**
+     * This function generate a PHP file containing the list of deprecated functions we can handle.
+     *
+     * @param Method[] $functions
+     */
+    public function generateDeprecatedList(array $functions, string $path): void
+    {
+        $functionNames = $this->getFunctionsNameList($functions);
+        $stream = fopen($path, 'w');
+        if ($stream === false) {
+            throw new \RuntimeException('Unable to write to '.$path);
+        }
+        fwrite($stream, "<?php\nnamespace Safe;\n");
+
+        // for each function, write out a no-op stub which calls the original function
+        foreach ($functionNames as $functionName) {
+            fwrite($stream, "\nfunction $functionName() {\n");
+            fwrite($stream, "    return \\$functionName(...func_get_args());\n");
+            fwrite($stream, "}\n");
+        }
+        fclose($stream);
+    }
+
 
     /**
      * Generates a configuration file for replacing all functions when using rector/rector.

@@ -84,13 +84,13 @@ $content = file_get_contents('foobar.json');
 Use composer to install Safe-PHP:
 
 ```bash
-$ composer require thecodingmachine/safe
+composer require thecodingmachine/safe
 ```
 
 *Highly recommended*: install PHPStan and PHPStan extension:
 
 ```bash
-$ composer require --dev thecodingmachine/phpstan-safe-rule
+composer require --dev thecodingmachine/phpstan-safe-rule
 ```
 
 Now, edit your `phpstan.neon` file and add these rules:
@@ -111,7 +111,7 @@ tool that performs instant refactoring of your application.
 Run
 
 ```bash
-$ composer require --dev rector/rector
+composer require --dev rector/rector
 ```
 
 to install `rector/rector`.

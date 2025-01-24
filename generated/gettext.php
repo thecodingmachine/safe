@@ -1,31 +1,17 @@
 <?php
 
-namespace Safe;
-
-use Safe\Exceptions\GettextException;
-
-/**
- * The bindtextdomain function sets or gets the path
- * for a domain.
- *
- * @param string $domain The domain.
- * @param string $directory The directory path.
- * An empty string means the current directory.
- * If NULL, the currently set directory is returned.
- * @return string The full pathname for the domain currently being set.
- * @throws GettextException
- *
- */
-function bindtextdomain(string $domain, ?string $directory = null): string
-{
-    error_clear_last();
-    if ($directory !== null) {
-        $safeResult = \bindtextdomain($domain, $directory);
-    } else {
-        $safeResult = \bindtextdomain($domain);
-    }
-    if ($safeResult === false) {
-        throw GettextException::createFromPhpError();
-    }
-    return $safeResult;
+if (strpos(PHP_VERSION, "8.1.") === 0) {
+    require_once __DIR__ . '/8.1/gettext.php';
+}
+if (strpos(PHP_VERSION, "8.2.") === 0) {
+    require_once __DIR__ . '/8.2/gettext.php';
+}
+if (strpos(PHP_VERSION, "8.3.") === 0) {
+    require_once __DIR__ . '/8.3/gettext.php';
+}
+if (strpos(PHP_VERSION, "8.4.") === 0) {
+    require_once __DIR__ . '/8.4/gettext.php';
+}
+if (strpos(PHP_VERSION, "8.5.") === 0) {
+    require_once __DIR__ . '/8.5/gettext.php';
 }

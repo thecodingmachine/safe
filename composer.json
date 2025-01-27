@@ -10,16 +10,7 @@
             "generated/Exceptions/"
         ],
         "files": [
-            "deprecated/array.php",
-            "deprecated/datetime.php",
-            "deprecated/libevent.php",
-            "deprecated/misc.php",
-            "deprecated/password.php",
-            "deprecated/mssql.php",
-            "deprecated/stats.php",
-            "deprecated/strings.php",
             "lib/special_cases.php",
-            "deprecated/mysqli.php",
             "generated/apache.php",
             "generated/apcu.php",
             "generated/array.php",
@@ -110,7 +101,7 @@
         "php-parallel-lint/php-parallel-lint": "^1.4"
     },
     "scripts": {
-        "lint": "parallel-lint deprecated/ lib/ tests/",
+        "lint": "parallel-lint lib/ tests/",
         "test": "phpunit",
         "phpstan": "phpstan analyse",
         "cs-fix": "phpcbf",

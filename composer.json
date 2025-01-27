@@ -7,7 +7,6 @@
             "lib/DateTime.php",
             "lib/DateTimeImmutable.php",
             "lib/Exceptions/",
-            "deprecated/Exceptions/",
             "generated/Exceptions/"
         ],
         "files": [

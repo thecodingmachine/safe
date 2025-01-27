@@ -7,21 +7,10 @@
             "lib/DateTime.php",
             "lib/DateTimeImmutable.php",
             "lib/Exceptions/",
-            "deprecated/Exceptions/",
             "generated/Exceptions/"
         ],
         "files": [
-            "deprecated/apc.php",
-            "deprecated/array.php",
-            "deprecated/datetime.php",
-            "deprecated/libevent.php",
-            "deprecated/misc.php",
-            "deprecated/password.php",
-            "deprecated/mssql.php",
-            "deprecated/stats.php",
-            "deprecated/strings.php",
             "lib/special_cases.php",
-            "deprecated/mysqli.php",
             "generated/apache.php",
             "generated/apcu.php",
             "generated/array.php",
@@ -43,6 +32,7 @@
             "generated/ftp.php",
             "generated/funchand.php",
             "generated/gettext.php",
+            "generated/gmp.php",
             "generated/gnupg.php",
             "generated/hash.php",
             "generated/ibase.php",
@@ -60,6 +50,7 @@
             "generated/mbstring.php",
             "generated/misc.php",
             "generated/mysql.php",
+            "generated/mysqli.php",
             "generated/network.php",
             "generated/oci8.php",
             "generated/opcache.php",
@@ -72,7 +63,6 @@
             "generated/ps.php",
             "generated/pspell.php",
             "generated/readline.php",
-            "generated/rnp.php",
             "generated/rpminfo.php",
             "generated/rrd.php",
             "generated/sem.php",
@@ -98,7 +88,8 @@
             "generated/yaml.php",
             "generated/yaz.php",
             "generated/zip.php",
-            "generated/zlib.php"
+            "generated/zlib.php",
+            "generated/rnp.php"
         ]
     },
     "require": {

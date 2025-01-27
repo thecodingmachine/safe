@@ -6,13 +6,15 @@
 return [
     'json_decode',
     'apcu_fetch',
-    'fputcsv',
     'preg_replace',
-    'openssl_encrypt',
     'readdir',
+    'openssl_encrypt',
     'socket_write',
     'simplexml_import_dom',
     'simplexml_load_file',
     'simplexml_load_string',
+    'sys_getloadavg',
+    'posix_getpgid',
+    'fputcsv',
     'fgetcsv',  // This function need to return false when iterating on an end of file.
 ];

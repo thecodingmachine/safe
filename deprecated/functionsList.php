@@ -1,16 +1,6 @@
 <?php
 
 return [
-    'apc_cache_info',
-    'apc_cas',
-    'apc_compile_file',
-    'apc_dec',
-    'apc_define_constants',
-    'apc_delete',
-    'apc_delete_file',
-    'apc_inc',
-    'apc_load_constants',
-    'apc_sma_info',
     'arsort',
     'array_replace',
     'array_replace_recursive',

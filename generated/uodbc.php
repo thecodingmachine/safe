@@ -65,7 +65,13 @@ function odbc_commit($odbc): void
  * @param string $dsn The database source name for the connection. Alternatively, a
  * DSN-less connection string can be used.
  * @param string $user The username.
+ * This parameter is ignored if dsn contains uid.
+ * To connect without specifying a user,
+ * use NULL.
  * @param string $password The password.
+ * This parameter is ignored if dsn contains pwd.
+ * To connect without specifying a password,
+ * use NULL.
  * @param int $cursor_option This sets the type of cursor to be used
  * for this connection. This parameter is not normally needed, but
  * can be useful for working around problems with some ODBC drivers.
@@ -91,10 +97,18 @@ function odbc_commit($odbc): void
  * @throws UodbcException
  *
  */
-function odbc_connect(string $dsn, string $user, string $password, int $cursor_option = SQL_CUR_USE_DRIVER)
+function odbc_connect(string $dsn, ?string $user = null, ?string $password = null, int $cursor_option = SQL_CUR_USE_DRIVER)
 {
     error_clear_last();
-    $safeResult = \odbc_connect($dsn, $user, $password, $cursor_option);
+    if ($cursor_option !== SQL_CUR_USE_DRIVER) {
+        $safeResult = \odbc_connect($dsn, $user, $password, $cursor_option);
+    } elseif ($password !== null) {
+        $safeResult = \odbc_connect($dsn, $user, $password);
+    } elseif ($user !== null) {
+        $safeResult = \odbc_connect($dsn, $user);
+    } else {
+        $safeResult = \odbc_connect($dsn);
+    }
     if ($safeResult === false) {
         throw UodbcException::createFromPhpError();
     }
@@ -350,10 +364,18 @@ function odbc_field_type($statement, int $field): string
  * @throws UodbcException
  *
  */
-function odbc_pconnect(string $dsn, string $user, string $password, int $cursor_option = SQL_CUR_USE_DRIVER)
+function odbc_pconnect(string $dsn, ?string $user = null, ?string $password = null, int $cursor_option = SQL_CUR_USE_DRIVER)
 {
     error_clear_last();
-    $safeResult = \odbc_pconnect($dsn, $user, $password, $cursor_option);
+    if ($cursor_option !== SQL_CUR_USE_DRIVER) {
+        $safeResult = \odbc_pconnect($dsn, $user, $password, $cursor_option);
+    } elseif ($password !== null) {
+        $safeResult = \odbc_pconnect($dsn, $user, $password);
+    } elseif ($user !== null) {
+        $safeResult = \odbc_pconnect($dsn, $user);
+    } else {
+        $safeResult = \odbc_pconnect($dsn);
+    }
     if ($safeResult === false) {
         throw UodbcException::createFromPhpError();
     }

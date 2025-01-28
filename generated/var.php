@@ -1,60 +1,17 @@
 <?php
 
-namespace Safe;
-
-use Safe\Exceptions\VarException;
-
-/**
- * Set the type of variable var to
- * type.
- *
- * @param mixed $var The variable being converted.
- * @param string $type Possibles values of type are:
- *
- *
- *
- * "boolean" or "bool"
- *
- *
- *
- *
- * "integer" or "int"
- *
- *
- *
- *
- * "float" or "double"
- *
- *
- *
- *
- * "string"
- *
- *
- *
- *
- * "array"
- *
- *
- *
- *
- * "object"
- *
- *
- *
- *
- * "null"
- *
- *
- *
- * @throws VarException
- *
- */
-function settype(&$var, string $type): void
-{
-    error_clear_last();
-    $safeResult = \settype($var, $type);
-    if ($safeResult === false) {
-        throw VarException::createFromPhpError();
-    }
+if (strpos(PHP_VERSION, "8.1.") === 0) {
+    require_once __DIR__ . '/8.1/var.php';
+}
+if (strpos(PHP_VERSION, "8.2.") === 0) {
+    require_once __DIR__ . '/8.2/var.php';
+}
+if (strpos(PHP_VERSION, "8.3.") === 0) {
+    require_once __DIR__ . '/8.3/var.php';
+}
+if (strpos(PHP_VERSION, "8.4.") === 0) {
+    require_once __DIR__ . '/8.4/var.php';
+}
+if (strpos(PHP_VERSION, "8.5.") === 0) {
+    require_once __DIR__ . '/8.5/var.php';
 }

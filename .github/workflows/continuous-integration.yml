@@ -162,8 +162,11 @@ jobs:
         working-directory: "generator"
       - name: "Install dependencies with composer in root directory"
         run: "composer install --no-interaction"
-      - name: "Regenerate files and check for differences"
-        run: "./safe.php generate && git diff --exit-code"
+      - name: "Regenerate files"
+        run: "./safe.php generate"
+        working-directory: "generator"
+      - name: "Check for differences"
+        run: "git diff --exit-code"
         working-directory: "generator"
 
   rector:

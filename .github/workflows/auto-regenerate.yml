@@ -44,12 +44,16 @@ jobs:
         run: "composer dump-autoload"
   
       - name: "Regenerate files"
-        id: regen
-        run: "./safe.php generate && git diff --exit-code && (echo regen=no-diff >> $GITHUB_OUTPUT) || (echo regen=diff >> $GITHUB_OUTPUT)"
+        run: "./safe.php generate"
+        working-directory: "generator"
+  
+      - name: "Check for differences"
+        id: diff
+        run: "git diff --exit-code && (echo diff=no-diff >> $GITHUB_OUTPUT) || (echo diff=diff >> $GITHUB_OUTPUT)"
         working-directory: "generator"
   
       - name: "Create a pr if the files are different"
-        if: "${{ steps.regen.outputs.regen == 'diff' }}"
+        if: "${{ steps.diff.outputs.diff == 'diff' }}"
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: "Automatically regenerate the files"

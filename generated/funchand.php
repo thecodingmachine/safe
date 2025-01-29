@@ -5,29 +5,6 @@ namespace Safe;
 use Safe\Exceptions\FunchandException;
 
 /**
- * Creates a function dynamically from the parameters passed, and returns a unique name for it.
- *
- * @param string $args The function arguments, as a single comma-separated string.
- * @param string $code The function code.
- * @return string Returns a unique function name as a string.
- * Note that the name contains a non-printable character ("\0"),
- * so care should be taken when printing the name or incorporating it in any other
- * string.
- * @throws FunchandException
- *
- */
-function create_function(string $args, string $code): string
-{
-    error_clear_last();
-    $safeResult = \create_function($args, $code);
-    if ($safeResult === false) {
-        throw FunchandException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  *
  *
  * @param callable(): void $callback The function to register.

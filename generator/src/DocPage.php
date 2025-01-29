@@ -19,7 +19,7 @@ class DocPage
         if (preg_match('/&warn\.deprecated\.function-(\d+-\d+-\d+)\.removed-(\d+-\d+-\d+)/', $file, $matches)) {
             $removedVersion = $matches[2];
             [$major, $minor] = explode('-', $removedVersion);
-            if ($major < 7 || ($major == 7 && $minor == 0)) {
+            if ($major < 8 || ($major == 8 && $minor == 0)) {
                 return true;
             }
         }
@@ -27,7 +27,7 @@ class DocPage
         if (preg_match('/&warn\.removed\.function-(\d+-\d+-\d+)/', $file, $matches)) {
             $removedVersion = $matches[1];
             [$major, $minor] = explode('-', $removedVersion);
-            if ($major < 7 || ($major == 7 && $minor == 0)) {
+            if ($major < 8 || ($major == 8 && $minor == 0)) {
                 return true;
             }
         }

@@ -99,36 +99,6 @@ function image_type_to_extension(int $image_type, bool $include_dot = true): str
 
 
 /**
- * image2wbmp outputs or save a WBMP
- * version of the given image.
- *
- * @param resource $image An image resource, returned by one of the image creation functions,
- * such as imagecreatetruecolor.
- * @param string|null $filename Path to the saved file. If not given, the raw image stream will be
- * output directly.
- * @param int $foreground You can set the foreground color with this parameter by setting an
- * identifier obtained from imagecolorallocate.
- * The default foreground color is black.
- * @throws ImageException
- *
- */
-function image2wbmp($image, ?string $filename = null, ?int $foreground = null): void
-{
-    error_clear_last();
-    if ($foreground !== null) {
-        $safeResult = \image2wbmp($image, $filename, $foreground);
-    } elseif ($filename !== null) {
-        $safeResult = \image2wbmp($image, $filename);
-    } else {
-        $safeResult = \image2wbmp($image);
-    }
-    if ($safeResult === false) {
-        throw ImageException::createFromPhpError();
-    }
-}
-
-
-/**
  *
  *
  * @param resource $image A GdImage object, returned by one of the image creation functions,
@@ -2903,46 +2873,4 @@ function iptcparse(string $iptc_block): array
         throw ImageException::createFromPhpError();
     }
     return $safeResult;
-}
-
-
-/**
- * Converts a JPEG file into a WBMP file.
- *
- * @param string $jpegname Path to JPEG file.
- * @param string $wbmpname Path to destination WBMP file.
- * @param int $dest_height Destination image height.
- * @param int $dest_width Destination image width.
- * @param int $threshold Threshold value, between 0 and 8 (inclusive).
- * @throws ImageException
- *
- */
-function jpeg2wbmp(string $jpegname, string $wbmpname, int $dest_height, int $dest_width, int $threshold): void
-{
-    error_clear_last();
-    $safeResult = \jpeg2wbmp($jpegname, $wbmpname, $dest_height, $dest_width, $threshold);
-    if ($safeResult === false) {
-        throw ImageException::createFromPhpError();
-    }
-}
-
-
-/**
- * Converts a PNG file into a WBMP file.
- *
- * @param string $pngname Path to PNG file.
- * @param string $wbmpname Path to destination WBMP file.
- * @param int $dest_height Destination image height.
- * @param int $dest_width Destination image width.
- * @param int $threshold Threshold value, between 0 and 8 (inclusive).
- * @throws ImageException
- *
- */
-function png2wbmp(string $pngname, string $wbmpname, int $dest_height, int $dest_width, int $threshold): void
-{
-    error_clear_last();
-    $safeResult = \png2wbmp($pngname, $wbmpname, $dest_height, $dest_width, $threshold);
-    if ($safeResult === false) {
-        throw ImageException::createFromPhpError();
-    }
 }

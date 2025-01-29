@@ -475,7 +475,6 @@ return static function (RectorConfig $rectorConfig): void {
             'ldap_sasl_bind' => 'Safe\ldap_sasl_bind',
             'ldap_set_option' => 'Safe\ldap_set_option',
             'ldap_unbind' => 'Safe\ldap_unbind',
-            'libxml_get_last_error' => 'Safe\libxml_get_last_error',
             'libxml_set_external_entity_loader' => 'Safe\libxml_set_external_entity_loader',
             'link' => 'Safe\link',
             'lstat' => 'Safe\lstat',

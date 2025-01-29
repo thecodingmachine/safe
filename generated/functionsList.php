@@ -468,7 +468,6 @@ return [
     'ldap_sasl_bind',
     'ldap_set_option',
     'ldap_unbind',
-    'libxml_get_last_error',
     'libxml_set_external_entity_loader',
     'link',
     'lstat',

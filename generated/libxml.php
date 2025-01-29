@@ -5,25 +5,6 @@ namespace Safe;
 use Safe\Exceptions\LibxmlException;
 
 /**
- * Retrieve last error from libxml.
- *
- * @return \LibXMLError Returns a LibXMLError object if there is any error in the
- * buffer.
- * @throws LibxmlException
- *
- */
-function libxml_get_last_error(): \LibXMLError
-{
-    error_clear_last();
-    $safeResult = \libxml_get_last_error();
-    if ($safeResult === false) {
-        throw LibxmlException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  * Changes the default external entity loader.
  * This can be used to suppress the expansion of arbitrary external entities to avoid XXE attacks,
  * even when LIBXML_NOENT has been set for the respective operation,

@@ -72,8 +72,8 @@ class Method
                 if (preg_match('/This parameter has been removed in PHP (\d+\.\d+\.\d+)/', $notes, $matches)) {
                     $removedVersion = $matches[1];
                     [$major, $minor] = explode('.', $removedVersion);
-                    if ($major < 7 || ($major == 7 && $minor == 0)) {
-                        // Ignore parameter if it was removed before PHP 7.1
+                    if ($major < 8 || ($major == 8 && $minor == 0)) {
+                        // Ignore parameter if it was removed before PHP 8.1
                         continue;
                     }
                 }
@@ -136,7 +136,7 @@ class Method
                 $string = $this->removeString($string, ' and NULL on failure');
                 $string = $this->removeString($string, ' or NULL on failure');
                 break;
-                
+
             case self::FALSY_TYPE:
                 $string = $this->removeString($string, 'or FALSE on failure');
                 $string = $this->removeString($string, ', FALSE on failure');

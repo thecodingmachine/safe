@@ -15,7 +15,6 @@ class DocPageTest extends TestCase
         $getCwd = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/dir/functions/getcwd.xml');
         $createFromFormat = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/datetime/datetime/createfromformat.xml');
         $filesize = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/filesystem/functions/filesize.xml');
-        $mcryptDecrypt = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/mcrypt/functions/mcrypt-decrypt.xml');
         $fsockopen = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/network/functions/fsockopen.xml');
         $arrayReplace = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-replace.xml');
         $classImplement = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/spl/functions/class-implements.xml');
@@ -28,7 +27,6 @@ class DocPageTest extends TestCase
         $this->assertTrue($getCwd->detectFalsyFunction());
         $this->assertTrue($createFromFormat->detectFalsyFunction());
         $this->assertTrue($filesize->detectFalsyFunction());
-        $this->assertTrue($mcryptDecrypt->detectFalsyFunction());
         $this->assertTrue($fsockopen->detectFalsyFunction());
         $this->assertFalse($arrayReplace->detectFalsyFunction());
         $this->assertTrue($classImplement->detectFalsyFunction());

@@ -314,35 +314,6 @@ function gzgets($stream, ?int $length = null): string
 
 
 /**
- * Identical to gzgets, except that
- * gzgetss attempts to strip any HTML and PHP
- * tags from the text it reads.
- *
- * @param resource $zp The gz-file pointer. It must be valid, and must point to a file
- * successfully opened by gzopen.
- * @param int $length The length of data to get.
- * @param string $allowable_tags You can use this optional parameter to specify tags which should not
- * be stripped.
- * @return string The uncompressed and stripped string.
- * @throws ZlibException
- *
- */
-function gzgetss($zp, int $length, ?string $allowable_tags = null): string
-{
-    error_clear_last();
-    if ($allowable_tags !== null) {
-        $safeResult = \gzgetss($zp, $length, $allowable_tags);
-    } else {
-        $safeResult = \gzgetss($zp, $length);
-    }
-    if ($safeResult === false) {
-        throw ZlibException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  * This function inflates a deflated string.
  *
  * @param string $data The data compressed by gzdeflate.

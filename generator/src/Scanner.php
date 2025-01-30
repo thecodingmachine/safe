@@ -8,6 +8,7 @@ use function array_merge;
 use function iterator_to_array;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Console\Output\OutputInterface;
 use SplFileInfo;
 
 class Scanner
@@ -78,7 +79,7 @@ class Scanner
     /**
      * @param SplFileInfo[] $paths
      */
-    public function getMethods(array $paths): ScannerResponse
+    public function getMethods(array $paths, OutputInterface $output): ScannerResponse
     {
         /** @var Method[] $functions */
         $functions = [];

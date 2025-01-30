@@ -3,6 +3,7 @@
 /**
  * Our own custom function map, used to quickly correct errors in phpstan's function map.
  * This file must always be check against phpstan file to remove duplicates as phpstan keep getting corrected.
+ * See: https://github.com/phpstan/phpstan-src/blob/2.1.x/resources/functionMap.php
  */
 
 return [
@@ -39,7 +40,7 @@ return [
     'openssl_x509_export' => ['bool', 'x509'=>'string|OpenSSLCertificate', '&w_output'=>'string', 'notext='=>'bool'],
     'openssl_x509_export_to_file' => ['bool', 'x509'=>'string|OpenSSLCertificate', 'outfilename'=>'string', 'notext='=>'bool'],
     'openssl_x509_fingerprint' => ['string|false', 'x509'=>'string|OpenSSLCertificate', 'hash_algorithm='=>'string', 'raw_output='=>'bool'],
-    
+
     'fgetcsv' => ['array|false|null', 'fp'=>'resource', 'length='=>'0|positive-int', 'delimiter='=>'string', 'enclosure='=>'string', 'escape='=>'string'], //phpstan default return type is too hard to analyse
     //todo: edit the reader to turn 0|1 into int
     'preg_match' => ['int|false', 'pattern'=>'string', 'subject'=>'string', '&w_subpatterns='=>'string[]', 'flags='=>'int', 'offset='=>'int'], //int|false instead of 0|1|false

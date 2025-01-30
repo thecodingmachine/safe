@@ -54,7 +54,7 @@ function msg_queue_exists(int $key): void
  * specified queue of the type specified by
  * desired_message_type.
  *
- * @param resource $queue The message queue.
+ * @param \SysvMessageQueue $queue The message queue.
  * @param int $desired_message_type If desired_message_type is 0, the message from the front
  * of the queue is returned. If desired_message_type is
  * greater than 0, then the first message of that type is returned.
@@ -120,7 +120,7 @@ function msg_queue_exists(int $key): void
  * @throws SemException
  *
  */
-function msg_receive($queue, int $desired_message_type, ?int &$received_message_type, int $max_message_size, &$message, bool $unserialize = true, int $flags = 0, ?int &$error_code = null): void
+function msg_receive(\SysvMessageQueue $queue, int $desired_message_type, ?int &$received_message_type, int $max_message_size, &$message, bool $unserialize = true, int $flags = 0, ?int &$error_code = null): void
 {
     error_clear_last();
     $safeResult = \msg_receive($queue, $desired_message_type, $received_message_type, $max_message_size, $message, $unserialize, $flags, $error_code);
@@ -136,11 +136,11 @@ function msg_receive($queue, int $desired_message_type, ?int &$received_message_
  * processes have finished working with the message queue and you need to
  * release the system resources held by it.
  *
- * @param resource $queue The message queue.
+ * @param \SysvMessageQueue $queue The message queue.
  * @throws SemException
  *
  */
-function msg_remove_queue($queue): void
+function msg_remove_queue(\SysvMessageQueue $queue): void
 {
     error_clear_last();
     $safeResult = \msg_remove_queue($queue);
@@ -155,7 +155,7 @@ function msg_remove_queue($queue): void
  * message_type (which MUST be greater than 0) to
  * the message queue specified by queue.
  *
- * @param resource $queue The message queue.
+ * @param \SysvMessageQueue $queue The message queue.
  * @param int $message_type The type of the message (MUST be greater than 0)
  * @param mixed $message The body of the message.
  *
@@ -183,7 +183,7 @@ function msg_remove_queue($queue): void
  * @throws SemException
  *
  */
-function msg_send($queue, int $message_type, $message, bool $serialize = true, bool $blocking = true, ?int &$error_code = null): void
+function msg_send(\SysvMessageQueue $queue, int $message_type, $message, bool $serialize = true, bool $blocking = true, ?int &$error_code = null): void
 {
     error_clear_last();
     $safeResult = \msg_send($queue, $message_type, $message, $serialize, $blocking, $error_code);
@@ -204,13 +204,13 @@ function msg_send($queue, int $message_type, $message, bool $serialize = true, b
  * root privileges are required to raise the msg_qbytes values above the
  * system defined limit.
  *
- * @param resource $queue The message queue.
+ * @param \SysvMessageQueue $queue The message queue.
  * @param array $data You specify the values you require by setting the value of the keys
  * that you require in the data array.
  * @throws SemException
  *
  */
-function msg_set_queue($queue, array $data): void
+function msg_set_queue(\SysvMessageQueue $queue, array $data): void
 {
     error_clear_last();
     $safeResult = \msg_set_queue($queue, $data);
@@ -226,7 +226,7 @@ function msg_set_queue($queue, array $data): void
  * This is useful, for example, to determine which process sent the message
  * that was just received.
  *
- * @param resource $queue The message queue.
+ * @param \SysvMessageQueue $queue The message queue.
  * @return array On success, the return value is an array whose keys and values have the following
  * meanings:
  *
@@ -303,7 +303,7 @@ function msg_set_queue($queue, array $data): void
  * @throws SemException
  *
  */
-function msg_stat_queue($queue): array
+function msg_stat_queue(\SysvMessageQueue $queue): array
 {
     error_clear_last();
     $safeResult = \msg_stat_queue($queue);
@@ -324,7 +324,7 @@ function msg_stat_queue($queue): array
  * explicitly released will be released automatically and a warning will be
  * generated.
  *
- * @param resource $semaphore semaphore is a semaphore
+ * @param \SysvSemaphore $semaphore semaphore is a semaphore
  * obtained from sem_get.
  * @param bool $non_blocking Specifies if the process shouldn't wait for the semaphore to be acquired.
  * If set to TRUE, the call will return
@@ -333,7 +333,7 @@ function msg_stat_queue($queue): array
  * @throws SemException
  *
  */
-function sem_acquire($semaphore, bool $non_blocking = false): void
+function sem_acquire(\SysvSemaphore $semaphore, bool $non_blocking = false): void
 {
     error_clear_last();
     $safeResult = \sem_acquire($semaphore, $non_blocking);
@@ -385,12 +385,12 @@ function sem_get(int $key, int $max_acquire = 1, int $permissions = 0666, bool $
  * After releasing the semaphore, sem_acquire
  * may be called to re-acquire it.
  *
- * @param resource $semaphore A Semaphore as returned by
+ * @param \SysvSemaphore $semaphore A Semaphore as returned by
  * sem_get.
  * @throws SemException
  *
  */
-function sem_release($semaphore): void
+function sem_release(\SysvSemaphore $semaphore): void
 {
     error_clear_last();
     $safeResult = \sem_release($semaphore);
@@ -405,12 +405,12 @@ function sem_release($semaphore): void
  *
  * After removing the semaphore, it is no longer accessible.
  *
- * @param resource $semaphore A semaphore as returned
+ * @param \SysvSemaphore $semaphore A semaphore as returned
  * by sem_get.
  * @throws SemException
  *
  */
-function sem_remove($semaphore): void
+function sem_remove(\SysvSemaphore $semaphore): void
 {
     error_clear_last();
     $safeResult = \sem_remove($semaphore);
@@ -465,11 +465,11 @@ function shm_attach(int $key, ?int $size = null, int $permissions = 0666)
  * shm_attach. Remember, that shared memory still exist
  * in the Unix system and the data is still present.
  *
- * @param resource $shm A shared memory segment obtained from shm_attach.
+ * @param \SysvSharedMemory $shm A shared memory segment obtained from shm_attach.
  * @throws SemException
  *
  */
-function shm_detach($shm): void
+function shm_detach(\SysvSharedMemory $shm): void
 {
     error_clear_last();
     $safeResult = \shm_detach($shm);
@@ -489,7 +489,7 @@ function shm_detach($shm): void
  * index or if there was not enough shared memory remaining to complete your
  * request.
  *
- * @param resource $shm A shared memory segment obtained from shm_attach.
+ * @param \SysvSharedMemory $shm A shared memory segment obtained from shm_attach.
  * @param int $key The variable key.
  * @param mixed $value The variable. All variable types
  * that serialize supports may be used: generally
@@ -498,7 +498,7 @@ function shm_detach($shm): void
  * @throws SemException
  *
  */
-function shm_put_var($shm, int $key, $value): void
+function shm_put_var(\SysvSharedMemory $shm, int $key, $value): void
 {
     error_clear_last();
     $safeResult = \shm_put_var($shm, $key, $value);
@@ -512,12 +512,12 @@ function shm_put_var($shm, int $key, $value): void
  * Removes a variable with a given key
  * and frees the occupied memory.
  *
- * @param resource $shm A shared memory segment obtained from shm_attach.
+ * @param \SysvSharedMemory $shm A shared memory segment obtained from shm_attach.
  * @param int $key The variable key.
  * @throws SemException
  *
  */
-function shm_remove_var($shm, int $key): void
+function shm_remove_var(\SysvSharedMemory $shm, int $key): void
 {
     error_clear_last();
     $safeResult = \shm_remove_var($shm, $key);
@@ -531,11 +531,11 @@ function shm_remove_var($shm, int $key): void
  * shm_remove removes the shared memory
  * shm. All data will be destroyed.
  *
- * @param resource $shm A shared memory segment obtained from shm_attach.
+ * @param \SysvSharedMemory $shm A shared memory segment obtained from shm_attach.
  * @throws SemException
  *
  */
-function shm_remove($shm): void
+function shm_remove(\SysvSharedMemory $shm): void
 {
     error_clear_last();
     $safeResult = \shm_remove($shm);

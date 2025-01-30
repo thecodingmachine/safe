@@ -10,7 +10,7 @@ use Safe\Exceptions\UodbcException;
  * By default, auto-commit is on for a connection.  Disabling
  * auto-commit is equivalent with starting a transaction.
  *
- * @param resource $odbc The ODBC connection object,
+ * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param bool $enable If enable is TRUE, auto-commit is enabled, if
  * it is FALSE auto-commit is disabled.
@@ -26,7 +26,7 @@ use Safe\Exceptions\UodbcException;
  * @throws UodbcException
  *
  */
-function odbc_autocommit($odbc, ?bool $enable = null)
+function odbc_autocommit(\Odbc\Connection $odbc, ?bool $enable = null)
 {
     error_clear_last();
     if ($enable !== null) {
@@ -44,12 +44,12 @@ function odbc_autocommit($odbc, ?bool $enable = null)
 /**
  * Commits all pending transactions on the connection.
  *
- * @param resource $odbc The ODBC connection object,
+ * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @throws UodbcException
  *
  */
-function odbc_commit($odbc): void
+function odbc_commit(\Odbc\Connection $odbc): void
 {
     error_clear_last();
     $safeResult = \odbc_commit($odbc);
@@ -119,12 +119,12 @@ function odbc_connect(string $dsn, ?string $user = null, ?string $password = nul
 /**
  * Gets the cursorname for the given result_id.
  *
- * @param resource $statement The ODBC result object.
+ * @param \Odbc\Result $statement The ODBC result object.
  * @return string Returns the cursor name, as a string.
  * @throws UodbcException
  *
  */
-function odbc_cursor($statement): string
+function odbc_cursor(\Odbc\Result $statement): string
 {
     error_clear_last();
     $safeResult = \odbc_cursor($statement);
@@ -139,7 +139,7 @@ function odbc_cursor($statement): string
  * This function will return the list of available DSN (after calling it
  * several times).
  *
- * @param resource $odbc The ODBC connection object,
+ * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param int $fetch_type The fetch_type can be one of two constant types:
  * SQL_FETCH_FIRST, SQL_FETCH_NEXT.
@@ -150,7 +150,7 @@ function odbc_cursor($statement): string
  * @throws UodbcException
  *
  */
-function odbc_data_source($odbc, int $fetch_type): array
+function odbc_data_source(\Odbc\Connection $odbc, int $fetch_type): array
 {
     error_clear_last();
     $safeResult = \odbc_data_source($odbc, $fetch_type);
@@ -164,7 +164,7 @@ function odbc_data_source($odbc, int $fetch_type): array
 /**
  * Sends an SQL statement to the database server.
  *
- * @param resource $odbc The ODBC connection object,
+ * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $query The SQL statement.
  * @return resource Returns an ODBC result object if the SQL command was executed
@@ -172,7 +172,7 @@ function odbc_data_source($odbc, int $fetch_type): array
  * @throws UodbcException
  *
  */
-function odbc_exec($odbc, string $query)
+function odbc_exec(\Odbc\Connection $odbc, string $query)
 {
     error_clear_last();
     $safeResult = \odbc_exec($odbc, $query);
@@ -186,7 +186,7 @@ function odbc_exec($odbc, string $query)
 /**
  * Executes a statement prepared with odbc_prepare.
  *
- * @param resource $statement The ODBC result object from odbc_prepare.
+ * @param \Odbc\Result $statement The ODBC result object from odbc_prepare.
  * @param array $params Parameters in params will be
  * substituted for placeholders in the prepared statement in order.
  * Elements of this array will be converted to strings by calling this
@@ -199,7 +199,7 @@ function odbc_exec($odbc, string $query)
  * @throws UodbcException
  *
  */
-function odbc_execute($statement, array $params = []): void
+function odbc_execute(\Odbc\Result $statement, array $params = []): void
 {
     error_clear_last();
     $safeResult = \odbc_execute($statement, $params);
@@ -212,7 +212,7 @@ function odbc_execute($statement, array $params = []): void
 /**
  * Fetch one result row into array.
  *
- * @param resource $statement The ODBC result object.
+ * @param \Odbc\Result $statement The ODBC result object.
  * @param array|null $array The result array
  * that can be of any type since it will be converted to type
  * array. The array will contain the column values starting at array
@@ -223,7 +223,7 @@ function odbc_execute($statement, array $params = []): void
  * @throws UodbcException
  *
  */
-function odbc_fetch_into($statement, ?array &$array, ?int $row = null): int
+function odbc_fetch_into(\Odbc\Result $statement, ?array &$array, ?int $row = null): int
 {
     error_clear_last();
     if ($row !== null) {
@@ -242,13 +242,13 @@ function odbc_fetch_into($statement, ?array &$array, ?int $row = null): int
  * Gets the length of the field referenced by number in the given result
  * identifier.
  *
- * @param resource $statement The ODBC result object.
+ * @param \Odbc\Result $statement The ODBC result object.
  * @param int $field The field number. Field numbering starts at 1.
  * @return int Returns the field length.
  * @throws UodbcException
  *
  */
-function odbc_field_len($statement, int $field): int
+function odbc_field_len(\Odbc\Result $statement, int $field): int
 {
     error_clear_last();
     $safeResult = \odbc_field_len($statement, $field);
@@ -263,13 +263,13 @@ function odbc_field_len($statement, int $field): int
  * Gets the name of the field occupying the given column number in the given
  * result object.
  *
- * @param resource $statement The ODBC result object.
+ * @param \Odbc\Result $statement The ODBC result object.
  * @param int $field The field number. Field numbering starts at 1.
  * @return string Returns the field name as a string.
  * @throws UodbcException
  *
  */
-function odbc_field_name($statement, int $field): string
+function odbc_field_name(\Odbc\Result $statement, int $field): string
 {
     error_clear_last();
     $safeResult = \odbc_field_name($statement, $field);
@@ -284,14 +284,14 @@ function odbc_field_name($statement, int $field): string
  * Gets the number of the column slot that corresponds to the named field in
  * the given result object.
  *
- * @param resource $statement The ODBC result object.
+ * @param \Odbc\Result $statement The ODBC result object.
  * @param string $field The field name.
  * @return int Returns the field number as a integer.
  * Field numbering starts at 1.
  * @throws UodbcException
  *
  */
-function odbc_field_num($statement, string $field): int
+function odbc_field_num(\Odbc\Result $statement, string $field): int
 {
     error_clear_last();
     $safeResult = \odbc_field_num($statement, $field);
@@ -306,13 +306,13 @@ function odbc_field_num($statement, string $field): int
  * Gets the scale of the field referenced by number in the given result
  * identifier.
  *
- * @param resource $statement The ODBC result object.
+ * @param \Odbc\Result $statement The ODBC result object.
  * @param int $field The field number. Field numbering starts at 1.
  * @return int Returns the field scale as a integer.
  * @throws UodbcException
  *
  */
-function odbc_field_scale($statement, int $field): int
+function odbc_field_scale(\Odbc\Result $statement, int $field): int
 {
     error_clear_last();
     $safeResult = \odbc_field_scale($statement, $field);
@@ -327,13 +327,13 @@ function odbc_field_scale($statement, int $field): int
  * Gets the SQL type of the field referenced by number in the given result
  * identifier.
  *
- * @param resource $statement The ODBC result object.
+ * @param \Odbc\Result $statement The ODBC result object.
  * @param int $field The field number. Field numbering starts at 1.
  * @return string Returns the field type as a string.
  * @throws UodbcException
  *
  */
-function odbc_field_type($statement, int $field): string
+function odbc_field_type(\Odbc\Result $statement, int $field): string
 {
     error_clear_last();
     $safeResult = \odbc_field_type($statement, $field);
@@ -392,7 +392,7 @@ function odbc_pconnect(string $dsn, ?string $user = null, ?string $password = nu
  * defined by the ODBC specification.  However, the Unified ODBC driver
  * currently only supports parameters of type IN to stored procedures.
  *
- * @param resource $odbc The ODBC connection object,
+ * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $query The query string statement being prepared.
  * @return resource Returns an ODBC result object if the SQL command was prepared
@@ -400,7 +400,7 @@ function odbc_pconnect(string $dsn, ?string $user = null, ?string $password = nu
  * @throws UodbcException
  *
  */
-function odbc_prepare($odbc, string $query)
+function odbc_prepare(\Odbc\Connection $odbc, string $query)
 {
     error_clear_last();
     $safeResult = \odbc_prepare($odbc, $query);
@@ -469,13 +469,13 @@ function odbc_procedures($odbc, ?string $catalog = null, ?string $schema = null,
  * This function is not supposed to be used in production environments; it is
  * merely meant for development purposes, to get a result set quickly rendered.
  *
- * @param resource $statement The ODBC result object.
+ * @param \Odbc\Result $statement The ODBC result object.
  * @param string $format Additional overall table formatting.
  * @return int Returns the number of rows in the result.
  * @throws UodbcException
  *
  */
-function odbc_result_all($statement, string $format = ""): int
+function odbc_result_all(\Odbc\Result $statement, string $format = ""): int
 {
     error_clear_last();
     $safeResult = \odbc_result_all($statement, $format);
@@ -489,7 +489,7 @@ function odbc_result_all($statement, string $format = ""): int
 /**
  * Get result data
  *
- * @param resource $statement The ODBC result object.
+ * @param \Odbc\Result $statement The ODBC result object.
  * @param mixed $field The field name being retrieved. It can either be an integer containing
  * the column number of the field you want; or it can be a string
  * containing the name of the field.
@@ -498,7 +498,7 @@ function odbc_result_all($statement, string $format = ""): int
  * @throws UodbcException
  *
  */
-function odbc_result($statement, $field)
+function odbc_result(\Odbc\Result $statement, $field)
 {
     error_clear_last();
     $safeResult = \odbc_result($statement, $field);
@@ -512,12 +512,12 @@ function odbc_result($statement, $field)
 /**
  * Rolls back all pending statements on the connection.
  *
- * @param resource $odbc The ODBC connection object,
+ * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @throws UodbcException
  *
  */
-function odbc_rollback($odbc): void
+function odbc_rollback(\Odbc\Connection $odbc): void
 {
     error_clear_last();
     $safeResult = \odbc_rollback($odbc);
@@ -608,7 +608,7 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  *
  *
  *
- * @param resource $odbc The ODBC connection object,
+ * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
  * @param string $schema The schema ('owner' in ODBC 2 parlance).
@@ -640,7 +640,7 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  * @throws UodbcException
  *
  */
-function odbc_tables($odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $types = null)
+function odbc_tables(\Odbc\Connection $odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $types = null)
 {
     error_clear_last();
     if ($types !== null) {

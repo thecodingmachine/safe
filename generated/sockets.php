@@ -25,7 +25,7 @@ use Safe\Exceptions\SocketsException;
  * socket, however, remains open and may be
  * reused.
  *
- * @param resource $socket A Socket instance created with socket_create.
+ * @param \Socket $socket A Socket instance created with socket_create.
  * @return resource Returns a new Socket instance on success. The actual
  * error code can be retrieved by calling
  * socket_last_error. This error code may be passed to
@@ -34,7 +34,7 @@ use Safe\Exceptions\SocketsException;
  * @throws SocketsException
  *
  */
-function socket_accept($socket)
+function socket_accept(\Socket $socket)
 {
     error_clear_last();
     $safeResult = \socket_accept($socket);
@@ -49,12 +49,12 @@ function socket_accept($socket)
  * Create a Socket instance, and bind it to the provided AddressInfo.  The return
  * value of this function may be used with socket_listen.
  *
- * @param resource $address AddressInfo instance created from socket_addrinfo_lookup.
+ * @param \AddressInfo $address AddressInfo instance created from socket_addrinfo_lookup.
  * @return resource|null Returns a Socket instance on success.
  * @throws SocketsException
  *
  */
-function socket_addrinfo_bind($address)
+function socket_addrinfo_bind(\AddressInfo $address)
 {
     error_clear_last();
     $safeResult = \socket_addrinfo_bind($address);
@@ -69,12 +69,12 @@ function socket_addrinfo_bind($address)
  * Create a Socket instance, and connect it to the provided AddressInfo instance.  The return
  * value of this function may be used with the rest of the socket functions.
  *
- * @param resource $address AddressInfo instance created from socket_addrinfo_lookup.
+ * @param \AddressInfo $address AddressInfo instance created from socket_addrinfo_lookup.
  * @return resource|null Returns a Socket instance on success.
  * @throws SocketsException
  *
  */
-function socket_addrinfo_connect($address)
+function socket_addrinfo_connect(\AddressInfo $address)
 {
     error_clear_last();
     $safeResult = \socket_addrinfo_connect($address);
@@ -140,7 +140,7 @@ function socket_atmark(\Socket $socket): void
  * a connection is established using socket_connect
  * or socket_listen.
  *
- * @param resource $socket A Socket instance created with socket_create.
+ * @param \Socket $socket A Socket instance created with socket_create.
  * @param string $address If the socket is of the AF_INET family, the
  * address is an IP in dotted-quad notation
  * (e.g. 127.0.0.1).
@@ -154,7 +154,7 @@ function socket_atmark(\Socket $socket): void
  * @throws SocketsException
  *
  */
-function socket_bind($socket, string $address, int $port = 0): void
+function socket_bind(\Socket $socket, string $address, int $port = 0): void
 {
     error_clear_last();
     $safeResult = \socket_bind($socket, $address, $port);
@@ -169,7 +169,7 @@ function socket_bind($socket, string $address, int $port = 0): void
  * socket, which must be Socket
  * instance created with socket_create.
  *
- * @param resource $socket A Socket instance created with
+ * @param \Socket $socket A Socket instance created with
  * socket_create.
  * @param string $address The address parameter is either an IPv4 address
  * in dotted-quad notation (e.g. 127.0.0.1) if
@@ -185,7 +185,7 @@ function socket_bind($socket, string $address, int $port = 0): void
  * @throws SocketsException
  *
  */
-function socket_connect($socket, string $address, ?int $port = null): void
+function socket_connect(\Socket $socket, string $address, ?int $port = null): void
 {
     error_clear_last();
     if ($port !== null) {
@@ -304,12 +304,12 @@ function socket_create(int $domain, int $type, int $protocol)
 /**
  *
  *
- * @param resource $socket
+ * @param \Socket $socket
  * @return resource Return resource.
  * @throws SocketsException
  *
  */
-function socket_export_stream($socket)
+function socket_export_stream(\Socket $socket)
 {
     error_clear_last();
     $safeResult = \socket_export_stream($socket);
@@ -325,7 +325,7 @@ function socket_export_stream($socket)
  * the option specified by the option parameter for the
  * specified socket.
  *
- * @param resource $socket A Socket instance created with socket_create
+ * @param \Socket $socket A Socket instance created with socket_create
  * or socket_accept.
  * @param int $level The level parameter specifies the protocol
  * level at which the option resides. For example, to retrieve options at
@@ -356,7 +356,7 @@ function socket_export_stream($socket)
  * @throws SocketsException
  *
  */
-function socket_get_option($socket, int $level, int $option)
+function socket_get_option(\Socket $socket, int $level, int $option)
 {
     error_clear_last();
     $safeResult = \socket_get_option($socket, $level, $option);
@@ -371,7 +371,7 @@ function socket_get_option($socket, int $level, int $option)
  * Queries the remote side of the given socket which may either result in
  * host/port or in a Unix filesystem path, dependent on its type.
  *
- * @param resource $socket A Socket instance created with socket_create
+ * @param \Socket $socket A Socket instance created with socket_create
  * or socket_accept.
  * @param string|null $address If the given socket is of type AF_INET or
  * AF_INET6, socket_getpeername
@@ -390,7 +390,7 @@ function socket_get_option($socket, int $level, int $option)
  * @throws SocketsException
  *
  */
-function socket_getpeername($socket, ?string &$address, ?int &$port = null): void
+function socket_getpeername(\Socket $socket, ?string &$address, ?int &$port = null): void
 {
     error_clear_last();
     $safeResult = \socket_getpeername($socket, $address, $port);
@@ -403,7 +403,7 @@ function socket_getpeername($socket, ?string &$address, ?int &$port = null): voi
 /**
  *
  *
- * @param resource $socket A Socket instance created with socket_create
+ * @param \Socket $socket A Socket instance created with socket_create
  * or socket_accept.
  * @param string|null $address If the given socket is of type AF_INET
  * or AF_INET6, socket_getsockname
@@ -420,7 +420,7 @@ function socket_getpeername($socket, ?string &$address, ?int &$port = null): voi
  * @throws SocketsException
  *
  */
-function socket_getsockname($socket, ?string &$address, ?int &$port = null): void
+function socket_getsockname(\Socket $socket, ?string &$address, ?int &$port = null): void
 {
     error_clear_last();
     $safeResult = \socket_getsockname($socket, $address, $port);
@@ -459,7 +459,7 @@ function socket_import_stream($stream)
  * type SOCK_STREAM or
  * SOCK_SEQPACKET.
  *
- * @param resource $socket A Socket instance created with socket_create
+ * @param \Socket $socket A Socket instance created with socket_create
  * or socket_addrinfo_bind
  * @param int $backlog A maximum of backlog incoming connections will be
  * queued for processing. If a connection request arrives with the queue
@@ -477,7 +477,7 @@ function socket_import_stream($stream)
  * @throws SocketsException
  *
  */
-function socket_listen($socket, int $backlog = 0): void
+function socket_listen(\Socket $socket, int $backlog = 0): void
 {
     error_clear_last();
     $safeResult = \socket_listen($socket, $backlog);
@@ -493,7 +493,7 @@ function socket_listen($socket, int $backlog = 0): void
  * socket_create or
  * socket_accept functions.
  *
- * @param resource $socket A Socket instance created with socket_create
+ * @param \Socket $socket A Socket instance created with socket_create
  * or socket_accept.
  * @param int $length The maximum number of bytes read is specified by the
  * length parameter. Otherwise you can use
@@ -523,7 +523,7 @@ function socket_listen($socket, int $backlog = 0): void
  * @throws SocketsException
  *
  */
-function socket_read($socket, int $length, int $mode = PHP_BINARY_READ): string
+function socket_read(\Socket $socket, int $length, int $mode = PHP_BINARY_READ): string
 {
     error_clear_last();
     $safeResult = \socket_read($socket, $length, $mode);
@@ -539,7 +539,7 @@ function socket_read($socket, int $length, int $mode = PHP_BINARY_READ): string
  * length bytes to the socket
  * socket from data.
  *
- * @param resource $socket A Socket instance created with socket_create
+ * @param \Socket $socket A Socket instance created with socket_create
  * or socket_accept.
  * @param string $data A buffer containing the data that will be sent to the remote host.
  * @param int $length The number of bytes that will be sent to the remote host from
@@ -584,7 +584,7 @@ function socket_read($socket, int $length, int $mode = PHP_BINARY_READ): string
  * @throws SocketsException
  *
  */
-function socket_send($socket, string $data, int $length, int $flags): int
+function socket_send(\Socket $socket, string $data, int $length, int $flags): int
 {
     error_clear_last();
     $safeResult = \socket_send($socket, $data, $length, $flags);
@@ -598,14 +598,14 @@ function socket_send($socket, string $data, int $length, int $flags): int
 /**
  *
  *
- * @param resource $socket
+ * @param \Socket $socket
  * @param array $message
  * @param int $flags
  * @return int Returns the number of bytes sent.
  * @throws SocketsException
  *
  */
-function socket_sendmsg($socket, array $message, int $flags = 0): int
+function socket_sendmsg(\Socket $socket, array $message, int $flags = 0): int
 {
     error_clear_last();
     $safeResult = \socket_sendmsg($socket, $message, $flags);
@@ -622,7 +622,7 @@ function socket_sendmsg($socket, array $message, int $flags = 0): int
  * through the socket socket to the
  * port at the address address.
  *
- * @param resource $socket A Socket instance created using socket_create.
+ * @param \Socket $socket A Socket instance created using socket_create.
  * @param string $data The sent data will be taken from buffer data.
  * @param int $length length bytes from data will be
  * sent.
@@ -670,7 +670,7 @@ function socket_sendmsg($socket, array $message, int $flags = 0): int
  * @throws SocketsException
  *
  */
-function socket_sendto($socket, string $data, int $length, int $flags, string $address, ?int $port = null): int
+function socket_sendto(\Socket $socket, string $data, int $length, int $flags, string $address, ?int $port = null): int
 {
     error_clear_last();
     if ($port !== null) {
@@ -694,12 +694,12 @@ function socket_sendto($socket, string $data, int $length, int $flags, string $a
  * a blocking socket, the script will pause its execution until it receives
  * a signal or it can perform the operation.
  *
- * @param resource $socket A Socket instance created with socket_create
+ * @param \Socket $socket A Socket instance created with socket_create
  * or socket_accept.
  * @throws SocketsException
  *
  */
-function socket_set_block($socket): void
+function socket_set_block(\Socket $socket): void
 {
     error_clear_last();
     $safeResult = \socket_set_block($socket);
@@ -719,12 +719,12 @@ function socket_set_block($socket): void
  * signal or it can perform the operation. Rather, if the operation would result
  * in a block, the called function will fail.
  *
- * @param resource $socket A Socket instance created with socket_create
+ * @param \Socket $socket A Socket instance created with socket_create
  * or socket_accept.
  * @throws SocketsException
  *
  */
-function socket_set_nonblock($socket): void
+function socket_set_nonblock(\Socket $socket): void
 {
     error_clear_last();
     $safeResult = \socket_set_nonblock($socket);
@@ -741,7 +741,7 @@ function socket_set_nonblock($socket): void
  * by the value parameter for the
  * socket.
  *
- * @param resource $socket A Socket instance created with socket_create
+ * @param \Socket $socket A Socket instance created with socket_create
  * or socket_accept.
  * @param int $level The level parameter specifies the protocol
  * level at which the option resides. For example, to set options at
@@ -756,7 +756,7 @@ function socket_set_nonblock($socket): void
  * @throws SocketsException
  *
  */
-function socket_set_option($socket, int $level, int $option, $value): void
+function socket_set_option(\Socket $socket, int $level, int $option, $value): void
 {
     error_clear_last();
     $safeResult = \socket_set_option($socket, $level, $option, $value);
@@ -771,7 +771,7 @@ function socket_set_option($socket, int $level, int $option, $value): void
  * incoming, outgoing or all data (the default) from being sent through the
  * socket
  *
- * @param resource $socket A Socket instance created with socket_create.
+ * @param \Socket $socket A Socket instance created with socket_create.
  * @param int $mode The value of mode can be one of the following:
  *
  * possible values for mode
@@ -801,7 +801,7 @@ function socket_set_option($socket, int $level, int $option, $value): void
  * @throws SocketsException
  *
  */
-function socket_shutdown($socket, int $mode = 2): void
+function socket_shutdown(\Socket $socket, int $mode = 2): void
 {
     error_clear_last();
     $safeResult = \socket_shutdown($socket, $mode);
@@ -816,13 +816,13 @@ function socket_shutdown($socket, int $mode = 2): void
  * an identifier to be used with socket_wsaprotocol_info_import. The
  * exported ID is only valid for the given process_id.
  *
- * @param resource $socket A Socket instance.
+ * @param \Socket $socket A Socket instance.
  * @param int $process_id The ID of the process which will import the socket.
  * @return string Returns an identifier to be used for the import
  * @throws SocketsException
  *
  */
-function socket_wsaprotocol_info_export($socket, int $process_id): string
+function socket_wsaprotocol_info_export(\Socket $socket, int $process_id): string
 {
     error_clear_last();
     $safeResult = \socket_wsaprotocol_info_export($socket, $process_id);

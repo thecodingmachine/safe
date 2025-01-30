@@ -29,7 +29,7 @@ class GenerateCommand extends Command
 
         $paths = $scanner->getFunctionsPaths();
 
-        $res = $scanner->getMethods($paths);
+        $res = $scanner->getMethods($paths, $output);
         $functions = $res->methods;
         $overloadedFunctions = $res->overloadedFunctions;
 

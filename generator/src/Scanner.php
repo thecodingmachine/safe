@@ -8,6 +8,8 @@ use function array_merge;
 use function iterator_to_array;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Output\OutputInterface;
 use SplFileInfo;
 
 class Scanner
@@ -78,7 +80,7 @@ class Scanner
     /**
      * @param SplFileInfo[] $paths
      */
-    public function getMethods(array $paths): ScannerResponse
+    public function getMethods(array $paths, OutputInterface $output): ScannerResponse
     {
         /** @var Method[] $functions */
         $functions = [];
@@ -90,8 +92,14 @@ class Scanner
         $ignoredFunctions = \array_combine($ignoredFunctions, $ignoredFunctions);
         $ignoredModules = $this->getIgnoredModules();
         $ignoredModules = \array_combine($ignoredModules, $ignoredModules);
+
+        ProgressBar::setFormatDefinition('custom', ' %current%/%max% [%bar%] %message%');
+        $progressBar = new ProgressBar($output, count($paths));
+        $progressBar->setFormat("custom");
         foreach ($paths as $path) {
             $module = \basename(\dirname($path->getPath()));
+            $progressBar->setMessage($path->getFilename());
+            $progressBar->advance();
 
             if (isset($ignoredModules[$module])) {
                 continue;
@@ -124,6 +132,8 @@ class Scanner
                 }
             }
         }
+        $progressBar->finish();
+        $output->writeln("");
 
         return new ScannerResponse($functions, $overloadedFunctions);
     }

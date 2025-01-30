@@ -10,11 +10,11 @@ use Safe\Exceptions\PgsqlException;
  * or pg_send_execute. You cannot cancel a query executed using
  * pg_query.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @throws PgsqlException
  *
  */
-function pg_cancel_query($connection): void
+function pg_cancel_query(\PgSql\Connection $connection): void
 {
     error_clear_last();
     $safeResult = \pg_cancel_query($connection);
@@ -86,11 +86,11 @@ function pg_connect(string $connection_string, int $flags = 0)
  * pg_connection_reset resets the connection.
  * It is useful for error recovery.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @throws PgsqlException
  *
  */
-function pg_connection_reset($connection): void
+function pg_connection_reset(\PgSql\Connection $connection): void
 {
     error_clear_last();
     $safeResult = \pg_connection_reset($connection);
@@ -110,7 +110,7 @@ function pg_connection_reset($connection): void
  * values and the corresponding datatypes must be
  * compatible. Returns an array with the converted values on success.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table against which to convert types.
  * @param array $values Data to be converted.
  * @param int $flags Any number of PGSQL_CONV_IGNORE_DEFAULT,
@@ -120,7 +120,7 @@ function pg_connection_reset($connection): void
  * @throws PgsqlException
  *
  */
-function pg_convert($connection, string $table_name, array $values, int $flags = 0): array
+function pg_convert(\PgSql\Connection $connection, string $table_name, array $values, int $flags = 0): array
 {
     error_clear_last();
     $safeResult = \pg_convert($connection, $table_name, $values, $flags);
@@ -136,7 +136,7 @@ function pg_convert($connection, string $table_name, array $values, int $flags =
  * rows. It issues a COPY FROM SQL command
  * internally to insert records.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table into which to copy the rows.
  * @param array $rows An array of data to be copied into table_name.
  * Each value in rows becomes a row in table_name.
@@ -149,7 +149,7 @@ function pg_convert($connection, string $table_name, array $values, int $flags =
  * @throws PgsqlException
  *
  */
-function pg_copy_from($connection, string $table_name, array $rows, string $separator = "\t", string $null_as = "\\N"): void
+function pg_copy_from(\PgSql\Connection $connection, string $table_name, array $rows, string $separator = "\t", string $null_as = "\\N"): void
 {
     error_clear_last();
     $safeResult = \pg_copy_from($connection, $table_name, $rows, $separator, $null_as);
@@ -164,7 +164,7 @@ function pg_copy_from($connection, string $table_name, array $rows, string $sepa
  * issues COPY TO SQL command internally to
  * retrieve records.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table from which to copy the data into rows.
  * @param string $separator The token that separates values for each field in each element of
  * rows.  Default is \t.
@@ -174,7 +174,7 @@ function pg_copy_from($connection, string $table_name, array $rows, string $sepa
  * @throws PgsqlException
  *
  */
-function pg_copy_to($connection, string $table_name, string $separator = "\t", string $null_as = "\\N"): array
+function pg_copy_to(\PgSql\Connection $connection, string $table_name, string $separator = "\t", string $null_as = "\\N"): array
 {
     error_clear_last();
     $safeResult = \pg_copy_to($connection, $table_name, $separator, $null_as);
@@ -203,7 +203,7 @@ function pg_copy_to($connection, string $table_name, string $separator = "\t", s
  * JSON, Array, Regex, etc. These parameters should be handled
  * according to their contexts. i.e. Escape/validate values.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table from which to delete rows.
  * @param array $conditions An array whose keys are field names in the table table_name,
  * and whose values are the values of those fields that are to be deleted.
@@ -220,7 +220,7 @@ function pg_copy_to($connection, string $table_name, string $separator = "\t", s
  * @throws PgsqlException
  *
  */
-function pg_delete($connection, string $table_name, array $conditions, int $flags = PGSQL_DML_EXEC)
+function pg_delete(\PgSql\Connection $connection, string $table_name, array $conditions, int $flags = PGSQL_DML_EXEC)
 {
     error_clear_last();
     $safeResult = \pg_delete($connection, $table_name, $conditions, $flags);
@@ -277,7 +277,7 @@ function pg_end_copy($connection = null): void
  * The parameters are identical to pg_query_params, except that the name of a
  * prepared statement is given instead of a query string.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -296,7 +296,7 @@ function pg_end_copy($connection = null): void
  * @throws PgsqlException
  *
  */
-function pg_execute($connection = null, ?string $stmtname = null, ?array $params = null)
+function pg_execute(?\PgSql\Connection $connection = null, ?string $stmtname = null, ?array $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -319,7 +319,7 @@ function pg_execute($connection = null, ?string $stmtname = null, ?array $params
  * pg_field_table returns the name of the table that field
  * belongs to, or the table's oid if oid_only is TRUE.
  *
- * @param resource $result An PgSql\Result instance, returned by pg_query,
+ * @param \PgSql\Result $result An PgSql\Result instance, returned by pg_query,
  * pg_query_params or pg_execute(among others).
  * @param int $field Field number, starting from 0.
  * @param bool $oid_only By default the tables name that field belongs to is returned but
@@ -329,7 +329,7 @@ function pg_execute($connection = null, ?string $stmtname = null, ?array $params
  * @throws PgsqlException
  *
  */
-function pg_field_table($result, int $field, bool $oid_only = false)
+function pg_field_table(\PgSql\Result $result, int $field, bool $oid_only = false)
 {
     error_clear_last();
     $safeResult = \pg_field_table($result, $field, $oid_only);
@@ -344,14 +344,14 @@ function pg_field_table($result, int $field, bool $oid_only = false)
  * pg_flush flushes any outbound query data waiting to be
  * sent on the connection.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @return mixed Returns TRUE if the flush was successful or no data was waiting to be
  * flushed, 0 if part of the pending data was flushed but
  * more remains.
  * @throws PgsqlException
  *
  */
-function pg_flush($connection)
+function pg_flush(\PgSql\Connection $connection)
 {
     error_clear_last();
     $safeResult = \pg_flush($connection);
@@ -370,12 +370,12 @@ function pg_flush($connection)
  * consumption during script execution is a problem.   Otherwise, all result memory will
  * be automatically freed when the script ends.
  *
- * @param resource $result An PgSql\Result instance, returned by pg_query,
+ * @param \PgSql\Result $result An PgSql\Result instance, returned by pg_query,
  * pg_query_params or pg_execute(among others).
  * @throws PgsqlException
  *
  */
-function pg_free_result($result): void
+function pg_free_result(\PgSql\Result $result): void
 {
     error_clear_last();
     $safeResult = \pg_free_result($result);
@@ -434,7 +434,7 @@ function pg_host($connection = null): string
  * JSON, Array, Regex, etc. These parameters should be handled
  * according to their contexts. i.e. Escape/validate values.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table into which to insert rows.  The table table_name must at least
  * have as many columns as values has elements.
  * @param array $values An array whose keys are field names in the table table_name,
@@ -452,7 +452,7 @@ function pg_host($connection = null): string
  * @throws PgsqlException
  *
  */
-function pg_insert($connection, string $table_name, array $values, int $flags = PGSQL_DML_EXEC)
+function pg_insert(\PgSql\Connection $connection, string $table_name, array $values, int $flags = PGSQL_DML_EXEC)
 {
     error_clear_last();
     $safeResult = \pg_insert($connection, $table_name, $values, $flags);
@@ -483,7 +483,7 @@ function pg_insert($connection, string $table_name, array $values, int $flags = 
  * the value of the most recently used sequence in the session.  This avoids
  * the need for naming the sequence, table or column altogether.
  *
- * @param resource $result An PgSql\Result instance, returned by pg_query,
+ * @param \PgSql\Result $result An PgSql\Result instance, returned by pg_query,
  * pg_query_params or pg_execute(among others).
  * @return string An int or string containing the OID assigned to the most recently inserted
  * row in the specified connection or
@@ -491,7 +491,7 @@ function pg_insert($connection, string $table_name, array $values, int $flags = 
  * @throws PgsqlException
  *
  */
-function pg_last_oid($result): string
+function pg_last_oid(\PgSql\Result $result): string
 {
     error_clear_last();
     $safeResult = \pg_last_oid($result);
@@ -508,11 +508,11 @@ function pg_last_oid($result): string
  * To use the large object interface, it is necessary to
  * enclose it within a transaction block.
  *
- * @param resource $lob An PgSql\Lob instance, returned by pg_lo_open.
+ * @param \PgSql\Lob $lob An PgSql\Lob instance, returned by pg_lo_open.
  * @throws PgsqlException
  *
  */
-function pg_lo_close($lob): void
+function pg_lo_close(\PgSql\Lob $lob): void
 {
     error_clear_last();
     $safeResult = \pg_lo_close($lob);
@@ -530,7 +530,7 @@ function pg_lo_close($lob): void
  * To use the large object interface, it is necessary to
  * enclose it within a transaction block.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -541,7 +541,7 @@ function pg_lo_close($lob): void
  * @throws PgsqlException
  *
  */
-function pg_lo_export($connection = null, ?int $oid = null, ?string $pathname = null): void
+function pg_lo_export(?\PgSql\Connection $connection = null, ?int $oid = null, ?string $pathname = null): void
 {
     error_clear_last();
     if ($pathname !== null) {
@@ -567,7 +567,7 @@ function pg_lo_export($connection = null, ?int $oid = null, ?string $pathname = 
  * To use the large object interface, it is necessary to
  * enclose it within a transaction block.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -583,7 +583,7 @@ function pg_lo_export($connection = null, ?int $oid = null, ?string $pathname = 
  * @throws PgsqlException
  *
  */
-function pg_lo_import($connection = null, ?string $pathname = null, $object_id = null): int
+function pg_lo_import(?\PgSql\Connection $connection = null, ?string $pathname = null, $object_id = null): int
 {
     error_clear_last();
     if ($object_id !== null) {
@@ -609,7 +609,7 @@ function pg_lo_import($connection = null, ?string $pathname = null, $object_id =
  * To use the large object interface, it is necessary to
  * enclose it within a transaction block.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -621,7 +621,7 @@ function pg_lo_import($connection = null, ?string $pathname = null, $object_id =
  * @throws PgsqlException
  *
  */
-function pg_lo_open($connection, int $oid, string $mode)
+function pg_lo_open(\PgSql\Connection $connection, int $oid, string $mode)
 {
     error_clear_last();
     $safeResult = \pg_lo_open($connection, $oid, $mode);
@@ -640,14 +640,14 @@ function pg_lo_open($connection, int $oid, string $mode)
  * To use the large object interface, it is necessary to
  * enclose it within a transaction block.
  *
- * @param resource $lob An PgSql\Lob instance, returned by pg_lo_open.
+ * @param \PgSql\Lob $lob An PgSql\Lob instance, returned by pg_lo_open.
  * @param int $length An optional maximum number of bytes to return.
  * @return string A string containing length bytes from the
  * large object.
  * @throws PgsqlException
  *
  */
-function pg_lo_read($lob, int $length = 8192): string
+function pg_lo_read(\PgSql\Lob $lob, int $length = 8192): string
 {
     error_clear_last();
     $safeResult = \pg_lo_read($lob, $length);
@@ -664,7 +664,7 @@ function pg_lo_read($lob, int $length = 8192): string
  * To use the large object interface, it is necessary to
  * enclose it within a transaction block.
  *
- * @param resource $lob An PgSql\Lob instance, returned by pg_lo_open.
+ * @param \PgSql\Lob $lob An PgSql\Lob instance, returned by pg_lo_open.
  * @param int $offset The number of bytes to seek.
  * @param int $whence One of the constants PGSQL_SEEK_SET (seek from object start),
  * PGSQL_SEEK_CUR (seek from current position)
@@ -672,7 +672,7 @@ function pg_lo_read($lob, int $length = 8192): string
  * @throws PgsqlException
  *
  */
-function pg_lo_seek($lob, int $offset, int $whence = SEEK_CUR): void
+function pg_lo_seek(\PgSql\Lob $lob, int $offset, int $whence = SEEK_CUR): void
 {
     error_clear_last();
     $safeResult = \pg_lo_seek($lob, $offset, $whence);
@@ -688,12 +688,12 @@ function pg_lo_seek($lob, int $offset, int $whence = SEEK_CUR): void
  * To use the large object interface, it is necessary to
  * enclose it within a transaction block.
  *
- * @param resource $lob An PgSql\Lob instance, returned by pg_lo_open.
+ * @param \PgSql\Lob $lob An PgSql\Lob instance, returned by pg_lo_open.
  * @param int $size The number of bytes to truncate.
  * @throws PgsqlException
  *
  */
-function pg_lo_truncate($lob, int $size): void
+function pg_lo_truncate(\PgSql\Lob $lob, int $size): void
 {
     error_clear_last();
     $safeResult = \pg_lo_truncate($lob, $size);
@@ -710,7 +710,7 @@ function pg_lo_truncate($lob, int $size): void
  * To use the large object interface, it is necessary to
  * enclose it within a transaction block.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -719,7 +719,7 @@ function pg_lo_truncate($lob, int $size): void
  * @throws PgsqlException
  *
  */
-function pg_lo_unlink($connection, int $oid): void
+function pg_lo_unlink(\PgSql\Connection $connection, int $oid): void
 {
     error_clear_last();
     $safeResult = \pg_lo_unlink($connection, $oid);
@@ -736,7 +736,7 @@ function pg_lo_unlink($connection, int $oid): void
  * To use the large object interface, it is necessary to
  * enclose it within a transaction block.
  *
- * @param resource $lob An PgSql\Lob instance, returned by pg_lo_open.
+ * @param \PgSql\Lob $lob An PgSql\Lob instance, returned by pg_lo_open.
  * @param string $data The data to be written to the large object.  If length is
  * an int and is less than the length of data, only
  * length bytes will be written.
@@ -747,7 +747,7 @@ function pg_lo_unlink($connection, int $oid): void
  * @throws PgsqlException
  *
  */
-function pg_lo_write($lob, string $data, ?int $length = null): int
+function pg_lo_write(\PgSql\Lob $lob, string $data, ?int $length = null): int
 {
     error_clear_last();
     if ($length !== null) {
@@ -766,14 +766,14 @@ function pg_lo_write($lob, string $data, ?int $length = null): int
  * pg_meta_data returns table definition for
  * table_name as an array.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @param string $table_name The name of the table.
  * @param bool $extended Flag for returning extended meta data. Default to FALSE.
  * @return array An array of the table definition.
  * @throws PgsqlException
  *
  */
-function pg_meta_data($connection, string $table_name, bool $extended = false): array
+function pg_meta_data(\PgSql\Connection $connection, string $table_name, bool $extended = false): array
 {
     error_clear_last();
     $safeResult = \pg_meta_data($connection, $table_name, $extended);
@@ -808,7 +808,7 @@ function pg_meta_data($connection, string $table_name, bool $extended = false): 
  * anyway. Applications are encouraged to use pg_parameter_status rather than ad
  * hoc code to determine these values.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -823,7 +823,7 @@ function pg_meta_data($connection, string $table_name, bool $extended = false): 
  * @throws PgsqlException
  *
  */
-function pg_parameter_status($connection = null, ?string $param_name = null): string
+function pg_parameter_status(?\PgSql\Connection $connection = null, ?string $param_name = null): string
 {
     error_clear_last();
     if ($param_name !== null) {
@@ -943,7 +943,7 @@ function pg_ping($connection = null): void
  * although there is no PHP function for deleting a prepared statement, the
  * SQL DEALLOCATE statement can be used for that purpose.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -958,7 +958,7 @@ function pg_ping($connection = null): void
  * @throws PgsqlException
  *
  */
-function pg_prepare($connection = null, ?string $stmtname = null, ?string $query = null)
+function pg_prepare(?\PgSql\Connection $connection = null, ?string $stmtname = null, ?string $query = null)
 {
     error_clear_last();
     if ($query !== null) {
@@ -990,7 +990,7 @@ function pg_prepare($connection = null, ?string $stmtname = null, ?string $query
  * is to use pg_copy_from.  This is a far simpler
  * interface.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -1000,7 +1000,7 @@ function pg_prepare($connection = null, ?string $stmtname = null, ?string $query
  * @throws PgsqlException
  *
  */
-function pg_put_line($connection = null, ?string $data = null): void
+function pg_put_line(?\PgSql\Connection $connection = null, ?string $data = null): void
 {
     error_clear_last();
     if ($data !== null) {
@@ -1041,7 +1041,7 @@ function pg_put_line($connection = null, ?string $data = null): void
  * most one SQL command in the given string. (There can be semicolons in it,
  * but not more than one nonempty command.)
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -1067,7 +1067,7 @@ function pg_put_line($connection = null, ?string $data = null): void
  * @throws PgsqlException
  *
  */
-function pg_query_params($connection = null, ?string $query = null, ?array $params = null)
+function pg_query_params(?\PgSql\Connection $connection = null, ?string $query = null, ?array $params = null)
 {
     error_clear_last();
     if ($params !== null) {
@@ -1104,7 +1104,7 @@ function pg_query_params($connection = null, ?string $query = null, ?array $para
  *
  *
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * When connection is unspecified, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -1126,7 +1126,7 @@ function pg_query_params($connection = null, ?string $query = null, ?array $para
  * @throws PgsqlException
  *
  */
-function pg_query($connection = null, ?string $query = null)
+function pg_query(?\PgSql\Connection $connection = null, ?string $query = null)
 {
     error_clear_last();
     if ($query !== null) {
@@ -1157,7 +1157,7 @@ function pg_query($connection = null, ?string $query = null)
  * use pg_set_error_verbosity and pg_last_error
  * and then parse the result.
  *
- * @param resource $result An PgSql\Result instance, returned by pg_query,
+ * @param \PgSql\Result $result An PgSql\Result instance, returned by pg_query,
  * pg_query_params or pg_execute(among others).
  * @param int $field_code Possible field_code values are: PGSQL_DIAG_SEVERITY,
  * PGSQL_DIAG_SQLSTATE, PGSQL_DIAG_MESSAGE_PRIMARY,
@@ -1172,7 +1172,7 @@ function pg_query($connection = null, ?string $query = null)
  * @throws PgsqlException
  *
  */
-function pg_result_error_field($result, int $field_code): ?string
+function pg_result_error_field(\PgSql\Result $result, int $field_code): ?string
 {
     error_clear_last();
     $safeResult = \pg_result_error_field($result, $field_code);
@@ -1187,14 +1187,14 @@ function pg_result_error_field($result, int $field_code): ?string
  * pg_result_seek sets the internal row offset in
  * the result instance.
  *
- * @param resource $result An PgSql\Result instance, returned by pg_query,
+ * @param \PgSql\Result $result An PgSql\Result instance, returned by pg_query,
  * pg_query_params or pg_execute(among others).
  * @param int $row Row to move the internal offset to in the PgSql\Result instance.
  * Rows are numbered starting from zero.
  * @throws PgsqlException
  *
  */
-function pg_result_seek($result, int $row): void
+function pg_result_seek(\PgSql\Result $result, int $row): void
 {
     error_clear_last();
     $safeResult = \pg_result_seek($result, $row);
@@ -1231,7 +1231,7 @@ function pg_result_seek($result, int $row): void
  * JSON, Array, Regex, etc. These parameters should be handled
  * according to their contexts. i.e. Escape/validate values.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table from which to select rows.
  * @param array $conditions An array whose keys are field names in the table table_name,
  * and whose values are the conditions that a row must meet to be retrieved.
@@ -1257,7 +1257,7 @@ function pg_result_seek($result, int $row): void
  * @throws PgsqlException
  *
  */
-function pg_select($connection, string $table_name, array $conditions = [], int $flags = PGSQL_DML_EXEC, int $mode = PGSQL_ASSOC)
+function pg_select(\PgSql\Connection $connection, string $table_name, array $conditions = [], int $flags = PGSQL_DML_EXEC, int $mode = PGSQL_ASSOC)
 {
     error_clear_last();
     $safeResult = \pg_select($connection, $table_name, $conditions, $flags, $mode);
@@ -1290,12 +1290,12 @@ function pg_set_chunked_rows_size(\PgSql\Connection $connection, int $size): voi
  * pg_socket returns a read only resource
  * corresponding to the socket underlying the given PostgreSQL connection.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @return resource A socket resource on success.
  * @throws PgsqlException
  *
  */
-function pg_socket($connection)
+function pg_socket(\PgSql\Connection $connection)
 {
     error_clear_last();
     $safeResult = \pg_socket($connection);
@@ -1367,7 +1367,7 @@ function pg_trace(string $filename, string $mode = "w", $connection = null, int 
  * JSON, Array, Regex, etc. These parameters should be handled
  * according to their contexts. i.e. Escape/validate values.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table into which to update rows.
  * @param array $values An array whose keys are field names in the table table_name,
  * and whose values are what matched rows are to be updated to.
@@ -1386,7 +1386,7 @@ function pg_trace(string $filename, string $mode = "w", $connection = null, int 
  * @throws PgsqlException
  *
  */
-function pg_update($connection, string $table_name, array $values, array $conditions, int $flags = PGSQL_DML_EXEC)
+function pg_update(\PgSql\Connection $connection, string $table_name, array $values, array $conditions, int $flags = PGSQL_DML_EXEC)
 {
     error_clear_last();
     $safeResult = \pg_update($connection, $table_name, $values, $conditions, $flags);

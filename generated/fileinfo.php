@@ -7,11 +7,11 @@ use Safe\Exceptions\FileinfoException;
 /**
  * This function closes the instance opened by finfo_open.
  *
- * @param resource $finfo An finfo instance, returned by finfo_open.
+ * @param finfo $finfo An finfo instance, returned by finfo_open.
  * @throws FileinfoException
  *
  */
-function finfo_close($finfo): void
+function finfo_close(finfo $finfo): void
 {
     error_clear_last();
     $safeResult = \finfo_close($finfo);

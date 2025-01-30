@@ -7,7 +7,7 @@ use Safe\Exceptions\ZlibException;
 /**
  * Incrementally deflates data in the specified context.
  *
- * @param resource $context A context created with deflate_init.
+ * @param \DeflateContext $context A context created with deflate_init.
  * @param string $data A chunk of data to compress.
  * @param int $flush_mode One of ZLIB_BLOCK,
  * ZLIB_NO_FLUSH,
@@ -22,7 +22,7 @@ use Safe\Exceptions\ZlibException;
  * @throws ZlibException
  *
  */
-function deflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH): string
+function deflate_add(\DeflateContext $context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH): string
 {
     error_clear_last();
     $safeResult = \deflate_add($context, $data, $flush_mode);
@@ -475,12 +475,12 @@ function gzwrite($stream, string $data, ?int $length = null): int
 /**
  *
  *
- * @param resource $context
+ * @param \InflateContext $context
  * @return int Returns number of bytes read so far.
  * @throws ZlibException
  *
  */
-function inflate_get_read_len($context): int
+function inflate_get_read_len(\InflateContext $context): int
 {
     error_clear_last();
     $safeResult = \inflate_get_read_len($context);
@@ -497,7 +497,7 @@ function inflate_get_read_len($context): int
  * Limitation: header information from GZIP compressed data are not made
  * available.
  *
- * @param resource $context A context created with inflate_init.
+ * @param \InflateContext $context A context created with inflate_init.
  * @param string $data A chunk of compressed data.
  * @param int $flush_mode One of ZLIB_BLOCK,
  * ZLIB_NO_FLUSH,
@@ -512,7 +512,7 @@ function inflate_get_read_len($context): int
  * @throws ZlibException
  *
  */
-function inflate_add($context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH): string
+function inflate_add(\InflateContext $context, string $data, int $flush_mode = ZLIB_SYNC_FLUSH): string
 {
     error_clear_last();
     $safeResult = \inflate_add($context, $data, $flush_mode);

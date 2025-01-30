@@ -28,7 +28,7 @@ class PhpStanFunction
             $this->parameters[$param->getName()] = $param;
         }
     }
-    
+
     public function getReturnType(): PhpStanType
     {
         return $this->returnType;

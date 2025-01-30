@@ -7,11 +7,11 @@ use Safe\Exceptions\XmlException;
 /**
  * Frees the given XML parser.
  *
- * @param resource $parser
+ * @param \XMLParser $parser
  * @throws XmlException
  *
  */
-function xml_parser_free($parser): void
+function xml_parser_free(\XMLParser $parser): void
 {
     error_clear_last();
     $safeResult = \xml_parser_free($parser);
@@ -24,7 +24,7 @@ function xml_parser_free($parser): void
 /**
  * Sets an option in an XML parser.
  *
- * @param resource $parser A reference to the XML parser to set an option in.
+ * @param \XMLParser $parser A reference to the XML parser to set an option in.
  * @param int $option Which option to set.  See below.
  *
  * The following options are available:
@@ -90,7 +90,7 @@ function xml_parser_free($parser): void
  * @throws XmlException
  *
  */
-function xml_parser_set_option($parser, int $option, $value): void
+function xml_parser_set_option(\XMLParser $parser, int $option, $value): void
 {
     error_clear_last();
     $safeResult = \xml_parser_set_option($parser, $option, $value);

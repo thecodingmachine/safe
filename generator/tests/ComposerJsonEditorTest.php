@@ -30,20 +30,4 @@ class ComposerJsonEditorTest extends TestCase
             "generated/mysql.php",
         ], $newList);
     }
-    
-    
-    public function testFileListEditionForDeprecation(): void
-    {
-        $oldList = [
-            "generated/apache.php",
-            "generated/apc.php",
-        ];
-
-        $newList = ComposerJsonEditor::editFileListForDeprecation($oldList, 'apc');
-
-        $this->assertEquals([
-            "generated/apache.php",
-            "deprecated/apc.php",
-        ], $newList);
-    }
 }

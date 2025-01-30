@@ -7,12 +7,12 @@ use Safe\Exceptions\ShmopException;
 /**
  * shmop_delete is used to delete a shared memory block.
  *
- * @param resource $shmop The shared memory block resource created by
+ * @param \Shmop $shmop The shared memory block resource created by
  * shmop_open
  * @throws ShmopException
  *
  */
-function shmop_delete($shmop): void
+function shmop_delete(\Shmop $shmop): void
 {
     error_clear_last();
     $safeResult = \shmop_delete($shmop);
@@ -25,7 +25,7 @@ function shmop_delete($shmop): void
 /**
  * shmop_read will read a string from shared memory block.
  *
- * @param resource $shmop The shared memory block identifier created by
+ * @param \Shmop $shmop The shared memory block identifier created by
  * shmop_open
  * @param int $offset Offset from which to start reading; must be greater than or equal to zero
  * and less than or equal to the actual size of the shared memory segment.
@@ -37,7 +37,7 @@ function shmop_delete($shmop): void
  * @throws ShmopException
  *
  */
-function shmop_read($shmop, int $offset, int $size): string
+function shmop_read(\Shmop $shmop, int $offset, int $size): string
 {
     error_clear_last();
     $safeResult = \shmop_read($shmop, $offset, $size);

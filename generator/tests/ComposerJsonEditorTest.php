@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Safe;
 
-
 use PHPUnit\Framework\TestCase;
 
 class ComposerJsonEditorTest extends TestCase
@@ -12,7 +11,6 @@ class ComposerJsonEditorTest extends TestCase
     public function testFileListEditionForGeneration(): void
     {
         $oldList = [
-            "deprecated/apc.php",
             "lib/special_cases.php",
             "generated/apache.php",
         ];
@@ -24,7 +22,6 @@ class ComposerJsonEditorTest extends TestCase
         $newList = ComposerJsonEditor::editFilesListForGeneration($oldList, $modules);
 
         $this->assertEquals([
-            "deprecated/apc.php",
             "lib/special_cases.php",
             "generated/apache.php",
             "generated/mysql.php",

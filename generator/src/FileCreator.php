@@ -16,8 +16,9 @@ class FileCreator
      * This function generate an improved php lib function in a php file
      *
      * @param Method[] $functions
+     * @param Method[] $missingFunctions
      */
-    public function generatePhpFile(array $functions, string $path): void
+    public function generatePhpFile(array $functions, array $missingFunctions, string $path): void
     {
         $path = rtrim($path, '/').'/';
         $phpFunctionsByModule = [];
@@ -25,22 +26,63 @@ class FileCreator
             $writePhpFunction = new WritePhpFunction($function);
             $phpFunctionsByModule[$function->getModuleName()][] = $writePhpFunction->getPhpFunctionalFunction();
         }
+        $missingFunctionsByModule = [];
+        foreach ($missingFunctions as $missingFunction) {
+            $missingFunctionsByModule[$missingFunction->getModuleName()][] = $missingFunction->getFunctionName();
+        }
 
         foreach ($phpFunctionsByModule as $module => $phpFunctions) {
             $lcModule = \lcfirst($module);
+            if (!is_dir($path)) {
+                \mkdir($path);
+            }
             $stream = \fopen($path.$lcModule.'.php', 'w');
             if ($stream === false) {
                 throw new \RuntimeException('Unable to write to '.$path);
             }
+
+            // Write file header
             \fwrite($stream, "<?php\n
 namespace Safe;
 
 use Safe\\Exceptions\\".self::toExceptionName($module). ';');
+
+            // Write safe wrappers for non-safe functions
             foreach ($phpFunctions as $phpFunction) {
                 \fwrite($stream, "\n".$phpFunction);
             }
+
+            // Write no-op wrappers for previously-unsafe, now-safe functions
+            foreach (($missingFunctionsByModule[$module] ?? []) as $functionName) {
+                fwrite($stream, "\nfunction $functionName()\n");
+                fwrite($stream, "{\n");
+                fwrite($stream, "    return \\$functionName(...func_get_args());\n");
+                fwrite($stream, "}\n");
+            }
+
             \fclose($stream);
         }
+    }
+
+    /**
+     * @param string[] $versions
+     */
+    public function generateVersionSplitters(string $module, string $path, array $versions): void
+    {
+        $lcModule = \lcfirst($module);
+        $stream = \fopen($path.$lcModule.'.php', 'w');
+        if ($stream === false) {
+            throw new \RuntimeException('Unable to write to '.$path);
+        }
+        \fwrite($stream, "<?php\n");
+        foreach ($versions as $version) {
+            if (file_exists("$path/$version/$lcModule.php")) {
+                \fwrite($stream, "\nif (strpos(PHP_VERSION, \"$version.\") === 0) {");
+                \fwrite($stream, "\n    require_once __DIR__ . '/$version/$lcModule.php';");
+                \fwrite($stream, "\n}");
+            }
+        }
+        \fclose($stream);
     }
 
     /**

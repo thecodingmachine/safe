@@ -251,7 +251,6 @@ class DocPage
             .'<!DOCTYPE refentry SYSTEM "'.$path.'">'
             .\substr($content, $strpos+1);
 
-        echo 'Loading '.$this->path."\n";
         $elem = \simplexml_load_string($content, \SimpleXMLElement::class, LIBXML_DTDLOAD | LIBXML_NOENT);
         if ($elem === false) {
             throw new \RuntimeException('Invalid XML file for '.$this->path);

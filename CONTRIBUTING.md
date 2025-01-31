@@ -38,6 +38,13 @@ Safe-PHP code is generated automatically from the PHP doc.
   `generated/` and the files in `lib/` auto-loaded; they shouldn't
   need to worry about any files outside those two directories.
 
+## Minimum Supported PHP Version
+
+See https://www.php.net/supported-versions.php
+
+* The `generator` code should be compatible with "Active Support" versions
+* The `generated` code should be compatible with "Active Support" and "Security Fixes" versions
+
 ## Installing dev dependencies
 
 ### With a devcontainer
@@ -48,7 +55,7 @@ pre-installed.
 
 ### Manually
 
-- php8.2+ CLI (with dom and curl modules)
+- php CLI (with dom and curl modules)
 - composer
 
 ### With docker

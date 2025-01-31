@@ -23,6 +23,7 @@ class GenerateCommand extends Command
     {
 
         $this->rmGenerated();
+
         // Let's build the DTD necessary to load the XML files.
         DocPage::buildEntities();
         $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/');

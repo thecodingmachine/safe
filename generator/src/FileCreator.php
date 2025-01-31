@@ -28,14 +28,21 @@ class FileCreator
 
         foreach ($phpFunctionsByModule as $module => $phpFunctions) {
             $lcModule = \lcfirst($module);
+            if (!is_dir($path)) {
+                \mkdir($path);
+            }
             $stream = \fopen($path.$lcModule.'.php', 'w');
             if ($stream === false) {
                 throw new \RuntimeException('Unable to write to '.$path);
             }
+
+            // Write file header
             \fwrite($stream, "<?php\n
 namespace Safe;
 
 use Safe\\Exceptions\\".self::toExceptionName($module). ';');
+
+            // Write file header
             foreach ($phpFunctions as $phpFunction) {
                 \fwrite($stream, "\n".$phpFunction);
             }

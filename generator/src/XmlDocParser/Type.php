@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\XmlDocParser;
 
 class Type
 {

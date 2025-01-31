@@ -4,8 +4,8 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-use Safe\GenerateCommand;
-use Safe\ScanObjectsCommand;
+use Safe\Commands\GenerateCommand;
+use Safe\Commands\ScanObjectsCommand;
 use Symfony\Component\Console\Application;
 
 $application = new Application();

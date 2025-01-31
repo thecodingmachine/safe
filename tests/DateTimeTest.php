@@ -4,29 +4,21 @@ declare(strict_types=1);
 
 namespace Safe;
 
-
 use PHPUnit\Framework\TestCase;
 use Safe\Exceptions\DatetimeException;
 
 class DateTimeTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        require_once __DIR__ . '/../../lib/Exceptions/SafeExceptionInterface.php';
-        require_once __DIR__ . '/../../generated/Exceptions/DatetimeException.php';
-        require_once __DIR__ . '/../../lib/DateTime.php';
-    }
-
     public function testSafeDatetimeCrashOnError(): void
     {
         $this->expectException(DatetimeException::class);
-        $datetime = DateTime::createFromFormat('lol', 'super');
+        $datetime = \Safe\DateTime::createFromFormat('lol', 'super');
     }
 
     public function testCreateFromFormatPreserveTimeAndTimezone(): void
     {
         $timezone = new \DateTimeZone('Pacific/Chatham');
-        $datetime = DateTime::createFromFormat('d-m-Y', '20-03-2006', $timezone);
+        $datetime = \Safe\DateTime::createFromFormat('d-m-Y', '20-03-2006', $timezone);
         $this->assertInstanceOf(DateTime::class, $datetime);
         $this->assertEquals('20-03-2006', $datetime->format('d-m-Y'));
         $this->assertEquals($timezone, $datetime->getTimezone());
@@ -34,7 +26,7 @@ class DateTimeTest extends TestCase
 
     public function testSetDate(): void
     {
-        $datetime = new DateTime();
+        $datetime = new \Safe\DateTime();
         $datetime = $datetime->setDate(2017, 4, 6);
         $this->assertInstanceOf(DateTime::class, $datetime);
         $this->assertEquals(2017, $datetime->format('Y'));
@@ -46,7 +38,7 @@ class DateTimeTest extends TestCase
 
     public function testModify(): void
     {
-        $datetime = new DateTime();
+        $datetime = new \Safe\DateTime();
         $datetime = $datetime->setDate(2017, 4, 6);
         $datetime = $datetime->modify('+1 day');
         $this->assertInstanceOf(DateTime::class, $datetime);

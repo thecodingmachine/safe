@@ -34,7 +34,7 @@ class Scanner
     public function getFunctionsPaths(): array
     {
         $finder = new Finder();
-        $finder->in($this->path.'*/functions/')->name('*.xml')->sortByName();
+        $finder->in($this->path.'/*/functions/')->name('*.xml')->sortByName();
 
         return iterator_to_array($finder);
     }

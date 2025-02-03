@@ -10,17 +10,17 @@ class DocPageTest extends TestCase
 {
     public function testDetectFalsyFunction(): void
     {
-        $pregMatch = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
-        $implode = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/implode.xml');
-        $getCwd = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/dir/functions/getcwd.xml');
-        $createFromFormat = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/datetime/datetime/createfromformat.xml');
-        $filesize = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/filesystem/functions/filesize.xml');
-        $fsockopen = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/network/functions/fsockopen.xml');
-        $arrayReplace = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-replace.xml');
-        $classImplement = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/spl/functions/class-implements.xml');
-        $getHeaders = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/url/functions/get-headers.xml');
-        $gzopen = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/zlib/functions/gzopen.xml');
-        $fopen = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/image/functions/imagecreatefromstring.xml');
+        $pregMatch = new DocPage(DocPage::findReferenceDir() . '/pcre/functions/preg-match.xml');
+        $implode = new DocPage(DocPage::findReferenceDir() . '/strings/functions/implode.xml');
+        $getCwd = new DocPage(DocPage::findReferenceDir() . '/dir/functions/getcwd.xml');
+        $createFromFormat = new DocPage(DocPage::findReferenceDir() . '/datetime/datetime/createfromformat.xml');
+        $filesize = new DocPage(DocPage::findReferenceDir() . '/filesystem/functions/filesize.xml');
+        $fsockopen = new DocPage(DocPage::findReferenceDir() . '/network/functions/fsockopen.xml');
+        $arrayReplace = new DocPage(DocPage::findReferenceDir() . '/array/functions/array-replace.xml');
+        $classImplement = new DocPage(DocPage::findReferenceDir() . '/spl/functions/class-implements.xml');
+        $getHeaders = new DocPage(DocPage::findReferenceDir() . '/url/functions/get-headers.xml');
+        $gzopen = new DocPage(DocPage::findReferenceDir() . '/zlib/functions/gzopen.xml');
+        $fopen = new DocPage(DocPage::findReferenceDir() . '/image/functions/imagecreatefromstring.xml');
 
         $this->assertTrue($pregMatch->detectFalsyFunction());
         $this->assertFalse($implode->detectFalsyFunction());
@@ -37,14 +37,14 @@ class DocPageTest extends TestCase
 
     public function testDetectNullsyFunction(): void
     {
-        $implode = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/implode.xml');
+        $implode = new DocPage(DocPage::findReferenceDir() . '/strings/functions/implode.xml');
 
         $this->assertFalse($implode->detectNullsyFunction());
     }
 
     public function testDetectEmptyFunction(): void
     {
-        $pgHost = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pgsql/functions/pg-host.xml');
+        $pgHost = new DocPage(DocPage::findReferenceDir() . '/pgsql/functions/pg-host.xml');
 
         $this->assertTrue($pgHost->detectEmptyFunction());
     }

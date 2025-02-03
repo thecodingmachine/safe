@@ -13,6 +13,16 @@ class DocPage
     {
     }
 
+    public static function findDocDir(): string
+    {
+        return __DIR__ . '/../doc';
+    }
+
+    public static function findReferenceDir(): string
+    {
+        return DocPage::findDocDir() . '/doc-en/en/reference';
+    }
+
     // Ignore function if it was removed before PHP 7.1
     private function getIsDeprecated(string $file): bool
     {
@@ -241,10 +251,10 @@ class DocPage
             throw new \RuntimeException('An error occurred while reading '.$this->path);
         }
         $strpos = \strpos($content, '?>')+2;
-        if (!\file_exists(__DIR__.'/../doc/entities/generated.ent')) {
+        if (!\file_exists(DocPage::findDocDir() . '/entities/generated.ent')) {
             self::buildEntities();
         }
-        $path = \realpath(__DIR__.'/../doc/entities/generated.ent');
+        $path = \realpath(DocPage::findDocDir() . '/entities/generated.ent');
 
 
         $content = \substr($content, 0, $strpos)
@@ -312,14 +322,14 @@ class DocPage
 
     public static function buildEntities(): void
     {
-        $file1 = \file_get_contents(__DIR__.'/../doc/doc-en/en/language-defs.ent') ?: '';
-        $file2 = \file_get_contents(__DIR__.'/../doc/doc-en/en/language-snippets.ent') ?: '';
-        $file3 = \file_get_contents(__DIR__.'/../doc/doc-en/en/extensions.ent') ?: '';
-        $file4 = \file_get_contents(__DIR__.'/../doc/doc-en/doc-base/entities/global.ent') ?: '';
+        $file1 = \file_get_contents(DocPage::findDocDir() . '/doc-en/en/language-defs.ent') ?: '';
+        $file2 = \file_get_contents(DocPage::findDocDir() . '/doc-en/en/language-snippets.ent') ?: '';
+        $file3 = \file_get_contents(DocPage::findDocDir() . '/doc-en/en/extensions.ent') ?: '';
+        $file4 = \file_get_contents(DocPage::findDocDir() . '/doc-en/doc-base/entities/global.ent') ?: '';
 
         $completeFile = $file1 . self::extractXmlHeader($file2) . self::extractXmlHeader($file3) . $file4;
 
-        \file_put_contents(__DIR__.'/../doc/entities/generated.ent', $completeFile);
+        \file_put_contents(DocPage::findDocDir() . '/entities/generated.ent', $completeFile);
     }
 
     private static function extractXmlHeader(string $content): string

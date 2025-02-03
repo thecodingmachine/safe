@@ -11,7 +11,7 @@ class MethodTest extends TestCase
 {
     public function testGetFunctionName(): void
     {
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $name = $method->getFunctionName();
@@ -20,7 +20,7 @@ class MethodTest extends TestCase
 
     public function testGetFunctionType(): void
     {
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $type = $method->getSignatureReturnType();
@@ -29,7 +29,7 @@ class MethodTest extends TestCase
 
     public function testGetFunctionParam(): void
     {
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/pcre/functions/preg-match.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
@@ -39,7 +39,7 @@ class MethodTest extends TestCase
 
     public function testGetTypeHintFromResource(): void
     {
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/strings/functions/sprintf.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/strings/functions/sprintf.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
@@ -49,7 +49,7 @@ class MethodTest extends TestCase
         $this->assertTrue($params[1]->isVariadic());
         $this->assertEquals('', $params[1]->getSignatureType());
 
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/mbstring/functions/mb-ereg-replace-callback.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/mbstring/functions/mb-ereg-replace-callback.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
@@ -59,7 +59,7 @@ class MethodTest extends TestCase
         $this->assertEquals('callable', $params[1]->getSignatureType());
 
 
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/gmp/functions/gmp-export.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/gmp/functions/gmp-export.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
@@ -68,7 +68,7 @@ class MethodTest extends TestCase
         $this->assertEquals('int', $params[1]->getDocBlockType());
         $this->assertEquals('int', $params[1]->getSignatureType());
 
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/hash/functions/hash-update.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/hash/functions/hash-update.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
@@ -78,7 +78,7 @@ class MethodTest extends TestCase
 
     public function testImapOpen5Parameter(): void
     {
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/imap/functions/imap-open.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/imap/functions/imap-open.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
@@ -88,7 +88,7 @@ class MethodTest extends TestCase
 
     public function testGetInitializer(): void
     {
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/apache/functions/apache-getenv.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/apache/functions/apache-getenv.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
 
@@ -99,18 +99,18 @@ class MethodTest extends TestCase
 
     public function testGetReturnDocBlock(): void
     {
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/array/functions/array-replace.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/array/functions/array-replace.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::NULLSY_TYPE);
         $this->assertEquals("@return array Returns an array.\n", $method->getReturnDocBlock());
 
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/shmop/functions/shmop-delete.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/shmop/functions/shmop-delete.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $this->assertEquals('', $method->getReturnDocBlock());
         $this->assertEquals('void', $method->getSignatureReturnType());
 
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/sqlsrv/functions/sqlsrv-next-result.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/sqlsrv/functions/sqlsrv-next-result.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $this->assertEquals("@return bool|null Returns TRUE if the next result was successfully retrieved, FALSE if an error \n   occurred, and NULL if there are no more results to retrieve.\n", $method->getReturnDocBlock());
@@ -119,7 +119,7 @@ class MethodTest extends TestCase
 
     public function testOpensslCipherKeyLengthUnionTypeReturnDocBlocks(): void
     {
-        $docPage = new DocPage(__DIR__ . '/../doc/doc-en/en/reference/openssl/functions/openssl-cipher-key-length.xml');
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/openssl/functions/openssl-cipher-key-length.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $this->assertEquals("@return int Returns the cipher length on success.\n", $method->getReturnDocBlock());

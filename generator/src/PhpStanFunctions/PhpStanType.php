@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Safe\PhpStanFunctions;
 
-use Safe\Method;
-use Safe\Type;
+use Safe\XmlDocParser\Method;
+use Safe\XmlDocParser\Type;
 
 /**
  * This class will parse the type from either parameters or return as given by phpstan and generate appropriate doc-block comments or typehints

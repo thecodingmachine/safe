@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\XmlDocParser;
 
 use function array_merge;
 use function iterator_to_array;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
+use Safe\Generator\FileCreator;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;

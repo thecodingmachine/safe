@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\XmlDocParser;
 
 use Safe\PhpStanFunctions\PhpStanFunction;
 use Safe\PhpStanFunctions\PhpStanParameter;

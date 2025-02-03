@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\Generator;
+
+use Safe\XmlDocParser\Method;
 
 use function array_merge;
 use function file_exists;
@@ -151,7 +153,7 @@ EOF
 
     public static function getSafeRootDir(): string
     {
-        return __DIR__ . '/../..';
+        return __DIR__ . '/../../..';
     }
 
     /**

@@ -31,39 +31,93 @@ class GenerateCommand extends Command
 
         // Let's build the DTD necessary to load the XML files.
         DocPage::buildEntities();
-        $scanner = new Scanner(DocPage::findReferenceDir());
 
-        $paths = $scanner->getFunctionsPaths();
+        // PHP documentation is a living document, which broadly reflects
+        // "the current state of PHP". There is no guarantee that any version
+        // of the documentation accurately reflects the state of PHP at any
+        // given time, but these are some best-guess commits that approximately
+        // match the state of PHP at the time of writing.
+        $versions = [
+            "8.1" => "9097ea48f608dbbbf795235a31af82b85bd94430",
+            "8.2" => "8f4e8cf3de08208e71eb0117f1c970c27e9120c9",
+            "8.3" => "7453a50321f0834421cebea8edade14deef5466b",
+            "8.4" => "d553fa36940639b0889ec4358fa3bbb92f123b69",
+            "8.5" => "master",
+        ];
 
-        $res = $scanner->getMethods($paths, $output);
-        $functions = $res->methods;
-        $overloadedFunctions = $res->overloadedFunctions;
-
-        $output->writeln('These functions have been ignored and must be dealt with manually: '.\implode(', ', $overloadedFunctions));
-
-        $fileCreator = new FileCreator();
-        $fileCreator->generatePhpFile($functions, FileCreator::getSafeRootDir() . '/generated/');
-        $fileCreator->generateFunctionsList($functions, FileCreator::getSafeRootDir() . '/generated/functionsList.php');
-        $fileCreator->generateRectorFile($functions, FileCreator::getSafeRootDir() . '/rector-migrate.php');
-
-
+        // Keep a track of which modules we have seen across all versions,
+        // so that we can generate version splitters and exceptions for them.
         $modules = [];
-        foreach ($functions as $function) {
-            $moduleName = $function->getModuleName();
-            $modules[$moduleName] = $moduleName;
+
+        // Keep track of all functions that we have generated wrappers for
+        // in the past, so if we stop needing a safe-wrapper, we can start
+        // generating no-op wrappers instead.
+        $allFunctionsByName = [];
+
+        foreach ($versions as $version => $commit) {
+            $output->writeln('===============================================');
+            $output->writeln('Generating safe wrappers for PHP ' . $version);
+            $output->writeln('===============================================');
+
+            // Scan the documentation for a given PHP version and find all
+            // functions that we need to generate safe wrappers for.
+            $this->checkout(DocPage::findReferenceDir(), $commit);
+            $scanner = new Scanner(DocPage::findReferenceDir());
+            $res = $scanner->getMethods($scanner->getFunctionsPaths(), $output);
+            $output->writeln('These functions have been ignored and must be dealt with manually: '.\implode(', ', $res->overloadedFunctions));
+
+            $currentFunctionsByName = [];
+            foreach ($res->methods as $function) {
+                $currentFunctionsByName[$function->getFunctionName()] = $function;
+                $allFunctionsByName[$function->getFunctionName()] = $function;
+                $modules[$function->getModuleName()] = true;
+            }
+
+            // Keep track of which functions we have generated wrappers for
+            // in the past, but not in the current version - mark those as
+            // "missing" so that we can generate no-op wrappers for them in
+            // order to keep backwards compatibility.
+            $missingMethods = [];
+            foreach ($allFunctionsByName as $oldFunctionName => $oldFunction) {
+                if (!\array_key_exists($oldFunctionName, $currentFunctionsByName)) {
+                    $missingMethods[] = $oldFunction;
+                }
+            }
+            $output->writeln('Methods no longer need safe wrappers in ' . $version . ': ' .
+                \implode(', ', \array_map(fn($m) => $m->getFunctionName(), $missingMethods)));
+
+            $genDir = FileCreator::getSafeRootDir() . "/generated/$version";
+            $fileCreator = new FileCreator();
+            $fileCreator->generatePhpFile($res->methods, $missingMethods, "$genDir/");
+            $fileCreator->generateFunctionsList($res->methods, "$genDir/functionsList.php");
+            $fileCreator->generateRectorFile($res->methods, "$genDir/rector-migrate.php");
         }
 
-        foreach ($modules as $moduleName => $foo) {
+        foreach (\array_keys($modules) as $moduleName) {
+            $fileCreator->generateVersionSplitters($moduleName, FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions));
             $fileCreator->createExceptionFile((string) $moduleName);
         }
+        $fileCreator->generateVersionSplitters("functionsList", FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions));
+        $fileCreator->generateVersionSplitters("rector-migrate", FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions));
 
         $this->runCsFix($output);
 
         // Finally, let's edit the composer.json file
         $output->writeln('Editing composer.json');
-        ComposerJsonEditor::editComposerFileForGeneration(\array_values($modules));
+        \ksort($modules);
+        ComposerJsonEditor::editComposerFileForGeneration(\array_keys($modules));
 
         return 0;
+    }
+
+    private function checkout(string $dir, string $commit): void
+    {
+        $process = new Process(['git', 'checkout', $commit], $dir);
+        $process->setTimeout(10);
+        $code = $process->run();
+        if ($code !== 0) {
+            throw new \RuntimeException("Failed to checkout $commit in $dir");
+        }
     }
 
     private function rmGenerated(): void

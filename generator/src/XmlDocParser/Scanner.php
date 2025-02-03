@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\XmlDocParser;
 
 use function array_merge;
 use function iterator_to_array;

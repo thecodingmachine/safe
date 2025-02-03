@@ -17,20 +17,15 @@ Safe-PHP code is generated automatically from the PHP doc.
 ### Generator
 
 * `safe.php` is the CLI entry point, with a few utility commands, but the
-  most important one is `generate`, which generates the Safe-PHP code.
-* `GenerateCommand` is the class that actually does the generation:
-  * Call `Scanner` to get a list of all the PHP XML documentation files
-    (returned in a `ScannerResponse`).
-  * Use `DocPage` to parse each XML file and extract the relevant
-    information.
-    * The "relevant information" is a list of `Method`s, which have
-      `Parameter`s, which have `Type`s.
-    * (As well as taking some information from the PHP XML docs, we also
-      take some type-hint information from PHPStan's type-hint database,
-      and merge these sources together to get a more complete picture.)
-  * Given a bunch of `Method` meta-data objects, `FileCreator` will create
-    files in `generated/` and use `WritePhpFunction` to write safe wrappers
-    for each function into those files.
+  most important one is `\Safe\Commands\GenerateCommand`, which does the
+  generation:
+  * Use `\Safe\XmlDocParser` to parse the PHP XML documentation
+    and pull out information about `Method`s, `Parameter`s, and
+    `Type`s - try to figure out which methods are unsafe.
+  * Use `\Safe\PhpStanFunctions` to get a bit of extra data from
+    PHPStan's typehint database, and merge that with the XML info.
+  * Given this list of unsafe functions, use `\Safe\Generator` to
+    write a bunch of safe wrappers.
 
 ### End-Users
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\XmlDocParser;
 
 use function explode;
 use function strpos;
@@ -15,7 +15,7 @@ class DocPage
 
     public static function findDocDir(): string
     {
-        return __DIR__ . '/../doc';
+        return __DIR__ . '/../../doc';
     }
 
     public static function findReferenceDir(): string

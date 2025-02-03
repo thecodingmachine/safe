@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\Generator;
+
+use Safe\XmlDocParser\Method;
 
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
@@ -59,10 +61,10 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
         $functionNames = array_map(function (Method $function) {
             return $function->getFunctionName();
         }, $functions);
-        $specialCases = require __DIR__.'/../config/specialCasesFunctions.php';
+        $specialCases = require __DIR__.'/../../config/specialCasesFunctions.php';
         $functionNames = array_merge($functionNames, $specialCases);
         natcasesort($functionNames);
-        $excludeCases = require __DIR__.'/../config/ignoredFunctions.php';
+        $excludeCases = require __DIR__.'/../../config/ignoredFunctions.php';
         return array_diff($functionNames, $excludeCases);
     }
 

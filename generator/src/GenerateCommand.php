@@ -26,7 +26,7 @@ class GenerateCommand extends Command
 
         // Let's build the DTD necessary to load the XML files.
         DocPage::buildEntities();
-        $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/');
+        $scanner = new Scanner(DocPage::findReferenceDir());
 
         $paths = $scanner->getFunctionsPaths();
 
@@ -81,8 +81,8 @@ class GenerateCommand extends Command
             \unlink($file);
         }
 
-        if (\file_exists(__DIR__.'/../doc/entities/generated.ent')) {
-            \unlink(__DIR__.'/../doc/entities/generated.ent');
+        if (\file_exists(DocPage::findDocDir() . '/entities/generated.ent')) {
+            \unlink(DocPage::findDocDir() . '/entities/generated.ent');
         }
     }
 

@@ -20,7 +20,7 @@ class ScanObjectsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/');
+        $scanner = new Scanner(DocPage::findReferenceDir());
 
         $paths = $scanner->getMethodsPaths();
 

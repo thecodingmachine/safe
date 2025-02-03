@@ -22,7 +22,7 @@ class FunctionInfoCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $scanner = new Scanner(__DIR__ . '/../doc/doc-en/en/reference/');
+        $scanner = new Scanner(DocPage::findReferenceDir());
         $res = $scanner->getMethods($scanner->getFunctionsPaths(), $output);
 
         foreach ($res->methods as $function) {

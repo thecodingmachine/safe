@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\XmlDocParser;
 
 use Safe\PhpStanFunctions\PhpStanFunction;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
 use Safe\PhpStanFunctions\PhpStanType;
+use Safe\Generator\FileCreator;
 
 class Method
 {

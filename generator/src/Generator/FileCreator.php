@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\Generator;
+
+use Safe\XmlDocParser\Method;
 
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;

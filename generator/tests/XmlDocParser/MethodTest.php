@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\XmlDocParser;
 
 use PHPUnit\Framework\TestCase;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;

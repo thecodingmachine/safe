@@ -37,9 +37,9 @@ class GenerateCommand extends Command
         $output->writeln('These functions have been ignored and must be dealt with manually: '.\implode(', ', $overloadedFunctions));
 
         $fileCreator = new FileCreator();
-        $fileCreator->generatePhpFile($functions, __DIR__ . '/../../generated/');
-        $fileCreator->generateFunctionsList($functions, __DIR__ . '/../../generated/functionsList.php');
-        $fileCreator->generateRectorFile($functions, __DIR__ . '/../../rector-migrate.php');
+        $fileCreator->generatePhpFile($functions, FileCreator::getSafeRootDir() . '/generated/');
+        $fileCreator->generateFunctionsList($functions, FileCreator::getSafeRootDir() . '/generated/functionsList.php');
+        $fileCreator->generateRectorFile($functions, FileCreator::getSafeRootDir() . '/rector-migrate.php');
 
 
         $modules = [];
@@ -63,7 +63,7 @@ class GenerateCommand extends Command
 
     private function rmGenerated(): void
     {
-        $exceptions = \glob(__DIR__.'/../../generated/Exceptions/*.php');
+        $exceptions = \glob(FileCreator::getSafeRootDir() . '/generated/Exceptions/*.php');
         if ($exceptions === false) {
             throw new \RuntimeException('Failed to require the generated exception files');
         }
@@ -72,7 +72,7 @@ class GenerateCommand extends Command
             \unlink($exception);
         }
 
-        $files = \glob(__DIR__.'/../../generated/*.php');
+        $files = \glob(FileCreator::getSafeRootDir() . '/generated/*.php');
         if ($files === false) {
             throw new \RuntimeException('Failed to require the generated files');
         }
@@ -88,7 +88,7 @@ class GenerateCommand extends Command
 
     private function runCsFix(OutputInterface $output): void
     {
-        $process = new Process(['vendor/bin/phpcbf'], __DIR__.'/../..');
+        $process = new Process(['vendor/bin/phpcbf'], FileCreator::getSafeRootDir());
         $process->setTimeout(600);
         $process->run(function ($type, $buffer) use ($output) {
             if (Process::ERR === $type) {

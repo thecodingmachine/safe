@@ -9,15 +9,13 @@ namespace Safe;
  */
 class ComposerJsonEditor
 {
-    private const COMPOSER_FILEPATH = __DIR__.'/../../composer.json';
-
     /**
      * @param string[] $modules A list of modules
      */
     public static function editComposerFileForGeneration(array $modules): void
     {
 
-        $composerContent = file_get_contents(self::COMPOSER_FILEPATH);
+        $composerContent = file_get_contents(FileCreator::getSafeRootDir() . '/composer.json');
         if ($composerContent === false) {
             throw new \RuntimeException('Error while loading composer.json file for edition.');
         }
@@ -26,7 +24,7 @@ class ComposerJsonEditor
         $composerJson['autoload']['files'] = self::editFilesListForGeneration($composerJson['autoload']['files'], $modules);
 
         $newContent = \json_encode($composerJson, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES);
-        \file_put_contents(self::COMPOSER_FILEPATH, $newContent);
+        \file_put_contents(FileCreator::getSafeRootDir() . '/composer.json', $newContent);
     }
 
 

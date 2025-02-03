@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\Commands;
 
+use Safe\XmlDocParser\Scanner;
+use Safe\XmlDocParser\DocPage;
+use Safe\Generator\WritePhpFunction;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;

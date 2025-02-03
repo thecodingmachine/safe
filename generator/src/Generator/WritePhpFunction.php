@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\Generator;
+
+use Safe\XmlDocParser\Method;
+use Safe\XmlDocParser\Parameter;
 
 class WritePhpFunction
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\Generator;
 
 /**
  * This class will edit the main composer.json file to add the list of files generated from modules.

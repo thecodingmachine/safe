@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\Generator;
 
 use PHPUnit\Framework\TestCase;
 

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Safe;
 
-use Rector\Config\RectorConfig;
-use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 use function array_merge;
 use function file_exists;
 
@@ -59,10 +57,10 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
         $functionNames = array_map(function (Method $function) {
             return $function->getFunctionName();
         }, $functions);
-        $specialCases = require __DIR__.'/../config/specialCasesFunctions.php';
+        $specialCases = require FileCreator::getSafeRootDir() . '/generator/config/specialCasesFunctions.php';
         $functionNames = array_merge($functionNames, $specialCases);
         natcasesort($functionNames);
-        $excludeCases = require __DIR__.'/../config/ignoredFunctions.php';
+        $excludeCases = require FileCreator::getSafeRootDir() . '/generator/config/ignoredFunctions.php';
         return array_diff($functionNames, $excludeCases);
     }
 
@@ -130,9 +128,9 @@ TXT;
     public function createExceptionFile(string $moduleName): void
     {
         $exceptionName = self::toExceptionName($moduleName);
-        if (!file_exists(__DIR__.'/../../lib/Exceptions/'.$exceptionName.'.php')) {
+        if (!file_exists(FileCreator::getSafeRootDir() . '/lib/Exceptions/'.$exceptionName.'.php')) {
             \file_put_contents(
-                __DIR__.'/../../generated/Exceptions/'.$exceptionName.'.php',
+                FileCreator::getSafeRootDir() . '/generated/Exceptions/'.$exceptionName.'.php',
                 <<<EOF
 <?php
 namespace Safe\Exceptions;
@@ -149,6 +147,11 @@ class {$exceptionName} extends \ErrorException implements SafeExceptionInterface
 EOF
             );
         }
+    }
+
+    public static function getSafeRootDir(): string
+    {
+        return __DIR__ . '/../..';
     }
 
     /**

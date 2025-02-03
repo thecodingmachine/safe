@@ -57,8 +57,8 @@ class Scanner
     private function getIgnoredFunctions(): array
     {
         if ($this->ignoredFunctions === null) {
-            $ignoredFunctions = require __DIR__ . '/../config/ignoredFunctions.php';
-            $specialCaseFunctions = require __DIR__ . '/../config/specialCasesFunctions.php';
+            $ignoredFunctions = require FileCreator::getSafeRootDir() . '/generator/config/ignoredFunctions.php';
+            $specialCaseFunctions = require FileCreator::getSafeRootDir() . '/generator/config/specialCasesFunctions.php';
 
             $this->ignoredFunctions = array_merge($ignoredFunctions, $specialCaseFunctions);
         }
@@ -72,7 +72,7 @@ class Scanner
     private function getIgnoredModules(): array
     {
         if ($this->ignoredModules === null) {
-            $this->ignoredModules = require __DIR__.'/../config/ignoredModules.php';
+            $this->ignoredModules = require FileCreator::getSafeRootDir() . '/generator/config/ignoredModules.php';
         }
         return $this->ignoredModules;
     }

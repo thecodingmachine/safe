@@ -11,7 +11,7 @@ final class GeneratedFilesTest extends TestCase
     {
         self::expectNotToPerformAssertions();
 
-        $files = \glob(__DIR__.'/../generated/*.php');
+        $files = \glob(__DIR__ . '/../generated/*.php');
         if ($files === false) {
             throw new \RuntimeException('Failed to require the generated file');
         }
@@ -25,7 +25,7 @@ final class GeneratedFilesTest extends TestCase
     {
         self::expectNotToPerformAssertions();
 
-        $files = \glob(__DIR__.'/../generated/Exceptions/*.php');
+        $files = \glob(__DIR__ . '/../generated/Exceptions/*.php');
         if ($files === false) {
             throw new \RuntimeException('Failed to require the generated exception file');
         }
@@ -38,7 +38,7 @@ final class GeneratedFilesTest extends TestCase
     {
         self::expectNotToPerformAssertions();
 
-        require_once __DIR__.'/../lib/Exceptions/SafeExceptionInterface.php';
+        require_once __DIR__ . '/../lib/Exceptions/SafeExceptionInterface.php';
     }
 
     public function testPregMatch(): void

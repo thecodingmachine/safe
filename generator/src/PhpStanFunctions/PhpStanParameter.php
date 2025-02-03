@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Safe\PhpStanFunctions;
 
-use Safe\Type;
+use Safe\XmlDocParser\Type;
 
 class PhpStanParameter
 {

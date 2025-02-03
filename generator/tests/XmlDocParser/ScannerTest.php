@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Safe;
+namespace Safe\XmlDocParser;
 
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +20,7 @@ class ScannerTest extends TestCase
 
     public function testGetFunctionsPaths(): void
     {
-        $scanner = new Scanner(DocPage::findReferenceDir());
+        $scanner = new Scanner(DocPage::findReferenceDir() . '/');
         $paths = $scanner->getMethodsPaths();
 
         $this->assertArrayNotHasKey(DocPage::findReferenceDir() . '/filesystem/functions/chmod.xml', $paths);

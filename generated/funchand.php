@@ -1,26 +1,17 @@
 <?php
 
-namespace Safe;
-
-use Safe\Exceptions\FunchandException;
-
-/**
- *
- *
- * @param callable(): void $callback The function to register.
- * @param mixed $args
- * @throws FunchandException
- *
- */
-function register_tick_function(callable $callback, ...$args): void
-{
-    error_clear_last();
-    if ($args !== []) {
-        $safeResult = \register_tick_function($callback, ...$args);
-    } else {
-        $safeResult = \register_tick_function($callback);
-    }
-    if ($safeResult === false) {
-        throw FunchandException::createFromPhpError();
-    }
+if (strpos(PHP_VERSION, "8.1.") === 0) {
+    require_once __DIR__ . '/8.1/funchand.php';
+}
+if (strpos(PHP_VERSION, "8.2.") === 0) {
+    require_once __DIR__ . '/8.2/funchand.php';
+}
+if (strpos(PHP_VERSION, "8.3.") === 0) {
+    require_once __DIR__ . '/8.3/funchand.php';
+}
+if (strpos(PHP_VERSION, "8.4.") === 0) {
+    require_once __DIR__ . '/8.4/funchand.php';
+}
+if (strpos(PHP_VERSION, "8.5.") === 0) {
+    require_once __DIR__ . '/8.5/funchand.php';
 }

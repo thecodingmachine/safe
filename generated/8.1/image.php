@@ -727,7 +727,7 @@ function imagecopyresized(\GdImage $dst_image, \GdImage $src_image, int $dst_x, 
  *
  * @param int $width The image width.
  * @param int $height The image height.
- * @return resource|false Returns an image object on success, FALSE on errors.
+ * @return resource|false Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -747,7 +747,7 @@ function imagecreate(int $width, int $height)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the AVIF raster image.
- * @return \GdImage Returns an image object on success, FALSE on errors.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -767,7 +767,7 @@ function imagecreatefromavif(string $filename): \GdImage
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the BMP image.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -786,7 +786,7 @@ function imagecreatefrombmp(string $filename)
  * Create a new image from GD file or URL.
  *
  * @param string $filename Path to the GD file.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -805,7 +805,7 @@ function imagecreatefromgd(string $filename)
  * Create a new image from GD2 file or URL.
  *
  * @param string $filename Path to the GD2 image.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -828,7 +828,7 @@ function imagecreatefromgd2(string $filename)
  * @param int $y y-coordinate of source point.
  * @param int $width Source width.
  * @param int $height Source height.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -848,7 +848,7 @@ function imagecreatefromgd2part(string $filename, int $x, int $y, int $width, in
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the GIF image.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -868,7 +868,7 @@ function imagecreatefromgif(string $filename)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the JPEG image.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -888,7 +888,7 @@ function imagecreatefromjpeg(string $filename)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the PNG image.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -932,7 +932,7 @@ function imagecreatefromstring(string $data)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the Truevision TGA image.
- * @return \GdImage Returns an image object on success, FALSE on errors.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -952,7 +952,7 @@ function imagecreatefromtga(string $filename): \GdImage
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the WBMP image.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -972,7 +972,7 @@ function imagecreatefromwbmp(string $filename)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the WebP image.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -992,7 +992,7 @@ function imagecreatefromwebp(string $filename)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the XBM image.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -1012,7 +1012,7 @@ function imagecreatefromxbm(string $filename)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the XPM image.
- * @return resource Returns an image object on success, FALSE on errors.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -1033,7 +1033,7 @@ function imagecreatefromxpm(string $filename)
  *
  * @param int $width Image width.
  * @param int $height Image height.
- * @return resource|false Returns an image object on success, FALSE on errors.
+ * @return resource|false Returns an image object on success.
  * @throws ImageException
  *
  */

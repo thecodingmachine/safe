@@ -90,7 +90,8 @@ XML;
     {
         $this->assertSame(\strtotime('+1 day'), \Safe\strtotime('+1 day'));
 
-        set_error_handler(function (): void {
+        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline): bool {
+            return true;
         });
         try {
             $this->expectException(DatetimeException::class);
@@ -105,8 +106,8 @@ XML;
      */
     public function testOpenSslSign(): void
     {
-        \openssl_sign('foo', $signature, file_get_contents(__DIR__ . '/fixtures/id_rsa'));
-        \Safe\openssl_sign('foo', $signatureSafe, file_get_contents(__DIR__ . '/fixtures/id_rsa'));
+        \openssl_sign('foo', $signature, \Safe\file_get_contents(__DIR__ . '/fixtures/id_rsa'));
+        \Safe\openssl_sign('foo', $signatureSafe, \Safe\file_get_contents(__DIR__ . '/fixtures/id_rsa'));
 
         $this->assertSame($signature, $signatureSafe);
     }

@@ -15,24 +15,13 @@ return [
     'imagerotate' => ['resource|false', 'src_im'=>'resource', 'angle'=>'float', 'bgdcolor'=>'int', 'ignoretransparent='=>'bool'], //ignoretransparent is a bool instead of a int
     'pg_pconnect' => ['resource|false', 'connection_string'=>'string', 'flags' => 'int'], //flags is an int instead of a string
     'get_headers' => ['array|false', 'url'=>'string', 'format='=>'bool', 'context='=>'resource'], // format is a bool instead of int
-    'imagegrabwindow' => ['GdImage|false', 'handle'=>'int', 'client_area'=>'bool'], // client_ara is a bool instead of an int
-    'curl_init' => ['CurlHandle|false', 'url'=>'string'], // the return value is a CurlHandle instead of a resource
-    'curl_copy_handle' => ['CurlHandle', 'handle' => 'CurlHandle'],
-    'curl_escape' => ['string', 'handle' => 'CurlHandle', 'string' => 'string'],
-    'curl_exec' => ['bool|string', 'handle' => 'CurlHandle'],
-    'curl_getinfo' => ['mixed', 'handle' => 'CurlHandle', 'option' => 'int'],
-    'curl_multi_info_read' => ['array', 'multi_handle' => 'CurlMultiHandle', 'queued_messages' => 'int|null'],
-    'curl_multi_init' => ['CurlMultiHandle'],
-    'curl_multi_setopt' => ['void', 'multi_handle' => 'CurlMultiHandle', 'option' => 'int', 'value' => 'mixed'],
-    'curl_setopt' => ['void', 'handle' => 'CurlHandle', 'option' => 'int', 'value' => 'mixed'],
-    'curl_share_errno' => ['int', 'share_handle' => 'CurlShareHandle'],
-    'curl_share_setopt' => ['void', 'share_handle' => 'CurlShareHandle', 'option' => 'int', 'value' => 'mixed'],
-    'curl_unescape' => ['string', 'handle' => 'CurlHandle', 'string' => 'string'],
-    // theses replace ressource by OpenSSLAsymmetricKey
+    'imagegrabwindow' => ['GdImage|false', 'handle'=>'int', 'client_area'=>'bool'], // client_area is a bool instead of an int
+
+    // theses replace resource by OpenSSLAsymmetricKey
     'openssl_pkey_get_details' => ['array|false', 'key'=>'OpenSSLAsymmetricKey'],
     'openssl_pkey_get_private' => ['OpenSSLAsymmetricKey|false', 'private_key'=>'OpenSSLAsymmetricKey|OpenSSLCertificate|array|string', 'passphrase='=>'null|string'],
     'openssl_pkey_get_public' => ['OpenSSLAsymmetricKey|false', 'public_key'=>'OpenSSLAsymmetricKey|OpenSSLCertificate|array|string'],
-    // theses replace ressource by OpenSSLCertificate
+    // theses replace resource by OpenSSLCertificate
     'openssl_verify' => ['-1|0|1|false', 'data'=>'string', 'signature'=>'string', 'pub_key_id'=>' OpenSSLAsymmetricKey|OpenSSLCertificate|string', 'signature_alg='=>'int|string'],
     'openssl_x509_read' => ['OpenSSLCertificate|false', 'x509certdata'=>'OpenSSLCertificate|string'], // this replaces ressource by OpenSSLCertificate
     'openssl_x509_check_private_key' => ['bool', 'cert'=>'string|OpenSSLCertificate', 'key'=>'string|OpenSSLAsymmetricKey|OpenSSLCertificate|array'],

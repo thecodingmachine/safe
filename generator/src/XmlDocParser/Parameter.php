@@ -5,15 +5,17 @@ declare(strict_types=1);
 namespace Safe\XmlDocParser;
 
 use Safe\PhpStanFunctions\PhpStanFunction;
-use Safe\PhpStanFunctions\PhpStanParameter;
 use Safe\PhpStanFunctions\PhpStanType;
 
 class Parameter
 {
     private readonly PhpStanType $type;
 
-    public function __construct(private \SimpleXMLElement $parameter, ?PhpStanFunction $phpStanFunction, int $position)
-    {
+    public function __construct(
+        private \SimpleXMLElement $parameter,
+        ?PhpStanFunction $phpStanFunction,
+        int $position
+    ) {
         $phpStanParam = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameterName(), $position) : null;
         // mostly we trust phpstan, but if phpstan says it's a "resource",
         // and the PHP docs have a more specific type hint, then we assume

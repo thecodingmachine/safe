@@ -14,26 +14,23 @@ class Method
     const FALSY_TYPE = 1;
     const NULLSY_TYPE = 2;
     const EMPTY_TYPE = 3;
-    private \SimpleXMLElement $functionObject;
-    private \SimpleXMLElement $rootEntity;
-    private string $moduleName;
     /**
      * @var Parameter[]|null
      */
     private ?array $params = null;
-    private int $errorType;
     /**
      * The function prototype from the phpstan internal documentation (functionMap.php)
      */
     private ?PhpStanFunction $phpstanSignature;
     private PhpStanType $returnType;
 
-    public function __construct(\SimpleXMLElement $_functionObject, \SimpleXMLElement $rootEntity, string $moduleName, PhpStanFunctionMapReader $phpStanFunctionMapReader, int $errorType)
-    {
-        $this->functionObject = $_functionObject;
-        $this->rootEntity = $rootEntity;
-        $this->moduleName = $moduleName;
-        $this->errorType = $errorType;
+    public function __construct(
+        private \SimpleXMLElement $functionObject,
+        private \SimpleXMLElement $rootEntity,
+        private string $moduleName,
+        PhpStanFunctionMapReader $phpStanFunctionMapReader,
+        private int $errorType
+    ) {
         $functionName = $this->getFunctionName();
         $this->phpstanSignature = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
         $this->returnType = $this->phpstanSignature ? $this->phpstanSignature->getReturnType() : $this->parsePHPDocType($this->functionObject);

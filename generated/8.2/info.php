@@ -207,11 +207,11 @@ function dl(string $extension_filename): void
 /**
  *
  *
- * @return string|false Returns the path, as a string.
+ * @return string Returns the path, as a string.
  * @throws InfoException
  *
  */
-function get_include_path(): string|false
+function get_include_path(): string
 {
     error_clear_last();
     $safeResult = \get_include_path();
@@ -323,7 +323,7 @@ function getmyuid(): int
  * @param string $short_options
  * @param array $long_options
  * @param int|null $rest_index
- * @return array|array|array|false This function will return an array of option / argument pairs.
+ * @return array|array|array This function will return an array of option / argument pairs.
  * @throws InfoException
  *
  */

@@ -87,11 +87,11 @@ function odbc_commit(\Odbc\Connection $odbc): void
  *
  *
  *
- * @return resource Returns an ODBC connection.
+ * @return \Odbc\Connection Returns an ODBC connection.
  * @throws UodbcException
  *
  */
-function odbc_connect(string $dsn, string $user, string $password, int $cursor_option = SQL_CUR_USE_DRIVER)
+function odbc_connect(string $dsn, string $user, string $password, int $cursor_option = SQL_CUR_USE_DRIVER): \Odbc\Connection
 {
     error_clear_last();
     $safeResult = \odbc_connect($dsn, $user, $password, $cursor_option);
@@ -153,12 +153,12 @@ function odbc_data_source(\Odbc\Connection $odbc, int $fetch_type): array
  * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $query The SQL statement.
- * @return resource Returns an ODBC result object if the SQL command was executed
+ * @return \Odbc\Result Returns an ODBC result object if the SQL command was executed
  * successfully.
  * @throws UodbcException
  *
  */
-function odbc_exec(\Odbc\Connection $odbc, string $query)
+function odbc_exec(\Odbc\Connection $odbc, string $query): \Odbc\Result
 {
     error_clear_last();
     $safeResult = \odbc_exec($odbc, $query);
@@ -346,11 +346,11 @@ function odbc_field_type(\Odbc\Result $statement, int $field): string
  * @param string $user
  * @param string $password
  * @param int $cursor_option
- * @return resource Returns an ODBC connection.
+ * @return \Odbc\Connection Returns an ODBC connection.
  * @throws UodbcException
  *
  */
-function odbc_pconnect(string $dsn, string $user, string $password, int $cursor_option = SQL_CUR_USE_DRIVER)
+function odbc_pconnect(string $dsn, string $user, string $password, int $cursor_option = SQL_CUR_USE_DRIVER): \Odbc\Connection
 {
     error_clear_last();
     $safeResult = \odbc_pconnect($dsn, $user, $password, $cursor_option);
@@ -373,12 +373,12 @@ function odbc_pconnect(string $dsn, string $user, string $password, int $cursor_
  * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $query The query string statement being prepared.
- * @return resource Returns an ODBC result object if the SQL command was prepared
+ * @return \Odbc\Result Returns an ODBC result object if the SQL command was prepared
  * successfully.
  * @throws UodbcException
  *
  */
-function odbc_prepare(\Odbc\Connection $odbc, string $query)
+function odbc_prepare(\Odbc\Connection $odbc, string $query): \Odbc\Result
 {
     error_clear_last();
     $safeResult = \odbc_prepare($odbc, $query);
@@ -403,7 +403,7 @@ function odbc_prepare(\Odbc\Connection $odbc, string $query)
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @return resource Returns an ODBC result object containing the information.
+ * @return \Odbc\Result Returns an ODBC result object containing the information.
  *
  * The result set has the following columns:
  *
@@ -420,7 +420,7 @@ function odbc_prepare(\Odbc\Connection $odbc, string $query)
  * @throws UodbcException
  *
  */
-function odbc_procedures($odbc, ?string $catalog = null, ?string $schema = null, ?string $procedure = null)
+function odbc_procedures($odbc, ?string $catalog = null, ?string $schema = null, ?string $procedure = null): \Odbc\Result
 {
     error_clear_last();
     if ($procedure !== null) {
@@ -604,7 +604,7 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  * data source does not support a specified table type,
  * odbc_tables does not return any results for
  * that type.
- * @return resource Returns an ODBC result object containing the information.
+ * @return \Odbc\Result Returns an ODBC result object containing the information.
  *
  * The result set has the following columns:
  *
@@ -618,7 +618,7 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  * @throws UodbcException
  *
  */
-function odbc_tables(\Odbc\Connection $odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $types = null)
+function odbc_tables(\Odbc\Connection $odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $types = null): \Odbc\Result
 {
     error_clear_last();
     if ($types !== null) {

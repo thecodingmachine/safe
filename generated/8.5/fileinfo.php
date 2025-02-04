@@ -38,12 +38,12 @@ function finfo_close(finfo $finfo): void
  *
  * Passing NULL or an empty string will be equivalent to the default
  * value.
- * @return resource (Procedural style only)
+ * @return finfo (Procedural style only)
  * Returns an finfo instance on success.
  * @throws FileinfoException
  *
  */
-function finfo_open(int $flags = FILEINFO_NONE, ?string $magic_database = null)
+function finfo_open(int $flags = FILEINFO_NONE, ?string $magic_database = null): finfo
 {
     error_clear_last();
     if ($magic_database !== null) {

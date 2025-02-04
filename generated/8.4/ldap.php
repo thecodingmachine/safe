@@ -341,11 +341,11 @@ function ldap_first_attribute(\LDAP\Connection $ldap, \LDAP\ResultEntry $entry):
  *
  * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param \LDAP\Result $result An LDAP\Result instance, returned by ldap_list or ldap_search.
- * @return resource Returns an LDAP\ResultEntry instance.
+ * @return \LDAP\ResultEntry Returns an LDAP\ResultEntry instance.
  * @throws LdapException
  *
  */
-function ldap_first_entry(\LDAP\Connection $ldap, \LDAP\Result $result)
+function ldap_first_entry(\LDAP\Connection $ldap, \LDAP\Result $result): \LDAP\ResultEntry
 {
     error_clear_last();
     $safeResult = \ldap_first_entry($ldap, $result);

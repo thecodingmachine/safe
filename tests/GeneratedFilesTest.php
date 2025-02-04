@@ -131,4 +131,16 @@ XML;
 
         $this->assertSame($result, $resultSafe);
     }
+
+    public function testParameterAndReturnTypesMatch(): void
+    {
+        // Regression test for #546 (function parameters are correctly typed
+        // as "GdImage", but return types are incorrectly typed as "resource").
+        // Note that this test fails in PHPStan, not in PHPUnit, because it
+        // is a problem with the @return annotation in the generated code.
+        $image = \Safe\imagecreate(640, 480);
+        $this->assertInstanceOf(GdImage::class, $image);
+        $cropped = \Safe\imagecrop($image, ['x' => 0, 'y' => 0, 'width' => 100, 'height' => 100]);
+        $this->assertInstanceOf(GdImage::class, $cropped);
+    }
 }

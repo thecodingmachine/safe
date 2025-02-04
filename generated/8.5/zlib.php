@@ -118,12 +118,12 @@ function deflate_add(\DeflateContext $context, string $data, int $flush_mode = Z
  *
  * A string or an array of strings
  * of the preset dictionary (default: no preset dictionary).
- * @return resource Returns a deflate context resource (zlib.deflate) on
+ * @return \DeflateContext Returns a deflate context resource (zlib.deflate) on
  * success.
  * @throws ZlibException
  *
  */
-function deflate_init(int $encoding, array $options = [])
+function deflate_init(int $encoding, array $options = []): \DeflateContext
 {
     error_clear_last();
     $safeResult = \deflate_init($encoding, $options);
@@ -589,12 +589,12 @@ function inflate_add(\InflateContext $context, string $data, int $flush_mode = Z
  *
  * A string or an array of strings
  * of the preset dictionary (default: no preset dictionary).
- * @return resource Returns an inflate context resource (zlib.inflate) on
+ * @return \InflateContext Returns an inflate context resource (zlib.inflate) on
  * success.
  * @throws ZlibException
  *
  */
-function inflate_init(int $encoding, array $options = [])
+function inflate_init(int $encoding, array $options = []): \InflateContext
 {
     error_clear_last();
     $safeResult = \inflate_init($encoding, $options);

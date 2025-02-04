@@ -17,11 +17,11 @@ use Safe\Exceptions\SemException;
  * @param int $key Message queue numeric ID
  * @param int $permissions Queue permissions. Default to 0666. If the message queue already
  * exists, the permissions will be ignored.
- * @return resource Returns SysvMessageQueue instance that can be used to access the System V message queue.
+ * @return \SysvMessageQueue Returns SysvMessageQueue instance that can be used to access the System V message queue.
  * @throws SemException
  *
  */
-function msg_get_queue(int $key, int $permissions = 0666)
+function msg_get_queue(int $key, int $permissions = 0666): \SysvMessageQueue
 {
     error_clear_last();
     $safeResult = \msg_get_queue($key, $permissions);
@@ -362,11 +362,11 @@ function sem_acquire(\SysvSemaphore $semaphore, bool $non_blocking = false): voi
  * attached to the semaphore.
  * @param bool $auto_release Specifies if the semaphore should be automatically released on request
  * shutdown.
- * @return resource Returns a positive semaphore identifier on success.
+ * @return \SysvSemaphore Returns a positive semaphore identifier on success.
  * @throws SemException
  *
  */
-function sem_get(int $key, int $max_acquire = 1, int $permissions = 0666, bool $auto_release = true)
+function sem_get(int $key, int $max_acquire = 1, int $permissions = 0666, bool $auto_release = true): \SysvSemaphore
 {
     error_clear_last();
     $safeResult = \sem_get($key, $max_acquire, $permissions, $auto_release);
@@ -438,11 +438,11 @@ function sem_remove(\SysvSemaphore $semaphore): void
  * sysvshm.init_mem in the php.ini, otherwise 10000
  * bytes.
  * @param int $permissions The optional permission bits. Default to 0666.
- * @return resource Returns a SysvSharedMemory instance on success.
+ * @return \SysvSharedMemory Returns a SysvSharedMemory instance on success.
  * @throws SemException
  *
  */
-function shm_attach(int $key, ?int $size = null, int $permissions = 0666)
+function shm_attach(int $key, ?int $size = null, int $permissions = 0666): \SysvSharedMemory
 {
     error_clear_last();
     if ($permissions !== 0666) {

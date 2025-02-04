@@ -67,11 +67,11 @@ function pg_cancel_query(\PgSql\Connection $connection): void
  * connection is established asynchronously. The state of the connection
  * can then be checked via pg_connect_poll or
  * pg_connection_status.
- * @return resource Returns an PgSql\Connection instance on success.
+ * @return \PgSql\Connection Returns an PgSql\Connection instance on success.
  * @throws PgsqlException
  *
  */
-function pg_connect(string $connection_string, int $flags = 0)
+function pg_connect(string $connection_string, int $flags = 0): \PgSql\Connection
 {
     error_clear_last();
     $safeResult = \pg_connect($connection_string, $flags);
@@ -292,11 +292,11 @@ function pg_end_copy($connection = null): void
  * must match the number of placeholders.
  *
  * Elements are converted to strings by calling this function.
- * @return resource An PgSql\Result instance on success.
+ * @return \PgSql\Result An PgSql\Result instance on success.
  * @throws PgsqlException
  *
  */
-function pg_execute(?\PgSql\Connection $connection = null, ?string $stmtname = null, ?array $params = null)
+function pg_execute(?\PgSql\Connection $connection = null, ?string $stmtname = null, ?array $params = null): \PgSql\Result
 {
     error_clear_last();
     if ($params !== null) {
@@ -617,11 +617,11 @@ function pg_lo_import(?\PgSql\Connection $connection = null, ?string $pathname =
  * @param int $oid The OID of the large object in the database.
  * @param string $mode Can be either "r" for read-only, "w" for write only or "rw" for read and
  * write.
- * @return resource An PgSql\Lob instance.
+ * @return \PgSql\Lob An PgSql\Lob instance.
  * @throws PgsqlException
  *
  */
-function pg_lo_open(\PgSql\Connection $connection, int $oid, string $mode)
+function pg_lo_open(\PgSql\Connection $connection, int $oid, string $mode): \PgSql\Lob
 {
     error_clear_last();
     $safeResult = \pg_lo_open($connection, $oid, $mode);
@@ -880,11 +880,11 @@ function pg_parameter_status(?\PgSql\Connection $connection = null, ?string $par
  * @param int $flags If PGSQL_CONNECT_FORCE_NEW is passed, then a new connection
  * is created, even if the connection_string is identical to
  * an existing connection.
- * @return resource Returns an PgSql\Connection instance on success.
+ * @return \PgSql\Connection Returns an PgSql\Connection instance on success.
  * @throws PgsqlException
  *
  */
-function pg_pconnect(string $connection_string, int $flags = 0)
+function pg_pconnect(string $connection_string, int $flags = 0): \PgSql\Connection
 {
     error_clear_last();
     $safeResult = \pg_pconnect($connection_string, $flags);
@@ -954,11 +954,11 @@ function pg_ping($connection = null): void
  * @param string $query The parameterized SQL statement.  Must contain only a single statement
  * (multiple statements separated by semi-colons are not allowed).  If any parameters
  * are used, they are referred to as $1, $2, etc.
- * @return resource An PgSql\Result instance on success.
+ * @return \PgSql\Result An PgSql\Result instance on success.
  * @throws PgsqlException
  *
  */
-function pg_prepare(?\PgSql\Connection $connection = null, ?string $stmtname = null, ?string $query = null)
+function pg_prepare(?\PgSql\Connection $connection = null, ?string $stmtname = null, ?string $query = null): \PgSql\Result
 {
     error_clear_last();
     if ($query !== null) {
@@ -1063,11 +1063,11 @@ function pg_put_line(?\PgSql\Connection $connection = null, ?string $data = null
  * Values intended for bytea fields are not supported as
  * parameters. Use pg_escape_bytea instead, or use the
  * large object functions.
- * @return resource An PgSql\Result instance on success.
+ * @return \PgSql\Result An PgSql\Result instance on success.
  * @throws PgsqlException
  *
  */
-function pg_query_params(?\PgSql\Connection $connection = null, ?string $query = null, ?array $params = null)
+function pg_query_params(?\PgSql\Connection $connection = null, ?string $query = null, ?array $params = null): \PgSql\Result
 {
     error_clear_last();
     if ($params !== null) {
@@ -1122,11 +1122,11 @@ function pg_query_params(?\PgSql\Connection $connection = null, ?string $query =
  *
  * Any user-supplied data substituted directly into a query string should
  * be properly escaped.
- * @return resource An PgSql\Result instance on success.
+ * @return \PgSql\Result An PgSql\Result instance on success.
  * @throws PgsqlException
  *
  */
-function pg_query(?\PgSql\Connection $connection = null, ?string $query = null)
+function pg_query(?\PgSql\Connection $connection = null, ?string $query = null): \PgSql\Result
 {
     error_clear_last();
     if ($query !== null) {

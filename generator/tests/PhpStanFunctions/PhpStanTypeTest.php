@@ -111,11 +111,11 @@ class PhpStanTypeTest extends TestCase
     {
         $param = new PhpStanType('');
         $this->assertEquals('', $param->getDocBlockType());
-		if (PHP_VERSION_ID >= 80200) {
-        	$this->assertEquals('void', $param->getSignatureType());
-		} else {
-        	$this->assertEquals('', $param->getSignatureType());
-		}
+        if (PHP_VERSION_ID >= 80200) {
+            $this->assertEquals('void', $param->getSignatureType());
+        } else {
+            $this->assertEquals('', $param->getSignatureType());
+        }
 
         $param = new PhpStanType('void');
         $this->assertEquals('void', $param->getDocBlockType());
@@ -197,4 +197,10 @@ class PhpStanTypeTest extends TestCase
         $this->assertEquals('int', $param->getSignatureType());
     }
 
+    public function testIgnoreBenevolence(): void
+    {
+        $param = new PhpStanType('__benevolent<string|false>');
+        $this->assertEquals('string', $param->getDocBlockType(Method::FALSY_TYPE));
+        $this->assertEquals('string', $param->getSignatureType(Method::FALSY_TYPE));
+    }
 }

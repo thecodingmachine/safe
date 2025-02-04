@@ -135,7 +135,7 @@ function date_parse(string $datetime): ?array
  * @param int $timestamp Unix timestamp.
  * @param float $latitude Latitude in degrees.
  * @param float $longitude Longitude in degrees.
- * @return array{sunrise: int|bool,sunset: int|bool,transit: int|bool,civil_twilight_begin: int|bool,civil_twilight_end: int|bool,nautical_twilight_begin: int|bool,nautical_twilight_end: int|bool,astronomical_twilight_begin: int|bool,astronomical_twilight_end: int|bool}|false Returns array on success.
+ * @return array{sunrise: int|bool,sunset: int|bool,transit: int|bool,civil_twilight_begin: int|bool,civil_twilight_end: int|bool,nautical_twilight_begin: int|bool,nautical_twilight_end: int|bool,astronomical_twilight_begin: int|bool,astronomical_twilight_end: int|bool} Returns array on success.
  * The structure of the array is detailed in the following list:
  *
  *

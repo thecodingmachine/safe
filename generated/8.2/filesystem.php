@@ -1526,7 +1526,7 @@ function tempnam(string $directory, string $prefix): string
  * the file handle returned by tmpfile), or when the
  * script ends.
  *
- * @return resource|false Returns a file handle, similar to the one returned by
+ * @return resource Returns a file handle, similar to the one returned by
  * fopen, for the new file.
  * @throws FilesystemException
  *

@@ -51,7 +51,7 @@ function date_parse(string $datetime): ?array
  * @param int $timestamp Unix timestamp.
  * @param float $latitude Latitude in degrees.
  * @param float $longitude Longitude in degrees.
- * @return array{sunrise: int|bool,sunset: int|bool,transit: int|bool,civil_twilight_begin: int|bool,civil_twilight_end: int|bool,nautical_twilight_begin: int|bool,nautical_twilight_end: int|bool,astronomical_twilight_begin: int|bool,astronomical_twilight_end: int|bool}|false Returns array on success.
+ * @return array{sunrise: int|bool,sunset: int|bool,transit: int|bool,civil_twilight_begin: int|bool,civil_twilight_end: int|bool,nautical_twilight_begin: int|bool,nautical_twilight_end: int|bool,astronomical_twilight_begin: int|bool,astronomical_twilight_end: int|bool} Returns array on success.
  * The structure of the array is detailed in the following list:
  *
  *
@@ -603,13 +603,13 @@ function idate(string $format, ?int $timestamp = null): int
  * 1970-2000. On systems where time_t is a 32bit signed integer, as
  * most common today, the valid range for year
  * is somewhere between 1901 and 2038.
- * @return int|false mktime returns the Unix timestamp of the arguments
+ * @return int mktime returns the Unix timestamp of the arguments
  * given.
  * If the arguments are invalid, the function returns FALSE.
  * @throws DatetimeException
  *
  */
-function mktime(int $hour, ?int $minute = null, ?int $second = null, ?int $month = null, ?int $day = null, ?int $year = null): int|false
+function mktime(int $hour, ?int $minute = null, ?int $second = null, ?int $month = null, ?int $day = null, ?int $year = null): int
 {
     error_clear_last();
     if ($year !== null) {

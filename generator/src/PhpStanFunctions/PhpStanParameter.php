@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Safe\PhpStanFunctions;
 
-use Safe\XmlDocParser\Type;
-
 class PhpStanParameter
 {
     private readonly string $name;

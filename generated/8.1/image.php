@@ -727,7 +727,7 @@ function imagecopyresized(\GdImage $dst_image, \GdImage $src_image, int $dst_x, 
  *
  * @param int $width The image width.
  * @param int $height The image height.
- * @return resource|false Returns an image object on success.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */
@@ -1033,7 +1033,7 @@ function imagecreatefromxpm(string $filename)
  *
  * @param int $width Image width.
  * @param int $height Image height.
- * @return resource|false Returns an image object on success.
+ * @return resource Returns an image object on success.
  * @throws ImageException
  *
  */

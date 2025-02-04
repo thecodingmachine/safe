@@ -30,6 +30,10 @@ class PhpStanType
 
     public function __construct(string $data, bool $writeOnly = false)
     {
+        if (\preg_match('/__benevolent\<(.*)\>/', $data, $regs)) {
+            $data = $regs[1];
+        }
+
         //weird case: null|false => null
         if ($data === 'null|false') {
             $this->nullable = false;
@@ -95,10 +99,6 @@ class PhpStanType
 
             if (str_contains($returnType, 'int<')) {
                 $returnType = 'int';
-            }
-
-            if (\preg_match('/__benevolent\<(.*)\>/', $returnType, $regs)) {
-                $returnType = $regs[1];
             }
 
             $returnType = Type::toRootNamespace($returnType);

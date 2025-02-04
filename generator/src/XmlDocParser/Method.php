@@ -141,6 +141,7 @@ class Method
             case self::FALSY_TYPE:
                 $string = $this->removeString($string, 'or FALSE on failure');
                 $string = $this->removeString($string, ', FALSE on failure');
+                $string = $this->removeString($string, ', FALSE on errors');
                 $string = $this->removeString($string, '. Returns FALSE on error');
                 $string = $this->removeString($string, 'may return FALSE');
                 $string = $this->removeString($string, 'and FALSE on failure');

@@ -245,11 +245,11 @@ function openssl_csr_export($csr, ?string &$output, bool $no_text = true): void
  *
  * @param string|resource $csr See CSR parameters for a list of valid values.
  * @param bool $short_names This parameter is ignored
- * @return resource Returns an OpenSSLAsymmetricKey on success.
+ * @return \OpenSSLAsymmetricKey Returns an OpenSSLAsymmetricKey on success.
  * @throws OpensslException
  *
  */
-function openssl_csr_get_public_key($csr, bool $short_names = true)
+function openssl_csr_get_public_key($csr, bool $short_names = true): \OpenSSLAsymmetricKey
 {
     error_clear_last();
     $safeResult = \openssl_csr_get_public_key($csr, $short_names);
@@ -393,7 +393,7 @@ function openssl_csr_get_subject($csr, bool $short_names = true): array
  * distinguished_names and
  * extra_attributes are associative arrays, whose keys
  * are converted to OIDs and applied to the relevant part of the request.
- * @return resource Returns the CSR on success, TRUE if CSR creation is
+ * @return \OpenSSLCertificateSigningRequest|bool Returns the CSR on success, TRUE if CSR creation is
  * successful but signing fails.
  * @throws OpensslException
  *
@@ -435,11 +435,11 @@ function openssl_csr_new(array $distinguished_names, &$private_key, ?array $opti
  * @param int $serial An optional the serial number of issued certificate. If not specified
  * it will default to 0.
  * @param  $serial_hex
- * @return resource Returns an OpenSSLCertificate on success.
+ * @return \OpenSSLCertificate Returns an OpenSSLCertificate on success.
  * @throws OpensslException
  *
  */
-function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, ?array $options = null, int $serial = 0, $serial_hex = null)
+function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, ?array $options = null, int $serial = 0, $serial_hex = null): \OpenSSLCertificate
 {
     error_clear_last();
     if ($serial_hex !== null) {
@@ -1087,12 +1087,12 @@ function openssl_pkey_get_public($public_key): \OpenSSLAsymmetricKey
  * bits) using options.  See
  * openssl_csr_new for more information about
  * options.
- * @return resource Returns an OpenSSLAsymmetricKey instance for
+ * @return \OpenSSLAsymmetricKey Returns an OpenSSLAsymmetricKey instance for
  * the pkey on success.
  * @throws OpensslException
  *
  */
-function openssl_pkey_new(?array $options = null)
+function openssl_pkey_new(?array $options = null): \OpenSSLAsymmetricKey
 {
     error_clear_last();
     if ($options !== null) {

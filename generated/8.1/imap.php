@@ -1796,11 +1796,11 @@ function imap_num_msg(\IMAP\Connection $imap): int
  *
  *
  *
- * @return resource Returns an IMAP\Connection instance on success.
+ * @return \IMAP\Connection Returns an IMAP\Connection instance on success.
  * @throws ImapException
  *
  */
-function imap_open(string $mailbox, string $user, string $password, int $flags = 0, int $retries = 0, array $options = [])
+function imap_open(string $mailbox, string $user, string $password, int $flags = 0, int $retries = 0, array $options = []): \IMAP\Connection
 {
     error_clear_last();
     $safeResult = \imap_open($mailbox, $user, $password, $flags, $retries, $options);

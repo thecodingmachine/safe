@@ -353,7 +353,7 @@ function sqlsrv_num_rows($stmt): int
  * The following table describes the elements in the array structure above:
  * @param array $options An array specifying query property options. The supported keys are described
  * in the following table:
- * @return resource Returns a statement resource on success.
+ * @return mixed Returns a statement resource on success.
  * @throws SqlsrvException
  *
  */
@@ -390,7 +390,7 @@ function sqlsrv_prepare($conn, string $sql, ?array $params = null, ?array $optio
  * The following table describes the elements in the array structure above:
  * @param array $options An array specifying query property options. The supported keys are described
  * in the following table:
- * @return resource Returns a statement resource on success.
+ * @return mixed Returns a statement resource on success.
  * @throws SqlsrvException
  *
  */

@@ -105,11 +105,11 @@ function image_type_to_extension(int $image_type, bool $include_dot = true): str
  * such as imagecreatetruecolor.
  * @param array $affine Array with keys 0 to 5.
  * @param array $clip Array with keys "x", "y", "width" and "height"; or NULL.
- * @return resource Return affined image object on success.
+ * @return \GdImage Return affined image object on success.
  * @throws ImageException
  *
  */
-function imageaffine(\GdImage $image, array $affine, ?array $clip = null)
+function imageaffine(\GdImage $image, array $affine, ?array $clip = null): \GdImage
 {
     error_clear_last();
     if ($clip !== null) {
@@ -727,11 +727,11 @@ function imagecopyresized(\GdImage $dst_image, \GdImage $src_image, int $dst_x, 
  *
  * @param int $width The image width.
  * @param int $height The image height.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreate(int $width, int $height)
+function imagecreate(int $width, int $height): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreate($width, $height);
@@ -767,11 +767,11 @@ function imagecreatefromavif(string $filename): \GdImage
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the BMP image.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatefrombmp(string $filename)
+function imagecreatefrombmp(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefrombmp($filename);
@@ -786,11 +786,11 @@ function imagecreatefrombmp(string $filename)
  * Create a new image from GD file or URL.
  *
  * @param string $filename Path to the GD file.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatefromgd(string $filename)
+function imagecreatefromgd(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromgd($filename);
@@ -805,11 +805,11 @@ function imagecreatefromgd(string $filename)
  * Create a new image from GD2 file or URL.
  *
  * @param string $filename Path to the GD2 image.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatefromgd2(string $filename)
+function imagecreatefromgd2(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromgd2($filename);
@@ -828,11 +828,11 @@ function imagecreatefromgd2(string $filename)
  * @param int $y y-coordinate of source point.
  * @param int $width Source width.
  * @param int $height Source height.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatefromgd2part(string $filename, int $x, int $y, int $width, int $height)
+function imagecreatefromgd2part(string $filename, int $x, int $y, int $width, int $height): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromgd2part($filename, $x, $y, $width, $height);
@@ -848,11 +848,11 @@ function imagecreatefromgd2part(string $filename, int $x, int $y, int $width, in
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the GIF image.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatefromgif(string $filename)
+function imagecreatefromgif(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromgif($filename);
@@ -868,11 +868,11 @@ function imagecreatefromgif(string $filename)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the JPEG image.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatefromjpeg(string $filename)
+function imagecreatefromjpeg(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromjpeg($filename);
@@ -888,11 +888,11 @@ function imagecreatefromjpeg(string $filename)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the PNG image.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatefrompng(string $filename)
+function imagecreatefrompng(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefrompng($filename);
@@ -910,13 +910,13 @@ function imagecreatefrompng(string $filename)
  * them: JPEG, PNG, GIF, BMP, WBMP, GD2, and WEBP.
  *
  * @param string $data A string containing the image data.
- * @return resource An image object will be returned on success. FALSE is returned if
+ * @return \GdImage An image object will be returned on success. FALSE is returned if
  * the image type is unsupported, the data is not in a recognised format,
  * or the image is corrupt and cannot be loaded.
  * @throws ImageException
  *
  */
-function imagecreatefromstring(string $data)
+function imagecreatefromstring(string $data): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromstring($data);
@@ -952,11 +952,11 @@ function imagecreatefromtga(string $filename): \GdImage
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the WBMP image.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatefromwbmp(string $filename)
+function imagecreatefromwbmp(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromwbmp($filename);
@@ -972,11 +972,11 @@ function imagecreatefromwbmp(string $filename)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the WebP image.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatefromwebp(string $filename)
+function imagecreatefromwebp(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromwebp($filename);
@@ -992,11 +992,11 @@ function imagecreatefromwebp(string $filename)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the XBM image.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatefromxbm(string $filename)
+function imagecreatefromxbm(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromxbm($filename);
@@ -1012,11 +1012,11 @@ function imagecreatefromxbm(string $filename)
  * representing the image obtained from the given filename.
  *
  * @param string $filename Path to the XPM image.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatefromxpm(string $filename)
+function imagecreatefromxpm(string $filename): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatefromxpm($filename);
@@ -1033,11 +1033,11 @@ function imagecreatefromxpm(string $filename)
  *
  * @param int $width Image width.
  * @param int $height Image height.
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagecreatetruecolor(int $width, int $height)
+function imagecreatetruecolor(int $width, int $height): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecreatetruecolor($width, $height);
@@ -1057,11 +1057,11 @@ function imagecreatetruecolor(int $width, int $height)
  * @param array $rectangle The cropping rectangle as array with keys
  * x, y, width and
  * height.
- * @return resource Return cropped image object on success.
+ * @return \GdImage Return cropped image object on success.
  * @throws ImageException
  *
  */
-function imagecrop(\GdImage $image, array $rectangle)
+function imagecrop(\GdImage $image, array $rectangle): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecrop($image, $rectangle);
@@ -1081,12 +1081,12 @@ function imagecrop(\GdImage $image, array $rectangle)
  * @param int $mode One of the following constants:
  * @param float $threshold
  * @param int $color
- * @return resource Returns a cropped image object on success.
+ * @return \GdImage Returns a cropped image object on success.
  * If the complete image was cropped, imagecrop returns FALSE.
  * @throws ImageException
  *
  */
-function imagecropauto(\GdImage $image, int $mode = IMG_CROP_DEFAULT, float $threshold = 0.5, int $color = -1)
+function imagecropauto(\GdImage $image, int $mode = IMG_CROP_DEFAULT, float $threshold = 0.5, int $color = -1): \GdImage
 {
     error_clear_last();
     $safeResult = \imagecropauto($image, $mode, $threshold, $color);
@@ -1824,11 +1824,11 @@ function imagegif(\GdImage $image, $file = null): void
 /**
  * Grabs a screenshot of the whole screen.
  *
- * @return resource Returns an image object on success.
+ * @return \GdImage Returns an image object on success.
  * @throws ImageException
  *
  */
-function imagegrabscreen()
+function imagegrabscreen(): \GdImage
 {
     error_clear_last();
     $safeResult = \imagegrabscreen();
@@ -2163,11 +2163,11 @@ function imageresolution(\GdImage $image, ?int $resolution_x = null, ?int $resol
  * number of degrees to rotate the image anticlockwise.
  * @param int $background_color Specifies the color of the uncovered zone after the rotation
  * @param bool $ignore_transparent This parameter is unused.
- * @return resource Returns an image object for the rotated image.
+ * @return \GdImage Returns an image object for the rotated image.
  * @throws ImageException
  *
  */
-function imagerotate(\GdImage $image, float $angle, int $background_color, bool $ignore_transparent = false)
+function imagerotate(\GdImage $image, float $angle, int $background_color, bool $ignore_transparent = false): \GdImage
 {
     error_clear_last();
     $safeResult = \imagerotate($image, $angle, $background_color, $ignore_transparent);
@@ -2221,11 +2221,11 @@ function imagesavealpha(\GdImage $image, bool $enable): void
  * IMG_WEIGHTED4 is not yet supported.
  *
  *
- * @return resource Return the scaled image object on success.
+ * @return \GdImage Return the scaled image object on success.
  * @throws ImageException
  *
  */
-function imagescale(\GdImage $image, int $width, int $height = -1, int $mode = IMG_BILINEAR_FIXED)
+function imagescale(\GdImage $image, int $width, int $height = -1, int $mode = IMG_BILINEAR_FIXED): \GdImage
 {
     error_clear_last();
     $safeResult = \imagescale($image, $width, $height, $mode);

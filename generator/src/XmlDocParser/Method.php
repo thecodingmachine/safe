@@ -33,7 +33,16 @@ class Method
     ) {
         $functionName = $this->getFunctionName();
         $this->phpstanSignature = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
-        $this->returnType = $this->phpstanSignature ? $this->phpstanSignature->getReturnType() : $this->parsePHPDocType($this->functionObject);
+
+        $phpStanReturnType = $this->phpstanSignature ? $this->phpstanSignature->getReturnType() : null;
+        $phpDocReturnType = $this->parsePHPDocType($this->functionObject);
+        // If phpstan says something helpful (ie, not "resource"), then use phpstan's definition
+        // Else go with whatever the PHP docs say
+        if ($phpStanReturnType && $phpStanReturnType->getDocBlockType($errorType) !== "resource") {
+            $this->returnType = $phpStanReturnType;
+        } else {
+            $this->returnType = $phpDocReturnType;
+        }
     }
 
     public function getFunctionName(): string

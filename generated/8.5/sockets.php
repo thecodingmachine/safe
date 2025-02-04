@@ -26,7 +26,7 @@ use Safe\Exceptions\SocketsException;
  * reused.
  *
  * @param \Socket $socket A Socket instance created with socket_create.
- * @return resource Returns a new Socket instance on success. The actual
+ * @return \Socket Returns a new Socket instance on success. The actual
  * error code can be retrieved by calling
  * socket_last_error. This error code may be passed to
  * socket_strerror to get a textual explanation of the
@@ -34,7 +34,7 @@ use Safe\Exceptions\SocketsException;
  * @throws SocketsException
  *
  */
-function socket_accept(\Socket $socket)
+function socket_accept(\Socket $socket): \Socket
 {
     error_clear_last();
     $safeResult = \socket_accept($socket);
@@ -213,7 +213,7 @@ function socket_connect(\Socket $socket, string $address, ?int $port = null): vo
  * SOMAXCONN may be passed as
  * backlog parameter, see
  * socket_listen for more information.
- * @return resource socket_create_listen returns a new Socket instance
+ * @return \Socket socket_create_listen returns a new Socket instance
  * on success. The error code can be retrieved with
  * socket_last_error. This code may be passed to
  * socket_strerror to get a textual explanation of the
@@ -221,7 +221,7 @@ function socket_connect(\Socket $socket, string $address, ?int $port = null): vo
  * @throws SocketsException
  *
  */
-function socket_create_listen(int $port, int $backlog = SOMAXCONN)
+function socket_create_listen(int $port, int $backlog = SOMAXCONN): \Socket
 {
     error_clear_last();
     $safeResult = \socket_create_listen($port, $backlog);
@@ -283,14 +283,14 @@ function socket_create_pair(int $domain, int $type, int $protocol, ?iterable &$p
  * the desired protocol is TCP, or UDP the corresponding constants
  * SOL_TCP, and SOL_UDP
  * can also be used.
- * @return resource socket_create returns a Socket instance on success. The actual error code can be retrieved by calling
+ * @return \Socket socket_create returns a Socket instance on success. The actual error code can be retrieved by calling
  * socket_last_error. This error code may be passed to
  * socket_strerror to get a textual explanation of the
  * error.
  * @throws SocketsException
  *
  */
-function socket_create(int $domain, int $type, int $protocol)
+function socket_create(int $domain, int $type, int $protocol): \Socket
 {
     error_clear_last();
     $safeResult = \socket_create($domain, $type, $protocol);
@@ -434,11 +434,11 @@ function socket_getsockname(\Socket $socket, ?string &$address, ?int &$port = nu
  * Imports a stream that encapsulates a socket into a socket extension resource.
  *
  * @param resource $stream The stream resource to import.
- * @return resource Returns FALSE on failure.
+ * @return \Socket Returns FALSE on failure.
  * @throws SocketsException
  *
  */
-function socket_import_stream($stream)
+function socket_import_stream($stream): \Socket
 {
     error_clear_last();
     $safeResult = \socket_import_stream($stream);
@@ -838,11 +838,11 @@ function socket_wsaprotocol_info_export(\Socket $socket, int $process_id): strin
  *
  * @param string $info_id The ID which has been returned by a former call to
  * socket_wsaprotocol_info_export.
- * @return resource Returns a Socket instance on success
+ * @return \Socket Returns a Socket instance on success
  * @throws SocketsException
  *
  */
-function socket_wsaprotocol_info_import(string $info_id)
+function socket_wsaprotocol_info_import(string $info_id): \Socket
 {
     error_clear_last();
     $safeResult = \socket_wsaprotocol_info_import($info_id);

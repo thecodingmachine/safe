@@ -29,6 +29,9 @@ final class DateTimeImmutableTest extends TestCase
         self::assertSame($dateTime->format(\DATE_ATOM), $safeImmutableDate->format(\DATE_ATOM));
     }
 
+    /**
+     * @return array<array<\DateTimeInterface>>
+     */
     public static function createFromInterfaces(): array
     {
         return [
@@ -197,10 +200,10 @@ final class DateTimeImmutableTest extends TestCase
         $end = (new \Safe\DateTimeImmutable('2020-01-03'))->modify('+1 day');
         $datePeriod = new \DatePeriod($start, new \DateInterval('P1D'), $end);
 
-        /** @var DateTimeImmutable $date */
+        /** @var \Safe\DateTimeImmutable $date */
         foreach ($datePeriod as $date) {
             $this->expectException(\Error::class);
-            $this->assertNull($date->getInnerDateTime());
+            $date->getInnerDateTime();
         }
 
     }

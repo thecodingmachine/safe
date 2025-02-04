@@ -5,6 +5,7 @@ includes:
 parameters:
     paths:
         - ./lib
+        - ./tests
     # The level 9 is the highest level (with check for mixed type)
     level: 8
     ignoreErrors:

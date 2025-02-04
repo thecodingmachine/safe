@@ -558,7 +558,7 @@ function curl_getinfo(\CurlHandle $handle, ?int $option = null)
  *
  * The file protocol is disabled by cURL if
  * open_basedir is set.
- * @return \CurlHandle Returns a cURL handle on success, FALSE on errors.
+ * @return \CurlHandle Returns a cURL handle on success.
  * @throws CurlException
  *
  */

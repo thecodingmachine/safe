@@ -25,7 +25,7 @@ class Method
     /**
      * The function prototype from the phpstan internal documentation (functionMap.php)
      */
-    private ?PhpStanFunction $phpstanSignarure;
+    private ?PhpStanFunction $phpstanSignature;
     private PhpStanType $returnType;
 
     public function __construct(\SimpleXMLElement $_functionObject, \SimpleXMLElement $rootEntity, string $moduleName, PhpStanFunctionMapReader $phpStanFunctionMapReader, int $errorType)
@@ -35,8 +35,8 @@ class Method
         $this->moduleName = $moduleName;
         $this->errorType = $errorType;
         $functionName = $this->getFunctionName();
-        $this->phpstanSignarure = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
-        $this->returnType = $this->phpstanSignarure ? $this->phpstanSignarure->getReturnType() : $this->parsePHPDocType($this->functionObject);
+        $this->phpstanSignature = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
+        $this->returnType = $this->phpstanSignature ? $this->phpstanSignature->getReturnType() : $this->parsePHPDocType($this->functionObject);
     }
 
     public function getFunctionName(): string
@@ -63,7 +63,7 @@ class Method
             if (!isset($this->functionObject->methodparam)) {
                 return [];
             }
-            $phpStanFunction = $this->phpstanSignarure;
+            $phpStanFunction = $this->phpstanSignature;
             $params = [];
             $i=1;
             foreach ($this->functionObject->methodparam as $param) {

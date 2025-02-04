@@ -11,14 +11,8 @@ class ScannerResponse
      * @param string[] $overloadedFunctions
      */
     public function __construct(
-        /**
-         * @readonly
-         */
-        public array $methods,
-        /**
-         * @readonly
-         */
-        public array $overloadedFunctions
+        public readonly array $methods,
+        public readonly array $overloadedFunctions
     ) {
     }
 }

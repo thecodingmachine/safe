@@ -94,7 +94,7 @@ function socket_addrinfo_connect(\AddressInfo $address): \Socket
  * port number.
  * @param array $hints Hints provide criteria for selecting addresses returned.  You may specify the
  * hints as defined by getadrinfo.
- * @return resource[] Returns an array of AddressInfo instances that can be used with the other socket_addrinfo functions.
+ * @return \AddressInfo[] Returns an array of AddressInfo instances that can be used with the other socket_addrinfo functions.
  * On failure, FALSE is returned.
  * @throws SocketsException
  *

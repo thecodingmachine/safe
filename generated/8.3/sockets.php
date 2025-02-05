@@ -94,7 +94,7 @@ function socket_addrinfo_connect(\AddressInfo $address): \Socket
  * Otherwise it designates a network service name, which is mapped to a port by the operating system.
  * @param array $hints Hints provide criteria for selecting addresses returned.  You may specify the
  * hints as defined by getaddrinfo.
- * @return resource[] Returns an array of AddressInfo instances that can be used with the other socket_addrinfo functions.
+ * @return \AddressInfo[] Returns an array of AddressInfo instances that can be used with the other socket_addrinfo functions.
  * On failure, FALSE is returned.
  * @throws SocketsException
  *

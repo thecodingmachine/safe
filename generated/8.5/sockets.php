@@ -94,7 +94,7 @@ function socket_addrinfo_connect(\AddressInfo $address): \Socket
  * Otherwise it designates a network service name, which is mapped to a port by the operating system.
  * @param array $hints Hints provide criteria for selecting addresses returned.  You may specify the
  * hints as defined by getaddrinfo.
- * @return resource[] Returns an array of AddressInfo instances that can be used with
+ * @return \AddressInfo[] Returns an array of AddressInfo instances that can be used with
  * the socket_addrinfo_* family of functions.
  * On failure, FALSE is returned.
  * @throws SocketsException
@@ -253,7 +253,7 @@ function socket_create_listen(int $port, int $backlog = SOMAXCONN): \Socket
  *
  * See socket_create for the full list of supported
  * protocols.
- * @param resource[]|null $pair Reference to an array in which the two Socket instances will be inserted.
+ * @param \Socket[]|null $pair Reference to an array in which the two Socket instances will be inserted.
  * @throws SocketsException
  *
  */

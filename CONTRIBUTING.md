@@ -93,12 +93,23 @@ $ cd generator
 $ php ./safe.php generate
 ```
 
+### Detecting new cases
+
+`generator/src/XmlDocParser/DocPage.php` uses a list of regexes to scan the
+documentation looking for functions which return `false` (or `null`) on error.
+If you want to add support for more functions to Safe-PHP, the easiest way is
+to add more regexes here.
+
+If you detect more cases where `false` is an exception, then you should
+probably also edit `Method.php::stripReturnFalseText()` to remove the
+"returns false on error" text from the documentation.
+
 ### Special cases
 
 In some cases, automatic generation is too difficult to execute and the function has to be written manually.
 This should however only be done exceptionally in order to keep the project easy to maintain.
 The most important examples are all the functions of the classes `DateTime` and `DateTimeImmutable`, since the entire classes have to be overloaded manually.
-All custom objects must be located in lib/ and custom functions must be in lib/special_cases.php.
+All custom objects must be located in `lib/` and custom functions must be in `lib/special_cases.php`.
 
 ## Submitting a PR
 

@@ -50,11 +50,11 @@ function socket_accept(\Socket $socket): \Socket
  * value of this function may be used with socket_listen.
  *
  * @param \AddressInfo $address AddressInfo instance created from socket_addrinfo_lookup.
- * @return resource|null Returns a Socket instance on success.
+ * @return \Socket Returns a Socket instance on success.
  * @throws SocketsException
  *
  */
-function socket_addrinfo_bind(\AddressInfo $address)
+function socket_addrinfo_bind(\AddressInfo $address): \Socket
 {
     error_clear_last();
     $safeResult = \socket_addrinfo_bind($address);
@@ -70,11 +70,11 @@ function socket_addrinfo_bind(\AddressInfo $address)
  * value of this function may be used with the rest of the socket functions.
  *
  * @param \AddressInfo $address AddressInfo instance created from socket_addrinfo_lookup.
- * @return resource|null Returns a Socket instance on success.
+ * @return \Socket Returns a Socket instance on success.
  * @throws SocketsException
  *
  */
-function socket_addrinfo_connect(\AddressInfo $address)
+function socket_addrinfo_connect(\AddressInfo $address): \Socket
 {
     error_clear_last();
     $safeResult = \socket_addrinfo_connect($address);

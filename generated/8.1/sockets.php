@@ -235,7 +235,7 @@ function socket_create_listen(int $port, int $backlog = 128): \Socket
  *
  * See socket_create for the full list of supported
  * protocols.
- * @param resource[]|null $pair Reference to an array in which the two Socket instances will be inserted.
+ * @param \Socket[]|null $pair Reference to an array in which the two Socket instances will be inserted.
  * @throws SocketsException
  *
  */

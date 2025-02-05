@@ -36,4 +36,6 @@ return [
     'preg_match_all' => ['0|positive-int|false', 'pattern'=>'string', 'subject'=>'string', '&w_subpatterns='=>'array', 'flags='=>'int', 'offset='=>'int'], // can't actually return null
     'stream_filter_prepend' => ['resource', 'stream' => 'resource', 'filtername' => 'string', 'read_write' => 'int', 'params' => 'mixed'], // params mixed instead of array
     'stream_filter_append' => ['resource', 'stream' => 'resource', 'filtername' => 'string', 'read_write' => 'int', 'params' => 'mixed'], // params mixed instead of array
+    'socket_addrinfo_bind' => ['resource|false', 'addrinfo'=>'resource'], // doesn't return null
+    'socket_addrinfo_connect' => ['resource|false', 'addrinfo'=>'resource'], // doesn't return null
 ];

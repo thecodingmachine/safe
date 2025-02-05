@@ -146,6 +146,11 @@ class DocPage
             return true;
         }
 
+        //used to detect shell_exec
+        if (preg_match("/&false; if the pipe\s+cannot be established/m", $returnValuesSection)) {
+            return true;
+        }
+
         return false;
     }
 
@@ -171,7 +176,16 @@ class DocPage
         if (preg_match('/&null;\s+on\s+failure/', $returnValuesSection)) {
             return true;
         }
+
+        // used to detect old (8.1) versions of array_replace
         if (preg_match('/&null;\s+if\s+an\s+error\s+occurs/', $returnValuesSection)) {
+            // skip a false positive for shell-exec (the docs mention that it
+            // "returns null if an error occurs" _in the subprocess_ OR if the
+            // subprocess returns nothing, and users should use `exec` if they
+            // actually care about error handling)
+            if (str_ends_with($this->path, "shell-exec.xml")) {
+                return false;
+            }
             return true;
         }
 

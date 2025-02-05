@@ -106,16 +106,15 @@ function proc_nice(int $priority): void
  * This function is identical to the backtick operator.
  *
  * @param string $command The command that will be executed.
- * @return string A string containing the output from the executed command, FALSE if the pipe
- * cannot be established or NULL if an error occurs or the command produces no output.
+ * @return string|null A string containing the output from the executed command or NULL if an error occurs or the command produces no output.
  * @throws ExecException
  *
  */
-function shell_exec(string $command): string
+function shell_exec(string $command): ?string
 {
     error_clear_last();
     $safeResult = \shell_exec($command);
-    if ($safeResult === null) {
+    if ($safeResult === false) {
         throw ExecException::createFromPhpError();
     }
     return $safeResult;

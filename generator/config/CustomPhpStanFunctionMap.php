@@ -38,4 +38,6 @@ return [
     'stream_filter_append' => ['resource', 'stream' => 'resource', 'filtername' => 'string', 'read_write' => 'int', 'params' => 'mixed'], // params mixed instead of array
     'socket_addrinfo_bind' => ['resource|false', 'addrinfo'=>'resource'], // doesn't return null
     'socket_addrinfo_connect' => ['resource|false', 'addrinfo'=>'resource'], // doesn't return null
+    'socket_addrinfo_lookup' => ['AddressInfo[]|false', 'node'=>'string', 'service='=>'mixed', 'hints='=>'array'], // returns AddressInfo[], not resource[]
+    'socket_create_pair' => ['bool', 'domain'=>'int', 'type'=>'int', 'protocol'=>'int', '&w_fd'=>'Socket[]'], // fd is Socket, not resource
 ];

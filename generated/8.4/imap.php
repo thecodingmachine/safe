@@ -1743,7 +1743,7 @@ function imap_rfc822_write_address(?string $mailbox, ?string $hostname, ?string 
  * Saves a part or the whole body of the specified message.
  *
  * @param \IMAP\Connection $imap An IMAP\Connection instance.
- * @param resource|string $file The path to the saved file as a string, or a valid file descriptor
+ * @param int|resource|string $file The path to the saved file as a string, or a valid file descriptor
  * returned by fopen.
  * @param int $message_num The message number
  * @param string $section The part number. It is a string of integers delimited by period which

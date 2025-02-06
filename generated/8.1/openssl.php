@@ -398,7 +398,7 @@ function openssl_csr_new(array $distinguished_names, \OpenSSLAsymmetricKey &$pri
  * It can also be the path to a PEM encoded CSR when specified as
  * file://path/to/csr or an exported string generated
  * by openssl_csr_export.
- * @param resource|string|null $ca_certificate The generated certificate will be signed by ca_certificate.
+ * @param \OpenSSLCertificate|string|null $ca_certificate The generated certificate will be signed by ca_certificate.
  * If ca_certificate is NULL, the generated certificate
  * will be a self-signed certificate.
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key private_key is the private key that corresponds to

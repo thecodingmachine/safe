@@ -11,7 +11,7 @@ use Safe\Exceptions\FilterException;
  * @param int $type One of INPUT_GET, INPUT_POST,
  * INPUT_COOKIE, INPUT_SERVER, or
  * INPUT_ENV.
- * @param int|array $options An array defining the arguments. A valid key is a string
+ * @param array|int $options An array defining the arguments. A valid key is a string
  * containing a variable name and a valid value is either a filter type, or an array
  * optionally specifying the filter, flags and options. If the value is an
  * array, valid keys are filter which specifies the

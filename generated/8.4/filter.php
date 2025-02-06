@@ -9,7 +9,7 @@ use Safe\Exceptions\FilterException;
  * repetitively calling filter_input.
  *
  * @param int $type
- * @param int|array $options
+ * @param array|int $options
  * @param bool $add_empty
  * @return array|null
  * @throws FilterException

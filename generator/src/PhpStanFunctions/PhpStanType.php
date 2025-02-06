@@ -111,6 +111,7 @@ class PhpStanType
 
             $returnType = Type::toRootNamespace($returnType);
         }
+        sort($returnTypes);
         $this->types = array_unique($returnTypes);
         $this->nullable = $nullable;
         $this->falsable = $falsable;

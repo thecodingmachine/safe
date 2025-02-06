@@ -138,7 +138,8 @@ class PhpStanType
         // but that results in too many false positives, so we only
         // ignore these very specific cases...)
         if ($phpStanType->getDocBlockType($errorType) === "resource" ||
-            $phpStanType->getDocBlockType($errorType) === "resource|string"
+            $phpStanType->getDocBlockType($errorType) === "resource|string" ||
+            $phpStanType->getDocBlockType($errorType) === "array|resource|string"
         ) {
             return $phpDocType;
         }

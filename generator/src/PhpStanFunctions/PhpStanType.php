@@ -73,8 +73,7 @@ class PhpStanType
             $returnType = '';
         }
         foreach ($returnTypes as &$returnType) {
-            $pos = \strpos($returnType, '?');
-            if ($pos !== false) {
+            if (str_contains($returnType, '?')) {
                 $nullable = true;
                 $returnType = \str_replace('?', '', $returnType);
             }
@@ -178,17 +177,17 @@ class PhpStanType
         }
 
         foreach ($types as &$type) {
-            if (\strpos($type, 'callable(') > -1) {
+            if (str_contains($type, 'callable(')) {
                 $type = 'callable'; //strip callable type of its possible parenthesis and return (ex: callable(): void)
-            } elseif (\strpos($type, 'array<') !== false || \strpos($type, 'array{') !== false) {
+            } elseif (str_contains($type, 'array<') || str_contains($type, 'array{')) {
                 $type = 'array'; //typed array has to be untyped
-            } elseif (\strpos($type, '[]') !== false) {
+            } elseif (str_contains($type, '[]')) {
                 $type = 'iterable'; //generics cannot be typehinted and have to be turned into iterable
-            } elseif (\strpos($type, 'resource') !== false) {
+            } elseif (str_contains($type, 'resource')) {
                 $type = ''; // resource cant be typehinted
-            } elseif (\strpos($type, 'null') !== false) {
+            } elseif (str_contains($type, 'null')) {
                 $type = ''; // null is a real typehint
-            } elseif (\strpos($type, 'true') !== false) {
+            } elseif (str_contains($type, 'true')) {
                 $type = 'bool'; // php8.1 doesn't support "true" as a typehint
             }
         }

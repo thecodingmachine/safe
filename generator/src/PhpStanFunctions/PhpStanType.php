@@ -83,14 +83,6 @@ class PhpStanType
             }
 
             // here we deal with some weird phpstan typings
-            if (str_contains($returnType, 'non-falsy-string')) {
-                $returnType = 'string';
-            }
-
-            if (str_contains($returnType, 'non-empty-string')) {
-                $returnType = 'string';
-            }
-
             if (str_contains($returnType, '__stringAndStringable')) {
                 $returnType = 'string';
             }
@@ -182,7 +174,12 @@ class PhpStanType
                 $type = ''; // null is a real typehint
             } elseif (str_contains($type, 'true')) {
                 $type = 'bool'; // php8.1 doesn't support "true" as a typehint
+            } elseif (str_contains($type, 'non-falsy-string')) {
+                $type = 'string'; // phpstan string type to generic string
+            } elseif (str_contains($type, 'non-empty-string')) {
+                $type = 'string';
             }
+
         }
 
         //if there are several distinct types, no typehint (we use distinct in case doc block contains several times the same type, for example array<int>|array<string>)

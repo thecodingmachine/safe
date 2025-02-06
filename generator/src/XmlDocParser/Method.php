@@ -31,8 +31,7 @@ class Method
         PhpStanFunctionMapReader $phpStanFunctionMapReader,
         private int $errorType
     ) {
-        $functionName = $this->getFunctionName();
-        $this->phpstanSignature = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
+        $this->phpstanSignature = $phpStanFunctionMapReader->getFunction($this->getFunctionName());
         $this->returnType = PhpStanType::selectMostUsefulType(
             $this->phpstanSignature?->getReturnType(),
             new PhpStanType($this->functionObject->type),

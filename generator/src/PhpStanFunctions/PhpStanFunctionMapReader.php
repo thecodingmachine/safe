@@ -24,13 +24,11 @@ class PhpStanFunctionMapReader
         $this->customFunctionMap = require FileCreator::getSafeRootDir() . '/generator/config/CustomPhpStanFunctionMap.php';
     }
 
-    public function hasFunction(string $functionName): bool
+    public function getFunction(string $functionName): ?PhpStanFunction
     {
-        return isset($this->functionMap[$functionName]);
-    }
-
-    public function getFunction(string $functionName): PhpStanFunction
-    {
+        if (!isset($this->functionMap[$functionName])) {
+            return null;
+        }
         $map = $this->functionMap[$functionName];
         $customMap = $this->customFunctionMap[$functionName] ?? null;
         if ($map && $customMap) {

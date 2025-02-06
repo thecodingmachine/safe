@@ -228,7 +228,7 @@ function session_module_name(?string $module = null): string
  *
  * The session name can't consist of digits only, at least one letter
  * must be present. Otherwise a new session id is generated every time.
- * @return string Returns the name of the current session. If name is given
+ * @return non-falsy-string Returns the name of the current session. If name is given
  * and function updates the session name, name of the old session
  * is returned.
  * @throws SessionException

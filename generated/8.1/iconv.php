@@ -35,6 +35,189 @@ function iconv_get_encoding(string $type = "all")
 
 
 /**
+ * Decodes a MIME header field.
+ *
+ * @param string $string The encoded header, as a string.
+ * @param int $mode mode determines the behaviour in the event
+ * iconv_mime_decode encounters a malformed
+ * MIME header field. You can specify any combination
+ * of the following bitmasks.
+ *
+ * Bitmasks acceptable to iconv_mime_decode
+ *
+ *
+ *
+ * Value
+ * Constant
+ * Description
+ *
+ *
+ *
+ *
+ * 1
+ * ICONV_MIME_DECODE_STRICT
+ *
+ * If set, the given header is decoded in full conformance with the
+ * standards defined in RFC2047.
+ * This option is disabled by default because there are a lot of
+ * broken mail user agents that don't follow the specification and don't
+ * produce correct MIME headers.
+ *
+ *
+ *
+ * 2
+ * ICONV_MIME_DECODE_CONTINUE_ON_ERROR
+ *
+ * If set, iconv_mime_decode_headers
+ * attempts to ignore any grammatical errors and continue to process
+ * a given header.
+ *
+ *
+ *
+ *
+ *
+ * @param string $encoding The optional encoding parameter specifies the
+ * character set to represent the result by. If omitted or NULL,
+ * iconv.internal_encoding
+ * will be used.
+ * @return string Returns a decoded MIME field on success,
+ * or FALSE if an error occurs during the decoding.
+ * @throws IconvException
+ *
+ */
+function iconv_mime_decode(string $string, int $mode = 0, ?string $encoding = null): string
+{
+    error_clear_last();
+    if ($encoding !== null) {
+        $safeResult = \iconv_mime_decode($string, $mode, $encoding);
+    } else {
+        $safeResult = \iconv_mime_decode($string, $mode);
+    }
+    if ($safeResult === false) {
+        throw IconvException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * Composes and returns a string that represents a valid MIME
+ * header field, which looks like the following:
+ *
+ *
+ *
+ * In the above example, "Subject" is the field name and the portion that
+ * begins with "=?ISO-8859-1?..." is the field value.
+ *
+ * @param string $field_name The field name.
+ * @param string $field_value The field value.
+ * @param array $options You can control the behaviour of iconv_mime_encode
+ * by specifying an associative array that contains configuration items
+ * to the optional third parameter options.
+ * The items supported by iconv_mime_encode are
+ * listed below. Note that item names are treated case-sensitive.
+ *
+ * Configuration items supported by iconv_mime_encode
+ *
+ *
+ *
+ * Item
+ * Type
+ * Description
+ * Default value
+ * Example
+ *
+ *
+ *
+ *
+ * scheme
+ * string
+ *
+ * Specifies the method to encode a field value by. The value of
+ * this item may be either "B" or "Q", where "B" stands for
+ * base64 encoding scheme and "Q" stands for
+ * quoted-printable encoding scheme.
+ *
+ * B
+ * B
+ *
+ *
+ * input-charset
+ * string
+ *
+ * Specifies the character set in which the first parameter
+ * field_name and the second parameter
+ * field_value are presented. If not given,
+ * iconv_mime_encode assumes those parameters
+ * are presented to it in the
+ * iconv.internal_encoding
+ * ini setting.
+ *
+ *
+ * iconv.internal_encoding
+ *
+ * ISO-8859-1
+ *
+ *
+ * output-charset
+ * string
+ *
+ * Specifies the character set to use to compose the
+ * MIME header.
+ *
+ *
+ * iconv.internal_encoding
+ *
+ * UTF-8
+ *
+ *
+ * line-length
+ * int
+ *
+ * Specifies the maximum length of the header lines. The resulting
+ * header is "folded" to a set of multiple lines in case
+ * the resulting header field would be longer than the value of this
+ * parameter, according to
+ * RFC2822 - Internet Message Format.
+ * If not given, the length will be limited to 76 characters.
+ *
+ * 76
+ * 996
+ *
+ *
+ * line-break-chars
+ * string
+ *
+ * Specifies the sequence of characters to append to each line
+ * as an end-of-line sign when "folding" is performed on a long header
+ * field. If not given, this defaults to "\r\n"
+ * (CR LF). Note that
+ * this parameter is always treated as an ASCII string regardless
+ * of the value of input-charset.
+ *
+ * \r\n
+ * \n
+ *
+ *
+ *
+ *
+ * @return string Returns an encoded MIME field on success,
+ * or FALSE if an error occurs during the encoding.
+ * @throws IconvException
+ *
+ */
+function iconv_mime_encode(string $field_name, string $field_value, array $options = []): string
+{
+    error_clear_last();
+    $safeResult = \iconv_mime_encode($field_name, $field_value, $options);
+    if ($safeResult === false) {
+        throw IconvException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Changes the value of the internal configuration variable specified by
  * type to encoding.
  *
@@ -55,6 +238,37 @@ function iconv_set_encoding(string $type, string $encoding): void
     if ($safeResult === false) {
         throw IconvException::createFromPhpError();
     }
+}
+
+
+/**
+ * In contrast to strlen,
+ * iconv_strlen counts the occurrences of characters
+ * in the given byte sequence string on the basis of
+ * the specified character set, the result of which is not necessarily
+ * identical to the length of the string in byte.
+ *
+ * @param string $string The string.
+ * @param string $encoding If encoding parameter is omitted or NULL,
+ * string is assumed to be encoded in
+ * iconv.internal_encoding.
+ * @return int Returns the character count of string, as an integer,
+ * or FALSE if an error occurs during the encoding.
+ * @throws IconvException
+ *
+ */
+function iconv_strlen(string $string, ?string $encoding = null): int
+{
+    error_clear_last();
+    if ($encoding !== null) {
+        $safeResult = \iconv_strlen($string, $encoding);
+    } else {
+        $safeResult = \iconv_strlen($string);
+    }
+    if ($safeResult === false) {
+        throw IconvException::createFromPhpError();
+    }
+    return $safeResult;
 }
 
 

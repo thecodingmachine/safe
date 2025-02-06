@@ -88,6 +88,33 @@ function dl(string $extension_filename): void
 
 
 /**
+ * Gets the value of a PHP configuration option.
+ *
+ * This function will not return configuration information set when the PHP
+ * was compiled, or read from an Apache configuration file.
+ *
+ * To check whether the system is using a configuration file, try retrieving the
+ * value of the cfg_file_path configuration setting. If this is available, a
+ * configuration file is being used.
+ *
+ * @param string $option The configuration option name.
+ * @return mixed Returns the current value of the PHP configuration variable specified by
+ * option, or FALSE if an error occurs.
+ * @throws InfoException
+ *
+ */
+function get_cfg_var(string $option)
+{
+    error_clear_last();
+    $safeResult = \get_cfg_var($option);
+    if ($safeResult === false) {
+        throw InfoException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  *
  *
  * @return string Returns the path, as a string.

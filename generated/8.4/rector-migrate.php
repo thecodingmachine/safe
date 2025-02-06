@@ -747,6 +747,7 @@ return static function (RectorConfig $rectorConfig): void {
             'preg_replace' => 'Safe\preg_replace',
             'preg_split' => 'Safe\preg_split',
             'proc_nice' => 'Safe\proc_nice',
+            'proc_open' => 'Safe\proc_open',
             'pspell_add_to_personal' => 'Safe\pspell_add_to_personal',
             'pspell_add_to_session' => 'Safe\pspell_add_to_session',
             'pspell_clear_session' => 'Safe\pspell_clear_session',

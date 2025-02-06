@@ -132,18 +132,18 @@ class PhpStanType
         if (is_null($phpStanType)) {
             return $phpDocType;
         }
-        // If php documentation doesn't have any useful information,
-        // use the phpstan type
-        if ($phpDocType->getDocBlockType($errorType) === "") {
-            return $phpStanType;
-        }
-        // If both sources have some information, but phpstan claims
-        // something is a `resource`, don't trust it, use php docs
-        if ($phpStanType->getDocBlockType($errorType) === "resource") {
+        // If phpstan claims something is a `resource`, use php docs.
+        // (Ideally phpstan would have correct types, or less-ideally
+        // we would ignore it whenever it mentions a resource at all,
+        // but that results in too many false positives, so we only
+        // ignore these very specific cases...)
+        if ($phpStanType->getDocBlockType($errorType) === "resource" ||
+            $phpStanType->getDocBlockType($errorType) === "resource|string"
+        ) {
             return $phpDocType;
         }
-        // If both sources have some information, and both seem to be
-        // vaguely legitimate, prefer phpstan
+        // If phpstan has information, and we don't specifically
+        // distrust it, then use it
         return $phpStanType;
     }
 

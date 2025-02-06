@@ -231,15 +231,6 @@ class PhpStanTypeTest extends TestCase
             )->getDocBlockType()
         );
 
-        // if phpdoc doesn't have useful information, use phpstan
-        $this->assertEquals(
-            'int',
-            PhpStanType::selectMostUsefulType(
-                new PhpStanType('int'),
-                new PhpStanType('')
-            )->getDocBlockType()
-        );
-
         // if both have useful information, use phpstan
         $this->assertEquals(
             'int',

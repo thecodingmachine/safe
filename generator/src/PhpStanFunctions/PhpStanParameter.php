@@ -12,7 +12,7 @@ class PhpStanParameter
     public function __construct(string $name, string $type)
     {
         $writeOnly = false;
-        if (\strpos($name, '&w_') !== false) {
+        if (str_contains($name, '&w_')) {
             $writeOnly = true;
         }
         $name = \str_replace(['&rw_', '&w_'], '', $name);

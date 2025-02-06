@@ -31,15 +31,7 @@ class FunctionInfoCommand extends Command
         foreach ($res->methods as $function) {
             $name = $function->getFunctionName();
             if ($name == $input->getArgument("function")) {
-                $output->writeln("Params: ");
-                foreach ($function->getParams() as $param) {
-                    $output->writeln("  " . $param->getParameterName());
-                    $output->writeln("    ParameterType: " . $param->getParameterType());
-                    $output->writeln("    SignatureType: " . $param->getSignatureType());
-                    $output->writeln("    DocBlockType:  " . $param->getDocBlockType());
-                }
-                $writePhpFunction = new WritePhpFunction($function);
-                $output->writeln($writePhpFunction->getPhpFunctionalFunction());
+                $output->writeln((string)$function);
                 break;
             }
         }

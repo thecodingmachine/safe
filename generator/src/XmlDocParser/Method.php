@@ -45,6 +45,36 @@ class Method
         $this->returnType = $phpStanType ?? $phpDocType;
     }
 
+    public function __toString(): string
+    {
+        $data = $this->getFunctionName() . "\n";
+        $data .= "\n";
+        $data .= "Parameters:\n";
+        $n = 0;
+        foreach ($this->getParams() as $param) {
+            $phpStanParam = $this->phpstanSignature ?
+                $this->phpstanSignature->getParameter($param->getParameterName(), $n++) :
+                null;
+
+            $phpStanType = $phpStanParam ? $phpStanParam->getType() : null;
+
+            $data .= "  " . $param->getParameterName() . "\n";
+            $data .= "    PHPStan: " . ($phpStanType ? $phpStanType->getDocBlockType() : "(unknown)") . "\n";
+            $data .= "    PHPDoc:  " . $param->getParameterType() . "\n";
+            $data .= "    Safe:    " . $param->getDocBlockType() . "\n";
+        }
+        $data .= "\n";
+        $data .= "Error type: " . [1=>"false", 2=>"null", 3=>"empty"][$this->errorType] . "\n";
+        $data .= "\n";
+        $data .= "Return type:\n";
+        $phpStanType = $this->phpstanSignature ? $this->phpstanSignature->getReturnType() : null;
+        $phpDocType = new PhpStanType($this->functionObject->type);
+        $data .= "  PHPStan: " . ($phpStanType ? $phpStanType->getDocBlockType() : "(unknown)") . "\n";
+        $data .= "  PHPDoc:  " . $phpDocType->getDocBlockType() . "\n";
+        $data .= "  Safe:    " . $this->returnType->getDocBlockType($this->errorType) . "\n";
+        return $data;
+    }
+
     public function getFunctionName(): string
     {
         return $this->functionObject->methodname->__toString();

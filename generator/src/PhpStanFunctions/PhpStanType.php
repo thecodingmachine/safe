@@ -139,7 +139,7 @@ class PhpStanType
         }
         // If both sources have some information, but phpstan claims
         // something is a `resource`, don't trust it, use php docs
-        if ($phpStanType->getDocBlockType($errorType) === "resource") {
+        if (str_contains($phpStanType->getDocBlockType($errorType), "resource")) {
             return $phpDocType;
         }
         // If both sources have some information, and both seem to be

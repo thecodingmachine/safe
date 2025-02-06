@@ -684,7 +684,7 @@ function mysql_num_rows($result): int
  * will try to create one as if mysql_connect had been called
  * with no arguments. If no connection is found or established, an
  * E_WARNING level error is generated.
- * @return bool|resource For SELECT, SHOW, DESCRIBE, EXPLAIN and other statements returning resultset,
+ * @return mixed For SELECT, SHOW, DESCRIBE, EXPLAIN and other statements returning resultset,
  * mysql_query
  * returns a resource on success.
  *
@@ -918,7 +918,7 @@ function mysql_thread_id($link_identifier = null): int
  * will try to create one as if mysql_connect had been called
  * with no arguments. If no connection is found or established, an
  * E_WARNING level error is generated.
- * @return bool|resource For SELECT, SHOW, DESCRIBE or EXPLAIN statements,
+ * @return resource For SELECT, SHOW, DESCRIBE or EXPLAIN statements,
  * mysql_unbuffered_query
  * returns a resource on success.
  *

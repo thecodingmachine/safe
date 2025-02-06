@@ -251,7 +251,7 @@ function ldap_exop_whoami(\LDAP\Connection $ldap)
  * If not provided you may use ldap_parse_exop on the result object
  * later to get this data.
  * @param string|null $retoid Will be filled with the response OID if provided, usually equal to the request OID.
- * @return bool|resource When used with retdata, returns TRUE on success.
+ * @return mixed When used with retdata, returns TRUE on success.
  * When used without retdata, returns a result identifier.
  * @throws LdapException
  *
@@ -1044,7 +1044,7 @@ function ldap_sasl_bind(\LDAP\Connection $ldap, ?string $dn = null, ?string $pas
 /**
  * Sets the value of the specified option to be value.
  *
- * @param resource|null $ldap An LDAP\Connection instance, returned by ldap_connect.
+ * @param \LDAP\Connection|null $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param int $option The parameter option can be one of:
  *
  *
@@ -1217,7 +1217,7 @@ function ldap_sasl_bind(\LDAP\Connection $ldap, ?string $dn = null, ?string $pas
  * @throws LdapException
  *
  */
-function ldap_set_option($ldap, int $option, $value): void
+function ldap_set_option(?\LDAP\Connection $ldap, int $option, $value): void
 {
     error_clear_last();
     $safeResult = \ldap_set_option($ldap, $option, $value);

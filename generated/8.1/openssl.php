@@ -398,10 +398,10 @@ function openssl_csr_new(array $distinguished_names, \OpenSSLAsymmetricKey &$pri
  * It can also be the path to a PEM encoded CSR when specified as
  * file://path/to/csr or an exported string generated
  * by openssl_csr_export.
- * @param resource|string|null $ca_certificate The generated certificate will be signed by ca_certificate.
+ * @param \OpenSSLCertificate|string|null $ca_certificate The generated certificate will be signed by ca_certificate.
  * If ca_certificate is NULL, the generated certificate
  * will be a self-signed certificate.
- * @param array|resource|string $private_key private_key is the private key that corresponds to
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key private_key is the private key that corresponds to
  * ca_certificate.
  * @param int $days days specifies the length of time for which the
  * generated certificate will be valid, in days.
@@ -580,7 +580,7 @@ function openssl_get_curve_names(): array
  * @param string|null $output If the call is successful the opened data is returned in this
  * parameter.
  * @param string $encrypted_key
- * @param array|resource|string $private_key
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key
  * @param string $cipher_algo The cipher method.
  *
  *
@@ -638,7 +638,7 @@ function openssl_pbkdf2(string $password, string $salt, int $key_length, int $it
  *
  * @param \OpenSSLCertificate|string $certificate See Key/Certificate parameters for a list of valid values.
  * @param string $output_filename Path to the output file.
- * @param array|resource|string $private_key Private key component of PKCS#12 file.
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key Private key component of PKCS#12 file.
  * See Public/Private Key parameters for a list of valid values.
  * @param string $passphrase Encryption password for unlocking the PKCS#12 file.
  * @param array $options Optional array, other keys will be ignored.
@@ -682,7 +682,7 @@ function openssl_pkcs12_export_to_file($certificate, string $output_filename, $p
  *
  * @param \OpenSSLCertificate|string $certificate See Key/Certificate parameters for a list of valid values.
  * @param string|null $output On success, this will hold the PKCS#12.
- * @param array|resource|string $private_key Private key component of PKCS#12 file.
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key Private key component of PKCS#12 file.
  * See Public/Private Key parameters for a list of valid values.
  * @param string $passphrase Encryption password for unlocking the PKCS#12 file.
  * @param array $options Optional array, other keys will be ignored.
@@ -750,7 +750,7 @@ function openssl_pkcs12_read(string $pkcs12, ?array &$certificates, string $pass
  * @param string $output_filename The decrypted message is written to the file specified by
  * output_filename.
  * @param \OpenSSLCertificate|string $certificate
- * @param array|resource|string $private_key
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string|null $private_key
  * @throws OpensslException
  *
  */
@@ -776,7 +776,7 @@ function openssl_pkcs7_decrypt(string $input_filename, string $output_filename, 
  *
  * @param string $input_filename
  * @param string $output_filename
- * @param array|resource|string $certificate Either a lone X.509 certificate, or an array of X.509 certificates.
+ * @param \OpenSSLCertificate|array|string $certificate Either a lone X.509 certificate, or an array of X.509 certificates.
  * @param array $headers headers is an array of headers that
  * will be prepended to the data after it has been encrypted.
  *
@@ -829,7 +829,7 @@ function openssl_pkcs7_read(string $data, ?array &$certificates): void
  * @param string $output_filename The file which the digital signature will be written to.
  * @param \OpenSSLCertificate|string $certificate The X.509 certificate used to digitally sign input_filename.
  * See Key/Certificate parameters for a list of valid values.
- * @param array|resource|string $private_key private_key is the private key corresponding to certificate.
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key private_key is the private key corresponding to certificate.
  * See Public/Private Key parameters for a list of valid values.
  * @param array $headers headers is an array of headers that
  * will be prepended to the data after it has been signed (see
@@ -885,7 +885,7 @@ function openssl_pkey_derive($public_key, $private_key, int $key_length = 0): st
  * (PEM encoded) rendition of key into the file named
  * by output_filename.
  *
- * @param array|resource|string $key
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $key
  * @param string $output_filename Path to the output file.
  * @param string|null $passphrase The key can be optionally protected by a
  * passphrase.
@@ -1045,7 +1045,7 @@ function openssl_pkey_new(?array $options = null): \OpenSSLAsymmetricKey
  *
  * @param string $data
  * @param string|null $decrypted_data
- * @param array|resource|string $private_key private_key must be the private key corresponding that
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key private_key must be the private key corresponding that
  * was used to encrypt the data.
  * @param int $padding padding can be one of
  * OPENSSL_PKCS1_PADDING,
@@ -1076,7 +1076,7 @@ function openssl_private_decrypt(string $data, ?string &$decrypted_data, $privat
  *
  * @param string $data
  * @param string|null $encrypted_data
- * @param array|resource|string $private_key
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key
  * @param int $padding padding can be one of
  * OPENSSL_PKCS1_PADDING,
  * OPENSSL_NO_PADDING.

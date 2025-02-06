@@ -248,5 +248,14 @@ class PhpStanTypeTest extends TestCase
                 new PhpStanType('GdImage')
             )->getDocBlockType()
         );
+
+        // if phpstan claims something might be a resource, don't trust it
+        $this->assertEquals(
+            '\GdImage|string',
+            PhpStanType::selectMostUsefulType(
+                new PhpStanType('resource|string'),
+                new PhpStanType('GdImage|string')
+            )->getDocBlockType()
+        );
     }
 }

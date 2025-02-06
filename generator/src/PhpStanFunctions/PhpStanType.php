@@ -133,13 +133,7 @@ class PhpStanType
             return $phpDocType;
         }
         // If phpstan claims something is a `resource`, use php docs.
-        // (Ideally phpstan would have correct types, or less-ideally
-        // we would ignore it whenever it mentions a resource at all,
-        // but that results in too many false positives, so we only
-        // ignore these very specific cases...)
-        if ($phpStanType->getDocBlockType($errorType) === "resource" ||
-            $phpStanType->getDocBlockType($errorType) === "resource|string"
-        ) {
+        if (str_contains($phpStanType->getDocBlockType($errorType), "resource")) {
             return $phpDocType;
         }
         // If phpstan has information, and we don't specifically

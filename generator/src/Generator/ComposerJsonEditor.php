@@ -38,7 +38,7 @@ class ComposerJsonEditor
     public static function editFilesListForGeneration(array $oldFiles, array $modules): array
     {
         $files = array_values(array_filter($oldFiles, function ($file) {
-            return strpos($file, 'generated/') === false;
+            return !str_contains($file, 'generated/');
         }));
         foreach ($modules as $module) {
             $files[] = 'generated/'.lcfirst($module).'.php';

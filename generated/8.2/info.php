@@ -436,7 +436,7 @@ function ini_set(string $option, string $value): string
 /**
  *
  *
- * @return string Returns the interface type, as a lowercase string.
+ * @return non-empty-string Returns the interface type, as a lowercase string.
  *
  * Although not exhaustive, the possible return values include
  * apache,

@@ -33,16 +33,11 @@ class Method
     ) {
         $functionName = $this->getFunctionName();
         $this->phpstanSignature = $phpStanFunctionMapReader->hasFunction($functionName) ? $phpStanFunctionMapReader->getFunction($functionName) : null;
-
-        // mostly we trust phpstan, but if phpstan says it's a "resource",
-        // and the PHP docs have a more specific type hint, then we prefer
-        // to use the PHP docs
-        $phpStanType = $this->phpstanSignature ? $this->phpstanSignature->getReturnType() : null;
-        $phpDocType = new PhpStanType($this->functionObject->type);
-        if ($phpStanType && $phpStanType->getDocBlockType($errorType) === "resource" && $phpDocType->getDocBlockType($errorType) !== "") {
-            $phpStanType = null;
-        }
-        $this->returnType = $phpStanType ?? $phpDocType;
+        $this->returnType = PhpStanType::selectMostUsefulType(
+            $this->phpstanSignature?->getReturnType(),
+            new PhpStanType($this->functionObject->type),
+            $errorType
+        );
     }
 
     public function __toString(): string

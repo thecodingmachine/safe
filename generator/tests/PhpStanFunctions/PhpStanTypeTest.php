@@ -172,7 +172,7 @@ class PhpStanTypeTest extends TestCase
     public function testNotEmptyStringBecomingString(): void
     {
         $param = new PhpStanType('non-empty-string|false');
-        $this->assertEquals('string', $param->getDocBlockType(Method::FALSY_TYPE));
+        $this->assertEquals('non-empty-string', $param->getDocBlockType(Method::FALSY_TYPE));
         $this->assertEquals('string', $param->getSignatureType(Method::FALSY_TYPE));
     }
 

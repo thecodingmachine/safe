@@ -39,7 +39,7 @@ class Method
         // to use the PHP docs
         $phpStanType = $this->phpstanSignature ? $this->phpstanSignature->getReturnType() : null;
         $phpDocType = new PhpStanType($this->functionObject->type);
-        if ($phpStanType && $phpStanType->getDocBlockType($errorType) === "resource" && $phpDocType->getDocBlockType($errorType) !== "") {
+        if ($phpStanType && str_contains($phpStanType->getDocBlockType($errorType), "resource") && $phpDocType->getDocBlockType($errorType) !== "") {
             $phpStanType = null;
         }
         $this->returnType = $phpStanType ?? $phpDocType;

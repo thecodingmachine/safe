@@ -77,7 +77,7 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
         \fwrite($stream, "<?php\n");
         foreach ($versions as $version) {
             if (file_exists("$path/$version/$lcModule.php")) {
-                \fwrite($stream, "\nif (strpos(PHP_VERSION, \"$version.\") === 0) {");
+                \fwrite($stream, "\nif (str_starts_with(PHP_VERSION, \"$version.\")) {");
                 \fwrite($stream, "\n    require_once __DIR__ . '/$version/$lcModule.php';");
                 \fwrite($stream, "\n}");
             }

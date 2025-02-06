@@ -842,7 +842,7 @@ function pg_parameter_status(?\PgSql\Connection $connection = null, ?string $par
 
 /**
  * pg_pconnect opens a connection to a
- * PostgreSQL database. It returns an PgSql\Connection instance that is
+ * PostgreSQL database. It returns a PgSql\Connection instance that is
  * needed by other PostgreSQL functions.
  *
  * If a second call is made to pg_pconnect with
@@ -851,11 +851,14 @@ function pg_parameter_status(?\PgSql\Connection $connection = null, ?string $par
  * PGSQL_CONNECT_FORCE_NEW as
  * flags.
  *
- * To enable persistent connection, the pgsql.allow_persistent
+ * To enable persistent connections, the
+ * pgsql.allow_persistent
  * php.ini directive must be set to "On" (which is the default).
- * The maximum number of persistent connection can be defined with the pgsql.max_persistent
- * php.ini directive (defaults to -1 for no limit). The total number
- * of connections can be set with the pgsql.max_links
+ * The maximum number of persistent connections can be defined with the
+ * pgsql.max_persistent
+ * php.ini directive (defaults to -1 for no limit).
+ * The total number of connections can be set with the
+ * pgsql.max_links
  * php.ini directive.
  *
  * pg_close will not close persistent links
@@ -875,12 +878,12 @@ function pg_parameter_status(?\PgSql\Connection $connection = null, ?string $par
  * password, connect_timeout,
  * options, tty (ignored), sslmode,
  * requiressl (deprecated in favor of sslmode), and
- * service.  Which of these arguments exist depends
- * on your PostgreSQL version.
+ * service.
+ * Which of these arguments exist depends on the PostgreSQL version.
  * @param int $flags If PGSQL_CONNECT_FORCE_NEW is passed, then a new connection
  * is created, even if the connection_string is identical to
  * an existing connection.
- * @return \PgSql\Connection Returns an PgSql\Connection instance on success.
+ * @return \PgSql\Connection Returns a PgSql\Connection instance on success.
  * @throws PgsqlException
  *
  */

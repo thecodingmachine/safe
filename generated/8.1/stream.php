@@ -439,11 +439,11 @@ function stream_socket_client(string $remote_socket, ?int &$errno = null, ?strin
  * STREAM_IPPROTO_RAW,
  * STREAM_IPPROTO_TCP or
  * STREAM_IPPROTO_UDP
- * @return resource[] Returns an array with the two socket resources on success.
+ * @return array Returns an array with the two socket resources on success.
  * @throws StreamException
  *
  */
-function stream_socket_pair(int $domain, int $type, int $protocol): iterable
+function stream_socket_pair(int $domain, int $type, int $protocol): array
 {
     error_clear_last();
     $safeResult = \stream_socket_pair($domain, $type, $protocol);

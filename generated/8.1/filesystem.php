@@ -584,6 +584,30 @@ function filesize(string $filename): int
 
 
 /**
+ * Returns the type of the given file.
+ *
+ * @param string $filename Path to the file.
+ * @return string Returns the type of the file. Possible values are fifo, char,
+ * dir, block, link, file, socket and unknown.
+ *
+ * Returns FALSE if an error occurs. filetype will also
+ * produce an E_NOTICE message if the stat call fails
+ * or if the file type is unknown.
+ * @throws FilesystemException
+ *
+ */
+function filetype(string $filename): string
+{
+    error_clear_last();
+    $safeResult = \filetype($filename);
+    if ($safeResult === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * flock allows you to perform a simple reader/writer
  * model which can be used on virtually every platform (including most Unix
  * derivatives and even Windows).

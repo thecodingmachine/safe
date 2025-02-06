@@ -151,6 +151,11 @@ class DocPage
             return true;
         }
 
+        //used to detect cfg_get_var
+        if (preg_match("/&false; if an error occurs/m", $returnValuesSection)) {
+            return true;
+        }
+
         return false;
     }
 

@@ -219,4 +219,43 @@ class PhpStanTypeTest extends TestCase
         $param = new PhpStanType($xml);
         $this->assertEquals('\OpenSSLCertificate|string', $param->getDocBlockType());
     }
+
+    public function testSelectMostUsefulType(): void
+    {
+        // if phpstan doesn't know about the function, use phpdoc
+        $this->assertEquals(
+            'string',
+            PhpStanType::selectMostUsefulType(
+                null,
+                new PhpStanType('string')
+            )->getDocBlockType()
+        );
+
+        // if phpdoc doesn't have useful information, use phpstan
+        $this->assertEquals(
+            'int',
+            PhpStanType::selectMostUsefulType(
+                new PhpStanType('int'),
+                new PhpStanType('')
+            )->getDocBlockType()
+        );
+
+        // if both have useful information, use phpstan
+        $this->assertEquals(
+            'int',
+            PhpStanType::selectMostUsefulType(
+                new PhpStanType('int'),
+                new PhpStanType('string')
+            )->getDocBlockType()
+        );
+
+        // if phpstan claims something is a resource, don't trust it
+        $this->assertEquals(
+            '\GdImage',
+            PhpStanType::selectMostUsefulType(
+                new PhpStanType('resource'),
+                new PhpStanType('GdImage')
+            )->getDocBlockType()
+        );
+    }
 }

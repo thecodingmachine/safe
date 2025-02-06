@@ -211,6 +211,148 @@ function sqlsrv_execute($stmt): void
 
 
 /**
+ * Returns the next available row of data as an associative array, a numeric
+ * array, or both (the default).
+ *
+ * @param resource $stmt A statement resource returned by sqlsrv_query or sqlsrv_prepare.
+ * @param int $fetchType A predefined constant specifying the type of array to return. Possible
+ * values are SQLSRV_FETCH_ASSOC,
+ * SQLSRV_FETCH_NUMERIC, and
+ * SQLSRV_FETCH_BOTH (the default).
+ *
+ * A fetch type of SQLSRV_FETCH_ASSOC should not be used when consuming a
+ * result set with multiple columns of the same name.
+ * @param int $row Specifies the row to access in a result set that uses a scrollable cursor.
+ * Possible values are SQLSRV_SCROLL_NEXT,
+ * SQLSRV_SCROLL_PRIOR, SQLSRV_SCROLL_FIRST,
+ * SQLSRV_SCROLL_LAST, SQLSRV_SCROLL_ABSOLUTE and,
+ * SQLSRV_SCROLL_RELATIVE (the default). When this parameter
+ * is specified, the fetchType must be explicitly defined.
+ * @param int $offset Specifies the row to be accessed if the row parameter is set to
+ * SQLSRV_SCROLL_ABSOLUTE or
+ * SQLSRV_SCROLL_RELATIVE. Note that the first row in
+ * a result set has index 0.
+ * @return array|null Returns an array on success, NULL if there are no more rows to return, and
+ * FALSE if an error occurs.
+ * @throws SqlsrvException
+ *
+ */
+function sqlsrv_fetch_array($stmt, ?int $fetchType = null, ?int $row = null, ?int $offset = null): ?array
+{
+    error_clear_last();
+    if ($offset !== null) {
+        $safeResult = \sqlsrv_fetch_array($stmt, $fetchType, $row, $offset);
+    } elseif ($row !== null) {
+        $safeResult = \sqlsrv_fetch_array($stmt, $fetchType, $row);
+    } elseif ($fetchType !== null) {
+        $safeResult = \sqlsrv_fetch_array($stmt, $fetchType);
+    } else {
+        $safeResult = \sqlsrv_fetch_array($stmt);
+    }
+    if ($safeResult === false) {
+        throw SqlsrvException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * Retrieves the next row of data in a result set as an instance of the specified
+ * class with properties that match the row field names and values that correspond
+ * to the row field values.
+ *
+ * @param resource $stmt A statement resource created by sqlsrv_query or
+ * sqlsrv_execute.
+ * @param string $className The name of the class to instantiate. If no class name is specified,
+ * stdClass is instantiated.
+ * @param array $ctorParams Values passed to the constructor of the specified class. If the constructor
+ * of the specified class takes parameters, the ctorParams array must be
+ * supplied.
+ * @param int $row The row to be accessed. This parameter can only be used if the specified
+ * statement was prepared with a scrollable cursor. In that case, this parameter
+ * can take on one of the following values:
+ *
+ * SQLSRV_SCROLL_NEXT
+ * SQLSRV_SCROLL_PRIOR
+ * SQLSRV_SCROLL_FIRST
+ * SQLSRV_SCROLL_LAST
+ * SQLSRV_SCROLL_ABSOLUTE
+ * SQLSRV_SCROLL_RELATIVE
+ *
+ * @param int $offset Specifies the row to be accessed if the row parameter is set to
+ * SQLSRV_SCROLL_ABSOLUTE or
+ * SQLSRV_SCROLL_RELATIVE. Note that the first row in
+ * a result set has index 0.
+ * @return object|null Returns an object on success, NULL if there are no more rows to return,
+ * and FALSE if an error occurs or if the specified class does not exist.
+ * @throws SqlsrvException
+ *
+ */
+function sqlsrv_fetch_object($stmt, ?string $className = null, ?array $ctorParams = null, ?int $row = null, ?int $offset = null): ?object
+{
+    error_clear_last();
+    if ($offset !== null) {
+        $safeResult = \sqlsrv_fetch_object($stmt, $className, $ctorParams, $row, $offset);
+    } elseif ($row !== null) {
+        $safeResult = \sqlsrv_fetch_object($stmt, $className, $ctorParams, $row);
+    } elseif ($ctorParams !== null) {
+        $safeResult = \sqlsrv_fetch_object($stmt, $className, $ctorParams);
+    } elseif ($className !== null) {
+        $safeResult = \sqlsrv_fetch_object($stmt, $className);
+    } else {
+        $safeResult = \sqlsrv_fetch_object($stmt);
+    }
+    if ($safeResult === false) {
+        throw SqlsrvException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * Makes the next row in a result set available for reading. Use
+ * sqlsrv_get_field to read the fields of the row.
+ *
+ * @param resource $stmt A statement resource created by executing sqlsrv_query
+ * or sqlsrv_execute.
+ * @param int $row The row to be accessed. This parameter can only be used if the specified
+ * statement was prepared with a scrollable cursor. In that case, this parameter
+ * can take on one of the following values:
+ *
+ * SQLSRV_SCROLL_NEXT
+ * SQLSRV_SCROLL_PRIOR
+ * SQLSRV_SCROLL_FIRST
+ * SQLSRV_SCROLL_LAST
+ * SQLSRV_SCROLL_ABSOLUTE
+ * SQLSRV_SCROLL_RELATIVE
+ *
+ * @param int $offset Specifies the row to be accessed if the row parameter is set to
+ * SQLSRV_SCROLL_ABSOLUTE or
+ * SQLSRV_SCROLL_RELATIVE. Note that the first row in
+ * a result set has index 0.
+ * @return bool|null Returns TRUE if the next row of a result set was successfully retrieved,
+ * FALSE if an error occurs, and NULL if there are no more rows in the result set.
+ * @throws SqlsrvException
+ *
+ */
+function sqlsrv_fetch($stmt, ?int $row = null, ?int $offset = null): ?bool
+{
+    error_clear_last();
+    if ($offset !== null) {
+        $safeResult = \sqlsrv_fetch($stmt, $row, $offset);
+    } elseif ($row !== null) {
+        $safeResult = \sqlsrv_fetch($stmt, $row);
+    } else {
+        $safeResult = \sqlsrv_fetch($stmt);
+    }
+    if ($safeResult === false) {
+        throw SqlsrvException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Frees all resources for the specified statement. The statement cannot be used
  * after sqlsrv_free_stmt has been called on it. If
  * sqlsrv_free_stmt is called on an in-progress statement

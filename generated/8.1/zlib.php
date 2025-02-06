@@ -440,6 +440,27 @@ function gzrewind($stream): void
 
 
 /**
+ * Gets the position of the given file pointer; i.e., its offset into the
+ * uncompressed file stream.
+ *
+ * @param resource $stream The gz-file pointer. It must be valid, and must point to a file
+ * successfully opened by gzopen.
+ * @return int The position of the file pointer or FALSE if an error occurs.
+ * @throws ZlibException
+ *
+ */
+function gztell($stream): int
+{
+    error_clear_last();
+    $safeResult = \gztell($stream);
+    if ($safeResult === false) {
+        throw ZlibException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * This function uncompress a compressed string.
  *
  * @param string $data The data compressed by gzcompress.

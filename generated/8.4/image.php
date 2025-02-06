@@ -1713,11 +1713,11 @@ function imagegammacorrect(\GdImage $image, float $input_gamma, float $output_ga
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @throws ImageException
  *
  */
-function imagegd(\GdImage $image, $file = null): void
+function imagegd(\GdImage $image, ?string $file = null): void
 {
     error_clear_last();
     if ($file !== null) {
@@ -1736,7 +1736,7 @@ function imagegd(\GdImage $image, $file = null): void
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @param int $chunk_size Chunk size.
  * @param int $mode Either IMG_GD2_RAW or
  * IMG_GD2_COMPRESSED. Default is
@@ -1744,7 +1744,7 @@ function imagegd(\GdImage $image, $file = null): void
  * @throws ImageException
  *
  */
-function imagegd2(\GdImage $image, $file = null, int $chunk_size = 128, int $mode = IMG_GD2_RAW): void
+function imagegd2(\GdImage $image, ?string $file = null, int $chunk_size = 128, int $mode = IMG_GD2_RAW): void
 {
     error_clear_last();
     if ($mode !== IMG_GD2_RAW) {
@@ -2804,7 +2804,7 @@ function imagewebp(\GdImage $image, $file = null, int $quality = -1): void
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $filename The path to save the file to, given as string. If NULL, the raw image stream will be output directly.
+ * @param string|null $filename The path to save the file to, given as string. If NULL, the raw image stream will be output directly.
  *
  * The filename (without the .xbm extension) is also
  * used for the C identifiers of the XBM, whereby non
@@ -2818,7 +2818,7 @@ function imagewebp(\GdImage $image, $file = null, int $quality = -1): void
  * @throws ImageException
  *
  */
-function imagexbm(\GdImage $image, $filename, ?int $foreground_color = null): void
+function imagexbm(\GdImage $image, ?string $filename, ?int $foreground_color = null): void
 {
     error_clear_last();
     if ($foreground_color !== null) {

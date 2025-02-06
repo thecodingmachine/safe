@@ -244,7 +244,7 @@ function fflush($stream): void
  * This is not possible if strict typing
  * is enabled, since FILE_USE_INCLUDE_PATH is an
  * int. Use TRUE instead.
- * @param resource|null $context A valid context resource created with
+ * @param resource $context A valid context resource created with
  * stream_context_create. If you don't need to use a
  * custom context, you can skip this parameter by NULL.
  * @param int $offset The offset where the reading starts on the original stream.
@@ -347,7 +347,7 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
  *
  *
  *
- * @param resource|null $context A valid context resource created with
+ * @param resource $context A valid context resource created with
  * stream_context_create.
  * @return int This function returns the number of bytes that were written to the file.
  * @throws FilesystemException
@@ -828,7 +828,7 @@ function flock($stream, int $operation, ?int &$would_block = null): void
  * @param bool $use_include_path The optional third use_include_path parameter
  * can be set to '1' or TRUE if you want to search for the file in the
  * include_path, too.
- * @param resource|null $context A context stream
+ * @param resource $context A context stream
  * resource.
  * @return resource Returns a file pointer resource on success
  * @throws FilesystemException

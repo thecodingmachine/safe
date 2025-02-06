@@ -903,7 +903,6 @@ return static function (RectorConfig $rectorConfig): void {
             'sha1_file' => 'Safe\sha1_file',
             'shell_exec' => 'Safe\shell_exec',
             'shmop_delete' => 'Safe\shmop_delete',
-            'shmop_read' => 'Safe\shmop_read',
             'shm_attach' => 'Safe\shm_attach',
             'shm_detach' => 'Safe\shm_detach',
             'shm_put_var' => 'Safe\shm_put_var',

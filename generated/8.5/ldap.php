@@ -1011,7 +1011,7 @@ function ldap_sasl_bind(\LDAP\Connection $ldap, ?string $dn = null, ?string $pas
 /**
  * Sets the value of the specified option to be value.
  *
- * @param resource|null $ldap Either an LDAP\Connection instance, returned by
+ * @param \LDAP\Connection|null $ldap Either an LDAP\Connection instance, returned by
  * ldap_connect, to set the option for that connection,
  * or NULL to set the option globally.
  * @param int $option The parameter option can be one of:
@@ -1186,7 +1186,7 @@ function ldap_sasl_bind(\LDAP\Connection $ldap, ?string $dn = null, ?string $pas
  * @throws LdapException
  *
  */
-function ldap_set_option($ldap, int $option, $value): void
+function ldap_set_option(?\LDAP\Connection $ldap, int $option, $value): void
 {
     error_clear_last();
     $safeResult = \ldap_set_option($ldap, $option, $value);

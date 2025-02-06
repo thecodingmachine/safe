@@ -73,8 +73,7 @@ class PhpStanType
             $returnType = '';
         }
         foreach ($returnTypes as &$returnType) {
-            $pos = \strpos($returnType, '?');
-            if ($pos !== false) {
+            if (str_contains($returnType, '?')) {
                 $nullable = true;
                 $returnType = \str_replace('?', '', $returnType);
             }

@@ -16,17 +16,10 @@ class Parameter
         ?PhpStanFunction $phpStanFunction,
         int $position
     ) {
-        $phpStanParam = $phpStanFunction ? $phpStanFunction->getParameter($this->getParameterName(), $position) : null;
-
-        // mostly we trust phpstan, but if phpstan says it's a "resource",
-        // and the PHP docs have a more specific type hint, then we prefer
-        // to use the PHP docs
-        $phpStanType = $phpStanParam ? $phpStanParam->getType() : null;
-        $phpDocType = new PhpStanType($this->parameter->type);
-        if ($phpStanType && $phpStanType->getDocBlockType() === "resource" && $phpDocType->getDocBlockType() !== "") {
-            $phpStanType = null;
-        }
-        $this->type = $phpStanType ?? $phpDocType;
+        $this->type = PhpStanType::selectMostUsefulType(
+            $phpStanFunction?->getParameter($this->getParameterName(), $position)?->getType(),
+            new PhpStanType($this->parameter->type)
+        );
     }
 
     /**

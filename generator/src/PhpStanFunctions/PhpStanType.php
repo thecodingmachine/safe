@@ -117,6 +117,36 @@ class PhpStanType
         $this->falsable = $falsable;
     }
 
+    /**
+     * Given two PhpStanTypes (eg, one from phpstan's internal type
+     * hint database, and one from PHP's XML documentation), come
+     * up with the most useful type data
+     */
+    public static function selectMostUsefulType(
+        ?PhpStanType $phpStanType,
+        PhpStanType $phpDocType,
+        ?int $errorType = null
+    ): PhpStanType {
+        // If phpstan's database doesn't mention this function at all,
+        // use the PHPDoc type
+        if (is_null($phpStanType)) {
+            return $phpDocType;
+        }
+        // If php documentation doesn't have any useful information,
+        // use the phpstan type
+        if ($phpDocType->getDocBlockType($errorType) === "") {
+            return $phpStanType;
+        }
+        // If both sources have some information, but phpstan claims
+        // something is a `resource`, don't trust it, use php docs
+        if ($phpStanType->getDocBlockType($errorType) === "resource") {
+            return $phpDocType;
+        }
+        // If both sources have some information, and both seem to be
+        // vaguely legitimate, prefer phpstan
+        return $phpStanType;
+    }
+
     public function getDocBlockType(?int $errorType = null): string
     {
         $returnTypes = $this->types;

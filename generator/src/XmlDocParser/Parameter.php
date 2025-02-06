@@ -23,7 +23,7 @@ class Parameter
         // to use the PHP docs
         $phpStanType = $phpStanParam ? $phpStanParam->getType() : null;
         $phpDocType = new PhpStanType($this->parameter->type);
-        if ($phpStanType && $phpStanType->getDocBlockType() === "resource" && $phpDocType->getDocBlockType() !== "") {
+        if ($phpStanType && str_contains($phpStanType->getDocBlockType(), "resource") && $phpDocType->getDocBlockType() !== "") {
             $phpStanType = null;
         }
         $this->type = $phpStanType ?? $phpDocType;

@@ -251,7 +251,7 @@ function ldap_exop_whoami(\LDAP\Connection $ldap)
  * If not provided you may use ldap_parse_exop on the result object
  * later to get this data.
  * @param string|null $response_oid Will be filled with the response OID if provided, usually equal to the request OID.
- * @return resource|bool When used with response_data, returns TRUE on success.
+ * @return mixed When used with response_data, returns TRUE on success.
  * When used without response_data, returns a result identifier.
  * @throws LdapException
  *

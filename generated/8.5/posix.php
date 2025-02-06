@@ -324,7 +324,7 @@ function posix_getpwuid(int $user_id): array
  * An unprivileged process may only set its soft limit to a value
  * from 0 to the hard limit, and irreversibly lower its hard limit.
  *
- * @param  $resource If NULL all resource limits will be fetched.
+ * @param int|null $resource If NULL all resource limits will be fetched.
  * Otherwise, the only limits of the resource type provided will be returned.
  * @return array Returns an associative array of elements for each
  * limit that is defined. Each limit has a soft and a hard limit.
@@ -414,7 +414,7 @@ function posix_getpwuid(int $user_id): array
  * @throws PosixException
  *
  */
-function posix_getrlimit($resource = null): array
+function posix_getrlimit(?int $resource = null): array
 {
     error_clear_last();
     if ($resource !== null) {

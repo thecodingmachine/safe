@@ -267,7 +267,7 @@ function imagearc(\GdImage $image, int $center_x, int $center_y, int $width, int
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param  $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @param int $quality quality is optional, and ranges from 0 (worst quality, smaller file)
  * to 100 (best quality, larger file).
  * If -1 is provided, the default value 30 is used.

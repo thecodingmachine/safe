@@ -100,7 +100,7 @@ function chown(string $filename, $user): void
  * existing files.
  *
  * If the destination file already exists, it will be overwritten.
- * @param resource $context A valid context resource created with
+ * @param resource|null $context A valid context resource created with
  * stream_context_create.
  * @throws FilesystemException
  *
@@ -416,7 +416,7 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  *
  *
  *
- * @param resource $context
+ * @param resource|null $context
  * @return array Returns the file in an array. Each element of the array corresponds to a
  * line in the file, with the newline still attached. Upon failure,
  * file returns FALSE.
@@ -1175,7 +1175,7 @@ function lstat(string $filename): array
  * umask.
  * @param bool $recursive If TRUE, then any parent directories to the directory specified will
  * also be created, with the same permissions.
- * @param resource $context A context stream
+ * @param resource|null $context A context stream
  * resource.
  * @throws FilesystemException
  *
@@ -1277,7 +1277,7 @@ function parse_ini_string(string $ini_string, bool $process_sections = false, in
  * @param string $filename The filename being read.
  * @param bool $use_include_path You can use the optional second parameter and set it to TRUE, if
  * you want to search for the file in the include_path, too.
- * @param resource $context A context stream
+ * @param resource|null $context A context stream
  * resource.
  * @return int Returns the number of bytes read from the file on success
  * @throws FilesystemException
@@ -1373,7 +1373,7 @@ function realpath(string $path): string
  * Otherwise rename fails and issues E_WARNING.
  *
  *
- * @param resource $context A context stream
+ * @param resource|null $context A context stream
  * resource.
  * @throws FilesystemException
  *
@@ -1417,7 +1417,7 @@ function rewind($stream): void
  * A E_WARNING level error will be generated on failure.
  *
  * @param string $directory Path to the directory.
- * @param resource $context A context stream
+ * @param resource|null $context A context stream
  * resource.
  * @throws FilesystemException
  *
@@ -1548,7 +1548,7 @@ function touch(string $filename, ?int $mtime = null, ?int $atime = null): void
  *
  * If the file is a symlink, the symlink will be deleted. On Windows, to delete
  * a symlink to a directory, rmdir has to be used instead.
- * @param resource $context A context stream
+ * @param resource|null $context A context stream
  * resource.
  * @throws FilesystemException
  *

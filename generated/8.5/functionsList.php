@@ -895,7 +895,6 @@ return [
     'sha1_file',
     'shell_exec',
     'shmop_delete',
-    'shmop_read',
     'shm_attach',
     'shm_detach',
     'shm_put_var',

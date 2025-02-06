@@ -734,7 +734,7 @@ function socket_set_nonblock(\Socket $socket): void
  * getprotobyname function.
  * @param int $option The available socket options are the same as those for the
  * socket_get_option function.
- * @param int|string|array $value The option value.
+ * @param array|int|string $value The option value.
  * @throws SocketsException
  *
  */

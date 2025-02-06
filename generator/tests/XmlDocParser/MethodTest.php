@@ -45,7 +45,7 @@ class MethodTest extends TestCase
         $params = $method->getParams();
         $this->assertEquals('string', $params[0]->getDocBlockType());
         $this->assertEquals('string', $params[0]->getSignatureType());
-        $this->assertEquals('string|int|float|bool|null', $params[1]->getDocBlockType());
+        $this->assertEquals('bool|float|int|string|null', $params[1]->getDocBlockType());
         $this->assertTrue($params[1]->isVariadic());
         $this->assertEquals('', $params[1]->getSignatureType());
 
@@ -63,7 +63,7 @@ class MethodTest extends TestCase
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), Method::FALSY_TYPE);
         $params = $method->getParams();
-        $this->assertEquals('\GMP|string|int', $params[0]->getDocBlockType());
+        $this->assertEquals('\GMP|int|string', $params[0]->getDocBlockType());
         $this->assertEquals('', $params[0]->getSignatureType());
         $this->assertEquals('int', $params[1]->getDocBlockType());
         $this->assertEquals('int', $params[1]->getSignatureType());

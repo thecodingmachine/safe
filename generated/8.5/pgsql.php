@@ -239,7 +239,7 @@ function pg_delete(\PgSql\Connection $connection, string $table_name, array $con
  * must be issued, otherwise the PostgreSQL server may get out of
  * sync with the frontend and will report an error.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection|null $connection An PgSql\Connection instance.
  * When connection is NULL, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -247,7 +247,7 @@ function pg_delete(\PgSql\Connection $connection, string $table_name, array $con
  * @throws PgsqlException
  *
  */
-function pg_end_copy($connection = null): void
+function pg_end_copy(?\PgSql\Connection $connection = null): void
 {
     error_clear_last();
     if ($connection !== null) {
@@ -390,7 +390,7 @@ function pg_free_result(\PgSql\Result $result): void
  * PostgreSQL connection instance is
  * connected to.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection|null $connection An PgSql\Connection instance.
  * When connection is NULL, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -400,7 +400,7 @@ function pg_free_result(\PgSql\Result $result): void
  * @throws PgsqlException
  *
  */
-function pg_host($connection = null): string
+function pg_host(?\PgSql\Connection $connection = null): string
 {
     error_clear_last();
     if ($connection !== null) {
@@ -902,7 +902,7 @@ function pg_pconnect(string $connection_string, int $flags = 0): \PgSql\Connecti
  * pg_ping pings a database connection and tries to
  * reconnect it if it is broken.
  *
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection|null $connection An PgSql\Connection instance.
  * When connection is NULL, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -910,7 +910,7 @@ function pg_pconnect(string $connection_string, int $flags = 0): \PgSql\Connecti
  * @throws PgsqlException
  *
  */
-function pg_ping($connection = null): void
+function pg_ping(?\PgSql\Connection $connection = null): void
 {
     error_clear_last();
     if ($connection !== null) {
@@ -1325,7 +1325,7 @@ function pg_socket(\PgSql\Connection $connection)
  * @param string $filename The full path and file name of the file in which to write the
  * trace log.  Same as in fopen.
  * @param string $mode An optional file access mode, same as for fopen.
- * @param resource $connection An PgSql\Connection instance.
+ * @param \PgSql\Connection|null $connection An PgSql\Connection instance.
  * When connection is NULL, the default connection is used.
  * The default connection is the last connection made by pg_connect
  * or pg_pconnect.
@@ -1336,7 +1336,7 @@ function pg_socket(\PgSql\Connection $connection)
  * @throws PgsqlException
  *
  */
-function pg_trace(string $filename, string $mode = "w", $connection = null, int $trace_mode = 0): void
+function pg_trace(string $filename, string $mode = "w", ?\PgSql\Connection $connection = null, int $trace_mode = 0): void
 {
     error_clear_last();
     if ($trace_mode !== 0) {

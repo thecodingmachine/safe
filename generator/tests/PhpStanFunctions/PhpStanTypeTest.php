@@ -203,4 +203,20 @@ class PhpStanTypeTest extends TestCase
         $this->assertEquals('string', $param->getDocBlockType(Method::FALSY_TYPE));
         $this->assertEquals('string', $param->getSignatureType(Method::FALSY_TYPE));
     }
+
+    public function testTypeFromXML(): void
+    {
+        $xml = \simplexml_load_string('<type>string</type>');
+        $this->assertNotFalse($xml);
+        $param = new PhpStanType($xml);
+        $this->assertEquals('string', $param->getDocBlockType());
+    }
+
+    public function testUnionFromXML(): void
+    {
+        $xml = \simplexml_load_string('<type class="union"><type>OpenSSLCertificate</type><type>string</type></type>');
+        $this->assertNotFalse($xml);
+        $param = new PhpStanType($xml);
+        $this->assertEquals('\OpenSSLCertificate|string', $param->getDocBlockType());
+    }
 }

@@ -36,7 +36,7 @@ function base64_decode(string $string, bool $strict = false): string
  * @param bool $associative If the optional associative parameter is set to true,
  * get_headers parses the response and sets the
  * array's keys.
- * @param resource $context A valid context resource created with
+ * @param resource|null $context A valid context resource created with
  * stream_context_create.
  * @return array Returns an indexed or associative array with the headers.
  * @throws UrlException

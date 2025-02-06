@@ -106,7 +106,7 @@ class WritePhpFunction
         // Special case for CURL: we need the first argument of the method if this is a resource.
         if ($moduleName === 'Curl') {
             $params = $method->getParams();
-            if (\count($params) > 0 && in_array($params[0]->getParameterType(), ['CurlHandle', 'CurlMultiHandle', 'CurlShareHandle'])) {
+            if (\count($params) > 0 && in_array($params[0]->getParameterType(), ['\CurlHandle', '\CurlMultiHandle', '\CurlShareHandle'])) {
                 $name = $params[0]->getParameterName();
                 return "
     if (\$safeResult === $errorValue) {

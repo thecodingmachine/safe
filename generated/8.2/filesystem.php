@@ -1395,7 +1395,7 @@ function readlink(string $path): string
  *
  * Whilst a path must be supplied, the value can be an empty string.
  * In this case, the value is interpreted as the current directory.
- * @return string Returns the canonicalized absolute pathname on success. The resulting path
+ * @return non-empty-string Returns the canonicalized absolute pathname on success. The resulting path
  * will have no symbolic link, /./ or /../ components. Trailing delimiters,
  * such as \ and /, are also removed.
  *
@@ -1526,7 +1526,7 @@ function symlink(string $target, string $link): void
  *
  * @param string $directory The directory where the temporary filename will be created.
  * @param string $prefix The prefix of the generated temporary filename.
- * @return string Returns the new temporary filename (with path).
+ * @return non-falsy-string Returns the new temporary filename (with path).
  * @throws FilesystemException
  *
  */

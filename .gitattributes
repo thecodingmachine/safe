@@ -1,7 +1,6 @@
 /.gitattributes export-ignore
 /.github export-ignore
 /.gitignore export-ignore
-/.travis.yml.old export-ignore
 /CONTRIBUTING.md export-ignore
 /docker-compose.yml export-ignore
 /generator export-ignore
@@ -10,3 +9,4 @@
 /phpstan.neon export-ignore
 /phpunit.xml.dist export-ignore
 /tests export-ignore
+/generated/**/*.php -merge linguist-generated=true

@@ -22,7 +22,7 @@ class Parameter
         // and the PHP docs have a more specific type hint, then we prefer
         // to use the PHP docs
         $phpStanType = $phpStanParam ? $phpStanParam->getType() : null;
-        $phpDocType = new PhpStanType($this->getParameterType());
+        $phpDocType = new PhpStanType($this->parameter->type);
         if ($phpStanType && $phpStanType->getDocBlockType() === "resource" && $phpDocType->getDocBlockType() !== "") {
             $phpStanType = null;
         }
@@ -52,7 +52,7 @@ class Parameter
 
     public function getParameterType(): string
     {
-        return $this->parameter->type->__toString();
+        return (new PhpStanType($this->parameter->type))->getDocBlockType();
     }
 
     public function isByReference(): bool

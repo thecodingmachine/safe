@@ -434,7 +434,7 @@ function stream_socket_accept($socket, ?float $timeout = null, ?string &$peer_na
  * STREAM_CLIENT_CONNECT (default),
  * STREAM_CLIENT_ASYNC_CONNECT and
  * STREAM_CLIENT_PERSISTENT.
- * @param resource $context A valid context resource created with stream_context_create.
+ * @param resource|null $context A valid context resource created with stream_context_create.
  * @return resource On success a stream resource is returned which may
  * be used together with the other file functions (such as
  * fgets, fgetss,
@@ -641,7 +641,7 @@ function stream_socket_sendto($socket, string $data, int $flags = 0, string $add
  *
  * For UDP sockets, you must use STREAM_SERVER_BIND as
  * the flags parameter.
- * @param resource $context
+ * @param resource|null $context
  * @return resource Returns the created stream.
  * @throws StreamException
  *

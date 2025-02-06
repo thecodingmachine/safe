@@ -28,8 +28,8 @@ function openssl_cipher_iv_length(string $cipher_algo): int
  *
  * @param string $input_filename The name of a file containing encrypted content.
  * @param string $output_filename The name of the file to deposit the decrypted content.
- * @param  $certificate The name of the file containing a certificate of the recipient.
- * @param  $private_key The name of the file containing a PKCS#8 key.
+ * @param \OpenSSLCertificate|string $certificate The name of the file containing a certificate of the recipient.
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string|null $private_key The name of the file containing a PKCS#8 key.
  * @param int $encoding The encoding of the input file. One of OPENSSL_CMS_SMIME,
  * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
  * @throws OpensslException
@@ -57,8 +57,8 @@ function openssl_cms_decrypt(string $input_filename, string $output_filename, $c
  *
  * @param string $input_filename The file to be encrypted.
  * @param string $output_filename The output file.
- * @param  $certificate Recipients to encrypt to.
- * @param  $headers Headers to include when S/MIME is used.
+ * @param \OpenSSLCertificate|array|string $certificate Recipients to encrypt to.
+ * @param array|null $headers Headers to include when S/MIME is used.
  * @param int $flags Flags to be passed to CMS_sign.
  * @param int $encoding An encoding to output. One of OPENSSL_CMS_SMIME,
  * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
@@ -66,7 +66,7 @@ function openssl_cms_decrypt(string $input_filename, string $output_filename, $c
  * @throws OpensslException
  *
  */
-function openssl_cms_encrypt(string $input_filename, string $output_filename, $certificate, $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, int $cipher_algo = OPENSSL_CIPHER_RC2_40): void
+function openssl_cms_encrypt(string $input_filename, string $output_filename, $certificate, ?array $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, int $cipher_algo = OPENSSL_CIPHER_RC2_40): void
 {
     error_clear_last();
     $safeResult = \openssl_cms_encrypt($input_filename, $output_filename, $certificate, $headers, $flags, $encoding, $cipher_algo);
@@ -99,19 +99,19 @@ function openssl_cms_read(string $input_filename, array &$certificates): void
  *
  * @param string $input_filename The name of the file to be signed.
  * @param string $output_filename The name of the file to deposit the results.
- * @param  $certificate The signing certificate.
+ * @param \OpenSSLCertificate|string $certificate The signing certificate.
  * See Key/Certificate parameters for a list of valid values.
- * @param  $private_key The key associated with certificate.
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key The key associated with certificate.
  * See Key/Certificate parameters for a list of valid values.
- * @param  $headers An array of headers to be included in S/MIME output.
+ * @param array|null $headers An array of headers to be included in S/MIME output.
  * @param int $flags Flags to be passed to cms_sign.
  * @param int $encoding The encoding of the output file. One of OPENSSL_CMS_SMIME,
  * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
- * @param  $untrusted_certificates_filename Intermediate certificates to be included in the signature.
+ * @param string|null $untrusted_certificates_filename Intermediate certificates to be included in the signature.
  * @throws OpensslException
  *
  */
-function openssl_cms_sign(string $input_filename, string $output_filename, $certificate, $private_key, $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, $untrusted_certificates_filename = null): void
+function openssl_cms_sign(string $input_filename, string $output_filename, $certificate, $private_key, ?array $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, ?string $untrusted_certificates_filename = null): void
 {
     error_clear_last();
     if ($untrusted_certificates_filename !== null) {
@@ -130,18 +130,18 @@ function openssl_cms_sign(string $input_filename, string $output_filename, $cert
  *
  * @param string $input_filename The input file.
  * @param int $flags Flags to pass to cms_verify.
- * @param  $certificates A file with the signer certificate and optionally intermediate certificates.
+ * @param string|null $certificates A file with the signer certificate and optionally intermediate certificates.
  * @param array $ca_info An array containing self-signed certificate authority certificates.
- * @param  $untrusted_certificates_filename A file containing additional intermediate certificates.
- * @param  $content A file pointing to the content when signatures are detached.
- * @param  $pk7
- * @param  $sigfile A file to save the signature to.
+ * @param string|null $untrusted_certificates_filename A file containing additional intermediate certificates.
+ * @param string|null $content A file pointing to the content when signatures are detached.
+ * @param string|null $pk7
+ * @param string|null $sigfile A file to save the signature to.
  * @param int $encoding The encoding of the input file. One of OPENSSL_CMS_SMIME,
  * OPENSLL_CMS_DER or OPENSSL_CMS_PEM.
  * @throws OpensslException
  *
  */
-function openssl_cms_verify(string $input_filename, int $flags = 0, $certificates = null, array $ca_info = [], $untrusted_certificates_filename = null, $content = null, $pk7 = null, $sigfile = null, int $encoding = OPENSSL_ENCODING_SMIME): void
+function openssl_cms_verify(string $input_filename, int $flags = 0, ?string $certificates = null, array $ca_info = [], ?string $untrusted_certificates_filename = null, ?string $content = null, ?string $pk7 = null, ?string $sigfile = null, int $encoding = OPENSSL_ENCODING_SMIME): void
 {
     error_clear_last();
     if ($encoding !== OPENSSL_ENCODING_SMIME) {
@@ -860,9 +860,9 @@ function openssl_pkcs7_sign(string $input_filename, string $output_filename, $ce
  * openssl_pkey_derive takes a set of a public_key
  * and private_key and derives a shared secret, for either DH or EC keys.
  *
- * @param resource $public_key public_key is the public key for the derivation.
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $public_key public_key is the public key for the derivation.
  * See Public/Private Key parameters for a list of valid values.
- * @param resource $private_key private_key is the private key for the derivation.
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key private_key is the private key for the derivation.
  * See Public/Private Key parameters for a list of valid values.
  * @param int $key_length If not zero, will set the desired length of the derived secret.
  * @return string The derived secret on success.
@@ -917,7 +917,7 @@ function openssl_pkey_export_to_file($key, string $output_filename, ?string $pas
  * key as a PEM encoded string and stores it into
  * output (which is passed by reference).
  *
- * @param resource $key
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $key
  * @param string|null $output
  * @param string|null $passphrase The key is optionally protected by passphrase.
  * @param array $options options can be used to fine-tune the export

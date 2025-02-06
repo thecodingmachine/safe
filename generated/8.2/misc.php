@@ -353,7 +353,7 @@ function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
  * CTRL+BREAK events. Note that in multithreaded environments,
  * this is only possible when called from the main thread.
  *
- * @param  $handler A callback function to set or remove. If set, this function will be called
+ * @param callable|null $handler A callback function to set or remove. If set, this function will be called
  * whenever a CTRL+C or CTRL+BREAK event
  * occurs. The function is supposed to have the following signature:
  *
@@ -378,7 +378,7 @@ function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
  * @throws MiscException
  *
  */
-function sapi_windows_set_ctrl_handler($handler, bool $add = true): void
+function sapi_windows_set_ctrl_handler(?callable $handler, bool $add = true): void
 {
     error_clear_last();
     $safeResult = \sapi_windows_set_ctrl_handler($handler, $add);

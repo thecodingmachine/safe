@@ -78,7 +78,7 @@ function getcwd(): string
  * rewinddir calls.
  *
  * @param string $directory The directory path that is to be opened
- * @param resource $context For a description of the context parameter,
+ * @param resource|null $context For a description of the context parameter,
  * refer to the streams section of
  * the manual.
  * @return resource Returns a directory handle resource on success
@@ -110,7 +110,7 @@ function opendir(string $directory, $context = null)
  * SCANDIR_SORT_DESCENDING, then the sort order is
  * alphabetical in descending order. If it is set to
  * SCANDIR_SORT_NONE then the result is unsorted.
- * @param resource $context For a description of the context parameter,
+ * @param resource|null $context For a description of the context parameter,
  * refer to the streams section of
  * the manual.
  * @return array Returns an array of filenames on success. If directory is not a directory, then

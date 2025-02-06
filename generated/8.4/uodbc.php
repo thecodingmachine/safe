@@ -524,7 +524,7 @@ function odbc_rollback(\Odbc\Connection $odbc): void
  * to use a commercial product, that's all that really
  * matters.
  *
- * @param resource $odbc Is a connection id or result id on which to change the settings.
+ * @param \Odbc\Connection|\Odbc\Result $odbc Is a connection id or result id on which to change the settings.
  * For SQLSetConnectOption(), this is a connection id.
  * For SQLSetStmtOption(), this is a result id.
  * @param int $which Is the ODBC function to use. The value should be

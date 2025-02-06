@@ -38,7 +38,7 @@ class Method
         // and the PHP docs have a more specific type hint, then we prefer
         // to use the PHP docs
         $phpStanType = $this->phpstanSignature ? $this->phpstanSignature->getReturnType() : null;
-        $phpDocType = $this->parsePHPDocType($this->functionObject);
+        $phpDocType = new PhpStanType($this->functionObject->type);
         if ($phpStanType && $phpStanType->getDocBlockType($errorType) === "resource" && $phpDocType->getDocBlockType($errorType) !== "") {
             $phpStanType = null;
         }
@@ -240,14 +240,5 @@ class Method
         \array_pop($params);
         $new->params = $params;
         return $new;
-    }
-
-    public function parsePHPDocType(\SimpleXMLElement $functionObject): PhpStanType
-    {
-        if (isset($functionObject->type['class']) && ((string)$functionObject->type['class']) === 'union') {
-            return new PhpStanType(implode('|', (array)$functionObject->type->type));
-        }
-
-        return new PhpStanType($functionObject->type->__toString());
     }
 }

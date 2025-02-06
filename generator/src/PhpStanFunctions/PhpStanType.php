@@ -28,8 +28,16 @@ class PhpStanType
      */
     private array $types;
 
-    public function __construct(string $data, bool $writeOnly = false)
+    public function __construct(string|\SimpleXMLElement $data, bool $writeOnly = false)
     {
+        if ($data instanceof \SimpleXMLElement) {
+            if (isset($data['class']) && ((string)$data['class']) === 'union') {
+                $data = implode('|', (array)$data->type);
+            } else {
+                $data = (string)$data;
+            }
+        }
+
         if (\preg_match('/__benevolent\<(.*)\>/', $data, $regs)) {
             $data = $regs[1];
         }

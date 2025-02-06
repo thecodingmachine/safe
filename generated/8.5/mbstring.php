@@ -40,7 +40,7 @@ function mb_chr(int $codepoint, ?string $encoding = null): string
  * If string is an array, all its string values will be
  * converted recursively.
  *
- * @param string|array $string The string or array to be converted.
+ * @param array|string $string The string or array to be converted.
  * @param string $to_encoding The desired encoding of the result.
  * @param mixed $from_encoding The current encoding used to interpret string.
  * Multiple encodings may be specified as an array or comma separated
@@ -54,7 +54,7 @@ function mb_chr(int $codepoint, ?string $encoding = null): string
  * See supported encodings
  * for valid values of to_encoding
  * and from_encoding.
- * @return string|array The encoded string or array on success.
+ * @return array|string The encoded string or array on success.
  * @throws MbstringException
  *
  */
@@ -364,7 +364,7 @@ function mb_get_info(string $type = "all")
  * If encoding is omitted,
  * mb_http_output returns the current HTTP output
  * character encoding.
- * @return string|bool If encoding is omitted,
+ * @return bool|string If encoding is omitted,
  * mb_http_output returns the current HTTP output
  * character encoding. Otherwise,
  * Returns TRUE on success.
@@ -394,7 +394,7 @@ function mb_http_output(?string $encoding = null)
  * character encoding conversion, and the default character encoding
  * for string functions defined by the mbstring module.
  * You should notice that the internal encoding is totally different from the one for multibyte regex.
- * @return string|bool If encoding is set, then
+ * @return bool|string If encoding is set, then
  * Returns TRUE on success.
  * In this case, the character encoding for multibyte regex is NOT changed.
  * If encoding is omitted, then
@@ -474,7 +474,7 @@ function mb_parse_str(string $string, ?array &$result): void
  * @param string $encoding The encoding
  * parameter is the character encoding. If it is omitted or NULL, the internal character
  * encoding value will be used.
- * @return string|bool
+ * @return bool|string
  * @throws MbstringException
  *
  */
@@ -504,7 +504,7 @@ function mb_regex_encoding(?string $encoding = null)
  * This parameter is not automatically encoded.
  * @param string $subject The subject of the mail.
  * @param string $message The message of the mail.
- * @param string|array|null $additional_headers String or array to be inserted at the end of the email header.
+ * @param array|string|null $additional_headers String or array to be inserted at the end of the email header.
  *
  * This is typically used to add extra headers (From, Cc, and Bcc).
  * Multiple extra headers should be separated with a CRLF (\r\n).

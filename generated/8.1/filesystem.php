@@ -12,7 +12,7 @@ use Safe\Exceptions\FilesystemException;
  * may change the group of a file to any group of which that user is a member.
  *
  * @param string $filename Path to the file.
- * @param string|int $group A group name or number.
+ * @param int|string $group A group name or number.
  * @throws FilesystemException
  *
  */
@@ -74,7 +74,7 @@ function chmod(string $filename, int $permissions): void
  * owner of a file.
  *
  * @param string $filename Path to the file.
- * @param string|int $user A user name or number.
+ * @param int|string $user A user name or number.
  * @throws FilesystemException
  *
  */
@@ -1111,7 +1111,7 @@ function glob(string $pattern, int $flags = 0): array
  * a member.
  *
  * @param string $filename Path to the symlink.
- * @param string|int $group The group specified by name or number.
+ * @param int|string $group The group specified by name or number.
  * @throws FilesystemException
  *
  */
@@ -1132,7 +1132,7 @@ function lchgrp(string $filename, $group): void
  * Only the superuser may change the owner of a symlink.
  *
  * @param string $filename Path to the file.
- * @param string|int $user User name or number.
+ * @param int|string $user User name or number.
  * @throws FilesystemException
  *
  */

@@ -52,7 +52,7 @@ function define(string $constant_name, $value, bool $case_insensitive = false): 
  * @param string $filename Path to the PHP file to be highlighted.
  * @param bool $return Set this parameter to TRUE to make this function return the
  * highlighted code.
- * @return string|bool If return is set to TRUE, returns the highlighted
+ * @return bool|string If return is set to TRUE, returns the highlighted
  * code as a string instead of printing it out. Otherwise, it will return
  * TRUE on success.
  * @throws MiscException
@@ -75,7 +75,7 @@ function highlight_file(string $filename, bool $return = false)
  * @param string $string The PHP code to be highlighted. This should include the opening tag.
  * @param bool $return Set this parameter to TRUE to make this function return the
  * highlighted code.
- * @return string|bool If return is set to TRUE, returns the highlighted
+ * @return bool|string If return is set to TRUE, returns the highlighted
  * code as a string instead of printing it out. Otherwise, it will return
  * TRUE on success.
  * @throws MiscException
@@ -97,7 +97,7 @@ function highlight_string(string $string, bool $return = false)
  *
  * @param bool $as_number Whether the high resolution time should be returned as array
  * or number.
- * @return array{0:int,1:int}|int|float Returns an array of integers in the form [seconds, nanoseconds], if the
+ * @return array{0:int,1:int}|float|int Returns an array of integers in the form [seconds, nanoseconds], if the
  * parameter as_number is false. Otherwise the nanoseconds
  * are returned as int (64bit platforms) or float
  * (32bit platforms).

@@ -8,7 +8,7 @@ use Safe\Exceptions\PcntlException;
  *
  *
  * @param int|null $pid
- * @return bool|array
+ * @return array|bool
  * @throws PcntlException
  *
  */

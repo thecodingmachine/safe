@@ -203,7 +203,7 @@ function ldap_dn2ufn(string $dn): string
  * @param array $controls If provided, a password policy request control is send with the request and this is
  * filled with an array of LDAP Controls
  * returned with the request.
- * @return string|bool Returns the generated password if new_password is empty or omitted.
+ * @return bool|string Returns the generated password if new_password is empty or omitted.
  * Otherwise returns TRUE on success.
  * @throws LdapException
  *
@@ -223,7 +223,7 @@ function ldap_exop_passwd(\LDAP\Connection $ldap, string $user = "", string $old
  * Performs a WHOAMI extended operation and returns the data.
  *
  * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @return string|bool The data returned by the server.
+ * @return bool|string The data returned by the server.
  * @throws LdapException
  *
  */
@@ -251,7 +251,7 @@ function ldap_exop_whoami(\LDAP\Connection $ldap)
  * If not provided you may use ldap_parse_exop on the result object
  * later to get this data.
  * @param string|null $response_oid Will be filled with the response OID if provided, usually equal to the request OID.
- * @return resource|bool When used with response_data, returns TRUE on success.
+ * @return bool|resource When used with response_data, returns TRUE on success.
  * When used without response_data, returns a result identifier.
  * @throws LdapException
  *

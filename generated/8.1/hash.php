@@ -26,7 +26,7 @@ use Safe\Exceptions\HashException;
  * @param string $salt Salt to use during derivation.
  *
  * While optional, adding random salt significantly improves the strength of HKDF.
- * @return string Returns a string containing a raw binary representation of the derived key
+ * @return non-falsy-string Returns a string containing a raw binary representation of the derived key
  * (also known as output keying material - OKM);.
  * @throws HashException
  *

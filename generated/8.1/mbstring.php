@@ -93,7 +93,7 @@ function mb_convert_encoding($string, string $to_encoding, $from_encoding = null
  * For UTF-16, UTF-32,
  * UCS2 and UCS4, encoding
  * detection will fail always.
- * @return bool|string When setting the encoding detection order, TRUE is returned on success.
+ * @return array|bool When setting the encoding detection order, TRUE is returned on success.
  *
  * When getting the encoding detection order, an ordered array of the encodings is returned.
  * @throws MbstringException
@@ -118,11 +118,11 @@ function mb_detect_order($encoding = null)
  * Returns an array of aliases for a known encoding type.
  *
  * @param string $encoding The encoding type being checked, for aliases.
- * @return string Returns a numerically indexed array of encoding aliases on success
+ * @return array Returns a numerically indexed array of encoding aliases on success
  * @throws MbstringException
  *
  */
-function mb_encoding_aliases(string $encoding): string
+function mb_encoding_aliases(string $encoding): array
 {
     error_clear_last();
     $safeResult = \mb_encoding_aliases($encoding);

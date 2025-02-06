@@ -51,7 +51,7 @@ function chroot(string $directory): void
 /**
  * Gets the current working directory.
  *
- * @return string Returns the current working directory on success.
+ * @return non-empty-string Returns the current working directory on success.
  *
  * On some Unix variants, getcwd will return
  * FALSE if any one of the parent directories does not have the

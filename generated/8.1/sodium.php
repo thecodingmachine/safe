@@ -249,7 +249,7 @@ function sodium_crypto_box_seal_open(string $ciphertext, string $key_pair): stri
 /**
  * Appends a message to the internal hash state.
  *
- * @param string $state The return value of sodium_crypto_generichash_init.
+ * @param non-empty-string $state The return value of sodium_crypto_generichash_init.
  * @param string $message Data to append to the hashing state.
  * @throws SodiumException
  *
@@ -291,7 +291,7 @@ function sodium_crypto_secretbox_open(string $ciphertext, string $nonce, string 
  * Verify the signature attached to a message and return the message
  *
  * @param string $signed_message A message signed with sodium_crypto_sign
- * @param string $public_key An Ed25519 public key
+ * @param non-empty-string $public_key An Ed25519 public key
  * @return string Returns the original signed message on success.
  * @throws SodiumException
  *
@@ -310,9 +310,9 @@ function sodium_crypto_sign_open(string $signed_message, string $public_key): st
 /**
  * Verify signature for the message
  *
- * @param string $signature The cryptographic signature obtained from sodium_crypto_sign_detached
+ * @param non-empty-string $signature The cryptographic signature obtained from sodium_crypto_sign_detached
  * @param string $message The message being verified
- * @param string $public_key Ed25519 public key
+ * @param non-empty-string $public_key Ed25519 public key
  * @throws SodiumException
  *
  */

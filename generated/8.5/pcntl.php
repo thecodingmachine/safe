@@ -7,12 +7,12 @@ use Safe\Exceptions\PcntlException;
 /**
  *
  *
- * @param  $pid
+ * @param int|null $pid
  * @return bool|array
  * @throws PcntlException
  *
  */
-function pcntl_getcpuaffinity($pid = null)
+function pcntl_getcpuaffinity(?int $pid = null)
 {
     error_clear_last();
     if ($pid !== null) {
@@ -62,12 +62,12 @@ function pcntl_getpriority(?int $process_id = null, int $mode = PRIO_PROCESS): i
 /**
  *
  *
- * @param  $pid
+ * @param int|null $pid
  * @param array $hmask
  * @throws PcntlException
  *
  */
-function pcntl_setcpuaffinity($pid = null, ?array $hmask = null): void
+function pcntl_setcpuaffinity(?int $pid = null, ?array $hmask = null): void
 {
     error_clear_last();
     if ($hmask !== null) {

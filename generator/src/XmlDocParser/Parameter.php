@@ -68,7 +68,7 @@ class Parameter
 
         $initializer = $this->getInitializer();
         // Some default value have weird values. For instance, first parameter of "mb_internal_encoding" has default value "mb_internal_encoding()"
-        if ($initializer === 'null' || ($initializer !== 'array()' && strpos($initializer, '(') !== false)) {
+        if ($initializer === 'null' || ($initializer !== 'array()' && str_contains($initializer, '('))) {
             return true;
         }
         return false;
@@ -110,7 +110,7 @@ class Parameter
         $initializer = $this->getInitializer();
 
         // Some default value have weird values. For instance, first parameter of "mb_internal_encoding" has default value "mb_internal_encoding()"
-        if (strpos($initializer, '(') !== false) {
+        if (str_contains($initializer, '(')) {
             return null;
         }
 

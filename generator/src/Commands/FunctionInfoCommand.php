@@ -32,19 +32,21 @@ class FunctionInfoCommand extends Command
         $phpStanFunctionMapReader = new PhpStanFunctionMapReader();
 
         $finder = new Finder();
-        $finder->in(DocPage::findReferenceDir())->name($targetFilename)->sortByName();
+        $finder->in(DocPage::findReferenceDir() . "/*/functions/")->name($targetFilename)->sortByName();
 
         foreach ($finder as $file) {
             $docPage = new DocPage($file->getPathname());
-            $isFalsy = $docPage->detectFalsyFunction();
-            $isNullsy = $docPage->detectNullsyFunction();
-            $isEmpty = $docPage->detectEmptyFunction();
-            $errorType = $isFalsy ? Method::FALSY_TYPE : ($isNullsy ? Method::NULLSY_TYPE : Method::EMPTY_TYPE);
 
             $functionObjects = $docPage->getMethodSynopsis();
             $rootEntity = $docPage->loadAndResolveFile();
             foreach ($functionObjects as $functionObject) {
-                $function = new Method($functionObject, $rootEntity, $docPage->getModule(), $phpStanFunctionMapReader, $errorType);
+                $function = new Method(
+                    $functionObject,
+                    $rootEntity,
+                    $docPage->getModule(),
+                    $phpStanFunctionMapReader,
+                    $docPage->getErrorType()
+                );
                 $output->writeln((string)$function);
             }
         }

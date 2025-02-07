@@ -47,6 +47,20 @@ class DocPage
         return false;
     }
 
+    public function getErrorType(): int
+    {
+        if ($this->detectFalsyFunction()) {
+            return Method::FALSY_TYPE;
+        }
+        if ($this->detectNullsyFunction()) {
+            return Method::NULLSY_TYPE;
+        }
+        if ($this->detectEmptyFunction()) {
+            return Method::EMPTY_TYPE;
+        }
+        return Method::UNKNOWN_TYPE;
+    }
+
     /*
      * Detect function which return FALSE on error.
      */

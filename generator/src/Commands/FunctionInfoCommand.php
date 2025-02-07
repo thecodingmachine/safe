@@ -36,15 +36,17 @@ class FunctionInfoCommand extends Command
 
         foreach ($finder as $file) {
             $docPage = new DocPage($file->getPathname());
-            $isFalsy = $docPage->detectFalsyFunction();
-            $isNullsy = $docPage->detectNullsyFunction();
-            $isEmpty = $docPage->detectEmptyFunction();
-            $errorType = $isFalsy ? Method::FALSY_TYPE : ($isNullsy ? Method::NULLSY_TYPE : Method::EMPTY_TYPE);
 
             $functionObjects = $docPage->getMethodSynopsis();
             $rootEntity = $docPage->loadAndResolveFile();
             foreach ($functionObjects as $functionObject) {
-                $function = new Method($functionObject, $rootEntity, $docPage->getModule(), $phpStanFunctionMapReader, $errorType);
+                $function = new Method(
+                    $functionObject,
+                    $rootEntity,
+                    $docPage->getModule(),
+                    $phpStanFunctionMapReader,
+                    $docPage->getErrorType()
+                );
                 $output->writeln((string)$function);
             }
         }

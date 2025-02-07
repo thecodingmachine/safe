@@ -17,4 +17,5 @@ return [
     'posix_getpgid',
     'fputcsv',
     'fgetcsv',  // This function need to return false when iterating on an end of file.
+    'proc_close',  // returns -1 on error
 ];

@@ -92,7 +92,6 @@ jobs:
   generated_tests:
     name: "Generated Tests"
     runs-on: "ubuntu-24.04"
-    needs: "fetch_defs"
     strategy:
       fail-fast: false
       matrix:

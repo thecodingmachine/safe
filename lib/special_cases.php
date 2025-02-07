@@ -8,6 +8,7 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ExecException;
 use Safe\Exceptions\MiscException;
 use Safe\Exceptions\PosixException;
 use Safe\Exceptions\SocketsException;
@@ -417,6 +418,34 @@ function fgetcsv($stream, ?int $length = null, string $separator = ",", string $
     $safeResult = \fgetcsv($stream, $length, $separator, $enclosure, $escape);
     if ($safeResult === false && \feof($stream) === false) {
         throw FilesystemException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * proc_close is similar to pclose
+ * except that it only works on processes opened by
+ * proc_open.
+ * proc_close waits for the process to terminate, and
+ * returns its exit code.  Open pipes to that process are closed
+ * when this function is called, in
+ * order to avoid a deadlock - the child process may not be able to exit
+ * while the pipes are open.
+ *
+ * @param resource $process The proc_open resource that will
+ * be closed.
+ * @return int Returns the termination status of the process that was run. In case of
+ * an error then -1 is returned.
+ * @throws ExecException
+ *
+ */
+function proc_close($process): int
+{
+    error_clear_last();
+    $safeResult = \proc_close($process);
+    if ($safeResult === -1) {
+        throw ExecException::createFromPhpError();
     }
     return $safeResult;
 }

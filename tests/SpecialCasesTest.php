@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use Safe\Exceptions\ExecException;
 use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\PcreException;
 
@@ -52,4 +53,11 @@ class SpecialCasesTest extends TestCase
             echo var_export($data, true);
         }
     }*/
+
+	public function testProcClose(): void
+	{
+		$proc = \Safe\proc_open("false", [], $pipes);
+		$exitCode = \Safe\proc_close($proc);
+		$this->assertEquals($exitCode, 1);
+	}
 }

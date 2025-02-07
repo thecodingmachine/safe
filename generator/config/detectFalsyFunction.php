@@ -26,6 +26,7 @@ return function (string $text): bool {
         "/&false; if the pipe\s+cannot be established/m", // shell_exec
         "/&false; if an error occurs/m", // cfg_get_var
         "/On failure\s+returns &false;./m", // proc_open
+        "/If output buffering isn't active then &false; is returned./m", // ob_get_clean (8.1 - 8.3)
     ];
     foreach ($falsies as $falsie) {
         if (preg_match($falsie, $text)) {

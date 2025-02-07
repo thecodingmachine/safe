@@ -959,6 +959,11 @@ function date_sun_info()
     return \date_sun_info(...func_get_args());
 }
 
+function date()
+{
+    return \date(...func_get_args());
+}
+
 function gmmktime()
 {
     return \gmmktime(...func_get_args());
@@ -967,9 +972,4 @@ function gmmktime()
 function mktime()
 {
     return \mktime(...func_get_args());
-}
-
-function date()
-{
-    return \date(...func_get_args());
 }

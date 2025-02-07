@@ -108,6 +108,7 @@ return [
     'curl_share_errno',
     'curl_share_setopt',
     'curl_unescape',
+    'date',
     'date_parse',
     'date_parse_from_format',
     'date_sunrise',

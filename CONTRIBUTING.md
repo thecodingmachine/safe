@@ -8,6 +8,8 @@ Safe-PHP code is generated automatically from the PHP doc.
   figure out which functions are unsafe, and will generate safe wrappers
   for them, which are then written to `generated/`. As a Safe-PHP developer,
   you probably spend most time here.
+  * `generator/config/` has the rules for which functions are included or
+    excluded
   * `generated/` will be deleted and regenerated from scratch as part of CI
     runs - don't manually edit any of these files.
 * `lib/` contains some special cases where automatic generation is tricky.

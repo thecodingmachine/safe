@@ -181,7 +181,7 @@ function proc_nice(int $priority): void
  * @throws ExecException
  *
  */
-function proc_open(string $command, array $descriptor_spec, ?iterable &$pipes, ?string $cwd = null, ?array $env_vars = null, ?array $options = null)
+function proc_open(string $command, array $descriptor_spec, ?array &$pipes, ?string $cwd = null, ?array $env_vars = null, ?array $options = null)
 {
     error_clear_last();
     if ($options !== null) {

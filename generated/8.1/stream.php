@@ -443,7 +443,7 @@ function stream_socket_client(string $remote_socket, ?int &$errno = null, ?strin
  * @throws StreamException
  *
  */
-function stream_socket_pair(int $domain, int $type, int $protocol): iterable
+function stream_socket_pair(int $domain, int $type, int $protocol): array
 {
     error_clear_last();
     $safeResult = \stream_socket_pair($domain, $type, $protocol);

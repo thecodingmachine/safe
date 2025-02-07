@@ -610,7 +610,7 @@ function preg_match_all(string $pattern, string $subject, ?array &$matches = nul
  * @throws PcreException
  *
  */
-function preg_match(string $pattern, string $subject, ?iterable &$matches = null, int $flags = 0, int $offset = 0): int
+function preg_match(string $pattern, string $subject, ?array &$matches = null, int $flags = 0, int $offset = 0): int
 {
     error_clear_last();
     $safeResult = \preg_match($pattern, $subject, $matches, $flags, $offset);

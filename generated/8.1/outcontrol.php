@@ -102,6 +102,34 @@ function ob_flush(): void
 
 
 /**
+ * Gets the current buffer contents and delete current output buffer.
+ *
+ * ob_get_clean essentially executes both
+ * ob_get_contents and
+ * ob_end_clean.
+ *
+ * The output buffer must be started by
+ * ob_start with PHP_OUTPUT_HANDLER_CLEANABLE
+ * and PHP_OUTPUT_HANDLER_REMOVABLE
+ * flags. Otherwise ob_get_clean will not work.
+ *
+ * @return string Returns the contents of the output buffer and end output buffering.
+ * If output buffering isn't active then FALSE is returned.
+ * @throws OutcontrolException
+ *
+ */
+function ob_get_clean(): string
+{
+    error_clear_last();
+    $safeResult = \ob_get_clean();
+    if ($safeResult === false) {
+        throw OutcontrolException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * This function will turn output buffering on. While output buffering is
  * active no output is sent from the script (other than headers), instead the
  * output is stored in an internal buffer.

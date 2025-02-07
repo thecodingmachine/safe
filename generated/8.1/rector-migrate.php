@@ -576,6 +576,7 @@ return static function (RectorConfig $rectorConfig): void {
             'ob_end_clean' => 'Safe\ob_end_clean',
             'ob_end_flush' => 'Safe\ob_end_flush',
             'ob_flush' => 'Safe\ob_flush',
+            'ob_get_clean' => 'Safe\ob_get_clean',
             'ob_start' => 'Safe\ob_start',
             'oci_bind_array_by_name' => 'Safe\oci_bind_array_by_name',
             'oci_bind_by_name' => 'Safe\oci_bind_by_name',

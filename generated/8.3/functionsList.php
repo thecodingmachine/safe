@@ -564,6 +564,7 @@ return [
     'ob_end_clean',
     'ob_end_flush',
     'ob_flush',
+    'ob_get_clean',
     'ob_start',
     'oci_bind_array_by_name',
     'oci_bind_by_name',

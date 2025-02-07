@@ -110,6 +110,9 @@ class Scanner
             $isFalsy = $docPage->detectFalsyFunction();
             $isNullsy = $docPage->detectNullsyFunction();
             $isEmpty = $docPage->detectEmptyFunction();
+            if (str_contains($path->getFilename(), "ob-get-clean")) {
+                echo "ob-get-clean: $isFalsy, $isNullsy, $isEmpty\n";
+            }
             if ($isFalsy || $isNullsy || $isEmpty) {
                 $errorType = $isFalsy ? Method::FALSY_TYPE : ($isNullsy ? Method::NULLSY_TYPE : Method::EMPTY_TYPE);
 

@@ -230,6 +230,42 @@ function stream_get_contents($handle, int $maxlength = -1, int $offset = -1): st
 
 
 /**
+ * Gets a line from the given handle.
+ *
+ * Reading ends when length bytes have been read, when
+ * the non-empty string specified by ending is found (which is
+ * not included in the return value), or on EOF
+ * (whichever comes first).
+ *
+ * This function is nearly identical to fgets except in
+ * that it allows end of line delimiters other than the standard \n, \r, and
+ * \r\n, and does not return the delimiter itself.
+ *
+ * @param resource $handle A valid file handle.
+ * @param int $length The maximum number of bytes to read from the handle.
+ * Negative values are not supported.
+ * Zero (0) means the default socket chunk size,
+ * i.e. 8192 bytes.
+ * @param string $ending An optional string delimiter.
+ * @return string Returns a string of up to length bytes read from the file
+ * pointed to by handle.
+ *
+ * If an error occurs, returns FALSE.
+ * @throws StreamException
+ *
+ */
+function stream_get_line($handle, int $length, string $ending = ""): string
+{
+    error_clear_last();
+    $safeResult = \stream_get_line($handle, $length, $ending);
+    if ($safeResult === false) {
+        throw StreamException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Determines if stream stream refers to a valid terminal type device.
  * This is a more portable version of posix_isatty, since it works on Windows systems too.
  *

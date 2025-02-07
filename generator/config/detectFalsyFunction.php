@@ -28,6 +28,7 @@ return function (string $text): bool {
         "/On failure\s+returns &false;./m", // proc_open
         "/If output buffering isn't active then &false; is returned./m", // ob_get_clean (8.1 - 8.3)
         "/If the open fails, <function>bzopen<\/function> returns &false;/m", // bzopen
+        "/If an error occurs, returns &false;./m", // ftell, popen
     ];
     foreach ($falsies as $falsie) {
         if (preg_match($falsie, $text)) {

@@ -66,6 +66,7 @@ jobs:
         with:
           path: "generator/doc/doc-en"
           key: php-doc-${{ needs.fetch_defs.outputs.date }}
+          fail-on-cache-miss: true
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v4"
         with:
@@ -108,12 +109,6 @@ jobs:
         with:
           coverage: "pcov"
           php-version: "${{ matrix.php-version }}"
-      - name: "Fetch cached docs"
-        id: cache-php-doc
-        uses: "actions/cache@v4"
-        with:
-          path: "generator/doc/doc-en"
-          key: php-doc-${{ needs.fetch_defs.outputs.date }}
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v4"
         with:
@@ -151,6 +146,7 @@ jobs:
         with:
           path: "generator/doc/doc-en"
           key: php-doc-${{ needs.fetch_defs.outputs.date }}
+          fail-on-cache-miss: true
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v4"
         with:

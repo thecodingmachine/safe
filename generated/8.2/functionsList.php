@@ -771,6 +771,8 @@ return [
     'preg_match',
     'preg_match_all',
     'preg_replace',
+    'preg_replace_callback',
+    'preg_replace_callback_array',
     'preg_split',
     'proc_nice',
     'proc_open',

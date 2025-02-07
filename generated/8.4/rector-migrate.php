@@ -748,6 +748,8 @@ return static function (RectorConfig $rectorConfig): void {
             'preg_match' => 'Safe\preg_match',
             'preg_match_all' => 'Safe\preg_match_all',
             'preg_replace' => 'Safe\preg_replace',
+            'preg_replace_callback' => 'Safe\preg_replace_callback',
+            'preg_replace_callback_array' => 'Safe\preg_replace_callback_array',
             'preg_split' => 'Safe\preg_split',
             'proc_nice' => 'Safe\proc_nice',
             'proc_open' => 'Safe\proc_open',

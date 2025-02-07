@@ -1,6 +1,5 @@
 name: Missing Function
 description: If there's a function in the PHP Standard Library which you believe should have a Safe wrapper
-title:
 labels: ["missing function"]
 body:
   - type: input
@@ -34,5 +33,4 @@ body:
   - type: markdown
     id: extra
     attributes:
-      label: Extra Info
-      description: Any additional information which might be relevant
+      value: Any additional information which might be relevant

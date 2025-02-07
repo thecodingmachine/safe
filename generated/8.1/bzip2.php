@@ -43,6 +43,29 @@ function bzflush($bz): void
 
 
 /**
+ * bzopen opens a bzip2 (.bz2) file for reading or
+ * writing.
+ *
+ * @param resource|string $file The name of the file to open, or an existing stream resource.
+ * @param string $mode The modes 'r' (read), and 'w' (write) are supported.
+ * Everything else will cause bzopen to return FALSE.
+ * @return resource If the open fails, bzopen returns FALSE, otherwise
+ * it returns a pointer to the newly opened file.
+ * @throws Bzip2Exception
+ *
+ */
+function bzopen($file, string $mode)
+{
+    error_clear_last();
+    $safeResult = \bzopen($file, $mode);
+    if ($safeResult === false) {
+        throw Bzip2Exception::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * bzread reads from the given bzip2 file pointer.
  *
  * Reading stops when length (uncompressed) bytes have

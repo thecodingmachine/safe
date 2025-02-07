@@ -769,6 +769,7 @@ return [
     'preg_replace',
     'preg_split',
     'proc_nice',
+    'proc_open',
     'pspell_add_to_personal',
     'pspell_add_to_session',
     'pspell_clear_session',

@@ -156,6 +156,11 @@ class DocPage
             return true;
         }
 
+        // used to detect proc_open
+        if (preg_match("/On failure\s+returns &false;./m", $returnValuesSection)) {
+            return true;
+        }
+
         return false;
     }
 

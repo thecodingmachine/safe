@@ -99,7 +99,7 @@ function socket_addrinfo_connect(\AddressInfo $address): \Socket
  * @throws SocketsException
  *
  */
-function socket_addrinfo_lookup(string $host, $service = null, array $hints = []): iterable
+function socket_addrinfo_lookup(string $host, $service = null, array $hints = []): array
 {
     error_clear_last();
     if ($hints !== []) {
@@ -239,7 +239,7 @@ function socket_create_listen(int $port, int $backlog = 128): \Socket
  * @throws SocketsException
  *
  */
-function socket_create_pair(int $domain, int $type, int $protocol, ?iterable &$pair): void
+function socket_create_pair(int $domain, int $type, int $protocol, ?array &$pair): void
 {
     error_clear_last();
     $safeResult = \socket_create_pair($domain, $type, $protocol, $pair);

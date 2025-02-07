@@ -174,7 +174,7 @@ class PhpStanType
             } elseif (str_contains($type, 'array<') || str_contains($type, 'array{')) {
                 $type = 'array'; //typed array has to be untyped
             } elseif (str_contains($type, '[]')) {
-                $type = 'iterable'; //generics cannot be typehinted and have to be turned into iterable
+                $type = 'array'; //generics cannot be typehinted
             } elseif (str_contains($type, 'resource')) {
                 $type = ''; // resource cant be typehinted
             } elseif (str_contains($type, 'null')) {

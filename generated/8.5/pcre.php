@@ -622,6 +622,109 @@ function preg_match(string $pattern, string $subject, ?array &$matches = null, i
 
 
 /**
+ * The behavior of this function is similar to
+ * preg_replace_callback, except that callbacks are
+ * executed on a per-pattern basis.
+ *
+ * @param array $pattern An associative array mapping patterns (keys) to callables (values).
+ * @param array|string $subject The string or an array with strings to search and replace.
+ * @param int $limit The maximum possible replacements for each pattern in each
+ * subject string. Defaults to
+ * -1 (no limit).
+ * @param int|null $count If specified, this variable will be filled with the number of
+ * replacements done.
+ * @param int $flags flags can be a combination of the
+ * PREG_OFFSET_CAPTURE and
+ * PREG_UNMATCHED_AS_NULL flags, which influence the
+ * format of the matches array.
+ * See the description in preg_match for more details.
+ * @return array|string preg_replace_callback_array returns an array if the
+ * subject parameter is an array, or a string
+ * otherwise. On errors the return value is NULL
+ *
+ * If matches are found, the new subject will be returned, otherwise
+ * subject will be returned unchanged.
+ * @throws PcreException
+ *
+ */
+function preg_replace_callback_array(array $pattern, $subject, int $limit = -1, ?int &$count = null, int $flags = 0)
+{
+    error_clear_last();
+    $safeResult = \preg_replace_callback_array($pattern, $subject, $limit, $count, $flags);
+    if ($safeResult === null) {
+        throw PcreException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * The behavior of this function is almost identical to
+ * preg_replace, except for the fact that instead of
+ * replacement parameter, one should specify a
+ * callback.
+ *
+ * @param array|string $pattern The pattern to search for. It can be either a string or an array with
+ * strings.
+ * @param callable(array):string $callback A callback that will be called and passed an array of matched elements
+ * in the subject string. The callback should
+ * return the replacement string. This is the callback signature:
+ *
+ *
+ * stringhandler
+ * arraymatches
+ *
+ *
+ * You'll often need the callback function
+ * for a preg_replace_callback in just one place.
+ * In this case you can use an
+ * anonymous function to
+ * declare the callback within the call to
+ * preg_replace_callback. By doing it this way
+ * you have all information for the call in one place and do not
+ * clutter the function namespace with a callback function's name
+ * not used anywhere else.
+ *
+ *
+ * preg_replace_callback and
+ * anonymous function
+ *
+ *
+ * ]]>
+ *
+ *
+ * @param array|string $subject The string or an array with strings to search and replace.
+ * @param int $limit The maximum possible replacements for each pattern in each
+ * subject string. Defaults to
+ * -1 (no limit).
+ * @param int|null $count If specified, this variable will be filled with the number of
+ * replacements done.
+ * @param int $flags flags can be a combination of the
+ * PREG_OFFSET_CAPTURE and
+ * PREG_UNMATCHED_AS_NULL flags, which influence the
+ * format of the matches array.
+ * See the description in preg_match for more details.
+ * @return array|string preg_replace_callback returns an array if the
+ * subject parameter is an array, or a string
+ * otherwise. On errors the return value is NULL
+ *
+ * If matches are found, the new subject will be returned, otherwise
+ * subject will be returned unchanged.
+ * @throws PcreException
+ *
+ */
+function preg_replace_callback($pattern, callable $callback, $subject, int $limit = -1, ?int &$count = null, int $flags = 0)
+{
+    error_clear_last();
+    $safeResult = \preg_replace_callback($pattern, $callback, $subject, $limit, $count, $flags);
+    if ($safeResult === null) {
+        throw PcreException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Split the given string by a regular expression.
  *
  * @param string $pattern The pattern to search for, as a string.

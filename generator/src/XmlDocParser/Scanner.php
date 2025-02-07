@@ -107,12 +107,8 @@ class Scanner
             }
 
             $docPage = new DocPage($path->getPathname());
-            $isFalsy = $docPage->detectFalsyFunction();
-            $isNullsy = $docPage->detectNullsyFunction();
-            $isEmpty = $docPage->detectEmptyFunction();
-            if ($isFalsy || $isNullsy || $isEmpty) {
-                $errorType = $isFalsy ? Method::FALSY_TYPE : ($isNullsy ? Method::NULLSY_TYPE : Method::EMPTY_TYPE);
-
+            $errorType = $docPage->getErrorType();
+            if ($errorType !== Method::UNKNOWN_TYPE) {
                 $functionObjects = $docPage->getMethodSynopsis();
                 if (count($functionObjects) > 1) {
                     $overloadedFunctions = array_merge($overloadedFunctions, \array_map(function ($functionObject) {

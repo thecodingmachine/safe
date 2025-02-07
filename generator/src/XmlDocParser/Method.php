@@ -11,6 +11,7 @@ use Safe\Generator\FileCreator;
 
 class Method
 {
+    const UNKNOWN_TYPE = 0;
     const FALSY_TYPE = 1;
     const NULLSY_TYPE = 2;
     const EMPTY_TYPE = 3;
@@ -58,7 +59,7 @@ class Method
             $data .= "    Safe:    " . $param->getDocBlockType() . "\n";
         }
         $data .= "\n";
-        $data .= "Error type: " . [1=>"false", 2=>"null", 3=>"empty"][$this->errorType] . "\n";
+        $data .= "Error type: " . [0=>"unknown", 1=>"false", 2=>"null", 3=>"empty"][$this->errorType] . "\n";
         $data .= "\n";
         $data .= "Return type:\n";
         $phpStanType = $this->phpstanSignature ? $this->phpstanSignature->getReturnType() : null;
@@ -162,6 +163,9 @@ class Method
     {
         $string = \strip_tags($string);
         switch ($this->errorType) {
+            case self::UNKNOWN_TYPE:
+                break;
+
             case self::NULLSY_TYPE:
                 $string = $this->removeString($string, ', or NULL if an error occurs');
                 $string = $this->removeString($string, ' and NULL on failure');

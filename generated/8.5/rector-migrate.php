@@ -24,6 +24,7 @@ return static function (RectorConfig $rectorConfig): void {
             'bindtextdomain' => 'Safe\bindtextdomain',
             'bzclose' => 'Safe\bzclose',
             'bzflush' => 'Safe\bzflush',
+            'bzopen' => 'Safe\bzopen',
             'bzread' => 'Safe\bzread',
             'bzwrite' => 'Safe\bzwrite',
             'chdir' => 'Safe\chdir',

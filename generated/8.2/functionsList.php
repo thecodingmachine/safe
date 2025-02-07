@@ -19,6 +19,7 @@ return [
     'bindtextdomain',
     'bzclose',
     'bzflush',
+    'bzopen',
     'bzread',
     'bzwrite',
     'chdir',

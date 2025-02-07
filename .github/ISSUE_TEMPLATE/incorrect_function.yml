@@ -1,6 +1,5 @@
 name: Broken Function
 description: If Safe is generating a wrapper for a PHP function, but the wrapper doesn't work
-title:
 labels: ["broken function"]
 body:
   - type: input
@@ -34,5 +33,4 @@ body:
   - type: markdown
     id: description
     attributes:
-      label: Problem
-      description: What is the code doing now? What should it do instead?
+      value: What is the code doing now? What should it do instead?

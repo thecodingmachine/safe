@@ -32,7 +32,7 @@ class FunctionInfoCommand extends Command
         $phpStanFunctionMapReader = new PhpStanFunctionMapReader();
 
         $finder = new Finder();
-        $finder->in(DocPage::findReferenceDir())->name($targetFilename)->sortByName();
+        $finder->in(DocPage::findReferenceDir() . "/*/functions/")->name($targetFilename)->sortByName();
 
         foreach ($finder as $file) {
             $docPage = new DocPage($file->getPathname());

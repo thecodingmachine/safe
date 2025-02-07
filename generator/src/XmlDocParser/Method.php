@@ -163,6 +163,9 @@ class Method
     {
         $string = \strip_tags($string);
         switch ($this->errorType) {
+            case self::UNKNOWN_TYPE:
+                break;
+
             case self::NULLSY_TYPE:
                 $string = $this->removeString($string, ', or NULL if an error occurs');
                 $string = $this->removeString($string, ' and NULL on failure');

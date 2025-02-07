@@ -1,4 +1,5 @@
 name: Broken Function
+title: "Broken Function: "
 description: If Safe is generating a wrapper for a PHP function, but the wrapper doesn't work
 labels: ["broken function"]
 body:
@@ -8,29 +9,18 @@ body:
       label: Function URL
       description: Link to the function in the PHP documentation
       placeholder: https://www.php.net/bzopen
-  - type: dropdown
+  - type: input
     id: php_version
     attributes:
       label: PHP Version
-      multiple: true
-      options:
-        - 8.4
-        - 8.3
-        - 8.2
-        - 8.1
-        - Other
-      default: 0
-  - type: dropdown
+      placeholder: 8.4, nightly, etc
+  - type: input
     id: safe_version
     attributes:
       label: Safe Version
-      options:
-        - 3.X
-        - 2.X
-        - dev-master
-        - Other
-      default: 0
-  - type: markdown
+      placeholder: 3.0.0-alpha1, 2.5.0, dev-master, etc
+  - type: textarea
     id: description
     attributes:
-      value: What is the code doing now? What should it do instead?
+      label: Description
+      description: What is the code doing now? What should it do instead?

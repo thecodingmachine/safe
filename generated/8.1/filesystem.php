@@ -970,6 +970,31 @@ function fsync($stream): void
 
 
 /**
+ * Returns the position of the file pointer referenced by stream.
+ *
+ * @param resource $stream The file pointer must be valid, and must point to a file successfully
+ * opened by fopen or popen.
+ * ftell gives undefined results for append-only streams
+ * (opened with "a" flag).
+ * @return int Returns the position of the file pointer referenced by
+ * stream as an integer; i.e., its offset into the file stream.
+ *
+ * If an error occurs, returns FALSE.
+ * @throws FilesystemException
+ *
+ */
+function ftell($stream): int
+{
+    error_clear_last();
+    $safeResult = \ftell($stream);
+    if ($safeResult === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Takes the filepointer, stream, and truncates the file to
  * length, size.
  *
@@ -1320,6 +1345,43 @@ function parse_ini_string(string $ini_string, bool $process_sections = false, in
 {
     error_clear_last();
     $safeResult = \parse_ini_string($ini_string, $process_sections, $scanner_mode);
+    if ($safeResult === false) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * Opens a pipe to a process executed by forking the command given
+ * by command.
+ *
+ * @param string $command The command
+ * @param string $mode The mode. Either 'r' for reading, or 'w'
+ * for writing.
+ *
+ * On Windows, popen defaults to text mode, i.e. any \n
+ * characters written to or read from the pipe will be translated to \r\n.
+ * If this is not desired, binary mode can be enforced by setting mode
+ * to 'rb' and 'wb', respectively.
+ * @return resource Returns a file pointer identical to that returned by
+ * fopen, except that it is unidirectional (may
+ * only be used for reading or writing) and must be closed with
+ * pclose. This pointer may be used with
+ * fgets, fgetss, and
+ * fwrite. When the mode is 'r', the returned
+ * file pointer equals to the STDOUT of the command, when the mode
+ * is 'w', the returned file pointer equals to the STDIN of the
+ * command.
+ *
+ * If an error occurs, returns FALSE.
+ * @throws FilesystemException
+ *
+ */
+function popen(string $command, string $mode)
+{
+    error_clear_last();
+    $safeResult = \popen($command, $mode);
     if ($safeResult === false) {
         throw FilesystemException::createFromPhpError();
     }

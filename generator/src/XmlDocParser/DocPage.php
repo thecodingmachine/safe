@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Safe\XmlDocParser;
 
+use Safe\Generator\FileCreator;
+
 use function explode;
 use function strpos;
 
@@ -50,118 +52,9 @@ class DocPage
      */
     public function detectFalsyFunction(): bool
     {
-        $file = file_get_contents($this->path);
-        if ($file === false) {
-            throw new \RuntimeException('An error occurred while reading '.$this->path);
-        }
-
-        if ($this->getIsDeprecated($file)) {
-            return false;
-        }
-
-        // Only evaluate the text inside the `<refsect1 role="returnvalues">...</refsect1>` section of the doc page.
-        // This minimizes 'false positives', where text such as "returns false when ..." could be matched outside
-        // the function's dedicated Return Values section.
-        $returnValuesSection = $this->extractSection('returnvalues', $file);
-
-        if (preg_match('/[Tt]he function returns &false;/m', $returnValuesSection)) {
-            return true;
-        }
-
-        if (preg_match('/&false;\s+on\s+error/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/&false;\s+on\s+failure/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/&false;\s+otherwise/m', $returnValuesSection) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/may\s+return\s+&false;/m', $returnValuesSection) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/&false;\s+if\s+an\s+error\s+occurred/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/&return.success;/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/&return.nullorfalse;/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/&return.falseforfailure;/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/&date.datetime.return.modifiedobjectorfalseforfailure;/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/ or &false; \\(and generates an error/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/&false;\s+if\s+the\s+number\s+of\s+elements\s+for\s+each\s+array\s+isn\'t\s+equal/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/If\s+the\s+call\s+fails,\s+it\s+will\s+return\s+&false;/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/Upon\s+failure,?\s+\<function\>[\w_]{1,15}?\<\/function\>\s+returns\s+&false;/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/On\s+failure,\s+&false;\s+is\s+returned/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/on\s+success,\s+otherwise\s+&false;\s+is\s+returned/m', $returnValuesSection)) {
-            return true;
-        }
-        if (preg_match('/Returns.*on success[.\s\S]+Returns &false;\s+if/m', $returnValuesSection)) {
-            return true;
-        }
-
-        if (preg_match('/&gd\.return\.identifier;/m', $returnValuesSection)) {
-            return true;
-        }
-        //used for date
-        if (preg_match('/If a non-numeric value is used for
-   \<parameter\>timestamp\<\/parameter\>, &false; is returned/m', $returnValuesSection)) {
-            return true;
-        }
-
-        //used to detect imagecreatefromstring
-        if (preg_match('/&false; is returned if\s+the image type is unsupported, the data is not in a recognised format,\s+or the image is corrupt and cannot be loaded/m', $returnValuesSection)) {
-            return true;
-        }
-
-        //used to detect class_implements
-        if (preg_match("/&false; when the given class doesn't exist/m", $returnValuesSection)) {
-            return true;
-        }
-
-        //used to detect get_headers and ldap_search
-        if (preg_match("/&false; on failure/m", $returnValuesSection)) {
-            return true;
-        }
-
-        //used to detect inet_pton
-        if (preg_match("/&false; if a syntactically invalid/m", $returnValuesSection)) {
-            return true;
-        }
-
-        //used to detect shell_exec
-        if (preg_match("/&false; if the pipe\s+cannot be established/m", $returnValuesSection)) {
-            return true;
-        }
-
-        //used to detect cfg_get_var
-        if (preg_match("/&false; if an error occurs/m", $returnValuesSection)) {
-            return true;
-        }
-
-        // used to detect proc_open
-        if (preg_match("/On failure\s+returns &false;./m", $returnValuesSection)) {
-            return true;
-        }
-
-        return false;
+        $returnValuesSection = $this->getReturnValues();
+        $func = require FileCreator::getSafeRootDir() . '/generator/config/detectFalsyFunction.php';
+        return $func($returnValuesSection);
     }
 
     /*
@@ -169,59 +62,34 @@ class DocPage
      */
     public function detectNullsyFunction(): bool
     {
-        $file = \file_get_contents($this->path);
-        if ($file === false) {
-            throw new \RuntimeException('An error occurred while reading '.$this->path);
-        }
-
-        if ($this->getIsDeprecated($file)) {
-            return false;
-        }
-
-        // Only evaluate the text inside the `<refsect1 role="returnvalues">...</refsect1>` section of the doc page.
-        // This minimizes 'false positives', where text such as "returns false when ..." could be matched outside
-        // the function's dedicated Return Values section.
-        $returnValuesSection = $this->extractSection('returnvalues', $file);
-
-        if (preg_match('/&null;\s+on\s+failure/', $returnValuesSection)) {
-            return true;
-        }
-
-        // used to detect old (8.1) versions of array_replace
-        if (preg_match('/&null;\s+if\s+an\s+error\s+occurs/', $returnValuesSection)) {
-            // skip a false positive for shell-exec (the docs mention that it
-            // "returns null if an error occurs" _in the subprocess_ OR if the
-            // subprocess returns nothing, and users should use `exec` if they
-            // actually care about error handling)
-            if (str_ends_with($this->path, "shell-exec.xml")) {
-                return false;
-            }
-            return true;
-        }
-
-        return false;
+        $returnValuesSection = $this->getReturnValues();
+        $func = require FileCreator::getSafeRootDir() . '/generator/config/detectNullsyFunction.php';
+        return $func($returnValuesSection);
     }
 
     /*
-     * Detect function which return an empty string on error.
+     * Detect functions which return an empty string on error.
      */
     public function detectEmptyFunction(): bool
+    {
+        $returnValuesSection = $this->getReturnValues();
+        $func = require FileCreator::getSafeRootDir() . '/generator/config/detectEmptyFunction.php';
+        return $func($returnValuesSection);
+    }
+
+    private function getReturnValues(): string
     {
         $file = file_get_contents($this->path);
         if ($file === false) {
             throw new \RuntimeException('An error occurred while reading '.$this->path);
         }
         if ($this->getIsDeprecated($file)) {
-            return false;
+            return "";
         }
-
-        $returnValuesSection = $this->extractSection('returnvalues', $file);
-
-        if (preg_match('/an\s+empty\s+string\s+on\s+error/', $returnValuesSection)) {
-            return true;
-        }
-
-        return false;
+        // Only evaluate the text inside the `<refsect1 role="returnvalues">...</refsect1>` section of the doc page.
+        // This minimizes 'false positives', where text such as "returns false when ..." could be matched outside
+        // the function's dedicated Return Values section.
+        return $this->extractSection('returnvalues', $file);
     }
 
     /**

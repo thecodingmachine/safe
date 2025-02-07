@@ -1,0 +1,38 @@
+name: Missing Function
+description: If there's a function in the PHP Standard Library which you believe should have a Safe wrapper
+title:
+labels: ["missing function"]
+body:
+  - type: input
+    id: function
+    attributes:
+      label: Function URL
+      description: Link to the function in the PHP documentation
+      placeholder: https://www.php.net/bzopen
+  - type: dropdown
+    id: php_version
+    attributes:
+      label: PHP Version
+      multiple: true
+      options:
+        - 8.4
+        - 8.3
+        - 8.2
+        - 8.1
+        - Other
+      default: 0
+  - type: dropdown
+    id: safe_version
+    attributes:
+      label: Safe Version
+      options:
+        - 3.X
+        - 2.X
+        - dev-master
+        - Other
+      default: 0
+  - type: markdown
+    id: extra
+    attributes:
+      label: Extra Info
+      description: Any additional information which might be relevant

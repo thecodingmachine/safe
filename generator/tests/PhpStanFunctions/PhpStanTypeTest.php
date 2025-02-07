@@ -27,11 +27,11 @@ class PhpStanTypeTest extends TestCase
     {
         $param = new PhpStanType('string[]');
         $this->assertEquals('string[]', $param->getDocBlockType());
-        $this->assertEquals('iterable', $param->getSignatureType());
+        $this->assertEquals('array', $param->getSignatureType());
 
         $param = new PhpStanType('int[]');
         $this->assertEquals('int[]', $param->getDocBlockType());
-        $this->assertEquals('iterable', $param->getSignatureType());
+        $this->assertEquals('array', $param->getSignatureType());
 
         $param = new PhpStanType('array<string,mixed>');
         $this->assertEquals('array<string,mixed>', $param->getDocBlockType());

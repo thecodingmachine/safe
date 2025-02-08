@@ -10,4 +10,5 @@ enum ErrorType
     case FALSY;
     case NULLSY;
     case EMPTY;
+    case MINUS_ONE;
 }

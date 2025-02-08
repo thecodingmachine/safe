@@ -1321,6 +1321,26 @@ function parse_ini_string(string $ini_string, bool $process_sections = false, in
 
 
 /**
+ * Closes a file pointer to a pipe opened by popen.
+ *
+ * @param resource $handle The file pointer must be valid, and must have been returned by a
+ * successful call to popen.
+ * @return int Returns the termination status of the process that was run. In case of.
+ * @throws FilesystemException
+ *
+ */
+function pclose($handle): int
+{
+    error_clear_last();
+    $safeResult = \pclose($handle);
+    if ($safeResult === -1) {
+        throw FilesystemException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Opens a pipe to a process executed by forking the command given
  * by command.
  *

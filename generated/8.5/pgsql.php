@@ -316,6 +316,31 @@ function pg_execute(?\PgSql\Connection $connection = null, ?string $stmtname = n
 
 
 /**
+ * pg_field_num will return the number of the
+ * field number that corresponds to the
+ * field in the given result instance.
+ *
+ * @param \PgSql\Result $result An PgSql\Result instance, returned by pg_query,
+ * pg_query_params or pg_execute(among others).
+ * @param string $field The name of the field.
+ * The given name is treated like an identifier in an SQL command,
+ * that is, it is downcased unless double-quoted.
+ * @return int The field number (numbered from 0).
+ * @throws PgsqlException
+ *
+ */
+function pg_field_num(\PgSql\Result $result, string $field): int
+{
+    error_clear_last();
+    $safeResult = \pg_field_num($result, $field);
+    if ($safeResult === -1) {
+        throw PgsqlException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * pg_field_table returns the name of the table that field
  * belongs to, or the table's oid if oid_only is TRUE.
  *

@@ -85,5 +85,22 @@ return function (string $text): ErrorType {
     }
 
 
+    // ================================================================
+    // Detect functions which return -1 on error
+    // ================================================================
+
+    $monesies = [
+        '/, or -1 on error/m',
+        '/Returns -1 on error/m',
+        '/an error then <literal>-1<\/literal> is returned./m', // proc_close, pclose
+        '/<literal>-1<\/literal> indicates that the query returned an error/m',
+    ];
+    foreach ($monesies as $monesie) {
+        if (preg_match($monesie, $text)) {
+            return ErrorType::MINUS_ONE;
+        }
+    }
+
+
     return ErrorType::UNKNOWN;
 };

@@ -101,7 +101,8 @@ class WritePhpFunction
             ErrorType::FALSY => 'false',
             ErrorType::NULLSY => 'null',
             ErrorType::EMPTY => "''",
-            default => throw new \LogicException("Method doesn't have an error type"),
+            ErrorType::MINUS_ONE => "-1",
+            ErrorType::UNKNOWN => throw new \LogicException("Method doesn't have an error type"),
         };
 
         // Special case for CURL: we need the first argument of the method if this is a resource.

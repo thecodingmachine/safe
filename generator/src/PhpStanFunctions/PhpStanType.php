@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Safe\PhpStanFunctions;
 
-use Safe\XmlDocParser\Method;
+use Safe\XmlDocParser\ErrorType;
 use Safe\XmlDocParser\Type;
 
 /**
@@ -116,7 +116,7 @@ class PhpStanType
     public static function selectMostUsefulType(
         ?PhpStanType $phpStanType,
         PhpStanType $phpDocType,
-        ?int $errorType = null
+        ?ErrorType $errorType = null
     ): PhpStanType {
         // If phpstan's database doesn't mention this function at all,
         // use the PHPDoc type
@@ -139,17 +139,17 @@ class PhpStanType
         return $phpStanType;
     }
 
-    public function getDocBlockType(?int $errorType = null): string
+    public function getDocBlockType(?ErrorType $errorType = null): string
     {
         $returnTypes = $this->types;
         //add back either null or false to the return types unless the target function return null or false on error (only relevant on return type)
-        if ($this->falsable && $errorType !== Method::FALSY_TYPE) {
+        if ($this->falsable && $errorType !== ErrorType::FALSY) {
             $returnTypes[] = 'false';
-        } elseif ($this->nullable && $errorType !== Method::NULLSY_TYPE) {
+        } elseif ($this->nullable && $errorType !== ErrorType::NULLSY) {
             $returnTypes[] = 'null';
         }
         $type = join('|', $returnTypes);
-        if ($type === 'bool' && !$this->nullable && $errorType === Method::FALSY_TYPE) {
+        if ($type === 'bool' && !$this->nullable && $errorType === ErrorType::FALSY) {
             // If the function only returns a boolean, since false is for error, true is for success.
             // Let's replace this with a "void".
             return 'void';
@@ -157,11 +157,11 @@ class PhpStanType
         return $type;
     }
 
-    public function getSignatureType(?int $errorType = null): string
+    public function getSignatureType(?ErrorType $errorType = null): string
     {
         //We edit the return type depending of the "onErrorType" of the function. For example, a function that is both nullable and "nullsy" will created a non nullable safe function. Only relevant on return type.
-        $nullable = $errorType === Method::NULLSY_TYPE ? false : $this->nullable;
-        $falsable = $errorType === Method::FALSY_TYPE ? false : $this->falsable;
+        $nullable = $errorType === ErrorType::NULLSY ? false : $this->nullable;
+        $falsable = $errorType === ErrorType::FALSY ? false : $this->falsable;
         $types = $this->types;
         //no typehint exists for thoses cases
         if (\array_intersect(self::NO_SIGNATURE_TYPES, $types) !== []) {
@@ -199,7 +199,7 @@ class PhpStanType
 
 
         $finalType = $types[0] ?? '';
-        if ($finalType === 'bool' && !$nullable && $errorType === Method::FALSY_TYPE) {
+        if ($finalType === 'bool' && !$nullable && $errorType === ErrorType::FALSY) {
             // If the function only returns a boolean, since false is for error, true is for success.
             // Let's replace this with a "void".
             return 'void';

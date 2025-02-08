@@ -108,7 +108,7 @@ class Scanner
 
             $docPage = new DocPage($path->getPathname());
             $errorType = $docPage->getErrorType();
-            if ($errorType !== Method::UNKNOWN_TYPE) {
+            if ($errorType !== ErrorType::UNKNOWN) {
                 $functionObjects = $docPage->getMethodSynopsis();
                 if (count($functionObjects) > 1) {
                     $overloadedFunctions = array_merge($overloadedFunctions, \array_map(function ($functionObject) {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Safe\PhpStanFunctions;
 
 use PHPUnit\Framework\TestCase;
-use Safe\XmlDocParser\Method;
+use Safe\XmlDocParser\ErrorType;
 
 class PhpStanTypeTest extends TestCase
 {
@@ -137,22 +137,22 @@ class PhpStanTypeTest extends TestCase
     {
         //bool => void if the method is falsy
         $param = new PhpStanType('bool');
-        $this->assertEquals('void', $param->getDocBlockType(Method::FALSY_TYPE));
-        $this->assertEquals('void', $param->getSignatureType(Method::FALSY_TYPE));
+        $this->assertEquals('void', $param->getDocBlockType(ErrorType::FALSY));
+        $this->assertEquals('void', $param->getSignatureType(ErrorType::FALSY));
 
         //int|false => int if the method is falsy
         $param = new PhpStanType('int|false');
-        $this->assertEquals('int', $param->getDocBlockType(Method::FALSY_TYPE));
-        $this->assertEquals('int', $param->getSignatureType(Method::FALSY_TYPE));
+        $this->assertEquals('int', $param->getDocBlockType(ErrorType::FALSY));
+        $this->assertEquals('int', $param->getSignatureType(ErrorType::FALSY));
 
         //int|null => int if the method is nullsy
         $param = new PhpStanType('int|null');
-        $this->assertEquals('int', $param->getDocBlockType(Method::NULLSY_TYPE));
-        $this->assertEquals('int', $param->getSignatureType(Method::NULLSY_TYPE));
+        $this->assertEquals('int', $param->getDocBlockType(ErrorType::NULLSY));
+        $this->assertEquals('int', $param->getSignatureType(ErrorType::NULLSY));
 
         $param = new PhpStanType('array|false|null');
-        $this->assertEquals('array|null', $param->getDocBlockType(Method::FALSY_TYPE));
-        $this->assertEquals('?array', $param->getSignatureType(Method::FALSY_TYPE));
+        $this->assertEquals('array|null', $param->getDocBlockType(ErrorType::FALSY));
+        $this->assertEquals('?array', $param->getSignatureType(ErrorType::FALSY));
     }
 
     public function testDuplicateType(): void
@@ -165,15 +165,15 @@ class PhpStanTypeTest extends TestCase
     public function testNullOrFalseBecomingNull(): void
     {
         $param = new PhpStanType('null|false');
-        $this->assertEquals('null', $param->getDocBlockType(Method::FALSY_TYPE));
-        $this->assertEquals('', $param->getSignatureType(Method::FALSY_TYPE));
+        $this->assertEquals('null', $param->getDocBlockType(ErrorType::FALSY));
+        $this->assertEquals('', $param->getSignatureType(ErrorType::FALSY));
     }
 
     public function testNotEmptyStringBecomingString(): void
     {
         $param = new PhpStanType('non-empty-string|false');
-        $this->assertEquals('non-empty-string', $param->getDocBlockType(Method::FALSY_TYPE));
-        $this->assertEquals('string', $param->getSignatureType(Method::FALSY_TYPE));
+        $this->assertEquals('non-empty-string', $param->getDocBlockType(ErrorType::FALSY));
+        $this->assertEquals('string', $param->getSignatureType(ErrorType::FALSY));
     }
 
     public function testPositiveIntBecomingInt(): void
@@ -186,8 +186,8 @@ class PhpStanTypeTest extends TestCase
     public function testListBecomingArray(): void
     {
         $param = new PhpStanType('list<string>|false');
-        $this->assertEquals('array<string>', $param->getDocBlockType(Method::FALSY_TYPE));
-        $this->assertEquals('array', $param->getSignatureType(Method::FALSY_TYPE));
+        $this->assertEquals('array<string>', $param->getDocBlockType(ErrorType::FALSY));
+        $this->assertEquals('array', $param->getSignatureType(ErrorType::FALSY));
     }
 
     public function testNumbersAreRemoved(): void
@@ -200,8 +200,8 @@ class PhpStanTypeTest extends TestCase
     public function testIgnoreBenevolence(): void
     {
         $param = new PhpStanType('__benevolent<string|false>');
-        $this->assertEquals('string', $param->getDocBlockType(Method::FALSY_TYPE));
-        $this->assertEquals('string', $param->getSignatureType(Method::FALSY_TYPE));
+        $this->assertEquals('string', $param->getDocBlockType(ErrorType::FALSY));
+        $this->assertEquals('string', $param->getSignatureType(ErrorType::FALSY));
     }
 
     public function testTypeFromXML(): void

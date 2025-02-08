@@ -47,18 +47,18 @@ class DocPage
         return false;
     }
 
-    public function getErrorType(): int
+    public function getErrorType(): ErrorType
     {
         if ($this->detectFalsyFunction()) {
-            return Method::FALSY_TYPE;
+            return ErrorType::FALSY;
         }
         if ($this->detectNullsyFunction()) {
-            return Method::NULLSY_TYPE;
+            return ErrorType::NULLSY;
         }
         if ($this->detectEmptyFunction()) {
-            return Method::EMPTY_TYPE;
+            return ErrorType::EMPTY;
         }
-        return Method::UNKNOWN_TYPE;
+        return ErrorType::UNKNOWN;
     }
 
     /*

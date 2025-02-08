@@ -6,6 +6,7 @@ namespace Safe\Generator;
 
 use Safe\XmlDocParser\Method;
 use Safe\XmlDocParser\Parameter;
+use Safe\XmlDocParser\ErrorType;
 
 class WritePhpFunction
 {
@@ -97,9 +98,9 @@ class WritePhpFunction
     private function generateExceptionCode(string $moduleName, Method $method) : string
     {
         $errorValue = match ($method->getErrorType()) {
-            Method::FALSY_TYPE => 'false',
-            Method::NULLSY_TYPE => 'null',
-            Method::EMPTY_TYPE => "''",
+            ErrorType::FALSY => 'false',
+            ErrorType::NULLSY => 'null',
+            ErrorType::EMPTY => "''",
             default => throw new \LogicException("Method doesn't have an error type"),
         };
 

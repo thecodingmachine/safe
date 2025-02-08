@@ -11,10 +11,6 @@ use Safe\Generator\FileCreator;
 
 class Method
 {
-    const UNKNOWN_TYPE = 0;
-    const FALSY_TYPE = 1;
-    const NULLSY_TYPE = 2;
-    const EMPTY_TYPE = 3;
     /**
      * @var Parameter[]|null
      */
@@ -30,7 +26,7 @@ class Method
         private \SimpleXMLElement $rootEntity,
         private string $moduleName,
         PhpStanFunctionMapReader $phpStanFunctionMapReader,
-        private int $errorType
+        private ErrorType $errorType
     ) {
         $this->phpstanSignature = $phpStanFunctionMapReader->getFunction($this->getFunctionName());
         $this->returnType = PhpStanType::selectMostUsefulType(
@@ -59,7 +55,7 @@ class Method
             $data .= "    Safe:    " . $param->getDocBlockType() . "\n";
         }
         $data .= "\n";
-        $data .= "Error type: " . [0=>"unknown", 1=>"false", 2=>"null", 3=>"empty"][$this->errorType] . "\n";
+        $data .= "Error type: " . $this->errorType->name . "\n";
         $data .= "\n";
         $data .= "Return type:\n";
         $phpStanType = $this->phpstanSignature ? $this->phpstanSignature->getReturnType() : null;
@@ -75,7 +71,7 @@ class Method
         return $this->functionObject->methodname->__toString();
     }
 
-    public function getErrorType(): int
+    public function getErrorType(): ErrorType
     {
         return $this->errorType;
     }
@@ -163,16 +159,16 @@ class Method
     {
         $string = \strip_tags($string);
         switch ($this->errorType) {
-            case self::UNKNOWN_TYPE:
+            case ErrorType::UNKNOWN:
                 break;
 
-            case self::NULLSY_TYPE:
+            case ErrorType::NULLSY:
                 $string = $this->removeString($string, ', or NULL if an error occurs');
                 $string = $this->removeString($string, ' and NULL on failure');
                 $string = $this->removeString($string, ' or NULL on failure');
                 break;
 
-            case self::FALSY_TYPE:
+            case ErrorType::FALSY:
                 $string = $this->removeString($string, 'or FALSE on failure');
                 $string = $this->removeString($string, ', FALSE on failure');
                 $string = $this->removeString($string, ', FALSE on errors');
@@ -189,7 +185,7 @@ class Method
                 $string = $this->removeString($string, ', FALSE if the pipe cannot be established');
                 break;
 
-            case self::EMPTY_TYPE:
+            case ErrorType::EMPTY:
                 $string = $this->removeString($string, ' or an empty string on error');
                 break;
 

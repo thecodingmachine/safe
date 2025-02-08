@@ -7,7 +7,6 @@ return [
     'json_decode',
     'apcu_fetch',
     'preg_replace',
-    'readdir',
     'openssl_encrypt',
     'socket_write',
     'simplexml_import_dom',

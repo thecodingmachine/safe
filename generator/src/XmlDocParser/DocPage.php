@@ -49,46 +49,9 @@ class DocPage
 
     public function getErrorType(): ErrorType
     {
-        if ($this->detectFalsyFunction()) {
-            return ErrorType::FALSY;
-        }
-        if ($this->detectNullsyFunction()) {
-            return ErrorType::NULLSY;
-        }
-        if ($this->detectEmptyFunction()) {
-            return ErrorType::EMPTY;
-        }
-        return ErrorType::UNKNOWN;
-    }
-
-    /*
-     * Detect function which return FALSE on error.
-     */
-    public function detectFalsyFunction(): bool
-    {
         $returnValuesSection = $this->getReturnValues();
-        $func = require FileCreator::getSafeRootDir() . '/generator/config/detectFalsyFunction.php';
-        return $func($returnValuesSection);
-    }
-
-    /*
-     * Detect function which return NULL on error.
-     */
-    public function detectNullsyFunction(): bool
-    {
-        $returnValuesSection = $this->getReturnValues();
-        $func = require FileCreator::getSafeRootDir() . '/generator/config/detectNullsyFunction.php';
-        return $func($returnValuesSection);
-    }
-
-    /*
-     * Detect functions which return an empty string on error.
-     */
-    public function detectEmptyFunction(): bool
-    {
-        $returnValuesSection = $this->getReturnValues();
-        $func = require FileCreator::getSafeRootDir() . '/generator/config/detectEmptyFunction.php';
-        return $func($returnValuesSection);
+        $detectErrorType = require FileCreator::getSafeRootDir() . '/generator/config/detectErrorType.php';
+        return $detectErrorType($returnValuesSection);
     }
 
     private function getReturnValues(): string

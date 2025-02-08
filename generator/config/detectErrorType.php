@@ -1,6 +1,25 @@
 <?php
 
-return function (string $text): bool {
+use Safe\XmlDocParser\ErrorType;
+
+return function (string $text): ErrorType {
+    // ================================================================
+    // Special cases
+    // ================================================================
+
+    // skip a false positive for shell-exec (the docs mention that it
+    // "returns null if an error occurs" _in the subprocess_ OR if the
+    // subprocess returns nothing, and users should use `exec` if they
+    // actually care about error handling), however it does return
+    // false when there is an internal error, and we should handle that.
+    if (preg_match('/&null; if an error occurs or the program/', $text)) {
+        return ErrorType::FALSY;
+    }
+
+    // ================================================================
+    // Detect functions which return false on error
+    // ================================================================
+
     $falsies = [
         '/[Tt]he function returns &false;/m',
         '/&false;\s+on\s+error/m',
@@ -32,15 +51,39 @@ return function (string $text): bool {
     ];
     foreach ($falsies as $falsie) {
         if (preg_match($falsie, $text)) {
-            return true;
+            return ErrorType::FALSY;
         }
     }
     if (preg_match('/&false;\s+otherwise/m', $text) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $text)) {
-        return true;
+        return ErrorType::FALSY;
     }
     if (preg_match('/may\s+return\s+&false;/m', $text) && !preg_match('/(returns\s+&true;|&true;\s+on\s+success|&true;\s+if)/im', $text)) {
-        return true;
+        return ErrorType::FALSY;
     }
 
-    return false;
+    // ================================================================
+    // Detect functions which return null on error
+    // ================================================================
+
+    $nullsies = [
+        '/&null;\s+on\s+failure/',
+        '/On errors the return value is &null;/m',
+        '/&null;\s+if\s+an\s+error\s+occurs/', // old (8.1) versions of array_replace
+    ];
+    foreach ($nullsies as $nullsie) {
+        if (preg_match($nullsie, $text)) {
+            return ErrorType::NULLSY;
+        }
+    }
+
+    // ================================================================
+    // Detect functions which return empty on error
+    // ================================================================
+
+    if (preg_match('/an\s+empty\s+string\s+on\s+error/', $text)) {
+        return ErrorType::EMPTY;
+    }
+
+
+    return ErrorType::UNKNOWN;
 };

@@ -8,44 +8,31 @@ use PHPUnit\Framework\TestCase;
 
 class DocPageTest extends TestCase
 {
-    public function testDetectFalsyFunction(): void
+    // take a documentation XML file path and return an ErrorType
+    private function d2e(string $path): ErrorType
     {
-        $pregMatch = new DocPage(DocPage::findReferenceDir() . '/pcre/functions/preg-match.xml');
-        $implode = new DocPage(DocPage::findReferenceDir() . '/strings/functions/implode.xml');
-        $getCwd = new DocPage(DocPage::findReferenceDir() . '/dir/functions/getcwd.xml');
-        $createFromFormat = new DocPage(DocPage::findReferenceDir() . '/datetime/datetime/createfromformat.xml');
-        $filesize = new DocPage(DocPage::findReferenceDir() . '/filesystem/functions/filesize.xml');
-        $fsockopen = new DocPage(DocPage::findReferenceDir() . '/network/functions/fsockopen.xml');
-        $arrayReplace = new DocPage(DocPage::findReferenceDir() . '/array/functions/array-replace.xml');
-        $classImplement = new DocPage(DocPage::findReferenceDir() . '/spl/functions/class-implements.xml');
-        $getHeaders = new DocPage(DocPage::findReferenceDir() . '/url/functions/get-headers.xml');
-        $gzopen = new DocPage(DocPage::findReferenceDir() . '/zlib/functions/gzopen.xml');
-        $fopen = new DocPage(DocPage::findReferenceDir() . '/image/functions/imagecreatefromstring.xml');
-
-        $this->assertTrue($pregMatch->detectFalsyFunction());
-        $this->assertFalse($implode->detectFalsyFunction());
-        $this->assertTrue($getCwd->detectFalsyFunction());
-        $this->assertTrue($createFromFormat->detectFalsyFunction());
-        $this->assertTrue($filesize->detectFalsyFunction());
-        $this->assertTrue($fsockopen->detectFalsyFunction());
-        $this->assertFalse($arrayReplace->detectFalsyFunction());
-        $this->assertTrue($classImplement->detectFalsyFunction());
-        $this->assertTrue($getHeaders->detectFalsyFunction());
-        $this->assertTrue($gzopen->detectFalsyFunction());
-        $this->assertTrue($fopen->detectFalsyFunction());
+        return (new DocPage(DocPage::findReferenceDir() . "/" . $path))->getErrorType();
     }
 
-    public function testDetectNullsyFunction(): void
+    public function testErrorTypeDetection(): void
     {
-        $implode = new DocPage(DocPage::findReferenceDir() . '/strings/functions/implode.xml');
+        // falsy
+        $this->assertEquals($this->d2e('pcre/functions/preg-match.xml'), ErrorType::FALSY);
+        $this->assertEquals($this->d2e('dir/functions/getcwd.xml'), ErrorType::FALSY);
+        $this->assertEquals($this->d2e('datetime/datetime/createfromformat.xml'), ErrorType::FALSY);
+        $this->assertEquals($this->d2e('filesystem/functions/filesize.xml'), ErrorType::FALSY);
+        $this->assertEquals($this->d2e('network/functions/fsockopen.xml'), ErrorType::FALSY);
+        $this->assertEquals($this->d2e('spl/functions/class-implements.xml'), ErrorType::FALSY);
+        $this->assertEquals($this->d2e('url/functions/get-headers.xml'), ErrorType::FALSY);
+        $this->assertEquals($this->d2e('zlib/functions/gzopen.xml'), ErrorType::FALSY);
 
-        $this->assertFalse($implode->detectNullsyFunction());
-    }
+        // nullsy
+        $this->assertEquals($this->d2e('pcre/functions/preg-replace-callback-array.xml'), ErrorType::NULLSY);
 
-    public function testDetectEmptyFunction(): void
-    {
-        $pgHost = new DocPage(DocPage::findReferenceDir() . '/pgsql/functions/pg-host.xml');
+        // empty
+        $this->assertEquals($this->d2e('pgsql/functions/pg-host.xml'), ErrorType::EMPTY);
 
-        $this->assertTrue($pgHost->detectEmptyFunction());
+        // unknown
+        $this->assertEquals($this->d2e('array/functions/array-replace.xml'), ErrorType::UNKNOWN);
     }
 }

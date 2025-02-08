@@ -1361,6 +1361,82 @@ function openssl_verify(string $data, string $signature, $public_key, $algorithm
 
 
 /**
+ * openssl_x509_checkpurpose examines a certificate to
+ * see if it can be used for the specified purpose.
+ *
+ * @param \OpenSSLCertificate|string $certificate The examined certificate.
+ * @param int $purpose
+ * openssl_x509_checkpurpose purposes
+ *
+ *
+ *
+ * Constant
+ * Description
+ *
+ *
+ *
+ *
+ * X509_PURPOSE_SSL_CLIENT
+ * Can the certificate be used for the client side of an SSL
+ * connection?
+ *
+ *
+ * X509_PURPOSE_SSL_SERVER
+ * Can the certificate be used for the server side of an SSL
+ * connection?
+ *
+ *
+ * X509_PURPOSE_NS_SSL_SERVER
+ * Can the cert be used for Netscape SSL server?
+ *
+ *
+ * X509_PURPOSE_SMIME_SIGN
+ * Can the cert be used to sign S/MIME email?
+ *
+ *
+ * X509_PURPOSE_SMIME_ENCRYPT
+ * Can the cert be used to encrypt S/MIME email?
+ *
+ *
+ * X509_PURPOSE_CRL_SIGN
+ * Can the cert be used to sign a certificate revocation list
+ * (CRL)?
+ *
+ *
+ * X509_PURPOSE_ANY
+ * Can the cert be used for Any/All purposes?
+ *
+ *
+ *
+ *
+ * These options are not bitfields - you may specify one only!
+ * @param array $ca_info ca_info should be an array of trusted CA files/dirs
+ * as described in Certificate
+ * Verification.
+ * @param string $untrusted_certificates_file If specified, this should be the name of a PEM encoded file holding
+ * certificates that can be used to help verify the certificate, although
+ * no trust is placed in the certificates that come from that file.
+ * @return bool|int Returns TRUE if the certificate can be used for the intended purpose,
+ * FALSE if it cannot.
+ * @throws OpensslException
+ *
+ */
+function openssl_x509_checkpurpose($certificate, int $purpose, array $ca_info = [], ?string $untrusted_certificates_file = null)
+{
+    error_clear_last();
+    if ($untrusted_certificates_file !== null) {
+        $safeResult = \openssl_x509_checkpurpose($certificate, $purpose, $ca_info, $untrusted_certificates_file);
+    } else {
+        $safeResult = \openssl_x509_checkpurpose($certificate, $purpose, $ca_info);
+    }
+    if ($safeResult === -1) {
+        throw OpensslException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * openssl_x509_export_to_file stores
  * certificate into a file named by
  * output_filename in a PEM encoded format.

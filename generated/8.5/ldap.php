@@ -87,6 +87,35 @@ function ldap_bind(\LDAP\Connection $ldap, ?string $dn = null, ?string $password
 
 
 /**
+ * Compare value of attribute
+ * with value of same attribute in an LDAP directory entry.
+ *
+ * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
+ * @param string $dn The distinguished name of an LDAP entity.
+ * @param string $attribute The attribute name.
+ * @param string $value The compared value.
+ * @param array $controls Array of LDAP Controls to send with the request.
+ * @return bool Returns TRUE if value matches otherwise returns
+ * FALSE..
+ * @throws LdapException
+ *
+ */
+function ldap_compare(\LDAP\Connection $ldap, string $dn, string $attribute, string $value, ?array $controls = null): bool
+{
+    error_clear_last();
+    if ($controls !== null) {
+        $safeResult = \ldap_compare($ldap, $dn, $attribute, $value, $controls);
+    } else {
+        $safeResult = \ldap_compare($ldap, $dn, $attribute, $value);
+    }
+    if ($safeResult === -1) {
+        throw LdapException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Retrieve the pagination information send by the server.
  *
  * @param resource $link An LDAP resource, returned by ldap_connect.

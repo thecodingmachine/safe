@@ -656,6 +656,25 @@ function odbc_longreadlen($statement, int $length): void
 
 
 /**
+ * Gets the number of fields (columns) in an ODBC result.
+ *
+ * @param resource $statement The result identifier returned by odbc_exec.
+ * @return int Returns the number of fields.
+ * @throws UodbcException
+ *
+ */
+function odbc_num_fields($statement): int
+{
+    error_clear_last();
+    $safeResult = \odbc_num_fields($statement);
+    if ($safeResult === -1) {
+        throw UodbcException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Opens a persistent database connection.
  *
  * This function is much like

@@ -73,6 +73,33 @@ function passthru(string $command, ?int &$result_code = null): void
 
 
 /**
+ * proc_close is similar to pclose
+ * except that it only works on processes opened by
+ * proc_open.
+ * proc_close waits for the process to terminate, and
+ * returns its exit code.  Open pipes to that process are closed
+ * when this function is called, in
+ * order to avoid a deadlock - the child process may not be able to exit
+ * while the pipes are open.
+ *
+ * @param resource $process The proc_open resource that will
+ * be closed.
+ * @return int Returns the termination status of the process that was run. In case of.
+ * @throws ExecException
+ *
+ */
+function proc_close($process): int
+{
+    error_clear_last();
+    $safeResult = \proc_close($process);
+    if ($safeResult === -1) {
+        throw ExecException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * proc_nice changes the priority of the current
  * process by the amount specified in priority. A
  * positive priority will lower the priority of the

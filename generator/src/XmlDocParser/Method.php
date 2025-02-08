@@ -189,6 +189,13 @@ class Method
                 $string = $this->removeString($string, ' or an empty string on error');
                 break;
 
+            case ErrorType::MINUS_ONE:
+                $string = $this->removeString($string, ' or -1 on error');
+                $string = $this->removeString($string, 'Returns -1 on error.');
+                $string = $this->removeString($string, 'In case of an error then -1 is returned.');
+                $string = $this->removeString($string, '-1 indicates that the query returned an error');
+                break;
+
             default:
                 throw new \RuntimeException('Incorrect error type.');
         }

@@ -97,8 +97,7 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
         $specialCases = require FileCreator::getSafeRootDir() . '/generator/config/specialCasesFunctions.php';
         $functionNames = array_merge($functionNames, $specialCases);
         natcasesort($functionNames);
-        $excludeCases = require FileCreator::getSafeRootDir() . '/generator/config/ignoredFunctions.php';
-        return array_diff($functionNames, $excludeCases);
+        return $functionNames;
     }
 
 

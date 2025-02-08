@@ -25,7 +25,7 @@ class DocPage
         return DocPage::findDocDir() . '/doc-en/en/reference';
     }
 
-    // Ignore function if it was removed before PHP 7.1
+    // Ignore function if it was removed before PHP 8.1
     private function getIsDeprecated(string $file): bool
     {
         if (preg_match('/&warn\.deprecated\.function-(\d+-\d+-\d+)\.removed-(\d+-\d+-\d+)/', $file, $matches)) {
@@ -49,24 +49,20 @@ class DocPage
 
     public function getErrorType(): ErrorType
     {
-        $returnValuesSection = $this->getReturnValues();
-        $detectErrorType = require FileCreator::getSafeRootDir() . '/generator/config/detectErrorType.php';
-        return $detectErrorType($returnValuesSection);
-    }
-
-    private function getReturnValues(): string
-    {
         $file = file_get_contents($this->path);
         if ($file === false) {
             throw new \RuntimeException('An error occurred while reading '.$this->path);
         }
         if ($this->getIsDeprecated($file)) {
-            return "";
+            return ErrorType::UNKNOWN;
         }
+
         // Only evaluate the text inside the `<refsect1 role="returnvalues">...</refsect1>` section of the doc page.
         // This minimizes 'false positives', where text such as "returns false when ..." could be matched outside
         // the function's dedicated Return Values section.
-        return $this->extractSection('returnvalues', $file);
+        $returnDocs = $this->extractSection('returnvalues', $file);
+        $detectErrorType = require FileCreator::getSafeRootDir() . '/generator/config/detectErrorType.php';
+        return $detectErrorType($returnDocs);
     }
 
     /**

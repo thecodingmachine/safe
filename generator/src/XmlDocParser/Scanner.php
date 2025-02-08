@@ -59,7 +59,7 @@ class Scanner
     {
         if ($this->ignoredFunctions === null) {
             $ignoredFunctions = require FileCreator::getSafeRootDir() . '/generator/config/ignoredFunctions.php';
-            $specialCaseFunctions = require FileCreator::getSafeRootDir() . '/generator/config/specialCasesFunctions.php';
+            $specialCaseFunctions = $this->getSpecialCases();
 
             $this->ignoredFunctions = array_merge($ignoredFunctions, $specialCaseFunctions);
         }
@@ -76,6 +76,23 @@ class Scanner
             $this->ignoredModules = require FileCreator::getSafeRootDir() . '/generator/config/ignoredModules.php';
         }
         return $this->ignoredModules;
+    }
+
+    /**
+     * Get a list of functions defined in special_cases.php so that we
+     * can ignore them in the main list.
+     *
+     * @return string[]
+     */
+    public static function getSpecialCases(): array
+    {
+        $data = file_get_contents(FileCreator::getSafeRootDir() . '/lib/special_cases.php');
+        if ($data === false) {
+            throw new \RuntimeException('Unable to read special cases');
+        }
+        $matches = [];
+        preg_match_all('/function\s+([\w_]+)\(/', $data, $matches);
+        return $matches[1];
     }
 
     /**

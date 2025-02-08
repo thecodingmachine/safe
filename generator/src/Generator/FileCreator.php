@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Safe\Generator;
 
+use Safe\XmlDocParser\Scanner;
 use Safe\XmlDocParser\Method;
 
 use function array_merge;
@@ -94,7 +95,7 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
         $functionNames = array_map(function (Method $function) {
             return $function->getFunctionName();
         }, $functions);
-        $specialCases = require FileCreator::getSafeRootDir() . '/generator/config/specialCasesFunctions.php';
+        $specialCases = Scanner::getSpecialCases();
         $functionNames = array_merge($functionNames, $specialCases);
         natcasesort($functionNames);
         return $functionNames;

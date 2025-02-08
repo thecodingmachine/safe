@@ -617,6 +617,24 @@ function posix_setrlimit(int $resource, int $soft_limit, int $hard_limit): void
 
 
 /**
+ * Make the current process a session leader.
+ *
+ * @return int Returns the session ids.
+ * @throws PosixException
+ *
+ */
+function posix_setsid(): int
+{
+    error_clear_last();
+    $safeResult = \posix_setsid();
+    if ($safeResult === -1) {
+        throw PosixException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Set the real user ID of the current process. This is a privileged
  * function that needs appropriate privileges (usually root) on
  * the system to be able to perform this function.

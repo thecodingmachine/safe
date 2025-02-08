@@ -475,6 +475,27 @@ function ftp_site(\FTP\Connection $ftp, string $command): void
 
 
 /**
+ * ftp_size returns the size of the given file in
+ * bytes.
+ *
+ * @param \FTP\Connection $ftp An FTP\Connection instance.
+ * @param string $filename The remote file.
+ * @return int Returns the file size on success.
+ * @throws FtpException
+ *
+ */
+function ftp_size(\FTP\Connection $ftp, string $filename): int
+{
+    error_clear_last();
+    $safeResult = \ftp_size($ftp, $filename);
+    if ($safeResult === -1) {
+        throw FtpException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * ftp_ssl_connect opens an explicit SSL-FTP connection to the
  * specified hostname. That implies that
  * ftp_ssl_connect will succeed even if the server is not

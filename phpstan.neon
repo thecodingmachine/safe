@@ -1,5 +1,7 @@
 includes:
-    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
+    # TODO: re-enable these rules once they are compatible with modern phpstan
+	# https://github.com/thecodingmachine/phpstan-strict-rules/issues/66
+    # - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
     - phar://phpstan.phar/conf/bleedingEdge.neon
 
 parameters:

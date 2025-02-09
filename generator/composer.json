@@ -15,7 +15,7 @@
     "symfony/finder": "^6"
   },
   "require-dev": {
-    "phpunit/phpunit": "^10",
+    "phpunit/phpunit": "^12",
     "thecodingmachine/phpstan-strict-rules": "^1.0",
     "squizlabs/php_codesniffer": "^3.2",
     "php-coveralls/php-coveralls": "^2.1",
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "lint": "parallel-lint config/ src/ tests/",
-    "test": "phpunit",
+    "test": "XDEBUG_MODE=coverage phpunit",
     "phpstan": "phpstan analyse",
     "cs-fix": "phpcbf",
     "cs-check": "phpcs"

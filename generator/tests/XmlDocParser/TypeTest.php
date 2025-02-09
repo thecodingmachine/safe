@@ -14,5 +14,6 @@ class TypeTest extends TestCase
         $this->assertSame('\\SimpleXMLElement', Type::toRootNamespace('SimpleXMLElement'));
         $this->assertSame('bool', Type::toRootNamespace('bool'));
         $this->assertSame('int', Type::toRootNamespace('int'));
+        $this->assertSame('', Type::toRootNamespace(''));
     }
 }

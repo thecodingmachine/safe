@@ -27,9 +27,6 @@ class ComposerJsonEditor
         \file_put_contents(FileCreator::getSafeRootDir() . '/composer.json', $newContent);
     }
 
-
-
-
     /**
      * @param string[] $oldFiles
      * @param string[] $modules A list of modules

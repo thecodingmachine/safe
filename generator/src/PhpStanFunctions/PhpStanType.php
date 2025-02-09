@@ -73,6 +73,7 @@ class PhpStanType
             $returnType = '';
         }
         foreach ($returnTypes as &$returnType) {
+            $returnType = \trim($returnType);
             if (str_contains($returnType, '?')) {
                 $nullable = true;
                 $returnType = \str_replace('?', '', $returnType);
@@ -87,17 +88,18 @@ class PhpStanType
                 $returnType = 'string';
             }
 
-            if ($returnType === 'positive-int') {
+            if ($returnType === 'positive-int' ||
+                str_contains($returnType, 'int<') ||
+                str_contains($returnType, 'int-mask<') ||
+                is_numeric($returnType) ||
+                # constants like FTP_ASCII, FTP_BINARY
+                (defined($returnType) && is_numeric(constant($returnType)))
+            ) {
                 $returnType = 'int';
-            } elseif (is_numeric($returnType)) {
-                $returnType = 'int';
-            }
-            if (str_contains($returnType, 'list<')) {
-                $returnType = \str_replace('list', 'array', $returnType);
             }
 
-            if (str_contains($returnType, 'int<')) {
-                $returnType = 'int';
+            if (str_contains($returnType, 'list<')) {
+                $returnType = \str_replace('list', 'array', $returnType);
             }
 
             $returnType = Type::toRootNamespace($returnType);

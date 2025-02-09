@@ -77,7 +77,7 @@ function mb_convert_encoding($string, string $to_encoding, $from_encoding = null
  * Sets the automatic character
  * encoding detection order to encoding.
  *
- * @param mixed $encoding encoding is an array or
+ * @param non-empty-array|non-falsy-string $encoding encoding is an array or
  * comma separated list of character encoding. See supported encodings.
  *
  * If encoding is omitted or NULL, it returns

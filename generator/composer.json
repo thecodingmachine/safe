@@ -1,36 +1,36 @@
 {
-  "name": "thecodingmachine/safe-generator",
-  "description": "Generated the files for thecodingmachine/safe",
-  "version": "0.0.0",
-  "autoload": {
-    "psr-4": {
-      "Safe\\": "src/"
+    "name": "thecodingmachine/safe-generator",
+    "description": "Generated the files for thecodingmachine/safe",
+    "version": "0.0.0",
+    "autoload": {
+        "psr-4": {
+            "Safe\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.3",
+        "ext-simplexml": "*",
+        "ext-json": "*",
+        "phpstan/phpstan": "^2",
+        "symfony/console": "^7",
+        "symfony/process": "^7",
+        "symfony/finder": "^7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12",
+        "squizlabs/php_codesniffer": "^3.2",
+        "php-parallel-lint/php-parallel-lint": "^1.4"
+    },
+    "scripts": {
+        "lint": "parallel-lint config/ src/ tests/",
+        "test": "XDEBUG_MODE=coverage phpunit",
+        "phpstan": "phpstan analyse",
+        "cs-fix": "phpcbf",
+        "cs-check": "phpcs"
+    },
+    "config": {
+        "platform": {
+            "php": "8.3"
+        }
     }
-  },
-  "require": {
-    "php": "^8.3",
-    "ext-simplexml": "*",
-    "ext-json": "*",
-    "phpstan/phpstan": "^2",
-    "symfony/console": "^7",
-    "symfony/process": "^7",
-    "symfony/finder": "^7"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^12",
-    "squizlabs/php_codesniffer": "^3.2",
-    "php-parallel-lint/php-parallel-lint": "^1.4"
-  },
-  "scripts": {
-    "lint": "parallel-lint config/ src/ tests/",
-    "test": "XDEBUG_MODE=coverage phpunit",
-    "phpstan": "phpstan analyse",
-    "cs-fix": "phpcbf",
-    "cs-check": "phpcs"
-  },
-  "config": {
-    "platform": {
-      "php": "8.3"
-    }
-  }
 }

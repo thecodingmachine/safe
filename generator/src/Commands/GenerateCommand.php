@@ -97,7 +97,7 @@ class GenerateCommand extends Command
             $fileCreator->generateVersionSplitters($moduleName, FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions));
             $fileCreator->createExceptionFile((string) $moduleName);
         }
-        $fileCreator->generateVersionSplitters("functionsList", FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions));
+        $fileCreator->generateVersionSplitters("functionsList", FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions), true);
 
         $this->runCsFix($output);
 

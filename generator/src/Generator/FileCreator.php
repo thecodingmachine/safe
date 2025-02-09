@@ -68,18 +68,19 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
     /**
      * @param string[] $versions
      */
-    public function generateVersionSplitters(string $module, string $path, array $versions): void
+    public function generateVersionSplitters(string $module, string $path, array $versions, bool $return = false): void
     {
         $lcModule = \lcfirst($module);
         $stream = \fopen($path.$lcModule.'.php', 'w');
         if ($stream === false) {
             throw new \RuntimeException('Unable to write to '.$path);
         }
+        $return = $return ? "return " : "";
         \fwrite($stream, "<?php\n");
         foreach ($versions as $version) {
             if (file_exists("$path/$version/$lcModule.php")) {
                 \fwrite($stream, "\nif (str_starts_with(PHP_VERSION, \"$version.\")) {");
-                \fwrite($stream, "\n    require_once __DIR__ . '/$version/$lcModule.php';");
+                \fwrite($stream, "\n    {$return}require_once __DIR__ . '/$version/$lcModule.php';");
                 \fwrite($stream, "\n}");
             }
         }

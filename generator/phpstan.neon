@@ -1,5 +1,4 @@
 includes:
-    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
     - phar://phpstan.phar/conf/bleedingEdge.neon
 
 parameters:

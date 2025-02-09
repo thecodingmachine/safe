@@ -9,6 +9,14 @@ use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
 
 class MethodTest extends TestCase
 {
+    public function testToString(): void
+    {
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/pcre/functions/preg-match.xml');
+        $xmlObject = $docPage->getMethodSynopsis();
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::FALSY);
+        $this->assertStringContainsString('Error type: FALSY', (string)$method);
+    }
+
     public function testGetFunctionName(): void
     {
         $docPage = new DocPage(DocPage::findReferenceDir() . '/pcre/functions/preg-match.xml');

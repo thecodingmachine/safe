@@ -25,6 +25,8 @@ class MethodTest extends TestCase
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::FALSY);
         $type = $method->getSignatureReturnType();
         $this->assertEquals('int', $type);
+        $errorType = $method->getErrorType();
+        $this->assertEquals(ErrorType::FALSY, $errorType);
     }
 
     public function testGetFunctionParam(): void
@@ -115,6 +117,27 @@ class MethodTest extends TestCase
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::FALSY);
         $this->assertEquals("@return bool|null Returns TRUE if the next result was successfully retrieved, FALSE if an error \n   occurred, and NULL if there are no more results to retrieve.\n", $method->getReturnDocBlock());
         $this->assertEquals('?bool', $method->getSignatureReturnType());
+    }
+
+    public function testGetPhpDoc(): void
+    {
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/array/functions/array-replace.xml');
+        $xmlObject = $docPage->getMethodSynopsis();
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::NULLSY);
+        $this->assertStringContainsString('@param array $array', $method->getPhpDoc());
+    }
+
+    public function testIsOverloaded(): void
+    {
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/array/functions/array-all.xml');
+        $xmlObject = $docPage->getMethodSynopsis();
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::NULLSY);
+        $this->assertFalse($method->isOverloaded());
+
+        $docPage = new DocPage(DocPage::findReferenceDir() . '/filesystem/functions/file-get-contents.xml');
+        $xmlObject = $docPage->getMethodSynopsis();
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::NULLSY);
+        $this->assertTrue($method->isOverloaded());
     }
 
     public function testOpensslCipherKeyLengthUnionTypeReturnDocBlocks(): void

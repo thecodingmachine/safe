@@ -139,6 +139,7 @@ return static function (RectorConfig $rectorConfig): void {
             'define' => 'Safe\define',
             'deflate_add' => 'Safe\deflate_add',
             'deflate_init' => 'Safe\deflate_init',
+            'dir' => 'Safe\dir',
             'disk_free_space' => 'Safe\disk_free_space',
             'disk_total_space' => 'Safe\disk_total_space',
             'dl' => 'Safe\dl',

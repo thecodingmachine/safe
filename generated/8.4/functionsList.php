@@ -122,6 +122,7 @@ return [
     'define',
     'deflate_add',
     'deflate_init',
+    'dir',
     'disk_free_space',
     'disk_total_space',
     'dl',

@@ -49,6 +49,32 @@ function chroot(string $directory): void
 
 
 /**
+ * A pseudo-object-oriented mechanism for reading a directory.  The
+ * given directory is opened.
+ *
+ * @param string $directory Directory to open
+ * @param resource|null $context A context stream
+ * resource.
+ * @return \Directory Returns an instance of Directory, or FALSE in case of error.
+ * @throws DirException
+ *
+ */
+function dir(string $directory, $context = null): \Directory
+{
+    error_clear_last();
+    if ($context !== null) {
+        $safeResult = \dir($directory, $context);
+    } else {
+        $safeResult = \dir($directory);
+    }
+    if ($safeResult === false) {
+        throw DirException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Gets the current working directory.
  *
  * @return non-empty-string Returns the current working directory on success.

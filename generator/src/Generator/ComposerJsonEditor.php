@@ -23,7 +23,7 @@ class ComposerJsonEditor
         $composerJson = \json_decode($composerContent, true);
         $composerJson['autoload']['files'] = self::editFilesListForGeneration($composerJson['autoload']['files'], $modules);
 
-        $newContent = \json_encode($composerJson, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES);
+        $newContent = \json_encode($composerJson, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES) . "\n";
         \file_put_contents(FileCreator::getSafeRootDir() . '/composer.json', $newContent);
     }
 

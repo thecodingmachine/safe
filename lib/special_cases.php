@@ -358,11 +358,7 @@ function posix_getpgid(int $process_id): int
 function fputcsv($stream, array $fields, string $separator = ",", string $enclosure = "\"", string $escape = "\\", string $eol = "\n"): int
 {
     error_clear_last();
-    if (PHP_VERSION_ID >= 80100) {
-        $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape, $eol);
-    } else {
-        $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape);
-    }
+    $result = \fputcsv($stream, $fields, $separator, $enclosure, $escape, $eol);
 
     if ($result === false) {
         throw FilesystemException::createFromPhpError();

@@ -96,7 +96,7 @@
         "php": "^8.1"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1",
+        "phpstan/phpstan": "^2",
         "squizlabs/php_codesniffer": "^3.2",
         "phpunit/phpunit": "^10",
         "php-parallel-lint/php-parallel-lint": "^1.4"

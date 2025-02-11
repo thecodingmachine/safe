@@ -7,11 +7,11 @@ use Safe\Exceptions\FileinfoException;
 /**
  * This function closes the instance opened by finfo_open.
  *
- * @param finfo $finfo An finfo instance, returned by finfo_open.
+ * @param \finfo $finfo An finfo instance, returned by finfo_open.
  * @throws FileinfoException
  *
  */
-function finfo_close(finfo $finfo): void
+function finfo_close(\finfo $finfo): void
 {
     error_clear_last();
     $safeResult = \finfo_close($finfo);
@@ -38,12 +38,12 @@ function finfo_close(finfo $finfo): void
  *
  * Passing NULL or an empty string will be equivalent to the default
  * value.
- * @return finfo (Procedural style only)
+ * @return \finfo (Procedural style only)
  * Returns an finfo instance on success.
  * @throws FileinfoException
  *
  */
-function finfo_open(int $flags = FILEINFO_NONE, ?string $magic_database = null): finfo
+function finfo_open(int $flags = FILEINFO_NONE, ?string $magic_database = null): \finfo
 {
     error_clear_last();
     if ($magic_database !== null) {

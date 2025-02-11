@@ -14,9 +14,12 @@ class Type
         if ($type === '') {
             return false;
         }
-        if ($type === 'stdClass') {
+
+        // Non-standard lowercase classes
+        if (in_array($type, ['stdClass', 'finfo'])) {
             return true;
         }
+
         // Classes start with uppercase letters. Otherwise, it's most likely a scalar.
         if ($type[0] === strtoupper($type[0])) {
             return true;

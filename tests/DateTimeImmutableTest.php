@@ -169,7 +169,7 @@ final class DateTimeImmutableTest extends TestCase
         $this->assertEquals($safeDatetime->getTimezone(), $newDatetime->getTimezone());
     }
 
-    public function testComparaison(): void
+    public function testComparison(): void
     {
         $safeDateTime = new \Safe\DateTimeImmutable();
         $phpDateTime = new \DateTimeImmutable();

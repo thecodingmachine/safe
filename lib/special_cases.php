@@ -43,7 +43,7 @@ function json_decode(string $json, bool $associative = false, int $depth = 512, 
 }
 
 /**
- * Fetchs an entry from the cache.
+ * Fetches an entry from the cache.
  *
  * @param string|string[] $key The key used to store the value (with
  * apcu_store). If an array is passed then each

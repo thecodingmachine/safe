@@ -165,7 +165,7 @@ class PhpStanType
         $nullable = $errorType === ErrorType::NULLSY ? false : $this->nullable;
         $falsable = $errorType === ErrorType::FALSY ? false : $this->falsable;
         $types = $this->types;
-        //no typehint exists for thoses cases
+        //no typehint exists for those cases
         if (\array_intersect(self::NO_SIGNATURE_TYPES, $types) !== []) {
             return '';
         }

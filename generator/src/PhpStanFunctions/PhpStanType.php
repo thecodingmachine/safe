@@ -104,7 +104,6 @@ class PhpStanType
 
             $returnType = Type::toRootNamespace($returnType);
         }
-        sort($returnTypes);
         $this->types = array_unique($returnTypes);
         $this->nullable = $nullable;
         $this->falsable = $falsable;
@@ -150,6 +149,7 @@ class PhpStanType
         } elseif ($this->nullable && $errorType !== ErrorType::NULLSY) {
             $returnTypes[] = 'null';
         }
+        sort($returnTypes);
         $type = join('|', $returnTypes);
         if ($type === 'bool' && !$this->nullable && $errorType === ErrorType::FALSY) {
             // If the function only returns a boolean, since false is for error, true is for success.
@@ -165,7 +165,7 @@ class PhpStanType
         $nullable = $errorType === ErrorType::NULLSY ? false : $this->nullable;
         $falsable = $errorType === ErrorType::FALSY ? false : $this->falsable;
         $types = $this->types;
-        //no typehint exists for thoses cases
+        //no typehint exists for those cases
         if (\array_intersect(self::NO_SIGNATURE_TYPES, $types) !== []) {
             return '';
         }
@@ -189,6 +189,7 @@ class PhpStanType
                 $type = 'string';
             }
         }
+        sort($types);
 
         //if there are several distinct types, no typehint (we use distinct in case doc block contains several times the same type, for example array<int>|array<string>)
         if (count(array_unique($types)) > 1) {

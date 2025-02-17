@@ -53,7 +53,7 @@ function chroot(string $directory): void
  * given directory is opened.
  *
  * @param string $directory Directory to open
- * @param resource|null $context A context stream
+ * @param null|resource $context A context stream
  * resource.
  * @return \Directory Returns an instance of Directory, or FALSE in case of error.
  * @throws DirException
@@ -104,7 +104,7 @@ function getcwd(): string
  * rewinddir calls.
  *
  * @param string $directory The directory path that is to be opened
- * @param resource|null $context For a description of the context parameter,
+ * @param null|resource $context For a description of the context parameter,
  * refer to the streams section of
  * the manual.
  * @return resource Returns a directory handle resource on success
@@ -136,7 +136,7 @@ function opendir(string $directory, $context = null)
  * SCANDIR_SORT_DESCENDING, then the sort order is
  * alphabetical in descending order. If it is set to
  * SCANDIR_SORT_NONE then the result is unsorted.
- * @param resource|null $context For a description of the context parameter,
+ * @param null|resource $context For a description of the context parameter,
  * refer to the streams section of
  * the manual.
  * @return array Returns an array of filenames on success. If directory is not a directory, then

@@ -373,7 +373,7 @@ function socket_get_option(\Socket $socket, int $level, int $option)
  *
  * @param \Socket $socket A Socket instance created with socket_create
  * or socket_accept.
- * @param string|null $address If the given socket is of type AF_INET or
+ * @param null|string $address If the given socket is of type AF_INET or
  * AF_INET6, socket_getpeername
  * will return the peers (remote) IP address in
  * appropriate notation (e.g. 127.0.0.1 or
@@ -405,7 +405,7 @@ function socket_getpeername(\Socket $socket, ?string &$address, ?int &$port = nu
  *
  * @param \Socket $socket A Socket instance created with socket_create
  * or socket_accept.
- * @param string|null $address If the given socket is of type AF_INET
+ * @param null|string $address If the given socket is of type AF_INET
  * or AF_INET6, socket_getsockname
  * will return the local IP address in appropriate notation (e.g.
  * 127.0.0.1 or fe80::1) in the

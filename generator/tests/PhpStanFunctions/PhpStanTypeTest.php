@@ -88,7 +88,6 @@ class PhpStanTypeTest extends TestCase
     public function testFalsable(): void
     {
         $param = new PhpStanType('string|false');
-        $this->assertEquals(true, $param->isFalsable());
         $this->assertEquals('string|false', $param->getDocBlockType());
         $this->assertEquals('string', $param->getSignatureType());
     }

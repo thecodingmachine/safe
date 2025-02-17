@@ -186,11 +186,11 @@ function date_sun_info(int $timestamp, float $latitude, float $longitude): array
  *
  *
  *
- * @param float $latitude Defaults to North, pass in a negative value for South.
+ * @param float|null $latitude Defaults to North, pass in a negative value for South.
  * See also: date.default_latitude
- * @param float $longitude Defaults to East, pass in a negative value for West.
+ * @param float|null $longitude Defaults to East, pass in a negative value for West.
  * See also: date.default_longitude
- * @param float $zenith zenith is the angle between the center of the sun
+ * @param float|null $zenith zenith is the angle between the center of the sun
  * and a line perpendicular to earth's surface. It defaults to
  * date.sunrise_zenith
  *
@@ -222,7 +222,7 @@ function date_sun_info(int $timestamp, float $latitude, float $longitude): array
  *
  *
  *
- * @param float $utcOffset Specified in hours.
+ * @param float|null $utcOffset Specified in hours.
  * The utcOffset is ignored, if
  * returnFormat is
  * SUNFUNCS_RET_TIMESTAMP.
@@ -289,11 +289,11 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, ?
  *
  *
  *
- * @param float $latitude Defaults to North, pass in a negative value for South.
+ * @param float|null $latitude Defaults to North, pass in a negative value for South.
  * See also: date.default_latitude
- * @param float $longitude Defaults to East, pass in a negative value for West.
+ * @param float|null $longitude Defaults to East, pass in a negative value for West.
  * See also: date.default_longitude
- * @param float $zenith zenith is the angle between the center of the sun
+ * @param float|null $zenith zenith is the angle between the center of the sun
  * and a line perpendicular to earth's surface. It defaults to
  * date.sunset_zenith
  *
@@ -325,7 +325,7 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, ?
  *
  *
  *
- * @param float $utcOffset Specified in hours.
+ * @param float|null $utcOffset Specified in hours.
  * The utcOffset is ignored, if
  * returnFormat is
  * SUNFUNCS_RET_TIMESTAMP.
@@ -364,7 +364,7 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, ?f
  * is optional and defaults to the value of time.
  *
  * @param string $format Format accepted by DateTimeInterface::format.
- * @param int $timestamp The optional timestamp parameter is an
+ * @param int|null $timestamp The optional timestamp parameter is an
  * int Unix timestamp that defaults to the current
  * local time if timestamp is omitted or NULL. In other
  * words, it defaults to the value of time.
@@ -402,21 +402,21 @@ function date(string $format, ?int $timestamp = null): string
  * month, day and year.
  * Negative values reference the hour before midnight of the day in question.
  * Values greater than 23 reference the appropriate hour in the following day(s).
- * @param int $minute The number of the minute relative to the start of the hour.
+ * @param int|null $minute The number of the minute relative to the start of the hour.
  * Negative values reference the minute in the previous hour.
  * Values greater than 59 reference the appropriate minute in the following hour(s).
- * @param int $second The number of seconds relative to the start of the minute.
+ * @param int|null $second The number of seconds relative to the start of the minute.
  * Negative values reference the second in the previous minute.
  * Values greater than 59 reference the appropriate second in the following minute(s).
- * @param int $month The number of the month relative to the end of the previous year.
+ * @param int|null $month The number of the month relative to the end of the previous year.
  * Values 1 to 12 reference the normal calendar months of the year in question.
  * Values less than 1 (including negative values) reference the months in the previous year in reverse order, so 0 is December, -1 is November, etc.
  * Values greater than 12 reference the appropriate month in the following year(s).
- * @param int $day The number of the day relative to the end of the previous month.
+ * @param int|null $day The number of the day relative to the end of the previous month.
  * Values 1 to 28, 29, 30 or 31 (depending upon the month) reference the normal days in the relevant month.
  * Values less than 1 (including negative values) reference the days in the previous month, so 0 is the last day of the previous month, -1 is the day before that, etc.
  * Values greater than the number of days in the relevant month reference the appropriate day in the following month(s).
- * @param int $year The year
+ * @param int|null $year The year
  * @return int Returns a int Unix timestamp on success.
  * @throws DatetimeException
  *
@@ -452,7 +452,7 @@ function gmmktime(int $hour, ?int $minute = null, ?int $second = null, ?int $mon
  * 01:00:00".
  *
  * @param string $format See description in strftime.
- * @param int $timestamp The optional timestamp parameter is an
+ * @param int|null $timestamp The optional timestamp parameter is an
  * int Unix timestamp that defaults to the current
  * local time if timestamp is omitted or NULL. In other
  * words, it defaults to the value of time.
@@ -575,7 +575,7 @@ function gmstrftime(string $format, ?int $timestamp = null): string
  *
  *
  *
- * @param int $timestamp The optional timestamp parameter is an
+ * @param int|null $timestamp The optional timestamp parameter is an
  * int Unix timestamp that defaults to the current
  * local time if timestamp is omitted or NULL. In other
  * words, it defaults to the value of time.
@@ -616,21 +616,21 @@ function idate(string $format, ?int $timestamp = null): int
  * month, day and year.
  * Negative values reference the hour before midnight of the day in question.
  * Values greater than 23 reference the appropriate hour in the following day(s).
- * @param int $minute The number of the minute relative to the start of the hour.
+ * @param int|null $minute The number of the minute relative to the start of the hour.
  * Negative values reference the minute in the previous hour.
  * Values greater than 59 reference the appropriate minute in the following hour(s).
- * @param int $second The number of seconds relative to the start of the minute.
+ * @param int|null $second The number of seconds relative to the start of the minute.
  * Negative values reference the second in the previous minute.
  * Values greater than 59 reference the appropriate second in the following minute(s).
- * @param int $month The number of the month relative to the end of the previous year.
+ * @param int|null $month The number of the month relative to the end of the previous year.
  * Values 1 to 12 reference the normal calendar months of the year in question.
  * Values less than 1 (including negative values) reference the months in the previous year in reverse order, so 0 is December, -1 is November, etc.
  * Values greater than 12 reference the appropriate month in the following year(s).
- * @param int $day The number of the day relative to the end of the previous month.
+ * @param int|null $day The number of the day relative to the end of the previous month.
  * Values 1 to 28, 29, 30 or 31 (depending upon the month) reference the normal days in the relevant month.
  * Values less than 1 (including negative values) reference the days in the previous month, so 0 is the last day of the previous month, -1 is the day before that, etc.
  * Values greater than the number of days in the relevant month reference the appropriate day in the following month(s).
- * @param int $year The number of the year, may be a two or four digit value,
+ * @param int|null $year The number of the year, may be a two or four digit value,
  * with values between 0-69 mapping to 2000-2069 and 70-100 to
  * 1970-2000. On systems where time_t is a 32bit signed integer, as
  * most common today, the valid range for year
@@ -957,7 +957,7 @@ function mktime(int $hour, ?int $minute = null, ?int $second = null, ?int $month
  *
  * The %z and %Z modifiers both
  * return the time zone name instead of the offset or abbreviation.
- * @param int $timestamp The optional timestamp parameter is an
+ * @param int|null $timestamp The optional timestamp parameter is an
  * int Unix timestamp that defaults to the current
  * local time if timestamp is omitted or NULL. In other
  * words, it defaults to the value of time.
@@ -1078,7 +1078,7 @@ function strptime(string $timestamp, string $format): array
  * ways to define the default time zone.
  *
  * @param string $datetime A date/time string. Valid formats are explained in Date and Time Formats.
- * @param int $baseTimestamp The timestamp which is used as a base for the calculation of relative
+ * @param int|null $baseTimestamp The timestamp which is used as a base for the calculation of relative
  * dates.
  * @return int Returns a timestamp on success.
  * @throws DatetimeException

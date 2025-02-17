@@ -178,7 +178,7 @@ function proc_nice(int $priority): void
  * PHP process)
  * @param array|null $env_vars An array with the environment variables for the command that will be
  * run, or NULL to use the same environment as the current PHP process
- * @param array $options Allows you to specify additional options. Currently supported options
+ * @param array|null $options Allows you to specify additional options. Currently supported options
  * include:
  *
  *

@@ -763,7 +763,7 @@ function pg_lo_unlink(\PgSql\Connection $connection, int $oid): void
  * @param string $data The data to be written to the large object.  If length is
  * an int and is less than the length of data, only
  * length bytes will be written.
- * @param int $length An optional maximum number of bytes to write.  Must be greater than zero
+ * @param int|null $length An optional maximum number of bytes to write.  Must be greater than zero
  * and no greater than the length of data.  Defaults to
  * the length of data.
  * @return int The number of bytes written to the large object.

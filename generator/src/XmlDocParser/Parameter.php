@@ -16,10 +16,20 @@ class Parameter
         ?PhpStanFunction $phpStanFunction,
         int $position
     ) {
-        $this->type = PhpStanType::selectMostUsefulType(
+        $type = PhpStanType::selectMostUsefulType(
             $phpStanFunction?->getParameter($this->getParameterName(), $position)?->getType(),
             new PhpStanType($this->parameter->type)
         );
+        // If the docs say that the type defaults to null, then force it to
+        // be nullable, even if the docs and phpstan both say it's not...
+        if(
+            $this->getDefaultValue() === "null"
+            && !str_contains($type->getDocBlockType(), "null")
+            && !str_contains($type->getDocBlockType(), "mixed")
+        ) {
+            $type = new PhpStanType($type->getDocBlockType() . "|null");
+        }
+        $this->type = $type;
     }
 
     /**
@@ -77,15 +87,6 @@ class Parameter
     public function isVariadic(): bool
     {
         return ((string)$this->parameter['rep']) === 'repeat';
-    }
-
-    public function isNullable(): bool
-    {
-        if ($this->type->isNullable()) {
-            return true;
-        }
-
-        return ($this->getDefaultValue() === "null");
     }
 
     /*

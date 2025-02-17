@@ -33,7 +33,7 @@ function pcntl_getcpuaffinity(?int $pid = null)
  * system types and kernel versions, please see your system's getpriority(2)
  * man page for specific details.
  *
- * @param int $process_id If NULL, the process id of the current process is used.
+ * @param int|null $process_id If NULL, the process id of the current process is used.
  * @param int $mode One of PRIO_PGRP, PRIO_USER,
  * PRIO_PROCESS,
  * PRIO_DARWIN_BG or PRIO_DARWIN_THREAD.
@@ -93,7 +93,7 @@ function pcntl_setcpuaffinity(?int $pid = null, ?array $hmask = null): void
  * favorable scheduling.  Because priority levels can differ between
  * system types and kernel versions, please see your system's setpriority(2)
  * man page for specific details.
- * @param int $process_id If NULL, the process id of the current process is used.
+ * @param int|null $process_id If NULL, the process id of the current process is used.
  * @param int $mode One of PRIO_PGRP, PRIO_USER,
  * PRIO_PROCESS,
  * PRIO_DARWIN_BG or PRIO_DARWIN_THREAD.

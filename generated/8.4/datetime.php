@@ -150,11 +150,11 @@ function date_parse_from_format(string $format, string $datetime): ?array
  *
  *
  *
- * @param float $latitude Defaults to North, pass in a negative value for South.
+ * @param float|null $latitude Defaults to North, pass in a negative value for South.
  * See also: date.default_latitude
- * @param float $longitude Defaults to East, pass in a negative value for West.
+ * @param float|null $longitude Defaults to East, pass in a negative value for West.
  * See also: date.default_longitude
- * @param float $zenith zenith is the angle between the center of the sun
+ * @param float|null $zenith zenith is the angle between the center of the sun
  * and a line perpendicular to earth's surface. It defaults to
  * date.sunrise_zenith
  *
@@ -186,7 +186,7 @@ function date_parse_from_format(string $format, string $datetime): ?array
  *
  *
  *
- * @param float $utcOffset Specified in hours.
+ * @param float|null $utcOffset Specified in hours.
  * The utcOffset is ignored, if
  * returnFormat is
  * SUNFUNCS_RET_TIMESTAMP.
@@ -253,11 +253,11 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, ?
  *
  *
  *
- * @param float $latitude Defaults to North, pass in a negative value for South.
+ * @param float|null $latitude Defaults to North, pass in a negative value for South.
  * See also: date.default_latitude
- * @param float $longitude Defaults to East, pass in a negative value for West.
+ * @param float|null $longitude Defaults to East, pass in a negative value for West.
  * See also: date.default_longitude
- * @param float $zenith zenith is the angle between the center of the sun
+ * @param float|null $zenith zenith is the angle between the center of the sun
  * and a line perpendicular to earth's surface. It defaults to
  * date.sunset_zenith
  *
@@ -289,7 +289,7 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, ?
  *
  *
  *
- * @param float $utcOffset Specified in hours.
+ * @param float|null $utcOffset Specified in hours.
  * The utcOffset is ignored, if
  * returnFormat is
  * SUNFUNCS_RET_TIMESTAMP.
@@ -329,7 +329,7 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, ?f
  * 01:00:00".
  *
  * @param string $format See description in strftime.
- * @param int $timestamp The optional timestamp parameter is an
+ * @param int|null $timestamp The optional timestamp parameter is an
  * int Unix timestamp that defaults to the current
  * local time if timestamp is omitted or NULL. In other
  * words, it defaults to the value of time.
@@ -461,7 +461,7 @@ function gmstrftime(string $format, ?int $timestamp = null): string
  *
  *
  *
- * @param int $timestamp The optional timestamp parameter is an
+ * @param int|null $timestamp The optional timestamp parameter is an
  * int Unix timestamp that defaults to the current
  * local time if timestamp is omitted or NULL. In other
  * words, it defaults to the value of time.
@@ -776,7 +776,7 @@ function idate(string $format, ?int $timestamp = null): int
  *
  * The %z and %Z modifiers both
  * return the time zone name instead of the offset or abbreviation.
- * @param int $timestamp The optional timestamp parameter is an
+ * @param int|null $timestamp The optional timestamp parameter is an
  * int Unix timestamp that defaults to the current
  * local time if timestamp is omitted or NULL. In other
  * words, it defaults to the value of time.
@@ -897,7 +897,7 @@ function strptime(string $timestamp, string $format): array
  * ways to define the default time zone.
  *
  * @param string $datetime A date/time string. Valid formats are explained in Date and Time Formats.
- * @param int $baseTimestamp The timestamp which is used as a base for the calculation of relative
+ * @param int|null $baseTimestamp The timestamp which is used as a base for the calculation of relative
  * dates.
  * @return int Returns a timestamp on success.
  * @throws DatetimeException

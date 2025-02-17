@@ -132,7 +132,7 @@ function com_load_typelib(string $typelib, bool $case_insensitive = true): void
  * @param object $variant variant should be either an instance of a COM
  * object, or be the name of a typelibrary (which will be resolved according
  * to the rules set out in com_load_typelib).
- * @param string $dispatch_interface The name of an IDispatch descendant interface that you want to display.
+ * @param null|string $dispatch_interface The name of an IDispatch descendant interface that you want to display.
  * @param bool $display_sink If set to TRUE, the corresponding sink interface will be displayed
  * instead.
  * @throws ComException

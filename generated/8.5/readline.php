@@ -26,7 +26,7 @@ function readline_completion_function(callable $callback): void
 /**
  * This function reads a command history from a file.
  *
- * @param string $filename Path to the filename containing the command history.
+ * @param null|string $filename Path to the filename containing the command history.
  * @throws ReadlineException
  *
  */
@@ -47,7 +47,7 @@ function readline_read_history(?string $filename = null): void
 /**
  * This function writes the command history to a file.
  *
- * @param string $filename Path to the saved file.
+ * @param null|string $filename Path to the saved file.
  * @throws ReadlineException
  *
  */

@@ -43,7 +43,7 @@ function ldap_8859_to_t61(string $value): string
  * ]]>
  *
  *
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param array|null $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
@@ -94,7 +94,7 @@ function ldap_bind(\LDAP\Connection $ldap, ?string $dn = null, ?string $password
  * @param string $dn The distinguished name of an LDAP entity.
  * @param string $attribute The attribute name.
  * @param string $value The compared value.
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param array|null $controls Array of LDAP Controls to send with the request.
  * @return bool Returns TRUE if value matches otherwise returns
  * FALSE.
  * @throws LdapException
@@ -184,7 +184,7 @@ function ldap_count_entries(\LDAP\Connection $ldap, \LDAP\Result $result): int
  *
  * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param array|null $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
@@ -229,7 +229,7 @@ function ldap_dn2ufn(string $dn): string
  * @param string $user dn of the user to change the password of.
  * @param string $old_password The old password of this user. May be ommited depending of server configuration.
  * @param string $new_password The new password for this user. May be omitted or empty to have a generated password.
- * @param array $controls If provided, a password policy request control is send with the request and this is
+ * @param array|null $controls If provided, a password policy request control is send with the request and this is
  * filled with an array of LDAP Controls
  * returned with the request.
  * @return bool|string Returns the generated password if new_password is empty or omitted.
@@ -274,7 +274,7 @@ function ldap_exop_whoami(\LDAP\Connection $ldap)
  *
  * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param string $request_oid The extended operation request OID. You may use one of LDAP_EXOP_START_TLS, LDAP_EXOP_MODIFY_PASSWD, LDAP_EXOP_REFRESH, LDAP_EXOP_WHO_AM_I, LDAP_EXOP_TURN, or a string with the OID of the operation you want to send.
- * @param string $request_data The extended operation request data. May be NULL for some operations like LDAP_EXOP_WHO_AM_I, may also need to be BER encoded.
+ * @param null|string $request_data The extended operation request data. May be NULL for some operations like LDAP_EXOP_WHO_AM_I, may also need to be BER encoded.
  * @param array|null $controls Array of LDAP Controls to send with the request.
  * @param null|string $response_data Will be filled with the extended operation response data if provided.
  * If not provided you may use ldap_parse_exop on the result object
@@ -763,7 +763,7 @@ function ldap_get_values(\LDAP\Connection $ldap, \LDAP\ResultEntry $entry, strin
  * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
  * @param array $entry An associative array listing the attirbute values to add. If an attribute was not existing yet it will be added. If an attribute is existing you can only add values to it if it supports multiple values.
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param array|null $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
@@ -789,7 +789,7 @@ function ldap_mod_add(\LDAP\Connection $ldap, string $dn, array $entry, ?array $
  * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
  * @param array $entry
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param array|null $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
@@ -814,7 +814,7 @@ function ldap_mod_del(\LDAP\Connection $ldap, string $dn, array $entry, ?array $
  * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param string $dn The distinguished name of an LDAP entity.
  * @param array $entry An associative array listing the attributes to replace. Sending an empty array as value will remove the attribute, while sending an attribute not existing yet on this entry will add it.
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param array|null $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
@@ -911,7 +911,7 @@ function ldap_mod_replace(\LDAP\Connection $ldap, string $dn, array $entry, ?arr
  * value for values must be an array of strings, and
  * any value for modtype must be one of the
  * LDAP_MODIFY_BATCH_* constants listed above.
- * @param array $controls Each value specified through values is added (as
+ * @param array|null $controls Each value specified through values is added (as
  * an additional value) to the attribute named by
  * attrib.
  * @throws LdapException
@@ -1012,7 +1012,7 @@ function ldap_parse_result(\LDAP\Connection $ldap, \LDAP\Result $result, ?int &$
  * @param string $new_parent The new parent/superior entry.
  * @param bool $delete_old_rdn If TRUE the old RDN value(s) is removed, else the old RDN value(s)
  * is retained as non-distinguished values of the entry.
- * @param array $controls Array of LDAP Controls to send with the request.
+ * @param array|null $controls Array of LDAP Controls to send with the request.
  * @throws LdapException
  *
  */
@@ -1034,13 +1034,13 @@ function ldap_rename(\LDAP\Connection $ldap, string $dn, string $new_rdn, string
  *
  *
  * @param \LDAP\Connection $ldap
- * @param string $dn
- * @param string $password
- * @param string $mech
- * @param string $realm
- * @param string $authc_id
- * @param string $authz_id
- * @param string $props
+ * @param null|string $dn
+ * @param null|string $password
+ * @param null|string $mech
+ * @param null|string $realm
+ * @param null|string $authc_id
+ * @param null|string $authz_id
+ * @param null|string $props
  * @throws LdapException
  *
  */

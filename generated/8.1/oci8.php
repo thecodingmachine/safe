@@ -389,7 +389,7 @@ function oci_commit($connection): void
  *
  * @param string $username The Oracle user name.
  * @param string $password The password for username.
- * @param string $connection_string Contains
+ * @param null|string $connection_string Contains
  * the Oracle instance to connect to. It can be
  * an Easy Connect
  * string, or a Connect Name from
@@ -780,7 +780,7 @@ function oci_free_statement($statement): void
  * @param resource $connection An Oracle connection identifier, returned by
  * oci_connect or oci_pconnect.
  * @param string $type_name Should be a valid named type (uppercase).
- * @param string $schema Should point to the scheme, where the named type was created. The name
+ * @param null|string $schema Should point to the scheme, where the named type was created. The name
  * of the current user is used when NULL is passed.
  * @return \OCI-Collection Returns a new OCICollection object.
  * @throws Oci8Exception
@@ -812,7 +812,7 @@ function oci_new_collection($connection, string $type_name, ?string $schema = nu
  *
  * @param string $username The Oracle user name.
  * @param string $password The password for username.
- * @param string $connection_string Contains
+ * @param null|string $connection_string Contains
  * the Oracle instance to connect to. It can be
  * an Easy Connect
  * string, or a Connect Name from
@@ -1015,7 +1015,7 @@ function oci_parse($connection, string $sql)
  *
  * @param string $username The Oracle user name.
  * @param string $password The password for username.
- * @param string $connection_string Contains
+ * @param null|string $connection_string Contains
  * the Oracle instance to connect to. It can be
  * an Easy Connect
  * string, or a Connect Name from

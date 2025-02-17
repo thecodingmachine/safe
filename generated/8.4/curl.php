@@ -77,7 +77,7 @@ function curl_exec(\CurlHandle $handle)
  *
  * @param \CurlHandle $handle A cURL handle returned by
  * curl_init.
- * @param int $option One of the CURLINFO_* constants.
+ * @param int|null $option One of the CURLINFO_* constants.
  * @return mixed If option is given, returns its value.
  * Otherwise, returns an associative array with the following elements
  * (which correspond to option):
@@ -246,7 +246,7 @@ function curl_getinfo(\CurlHandle $handle, ?int $option = null)
 /**
  * Initializes a new session and returns a cURL handle.
  *
- * @param string $url If provided, the CURLOPT_URL option will be set
+ * @param null|string $url If provided, the CURLOPT_URL option will be set
  * to its value. This can be set manually using the
  * curl_setopt function.
  *

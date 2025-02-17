@@ -9,7 +9,7 @@ use Safe\Exceptions\GettextException;
  * for a domain.
  *
  * @param string $domain The domain.
- * @param string $directory The directory path.
+ * @param null|string $directory The directory path.
  * An empty string means the current directory.
  * If NULL, the currently set directory is returned.
  * @return string The full pathname for the domain currently being set.

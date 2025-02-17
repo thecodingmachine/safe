@@ -87,7 +87,7 @@ function class_uses($object_or_class, bool $autoload = true): array
  * runs through each of them in the order they are defined. By contrast,
  * __autoload may only be defined once.
  *
- * @param callable(string):void $callback The autoload function being registered.
+ * @param callable(string):void|null $callback The autoload function being registered.
  * If NULL, then the default implementation of
  * spl_autoload will be registered.
  *

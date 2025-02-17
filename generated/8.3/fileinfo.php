@@ -30,7 +30,7 @@ function finfo_close(\finfo $finfo): void
  *
  * @param int $flags One or disjunction of more Fileinfo
  * constants.
- * @param string $magic_database Name of a magic database file, usually something like
+ * @param null|string $magic_database Name of a magic database file, usually something like
  * /path/to/magic.mime. If not specified, the
  * MAGIC environment variable is used. If the
  * environment variable isn't set, then PHP's bundled magic database will

@@ -227,7 +227,7 @@ function sapi_windows_set_ctrl_handler(?callable $handler, bool $add = true): vo
  * They allow the modification of the terminal's output. On Windows these sequences are called Console Virtual Terminal Sequences.
  *
  * @param resource $stream The stream on which the function will operate.
- * @param bool $enable If bool, the VT100 feature will be enabled (if TRUE) or disabled (if FALSE).
+ * @param bool|null $enable If bool, the VT100 feature will be enabled (if TRUE) or disabled (if FALSE).
  * @throws MiscException
  *
  */

@@ -57,9 +57,9 @@ use Safe\Exceptions\ErrorfuncException;
  *
  *
  *
- * @param string $destination The destination. Its meaning depends on the
+ * @param null|string $destination The destination. Its meaning depends on the
  * message_type parameter as described above.
- * @param string $additional_headers The extra headers. It's used when the message_type
+ * @param null|string $additional_headers The extra headers. It's used when the message_type
  * parameter is set to 1.
  * This message type uses the same internal function as
  * mail does.

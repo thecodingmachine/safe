@@ -76,7 +76,7 @@ function iconv_get_encoding(string $type = "all")
  *
  *
  *
- * @param string $encoding The optional encoding parameter specifies the
+ * @param null|string $encoding The optional encoding parameter specifies the
  * character set to represent the result by. If omitted or NULL,
  * iconv.internal_encoding
  * will be used.
@@ -249,7 +249,7 @@ function iconv_set_encoding(string $type, string $encoding): void
  * identical to the length of the string in byte.
  *
  * @param string $string The string.
- * @param string $encoding If encoding parameter is omitted or NULL,
+ * @param null|string $encoding If encoding parameter is omitted or NULL,
  * string is assumed to be encoded in
  * iconv.internal_encoding.
  * @return int Returns the character count of string, as an integer,

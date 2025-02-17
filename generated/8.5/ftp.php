@@ -10,7 +10,7 @@ use Safe\Exceptions\FtpException;
  *
  * @param \FTP\Connection $ftp An FTP\Connection instance.
  * @param int $size The number of bytes to allocate.
- * @param string|null $response A textual representation of the servers response will be returned by
+ * @param null|string $response A textual representation of the servers response will be returned by
  * reference in response if a variable is provided.
  * @throws FtpException
  *

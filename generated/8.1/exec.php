@@ -140,9 +140,9 @@ function proc_nice(int $priority): void
  * passing passphrases to programs like PGP, GPG and openssl in a more
  * secure manner. It is also useful for reading status information
  * provided by those programs on auxiliary file descriptors.
- * @param resource[]|null $pipes Will be set to an indexed array of file pointers that correspond to
+ * @param null|resource[] $pipes Will be set to an indexed array of file pointers that correspond to
  * PHP's end of any pipes that are created.
- * @param string|null $cwd The initial working dir for the command. This must be an
+ * @param null|string $cwd The initial working dir for the command. This must be an
  * absolute directory path, or NULL
  * if you want to use the default value (the working dir of the current
  * PHP process)
@@ -201,7 +201,7 @@ function proc_open(string $cmd, array $descriptorspec, ?array &$pipes, ?string $
  * This function is identical to the backtick operator.
  *
  * @param string $command The command that will be executed.
- * @return string|null A string containing the output from the executed command or NULL if an error occurs or the command produces no output.
+ * @return null|string A string containing the output from the executed command or NULL if an error occurs or the command produces no output.
  * @throws ExecException
  *
  */

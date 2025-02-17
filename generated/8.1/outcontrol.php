@@ -151,7 +151,7 @@ function ob_get_clean(): string
  * If output buffering is still active when the script ends, PHP outputs the
  * contents automatically.
  *
- * @param array|callable|string|null $callback An optional callback function may be
+ * @param array|callable|null|string $callback An optional callback function may be
  * specified. This function takes a string as a parameter and should
  * return a string. The function will be called when
  * the output buffer is flushed (sent) or cleaned (with

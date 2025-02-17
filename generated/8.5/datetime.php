@@ -41,7 +41,7 @@ function date_create_immutable(string $datetime = "now", ?\DateTimeZone $timezon
  * FALSE instead of an exception if the passed in
  * datetime string is invalid.
  *
- * @param string|null $datetime
+ * @param null|string $datetime
  * @param \DateTimeZone|null $timezone
  * @return \DateTime Returns a new DateTime instance
  * @throws DatetimeException

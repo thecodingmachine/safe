@@ -48,7 +48,7 @@ function openssl_cipher_key_length(string $cipher_algo): int
  * @param string $input_filename The name of a file containing encrypted content.
  * @param string $output_filename The name of the file to deposit the decrypted content.
  * @param \OpenSSLCertificate|string $certificate The name of the file containing a certificate of the recipient.
- * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string|null $private_key The name of the file containing a PKCS#8 key.
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|null|string $private_key The name of the file containing a PKCS#8 key.
  * @param int $encoding The encoding of the input file. One of OPENSSL_ENCODING_SMIME,
  * OPENSSL_ENCODING_DER or OPENSSL_ENCODING_PEM.
  * @throws OpensslException
@@ -126,7 +126,7 @@ function openssl_cms_read(string $input_filename, array &$certificates): void
  * @param int $flags Flags to be passed to cms_sign.
  * @param int $encoding The encoding of the output file. One of OPENSSL_ENCODING_SMIME,
  * OPENSSL_ENCODING_DER or OPENSSL_ENCODING_PEM.
- * @param string|null $untrusted_certificates_filename Intermediate certificates to be included in the signature.
+ * @param null|string $untrusted_certificates_filename Intermediate certificates to be included in the signature.
  * @throws OpensslException
  *
  */
@@ -149,12 +149,12 @@ function openssl_cms_sign(string $input_filename, string $output_filename, $cert
  *
  * @param string $input_filename The input file.
  * @param int $flags Flags to pass to cms_verify.
- * @param string|null $certificates A file with the signer certificate and optionally intermediate certificates.
+ * @param null|string $certificates A file with the signer certificate and optionally intermediate certificates.
  * @param array $ca_info An array containing self-signed certificate authority certificates.
- * @param string|null $untrusted_certificates_filename A file containing additional intermediate certificates.
- * @param string|null $content A file pointing to the content when signatures are detached.
- * @param string|null $pk7
- * @param string|null $sigfile A file to save the signature to.
+ * @param null|string $untrusted_certificates_filename A file containing additional intermediate certificates.
+ * @param null|string $content A file pointing to the content when signatures are detached.
+ * @param null|string $pk7
+ * @param null|string $sigfile A file to save the signature to.
  * @param int $encoding The encoding of the input file. One of OPENSSL_ENCODING_SMIME,
  * OPENSSL_ENCODING_DER or OPENSSL_ENCODING_PEM.
  * @throws OpensslException
@@ -219,7 +219,7 @@ function openssl_csr_export_to_file($csr, string $output_filename, bool $no_text
  * reference.
  *
  * @param \OpenSSLCertificateSigningRequest|string $csr See CSR parameters for a list of valid values.
- * @param string|null $output on success, this string will contain the PEM
+ * @param null|string $output on success, this string will contain the PEM
  * encoded CSR
  * @param bool $no_text
  * The optional parameter notext affects
@@ -422,7 +422,7 @@ function openssl_csr_new(array $distinguished_names, ?\OpenSSLAsymmetricKey &$pr
  * It can also be the path to a PEM encoded CSR when specified as
  * file://path/to/csr or an exported string generated
  * by openssl_csr_export.
- * @param \OpenSSLCertificate|string|null $ca_certificate The generated certificate will be signed by ca_certificate.
+ * @param \OpenSSLCertificate|null|string $ca_certificate The generated certificate will be signed by ca_certificate.
  * If ca_certificate is NULL, the generated certificate
  * will be a self-signed certificate.
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key private_key is the private key that corresponds to
@@ -434,7 +434,7 @@ function openssl_csr_new(array $distinguished_names, ?\OpenSSLAsymmetricKey &$pr
  * options.
  * @param int $serial An optional the serial number of issued certificate. If not specified
  * it will default to 0.
- * @param string|null $serial_hex
+ * @param null|string $serial_hex
  * @return \OpenSSLCertificate Returns an OpenSSLCertificate on success.
  * @throws OpensslException
  *
@@ -614,7 +614,7 @@ function openssl_get_curve_names(): array
  * associated with the private key. See openssl_seal for more information.
  *
  * @param string $data The sealed data.
- * @param string|null $output If the call is successful the opened data is returned in this parameter.
+ * @param null|string $output If the call is successful the opened data is returned in this parameter.
  * @param string $encrypted_key The encrypted symmetric key that can be decrypted using private_key.
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key The private key used for decrypting encrypted_key.
  * @param string $cipher_algo The cipher method used for decryption of data.
@@ -723,7 +723,7 @@ function openssl_pkcs12_export_to_file($certificate, string $output_filename, $p
  * output in a PKCS#12 file format.
  *
  * @param \OpenSSLCertificate|string $certificate See Key/Certificate parameters for a list of valid values.
- * @param string|null $output On success, this will hold the PKCS#12.
+ * @param null|string $output On success, this will hold the PKCS#12.
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key Private key component of PKCS#12 file.
  * See Public/Private Key parameters for a list of valid values.
  * @param string $passphrase Encryption password for unlocking the PKCS#12 file.
@@ -792,7 +792,7 @@ function openssl_pkcs12_read(string $pkcs12, ?array &$certificates, string $pass
  * @param string $output_filename The decrypted message is written to the file specified by
  * output_filename.
  * @param \OpenSSLCertificate|string $certificate
- * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string|null $private_key
+ * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|null|string $private_key
  * @throws OpensslException
  *
  */
@@ -929,7 +929,7 @@ function openssl_pkey_derive($public_key, $private_key, int $key_length = 0): st
  *
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $key
  * @param string $output_filename Path to the output file.
- * @param string|null $passphrase The key can be optionally protected by a
+ * @param null|string $passphrase The key can be optionally protected by a
  * passphrase.
  * @param array $options options can be used to fine-tune the export
  * process by specifying and/or overriding options for the openssl
@@ -960,8 +960,8 @@ function openssl_pkey_export_to_file($key, string $output_filename, ?string $pas
  * output (which is passed by reference).
  *
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $key
- * @param string|null $output
- * @param string|null $passphrase The key is optionally protected by passphrase.
+ * @param null|string $output
+ * @param null|string $passphrase The key is optionally protected by passphrase.
  * @param array $options options can be used to fine-tune the export
  * process by specifying and/or overriding options for the openssl
  * configuration file.  See openssl_csr_new for more
@@ -1027,7 +1027,7 @@ function openssl_pkey_get_details(\OpenSSLAsymmetricKey $key): array
  *
  * A PEM formatted private key.
  *
- * @param string|null $passphrase The optional parameter passphrase must be used
+ * @param null|string $passphrase The optional parameter passphrase must be used
  * if the specified key is encrypted (protected by a passphrase).
  * @return \OpenSSLAsymmetricKey Returns an OpenSSLAsymmetricKey instance on success.
  * @throws OpensslException
@@ -1116,7 +1116,7 @@ function openssl_pkey_new(?array $options = null): \OpenSSLAsymmetricKey
  * You can use this function e.g. to decrypt data which is supposed to only be available to you.
  *
  * @param string $data
- * @param string|null $decrypted_data
+ * @param null|string $decrypted_data
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key private_key must be the private key that corresponds
  * to the public key that was used to encrypt the data.
  * @param int $padding padding can be one of
@@ -1147,7 +1147,7 @@ function openssl_private_decrypt(string $data, ?string &$decrypted_data, $privat
  * is not written by someone else.
  *
  * @param string $data
- * @param string|null $encrypted_data
+ * @param null|string $encrypted_data
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key private_key must be the private key that corresponds
  * to the public key that will be used to decrypt the data.
  * @param int $padding padding can be one of
@@ -1176,7 +1176,7 @@ function openssl_private_encrypt(string $data, ?string &$encrypted_data, $privat
  * owner of the private key.
  *
  * @param string $data
- * @param string|null $decrypted_data
+ * @param null|string $decrypted_data
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $public_key public_key must be the public key that corresponds
  * to the private key that was used to encrypt the data.
  * @param int $padding padding can be one of
@@ -1206,7 +1206,7 @@ function openssl_public_decrypt(string $data, ?string &$decrypted_data, $public_
  * in database.
  *
  * @param string $data
- * @param string|null $encrypted_data This will hold the result of the encryption.
+ * @param null|string $encrypted_data This will hold the result of the encryption.
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $public_key public_key must be the public key that corresponds
  * to the private key that will be used to decrypt the data.
  * @param int $padding padding can be one of
@@ -1238,7 +1238,7 @@ function openssl_public_encrypt(string $data, ?string &$encrypted_data, $public_
  * iv.
  *
  * @param string $data The data to seal.
- * @param string|null $sealed_data The sealed data.
+ * @param null|string $sealed_data The sealed data.
  * @param array|null $encrypted_keys Array of encrypted keys.
  * @param array $public_key Array of OpenSSLAsymmetricKey instances containing public keys.
  * @param string $cipher_algo The cipher method.
@@ -1249,7 +1249,7 @@ function openssl_public_encrypt(string $data, ?string &$encrypted_data, $public_
  * method.
  *
  *
- * @param string|null $iv The initialization vector for decryption of data. It is required if
+ * @param null|string $iv The initialization vector for decryption of data. It is required if
  * the cipher method requires IV. This can be found out by calling
  * openssl_cipher_iv_length with cipher_algo.
  * @return int Returns the length of the sealed data on success.
@@ -1278,7 +1278,7 @@ function openssl_seal(string $data, ?string &$sealed_data, ?array &$encrypted_ke
  * not encrypted.
  *
  * @param string $data The string of data you wish to sign
- * @param string|null $signature If the call was successful the signature is returned in
+ * @param null|string $signature If the call was successful the signature is returned in
  * signature.
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $private_key OpenSSLAsymmetricKey - a key, returned by openssl_get_privatekey
  *
@@ -1303,7 +1303,7 @@ function openssl_sign(string $data, ?string &$signature, $private_key, $algorith
  * Exports challenge from encoded signed public key and challenge
  *
  * @param string $spki Expects a valid signed public key and challenge
- * @return string|null Returns the associated challenge string.
+ * @return null|string Returns the associated challenge string.
  * @throws OpensslException
  *
  */
@@ -1322,7 +1322,7 @@ function openssl_spki_export_challenge(string $spki): ?string
  * Exports PEM formatted public key from encoded signed public key and challenge
  *
  * @param string $spki Expects a valid signed public key and challenge
- * @return string|null Returns the associated PEM formatted public key.
+ * @return null|string Returns the associated PEM formatted public key.
  * @throws OpensslException
  *
  */
@@ -1347,7 +1347,7 @@ function openssl_spki_export(string $spki): ?string
  * CSR.
  * @param string $challenge The challenge associated to associate with the SPKAC
  * @param int $digest_algo The digest algorithm. See openssl_get_md_method().
- * @return string|null Returns a signed public key and challenge string.
+ * @return null|string Returns a signed public key and challenge string.
  * @throws OpensslException
  *
  */
@@ -1518,7 +1518,7 @@ function openssl_x509_export_to_file($certificate, string $output_filename, bool
  * output in a PEM encoded format.
  *
  * @param \OpenSSLCertificate|string $certificate See Key/Certificate parameters for a list of valid values.
- * @param string|null $output On success, this will hold the PEM.
+ * @param null|string $output On success, this will hold the PEM.
  * @param bool $no_text
  * The optional parameter notext affects
  * the verbosity of the output; if it is FALSE, then additional human-readable

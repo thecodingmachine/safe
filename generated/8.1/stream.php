@@ -362,7 +362,7 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
  * @param resource $server_socket The server socket to accept a connection from.
  * @param float $timeout Override the default socket accept timeout. Time should be given in
  * seconds.
- * @param string|null $peername Will be set to the name (address) of the client which connected, if
+ * @param null|string $peername Will be set to the name (address) of the client which connected, if
  * included and available from the selected transport.
  *
  * Can also be determined later using
@@ -401,7 +401,7 @@ function stream_socket_accept($server_socket, ?float $timeout = null, ?string &$
  *
  * @param string $remote_socket Address to the socket to connect to.
  * @param int|null $errno Will be set to the system level error number if connection fails.
- * @param string|null $errstr Will be set to the system level error message if the connection fails.
+ * @param null|string $errstr Will be set to the system level error message if the connection fails.
  * @param float $timeout Number of seconds until the connect() system call
  * should timeout.
  *
@@ -521,7 +521,7 @@ function stream_socket_pair(int $domain, int $type, int $protocol): array
  * call. This is most likely due to a problem initializing the socket.
  * Note that the errno and
  * errstr arguments will always be passed by reference.
- * @param string|null $errstr See errno description.
+ * @param null|string $errstr See errno description.
  * @param int $flags A bitmask field which may be set to any combination of socket creation
  * flags.
  *

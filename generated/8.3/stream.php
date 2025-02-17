@@ -367,7 +367,7 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
  * @param float $timeout Override the default socket accept timeout. Time should be given in
  * seconds. By default, default_socket_timeout
  * is used.
- * @param string|null $peer_name Will be set to the name (address) of the client which connected, if
+ * @param null|string $peer_name Will be set to the name (address) of the client which connected, if
  * included and available from the selected transport.
  *
  * Can also be determined later using
@@ -406,7 +406,7 @@ function stream_socket_accept($socket, ?float $timeout = null, ?string &$peer_na
  *
  * @param string $address Address to the socket to connect to.
  * @param int|null $error_code Will be set to the system level error number if connection fails.
- * @param string|null $error_message Will be set to the system level error message if the connection fails.
+ * @param null|string $error_message Will be set to the system level error message if the connection fails.
  * @param float $timeout Number of seconds until the connect() system call
  * should timeout. By default, default_socket_timeout
  * is used.
@@ -434,7 +434,7 @@ function stream_socket_accept($socket, ?float $timeout = null, ?string &$peer_na
  * STREAM_CLIENT_CONNECT (default),
  * STREAM_CLIENT_ASYNC_CONNECT and
  * STREAM_CLIENT_PERSISTENT.
- * @param resource|null $context A valid context resource created with stream_context_create.
+ * @param null|resource $context A valid context resource created with stream_context_create.
  * @return resource On success a stream resource is returned which may
  * be used together with the other file functions (such as
  * fgets, fgetss,
@@ -547,7 +547,7 @@ function stream_socket_pair(int $domain, int $type, int $protocol): array
  *
  *
  *
- * @param string|null $address If address is provided it will be populated with
+ * @param null|string $address If address is provided it will be populated with
  * the address of the remote socket.
  * @return string Returns the read data, as a string.
  * @throws StreamException
@@ -635,13 +635,13 @@ function stream_socket_sendto($socket, string $data, int $flags = 0, string $add
  * call. This is most likely due to a problem initializing the socket.
  * Note that the error_code and
  * error_message arguments will always be passed by reference.
- * @param string|null $error_message See error_code description.
+ * @param null|string $error_message See error_code description.
  * @param int $flags A bitmask field which may be set to any combination of socket creation
  * flags.
  *
  * For UDP sockets, you must use STREAM_SERVER_BIND as
  * the flags parameter.
- * @param resource|null $context
+ * @param null|resource $context
  * @return resource Returns the created stream.
  * @throws StreamException
  *

@@ -19,8 +19,13 @@ class FileCreator
      * @param Method[] $functions
      * @param Method[] $missingFunctions
      */
-    public function generatePhpFile(array $functions, array $missingFunctions, string $path): void
-    {
+    public function generatePhpFile(
+        // These aren't actually sensitive, they just fill the
+        // stack traces with tons of useless information.
+        #[\SensitiveParameter] array $functions,
+        #[\SensitiveParameter] array $missingFunctions,
+        string $path
+    ): void {
         $path = rtrim($path, '/').'/';
         $phpFunctionsByModule = [];
         foreach ($functions as $function) {

@@ -42,13 +42,6 @@ class PhpStanType
             $data = $regs[1];
         }
 
-        //weird case: null|false => null
-        if ($data === 'null|false') {
-            $this->nullable = false;
-            $this->falsable = true;
-            $this->types = ['null'];
-            return;
-        }
         //first we try to parse the type string to have a list as clean as possible.
         $nullable = false;
         $falsable = false;
@@ -189,25 +182,23 @@ class PhpStanType
                 $type = 'string';
             }
         }
+        // filter out duplicates due to input types like "array<string>|array<int>"
+        $types = array_unique($types);
         sort($types);
 
-        //if there are several distinct types, no typehint (we use distinct in case doc block contains several times the same type, for example array<int>|array<string>)
-        if (count(array_unique($types)) > 1) {
+        if (count($types) === 0) {
+            return '';
+        } elseif (count($types) === 1) {
+            $finalType = $types[0];
+            if ($finalType === 'bool' && !$nullable && $errorType === ErrorType::FALSY) {
+                // If the function only returns a boolean, since false is for
+                // error, true is for success. Let's replace this with a "void".
+                return 'void';
+            }
+            return ($nullable !== false ? '?' : '').$finalType;
+        } else {
             return '';
         }
-
-        if (\in_array('void', $types) || ($types === [] && !$nullable && !$falsable)) {
-            return 'void';
-        }
-
-
-        $finalType = $types[0] ?? '';
-        if ($finalType === 'bool' && !$nullable && $errorType === ErrorType::FALSY) {
-            // If the function only returns a boolean, since false is for error, true is for success.
-            // Let's replace this with a "void".
-            return 'void';
-        }
-        return ($nullable !== false ? '?' : '').$finalType;
     }
 
     /**

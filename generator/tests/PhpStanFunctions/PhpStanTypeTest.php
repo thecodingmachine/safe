@@ -105,11 +105,7 @@ class PhpStanTypeTest extends TestCase
     {
         $param = new PhpStanType('');
         $this->assertEquals('', $param->getDocBlockType());
-        if (PHP_VERSION_ID >= 80200) {
-            $this->assertEquals('void', $param->getSignatureType());
-        } else {
-            $this->assertEquals('', $param->getSignatureType());
-        }
+        $this->assertEquals('', $param->getSignatureType());
 
         $param = new PhpStanType('void');
         $this->assertEquals('void', $param->getDocBlockType());

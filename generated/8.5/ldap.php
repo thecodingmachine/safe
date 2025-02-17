@@ -65,8 +65,8 @@ function ldap_add(\LDAP\Connection $ldap, string $dn, array $entry, ?array $cont
  * Binds to the LDAP directory with specified RDN and password.
  *
  * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param string|null $dn
- * @param string|null $password
+ * @param null|string $dn
+ * @param null|string $password
  * @throws LdapException
  *
  */
@@ -120,7 +120,7 @@ function ldap_compare(\LDAP\Connection $ldap, string $dn, string $attribute, str
  *
  * @param resource $link An LDAP resource, returned by ldap_connect.
  * @param resource $result
- * @param string|null $cookie An opaque structure sent by the server.
+ * @param null|string $cookie An opaque structure sent by the server.
  * @param int|null $estimated The estimated number of entries to retrieve.
  * @throws LdapException
  *
@@ -276,10 +276,10 @@ function ldap_exop_whoami(\LDAP\Connection $ldap)
  * @param string $request_oid The extended operation request OID. You may use one of LDAP_EXOP_START_TLS, LDAP_EXOP_MODIFY_PASSWD, LDAP_EXOP_REFRESH, LDAP_EXOP_WHO_AM_I, LDAP_EXOP_TURN, or a string with the OID of the operation you want to send.
  * @param string $request_data The extended operation request data. May be NULL for some operations like LDAP_EXOP_WHO_AM_I, may also need to be BER encoded.
  * @param array|null $controls Array of LDAP Controls to send with the request.
- * @param string|null $response_data Will be filled with the extended operation response data if provided.
+ * @param null|string $response_data Will be filled with the extended operation response data if provided.
  * If not provided you may use ldap_parse_exop on the result object
  * later to get this data.
- * @param string|null $response_oid Will be filled with the response OID if provided, usually equal to the request OID.
+ * @param null|string $response_oid Will be filled with the response OID if provided, usually equal to the request OID.
  * @return bool|resource When used with response_data, returns TRUE on success.
  * When used without response_data, returns a result identifier.
  * @throws LdapException
@@ -927,8 +927,8 @@ function ldap_next_attribute(\LDAP\Connection $ldap, \LDAP\ResultEntry $entry): 
  *
  * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
  * @param \LDAP\Result $result An LDAP\Result instance, returned by ldap_list or ldap_search.
- * @param string|null $response_data Will be filled by the response data.
- * @param string|null $response_oid Will be filled by the response OID.
+ * @param null|string $response_data Will be filled by the response data.
+ * @param null|string $response_oid Will be filled by the response OID.
  * @throws LdapException
  *
  */
@@ -949,9 +949,9 @@ function ldap_parse_exop(\LDAP\Connection $ldap, \LDAP\Result $result, ?string &
  * @param \LDAP\Result $result An LDAP\Result instance, returned by ldap_list or ldap_search.
  * @param int|null $error_code A reference to a variable that will be set to the LDAP error code in
  * the result, or 0 if no error occurred.
- * @param string|null $matched_dn A reference to a variable that will be set to a matched DN if one was
+ * @param null|string $matched_dn A reference to a variable that will be set to a matched DN if one was
  * recognised within the request, otherwise it will be set to NULL.
- * @param string|null $error_message A reference to a variable that will be set to the LDAP error message in
+ * @param null|string $error_message A reference to a variable that will be set to the LDAP error message in
  * the result, or an empty string if no error occurred.
  * @param array|null $referrals A reference to a variable that will be set to an array set
  * to all of the referral strings in the result, or an empty array if no
@@ -1040,7 +1040,7 @@ function ldap_sasl_bind(\LDAP\Connection $ldap, ?string $dn = null, ?string $pas
 /**
  * Sets the value of the specified option to be value.
  *
- * @param resource|null $ldap Either an LDAP\Connection instance, returned by
+ * @param null|resource $ldap Either an LDAP\Connection instance, returned by
  * ldap_connect, to set the option for that connection,
  * or NULL to set the option globally.
  * @param int $option The parameter option can be one of:

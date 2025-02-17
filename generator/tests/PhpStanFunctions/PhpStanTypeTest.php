@@ -63,12 +63,12 @@ class PhpStanTypeTest extends TestCase
 
         $param = new PhpStanType('?int|?string');
         $this->assertEquals(true, $param->isNullable());
-        $this->assertEquals('int|string|null', $param->getDocBlockType());
+        $this->assertEquals('int|null|string', $param->getDocBlockType());
         $this->assertEquals('', $param->getSignatureType());
 
         $param = new PhpStanType('?string');
         $this->assertEquals(true, $param->isNullable());
-        $this->assertEquals('string|null', $param->getDocBlockType());
+        $this->assertEquals('null|string', $param->getDocBlockType());
         $this->assertEquals('?string', $param->getSignatureType());
 
         $param = new PhpStanType('?HashContext');
@@ -81,14 +81,14 @@ class PhpStanTypeTest extends TestCase
     {
         $param = new PhpStanType('(?int)|(?string)');
         $this->assertEquals(true, $param->isNullable());
-        $this->assertEquals('int|string|null', $param->getDocBlockType());
+        $this->assertEquals('int|null|string', $param->getDocBlockType());
         $this->assertEquals('', $param->getSignatureType());
     }
 
     public function testFalsable(): void
     {
         $param = new PhpStanType('string|false');
-        $this->assertEquals('string|false', $param->getDocBlockType());
+        $this->assertEquals('false|string', $param->getDocBlockType());
         $this->assertEquals('string', $param->getSignatureType());
     }
 

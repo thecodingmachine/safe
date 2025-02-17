@@ -257,7 +257,7 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authorit
  * indication that the error occurred before the
  * connect() call. This is most likely due to a
  * problem initializing the socket.
- * @param string|null $error_message The error message as a string.
+ * @param null|string $error_message The error message as a string.
  * @param float $timeout The connection timeout, in seconds. When NULL, the
  * default_socket_timeout php.ini setting is used.
  *
@@ -552,7 +552,7 @@ function net_get_interfaces(): array
  * @param string $hostname
  * @param int $port
  * @param int|null $error_code
- * @param string|null $error_message
+ * @param null|string $error_message
  * @param float $timeout
  * @return resource pfsockopen returns a file pointer which may be used
  * together with the other file functions (such as

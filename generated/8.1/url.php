@@ -36,7 +36,7 @@ function base64_decode(string $string, bool $strict = false): string
  * @param bool $associative If the optional associative parameter is set to true,
  * get_headers parses the response and sets the
  * array's keys.
- * @param resource|null $context A valid context resource created with
+ * @param null|resource $context A valid context resource created with
  * stream_context_create.
  * @return array Returns an indexed or associative array with the headers.
  * @throws UrlException
@@ -125,7 +125,7 @@ function get_meta_tags(string $filename, bool $use_include_path = false): array
  * URL component as a string (except when
  * PHP_URL_PORT is given, in which case the return
  * value will be an int).
- * @return array|int|string|null On seriously malformed URLs, parse_url.
+ * @return array|int|null|string On seriously malformed URLs, parse_url.
  *
  * If the component parameter is omitted, an
  * associative array is returned. At least one element will be

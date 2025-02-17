@@ -419,6 +419,28 @@ function sapi_windows_vt100_support($stream, ?bool $enable = null): void
 
 
 /**
+ *
+ *
+ * @param int $seconds Halt time in seconds (must be greater than or equal to 0).
+ * @return false|int Returns zero on success.
+ *
+ * If the call was interrupted by a signal, sleep returns
+ * a non-zero value. On Windows, this value will always be
+ * 192 (the value of the
+ * WAIT_IO_COMPLETION constant within the Windows API).
+ * On other platforms, the return value will be the number of seconds left to
+ * sleep.
+ *
+ */
+function sleep(int $seconds)
+{
+    error_clear_last();
+    $safeResult = \sleep($seconds);
+    return $safeResult;
+}
+
+
+/**
  * Delays program execution for the given number of
  * seconds and nanoseconds.
  *
@@ -515,9 +537,4 @@ function unpack(string $format, string $string, int $offset = 0): array
         throw MiscException::createFromPhpError();
     }
     return $safeResult;
-}
-
-function sleep()
-{
-    return \sleep(...func_get_args());
 }

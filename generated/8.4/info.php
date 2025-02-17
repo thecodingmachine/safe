@@ -5,6 +5,128 @@ namespace Safe;
 use Safe\Exceptions\InfoException;
 
 /**
+ * Set the various assert control options or just query
+ * their current settings.
+ *
+ * @param int $option
+ * Assert Options
+ *
+ *
+ *
+ * Option
+ * INI Setting
+ * Default value
+ * Description
+ *
+ *
+ *
+ *
+ * ASSERT_ACTIVE
+ * assert.active
+ * 1
+ * enable assert evaluation
+ *
+ *
+ * ASSERT_EXCEPTION
+ * assert.exception
+ * 1
+ * throws an AssertionError for each failed assertions
+ *
+ *
+ * ASSERT_WARNING
+ * assert.warning
+ * 1
+ * issue a PHP warning for each failed assertion
+ *
+ *
+ * ASSERT_BAIL
+ * assert.bail
+ * 0
+ * terminate execution on failed assertions
+ *
+ *
+ * ASSERT_QUIET_EVAL
+ * assert.quiet_eval
+ * 0
+ *
+ * disable error_reporting during assertion expression
+ * evaluation. Removed as of PHP 8.0.0.
+ *
+ *
+ *
+ * ASSERT_CALLBACK
+ * assert.callback
+ * (NULL)
+ * Callback to call on failed assertions
+ *
+ *
+ *
+ *
+ * @param mixed $value An optional new value for the option.
+ *
+ * The callback function set via ASSERT_CALLBACK or
+ * assert.callback
+ * should have the following signature:
+ *
+ * voidassert_callback
+ * stringfile
+ * intline
+ * stringnullassertion
+ * stringdescription
+ *
+ *
+ *
+ * file
+ *
+ *
+ * The file where assert has been called.
+ *
+ *
+ *
+ *
+ * line
+ *
+ *
+ * The line where assert has been called.
+ *
+ *
+ *
+ *
+ * assertion
+ *
+ *
+ * Prior to PHP 8.0.0, the assertion which has been passed to assert,
+ * but only when the assertion is given as a string.
+ * (If the assertion is a boolean condition, this parameter will be an empty string.)
+ * As of PHP 8.0.0, this parameter is always NULL.
+ *
+ *
+ *
+ *
+ * description
+ *
+ *
+ * The description that has been passed to assert.
+ *
+ *
+ *
+ *
+ * @return mixed Returns the original setting of any option.
+ *
+ */
+function assert_options(int $option, $value = null)
+{
+    error_clear_last();
+    if ($value !== null) {
+        $safeResult = \assert_options($option, $value);
+    } else {
+        $safeResult = \assert_options($option);
+    }
+    return $safeResult;
+}
+
+
+/**
  * Sets the process title visible in tools such as top and
  * ps. This function is available only in
  * CLI mode.
@@ -344,6 +466,191 @@ function php_sapi_name(): string
 
 
 /**
+ * This function prints out the credits listing the PHP developers,
+ * modules, etc. It generates the appropriate HTML codes to insert
+ * the information in a page.
+ *
+ * @param int $flags To generate a custom credits page, you may want to use the
+ * flags parameter.
+ *
+ *
+ * Pre-defined phpcredits flags
+ *
+ *
+ *
+ * name
+ * description
+ *
+ *
+ *
+ *
+ * CREDITS_ALL
+ *
+ * All the credits, equivalent to using: CREDITS_DOCS +
+ * CREDITS_GENERAL + CREDITS_GROUP +
+ * CREDITS_MODULES + CREDITS_FULLPAGE.
+ * It generates a complete stand-alone HTML page with the appropriate tags.
+ *
+ *
+ *
+ * CREDITS_DOCS
+ * The credits for the documentation team
+ *
+ *
+ * CREDITS_FULLPAGE
+ *
+ * Usually used in combination with the other flags.  Indicates
+ * that a complete stand-alone HTML page needs to be
+ * printed including the information indicated by the other
+ * flags.
+ *
+ *
+ *
+ * CREDITS_GENERAL
+ *
+ * General credits: Language design and concept, PHP authors
+ * and SAPI module.
+ *
+ *
+ *
+ * CREDITS_GROUP
+ * A list of the core developers
+ *
+ *
+ * CREDITS_MODULES
+ *
+ * A list of the extension modules for PHP, and their authors
+ *
+ *
+ *
+ * CREDITS_SAPI
+ *
+ * A list of the server API modules for PHP, and their authors
+ *
+ *
+ *
+ *
+ *
+ * @return bool Always returns TRUE.
+ *
+ */
+function phpcredits(int $flags = CREDITS_ALL): bool
+{
+    error_clear_last();
+    $safeResult = \phpcredits($flags);
+    return $safeResult;
+}
+
+
+/**
+ * Outputs a large amount of information about the current state of  PHP.
+ * This includes information about PHP compilation options and extensions,
+ * the PHP version, server information and environment (if compiled as a
+ * module), the PHP environment, OS version information, paths, master and
+ * local values of configuration options, HTTP headers, and the PHP License.
+ *
+ * Because every system is setup differently, phpinfo is
+ * commonly used to check configuration settings and for available
+ * predefined variables
+ * on a given system.
+ *
+ * phpinfo is also a valuable debugging tool as it
+ * contains all EGPCS (Environment, GET, POST, Cookie, Server) data.
+ *
+ * @param int $flags The output may be customized by passing one or more of the
+ * following constants bitwise values summed
+ * together in the optional flags parameter.
+ * One can also combine the respective constants or bitwise values
+ * together with the bitwise or operator.
+ *
+ *
+ * phpinfo options
+ *
+ *
+ *
+ * Name (constant)
+ * Value
+ * Description
+ *
+ *
+ *
+ *
+ * INFO_GENERAL
+ * 1
+ *
+ * The configuration line, php.ini location, build date, Web
+ * Server, System and more.
+ *
+ *
+ *
+ * INFO_CREDITS
+ * 2
+ *
+ * PHP Credits.  See also phpcredits.
+ *
+ *
+ *
+ * INFO_CONFIGURATION
+ * 4
+ *
+ * Current Local and Master values for PHP directives.  See
+ * also ini_get.
+ *
+ *
+ *
+ * INFO_MODULES
+ * 8
+ *
+ * Loaded modules and their respective settings.  See also
+ * get_loaded_extensions.
+ *
+ *
+ *
+ * INFO_ENVIRONMENT
+ * 16
+ *
+ * Environment Variable information that's also available in
+ * $_ENV.
+ *
+ *
+ *
+ * INFO_VARIABLES
+ * 32
+ *
+ * Shows all
+ * predefined variables from EGPCS (Environment, GET,
+ * POST, Cookie, Server).
+ *
+ *
+ *
+ * INFO_LICENSE
+ * 64
+ *
+ * PHP License information.  See also the license FAQ.
+ *
+ *
+ *
+ * INFO_ALL
+ * -1
+ *
+ * Shows all of the above.
+ *
+ *
+ *
+ *
+ *
+ * @return bool Always returns TRUE.
+ *
+ */
+function phpinfo(int $flags = INFO_ALL): bool
+{
+    error_clear_last();
+    $safeResult = \phpinfo($flags);
+    return $safeResult;
+}
+
+
+/**
  * Adds assignment to the server environment.  The
  * environment variable will only exist for the duration of the current
  * request. At the end of the request the environment is restored to its
@@ -408,19 +715,4 @@ function set_time_limit(int $seconds): void
     if ($safeResult === false) {
         throw InfoException::createFromPhpError();
     }
-}
-
-function assert_options()
-{
-    return \assert_options(...func_get_args());
-}
-
-function phpcredits()
-{
-    return \phpcredits(...func_get_args());
-}
-
-function phpinfo()
-{
-    return \phpinfo(...func_get_args());
 }

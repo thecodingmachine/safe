@@ -93,8 +93,8 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
         $functionNames = array_map(function (Method $function) {
             return $function->getFunctionName();
         }, $functions);
-        $specialCases = Scanner::getSpecialCases();
-        $functionNames = array_merge($functionNames, $specialCases);
+        $functionNames = array_merge($functionNames, Scanner::getSpecialCases());
+        $functionNames = array_diff($functionNames, Scanner::getHiddenFunctions());
         natcasesort($functionNames);
         return $functionNames;
     }

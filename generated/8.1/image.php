@@ -1442,7 +1442,7 @@ function imagefilltoborder(\GdImage $image, int $x, int $y, int $border_color, i
  * @throws ImageException
  *
  */
-function imagefilter(\GdImage $image, int $filter, int  ...$args): void
+function imagefilter(\GdImage $image, int $filter, int ...$args): void
 {
     error_clear_last();
     if ($args !== []) {

@@ -76,6 +76,7 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
                 \fwrite($stream, "\n}");
             }
         }
+        \fwrite($stream, "\n");
         \fclose($stream);
     }
 
@@ -145,8 +146,9 @@ use Rector\Renaming\Rector\FuncCall\RenameFunctionRector;
 
 // This file configures rector/rector to replace all PHP functions with their equivalent "safe" functions.
 return static function (RectorConfig $rectorConfig): void {
-	$rectorConfig->ruleWithConfiguration(
-		RenameFunctionRector::class,[
+    $rectorConfig->ruleWithConfiguration(
+        RenameFunctionRector::class,
+        [
 TXT;
 
         fwrite($stream, $header);
@@ -155,7 +157,7 @@ TXT;
             fwrite($stream, "            '$functionName' => 'Safe\\$functionName',\n");
         }
 
-        fwrite($stream, "        ]);\n};\n");
+        fwrite($stream, "        ]\n    );\n};\n");
         fclose($stream);
     }
 

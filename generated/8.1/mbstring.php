@@ -11,7 +11,7 @@ use Safe\Exceptions\MbstringException;
  * This function complements mb_ord.
  *
  * @param int $codepoint A Unicode codepoint value, e.g. 128024 for U+1F418 ELEPHANT
- * @param string $encoding The encoding
+ * @param null|string $encoding The encoding
  * parameter is the character encoding. If it is omitted or NULL, the internal character
  * encoding value will be used.
  * @return string A string containing the requested character, if it can be represented in the specified
@@ -74,7 +74,7 @@ function mb_convert_encoding($string, string $to_encoding, $from_encoding = null
  * Sets the automatic character
  * encoding detection order to encoding.
  *
- * @param non-empty-array|non-falsy-string $encoding encoding is an array or
+ * @param non-empty-array|non-falsy-string|null $encoding encoding is an array or
  * comma separated list of character encoding. See supported encodings.
  *
  * If encoding is omitted or NULL, it returns
@@ -160,7 +160,7 @@ function mb_encoding_aliases(string $encoding): array
  * clutter the function namespace with a callback function's name
  * not used anywhere else.
  * @param string $string The string being checked.
- * @param string $options The search option. See mb_regex_set_options for explanation.
+ * @param null|string $options The search option. See mb_regex_set_options for explanation.
  * @return null|string The resultant string on success.
  * If string is not valid for the current encoding, NULL
  * is returned.
@@ -190,7 +190,7 @@ function mb_ereg_replace_callback(string $pattern, callable $callback, string $s
  * Multibyte characters may be used in pattern.
  * @param string $replacement The replacement text.
  * @param string $string The string being checked.
- * @param string $options
+ * @param null|string $options
  * @return null|string The resultant string on success.
  * If string is not valid for the current encoding, NULL
  * is returned.
@@ -239,8 +239,8 @@ function mb_ereg_search_getregs(): array
  * mb_ereg_search_regs.
  *
  * @param string $string The search string.
- * @param string $pattern The search pattern.
- * @param string $options The search option. See mb_regex_set_options for explanation.
+ * @param null|string $pattern The search pattern.
+ * @param null|string $options The search option. See mb_regex_set_options for explanation.
  * @throws MbstringException
  *
  */
@@ -263,8 +263,8 @@ function mb_ereg_search_init(string $string, ?string $pattern = null, ?string $o
 /**
  * Returns the matched part of a multibyte regular expression.
  *
- * @param string $pattern The search pattern.
- * @param string $options The search option. See mb_regex_set_options for explanation.
+ * @param null|string $pattern The search pattern.
+ * @param null|string $options The search option. See mb_regex_set_options for explanation.
  * @return array
  * @throws MbstringException
  *
@@ -309,7 +309,7 @@ function mb_ereg_search_setpos(int $offset): void
  * @param string $pattern The regular expression pattern.  Multibyte characters may be used. The case will be ignored.
  * @param string $replacement The replacement text.
  * @param string $string The searched string.
- * @param string $options
+ * @param null|string $options
  * @return string The resultant string.
  * If string is not valid for the current encoding, NULL
  * is returned.
@@ -373,7 +373,7 @@ function mb_get_info(string $type = "all")
  * Set/Get the HTTP output character encoding.
  * Output after this function is called will be converted from the set internal encoding to encoding.
  *
- * @param string $encoding If encoding is set,
+ * @param null|string $encoding If encoding is set,
  * mb_http_output sets the HTTP output character
  * encoding to encoding.
  *
@@ -405,7 +405,7 @@ function mb_http_output(?string $encoding = null)
 /**
  * Set/Get the internal character encoding
  *
- * @param string $encoding encoding is the character encoding name
+ * @param null|string $encoding encoding is the character encoding name
  * used for the HTTP input character encoding conversion, HTTP output
  * character encoding conversion, and the default character encoding
  * for string functions defined by the mbstring module.
@@ -439,7 +439,7 @@ function mb_internal_encoding(?string $encoding = null)
  * This function complements mb_chr.
  *
  * @param string $string A string
- * @param string $encoding The encoding
+ * @param null|string $encoding The encoding
  * parameter is the character encoding. If it is omitted or NULL, the internal character
  * encoding value will be used.
  * @return int The Unicode code point for the first character of string.
@@ -487,7 +487,7 @@ function mb_parse_str(string $string, ?array &$result): void
 /**
  * Set/Get character encoding for a multibyte regex.
  *
- * @param string $encoding The encoding
+ * @param null|string $encoding The encoding
  * parameter is the character encoding. If it is omitted or NULL, the internal character
  * encoding value will be used.
  * @return bool|string
@@ -546,7 +546,7 @@ function mb_regex_encoding(?string $encoding = null)
  * automatically (which leads to doubling CR if CRLF is used).
  * This should be a last resort, as it does not comply with
  * RFC 2822.
- * @param string $additional_params additional_params is a MTA command line
+ * @param null|string $additional_params additional_params is a MTA command line
  * parameter. It is useful when setting the correct Return-Path
  * header when using sendmail.
  *

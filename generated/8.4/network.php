@@ -258,7 +258,7 @@ function dns_get_record(string $hostname, int $type = DNS_ANY, ?array &$authorit
  * connect() call. This is most likely due to a
  * problem initializing the socket.
  * @param null|string $error_message The error message as a string.
- * @param float $timeout The connection timeout, in seconds. When NULL, the
+ * @param float|null $timeout The connection timeout, in seconds. When NULL, the
  * default_socket_timeout php.ini setting is used.
  *
  * If you need to set a timeout for reading/writing data over the
@@ -553,7 +553,7 @@ function net_get_interfaces(): array
  * @param int $port
  * @param int|null $error_code
  * @param null|string $error_message
- * @param float $timeout
+ * @param float|null $timeout
  * @return resource pfsockopen returns a file pointer which may be used
  * together with the other file functions (such as
  * fgets, fgetss,

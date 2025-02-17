@@ -18,7 +18,7 @@ use Safe\Exceptions\MysqlException;
  * improve performance. For related information, see
  * freeing resources
  *
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no connection is found or
  * established, an E_WARNING level error is
@@ -102,7 +102,7 @@ function mysql_connect(?string $server = null, ?string $username = null, ?string
  * identifier.
  *
  * @param string $database_name The name of the database being created.
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -184,7 +184,7 @@ function mysql_db_name($result, int $row, $field = null): string
  * @param string $query The MySQL query.
  *
  * Data inside the query should be properly escaped.
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -215,7 +215,7 @@ function mysql_db_query(string $database, string $query, $link_identifier = null
  * DROP DATABASE statement instead.
  *
  * @param string $database_name The name of the database that will be deleted.
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -407,7 +407,7 @@ function mysql_free_result($result): void
  * Describes the type of connection in use for the connection, including the
  * server host name.
  *
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -432,7 +432,7 @@ function mysql_get_host_info($link_identifier = null): string
 /**
  * Retrieves the MySQL protocol.
  *
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -456,7 +456,7 @@ function mysql_get_proto_info($link_identifier = null): int
 /**
  * Retrieves the MySQL server version.
  *
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -480,7 +480,7 @@ function mysql_get_server_info($link_identifier = null): string
 /**
  * Returns detailed information about the last query.
  *
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -507,7 +507,7 @@ function mysql_info($link_identifier = null): string
  * Returns a result pointer containing the databases available from the
  * current mysql daemon.
  *
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -539,7 +539,7 @@ function mysql_list_dbs($link_identifier = null)
  *
  * @param string $database_name The name of the database that's being queried.
  * @param string $table_name The name of the table that's being queried.
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -568,7 +568,7 @@ function mysql_list_fields(string $database_name, string $table_name, $link_iden
 /**
  * Retrieves the current MySQL server threads.
  *
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -597,7 +597,7 @@ function mysql_list_processes($link_identifier = null)
  * [FROM db_name] [LIKE 'pattern'] statement instead.
  *
  * @param string $database The name of the database
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -678,7 +678,7 @@ function mysql_num_rows($result): int
  *
  * The query string should not end with a semicolon.
  * Data inside the query should be properly escaped.
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -734,7 +734,7 @@ function mysql_query(string $query, $link_identifier = null)
  * safe before sending a query to MySQL.
  *
  * @param string $unescaped_string The string that is to be escaped.
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -798,7 +798,7 @@ function mysql_result($result, int $row, $field = 0): string
  * mysql_query will be made on the active database.
  *
  * @param string $database_name The name of the database that is to be selected.
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -821,7 +821,7 @@ function mysql_select_db(string $database_name, $link_identifier = null): void
  * Sets the default character set for the current connection.
  *
  * @param string $charset A valid character set name.
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -874,7 +874,7 @@ function mysql_tablename($result, int $i): string
  * with mysql_ping is executed, the thread ID will
  * change. This means only retrieve the thread ID when needed.
  *
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called
@@ -912,7 +912,7 @@ function mysql_thread_id($link_identifier = null): int
  * @param string $query The SQL query to execute.
  *
  * Data inside the query should be properly escaped.
- * @param resource $link_identifier The MySQL connection. If the
+ * @param null|resource $link_identifier The MySQL connection. If the
  * link identifier is not specified, the last link opened by
  * mysql_connect is assumed. If no such link is found, it
  * will try to create one as if mysql_connect had been called

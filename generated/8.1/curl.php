@@ -75,7 +75,7 @@ function curl_exec(\CurlHandle $handle)
  *
  * @param \CurlHandle $handle A cURL handle returned by
  * curl_init.
- * @param int $option This may be one of the following constants:
+ * @param int|null $option This may be one of the following constants:
  *
  *
  *
@@ -552,7 +552,7 @@ function curl_getinfo(\CurlHandle $handle, ?int $option = null)
  * curl_setopt, curl_exec,
  * and curl_close functions.
  *
- * @param string $url If provided, the CURLOPT_URL option will be set
+ * @param null|string $url If provided, the CURLOPT_URL option will be set
  * to its value. You can manually set this using the
  * curl_setopt function.
  *

@@ -112,7 +112,7 @@ function ibase_blob_cancel($blob_handle): void
  * ibase_blob_create creates a new BLOB for filling with
  * data.
  *
- * @param resource $link_identifier An InterBase link identifier. If omitted, the last opened link is
+ * @param null|resource $link_identifier An InterBase link identifier. If omitted, the last opened link is
  * assumed.
  * @return resource Returns a BLOB handle for later use with
  * ibase_blob_add.
@@ -161,7 +161,7 @@ function ibase_blob_get($blob_handle, int $len): string
  * Default transaction on link is committed, other transactions are
  * rolled back.
  *
- * @param resource $connection_id An InterBase link identifier returned from
+ * @param null|resource $connection_id An InterBase link identifier returned from
  * ibase_connect. If omitted, the last opened link
  * is assumed.
  * @throws IbaseException
@@ -184,7 +184,7 @@ function ibase_close($connection_id = null): void
 /**
  * Commits a transaction without closing it.
  *
- * @param resource $link_or_trans_identifier If called without an argument, this function commits the default
+ * @param null|resource $link_or_trans_identifier If called without an argument, this function commits the default
  * transaction of the default link. If the argument is a connection
  * identifier, the default transaction of the corresponding connection
  * will be committed. If the argument is a transaction identifier, the
@@ -211,7 +211,7 @@ function ibase_commit_ret($link_or_trans_identifier = null): void
 /**
  * Commits a transaction.
  *
- * @param resource $link_or_trans_identifier If called without an argument, this function commits the default
+ * @param null|resource $link_or_trans_identifier If called without an argument, this function commits the default
  * transaction of the default link. If the argument is a connection
  * identifier, the default transaction of the corresponding connection
  * will be committed. If the argument is a transaction identifier, the
@@ -317,7 +317,7 @@ function ibase_delete_user($service_handle, string $user_name): void
  * This functions drops a database that was opened by either ibase_connect
  * or ibase_pconnect. The database is closed and deleted from the server.
  *
- * @param resource $connection An InterBase link identifier. If omitted, the last opened link is
+ * @param null|resource $connection An InterBase link identifier. If omitted, the last opened link is
  * assumed.
  * @throws IbaseException
  *
@@ -573,7 +573,7 @@ function ibase_restore($service_handle, string $source_file, string $dest_db, in
 /**
  * Rolls back a transaction without closing it.
  *
- * @param resource $link_or_trans_identifier If called without an argument, this function rolls back the default
+ * @param null|resource $link_or_trans_identifier If called without an argument, this function rolls back the default
  * transaction of the default link. If the argument is a connection
  * identifier, the default transaction of the corresponding connection
  * will be rolled back. If the argument is a transaction identifier, the
@@ -600,7 +600,7 @@ function ibase_rollback_ret($link_or_trans_identifier = null): void
 /**
  * Rolls back a transaction.
  *
- * @param resource $link_or_trans_identifier If called without an argument, this function rolls back the default
+ * @param null|resource $link_or_trans_identifier If called without an argument, this function rolls back the default
  * transaction of the default link. If the argument is a connection
  * identifier, the default transaction of the corresponding connection
  * will be rolled back. If the argument is a transaction identifier, the

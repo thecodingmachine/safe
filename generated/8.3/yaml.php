@@ -12,7 +12,7 @@ use Safe\Exceptions\YamlException;
  * documents, 0 for first document, ...).
  * @param int|null $ndocs If ndocs is provided, then it is filled with the
  * number of documents found in stream.
- * @param array $callbacks Content handlers for YAML nodes. Associative array of YAML
+ * @param array|null $callbacks Content handlers for YAML nodes. Associative array of YAML
  * tag =&gt; callable mappings. See
  * parse callbacks for more
  * details.
@@ -50,7 +50,7 @@ function yaml_parse_file(string $filename, int $pos = 0, ?int &$ndocs = null, ?a
  * documents, 0 for first document, ...).
  * @param int|null $ndocs If ndocs is provided, then it is filled with the
  * number of documents found in stream.
- * @param array $callbacks Content handlers for YAML nodes. Associative array of YAML
+ * @param array|null $callbacks Content handlers for YAML nodes. Associative array of YAML
  * tag =&gt; callable mappings. See
  * parse callbacks for more
  * @return mixed Returns the value encoded in input in appropriate
@@ -83,7 +83,7 @@ function yaml_parse_url(string $url, int $pos = 0, ?int &$ndocs = null, ?array $
  * documents, 0 for first document, ...).
  * @param int|null $ndocs If ndocs is provided, then it is filled with the
  * number of documents found in stream.
- * @param array $callbacks Content handlers for YAML nodes. Associative array of YAML
+ * @param array|null $callbacks Content handlers for YAML nodes. Associative array of YAML
  * tag =&gt; callable mappings. See
  * parse callbacks for more
  * details.

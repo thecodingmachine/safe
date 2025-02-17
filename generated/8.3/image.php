@@ -104,7 +104,7 @@ function image_type_to_extension(int $image_type, bool $include_dot = true): str
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param array $affine Array with keys 0 to 5.
- * @param array $clip Array with keys "x", "y", "width" and "height"; or NULL.
+ * @param array|null $clip Array with keys "x", "y", "width" and "height"; or NULL.
  * @return \GdImage Return affined image object on success.
  * @throws ImageException
  *
@@ -2096,8 +2096,8 @@ function imagerectangle(\GdImage $image, int $x1, int $y1, int $x2, int $y2, int
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param int $resolution_x The horizontal resolution in DPI.
- * @param int $resolution_y The vertical resolution in DPI.
+ * @param int|null $resolution_x The horizontal resolution in DPI.
+ * @param int|null $resolution_y The vertical resolution in DPI.
  * @return mixed When used as getter,
  * it returns an indexed array of the horizontal and vertical resolution on
  * success.
@@ -2778,7 +2778,7 @@ function imagettftext(\GdImage $image, float $size, float $angle, int $x, int $y
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
- * @param int $foreground_color You can set the foreground color with this parameter by setting an
+ * @param int|null $foreground_color You can set the foreground color with this parameter by setting an
  * identifier obtained from imagecolorallocate.
  * The default foreground color is black.
  * @throws ImageException
@@ -2840,7 +2840,7 @@ function imagewebp(\GdImage $image, $file = null, int $quality = -1): void
  * alphanumeric characters of the current locale are substituted by
  * underscores. If filename is set to NULL,
  * image is used to build the C identifiers.
- * @param int $foreground_color You can set the foreground color with this parameter by setting an
+ * @param int|null $foreground_color You can set the foreground color with this parameter by setting an
  * identifier obtained from imagecolorallocate.
  * The default foreground color is black. All other colors are treated as
  * background.

@@ -57,22 +57,18 @@ class PhpStanTypeTest extends TestCase
     public function testNullable(): void
     {
         $param = new PhpStanType('array|null');
-        $this->assertEquals(true, $param->isNullable());
         $this->assertEquals('array|null', $param->getDocBlockType());
         $this->assertEquals('?array', $param->getSignatureType());
 
         $param = new PhpStanType('?int|?string');
-        $this->assertEquals(true, $param->isNullable());
         $this->assertEquals('int|null|string', $param->getDocBlockType());
         $this->assertEquals('', $param->getSignatureType());
 
         $param = new PhpStanType('?string');
-        $this->assertEquals(true, $param->isNullable());
         $this->assertEquals('null|string', $param->getDocBlockType());
         $this->assertEquals('?string', $param->getSignatureType());
 
         $param = new PhpStanType('?HashContext');
-        $this->assertEquals(true, $param->isNullable());
         $this->assertEquals('\HashContext|null', $param->getDocBlockType());
         $this->assertEquals('?\HashContext', $param->getSignatureType());
     }
@@ -80,7 +76,6 @@ class PhpStanTypeTest extends TestCase
     public function testParenthesisOutsideOfCallable(): void
     {
         $param = new PhpStanType('(?int)|(?string)');
-        $this->assertEquals(true, $param->isNullable());
         $this->assertEquals('int|null|string', $param->getDocBlockType());
         $this->assertEquals('', $param->getSignatureType());
     }

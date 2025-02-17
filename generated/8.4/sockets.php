@@ -178,7 +178,7 @@ function socket_bind(\Socket $socket, string $address, int $port = 0): void
  * socket is AF_INET6
  * or the pathname of a Unix domain socket, if the socket family is
  * AF_UNIX.
- * @param int $port The port parameter is only used and is mandatory
+ * @param int|null $port The port parameter is only used and is mandatory
  * when connecting to an AF_INET or an
  * AF_INET6 socket, and designates
  * the port on the remote host to which a connection should be made.
@@ -663,7 +663,7 @@ function socket_sendmsg(\Socket $socket, array $message, int $flags = 0): int
  *
  *
  * @param string $address IP address of the remote host.
- * @param int $port port is the remote port number at which the data
+ * @param int|null $port port is the remote port number at which the data
  * will be sent.
  * @return int socket_sendto returns the number of bytes sent to the
  * remote host.

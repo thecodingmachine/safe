@@ -12,7 +12,7 @@ use Safe\Exceptions\UodbcException;
  *
  * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
- * @param bool $enable If enable is TRUE, auto-commit is enabled, if
+ * @param bool|null $enable If enable is TRUE, auto-commit is enabled, if
  * it is FALSE auto-commit is disabled.
  * If NULL is passed, this function returns the auto-commit status for
  * odbc.
@@ -64,11 +64,11 @@ function odbc_commit(\Odbc\Connection $odbc): void
  *
  * @param string $dsn The database source name for the connection. Alternatively, a
  * DSN-less connection string can be used.
- * @param string $user The username.
+ * @param null|string $user The username.
  * This parameter is ignored if dsn contains uid.
  * To connect without specifying a user,
  * use NULL.
- * @param string $password The password.
+ * @param null|string $password The password.
  * This parameter is ignored if dsn contains pwd.
  * To connect without specifying a password,
  * use NULL.
@@ -217,7 +217,7 @@ function odbc_execute(\Odbc\Result $statement, array $params = []): void
  * that can be of any type since it will be converted to type
  * array. The array will contain the column values starting at array
  * index 0.
- * @param int $row The row number.
+ * @param int|null $row The row number.
  * @return int Returns the number of columns in the result;
  * FALSE on error.
  * @throws UodbcException
@@ -376,8 +376,8 @@ function odbc_num_fields(\Odbc\Result $statement): int
  * connection.
  *
  * @param string $dsn
- * @param string $user
- * @param string $password
+ * @param null|string $user
+ * @param null|string $password
  * @param int $cursor_option
  * @return \Odbc\Connection Returns an ODBC connection.
  * @throws UodbcException
@@ -435,12 +435,12 @@ function odbc_prepare(\Odbc\Connection $odbc, string $query): \Odbc\Result
  *
  * @param  $odbc The ODBC connection object,
  * see odbc_connect for details.
- * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
- * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * @param null|string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param null|string $schema The schema ('owner' in ODBC 2 parlance).
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @param string $procedure The name.
+ * @param null|string $procedure The name.
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
@@ -629,16 +629,16 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  *
  * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
- * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
- * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * @param null|string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param null|string $schema The schema ('owner' in ODBC 2 parlance).
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @param string $table The name.
+ * @param null|string $table The name.
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @param string $types If table_type is not an empty string, it
+ * @param null|string $types If table_type is not an empty string, it
  * must contain a list of comma-separated values for the types of
  * interest; each value may be enclosed in single quotes (') or
  * unquoted. For example, 'TABLE','VIEW' or TABLE, VIEW.  If the

@@ -33,7 +33,7 @@ function stream_context_set_params($context, array $params): void
  *
  * @param resource $from The source stream
  * @param resource $to The destination stream
- * @param int $length Maximum bytes to copy. By default all bytes left are copied.
+ * @param int|null $length Maximum bytes to copy. By default all bytes left are copied.
  * @param int $offset The offset where to start to copy data
  * @return int Returns the total count of bytes copied.
  * @throws StreamException

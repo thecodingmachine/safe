@@ -717,7 +717,7 @@ function ssh2_sftp($session)
  * ssh2_connect.
  * @param string $term_type term_type should correspond to one of the
  * entries in the target system's /etc/termcap file.
- * @param array $env env may be passed as an associative array of
+ * @param array|null $env env may be passed as an associative array of
  * name/value pairs to set in the target environment.
  * @param int $width Width of the virtual terminal.
  * @param int $height Height of the virtual terminal.

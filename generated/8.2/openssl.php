@@ -293,7 +293,7 @@ function openssl_csr_get_subject($csr, bool $short_names = true): array
  * otherwise obtained from the other openssl_pkey family of functions).
  * The corresponding public portion of the key will be used to sign the
  * CSR.
- * @param array $options By default, the information in your system openssl.conf
+ * @param array|null $options By default, the information in your system openssl.conf
  * is used to initialize the request; you can specify a configuration file
  * section by setting the config_section_section key of
  * options.  You can also specify an alternative
@@ -385,7 +385,7 @@ function openssl_csr_get_subject($csr, bool $short_names = true): array
  *
  *
  *
- * @param array $extra_attributes extra_attributes is used to specify additional
+ * @param array|null $extra_attributes extra_attributes is used to specify additional
  * configuration options for the CSR.  Both distinguished_names and
  * extra_attributes are associative arrays whose keys are
  * converted to OIDs and applied to the relevant part of the request.
@@ -424,7 +424,7 @@ function openssl_csr_new(array $distinguished_names, \OpenSSLAsymmetricKey &$pri
  * ca_certificate.
  * @param int $days days specifies the length of time for which the
  * generated certificate will be valid, in days.
- * @param array $options You can finetune the CSR signing by options.
+ * @param array|null $options You can finetune the CSR signing by options.
  * See openssl_csr_new for more information about
  * options.
  * @param int $serial An optional the serial number of issued certificate. If not specified
@@ -461,7 +461,7 @@ function openssl_csr_sign($csr, $ca_certificate, $private_key, int $days, ?array
  * OPENSSL_RAW_DATA,
  * OPENSSL_ZERO_PADDING.
  * @param string $iv A non-NULL Initialization Vector.
- * @param string $tag The authentication tag in AEAD cipher mode. If it is incorrect, the authentication fails and the function returns FALSE.
+ * @param null|string $tag The authentication tag in AEAD cipher mode. If it is incorrect, the authentication fails and the function returns FALSE.
  * @param string $aad Additional authenticated data.
  * @return string The decrypted string on success.
  * @throws OpensslException
@@ -613,7 +613,7 @@ function openssl_get_curve_names(): array
  * It is strongly recommended to explicitly specify a secure cipher method.
  *
  *
- * @param string $iv The initialization vector.
+ * @param null|string $iv The initialization vector.
  * @throws OpensslException
  *
  */
@@ -861,7 +861,7 @@ function openssl_pkcs7_read(string $data, ?array &$certificates): void
  * openssl_pkcs7_encrypt for more information about
  * the format of this parameter).
  * @param int $flags flags can be used to alter the output - see PKCS7 constants.
- * @param string $untrusted_certificates_filename untrusted_certificates_filename specifies the name of a file containing
+ * @param null|string $untrusted_certificates_filename untrusted_certificates_filename specifies the name of a file containing
  * a bunch of extra certificates to include in the signature which can for
  * example be used to help the recipient to verify the certificate that you used.
  * @throws OpensslException
@@ -914,7 +914,7 @@ function openssl_pkey_derive($public_key, $private_key, int $key_length = 0): st
  * @param string $output_filename Path to the output file.
  * @param null|string $passphrase The key can be optionally protected by a
  * passphrase.
- * @param array $options options can be used to fine-tune the export
+ * @param array|null $options options can be used to fine-tune the export
  * process by specifying and/or overriding options for the openssl
  * configuration file. See openssl_csr_new for more
  * information about options.
@@ -945,7 +945,7 @@ function openssl_pkey_export_to_file($key, string $output_filename, ?string $pas
  * @param \OpenSSLAsymmetricKey|\OpenSSLCertificate|array|string $key
  * @param null|string $output
  * @param null|string $passphrase The key is optionally protected by passphrase.
- * @param array $options options can be used to fine-tune the export
+ * @param array|null $options options can be used to fine-tune the export
  * process by specifying and/or overriding options for the openssl
  * configuration file.  See openssl_csr_new for more
  * information about options.
@@ -1037,7 +1037,7 @@ function openssl_pkey_get_public($public_key): \OpenSSLAsymmetricKey
  * key.
  * How to obtain the public component of the key is shown in an example below.
  *
- * @param array $options You can finetune the key generation (such as specifying the number of
+ * @param array|null $options You can finetune the key generation (such as specifying the number of
  * bits) using options.  See
  * openssl_csr_new for more information about
  * options.
@@ -1413,7 +1413,7 @@ function openssl_verify(string $data, string $signature, $public_key, $algorithm
  * @param array $ca_info ca_info should be an array of trusted CA files/dirs
  * as described in Certificate
  * Verification.
- * @param string $untrusted_certificates_file If specified, this should be the name of a PEM encoded file holding
+ * @param null|string $untrusted_certificates_file If specified, this should be the name of a PEM encoded file holding
  * certificates that can be used to help verify the certificate, although
  * no trust is placed in the certificates that come from that file.
  * @return bool|int Returns TRUE if the certificate can be used for the intended purpose,

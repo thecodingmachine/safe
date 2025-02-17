@@ -35,9 +35,9 @@ function imap_8bit(string $string): string
  * When talking to the Cyrus IMAP server, you must use "\r\n" as
  * your end-of-line terminator instead of "\n" or the operation will
  * fail
- * @param string $options If provided, the options will also be written
+ * @param null|string $options If provided, the options will also be written
  * to the folder
- * @param string $internal_date If this parameter is set, it will set the INTERNALDATE on the appended message.  The parameter should be a date string that conforms to the rfc2060 specifications for a date_time value.
+ * @param null|string $internal_date If this parameter is set, it will set the INTERNALDATE on the appended message.  The parameter should be a date string that conforms to the rfc2060 specifications for a date_time value.
  * @throws ImapException
  *
  */
@@ -1439,11 +1439,11 @@ function imap_mail_move(\IMAP\Connection $imap, string $message_nums, string $ma
  * @param string $to The receiver
  * @param string $subject The mail subject
  * @param string $message The mail body, see imap_mail_compose
- * @param string $additional_headers As string with additional headers to be set on the mail
- * @param string $cc
- * @param string $bcc The receivers specified in bcc will get the
+ * @param null|string $additional_headers As string with additional headers to be set on the mail
+ * @param null|string $cc
+ * @param null|string $bcc The receivers specified in bcc will get the
  * mail, but are excluded from the headers.
- * @param string $return_path Use this parameter to specify return path upon mail delivery failure.
+ * @param null|string $return_path Use this parameter to specify return path upon mail delivery failure.
  * This is useful when using PHP as a mail client for multiple users.
  * @throws ImapException
  *
@@ -2051,9 +2051,9 @@ function imap_setflag_full(\IMAP\Connection $imap, string $sequence, string $fla
  *
  *
  *
- * @param string $search_criteria IMAP2-format search criteria string. For details see
+ * @param null|string $search_criteria IMAP2-format search criteria string. For details see
  * imap_search.
- * @param string $charset MIME character set to use when sorting strings.
+ * @param null|string $charset MIME character set to use when sorting strings.
  * @return array Returns an array of message numbers sorted by the given
  * parameters.
  * @throws ImapException

@@ -210,11 +210,6 @@ class PhpStanType
         return ($nullable !== false ? '?' : '').$finalType;
     }
 
-    public function isNullable(): bool
-    {
-        return $this->nullable;
-    }
-
     /**
      * @return array<string>
      */

@@ -135,7 +135,7 @@ function session_encode(): string
  * adding to URLs. See also Session
  * handling.
  *
- * @param string $id If id is specified and not NULL, it will replace the current
+ * @param null|string $id If id is specified and not NULL, it will replace the current
  * session id. session_id needs to be called before
  * session_start for that purpose. Depending on the
  * session handler, not all characters are allowed within the session id.
@@ -168,7 +168,7 @@ function session_id(?string $id = null): string
  * session module, which is also known as
  * session.save_handler.
  *
- * @param string $module If module is specified and not NULL, that module will be
+ * @param null|string $module If module is specified and not NULL, that module will be
  * used instead.
  * Passing "user" to this parameter is forbidden. Instead
  * session_set_save_handler has to be called to set a user
@@ -212,7 +212,7 @@ function session_module_name(?string $module = null): string
  * call session_name for every request (and before
  * session_start is called).
  *
- * @param string $name The session name references the name of the session, which is
+ * @param null|string $name The session name references the name of the session, which is
  * used in cookies and URLs (e.g. PHPSESSID). It
  * should contain only alphanumeric characters; it should be short and
  * descriptive (i.e. for users with enabled cookie warnings).
@@ -296,7 +296,7 @@ function session_reset(): void
  * session_save_path returns the path of the current
  * directory used to save session data.
  *
- * @param string $path Session data path. If specified and not NULL, the path to which data is saved will
+ * @param null|string $path Session data path. If specified and not NULL, the path to which data is saved will
  * be changed. session_save_path needs to be called
  * before session_start for that purpose.
  *

@@ -33,7 +33,7 @@ function stream_context_set_params($context, array $params): void
  *
  * @param resource $from The source stream
  * @param resource $to The destination stream
- * @param int $length Maximum bytes to copy. By default all bytes left are copied.
+ * @param int|null $length Maximum bytes to copy. By default all bytes left are copied.
  * @param int $offset The offset where to start to copy data
  * @return int Returns the total count of bytes copied.
  * @throws StreamException
@@ -210,7 +210,7 @@ function stream_filter_remove($stream_filter): void
  * offset.
  *
  * @param resource $stream A stream resource (e.g. returned from fopen)
- * @param int $length The maximum bytes to read. Defaults to NULL (read all the remaining
+ * @param int|null $length The maximum bytes to read. Defaults to NULL (read all the remaining
  * buffer).
  * @param int $offset Seek to the specified offset before reading. If this number is negative,
  * no seeking will occur and reading will start from the current position.
@@ -364,7 +364,7 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
  * stream_socket_server.
  *
  * @param resource $socket The server socket to accept a connection from.
- * @param float $timeout Override the default socket accept timeout. Time should be given in
+ * @param float|null $timeout Override the default socket accept timeout. Time should be given in
  * seconds. By default, default_socket_timeout
  * is used.
  * @param null|string $peer_name Will be set to the name (address) of the client which connected, if
@@ -407,7 +407,7 @@ function stream_socket_accept($socket, ?float $timeout = null, ?string &$peer_na
  * @param string $address Address to the socket to connect to.
  * @param int|null $error_code Will be set to the system level error number if connection fails.
  * @param null|string $error_message Will be set to the system level error message if the connection fails.
- * @param float $timeout Number of seconds until the connect() system call
+ * @param float|null $timeout Number of seconds until the connect() system call
  * should timeout. By default, default_socket_timeout
  * is used.
  *

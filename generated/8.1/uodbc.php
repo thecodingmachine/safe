@@ -197,16 +197,16 @@ function odbc_columnprivileges($odbc, string $catalog, string $schema, string $t
  *
  * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
- * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
- * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * @param null|string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param null|string $schema The schema ('owner' in ODBC 2 parlance).
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @param string $table The table name.
+ * @param null|string $table The table name.
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @param string $column The column name.
+ * @param null|string $column The column name.
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
@@ -774,16 +774,16 @@ function odbc_primarykeys($odbc, string $catalog, string $schema, string $table)
  *
  * @param  $odbc The ODBC connection object,
  * see odbc_connect for details.
- * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
- * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * @param null|string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param null|string $schema The schema ('owner' in ODBC 2 parlance).
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @param string $procedure The proc.
+ * @param null|string $procedure The proc.
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @param string $column The column.
+ * @param null|string $column The column.
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
@@ -843,12 +843,12 @@ function odbc_procedurecolumns($odbc, ?string $catalog = null, ?string $schema =
  *
  * @param  $odbc The ODBC connection object,
  * see odbc_connect for details.
- * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
- * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * @param null|string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param null|string $schema The schema ('owner' in ODBC 2 parlance).
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @param string $procedure The name.
+ * @param null|string $procedure The name.
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
@@ -1170,16 +1170,16 @@ function odbc_tableprivileges($odbc, string $catalog, string $schema, string $ta
  *
  * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
- * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
- * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * @param null|string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param null|string $schema The schema ('owner' in ODBC 2 parlance).
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @param string $table The name.
+ * @param null|string $table The name.
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @param string $types If table_type is not an empty string, it
+ * @param null|string $types If table_type is not an empty string, it
  * must contain a list of comma-separated values for the types of
  * interest; each value may be enclosed in single quotes (') or
  * unquoted. For example, 'TABLE','VIEW' or TABLE, VIEW.  If the

@@ -434,7 +434,7 @@ function sem_remove(\SysvSemaphore $semaphore): void
  * permissions will be ignored.
  *
  * @param int $key A numeric shared memory segment ID
- * @param int $size The memory size. If not provided, default to the
+ * @param int|null $size The memory size. If not provided, default to the
  * sysvshm.init_mem in the php.ini, otherwise 10000
  * bytes.
  * @param int $permissions The optional permission bits. Default to 0666.

@@ -13,7 +13,7 @@ use Safe\Exceptions\EioException;
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback This callback is called when all the group requests are done.
+ * @param callable|null $callback This callback is called when all the group requests are done.
  * @param mixed $data Arbitrary variable passed to callback.
  * @return resource eio_busy returns request resource on success.
  * @throws EioException
@@ -41,7 +41,7 @@ function eio_busy(int $delay, int $pri = EIO_PRI_DEFAULT, ?callable $callback = 
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -93,7 +93,7 @@ function eio_chmod(string $path, int $mode, int $pri = EIO_PRI_DEFAULT, ?callabl
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -142,7 +142,7 @@ function eio_chown(string $path, int $uid, int $gid = -1, int $pri = EIO_PRI_DEF
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -250,7 +250,7 @@ function eio_custom(callable $execute, int $pri, callable $callback, $data = nul
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -322,7 +322,7 @@ function eio_event_loop(): void
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -372,7 +372,7 @@ function eio_fallocate($fd, int $mode, int $offset, int $length, int $pri = EIO_
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -423,7 +423,7 @@ function eio_fchmod($fd, int $mode, int $pri = EIO_PRI_DEFAULT, ?callable $callb
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -471,7 +471,7 @@ function eio_fchown($fd, int $uid, int $gid = -1, int $pri = EIO_PRI_DEFAULT, ?c
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -625,7 +625,7 @@ function eio_fstatvfs($fd, int $pri, callable $callback, $data = null)
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -676,7 +676,7 @@ function eio_fsync($fd, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, 
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -727,7 +727,7 @@ function eio_ftruncate($fd, int $offset = 0, int $pri = EIO_PRI_DEFAULT, ?callab
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -796,7 +796,7 @@ function eio_futime($fd, float $atime, float $mtime, int $pri = EIO_PRI_DEFAULT,
  * system call.
  *
  * is optional request resource which can be used with functions like eio_get_last_error.
- * @param string $data is custom data passed to the request.
+ * @param null|string $data is custom data passed to the request.
  * @return resource eio_grp returns request group resource on success.
  * @throws EioException
  *
@@ -870,7 +870,7 @@ function eio_lstat(string $path, int $pri, callable $callback, $data = null)
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -935,7 +935,7 @@ function eio_mkdir(string $path, int $mode, int $pri = EIO_PRI_DEFAULT, ?callabl
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -983,7 +983,7 @@ function eio_mknod(string $path, int $mode, int $dev, int $pri = EIO_PRI_DEFAULT
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -1034,7 +1034,7 @@ function eio_nop(int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data =
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -1111,7 +1111,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  * system call.
  *
  * is optional request resource which can be used with functions like eio_get_last_error.
- * @param string $data is custom data passed to the request.
+ * @param null|string $data is custom data passed to the request.
  * @return resource eio_readdir returns request resource on success.
  * Sets result argument of
  * callback function according to
@@ -1411,7 +1411,7 @@ function eio_readdir(string $path, int $flags, int $pri, callable $callback, ?st
  * system call.
  *
  * is optional request resource which can be used with functions like eio_get_last_error.
- * @param string $data is custom data passed to the request.
+ * @param null|string $data is custom data passed to the request.
  * @return resource eio_readlink returns request resource on success.
  * @throws EioException
  *
@@ -1435,7 +1435,7 @@ function eio_readlink(string $path, int $pri, callable $callback, ?string $data 
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -1483,7 +1483,7 @@ function eio_rename(string $path, string $new_path, int $pri = EIO_PRI_DEFAULT, 
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -1539,7 +1539,7 @@ function eio_rmdir(string $path, int $pri = EIO_PRI_DEFAULT, ?callable $callback
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -1754,7 +1754,7 @@ function eio_statvfs(string $path, int $pri, callable $callback, $data = null)
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -1813,7 +1813,7 @@ function eio_symlink(string $path, string $new_path, int $pri = EIO_PRI_DEFAULT,
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -1858,7 +1858,7 @@ function eio_sync_file_range($fd, int $offset, int $nbytes, int $flags, int $pri
  *
  *
  * @param int $pri
- * @param callable $callback
+ * @param callable|null $callback
  * @param mixed $data
  * @return resource eio_sync returns request resource on success.
  * @throws EioException
@@ -1882,7 +1882,7 @@ function eio_sync(int $pri = EIO_PRI_DEFAULT, ?callable $callback = null, $data 
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -1932,7 +1932,7 @@ function eio_syncfs($fd, int $pri = EIO_PRI_DEFAULT, ?callable $callback = null,
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -1980,7 +1980,7 @@ function eio_truncate(string $path, int $offset = 0, int $pri = EIO_PRI_DEFAULT,
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -2030,7 +2030,7 @@ function eio_unlink(string $path, int $pri = EIO_PRI_DEFAULT, ?callable $callbac
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *
@@ -2083,7 +2083,7 @@ function eio_utime(string $path, float $atime, float $mtime, int $pri = EIO_PRI_
  * @param int $pri The request priority: EIO_PRI_DEFAULT, EIO_PRI_MIN, EIO_PRI_MAX, or NULL.
  * If NULL passed, pri internally is set to
  * EIO_PRI_DEFAULT.
- * @param callable $callback
+ * @param callable|null $callback
  * callback function is called when the request is done.
  * It should match the following prototype:
  *

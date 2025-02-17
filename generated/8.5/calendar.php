@@ -10,7 +10,7 @@ use Safe\Exceptions\CalendarException;
  * timestamp is given. Either way, the time is regarded
  * as local time (not UTC).
  *
- * @param int $timestamp A unix timestamp to convert.
+ * @param int|null $timestamp A unix timestamp to convert.
  * @return int A julian day number as integer.
  * @throws CalendarException
  *

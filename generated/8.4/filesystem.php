@@ -253,7 +253,7 @@ function fflush($stream): void
  * Seeking (offset) is not supported with remote files.
  * Attempting to seek on non-local files may work with small offsets, but this
  * is unpredictable because it works on the buffered stream.
- * @param int $length Maximum length of data read. The default is to read until end
+ * @param int|null $length Maximum length of data read. The default is to read until end
  * of file is reached. Note that this parameter is applied to the
  * stream processed by the filters.
  * @return string The function returns the read data.
@@ -1037,7 +1037,7 @@ function ftruncate($stream, int $size): void
  * @param resource $stream A file system pointer resource
  * that is typically created using fopen.
  * @param string $data The string that is to be written.
- * @param int $length If length is an integer, writing will stop
+ * @param int|null $length If length is an integer, writing will stop
  * after length bytes have been written or the
  * end of data is reached, whichever comes first.
  * @return int
@@ -1620,9 +1620,9 @@ function tmpfile()
  * If the file does not exist, it will be created.
  *
  * @param string $filename The name of the file being touched.
- * @param int $mtime The touch time. If mtime is NULL,
+ * @param int|null $mtime The touch time. If mtime is NULL,
  * the current system time is used.
- * @param int $atime If not NULL, the access time of the given filename is set to
+ * @param int|null $atime If not NULL, the access time of the given filename is set to
  * the value of atime. Otherwise, it is set to
  * the value passed to the mtime parameter.
  * If both are NULL, the current system time is used.

@@ -293,7 +293,7 @@ function gzfile(string $filename, int $use_include_path = 0): array
  *
  * @param resource $stream The gz-file pointer. It must be valid, and must point to a file
  * successfully opened by gzopen.
- * @param int $length The length of data to get.
+ * @param int|null $length The length of data to get.
  * @return string The uncompressed string.
  * @throws ZlibException
  *
@@ -469,7 +469,7 @@ function gzuncompress(string $data, int $max_length = 0): string
  * @param resource $stream The gz-file pointer. It must be valid, and must point to a file
  * successfully opened by gzopen.
  * @param string $data The string to write.
- * @param int $length The number of uncompressed bytes to write. If supplied, writing will
+ * @param int|null $length The number of uncompressed bytes to write. If supplied, writing will
  * stop after length (uncompressed) bytes have been
  * written or the end of data is reached,
  * whichever comes first.

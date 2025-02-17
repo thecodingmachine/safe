@@ -214,11 +214,6 @@ class PhpStanType
         return $this->nullable;
     }
 
-    public function isFalsable(): bool
-    {
-        return $this->falsable;
-    }
-
     /**
      * @return array<string>
      */

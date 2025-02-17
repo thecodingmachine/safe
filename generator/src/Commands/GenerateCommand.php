@@ -25,9 +25,12 @@ class GenerateCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-
+    protected function execute(
+        // These aren't actually sensitive, they just fill the
+        // stack traces with tons of useless information.
+        #[\SensitiveParameter] InputInterface $input,
+        #[\SensitiveParameter] OutputInterface $output
+    ): int {
         $this->rmGenerated();
 
         // Let's build the DTD necessary to load the XML files.

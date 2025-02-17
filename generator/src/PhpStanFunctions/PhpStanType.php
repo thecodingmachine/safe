@@ -19,10 +19,6 @@ class PhpStanType
         '\OCI-Collection',
     ];
 
-    private bool $nullable;
-
-    private bool $falsable;
-
     /**
      * @var string[]
      */
@@ -42,33 +38,17 @@ class PhpStanType
             $data = $regs[1];
         }
 
-        //first we try to parse the type string to have a list as clean as possible.
-        $nullable = false;
-        $falsable = false;
         // Let's make the parameter nullable if it is by reference and is used only for writing.
         if ($writeOnly && $data !== 'resource' && $data !== 'mixed') {
             $data .= '|null';
         }
 
         $returnTypes = $this->explodeTypes($data);
-        //remove 'null' from the list to identify if the signature type should be nullable
-        if (($nullablePosition = \array_search('null', $returnTypes, true)) !== false) {
-            $nullable = true;
-            \array_splice($returnTypes, (int) $nullablePosition, 1);
-        }
-        //remove 'false' from the list to identify if the function return false on error
-        if (($falsablePosition = \array_search('false', $returnTypes, true)) !== false) {
-            $falsable = true;
-            \array_splice($returnTypes, (int) $falsablePosition, 1);
-        }
-        $count = \count($returnTypes);
-        if ($count === 0) {
-            $returnType = '';
-        }
+        $anyNullable = false;
         foreach ($returnTypes as &$returnType) {
             $returnType = \trim($returnType);
             if (str_contains($returnType, '?')) {
-                $nullable = true;
+                $anyNullable = true;
                 $returnType = \str_replace('?', '', $returnType);
             }
             // remove the parenthesis only if we are not dealing with a callable
@@ -97,9 +77,10 @@ class PhpStanType
 
             $returnType = Type::toRootNamespace($returnType);
         }
+        if ($anyNullable) {
+            $returnTypes[] = 'null';
+        }
         $this->types = array_unique($returnTypes);
-        $this->nullable = $nullable;
-        $this->falsable = $falsable;
     }
 
     /**
@@ -136,17 +117,19 @@ class PhpStanType
     public function getDocBlockType(?ErrorType $errorType = null): string
     {
         $returnTypes = $this->types;
-        //add back either null or false to the return types unless the target function return null or false on error (only relevant on return type)
-        if ($this->falsable && $errorType !== ErrorType::FALSY) {
-            $returnTypes[] = 'false';
-        } elseif ($this->nullable && $errorType !== ErrorType::NULLSY) {
-            $returnTypes[] = 'null';
+        // If we're turning an error marker into an exception, remove
+        // the error marker from the return types
+        if (in_array('false', $returnTypes) && $errorType === ErrorType::FALSY) {
+            $returnTypes = array_diff($returnTypes, ['false']);
+        }
+        if (in_array('null', $returnTypes) && $errorType === ErrorType::NULLSY) {
+            $returnTypes = array_diff($returnTypes, ['null']);
         }
         sort($returnTypes);
         $type = join('|', $returnTypes);
-        if ($type === 'bool' && !$this->nullable && $errorType === ErrorType::FALSY) {
-            // If the function only returns a boolean, since false is for error, true is for success.
-            // Let's replace this with a "void".
+        // If the function only returns a boolean, since false is for error, true is for success.
+        // Let's replace this with a "void".
+        if ($type === 'bool' && $errorType === ErrorType::FALSY) {
             return 'void';
         }
         return $type;
@@ -154,9 +137,6 @@ class PhpStanType
 
     public function getSignatureType(?ErrorType $errorType = null): string
     {
-        //We edit the return type depending of the "onErrorType" of the function. For example, a function that is both nullable and "nullsy" will created a non nullable safe function. Only relevant on return type.
-        $nullable = $errorType === ErrorType::NULLSY ? false : $this->nullable;
-        $falsable = $errorType === ErrorType::FALSY ? false : $this->falsable;
         $types = $this->types;
         //no typehint exists for those cases
         if (\array_intersect(self::NO_SIGNATURE_TYPES, $types) !== []) {
@@ -172,8 +152,6 @@ class PhpStanType
                 $type = 'array'; //generics cannot be typehinted
             } elseif (str_contains($type, 'resource')) {
                 $type = ''; // resource cant be typehinted
-            } elseif (str_contains($type, 'null')) {
-                $type = ''; // null is a real typehint
             } elseif (str_contains($type, 'true')) {
                 $type = 'bool'; // php8.1 doesn't support "true" as a typehint
             } elseif (str_contains($type, 'non-falsy-string')) {
@@ -186,10 +164,21 @@ class PhpStanType
         $types = array_unique($types);
         sort($types);
 
+        // If we're turning false/null into exceptions, then
+        // remove false/null from the return types
+        if ($errorType === ErrorType::FALSY) {
+            $types = array_diff($types, ['false']);
+        }
+        if ($errorType === ErrorType::NULLSY) {
+            $types = array_diff($types, ['null']);
+        }
+        // remove "null" from the union so we can add "?" later
+        $nullable = in_array('null', $types);
+        $types = array_diff($types, ['null']);
         if (count($types) === 0) {
             return '';
         } elseif (count($types) === 1) {
-            $finalType = $types[0];
+            $finalType = array_values($types)[0];
             if ($finalType === 'bool' && !$nullable && $errorType === ErrorType::FALSY) {
                 // If the function only returns a boolean, since false is for
                 // error, true is for success. Let's replace this with a "void".

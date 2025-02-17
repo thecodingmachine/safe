@@ -84,7 +84,7 @@ class PhpStanTypeTest extends TestCase
     {
         $param = new PhpStanType('string|false');
         $this->assertEquals('false|string', $param->getDocBlockType());
-        $this->assertEquals('string', $param->getSignatureType());
+        $this->assertEquals('', $param->getSignatureType());
     }
 
     public function testResource(): void

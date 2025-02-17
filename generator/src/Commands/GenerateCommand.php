@@ -9,6 +9,7 @@ use Safe\XmlDocParser\DocPage;
 use Safe\Generator\FileCreator;
 use Safe\Generator\ComposerJsonEditor;
 
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -30,6 +31,7 @@ class GenerateCommand extends Command
         $this->rmGenerated();
 
         // Let's build the DTD necessary to load the XML files.
+        $this->checkout(DocPage::findReferenceDir(), "master");
         DocPage::buildEntities();
 
         // PHP documentation is a living document, which broadly reflects
@@ -64,7 +66,13 @@ class GenerateCommand extends Command
             $this->checkout(DocPage::findReferenceDir(), $commit);
             $scanner = new Scanner(DocPage::findReferenceDir());
             $res = $scanner->getMethods($scanner->getFunctionsPaths(), $output);
-            $output->writeln('These functions have been ignored and must be dealt with manually: '.\implode(', ', $res->overloadedFunctions));
+            $output->writeln(
+                'Functions have been ignored and must be dealt with manually: ' .
+                ($output->isVerbose() ?
+                    implode(', ', $res->overloadedFunctions) :
+                    count($res->overloadedFunctions) . ' functions'
+                )
+            );
 
             $currentFunctionsByName = [];
             foreach ($res->methods as $function) {
@@ -83,8 +91,13 @@ class GenerateCommand extends Command
                     $missingMethods[] = $oldFunction;
                 }
             }
-            $output->writeln('Methods no longer need safe wrappers in ' . $version . ': ' .
-                \implode(', ', \array_map(fn($m) => $m->getFunctionName(), $missingMethods)));
+            $output->writeln(
+                'Functions no longer need safe wrappers in ' . $version . ': ' .
+                ($output->isVerbose() ?
+                    \implode(', ', \array_map(fn($m) => $m->getFunctionName(), $missingMethods)) :
+                    count($missingMethods) . ' functions'
+                )
+            );
 
             $genDir = FileCreator::getSafeRootDir() . "/generated/$version";
             $fileCreator = new FileCreator();
@@ -111,32 +124,29 @@ class GenerateCommand extends Command
 
     private function checkout(string $dir, string $commit): void
     {
+        $process = new Process(['git', 'clean', '-fdx'], $dir);
+        $process->setTimeout(10);
+        $code = $process->run();
+        if ($code !== 0) {
+            throw new \RuntimeException("Failed to git-clean in $dir (exit $code):\n{$process->getErrorOutput()}");
+        }
+
         $process = new Process(['git', 'checkout', $commit], $dir);
         $process->setTimeout(10);
         $code = $process->run();
         if ($code !== 0) {
-            throw new \RuntimeException("Failed to checkout $commit in $dir");
+            throw new \RuntimeException("Failed to checkout $commit in $dir (exit $code):\n{$process->getErrorOutput()}");
         }
     }
 
     private function rmGenerated(): void
     {
-        $exceptions = \glob(FileCreator::getSafeRootDir() . '/generated/Exceptions/*.php');
-        if ($exceptions === false) {
-            throw new \RuntimeException('Failed to require the generated exception files');
-        }
-
-        foreach ($exceptions as $exception) {
-            \unlink($exception);
-        }
-
-        $files = \glob(FileCreator::getSafeRootDir() . '/generated/*.php');
-        if ($files === false) {
-            throw new \RuntimeException('Failed to require the generated files');
-        }
-
-        foreach ($files as $file) {
-            \unlink($file);
+        $finder = new Finder();
+        $finder->in(FileCreator::getSafeRootDir() . "/generated");
+        foreach ($finder as $file) {
+            if ($file->isFile()) {
+                \unlink($file->getPathname());
+            }
         }
 
         if (\file_exists(DocPage::findDocDir() . '/entities/generated.ent')) {

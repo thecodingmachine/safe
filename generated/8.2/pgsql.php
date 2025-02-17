@@ -149,7 +149,7 @@ function pg_convert(\PgSql\Connection $connection, string $table_name, array $va
  * @throws PgsqlException
  *
  */
-function pg_copy_from(\PgSql\Connection $connection, string $table_name, array $rows, string $separator = "\t", string $null_as = "\\N"): void
+function pg_copy_from(\PgSql\Connection $connection, string $table_name, array $rows, string $separator = "\t", string $null_as = "\\\\N"): void
 {
     error_clear_last();
     $safeResult = \pg_copy_from($connection, $table_name, $rows, $separator, $null_as);
@@ -174,7 +174,7 @@ function pg_copy_from(\PgSql\Connection $connection, string $table_name, array $
  * @throws PgsqlException
  *
  */
-function pg_copy_to(\PgSql\Connection $connection, string $table_name, string $separator = "\t", string $null_as = "\\N"): array
+function pg_copy_to(\PgSql\Connection $connection, string $table_name, string $separator = "\t", string $null_as = "\\\\N"): array
 {
     error_clear_last();
     $safeResult = \pg_copy_to($connection, $table_name, $separator, $null_as);

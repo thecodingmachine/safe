@@ -149,7 +149,7 @@ class WritePhpFunction
 
             $paramName = $param->getParameterName();
             if ($param->isVariadic()) {
-                $paramAsString .= ' ...$'.$paramName;
+                $paramAsString .= '...$'.$paramName;
             } else {
                 if ($param->isByReference()) {
                     $paramAsString .= '&';

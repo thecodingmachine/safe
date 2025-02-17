@@ -83,7 +83,7 @@ function array_flip(array $array): array
  * @throws ArrayException
  *
  */
-function array_replace_recursive(array $array, array  ...$replacements): array
+function array_replace_recursive(array $array, array ...$replacements): array
 {
     error_clear_last();
     if ($replacements !== []) {
@@ -118,7 +118,7 @@ function array_replace_recursive(array $array, array  ...$replacements): array
  * @throws ArrayException
  *
  */
-function array_replace(array $array, array  ...$replacements): array
+function array_replace(array $array, array ...$replacements): array
 {
     error_clear_last();
     if ($replacements !== []) {

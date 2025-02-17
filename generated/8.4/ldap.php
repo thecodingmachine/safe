@@ -409,6 +409,34 @@ function ldap_free_result(\LDAP\Result $result): void
 
 
 /**
+ * Reads attributes and values from an entry in the search result.
+ *
+ * Having located a specific entry in the directory, you can find out what
+ * information is held for that entry by using this call. You would use this
+ * call for an application which "browses" directory entries and/or where you
+ * do not know the structure of the directory entries. In many applications
+ * you will be searching for a specific attribute such as an email address or
+ * a surname, and won't care what other data is held.
+ *
+ *
+ *
+ *
+ *
+ *
+ * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
+ * @param \LDAP\ResultEntry $entry An LDAP\ResultEntry instance.
+ * @return array Returns a complete entry information in a multi-dimensional array.
+ *
+ */
+function ldap_get_attributes(\LDAP\Connection $ldap, \LDAP\ResultEntry $entry): array
+{
+    error_clear_last();
+    $safeResult = \ldap_get_attributes($ldap, $entry);
+    return $safeResult;
+}
+
+
+/**
  * Finds out the DN of an entry in the result.
  *
  * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
@@ -1239,9 +1267,4 @@ function ldap_unbind(\LDAP\Connection $ldap): void
     if ($safeResult === false) {
         throw LdapException::createFromPhpError();
     }
-}
-
-function ldap_get_attributes()
-{
-    return \ldap_get_attributes(...func_get_args());
 }

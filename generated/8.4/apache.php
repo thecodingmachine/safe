@@ -92,6 +92,36 @@ function apache_lookup_uri(string $filename): object
 
 
 /**
+ * Fetches all HTTP request headers from the current request. Works in the
+ * Apache, FastCGI, CLI, and FPM webservers.
+ *
+ * @return array|false An associative array of all the HTTP headers in the current request.
+ *
+ */
+function apache_request_headers()
+{
+    error_clear_last();
+    $safeResult = \apache_request_headers();
+    return $safeResult;
+}
+
+
+/**
+ * Fetch all HTTP response headers.  Works in the
+ * Apache, FastCGI, CLI, and FPM webservers.
+ *
+ * @return array|false An array of all Apache response headers on success.
+ *
+ */
+function apache_response_headers()
+{
+    error_clear_last();
+    $safeResult = \apache_response_headers();
+    return $safeResult;
+}
+
+
+/**
  * apache_setenv sets the value of the Apache
  * environment variable specified by
  * variable.
@@ -109,6 +139,24 @@ function apache_setenv(string $variable, string $value, bool $walk_to_top = fals
     if ($safeResult === false) {
         throw ApacheException::createFromPhpError();
     }
+}
+
+
+/**
+ * Fetches all HTTP headers from the current request.
+ *
+ * This function is an alias for apache_request_headers.
+ * Please read the apache_request_headers
+ * documentation for more information on how this function works.
+ *
+ * @return array An associative array of all the HTTP headers in the current request.
+ *
+ */
+function getallheaders(): array
+{
+    error_clear_last();
+    $safeResult = \getallheaders();
+    return $safeResult;
 }
 
 
@@ -136,19 +184,4 @@ function virtual(string $uri): void
     if ($safeResult === false) {
         throw ApacheException::createFromPhpError();
     }
-}
-
-function apache_request_headers()
-{
-    return \apache_request_headers(...func_get_args());
-}
-
-function apache_response_headers()
-{
-    return \apache_response_headers(...func_get_args());
-}
-
-function getallheaders()
-{
-    return \getallheaders(...func_get_args());
 }

@@ -328,6 +328,20 @@ function curl_multi_info_read(\CurlMultiHandle $multi_handle, ?int &$queued_mess
 
 
 /**
+ * Allows the processing of multiple cURL handles asynchronously.
+ *
+ * @return \CurlMultiHandle Returns a cURL multi handle.
+ *
+ */
+function curl_multi_init(): \CurlMultiHandle
+{
+    error_clear_last();
+    $safeResult = \curl_multi_init();
+    return $safeResult;
+}
+
+
+/**
  * Sets an option on the given cURL multi handle.
  *
  * @param \CurlMultiHandle $multi_handle A cURL multi handle returned by
@@ -370,6 +384,22 @@ function curl_setopt(\CurlHandle $handle, int $option, $value): void
     if ($safeResult === false) {
         throw CurlException::createFromPhpError($handle);
     }
+}
+
+
+/**
+ * Return an integer containing the last share curl error number.
+ *
+ * @param \CurlShareHandle $share_handle A cURL share handle returned by
+ * curl_share_init.
+ * @return int Returns an integer containing the last share curl error number.
+ *
+ */
+function curl_share_errno(\CurlShareHandle $share_handle): int
+{
+    error_clear_last();
+    $safeResult = \curl_share_errno($share_handle);
+    return $safeResult;
 }
 
 
@@ -437,14 +467,4 @@ function curl_upkeep(\CurlHandle $handle): void
     if ($safeResult === false) {
         throw CurlException::createFromPhpError($handle);
     }
-}
-
-function curl_multi_init()
-{
-    return \curl_multi_init(...func_get_args());
-}
-
-function curl_share_errno()
-{
-    return \curl_share_errno(...func_get_args());
 }

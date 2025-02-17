@@ -72,6 +72,25 @@ function highlight_file(string $filename, bool $return = false)
 /**
  *
  *
+ * @param string $string The PHP code to be highlighted. This should include the opening tag.
+ * @param bool $return Set this parameter to TRUE to make this function return the
+ * highlighted code.
+ * @return bool|string If return is set to TRUE, returns the highlighted
+ * code as a string instead of printing it out.
+ * Otherwise, it will return TRUE.
+ *
+ */
+function highlight_string(string $string, bool $return = false)
+{
+    error_clear_last();
+    $safeResult = \highlight_string($string, $return);
+    return $safeResult;
+}
+
+
+/**
+ *
+ *
  * @param bool $as_number Whether the high resolution time should be returned as array
  * or number.
  * @return array{0:int,1:int}|float|int Returns an array of integers in the form [seconds, nanoseconds], if the
@@ -88,6 +107,171 @@ function hrtime(bool $as_number = false)
     $safeResult = \hrtime($as_number);
     if ($safeResult === false) {
         throw MiscException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * Pack given arguments into a binary string according to
+ * format.
+ *
+ * The idea for this function was taken from Perl and all formatting codes
+ * work the same as in Perl. However, there are some formatting codes that are
+ * missing such as Perl's "u" format code.
+ *
+ * Note that the distinction between signed and unsigned values only
+ * affects the function unpack, where as
+ * function pack gives the same result for
+ * signed and unsigned format codes.
+ *
+ * @param string $format The format string consists of format codes
+ * followed by an optional repeater argument. The repeater argument can
+ * be either an integer value or * for repeating to
+ * the end of the input data. For a, A, h, H the repeat count specifies
+ * how many characters of one data argument are taken, for @ it is the
+ * absolute position where to put the next data, for everything else the
+ * repeat count specifies how many data arguments are consumed and packed
+ * into the resulting binary string.
+ *
+ * Currently implemented formats are:
+ *
+ * pack format characters
+ *
+ *
+ *
+ * Code
+ * Description
+ *
+ *
+ *
+ *
+ * a
+ * NUL-padded string
+ *
+ *
+ * A
+ * SPACE-padded string
+ *
+ * h
+ * Hex string, low nibble first
+ *
+ * H
+ * Hex string, high nibble first
+ * csigned char
+ *
+ * C
+ * unsigned char
+ *
+ * s
+ * signed short (always 16 bit, machine byte order)
+ *
+ *
+ * S
+ * unsigned short (always 16 bit, machine byte order)
+ *
+ *
+ * n
+ * unsigned short (always 16 bit, big endian byte order)
+ *
+ *
+ * v
+ * unsigned short (always 16 bit, little endian byte order)
+ *
+ *
+ * i
+ * signed integer (machine dependent size and byte order)
+ *
+ *
+ * I
+ * unsigned integer (machine dependent size and byte order)
+ *
+ *
+ * l
+ * signed long (always 32 bit, machine byte order)
+ *
+ *
+ * L
+ * unsigned long (always 32 bit, machine byte order)
+ *
+ *
+ * N
+ * unsigned long (always 32 bit, big endian byte order)
+ *
+ *
+ * V
+ * unsigned long (always 32 bit, little endian byte order)
+ *
+ *
+ * q
+ * signed long long (always 64 bit, machine byte order)
+ *
+ *
+ * Q
+ * unsigned long long (always 64 bit, machine byte order)
+ *
+ *
+ * J
+ * unsigned long long (always 64 bit, big endian byte order)
+ *
+ *
+ * P
+ * unsigned long long (always 64 bit, little endian byte order)
+ *
+ *
+ * f
+ * float (machine dependent size and representation)
+ *
+ *
+ * g
+ * float (machine dependent size, little endian byte order)
+ *
+ *
+ * G
+ * float (machine dependent size, big endian byte order)
+ *
+ *
+ * d
+ * double (machine dependent size and representation)
+ *
+ *
+ * e
+ * double (machine dependent size, little endian byte order)
+ *
+ *
+ * E
+ * double (machine dependent size, big endian byte order)
+ *
+ *
+ * x
+ * NUL byte
+ *
+ *
+ * X
+ * Back up one byte
+ *
+ *
+ * Z
+ * NUL-padded string
+ *
+ *
+ * @
+ * NUL-fill to absolute position
+ *
+ *
+ *
+ *
+ * @param mixed $values
+ * @return string Returns a binary string containing data.
+ *
+ */
+function pack(string $format, ...$values): string
+{
+    error_clear_last();
+    if ($values !== []) {
+        $safeResult = \pack($format, ...$values);
+    } else {
+        $safeResult = \pack($format);
     }
     return $safeResult;
 }
@@ -246,6 +430,28 @@ function sapi_windows_vt100_support($stream, ?bool $enable = null): void
 
 
 /**
+ *
+ *
+ * @param int $seconds Halt time in seconds (must be greater than or equal to 0).
+ * @return false|int Returns zero on success.
+ *
+ * If the call was interrupted by a signal, sleep returns
+ * a non-zero value. On Windows, this value will always be
+ * 192 (the value of the
+ * WAIT_IO_COMPLETION constant within the Windows API).
+ * On other platforms, the return value will be the number of seconds left to
+ * sleep.
+ *
+ */
+function sleep(int $seconds)
+{
+    error_clear_last();
+    $safeResult = \sleep($seconds);
+    return $safeResult;
+}
+
+
+/**
  * Delays program execution for the given number of
  * seconds and nanoseconds.
  *
@@ -342,19 +548,4 @@ function unpack(string $format, string $string, int $offset = 0): array
         throw MiscException::createFromPhpError();
     }
     return $safeResult;
-}
-
-function highlight_string()
-{
-    return \highlight_string(...func_get_args());
-}
-
-function pack()
-{
-    return \pack(...func_get_args());
-}
-
-function sleep()
-{
-    return \sleep(...func_get_args());
 }

@@ -57,7 +57,7 @@ class GenerateCommand extends Command
         // Keep track of all functions that we have generated wrappers for
         // in the past, so if we stop needing a safe-wrapper, we can start
         // generating no-op wrappers instead.
-        $allFunctionsByName = [];
+        $pastFunctionNames = [];
 
         foreach ($versions as $version => $commit) {
             $output->writeln('===============================================');
@@ -68,7 +68,7 @@ class GenerateCommand extends Command
             // functions that we need to generate safe wrappers for.
             $this->checkout(DocPage::findReferenceDir(), $commit);
             $scanner = new Scanner(DocPage::findReferenceDir());
-            $res = $scanner->getMethods($scanner->getFunctionsPaths(), $output);
+            $res = $scanner->getMethods($scanner->getFunctionsPaths(), $pastFunctionNames, $output);
             $output->writeln(
                 'Functions have been ignored and must be dealt with manually: ' .
                 ($output->isVerbose() ?
@@ -79,32 +79,13 @@ class GenerateCommand extends Command
 
             $currentFunctionsByName = [];
             foreach ($res->methods as $function) {
-                $currentFunctionsByName[$function->getFunctionName()] = $function;
-                $allFunctionsByName[$function->getFunctionName()] = $function;
+                $pastFunctionNames[] = $function->getFunctionName();
                 $modules[$function->getModuleName()] = true;
             }
 
-            // Keep track of which functions we have generated wrappers for
-            // in the past, but not in the current version - mark those as
-            // "missing" so that we can generate no-op wrappers for them in
-            // order to keep backwards compatibility.
-            $missingMethods = [];
-            foreach ($allFunctionsByName as $oldFunctionName => $oldFunction) {
-                if (!\array_key_exists($oldFunctionName, $currentFunctionsByName)) {
-                    $missingMethods[] = $oldFunction;
-                }
-            }
-            $output->writeln(
-                'Functions no longer need safe wrappers in ' . $version . ': ' .
-                ($output->isVerbose() ?
-                    \implode(', ', \array_map(fn($m) => $m->getFunctionName(), $missingMethods)) :
-                    count($missingMethods) . ' functions'
-                )
-            );
-
             $genDir = FileCreator::getSafeRootDir() . "/generated/$version";
             $fileCreator = new FileCreator();
-            $fileCreator->generatePhpFile($res->methods, $missingMethods, "$genDir/");
+            $fileCreator->generatePhpFile($res->methods, "$genDir/");
             $fileCreator->generateFunctionsList($res->methods, "$genDir/functionsList.php");
             $fileCreator->generateRectorFile($res->methods, "$genDir/rector-migrate.php");
         }

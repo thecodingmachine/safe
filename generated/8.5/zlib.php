@@ -375,6 +375,24 @@ function gzopen(string $filename, string $mode, int $use_include_path = 0)
 
 
 /**
+ * Reads to EOF on the given gz-file pointer from the current position and
+ * writes the (uncompressed) results to standard output.
+ *
+ * @param resource $stream The gz-file pointer. It must be valid, and must point to a file
+ * successfully opened by gzopen.
+ * @return false|int The number of uncompressed characters read from gz
+ * and passed through to the input.
+ *
+ */
+function gzpassthru($stream)
+{
+    error_clear_last();
+    $safeResult = \gzpassthru($stream);
+    return $safeResult;
+}
+
+
+/**
  * gzread reads up to length bytes
  * from the given gz-file pointer. Reading stops when
  * length (uncompressed) bytes have been read
@@ -508,6 +526,21 @@ function inflate_get_read_len(\InflateContext $context): int
     if ($safeResult === false) {
         throw ZlibException::createFromPhpError();
     }
+    return $safeResult;
+}
+
+
+/**
+ * Usually returns either ZLIB_OK or ZLIB_STREAM_END.
+ *
+ * @param \InflateContext $context
+ * @return false|int Returns decompression status.
+ *
+ */
+function inflate_get_status(\InflateContext $context)
+{
+    error_clear_last();
+    $safeResult = \inflate_get_status($context);
     return $safeResult;
 }
 
@@ -669,14 +702,4 @@ function zlib_decode(string $data, int $max_length = 0): string
         throw ZlibException::createFromPhpError();
     }
     return $safeResult;
-}
-
-function gzpassthru()
-{
-    return \gzpassthru(...func_get_args());
-}
-
-function inflate_get_status()
-{
-    return \inflate_get_status(...func_get_args());
 }

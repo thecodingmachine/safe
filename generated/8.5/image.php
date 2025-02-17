@@ -474,6 +474,24 @@ function imagecolorset(\GdImage $image, int $color, int $red, int $green, int $b
 
 
 /**
+ * Gets the color for a specified index.
+ *
+ * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
+ * such as imagecreatetruecolor.
+ * @param int $color The color index.
+ * @return int Returns an associative array with red, green, blue and alpha keys that
+ * contain the appropriate values for the specified color index.
+ *
+ */
+function imagecolorsforindex(\GdImage $image, int $color): int
+{
+    error_clear_last();
+    $safeResult = \imagecolorsforindex($image, $color);
+    return $safeResult;
+}
+
+
+/**
  * Applies a convolution matrix on the image, using the given coefficient and
  * offset.
  *
@@ -2543,6 +2561,38 @@ function imagestringup(\GdImage $image, int $font, int $x, int $y, string $strin
 
 
 /**
+ * Returns the width of the given image object.
+ *
+ * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
+ * such as imagecreatetruecolor.
+ * @return int Return the width of the image.
+ *
+ */
+function imagesx(\GdImage $image): int
+{
+    error_clear_last();
+    $safeResult = \imagesx($image);
+    return $safeResult;
+}
+
+
+/**
+ * Returns the height of the given image object.
+ *
+ * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
+ * such as imagecreatetruecolor.
+ * @return int Return the height of the image.
+ *
+ */
+function imagesy(\GdImage $image): int
+{
+    error_clear_last();
+    $safeResult = \imagesy($image);
+    return $safeResult;
+}
+
+
+/**
  * imagetruecolortopalette converts a truecolor image
  * to a palette image. The code for this function was originally drawn from
  * the Independent JPEG Group library code, which is excellent. The code
@@ -2873,19 +2923,4 @@ function iptcparse(string $iptc_block): array
         throw ImageException::createFromPhpError();
     }
     return $safeResult;
-}
-
-function imagecolorsforindex()
-{
-    return \imagecolorsforindex(...func_get_args());
-}
-
-function imagesx()
-{
-    return \imagesx(...func_get_args());
-}
-
-function imagesy()
-{
-    return \imagesy(...func_get_args());
 }

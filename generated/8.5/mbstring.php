@@ -118,6 +118,21 @@ function mb_detect_order($encoding = null)
 
 
 /**
+ * Returns an array of aliases for a known encoding type.
+ *
+ * @param string $encoding The encoding type being checked, for aliases.
+ * @return array|false Returns a numerically indexed array of encoding aliases.
+ *
+ */
+function mb_encoding_aliases(string $encoding)
+{
+    error_clear_last();
+    $safeResult = \mb_encoding_aliases($encoding);
+    return $safeResult;
+}
+
+
+/**
  * Scans string for matches to
  * pattern, then replaces the matched text
  * with the output of callback function.
@@ -582,9 +597,4 @@ function mb_split(string $pattern, string $string, int $limit = -1): array
         throw MbstringException::createFromPhpError();
     }
     return $safeResult;
-}
-
-function mb_encoding_aliases()
-{
-    return \mb_encoding_aliases(...func_get_args());
 }

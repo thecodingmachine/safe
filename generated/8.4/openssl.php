@@ -1228,6 +1228,30 @@ function openssl_public_encrypt(string $data, ?string &$encrypted_data, $public_
 
 
 /**
+ * Generates a string of pseudo-random bytes, with the number of bytes
+ * determined by the length parameter.
+ *
+ * It also indicates if a cryptographically strong algorithm was used to produce the
+ * pseudo-random bytes, and does this via the optional strong_result
+ * parameter. It's rare for this to be FALSE, but some systems may be broken or old.
+ *
+ * @param int $length The length of the desired string of bytes. Must be a positive integer less than or equal to 2147483647. PHP will
+ * try to cast this parameter to a non-null integer to use it.
+ * @param bool|null $strong_result If passed into the function, this will hold a bool value that determines
+ * if the algorithm used was "cryptographically strong", e.g., safe for usage with GPG,
+ * passwords, etc. TRUE if it did, otherwise FALSE
+ * @return false|string Returns the generated string of bytes.
+ *
+ */
+function openssl_random_pseudo_bytes(int $length, ?bool &$strong_result = null)
+{
+    error_clear_last();
+    $safeResult = \openssl_random_pseudo_bytes($length, $strong_result);
+    return $safeResult;
+}
+
+
+/**
  * openssl_seal seals (encrypts) data using the
  * specified cipher_algo with a randomly generated secret key. The key is
  * then encrypted with each of the public keys in public_key array,
@@ -1579,9 +1603,4 @@ function openssl_x509_read($certificate): \OpenSSLCertificate
         throw OpensslException::createFromPhpError();
     }
     return $safeResult;
-}
-
-function openssl_random_pseudo_bytes()
-{
-    return \openssl_random_pseudo_bytes(...func_get_args());
 }

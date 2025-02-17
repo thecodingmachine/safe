@@ -217,6 +217,57 @@ function imap_check(\IMAP\Connection $imap): \stdClass
 
 
 /**
+ * This function causes a store to delete the specified
+ * flag to the flags set for the
+ * messages in the specified sequence.
+ *
+ * @param \IMAP\Connection $imap An IMAP\Connection instance.
+ * @param string $sequence A sequence of message numbers. You can enumerate desired messages
+ * with the X,Y syntax, or retrieve all messages
+ * within an interval with the X:Y syntax
+ * @param string $flag The flags which you can unset are "\\Seen", "\\Answered", "\\Flagged",
+ * "\\Deleted", and "\\Draft" (as defined by RFC2060)
+ * @param int $options options are a bit mask and may contain
+ * the single option:
+ *
+ *
+ *
+ * ST_UID - The sequence argument contains UIDs
+ * instead of sequence numbers
+ *
+ *
+ *
+ * @return bool Always returns TRUE.
+ *
+ */
+function imap_clearflag_full(\IMAP\Connection $imap, string $sequence, string $flag, int $options = 0): bool
+{
+    error_clear_last();
+    $safeResult = \imap_clearflag_full($imap, $sequence, $flag, $options);
+    return $safeResult;
+}
+
+
+/**
+ * Closes the imap stream.
+ *
+ * @param \IMAP\Connection $imap An IMAP\Connection instance.
+ * @param int $flags If set to CL_EXPUNGE, the function will silently
+ * expunge the mailbox before closing, removing all messages marked for
+ * deletion. You can achieve the same thing by using
+ * imap_expunge
+ * @return bool Always returns TRUE.
+ *
+ */
+function imap_close(\IMAP\Connection $imap, int $flags = 0): bool
+{
+    error_clear_last();
+    $safeResult = \imap_close($imap, $flags);
+    return $safeResult;
+}
+
+
+/**
  * Creates a new mailbox specified by mailbox.
  *
  * @param \IMAP\Connection $imap An IMAP\Connection instance.
@@ -647,6 +698,26 @@ function imap_fetchstructure(\IMAP\Connection $imap, int $message_num, int $flag
     if ($safeResult === false) {
         throw ImapException::createFromPhpError();
     }
+    return $safeResult;
+}
+
+
+/**
+ * Purges the cache of entries of a specific type.
+ *
+ * @param \IMAP\Connection $imap An IMAP\Connection instance.
+ * @param int $flags Specifies the cache to purge. It may one or a combination
+ * of the following constants:
+ * IMAP_GC_ELT (message cache elements),
+ * IMAP_GC_ENV (envelope and bodies),
+ * IMAP_GC_TEXTS (texts).
+ * @return bool Always returns TRUE.
+ *
+ */
+function imap_gc(\IMAP\Connection $imap, int $flags): bool
+{
+    error_clear_last();
+    $safeResult = \imap_gc($imap, $flags);
     return $safeResult;
 }
 
@@ -1396,6 +1467,63 @@ function imap_mail(string $to, string $subject, string $message, ?string $additi
 
 
 /**
+ * Checks the current mailbox status on the server. It is similar to
+ * imap_status, but will additionally sum up the size of
+ * all messages in the mailbox, which will take some additional time to
+ * execute.
+ *
+ * @param \IMAP\Connection $imap An IMAP\Connection instance.
+ * @return \stdClass|false Returns the information in an object with following properties:
+ *
+ * Mailbox properties
+ *
+ *
+ *
+ * Date
+ * date of last change (current datetime)
+ *
+ *
+ * Driver
+ * driver
+ *
+ *
+ * Mailbox
+ * name of the mailbox
+ *
+ *
+ * Nmsgs
+ * number of messages
+ *
+ *
+ * Recent
+ * number of recent messages
+ *
+ *
+ * Unread
+ * number of unread messages
+ *
+ *
+ * Deleted
+ * number of deleted messages
+ *
+ *
+ * Size
+ * mailbox size
+ *
+ *
+ *
+ *
+ *
+ */
+function imap_mailboxmsginfo(\IMAP\Connection $imap)
+{
+    error_clear_last();
+    $safeResult = \imap_mailboxmsginfo($imap);
+    return $safeResult;
+}
+
+
+/**
  * Decodes MIME message header extensions that are non ASCII text (see RFC2047).
  *
  * @param string $string The MIME text
@@ -1824,6 +1952,39 @@ function imap_setacl(\IMAP\Connection $imap, string $mailbox, string $user_id, s
 
 
 /**
+ * Causes a store to add the specified flag to the
+ * flags set for the messages in the specified
+ * sequence.
+ *
+ * @param \IMAP\Connection $imap An IMAP\Connection instance.
+ * @param string $sequence A sequence of message numbers. You can enumerate desired messages
+ * with the X,Y syntax, or retrieve all messages
+ * within an interval with the X:Y syntax
+ * @param string $flag The flags which you can set are \Seen,
+ * \Answered, \Flagged,
+ * \Deleted, and \Draft as
+ * defined by RFC2060.
+ * @param int $options A bit mask that may contain the single option:
+ *
+ *
+ *
+ * ST_UID - The sequence argument contains UIDs
+ * instead of sequence numbers
+ *
+ *
+ *
+ * @return bool Always returns TRUE.
+ *
+ */
+function imap_setflag_full(\IMAP\Connection $imap, string $sequence, string $flag, int $options = 0): bool
+{
+    error_clear_last();
+    $safeResult = \imap_setflag_full($imap, $sequence, $flag, $options);
+    return $safeResult;
+}
+
+
+/**
  * Gets and sorts message numbers by the given parameters.
  *
  * @param \IMAP\Connection $imap An IMAP\Connection instance.
@@ -2055,6 +2216,26 @@ function imap_timeout(int $timeout_type, int $timeout = -1)
 
 
 /**
+ * Removes the deletion flag for a specified message, which is set by
+ * imap_delete or imap_mail_move.
+ *
+ * @param \IMAP\Connection $imap An IMAP\Connection instance.
+ * @param string $message_nums A string representing one or more messages in IMAP4-style sequence format
+ * ("n", "n:m", or combination of these
+ * delimited by commas).
+ * @param int $flags
+ * @return bool Always returns TRUE.
+ *
+ */
+function imap_undelete(\IMAP\Connection $imap, string $message_nums, int $flags = 0): bool
+{
+    error_clear_last();
+    $safeResult = \imap_undelete($imap, $message_nums, $flags);
+    return $safeResult;
+}
+
+
+/**
  * Unsubscribe from the specified mailbox.
  *
  * @param \IMAP\Connection $imap An IMAP\Connection instance.
@@ -2089,34 +2270,4 @@ function imap_utf8_to_mutf7(string $string): string
         throw ImapException::createFromPhpError();
     }
     return $safeResult;
-}
-
-function imap_clearflag_full()
-{
-    return \imap_clearflag_full(...func_get_args());
-}
-
-function imap_close()
-{
-    return \imap_close(...func_get_args());
-}
-
-function imap_gc()
-{
-    return \imap_gc(...func_get_args());
-}
-
-function imap_mailboxmsginfo()
-{
-    return \imap_mailboxmsginfo(...func_get_args());
-}
-
-function imap_setflag_full()
-{
-    return \imap_setflag_full(...func_get_args());
-}
-
-function imap_undelete()
-{
-    return \imap_undelete(...func_get_args());
 }

@@ -5,6 +5,21 @@ namespace Safe;
 use Safe\Exceptions\NetworkException;
 
 /**
+ * closelog closes the descriptor being used to write to
+ * the system logger.  The use of closelog is optional.
+ *
+ * @return bool Always returns TRUE.
+ *
+ */
+function closelog(): bool
+{
+    error_clear_last();
+    $safeResult = \closelog();
+    return $safeResult;
+}
+
+
+/**
  * Fetch DNS Resource Records associated with the given
  * hostname.
  *
@@ -440,6 +455,23 @@ function inet_pton(string $ip): string
 
 
 /**
+ * The function long2ip generates an Internet address
+ * in dotted format (i.e.: aaa.bbb.ccc.ddd) from the long integer
+ * representation.
+ *
+ * @param int $ip A proper address representation in long integer.
+ * @return false|string Returns the Internet IP address as a string.
+ *
+ */
+function long2ip(int $ip)
+{
+    error_clear_last();
+    $safeResult = \long2ip($ip);
+    return $safeResult;
+}
+
+
+/**
  * Returns an enumeration of network interfaces (adapters) on the local machine.
  *
  * @return array Returns an associative array where the key is the name of the interface and
@@ -545,6 +577,55 @@ function net_get_interfaces(): array
 
 
 /**
+ * openlog opens a connection to the system
+ * logger for a program.
+ *
+ * The use of openlog is optional. It
+ * will automatically be called by syslog if
+ * necessary, in which case prefix will default
+ * to the empty string.
+ *
+ * @param string $prefix The string prefix is added to each message.
+ * @param int $flags Bitmask of the following constants:
+ *
+ * LOG_CONS
+ * LOG_NDELAY
+ * LOG_ODELAY
+ * LOG_NOWAIT
+ * LOG_PERROR
+ * LOG_PID
+ *
+ * @param int $facility The facility argument is used to specify
+ * what type of program is logging the message.
+ * This lets the configuration file specify that messages from different
+ * facilities will be handled differently.
+ * Must be one of the following constants:
+ *
+ * LOG_AUTH
+ * LOG_AUTHPRIV
+ * LOG_CRON
+ * LOG_DAEMON
+ * LOG_KERN
+ * LOG_LOCAL[0-7]
+ * LOG_LPR
+ * LOG_MAIL
+ * LOG_NEWS
+ * LOG_SYSLOG
+ * LOG_USER
+ * LOG_UUCP
+ *
+ * @return bool Always returns TRUE.
+ *
+ */
+function openlog(string $prefix, int $flags, int $facility): bool
+{
+    error_clear_last();
+    $safeResult = \openlog($prefix, $flags, $facility);
+    return $safeResult;
+}
+
+
+/**
  * This function behaves exactly as fsockopen with the
  * difference that the connection is not closed after the script finishes.
  * It is the persistent version of fsockopen.
@@ -576,22 +657,37 @@ function pfsockopen(string $hostname, int $port = -1, ?int &$error_code = null, 
     return $safeResult;
 }
 
-function closelog()
-{
-    return \closelog(...func_get_args());
-}
 
-function long2ip()
+/**
+ * syslog generates a log message that will be
+ * distributed by the system logger.
+ *
+ * For information on setting up a user defined log handler, see the
+ * syslog.conf
+ * 5 Unix manual page.  More
+ * information on the syslog facilities and option can be found in the man
+ * pages for syslog
+ * 3 on Unix machines.
+ *
+ * @param int $priority One of the
+ *
+ * LOG_EMERG
+ * LOG_ALERT
+ * LOG_CRIT
+ * LOG_ERR
+ * LOG_WARNING
+ * LOG_NOTICE
+ * LOG_INFO
+ * LOG_DEBUG
+ *
+ * constants.
+ * @param string $message The message to send.
+ * @return bool Always returns TRUE.
+ *
+ */
+function syslog(int $priority, string $message): bool
 {
-    return \long2ip(...func_get_args());
-}
-
-function openlog()
-{
-    return \openlog(...func_get_args());
-}
-
-function syslog()
-{
-    return \syslog(...func_get_args());
+    error_clear_last();
+    $safeResult = \syslog($priority, $message);
+    return $safeResult;
 }

@@ -474,6 +474,24 @@ function imagecolorset(\GdImage $image, int $color, int $red, int $green, int $b
 
 
 /**
+ * Gets the color for a specified index.
+ *
+ * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
+ * such as imagecreatetruecolor.
+ * @param int $color The color index.
+ * @return int Returns an associative array with red, green, blue and alpha keys that
+ * contain the appropriate values for the specified color index.
+ *
+ */
+function imagecolorsforindex(\GdImage $image, int $color): int
+{
+    error_clear_last();
+    $safeResult = \imagecolorsforindex($image, $color);
+    return $safeResult;
+}
+
+
+/**
  * Applies a convolution matrix on the image, using the given coefficient and
  * offset.
  *
@@ -2912,9 +2930,4 @@ function iptcparse(string $iptc_block): array
         throw ImageException::createFromPhpError();
     }
     return $safeResult;
-}
-
-function imagecolorsforindex()
-{
-    return \imagecolorsforindex(...func_get_args());
 }

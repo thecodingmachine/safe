@@ -5,6 +5,60 @@ namespace Safe;
 use Safe\Exceptions\ReadlineException;
 
 /**
+ * This function adds a line to the command line history.
+ *
+ * @param string $prompt The line to be added in the history.
+ * @return bool Always returns TRUE.
+ *
+ */
+function readline_add_history(string $prompt): bool
+{
+    error_clear_last();
+    $safeResult = \readline_add_history($prompt);
+    return $safeResult;
+}
+
+
+/**
+ * Sets up a readline callback interface then prints
+ * prompt and immediately returns.
+ * Calling this function twice without removing the previous
+ * callback interface will automatically and conveniently overwrite the old
+ * interface.
+ *
+ * The callback feature is useful when combined with
+ * stream_select as it allows interleaving of IO and
+ * user input, unlike readline.
+ *
+ * @param string $prompt The prompt message.
+ * @param callable $callback The callback function takes one parameter; the
+ * user input returned.
+ * @return bool Always returns TRUE.
+ *
+ */
+function readline_callback_handler_install(string $prompt, callable $callback): bool
+{
+    error_clear_last();
+    $safeResult = \readline_callback_handler_install($prompt, $callback);
+    return $safeResult;
+}
+
+
+/**
+ * This function clears the entire command line history.
+ *
+ * @return bool Always returns TRUE.
+ *
+ */
+function readline_clear_history(): bool
+{
+    error_clear_last();
+    $safeResult = \readline_clear_history();
+    return $safeResult;
+}
+
+
+/**
  * This function registers a completion function. This is the same kind of
  * functionality you'd get if you hit your tab key while using Bash.
  *
@@ -62,19 +116,4 @@ function readline_write_history(?string $filename = null): void
     if ($safeResult === false) {
         throw ReadlineException::createFromPhpError();
     }
-}
-
-function readline_add_history()
-{
-    return \readline_add_history(...func_get_args());
-}
-
-function readline_callback_handler_install()
-{
-    return \readline_callback_handler_install(...func_get_args());
-}
-
-function readline_clear_history()
-{
-    return \readline_clear_history(...func_get_args());
 }

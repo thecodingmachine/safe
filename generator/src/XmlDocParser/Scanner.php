@@ -23,7 +23,7 @@ class Scanner
     /**
      * @var string[]
      */
-    private $ignoredModules;
+    private ?array $ignoredModules = null;
 
     public function __construct(private readonly string $path)
     {
@@ -74,6 +74,7 @@ class Scanner
     {
         if ($this->ignoredModules === null) {
             $this->ignoredModules = require FileCreator::getSafeRootDir() . '/generator/config/ignoredModules.php';
+            assert(!is_null($this->ignoredModules));
         }
         return $this->ignoredModules;
     }
@@ -93,6 +94,17 @@ class Scanner
         $matches = [];
         preg_match_all('/function\s+([\w_]+)\(/', $data, $matches);
         return $matches[1];
+    }
+
+    /**
+     * Get a list of functions defined in special_cases.php so that we
+     * can ignore them in the main list.
+     *
+     * @return string[]
+     */
+    public static function getHiddenFunctions(): array
+    {
+        return require FileCreator::getSafeRootDir() . '/generator/config/hiddenFunctions.php';
     }
 
     /**

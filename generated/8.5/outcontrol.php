@@ -195,7 +195,7 @@ function ob_get_flush(): string
  * See
  * for a detailed description of output buffers.
  *
- * @param array|callable|string|null $callback An optional callback callable may be
+ * @param array|callable|null|string $callback An optional callback callable may be
  * specified. It can also be bypassed by passing NULL.
  *
  * callback is invoked when the output buffer is

@@ -390,7 +390,7 @@ function preg_match_all(string $pattern, string $subject, ?array &$matches = nul
  *
  * @param string $pattern The pattern to search for, as a string.
  * @param string $subject The input string.
- * @param string[]|null $matches If matches is provided, then it is filled with
+ * @param null|string[] $matches If matches is provided, then it is filled with
  * the results of search. $matches[0] will contain the
  * text that matched the full pattern, $matches[1]
  * will have the text that matched the first captured parenthesized

@@ -267,7 +267,7 @@ function imagearc(\GdImage $image, int $center_x, int $center_y, int $width, int
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @param int $quality quality is optional, and ranges from 0 (worst quality, smaller file)
  * to 100 (best quality, larger file).
  * If -1 is provided, the default value 30 is used.
@@ -300,7 +300,7 @@ function imageavif(\GdImage $image, $file = null, int $quality = -1, int $speed 
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  *
  * NULL is invalid if the compressed arguments is
  * not used.
@@ -1740,7 +1740,7 @@ function imagegammacorrect(\GdImage $image, float $input_gamma, float $output_ga
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @throws ImageException
  *
  */
@@ -1763,7 +1763,7 @@ function imagegd(\GdImage $image, $file = null): void
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @param int $chunk_size Chunk size.
  * @param int $mode Either IMG_GD2_RAW or
  * IMG_GD2_COMPRESSED. Default is
@@ -1803,7 +1803,7 @@ function imagegd2(\GdImage $image, $file = null, int $chunk_size = 128, int $mod
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @throws ImageException
  *
  */
@@ -1865,7 +1865,7 @@ function imagegrabwindow(int $handle, bool $client_area = false): \GdImage
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @param int $quality quality is optional, and ranges from 0 (worst
  * quality, smaller file) to 100 (best quality, biggest file). The
  * default (-1) uses the default IJG quality value (about 75).
@@ -2049,7 +2049,7 @@ function imageloadfont(string $filename): int
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  *
  * NULL is invalid if the quality and
  * filters arguments are not used.
@@ -2804,7 +2804,7 @@ function imagettftext(\GdImage $image, float $size, float $angle, int $x, int $y
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @param int $foreground_color You can set the foreground color with this parameter by setting an
  * identifier obtained from imagecolorallocate.
  * The default foreground color is black.
@@ -2832,7 +2832,7 @@ function imagewbmp(\GdImage $image, $file = null, ?int $foreground_color = null)
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
+ * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @param int $quality quality ranges from 0 (worst
  * quality, smaller file) to 100 (best quality, biggest file).
  * @throws ImageException
@@ -2860,7 +2860,7 @@ function imagewebp(\GdImage $image, $file = null, int $quality = -1): void
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
- * @param resource|string|null $filename The path to save the file to, given as string. If NULL, the raw image stream will be output directly.
+ * @param null|resource|string $filename The path to save the file to, given as string. If NULL, the raw image stream will be output directly.
  *
  * The filename (without the .xbm extension) is also
  * used for the C identifiers of the XBM, whereby non

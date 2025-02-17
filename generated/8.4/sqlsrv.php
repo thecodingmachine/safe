@@ -283,7 +283,7 @@ function sqlsrv_fetch_array($stmt, ?int $fetchType = null, ?int $row = null, ?in
  * SQLSRV_SCROLL_ABSOLUTE or
  * SQLSRV_SCROLL_RELATIVE. Note that the first row in
  * a result set has index 0.
- * @return object|null Returns an object on success, NULL if there are no more rows to return,
+ * @return null|object Returns an object on success, NULL if there are no more rows to return,
  * and FALSE if an error occurs or if the specified class does not exist.
  * @throws SqlsrvException
  *

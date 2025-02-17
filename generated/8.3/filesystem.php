@@ -100,7 +100,7 @@ function chown(string $filename, $user): void
  * existing files.
  *
  * If the destination file already exists, it will be overwritten.
- * @param resource|null $context A valid context resource created with
+ * @param null|resource $context A valid context resource created with
  * stream_context_create.
  * @throws FilesystemException
  *
@@ -244,7 +244,7 @@ function fflush($stream): void
  * This is not possible if strict typing
  * is enabled, since FILE_USE_INCLUDE_PATH is an
  * int. Use TRUE instead.
- * @param resource|null $context A valid context resource created with
+ * @param null|resource $context A valid context resource created with
  * stream_context_create. If you don't need to use a
  * custom context, you can skip this parameter by NULL.
  * @param int $offset The offset where the reading starts on the original stream.
@@ -347,7 +347,7 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
  *
  *
  *
- * @param resource|null $context A valid context resource created with
+ * @param null|resource $context A valid context resource created with
  * stream_context_create.
  * @return int This function returns the number of bytes that were written to the file.
  * @throws FilesystemException
@@ -406,7 +406,7 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  *
  *
  *
- * @param resource|null $context
+ * @param null|resource $context
  * @return array Returns the file in an array. Each element of the array corresponds to a
  * line in the file, with the newline still attached. Upon failure,
  * file returns FALSE.
@@ -852,7 +852,7 @@ function flock($stream, int $operation, ?int &$would_block = null): void
  * @param bool $use_include_path The optional third use_include_path parameter
  * can be set to '1' or TRUE if you want to search for the file in the
  * include_path, too.
- * @param resource|null $context A context stream
+ * @param null|resource $context A context stream
  * resource.
  * @return resource Returns a file pointer resource on success
  * @throws FilesystemException
@@ -1262,7 +1262,7 @@ function lstat(string $filename): array
  * umask.
  * @param bool $recursive If TRUE, then any parent directories to the directory specified will
  * also be created, with the same permissions.
- * @param resource|null $context A context stream
+ * @param null|resource $context A context stream
  * resource.
  * @throws FilesystemException
  *
@@ -1421,7 +1421,7 @@ function popen(string $command, string $mode)
  * @param string $filename The filename being read.
  * @param bool $use_include_path You can use the optional second parameter and set it to TRUE, if
  * you want to search for the file in the include_path, too.
- * @param resource|null $context A context stream
+ * @param null|resource $context A context stream
  * resource.
  * @return int Returns the number of bytes read from the file on success
  * @throws FilesystemException
@@ -1517,7 +1517,7 @@ function realpath(string $path): string
  * Otherwise rename fails and issues E_WARNING.
  *
  *
- * @param resource|null $context A context stream
+ * @param null|resource $context A context stream
  * resource.
  * @throws FilesystemException
  *
@@ -1561,7 +1561,7 @@ function rewind($stream): void
  * A E_WARNING level error will be generated on failure.
  *
  * @param string $directory Path to the directory.
- * @param resource|null $context A context stream
+ * @param null|resource $context A context stream
  * resource.
  * @throws FilesystemException
  *
@@ -1692,7 +1692,7 @@ function touch(string $filename, ?int $mtime = null, ?int $atime = null): void
  *
  * If the file is a symlink, the symlink will be deleted. On Windows, to delete
  * a symlink to a directory, rmdir has to be used instead.
- * @param resource|null $context A context stream
+ * @param null|resource $context A context stream
  * resource.
  * @throws FilesystemException
  *

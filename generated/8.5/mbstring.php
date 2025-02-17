@@ -145,7 +145,7 @@ function mb_detect_order($encoding = null)
  * not used anywhere else.
  * @param string $string The string being checked.
  * @param string $options The search option. See mb_regex_set_options for explanation.
- * @return string|null The resultant string on success.
+ * @return null|string The resultant string on success.
  * If string is not valid for the current encoding, NULL
  * is returned.
  * @throws MbstringException
@@ -175,7 +175,7 @@ function mb_ereg_replace_callback(string $pattern, callable $callback, string $s
  * @param string $replacement The replacement text.
  * @param string $string The string being checked.
  * @param string $options
- * @return string|null The resultant string on success.
+ * @return null|string The resultant string on success.
  * If string is not valid for the current encoding, NULL
  * is returned.
  * @throws MbstringException
@@ -504,7 +504,7 @@ function mb_regex_encoding(?string $encoding = null)
  * This parameter is not automatically encoded.
  * @param string $subject The subject of the mail.
  * @param string $message The message of the mail.
- * @param array|string|null $additional_headers String or array to be inserted at the end of the email header.
+ * @param array|null|string $additional_headers String or array to be inserted at the end of the email header.
  *
  * This is typically used to add extra headers (From, Cc, and Bcc).
  * Multiple extra headers should be separated with a CRLF (\r\n).

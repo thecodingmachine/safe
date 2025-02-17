@@ -1860,10 +1860,10 @@ function imap_renamemailbox(\IMAP\Connection $imap, string $from, string $to): v
 /**
  * Returns a properly formatted email address as defined in RFC2822 given the needed information.
  *
- * @param string|null $mailbox The mailbox name, see imap_open for more
+ * @param null|string $mailbox The mailbox name, see imap_open for more
  * information
- * @param string|null $hostname The email host part
- * @param string|null $personal The name of the account owner
+ * @param null|string $hostname The email host part
+ * @param null|string $personal The name of the account owner
  * @return string Returns a string properly formatted email address as defined in RFC2822.
  * @throws ImapException
  *

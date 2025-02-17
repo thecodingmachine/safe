@@ -55,7 +55,7 @@ class MethodTest extends TestCase
         $params = $method->getParams();
         $this->assertEquals('string', $params[0]->getDocBlockType());
         $this->assertEquals('string', $params[0]->getSignatureType());
-        $this->assertEquals('bool|float|int|string|null', $params[1]->getDocBlockType());
+        $this->assertEquals('bool|float|int|null|string', $params[1]->getDocBlockType());
         $this->assertTrue($params[1]->isVariadic());
         $this->assertEquals('', $params[1]->getSignatureType());
 

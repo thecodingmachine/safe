@@ -109,8 +109,9 @@ class Scanner
 
     /**
      * @param SplFileInfo[] $paths
+     * @param string[] $pastFunctionNames
      */
-    public function getMethods(array $paths, OutputInterface $output): ScannerResponse
+    public function getMethods(array $paths, array $pastFunctionNames, OutputInterface $output): ScannerResponse
     {
         /** @var Method[] $functions */
         $functions = [];
@@ -136,8 +137,16 @@ class Scanner
             }
 
             $docPage = new DocPage($path->getPathname());
+
+            // If this function was unsafe in the past, but is safe now,
+            // then we need a pass-through stub to keep compatibility
+            $guessedMethod = $path->getFilename();
+            $guessedMethod = \str_replace('.xml', '', $guessedMethod);
+            $guessedMethod = \str_replace('-', '_', $guessedMethod);
+            $wasThisFunctionUnsafe = in_array($guessedMethod, $pastFunctionNames);
+
             $errorType = $docPage->getErrorType();
-            if ($errorType !== ErrorType::UNKNOWN) {
+            if ($errorType !== ErrorType::UNKNOWN || $wasThisFunctionUnsafe) {
                 $functionObjects = $docPage->getMethodSynopsis();
                 if (count($functionObjects) > 1) {
                     $overloadedFunctions = array_merge($overloadedFunctions, \array_map(function ($functionObject) {

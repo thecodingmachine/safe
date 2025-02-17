@@ -138,7 +138,9 @@ class Method
 
         $str .= $this->getReturnDocBlock();
 
-        $str .= '@throws '.FileCreator::toExceptionName($this->getModuleName()). "\n";
+        if ($this->getErrorType() !== ErrorType::UNKNOWN) {
+            $str .= '@throws '.FileCreator::toExceptionName($this->getModuleName()). "\n";
+        }
 
         return $str;
     }

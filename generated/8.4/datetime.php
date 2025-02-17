@@ -116,6 +116,176 @@ function date_parse_from_format(string $format, string $datetime): ?array
 
 
 /**
+ * date_parse parses the given
+ * datetime string according to the same rules as
+ * strtotime and
+ * DateTimeImmutable::__construct. Instead of returning a
+ * Unix timestamp (with strtotime) or a
+ * DateTimeImmutable object (with
+ * DateTimeImmutable::__construct), it returns an
+ * associative array with the information that it could detect in the given
+ * datetime string.
+ *
+ * If no information about a certain group of elements can be found, these
+ * array elements will be set to FALSE or are missing. If needed for
+ * constructing a timestamp or DateTimeImmutable object from
+ * the same datetime string, more fields can be set to
+ * a non-FALSE value. See the examples for cases where that happens.
+ *
+ * @param string $datetime Date/time in format accepted by
+ * DateTimeImmutable::__construct.
+ * @return array{year: int|false, month: int|false, day: int|false, hour: int|false, minute: int|false, second: int|false, fraction: float|false, warning_count: int, warnings: string[], error_count: int, errors: string[], is_localtime: bool, zone_type: int|bool, zone: int|bool, is_dst: bool, tz_abbr: string, tz_id: string, relative: array{year: int, month: int, day: int, hour: int, minute: int, second: int, weekday: int, weekdays: int, first_day_of_month: bool, last_day_of_month: bool}}|null Returns array with information about the parsed date/time.
+ *
+ * The returned array has keys for year,
+ * month, day, hour,
+ * minute, second,
+ * fraction, and is_localtime.
+ *
+ * If is_localtime is present then
+ * zone_type indicates the type of timezone. For type
+ * 1 (UTC offset) the zone,
+ * is_dst fields are added; for type 2
+ * (abbreviation) the fields tz_abbr,
+ * is_dst are added; and for type 3
+ * (timezone identifier) the tz_abbr,
+ * tz_id are added.
+ *
+ * If relative time elements are present in the
+ * datetime string such as +3 days,
+ * the then returned array includes a nested array with the key
+ * relative. This array then contains the keys
+ * year, month, day,
+ * hour, minute,
+ * second, and if necessary weekday, and
+ * weekdays, depending on the string that was passed in.
+ *
+ * The array includes warning_count and
+ * warnings fields. The first one indicate how many
+ * warnings there were.
+ * The keys of elements warnings array indicate the
+ * position in the given datetime where the warning
+ * occurred, with the string value describing the warning itself.
+ *
+ * The array also contains error_count and
+ * errors fields. The first one indicate how many errors
+ * were found.
+ * The keys of elements errors array indicate the
+ * position in the given datetime where the error
+ * occurred, with the string value describing the error itself.
+ *
+ */
+function date_parse(string $datetime): ?array
+{
+    error_clear_last();
+    $safeResult = \date_parse($datetime);
+    return $safeResult;
+}
+
+
+/**
+ *
+ *
+ * @param int $timestamp Unix timestamp.
+ * @param float $latitude Latitude in degrees.
+ * @param float $longitude Longitude in degrees.
+ * @return array{sunrise: int|bool,sunset: int|bool,transit: int|bool,civil_twilight_begin: int|bool,civil_twilight_end: int|bool,nautical_twilight_begin: int|bool,nautical_twilight_end: int|bool,astronomical_twilight_begin: int|bool,astronomical_twilight_end: int|bool}|false Returns an array whose structure is detailed in the following list:
+ *
+ *
+ *
+ * sunrise
+ *
+ *
+ * The timestamp of the sunrise (zenith angle = 90°35').
+ *
+ *
+ *
+ *
+ * sunset
+ *
+ *
+ * The timestamp of the sunset (zenith angle = 90°35').
+ *
+ *
+ *
+ *
+ * transit
+ *
+ *
+ * The timestamp when the sun is at its zenith, i.e. has reached its topmost
+ * point.
+ *
+ *
+ *
+ *
+ * civil_twilight_begin
+ *
+ *
+ * The start of the civil dawn (zenith angle = 96°). It ends at
+ * sunrise.
+ *
+ *
+ *
+ *
+ * civil_twilight_end
+ *
+ *
+ * The end of the civil dusk (zenith angle = 96°). It starts at
+ * sunset.
+ *
+ *
+ *
+ *
+ * nautical_twilight_begin
+ *
+ *
+ * The start of the nautical dawn (zenith angle = 102°). It ends at
+ * civil_twilight_begin.
+ *
+ *
+ *
+ *
+ * nautical_twilight_end
+ *
+ *
+ * The end of the nautical dusk (zenith angle = 102°). It starts at
+ * civil_twilight_end.
+ *
+ *
+ *
+ *
+ * astronomical_twilight_begin
+ *
+ *
+ * The start of the astronomical dawn (zenith angle = 108°). It ends at
+ * nautical_twilight_begin.
+ *
+ *
+ *
+ *
+ * astronomical_twilight_end
+ *
+ *
+ * The end of the astronomical dusk (zenith angle = 108°). It starts at
+ * nautical_twilight_end.
+ *
+ *
+ *
+ *
+ *
+ * The values of the array elements are either UNIX timestamps, FALSE if the
+ * sun is below the respective zenith for the whole day, or TRUE if the sun is
+ * above the respective zenith for the whole day.
+ *
+ */
+function date_sun_info(int $timestamp, float $latitude, float $longitude)
+{
+    error_clear_last();
+    $safeResult = \date_sun_info($timestamp, $latitude, $longitude);
+    return $safeResult;
+}
+
+
+/**
  * date_sunrise returns the sunrise time for a given
  * day (specified as a timestamp) and location.
  *
@@ -322,6 +492,84 @@ function date_sunset(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, ?f
 
 
 /**
+ * Returns a string formatted according to the given format string using the
+ * given integer timestamp (Unix timestamp) or the current time
+ * if no timestamp is given. In other words, timestamp
+ * is optional and defaults to the value of time.
+ *
+ * @param string $format Format accepted by DateTimeInterface::format.
+ * @param int|null $timestamp The optional timestamp parameter is an
+ * int Unix timestamp that defaults to the current
+ * local time if timestamp is omitted or NULL. In other
+ * words, it defaults to the value of time.
+ * @return string Returns a formatted date string.
+ *
+ */
+function date(string $format, ?int $timestamp = null): string
+{
+    error_clear_last();
+    if ($timestamp !== null) {
+        $safeResult = \date($format, $timestamp);
+    } else {
+        $safeResult = \date($format);
+    }
+    return $safeResult;
+}
+
+
+/**
+ * Identical to mktime except the passed parameters represents a
+ * GMT date. gmmktime internally uses mktime
+ * so only times valid in derived local time can be used.
+ *
+ * Like mktime, optional arguments may be left out in
+ * order from right to left, with any omitted arguments being set to the
+ * current corresponding GMT value.
+ *
+ * @param int $hour The number of the hour relative to the start of the day determined by
+ * month, day and year.
+ * Negative values reference the hour before midnight of the day in question.
+ * Values greater than 23 reference the appropriate hour in the following day(s).
+ * @param int|null $minute The number of the minute relative to the start of the hour.
+ * Negative values reference the minute in the previous hour.
+ * Values greater than 59 reference the appropriate minute in the following hour(s).
+ * @param int|null $second The number of seconds relative to the start of the minute.
+ * Negative values reference the second in the previous minute.
+ * Values greater than 59 reference the appropriate second in the following minute(s).
+ * @param int|null $month The number of the month relative to the end of the previous year.
+ * Values 1 to 12 reference the normal calendar months of the year in question.
+ * Values less than 1 (including negative values) reference the months in the previous year in reverse order, so 0 is December, -1 is November, etc.
+ * Values greater than 12 reference the appropriate month in the following year(s).
+ * @param int|null $day The number of the day relative to the end of the previous month.
+ * Values 1 to 28, 29, 30 or 31 (depending upon the month) reference the normal days in the relevant month.
+ * Values less than 1 (including negative values) reference the days in the previous month, so 0 is the last day of the previous month, -1 is the day before that, etc.
+ * Values greater than the number of days in the relevant month reference the appropriate day in the following month(s).
+ * @param int|null $year The year
+ * @return false|int Returns a int Unix timestamp on success, or FALSE if the
+ * timestamp doesn't fit in a PHP integer.
+ *
+ */
+function gmmktime(int $hour, ?int $minute = null, ?int $second = null, ?int $month = null, ?int $day = null, ?int $year = null)
+{
+    error_clear_last();
+    if ($year !== null) {
+        $safeResult = \gmmktime($hour, $minute, $second, $month, $day, $year);
+    } elseif ($day !== null) {
+        $safeResult = \gmmktime($hour, $minute, $second, $month, $day);
+    } elseif ($month !== null) {
+        $safeResult = \gmmktime($hour, $minute, $second, $month);
+    } elseif ($second !== null) {
+        $safeResult = \gmmktime($hour, $minute, $second);
+    } elseif ($minute !== null) {
+        $safeResult = \gmmktime($hour, $minute);
+    } else {
+        $safeResult = \gmmktime($hour);
+    }
+    return $safeResult;
+}
+
+
+/**
  * Behaves the same as strftime except that the
  * time returned is Greenwich Mean Time (GMT). For example, when run
  * in Eastern Standard Time (GMT -0500), the first line below prints
@@ -483,6 +731,63 @@ function idate(string $format, ?int $timestamp = null): int
     }
     if ($safeResult === false) {
         throw DatetimeException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * Returns the Unix timestamp corresponding to the arguments
+ * given. This timestamp is a long integer containing the number of
+ * seconds between the Unix Epoch (January 1 1970 00:00:00 GMT) and the time
+ * specified.
+ *
+ * Any optional
+ * arguments omitted or NULL will be set to the current value according
+ * to the local date and time.
+ *
+ * @param int $hour The number of the hour relative to the start of the day determined by
+ * month, day and year.
+ * Negative values reference the hour before midnight of the day in question.
+ * Values greater than 23 reference the appropriate hour in the following day(s).
+ * @param int|null $minute The number of the minute relative to the start of the hour.
+ * Negative values reference the minute in the previous hour.
+ * Values greater than 59 reference the appropriate minute in the following hour(s).
+ * @param int|null $second The number of seconds relative to the start of the minute.
+ * Negative values reference the second in the previous minute.
+ * Values greater than 59 reference the appropriate second in the following minute(s).
+ * @param int|null $month The number of the month relative to the end of the previous year.
+ * Values 1 to 12 reference the normal calendar months of the year in question.
+ * Values less than 1 (including negative values) reference the months in the previous year in reverse order, so 0 is December, -1 is November, etc.
+ * Values greater than 12 reference the appropriate month in the following year(s).
+ * @param int|null $day The number of the day relative to the end of the previous month.
+ * Values 1 to 28, 29, 30 or 31 (depending upon the month) reference the normal days in the relevant month.
+ * Values less than 1 (including negative values) reference the days in the previous month, so 0 is the last day of the previous month, -1 is the day before that, etc.
+ * Values greater than the number of days in the relevant month reference the appropriate day in the following month(s).
+ * @param int|null $year The number of the year, may be a two or four digit value,
+ * with values between 0-69 mapping to 2000-2069 and 70-100 to
+ * 1970-2000. On systems where time_t is a 32bit signed integer, as
+ * most common today, the valid range for year
+ * is somewhere between 1901 and 2038.
+ * @return false|int mktime returns the Unix timestamp of the arguments
+ * given, or FALSE if the timestamp doesn't fit in a PHP integer.
+ *
+ */
+function mktime(int $hour, ?int $minute = null, ?int $second = null, ?int $month = null, ?int $day = null, ?int $year = null)
+{
+    error_clear_last();
+    if ($year !== null) {
+        $safeResult = \mktime($hour, $minute, $second, $month, $day, $year);
+    } elseif ($day !== null) {
+        $safeResult = \mktime($hour, $minute, $second, $month, $day);
+    } elseif ($month !== null) {
+        $safeResult = \mktime($hour, $minute, $second, $month);
+    } elseif ($second !== null) {
+        $safeResult = \mktime($hour, $minute, $second);
+    } elseif ($minute !== null) {
+        $safeResult = \mktime($hour, $minute);
+    } else {
+        $safeResult = \mktime($hour);
     }
     return $safeResult;
 }
@@ -947,29 +1252,4 @@ function timezone_name_from_abbr(string $abbr, int $utcOffset = -1, int $isDST =
         throw DatetimeException::createFromPhpError();
     }
     return $safeResult;
-}
-
-function date_parse()
-{
-    return \date_parse(...func_get_args());
-}
-
-function date_sun_info()
-{
-    return \date_sun_info(...func_get_args());
-}
-
-function date()
-{
-    return \date(...func_get_args());
-}
-
-function gmmktime()
-{
-    return \gmmktime(...func_get_args());
-}
-
-function mktime()
-{
-    return \mktime(...func_get_args());
 }

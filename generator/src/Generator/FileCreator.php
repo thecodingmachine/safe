@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Safe\Generator;
 
+use Safe\XmlDocParser\ErrorType;
 use Safe\XmlDocParser\Scanner;
 use Safe\XmlDocParser\Method;
 
@@ -17,13 +18,11 @@ class FileCreator
      * This function generate an improved php lib function in a php file
      *
      * @param Method[] $functions
-     * @param Method[] $missingFunctions
      */
     public function generatePhpFile(
         // These aren't actually sensitive, they just fill the
         // stack traces with tons of useless information.
         #[\SensitiveParameter] array $functions,
-        #[\SensitiveParameter] array $missingFunctions,
         string $path
     ): void {
         $path = rtrim($path, '/').'/';
@@ -31,10 +30,6 @@ class FileCreator
         foreach ($functions as $function) {
             $writePhpFunction = new WritePhpFunction($function);
             $phpFunctionsByModule[$function->getModuleName()][] = $writePhpFunction->getPhpFunctionalFunction();
-        }
-        $missingFunctionsByModule = [];
-        foreach ($missingFunctions as $missingFunction) {
-            $missingFunctionsByModule[$missingFunction->getModuleName()][] = $missingFunction->getFunctionName();
         }
 
         foreach ($phpFunctionsByModule as $module => $phpFunctions) {
@@ -56,14 +51,6 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
             // Write safe wrappers for non-safe functions
             foreach ($phpFunctions as $phpFunction) {
                 \fwrite($stream, "\n".$phpFunction);
-            }
-
-            // Write no-op wrappers for previously-unsafe, now-safe functions
-            foreach (($missingFunctionsByModule[$module] ?? []) as $functionName) {
-                fwrite($stream, "\nfunction $functionName()\n");
-                fwrite($stream, "{\n");
-                fwrite($stream, "    return \\$functionName(...func_get_args());\n");
-                fwrite($stream, "}\n");
             }
 
             \fclose($stream);
@@ -98,6 +85,10 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
      */
     private function getFunctionsNameList(array $functions): array
     {
+        $functions = array_filter(
+            $functions,
+            fn($function) => $function->getErrorType() !== ErrorType::UNKNOWN
+        );
         $functionNames = array_map(function (Method $function) {
             return $function->getFunctionName();
         }, $functions);

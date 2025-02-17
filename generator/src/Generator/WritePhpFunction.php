@@ -102,8 +102,12 @@ class WritePhpFunction
             ErrorType::NULLSY => 'null',
             ErrorType::EMPTY => "''",
             ErrorType::MINUS_ONE => "-1",
-            ErrorType::UNKNOWN => throw new \LogicException("Method doesn't have an error type"),
+            ErrorType::UNKNOWN => null,
         };
+
+        if ($errorValue === null) {
+            return "\n";
+        }
 
         // Special case for CURL: we need the first argument of the method if this is a resource.
         if ($moduleName === 'Curl') {

@@ -43,7 +43,7 @@ class ScannerTest extends TestCase
             }
         }
         $output = $this->createMock(OutputInterface::class);
-        $response = $scanner->getMethods($testFunctions, $output);
+        $response = $scanner->getMethods($testFunctions, [], $output);
         $this->assertNotEmpty($response->methods);
     }
 }

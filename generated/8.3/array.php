@@ -5,6 +5,118 @@ namespace Safe;
 use Safe\Exceptions\ArrayException;
 
 /**
+ * Creates an array by using the values from the
+ * keys array as keys and the values from the
+ * values array as the corresponding values.
+ *
+ * @param array $keys Array of keys to be used. Illegal values for key will be
+ * converted to string.
+ * @param array $values Array of values to be used
+ * @return array|false Returns the combined array.
+ *
+ */
+function array_combine(array $keys, array $values)
+{
+    error_clear_last();
+    $safeResult = \array_combine($keys, $values);
+    return $safeResult;
+}
+
+
+/**
+ * array_flip returns an array in flip
+ * order, i.e. keys from array become values and values
+ * from array become keys.
+ *
+ * Note that the values of array need to be valid
+ * keys, i.e. they need to be either int or
+ * string. A warning will be emitted if a value has the wrong
+ * type, and the key/value pair in question will not be included
+ * in the result.
+ *
+ * If a value has several occurrences, the latest key will be
+ * used as its value, and all others will be lost.
+ *
+ * @param array $array An array of key/value pairs to be flipped.
+ * @return array Returns the flipped array.
+ *
+ */
+function array_flip(array $array): array
+{
+    error_clear_last();
+    $safeResult = \array_flip($array);
+    return $safeResult;
+}
+
+
+/**
+ * array_replace_recursive replaces the values of
+ * array with the same values from all the following
+ * arrays. If a key from the first array exists in the second array, its value
+ * will be replaced by the value from the second array. If the key exists in the
+ * second array, and not the first, it will be created in the first array.
+ * If a key only exists in the first array, it will be left as is.
+ * If several arrays are passed for replacement, they will be processed
+ * in order, the later array overwriting the previous values.
+ *
+ * array_replace_recursive is recursive : it will recurse into
+ * arrays and apply the same process to the inner value.
+ *
+ * When the value in the first array is scalar, it will be replaced
+ * by the value in the second array, may it be scalar or array.
+ * When the value in the first array and the second array
+ * are both arrays, array_replace_recursive will replace
+ * their respective value recursively.
+ *
+ * @param array $array The array in which elements are replaced.
+ * @param array $replacements Arrays from which elements will be extracted.
+ * @return array Returns an array.
+ *
+ */
+function array_replace_recursive(array $array, array  ...$replacements): array
+{
+    error_clear_last();
+    if ($replacements !== []) {
+        $safeResult = \array_replace_recursive($array, ...$replacements);
+    } else {
+        $safeResult = \array_replace_recursive($array);
+    }
+    return $safeResult;
+}
+
+
+/**
+ * array_replace replaces the values of
+ * array with values having the same keys in each of the following
+ * arrays. If a key from the first array exists in the second array, its value
+ * will be replaced by the value from the second array. If the key exists in the
+ * second array, and not the first, it will be created in the first array.
+ * If a key only exists in the first array, it will be left as is.
+ * If several arrays are passed for replacement, they will be processed
+ * in order, the later arrays overwriting the previous values.
+ *
+ * array_replace is not recursive : it will replace
+ * values in the first array by whatever type is in the second array.
+ *
+ * @param array $array The array in which elements are replaced.
+ * @param array $replacements Arrays from which elements will be extracted.
+ * Values from later arrays overwrite the previous values.
+ * @return array Returns an array.
+ *
+ */
+function array_replace(array $array, array  ...$replacements): array
+{
+    error_clear_last();
+    if ($replacements !== []) {
+        $safeResult = \array_replace($array, ...$replacements);
+    } else {
+        $safeResult = \array_replace($array);
+    }
+    return $safeResult;
+}
+
+
+/**
  * Applies the user-defined callback function to each
  * element of the array. This function will recurse
  * into deeper arrays.
@@ -54,24 +166,4 @@ function shuffle(array &$array): void
     if ($safeResult === false) {
         throw ArrayException::createFromPhpError();
     }
-}
-
-function array_combine()
-{
-    return \array_combine(...func_get_args());
-}
-
-function array_flip()
-{
-    return \array_flip(...func_get_args());
-}
-
-function array_replace_recursive()
-{
-    return \array_replace_recursive(...func_get_args());
-}
-
-function array_replace()
-{
-    return \array_replace(...func_get_args());
 }

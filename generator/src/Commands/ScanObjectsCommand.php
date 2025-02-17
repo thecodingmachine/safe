@@ -26,7 +26,7 @@ class ScanObjectsCommand extends Command
 
         $paths = $scanner->getMethodsPaths();
 
-        $res = $scanner->getMethods($paths, $output);
+        $res = $scanner->getMethods($paths, [], $output);
 
         foreach ($res->methods as $function) {
             $name = $function->getFunctionName();

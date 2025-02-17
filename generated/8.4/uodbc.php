@@ -42,6 +42,216 @@ function odbc_autocommit(\Odbc\Connection $odbc, ?bool $enable = null)
 
 
 /**
+ * Controls handling of binary column data. ODBC SQL types affected are
+ * BINARY, VARBINARY, and
+ * LONGVARBINARY.
+ * The default mode can be set using the
+ * uodbc.defaultbinmode php.ini directive.
+ *
+ * When binary SQL data is converted to character C data (ODBC_BINMODE_CONVERT), each byte
+ * (8 bits) of source data is represented as two ASCII characters.
+ * These characters are the ASCII character representation of the
+ * number in its hexadecimal form. For example, a binary
+ * 00000001 is converted to
+ * "01" and a binary 11111111
+ * is converted to "FF".
+ *
+ * While the handling of BINARY and VARBINARY
+ * columns only depend on the binmode, the handling of LONGVARBINARY
+ * columns also depends on the longreadlen as well:
+ *
+ * LONGVARBINARY handling
+ *
+ *
+ *
+ * binmode
+ * longreadlen
+ * result
+ *
+ *
+ *
+ *
+ * ODBC_BINMODE_PASSTHRU
+ * 0
+ * passthru
+ *
+ *
+ * ODBC_BINMODE_RETURN
+ * 0
+ * passthru
+ *
+ *
+ * ODBC_BINMODE_CONVERT
+ * 0
+ * passthru
+ *
+ *
+ * ODBC_BINMODE_PASSTHRU
+ * &gt;0
+ * passthru
+ *
+ *
+ * ODBC_BINMODE_RETURN
+ * &gt;0
+ * return as is
+ *
+ *
+ * ODBC_BINMODE_CONVERT
+ * &gt;0
+ * return as char
+ *
+ *
+ *
+ *
+ *
+ * If odbc_fetch_into is used, passthru means that an
+ * empty string is returned for these columns.
+ * If odbc_result is used, passthru means that the data are
+ * sent directly to the client (i.e. printed).
+ *
+ * @param int $statement The ODBC result object.
+ * @param int $mode Possible values for mode are:
+ *
+ *
+ *
+ * ODBC_BINMODE_PASSTHRU: Passthru BINARY data
+ *
+ *
+ *
+ *
+ * ODBC_BINMODE_RETURN: Return as is
+ *
+ *
+ *
+ *
+ * ODBC_BINMODE_CONVERT: Convert to char and return
+ *
+ *
+ *
+ *
+ *
+ * Handling of binary long
+ * columns is also affected by odbc_longreadlen.
+ *
+ *
+ * @return bool Always returns TRUE.
+ *
+ */
+function odbc_binmode(int $statement, int $mode): bool
+{
+    error_clear_last();
+    $safeResult = \odbc_binmode($statement, $mode);
+    return $safeResult;
+}
+
+
+/**
+ * Lists columns and associated privileges for the given table.
+ *
+ * @param \Odbc\Connection $odbc The ODBC connection object,
+ * see odbc_connect for details.
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @param string $table The table name.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @param string $column The column name.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ * This result object can be used to fetch a list of columns and
+ * associated privileges.
+ *
+ * The result set has the following columns:
+ *
+ * TABLE_CAT
+ * TABLE_SCHEM
+ * TABLE_NAME
+ * COLUMN_NAME
+ * GRANTOR
+ * GRANTEE
+ * PRIVILEGE
+ * IS_GRANTABLE
+ *
+ * Drivers can report additional columns.
+ *
+ */
+function odbc_columnprivileges(\Odbc\Connection $odbc, string $catalog, string $schema, string $table, string $column)
+{
+    error_clear_last();
+    $safeResult = \odbc_columnprivileges($odbc, $catalog, $schema, $table, $column);
+    return $safeResult;
+}
+
+
+/**
+ * Lists all columns in the requested range.
+ *
+ * @param \Odbc\Connection $odbc The ODBC connection object,
+ * see odbc_connect for details.
+ * @param null|string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param null|string $schema The schema ('owner' in ODBC 2 parlance).
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @param null|string $table The table name.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @param null|string $column The column name.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ *
+ * The result set has the following columns:
+ *
+ * TABLE_CAT
+ * TABLE_SCHEM
+ * TABLE_NAME
+ * COLUMN_NAME
+ * DATA_TYPE
+ * TYPE_NAME
+ * COLUMN_SIZE
+ * BUFFER_LENGTH
+ * DECIMAL_DIGITS
+ * NUM_PREC_RADIX
+ * NULLABLE
+ * REMARKS
+ * COLUMN_DEF
+ * SQL_DATA_TYPE
+ * SQL_DATETIME_SUB
+ * CHAR_OCTET_LENGTH
+ * ORDINAL_POSITION
+ * IS_NULLABLE
+ *
+ * Drivers can report additional columns.
+ *
+ */
+function odbc_columns(\Odbc\Connection $odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $column = null)
+{
+    error_clear_last();
+    if ($column !== null) {
+        $safeResult = \odbc_columns($odbc, $catalog, $schema, $table, $column);
+    } elseif ($table !== null) {
+        $safeResult = \odbc_columns($odbc, $catalog, $schema, $table);
+    } elseif ($schema !== null) {
+        $safeResult = \odbc_columns($odbc, $catalog, $schema);
+    } elseif ($catalog !== null) {
+        $safeResult = \odbc_columns($odbc, $catalog);
+    } else {
+        $safeResult = \odbc_columns($odbc);
+    }
+    return $safeResult;
+}
+
+
+/**
  * Commits all pending transactions on the connection.
  *
  * @param \Odbc\Connection $odbc The ODBC connection object,
@@ -331,6 +541,108 @@ function odbc_field_type(\Odbc\Result $statement, int $field): string
 
 
 /**
+ * Retrieves a list of foreign keys in the specified table or a list of
+ * foreign keys in other tables that refer to the primary key in the
+ * specified table
+ *
+ * @param \Odbc\Connection $odbc The ODBC connection object,
+ * see odbc_connect for details.
+ * @param string $pk_catalog The catalog ('qualifier' in ODBC 2 parlance) of the primary key table.
+ * @param string $pk_schema The schema ('owner' in ODBC 2 parlance) of the primary key table.
+ * @param string $pk_table The primary key table.
+ * @param string $fk_catalog The catalog ('qualifier' in ODBC 2 parlance) of the foreign key table.
+ * @param string $fk_schema The schema ('owner' in ODBC 2 parlance) of the foreign key table.
+ * @param string $fk_table The foreign key table.
+ * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ *
+ * The result set has the following columns:
+ *
+ * PKTABLE_CAT
+ * PKTABLE_SCHEM
+ * PKTABLE_NAME
+ * PKCOLUMN_NAME
+ * FKTABLE_CAT
+ * FKTABLE_SCHEM
+ * FKTABLE_NAME
+ * FKCOLUMN_NAME
+ * KEY_SEQ
+ * UPDATE_RULE
+ * DELETE_RULE
+ * FK_NAME
+ * PK_NAME
+ * DEFERRABILITY
+ *
+ * Drivers can report additional columns.
+ *
+ */
+function odbc_foreignkeys(\Odbc\Connection $odbc, string $pk_catalog, string $pk_schema, string $pk_table, string $fk_catalog, string $fk_schema, string $fk_table)
+{
+    error_clear_last();
+    $safeResult = \odbc_foreignkeys($odbc, $pk_catalog, $pk_schema, $pk_table, $fk_catalog, $fk_schema, $fk_table);
+    return $safeResult;
+}
+
+
+/**
+ * Retrieves information about data types supported by the data source.
+ *
+ * @param \Odbc\Connection $odbc The ODBC connection object,
+ * see odbc_connect for details.
+ * @param int $data_type The data type, which can be used to restrict the information to a
+ * single data type.
+ * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ *
+ * The result set has the following columns:
+ *
+ * TYPE_NAME
+ * DATA_TYPE
+ * PRECISION
+ * LITERAL_PREFIX
+ * LITERAL_SUFFIX
+ * CREATE_PARAMS
+ * NULLABLE
+ * CASE_SENSITIVE
+ * SEARCHABLE
+ * UNSIGNED_ATTRIBUTE
+ * MONEY
+ * AUTO_INCREMENT
+ * LOCAL_TYPE_NAME
+ * MINIMUM_SCALE
+ * MAXIMUM_SCALE
+ *
+ *
+ * The result set is ordered by DATA_TYPE and TYPE_NAME.
+ *
+ */
+function odbc_gettypeinfo(\Odbc\Connection $odbc, int $data_type = 0)
+{
+    error_clear_last();
+    $safeResult = \odbc_gettypeinfo($odbc, $data_type);
+    return $safeResult;
+}
+
+
+/**
+ * Controls handling of LONG, LONGVARCHAR and LONGVARBINARY columns.
+ * The default length can be set using the
+ * uodbc.defaultlrl php.ini directive.
+ *
+ * @param \Odbc\Result $statement The ODBC result object.
+ * @param int $length The number of bytes returned to PHP is controlled by the parameter
+ * length. If it is set to 0, long column data is passed through to the
+ * client (i.e. printed) when retrieved with odbc_result.
+ * @return bool Always returns TRUE.
+ *
+ */
+function odbc_longreadlen(\Odbc\Result $statement, int $length): bool
+{
+    error_clear_last();
+    $safeResult = \odbc_longreadlen($statement, $length);
+    return $safeResult;
+}
+
+
+/**
  * Gets the number of fields (columns) in an ODBC result.
  *
  * @param \Odbc\Result $statement The ODBC result object returned by odbc_exec.
@@ -403,6 +715,102 @@ function odbc_prepare(\Odbc\Connection $odbc, string $query): \Odbc\Result
     $safeResult = \odbc_prepare($odbc, $query);
     if ($safeResult === false) {
         throw UodbcException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * Returns a result object that can be used to fetch the column names
+ * that comprise the primary key for a table.
+ *
+ * @param \Odbc\Connection $odbc The ODBC connection object,
+ * see odbc_connect for details.
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * @param string $table
+ * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ *
+ * The result set has the following columns:
+ *
+ * TABLE_CAT
+ * TABLE_SCHEM
+ * TABLE_NAME
+ * COLUMN_NAME
+ * KEY_SEQ
+ * PK_NAME
+ *
+ * Drivers can report additional columns.
+ *
+ */
+function odbc_primarykeys(\Odbc\Connection $odbc, string $catalog, string $schema, string $table)
+{
+    error_clear_last();
+    $safeResult = \odbc_primarykeys($odbc, $catalog, $schema, $table);
+    return $safeResult;
+}
+
+
+/**
+ * Retrieve information about parameters to procedures.
+ *
+ * @param  $odbc The ODBC connection object,
+ * see odbc_connect for details.
+ * @param null|string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param null|string $schema The schema ('owner' in ODBC 2 parlance).
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @param null|string $procedure The proc.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @param null|string $column The column.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @return \Odbc\Result|false Returns the list of input and output parameters, as well as the
+ * columns that make up the result set for the specified procedures.
+ * Returns an ODBC result object or FALSE on failure.
+ *
+ * The result set has the following columns:
+ *
+ * PROCEDURE_CAT
+ * PROCEDURE_SCHEM
+ * PROCEDURE_NAME
+ * COLUMN_NAME
+ * COLUMN_TYPE
+ * DATA_TYPE
+ * TYPE_NAME
+ * COLUMN_SIZE
+ * BUFFER_LENGTH
+ * DECIMAL_DIGITS
+ * NUM_PREC_RADIX
+ * NULLABLE
+ * REMARKS
+ * COLUMN_DEF
+ * SQL_DATA_TYPE
+ * SQL_DATETIME_SUB
+ * CHAR_OCTET_LENGTH
+ * ORDINAL_POSITION
+ * IS_NULLABLE
+ *
+ * Drivers can report additional columns.
+ *
+ */
+function odbc_procedurecolumns($odbc, ?string $catalog = null, ?string $schema = null, ?string $procedure = null, ?string $column = null)
+{
+    error_clear_last();
+    if ($column !== null) {
+        $safeResult = \odbc_procedurecolumns($odbc, $catalog, $schema, $procedure, $column);
+    } elseif ($procedure !== null) {
+        $safeResult = \odbc_procedurecolumns($odbc, $catalog, $schema, $procedure);
+    } elseif ($schema !== null) {
+        $safeResult = \odbc_procedurecolumns($odbc, $catalog, $schema);
+    } elseif ($catalog !== null) {
+        $safeResult = \odbc_procedurecolumns($odbc, $catalog);
+    } else {
+        $safeResult = \odbc_procedurecolumns($odbc);
     }
     return $safeResult;
 }
@@ -565,6 +973,126 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
 
 
 /**
+ * Retrieves either the optimal set of columns that uniquely identifies a
+ * row in the table, or columns that are automatically updated when any
+ * value in the row is updated by a transaction.
+ *
+ * @param \Odbc\Connection $odbc The ODBC connection object,
+ * see odbc_connect for details.
+ * @param int $type
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * @param string $table The table.
+ * @param int $scope The scope, which orders the result set.
+ * One of SQL_SCOPE_CURROW, SQL_SCOPE_TRANSACTION
+ * or SQL_SCOPE_SESSION.
+ * @param int $nullable Determines whether to return special columns that can have a NULL value.
+ * One of SQL_NO_NULLS or SQL_NULLABLE.
+ * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ *
+ * The result set has the following columns:
+ *
+ * SCOPE
+ * COLUMN_NAME
+ * DATA_TYPE
+ * TYPE_NAME
+ * COLUMN_SIZE
+ * BUFFER_LENGTH
+ * DECIMAL_DIGITS
+ * PSEUDO_COLUMN
+ *
+ * Drivers can report additional columns.
+ *
+ */
+function odbc_specialcolumns(\Odbc\Connection $odbc, int $type, string $catalog, string $schema, string $table, int $scope, int $nullable)
+{
+    error_clear_last();
+    $safeResult = \odbc_specialcolumns($odbc, $type, $catalog, $schema, $table, $scope, $nullable);
+    return $safeResult;
+}
+
+
+/**
+ * Get statistics about a table and its indexes.
+ *
+ * @param \Odbc\Connection $odbc The ODBC connection object,
+ * see odbc_connect for details.
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * @param string $table The table name.
+ * @param int $unique The type of the index.
+ * One of SQL_INDEX_UNIQUE or SQL_INDEX_ALL.
+ * @param int $accuracy One of SQL_ENSURE or SQL_QUICK.
+ * The latter requests that the driver retrieve the CARDINALITY and
+ * PAGES only if they are readily available from the server.
+ * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ *
+ * The result set has the following columns:
+ *
+ * TABLE_CAT
+ * TABLE_SCHEM
+ * TABLE_NAME
+ * NON_UNIQUE
+ * INDEX_QUALIFIER
+ * INDEX_NAME
+ * TYPE
+ * ORDINAL_POSITION
+ * COLUMN_NAME
+ * ASC_OR_DESC
+ * CARDINALITY
+ * PAGES
+ * FILTER_CONDITION
+ *
+ * Drivers can report additional columns.
+ *
+ */
+function odbc_statistics(\Odbc\Connection $odbc, string $catalog, string $schema, string $table, int $unique, int $accuracy)
+{
+    error_clear_last();
+    $safeResult = \odbc_statistics($odbc, $catalog, $schema, $table, $unique, $accuracy);
+    return $safeResult;
+}
+
+
+/**
+ * Lists tables in the requested range and the privileges associated
+ * with each table.
+ *
+ * @param \Odbc\Connection $odbc The ODBC connection object,
+ * see odbc_connect for details.
+ * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
+ * @param string $schema The schema ('owner' in ODBC 2 parlance).
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @param string $table The name.
+ * This parameter accepts the following search patterns:
+ * % to match zero or more characters,
+ * and _ to match a single character.
+ * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ *
+ * The result set has the following columns:
+ *
+ * TABLE_CAT
+ * TABLE_SCHEM
+ * TABLE_NAME
+ * GRANTOR
+ * GRANTEE
+ * PRIVILEGE
+ * IS_GRANTABLE
+ *
+ * Drivers can report additional columns.
+ *
+ */
+function odbc_tableprivileges(\Odbc\Connection $odbc, string $catalog, string $schema, string $table)
+{
+    error_clear_last();
+    $safeResult = \odbc_tableprivileges($odbc, $catalog, $schema, $table);
+    return $safeResult;
+}
+
+
+/**
  * Lists all tables in the requested range.
  *
  * To support enumeration of qualifiers, owners, and table types,
@@ -655,59 +1183,4 @@ function odbc_tables(\Odbc\Connection $odbc, ?string $catalog = null, ?string $s
         throw UodbcException::createFromPhpError();
     }
     return $safeResult;
-}
-
-function odbc_binmode()
-{
-    return \odbc_binmode(...func_get_args());
-}
-
-function odbc_columnprivileges()
-{
-    return \odbc_columnprivileges(...func_get_args());
-}
-
-function odbc_columns()
-{
-    return \odbc_columns(...func_get_args());
-}
-
-function odbc_foreignkeys()
-{
-    return \odbc_foreignkeys(...func_get_args());
-}
-
-function odbc_gettypeinfo()
-{
-    return \odbc_gettypeinfo(...func_get_args());
-}
-
-function odbc_longreadlen()
-{
-    return \odbc_longreadlen(...func_get_args());
-}
-
-function odbc_primarykeys()
-{
-    return \odbc_primarykeys(...func_get_args());
-}
-
-function odbc_procedurecolumns()
-{
-    return \odbc_procedurecolumns(...func_get_args());
-}
-
-function odbc_specialcolumns()
-{
-    return \odbc_specialcolumns(...func_get_args());
-}
-
-function odbc_statistics()
-{
-    return \odbc_statistics(...func_get_args());
-}
-
-function odbc_tableprivileges()
-{
-    return \odbc_tableprivileges(...func_get_args());
 }

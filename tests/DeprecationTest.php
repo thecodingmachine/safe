@@ -27,6 +27,29 @@ final class DeprecationTest extends TestCase
         );
     }
 
+    public function testFunctionWhichBecameSafeWithReferences(): void
+    {
+        // array_walk_recursive is unsafe in 8.3 and safe in 8.4, and one of
+        // the parameters is a reference, which wasn't handled by the original
+        // no-op wrapper
+        $this->assertTrue(
+            function_exists('Safe\array_walk_recursive'),
+            "Safe\array_walk_recursive should exist, even in php 8.4 (where it ".
+            "is safe natively), because it was unsafe in 8.1"
+        );
+        $data = [
+            ['foo', 'far'],
+            ['bar', 'baz'],
+        ];
+        array_walk_recursive($data, static function (&$item) {
+            $item = 111;
+        });
+        $this->assertEquals(
+            $data,
+            [[111, 111], [111, 111]]
+        );
+    }
+
     public function testIntroducedFunction(): void
     {
         // This function was introduced in php 8.2, so we should only

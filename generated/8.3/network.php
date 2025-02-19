@@ -63,7 +63,7 @@ function closelog(): void
  * (the DNS_* constants cannot be used).
  * The return value will contain a data key, which needs
  * to be manually parsed.
- * @return array This function returns an array of associative arrays. Each associative array contains
+ * @return list This function returns an array of associative arrays. Each associative array contains
  * at minimum the following keys:
  *
  * Basic DNS attributes

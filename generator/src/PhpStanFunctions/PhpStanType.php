@@ -15,8 +15,8 @@ class PhpStanType
     public const NO_SIGNATURE_TYPES = [
         'resource',
         'mixed',
-        '\OCI-Lob',
-        '\OCI-Collection',
+        'OCI-Lob',
+        'OCI-Collection',
     ];
 
     /**
@@ -56,26 +56,9 @@ class PhpStanType
                 $returnType = \str_replace(['(', ')'], '', $returnType);
             }
 
-            // here we deal with some weird phpstan typings
             if (str_contains($returnType, '__stringAndStringable')) {
                 $returnType = 'string';
             }
-
-            if ($returnType === 'positive-int' ||
-                str_contains($returnType, 'int<') ||
-                str_contains($returnType, 'int-mask<') ||
-                is_numeric($returnType) ||
-                # constants like FTP_ASCII, FTP_BINARY
-                (defined($returnType) && is_numeric(constant($returnType)))
-            ) {
-                $returnType = 'int';
-            }
-
-            if (str_contains($returnType, 'list<')) {
-                $returnType = \str_replace('list', 'array', $returnType);
-            }
-
-            $returnType = Type::toRootNamespace($returnType);
         }
         if ($anyNullable) {
             $returnTypes[] = 'null';
@@ -125,6 +108,7 @@ class PhpStanType
         if (in_array('null', $returnTypes) && $errorType === ErrorType::NULLSY) {
             $returnTypes = array_diff($returnTypes, ['null']);
         }
+        $returnTypes = array_map(fn($type) => Type::toRootNamespace($type), $returnTypes);
         sort($returnTypes);
         $type = join('|', $returnTypes);
         // If the function only returns a boolean, since false is for error, true is for success.
@@ -146,21 +130,28 @@ class PhpStanType
         foreach ($types as &$type) {
             if (str_contains($type, 'callable(')) {
                 $type = 'callable'; //strip callable type of its possible parenthesis and return (ex: callable(): void)
-            } elseif (str_contains($type, 'array<') || str_contains($type, 'array{')) {
+            } elseif (str_contains($type, 'array<') ||
+                str_contains($type, 'array{') ||
+                str_contains($type, 'list<') ||
+                str_contains($type, '[]')
+            ) {
                 $type = 'array'; //typed array has to be untyped
-            } elseif (str_contains($type, '[]')) {
-                $type = 'array'; //generics cannot be typehinted
             } elseif (str_contains($type, 'resource')) {
                 $type = ''; // resource cant be typehinted
             } elseif (str_contains($type, 'true')) {
                 $type = 'bool'; // php8.1 doesn't support "true" as a typehint
-            } elseif (str_contains($type, 'non-falsy-string')) {
+            } elseif (str_contains($type, 'string')) {
                 $type = 'string'; // phpstan string type to generic string
-            } elseif (str_contains($type, 'non-empty-string')) {
-                $type = 'string';
+            } elseif (str_contains($type, 'int') ||
+                is_numeric($type) ||
+                # constants like FTP_ASCII, FTP_BINARY
+                (defined($type) && is_numeric(constant($type)))
+            ) {
+                $type = 'int';
             }
         }
         // filter out duplicates due to input types like "array<string>|array<int>"
+        $types = array_map(fn($type) => Type::toRootNamespace($type), $types);
         $types = array_unique($types);
         sort($types);
 

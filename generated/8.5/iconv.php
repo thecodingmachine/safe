@@ -252,7 +252,7 @@ function iconv_set_encoding(string $type, string $encoding): void
  * @param null|string $encoding If encoding parameter is omitted or NULL,
  * string is assumed to be encoded in
  * iconv.internal_encoding.
- * @return int Returns the character count of string, as an integer,
+ * @return 0|positive-int Returns the character count of string, as an integer,
  * or FALSE if an error occurs during the encoding.
  * @throws IconvException
  *

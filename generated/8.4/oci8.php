@@ -949,7 +949,7 @@ function oci_new_descriptor($connection, int $type = OCI_DTYPE_LOB)
  * Gets the number of rows affected during statement execution.
  *
  * @param resource $statement A valid OCI statement identifier.
- * @return int Returns the number of rows affected as an integer
+ * @return 0|positive-int Returns the number of rows affected as an integer
  * @throws Oci8Exception
  *
  */

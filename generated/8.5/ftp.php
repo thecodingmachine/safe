@@ -31,7 +31,7 @@ function ftp_alloc(\FTP\Connection $ftp, int $size, ?string &$response = null): 
  * @param \FTP\Connection $ftp An FTP\Connection instance.
  * @param string $remote_filename
  * @param string $local_filename
- * @param int $mode
+ * @param FTP_ASCII|FTP_BINARY $mode
  * @throws FtpException
  *
  */
@@ -173,7 +173,7 @@ function ftp_delete(\FTP\Connection $ftp, string $filename): void
  * @param \FTP\Connection $ftp An FTP\Connection instance.
  * @param resource $stream An open file pointer in which we store the data.
  * @param string $remote_filename The remote file path.
- * @param int $mode The transfer mode. Must be either FTP_ASCII or
+ * @param FTP_ASCII|FTP_BINARY $mode The transfer mode. Must be either FTP_ASCII or
  * FTP_BINARY.
  * @param int $offset The position in the remote file to start downloading from.
  * @throws FtpException
@@ -196,7 +196,7 @@ function ftp_fget(\FTP\Connection $ftp, $stream, string $remote_filename, int $m
  * @param \FTP\Connection $ftp An FTP\Connection instance.
  * @param string $remote_filename The remote file path.
  * @param resource $stream An open file pointer on the local file. Reading stops at end of file.
- * @param int $mode The transfer mode. Must be either FTP_ASCII or
+ * @param FTP_ASCII|FTP_BINARY $mode The transfer mode. Must be either FTP_ASCII or
  * FTP_BINARY.
  * @param int $offset The position in the remote file to start uploading to.
  * @throws FtpException
@@ -219,7 +219,7 @@ function ftp_fput(\FTP\Connection $ftp, string $remote_filename, $stream, int $m
  * @param \FTP\Connection $ftp An FTP\Connection instance.
  * @param string $local_filename The local file path (will be overwritten if the file already exists).
  * @param string $remote_filename The remote file path.
- * @param int $mode The transfer mode. Must be either FTP_ASCII or
+ * @param FTP_ASCII|FTP_BINARY $mode The transfer mode. Must be either FTP_ASCII or
  * FTP_BINARY.
  * @param int $offset The position in the remote file to start downloading from.
  * @throws FtpException
@@ -305,7 +305,7 @@ function ftp_mlsd(\FTP\Connection $ftp, string $directory): array
  * @param \FTP\Connection $ftp An FTP\Connection instance.
  * @param string $local_filename The local file path (will be overwritten if the file already exists).
  * @param string $remote_filename The remote file path.
- * @param int $mode The transfer mode. Must be either FTP_ASCII or
+ * @param FTP_ASCII|FTP_BINARY $mode The transfer mode. Must be either FTP_ASCII or
  * FTP_BINARY.
  * @param int $offset The position in the remote file to start downloading from.
  * @return int Returns FTP_FAILED or FTP_FINISHED
@@ -334,7 +334,7 @@ function ftp_nb_get(\FTP\Connection $ftp, string $local_filename, string $remote
  * @param \FTP\Connection $ftp An FTP\Connection instance.
  * @param string $remote_filename The remote file path.
  * @param string $local_filename The local file path.
- * @param int $mode The transfer mode. Must be either FTP_ASCII or
+ * @param FTP_ASCII|FTP_BINARY $mode The transfer mode. Must be either FTP_ASCII or
  * FTP_BINARY.
  * @param int $offset The position in the remote file to start uploading to.
  * @return int Returns FTP_FAILED or FTP_FINISHED
@@ -406,7 +406,7 @@ function ftp_pasv(\FTP\Connection $ftp, bool $enable): void
  * @param \FTP\Connection $ftp An FTP\Connection instance.
  * @param string $remote_filename The remote file path.
  * @param string $local_filename The local file path.
- * @param int $mode The transfer mode. Must be either FTP_ASCII or
+ * @param FTP_ASCII|FTP_BINARY $mode The transfer mode. Must be either FTP_ASCII or
  * FTP_BINARY.
  * @param int $offset The position in the remote file to start uploading to.
  * @throws FtpException

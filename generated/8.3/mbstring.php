@@ -77,7 +77,7 @@ function mb_convert_encoding($string, string $to_encoding, $from_encoding = null
  * Sets the automatic character
  * encoding detection order to encoding.
  *
- * @param non-empty-array|non-falsy-string|null $encoding encoding is an array or
+ * @param non-empty-list|non-falsy-string|null $encoding encoding is an array or
  * comma separated list of character encoding. See supported encodings.
  *
  * If encoding is omitted or NULL, it returns
@@ -96,7 +96,7 @@ function mb_convert_encoding($string, string $to_encoding, $from_encoding = null
  * For UTF-16, UTF-32,
  * UCS2 and UCS4, encoding
  * detection will fail always.
- * @return array|bool When setting the encoding detection order, TRUE is returned on success.
+ * @return bool|list When setting the encoding detection order, TRUE is returned on success.
  *
  * When getting the encoding detection order, an ordered array of the encodings is returned.
  * @throws MbstringException
@@ -121,7 +121,7 @@ function mb_detect_order($encoding = null)
  * Returns an array of aliases for a known encoding type.
  *
  * @param string $encoding The encoding type being checked, for aliases.
- * @return array Returns a numerically indexed array of encoding aliases on success
+ * @return list Returns a numerically indexed array of encoding aliases on success
  * @throws MbstringException
  *
  */
@@ -589,7 +589,7 @@ function mb_send_mail(string $to, string $subject, string $message, $additional_
  * @param string $pattern The regular expression pattern.
  * @param string $string The string being split.
  * @param int $limit
- * @return array The result as an array.
+ * @return list The result as an array.
  * @throws MbstringException
  *
  */

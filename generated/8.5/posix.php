@@ -60,7 +60,7 @@ function posix_eaccess(string $filename, int $flags = 0): void
  * Gets information about a group provided its id.
  *
  * @param int $group_id The group id.
- * @return array{name: string, passwd: string, gid: int, members: array} The array elements returned are:
+ * @return array{name: string, passwd: string, gid: int, members: list} The array elements returned are:
  *
  * The group information array
  *
@@ -124,7 +124,7 @@ function posix_getgrgid(int $group_id): array
  * Gets information about a group provided its name.
  *
  * @param string $name The name of the group
- * @return array{name: string, passwd: string, gid: int, members: array} Returns an array on success.
+ * @return array{name: string, passwd: string, gid: int, members: list} Returns an array on success.
  * The array elements returned are:
  *
  * The group information array
@@ -187,7 +187,7 @@ function posix_getgrnam(string $name): array
 /**
  * Gets the group set of the current process.
  *
- * @return array Returns an array of integers containing the numeric group ids of the group
+ * @return list Returns an array of integers containing the numeric group ids of the group
  * set of the current process.
  * @throws PosixException
  *

@@ -48,6 +48,8 @@ Intentional changes:
 * If the function returned `true` on success and `false` on error, and we have
   removed the `false`, then the signature gets changed from `bool` to `void` to
   stop people from accidentally writing `if(function()) {...}`
+* PHPDoc comments use the more specific type hints from PHPStan, eg `array<string>` rather than
+  `array`, or `0|1` rather than `int`
 
 Necessary changes / side effects:
 * Functions which have optional parameters without defaults (eg `cubrid_bind()` has

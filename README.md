@@ -1,7 +1,7 @@
 [![Latest Version](https://poser.pugx.org/thecodingmachine/safe/v/stable.svg)](https://packagist.org/packages/thecodingmachine/safe)
 [![Total Downloads](https://poser.pugx.org/thecodingmachine/safe/downloads.svg)](https://packagist.org/packages/thecodingmachine/safe)
 [![License](https://poser.pugx.org/thecodingmachine/safe/license.svg)](https://packagist.org/packages/thecodingmachine/safe)
-[![Continuous Integration](https://github.com/thecodingmachine/safe/workflows/Continuous%20Integration/badge.svg)](https://github.com/thecodingmachine/safe/actions)
+[![Tests](https://github.com/thecodingmachine/safe/workflows/Tests/badge.svg)](https://github.com/thecodingmachine/safe/actions)
 [![codecov](https://codecov.io/gh/thecodingmachine/safe/branch/master/graph/badge.svg)](https://codecov.io/gh/thecodingmachine/safe)
 
 Safe PHP

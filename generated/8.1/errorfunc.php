@@ -8,7 +8,7 @@ use Safe\Exceptions\ErrorfuncException;
  * Sends an error message to the web server's error log or to a file.
  *
  * @param string $message The error message that should be logged.
- * @param int $message_type Says where the error should go. The possible message types are as
+ * @param 0|1|2|3|4 $message_type Says where the error should go. The possible message types are as
  * follows:
  *
  *

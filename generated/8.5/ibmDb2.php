@@ -522,7 +522,7 @@ function db2_get_option($resource, string $option): string
  * and branch if the fetch function returns FALSE.
  *
  * @param resource $stmt A valid stmt resource containing a result set.
- * @return int Returns the number of rows affected by the last SQL statement issued by
+ * @return 0|positive-int Returns the number of rows affected by the last SQL statement issued by
  * the specified statement handle
  * @throws IbmDb2Exception
  *

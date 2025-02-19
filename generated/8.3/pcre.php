@@ -369,7 +369,7 @@ function preg_grep(string $pattern, array $array, int $flags = 0): array
  *
  *
  * The above example will output:
- * @return int Returns the number of full pattern matches (which might be zero).
+ * @return 0|positive-int Returns the number of full pattern matches (which might be zero).
  * @throws PcreException
  *
  */
@@ -605,7 +605,7 @@ function preg_match_all(string $pattern, string $subject, ?array &$matches = nul
  *
  *
  * The above example will output:
- * @return int preg_match returns 1 if the pattern
+ * @return 0|1 preg_match returns 1 if the pattern
  * matches given subject, 0 if it does not.
  * @throws PcreException
  *
@@ -772,7 +772,7 @@ function preg_replace_callback($pattern, callable $callback, $subject, int $limi
  * value in an array where every element is an array consisting of the
  * matched string at offset 0 and its string offset
  * into subject at offset 1.
- * @return array Returns an array containing substrings of subject
+ * @return list Returns an array containing substrings of subject
  * split along boundaries matched by pattern.
  * @throws PcreException
  *

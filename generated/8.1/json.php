@@ -37,7 +37,7 @@ use Safe\Exceptions\JsonException;
  * JSON_THROW_ON_ERROR.
  * The behaviour of these constants is described on the
  * JSON constants page.
- * @param int $depth Set the maximum depth. Must be greater than zero.
+ * @param positive-int $depth Set the maximum depth. Must be greater than zero.
  * @return non-empty-string Returns a JSON encoded string on success.
  * @throws JsonException
  *

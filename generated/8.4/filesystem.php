@@ -253,7 +253,7 @@ function fflush($stream): void
  * Seeking (offset) is not supported with remote files.
  * Attempting to seek on non-local files may work with small offsets, but this
  * is unpredictable because it works on the buffered stream.
- * @param int|null $length Maximum length of data read. The default is to read until end
+ * @param 0|null|positive-int $length Maximum length of data read. The default is to read until end
  * of file is reached. Note that this parameter is applied to the
  * stream processed by the filters.
  * @return string The function returns the read data.
@@ -349,7 +349,7 @@ function file_get_contents(string $filename, bool $use_include_path = false, $co
  *
  * @param null|resource $context A valid context resource created with
  * stream_context_create.
- * @return int This function returns the number of bytes that were written to the file.
+ * @return 0|positive-int This function returns the number of bytes that were written to the file.
  * @throws FilesystemException
  *
  */
@@ -372,7 +372,7 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  * Reads an entire file into an array.
  *
  * @param string $filename Path to the file.
- * @param int $flags The optional parameter flags can be one, or
+ * @param int-mask $flags The optional parameter flags can be one, or
  * more, of the following constants:
  *
  *
@@ -417,7 +417,7 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  *
  *
  * @param null|resource $context
- * @return array Returns the file in an array. Each element of the array corresponds to a
+ * @return list Returns the file in an array. Each element of the array corresponds to a
  * line in the file, with the newline still attached. Upon failure,
  * file returns FALSE.
  * @throws FilesystemException
@@ -577,7 +577,7 @@ function fileperms(string $filename): int
  * Gets the size for the given file.
  *
  * @param string $filename Path to the file.
- * @return int Returns the size of the file in bytes, or FALSE (and generates an error
+ * @return 0|positive-int Returns the size of the file in bytes, or FALSE (and generates an error
  * of level E_WARNING) in case of an error.
  * @throws FilesystemException
  *
@@ -632,7 +632,7 @@ function filetype(string $filename): string
  *
  * @param resource $stream A file system pointer resource
  * that is typically created using fopen.
- * @param int $operation operation is one of the following:
+ * @param int-mask $operation operation is one of the following:
  *
  *
  *
@@ -654,7 +654,7 @@ function filetype(string $filename): string
  * It is also possible to add LOCK_NB as a bitmask to one
  * of the above operations, if flock should not
  * block during the locking attempt.
- * @param int|null $would_block The optional third argument is set to 1 if the lock would block
+ * @param 0|1|null $would_block The optional third argument is set to 1 if the lock would block
  * (EWOULDBLOCK errno condition).
  * @throws FilesystemException
  *
@@ -917,7 +917,7 @@ function fopen(string $filename, string $mode, bool $use_include_path = false, $
  *
  * @param resource $stream A file system pointer resource
  * that is typically created using fopen.
- * @param int $length Up to length number of bytes read.
+ * @param positive-int $length Up to length number of bytes read.
  * @return string Returns the read string.
  * @throws FilesystemException
  *
@@ -1011,7 +1011,7 @@ function ftell($stream): int
  * @param resource $stream The file pointer.
  *
  * The stream must be open for writing.
- * @param int $size The size to truncate to.
+ * @param 0|positive-int $size The size to truncate to.
  *
  * If size is larger than the file then the file
  * is extended with null bytes.
@@ -1037,10 +1037,10 @@ function ftruncate($stream, int $size): void
  * @param resource $stream A file system pointer resource
  * that is typically created using fopen.
  * @param string $data The string that is to be written.
- * @param int|null $length If length is an integer, writing will stop
+ * @param 0|null|positive-int $length If length is an integer, writing will stop
  * after length bytes have been written or the
  * end of data is reached, whichever comes first.
- * @return int
+ * @return 0|positive-int
  * @throws FilesystemException
  *
  */
@@ -1094,7 +1094,7 @@ function fwrite($stream, string $data, ?int $length = null): int
  *
  *
  * @param int $flags Any of the GLOB_* constants.
- * @return array Returns an array containing the matched files/directories, an empty array
+ * @return list Returns an array containing the matched files/directories, an empty array
  * if no file matched.
  * Unless GLOB_NOSORT was used, the names will
  * be sorted alphanumerically.
@@ -1385,7 +1385,7 @@ function popen(string $command, string $mode)
  * you want to search for the file in the include_path, too.
  * @param null|resource $context A context stream
  * resource.
- * @return int Returns the number of bytes read from the file on success
+ * @return 0|positive-int Returns the number of bytes read from the file on success
  * @throws FilesystemException
  *
  */

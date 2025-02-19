@@ -479,12 +479,12 @@ function imagecolorset(\GdImage $image, int $color, int $red, int $green, int $b
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param int $color The color index.
- * @return int Returns an associative array with red, green, blue and alpha keys that
+ * @return array{red: int, green: int, blue: int, alpha: int} Returns an associative array with red, green, blue and alpha keys that
  * contain the appropriate values for the specified color index.
  * @throws ImageException
  *
  */
-function imagecolorsforindex(\GdImage $image, int $color): int
+function imagecolorsforindex(\GdImage $image, int $color): array
 {
     error_clear_last();
     $safeResult = \imagecolorsforindex($image, $color);

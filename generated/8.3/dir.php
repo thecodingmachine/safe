@@ -131,7 +131,7 @@ function opendir(string $directory, $context = null)
  * directory.
  *
  * @param string $directory The directory that will be scanned.
- * @param int $sorting_order By default, the sorted order is alphabetical in ascending order.  If
+ * @param SCANDIR_SORT_ASCENDING|SCANDIR_SORT_DESCENDING|SCANDIR_SORT_NONE $sorting_order By default, the sorted order is alphabetical in ascending order.  If
  * the optional sorting_order is set to
  * SCANDIR_SORT_DESCENDING, then the sort order is
  * alphabetical in descending order. If it is set to
@@ -139,7 +139,7 @@ function opendir(string $directory, $context = null)
  * @param null|resource $context For a description of the context parameter,
  * refer to the streams section of
  * the manual.
- * @return array Returns an array of filenames on success. If directory is not a directory, then
+ * @return list Returns an array of filenames on success. If directory is not a directory, then
  * boolean FALSE is returned, and an error of level
  * E_WARNING is generated.
  * @throws DirException

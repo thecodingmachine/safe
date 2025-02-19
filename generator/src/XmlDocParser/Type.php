@@ -15,6 +15,15 @@ class Type
             return false;
         }
 
+        // phpstan allows literals as type hints, these shouldn't be namespaced
+        if (is_numeric($type)) {
+            return false;
+        }
+        // constants like FTP_ASCII, FTP_BINARY
+        if (defined($type) && is_numeric(constant($type))) {
+            return false;
+        }
+
         // Non-standard lowercase classes
         if (in_array($type, ['stdClass', 'finfo'])) {
             return true;

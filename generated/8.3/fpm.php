@@ -30,11 +30,11 @@ function fastcgi_finish_request(): void
  *
  * Note that this function will only be defined if FPM is being used to serve the script.
  *
- * @return int Associative array containing the full FPM pool status.
+ * @return array{pool: string, process-manager: 'dynamic'|'ondemand'|'static', start-time: int, start-since: int, accepted-conn: int, listen-queue: int, max-listen-queue: int, listen-queue-len: int, idle-processes: int, active-processes: int, total-processes: int, max-active-processes: int, max-children-reached: 0|1, slow-requests: int, procs: array} Associative array containing the full FPM pool status.
  * @throws FpmException
  *
  */
-function fpm_get_status(): int
+function fpm_get_status(): array
 {
     error_clear_last();
     $safeResult = \fpm_get_status();

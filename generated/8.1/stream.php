@@ -423,7 +423,7 @@ function stream_socket_accept($server_socket, ?float $timeout = null, ?string &$
  * stream_set_timeout, as the
  * timeout only applies while making connecting
  * the socket.
- * @param int $flags Bitmask field which may be set to any combination of connection flags.
+ * @param int-mask $flags Bitmask field which may be set to any combination of connection flags.
  * Currently the select of connection flags is limited to
  * STREAM_CLIENT_CONNECT (default),
  * STREAM_CLIENT_ASYNC_CONNECT and

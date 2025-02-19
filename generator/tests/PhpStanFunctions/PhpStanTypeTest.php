@@ -169,7 +169,7 @@ class PhpStanTypeTest extends TestCase
     public function testListBecomingArray(): void
     {
         $param = new PhpStanType('list<string>|false');
-        $this->assertEquals('array<string>', $param->getDocBlockType(ErrorType::FALSY));
+        $this->assertEquals('list<string>', $param->getDocBlockType(ErrorType::FALSY));
         $this->assertEquals('array', $param->getSignatureType(ErrorType::FALSY));
     }
 

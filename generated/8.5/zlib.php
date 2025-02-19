@@ -271,7 +271,7 @@ function gzencode(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_G
  * @param string $filename The file name.
  * @param int $use_include_path You can set this optional parameter to 1, if you
  * want to search for the file in the include_path too.
- * @return array An array containing the file, one line per cell, empty lines included, and with newlines still attached.
+ * @return list An array containing the file, one line per cell, empty lines included, and with newlines still attached.
  * @throws ZlibException
  *
  */
@@ -670,7 +670,7 @@ function inflate_init(int $encoding, array $options = []): \InflateContext
  * contents written to standard output.
  * @param int $use_include_path You can set this optional parameter to 1, if you
  * want to search for the file in the include_path too.
- * @return int Returns the number of (uncompressed) bytes read from the file on success
+ * @return 0|positive-int Returns the number of (uncompressed) bytes read from the file on success
  * @throws ZlibException
  *
  */

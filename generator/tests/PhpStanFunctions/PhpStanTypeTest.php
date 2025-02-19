@@ -166,13 +166,6 @@ class PhpStanTypeTest extends TestCase
         $this->assertEquals('string', $param->getSignatureType(ErrorType::FALSY));
     }
 
-    public function testPositiveIntBecomingInt(): void
-    {
-        $param = new PhpStanType('positive-int');
-        $this->assertEquals('int', $param->getDocBlockType());
-        $this->assertEquals('int', $param->getSignatureType());
-    }
-
     public function testListBecomingArray(): void
     {
         $param = new PhpStanType('list<string>|false');
@@ -180,10 +173,22 @@ class PhpStanTypeTest extends TestCase
         $this->assertEquals('array', $param->getSignatureType(ErrorType::FALSY));
     }
 
-    public function testNumbersAreRemoved(): void
+    public function testIntGeneralisation(): void
     {
+        // PHP only supports "int" rather than specific values or ranges,
+        // but being specific in the docblock brings significant benefits
+        // when combined with tools like phpstan, see:
+        // https://github.com/thecodingmachine/phpstan-safe-rule/issues/52
+        $param = new PhpStanType('positive-int');
+        $this->assertEquals('positive-int', $param->getDocBlockType());
+        $this->assertEquals('int', $param->getSignatureType());
+
         $param = new PhpStanType('0|positive-int');
-        $this->assertEquals('int', $param->getDocBlockType());
+        $this->assertEquals('0|positive-int', $param->getDocBlockType());
+        $this->assertEquals('int', $param->getSignatureType());
+
+        $param = new PhpStanType('0|1');
+        $this->assertEquals('0|1', $param->getDocBlockType());
         $this->assertEquals('int', $param->getSignatureType());
     }
 

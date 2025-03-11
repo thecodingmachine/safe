@@ -8,4 +8,6 @@
  */
 return [
     'array_all', // false is not an error
+    'sodium_crypto_auth_verify', // boolean return value is expected from verify
+    'sodium_crypto_sign_verify_detached', // boolean return value is expected from verify
 ];

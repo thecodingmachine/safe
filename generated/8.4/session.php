@@ -22,6 +22,93 @@ function session_abort(): void
 
 
 /**
+ * session_cache_expire returns the current setting of
+ * session.cache_expire.
+ *
+ * The cache expire is reset to the default value of 180 stored in
+ * session.cache_expire
+ * at request startup time. Thus,
+ * you need to call session_cache_expire for every
+ * request (and before session_start is called).
+ *
+ * @param int|null $value If value is given and not NULL, the current cache
+ * expire is replaced with value.
+ *
+ *
+ *
+ * Setting value is of value only, if
+ * session.cache_limiter is set to a value
+ * different from nocache.
+ *
+ *
+ * @return int Returns the current setting of session.cache_expire.
+ * The value returned should be read in minutes, defaults to 180.
+ * @throws SessionException
+ *
+ */
+function session_cache_expire(?int $value = null): int
+{
+    error_clear_last();
+    if ($value !== null) {
+        $safeResult = \session_cache_expire($value);
+    } else {
+        $safeResult = \session_cache_expire();
+    }
+    if ($safeResult === false) {
+        throw SessionException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * session_cache_limiter returns the name of the
+ * current cache limiter.
+ *
+ * The cache limiter defines which cache control HTTP headers are sent to
+ * the client.  These headers determine the rules by which the page content
+ * may be cached by the client and intermediate proxies.  Setting the cache
+ * limiter to nocache disallows any client/proxy caching.
+ * A value of public permits caching by proxies and the
+ * client, whereas private disallows caching by proxies
+ * and permits the client to cache the contents.
+ *
+ * In private mode, the Expire header sent to the client
+ * may cause confusion for some browsers, including Mozilla.
+ * You can avoid this problem by using private_no_expire mode. The
+ * Expire header is never sent to the client in this mode.
+ *
+ * Setting the cache limiter to '' will turn off automatic sending
+ * of cache headers entirely.
+ *
+ * The cache limiter is reset to the default value stored in
+ * session.cache_limiter
+ * at request startup time. Thus, you need to call
+ * session_cache_limiter for every
+ * request (and before session_start is called).
+ *
+ * @param null|string $value If value is specified and not NULL, the name of the
+ * current cache limiter is changed to the new value.
+ * @return string Returns the name of the current cache limiter.
+ * @throws SessionException
+ *
+ */
+function session_cache_limiter(?string $value = null): string
+{
+    error_clear_last();
+    if ($value !== null) {
+        $safeResult = \session_cache_limiter($value);
+    } else {
+        $safeResult = \session_cache_limiter();
+    }
+    if ($safeResult === false) {
+        throw SessionException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * session_create_id is used to create new
  * session id for the current session. It returns collision free
  * session id.
@@ -119,6 +206,43 @@ function session_encode(): string
 {
     error_clear_last();
     $safeResult = \session_encode();
+    if ($safeResult === false) {
+        throw SessionException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * session_gc is used to perform session data
+ * GC (garbage collection). PHP does probability based session GC by
+ * default.
+ *
+ * Probability based GC works somewhat but it has few problems. 1) Low
+ * traffic sites' session data may not be deleted within the preferred
+ * duration. 2) High traffic sites' GC may be too frequent GC. 3) GC is
+ * performed on the user's request and the user will experience a GC
+ * delay.
+ *
+ * Therefore, it is recommended to execute GC periodically for
+ * production systems using, e.g., "cron" for UNIX-like systems.
+ * Make sure to disable probability based GC by setting
+ * session.gc_probability
+ * to 0.
+ *
+ * @return int session_gc returns number of deleted session
+ * data for success.
+ *
+ * Old save handlers do not return number of deleted session data, but
+ * only success/failure flag. If this is the case, number of deleted
+ * session data became 1 regardless of actually deleted data.
+ * @throws SessionException
+ *
+ */
+function session_gc(): int
+{
+    error_clear_last();
+    $safeResult = \session_gc();
     if ($safeResult === false) {
         throw SessionException::createFromPhpError();
     }
@@ -325,6 +449,55 @@ function session_save_path(?string $path = null): string
         throw SessionException::createFromPhpError();
     }
     return $safeResult;
+}
+
+
+/**
+ * session_start creates a session or resumes the
+ * current one based on a session identifier passed via a GET or POST
+ * request, or passed via a cookie.
+ *
+ * When session_start is called or when a session auto starts,
+ * PHP will call the open and read session save handlers.  These will either be a built-in
+ * save handler provided by default or by PHP extensions (such as SQLite or Memcached); or can be
+ * custom handler as defined by session_set_save_handler.
+ * The read callback will retrieve any existing session data (stored in a special serialized format)
+ * and will be unserialized and used to automatically populate the $_SESSION superglobal when the
+ * read callback returns the saved session data back to PHP session handling.
+ *
+ * To use a named session, call
+ * session_name before calling
+ * session_start.
+ *
+ * When session.use_trans_sid
+ * is enabled, the session_start function will
+ * register an internal output handler for URL rewriting.
+ *
+ * If a user uses ob_gzhandler or similar with
+ * ob_start, the function order is important for
+ * proper output.  For example,
+ * ob_gzhandler must be registered before starting the session.
+ *
+ * @param array $options If provided, this is an associative array of options that will override
+ * the currently set
+ * session configuration directives.
+ * The keys should not include the session. prefix.
+ *
+ * In addition to the normal set of configuration directives, a
+ * read_and_close option may also be provided. If set to
+ * TRUE, this will result in the session being closed immediately after
+ * being read, thereby avoiding unnecessary locking if the session data
+ * won't be changed.
+ * @throws SessionException
+ *
+ */
+function session_start(array $options = []): void
+{
+    error_clear_last();
+    $safeResult = \session_start($options);
+    if ($safeResult === false) {
+        throw SessionException::createFromPhpError();
+    }
 }
 
 

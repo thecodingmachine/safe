@@ -185,6 +185,9 @@ class Method
                 $string = $this->removeString($string, ' and FALSE if an error occurred');
                 $string = $this->removeString($string, 'the function will return TRUE, or FALSE otherwise');
                 $string = $this->removeString($string, ', FALSE if the pipe cannot be established');
+                $string = $this->removeString($string, 'On failure to change the value, FALSE is returned.');
+                $string = $this->removeString($string, 'or FALSE for failure');
+                $string = $this->removeString($string, 'FALSE for failure');
                 break;
 
             case ErrorType::EMPTY:

@@ -24,6 +24,7 @@ return function (string $text): ErrorType {
         '/[Tt]he function returns &false;/m',
         '/&false;\s+on\s+error/m',
         '/&false;\s+on\s+failure/m',
+        '/&false;\s+for\s+failure/m',
         '/&false;\s+in\s+case\s+of\s+error/m',
         '/&false;\s+if\s+an\s+error\s+occurred/m',
         '/&return.success;/m',
@@ -49,6 +50,8 @@ return function (string $text): ErrorType {
         "/If output buffering isn't active then &false; is returned./m", // ob_get_clean (8.1 - 8.3)
         "/If the open fails, <function>bzopen<\/function> returns &false;/m", // bzopen
         "/If an error occurs, returns &false;./m", // ftell, popen
+        '/On failure to change the value, &false; is returned./m', // session_cache_expire, session_cache_limiter
+        '/This function returns &true; if a session was successfully started,\s+otherwise &false;./m', // session_start
     ];
     foreach ($falsies as $falsie) {
         if (preg_match($falsie, $text)) {

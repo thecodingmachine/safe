@@ -7,6 +7,7 @@
  */
 
 return [
+    'array_combine' => ['array', 'keys'=>'array', 'values'=>'array'], // doesn't return false
     'base64_decode' => ['string|false', 'str'=>'string', 'strict='=>'bool'], // base64_decode returns false only in strict mode https://github.com/phpstan/phpstan-src/commit/cee66721266ae05f3cc052f82391d2645d74d55f
     'com_load_typelib' => ['bool', 'typelib_name'=>'string', 'case_insensitive='=>'bool'], // case_insensitive is a bool
     'sem_get' => ['resource|false', 'key'=>'int', 'max_acquire='=>'int', 'perm='=>'int', 'auto_release='=>'bool'], // auto_release is a bool

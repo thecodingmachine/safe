@@ -74,6 +74,42 @@ function mb_convert_encoding($string, string $to_encoding, $from_encoding = null
 
 
 /**
+ * Converts
+ * character encoding of variables var and vars in
+ * encoding from_encoding to encoding
+ * to_encoding.
+ *
+ * mb_convert_variables join strings in Array
+ * or Object to detect encoding, since encoding detection tends to
+ * fail for short strings. Therefore, it is impossible to mix
+ * encoding in single array or object.
+ *
+ * @param string $to_encoding The encoding that the string is being converted to.
+ * @param array|string $from_encoding from_encoding is specified as an array
+ * or comma separated string, it tries to detect encoding from
+ * from-coding. When from_encoding
+ * is omitted, detect_order is used.
+ * @param array|object|string $var var is the reference to the
+ * variable being converted. String, Array and Object are accepted.
+ * mb_convert_variables assumes all parameters
+ * have the same encoding.
+ * @param array|object|string $vars Additional vars.
+ * @return string The character encoding before conversion for success.
+ * @throws MbstringException
+ *
+ */
+function mb_convert_variables(string $to_encoding, $from_encoding, &$var, ...$vars): string
+{
+    error_clear_last();
+    $safeResult = \mb_convert_variables($to_encoding, $from_encoding, $var, ...$vars);
+    if ($safeResult === false) {
+        throw MbstringException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Sets the automatic character
  * encoding detection order to encoding.
  *

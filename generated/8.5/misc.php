@@ -12,10 +12,7 @@ use Safe\Exceptions\MiscException;
  * It is possible to define constants with reserved or
  * even invalid names, whose value can (only) be retrieved with
  * constant. However, doing so is not recommended.
- * @param mixed $value The value of the constant. In PHP 5, value must
- * be a scalar value (int,
- * float, string, bool, or
- * NULL). In PHP 7, array values are also accepted.
+ * @param mixed $value The value of the constant.
  *
  * While it is possible to define resource constants, it is
  * not recommended and may cause unpredictable behavior.

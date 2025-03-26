@@ -1729,7 +1729,7 @@ function imagegammacorrect(\GdImage $image, float $input_gamma, float $output_ga
 
 
 /**
- * Outputs a GD image to the given file.
+ * Outputs or saves the given image in GD format.
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
@@ -1752,7 +1752,7 @@ function imagegd(\GdImage $image, $file = null): void
 
 
 /**
- * Outputs a GD2 image to the given file.
+ * Outputs or saves the given image in GD2 format.
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.

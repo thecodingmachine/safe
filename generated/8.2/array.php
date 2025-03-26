@@ -12,10 +12,10 @@ use Safe\Exceptions\ArrayException;
  * @param array $keys Array of keys to be used. Illegal values for key will be
  * converted to string.
  * @param array $values Array of values to be used
- * @return array|false Returns the combined array.
+ * @return array Returns the combined array.
  *
  */
-function array_combine(array $keys, array $values)
+function array_combine(array $keys, array $values): array
 {
     error_clear_last();
     $safeResult = \array_combine($keys, $values);

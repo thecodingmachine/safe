@@ -24,8 +24,7 @@ use const PREG_NO_ERROR;
  * Wrapper for json_decode that throws when an error occurs.
  *
  * @param string $json    JSON data to parse
- * @param bool $associative     When true, returned objects will be converted
- *                        into associative arrays.
+ * @param bool|null $associative  true for arrays, false for objects, null to defer to $flags
  * @param int<1, max> $depth   User specified recursion depth.
  * @param int $flags Bitmask of JSON decode options.
  *
@@ -33,7 +32,7 @@ use const PREG_NO_ERROR;
  * @throws JsonException if the JSON cannot be decoded.
  * @link http://www.php.net/manual/en/function.json-decode.php
  */
-function json_decode(string $json, bool $associative = false, int $depth = 512, int $flags = 0): mixed
+function json_decode(string $json, ?bool $associative = null, int $depth = 512, int $flags = 0): mixed
 {
     $data = \json_decode($json, $associative, $depth, $flags);
     if (!($flags & JSON_THROW_ON_ERROR) && JSON_ERROR_NONE !== json_last_error()) {

@@ -1239,6 +1239,10 @@ function ldap_sasl_bind(\LDAP\Connection $ldap, ?string $dn = null, ?string $pas
  * iscritical defaults to FALSE
  * if not supplied. See draft-ietf-ldapext-ldap-c-api-xx.txt
  * for details. See also the second example below.
+ *
+ * All TLS options must be set globally before
+ * ldap_connect for ldaps connection or
+ * for the connection before ldap_start_tls.
  * @param mixed $value The new value for the specified option.
  * @throws LdapException
  *

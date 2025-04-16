@@ -1088,6 +1088,13 @@ function fwrite($stream, string $data, ?int $length = null): int
  *
  *
  *
+ * {a,b,c} - Matches one string from a group of
+ * strings delimited by a comma when the GLOB_BRACE
+ * flag is used.
+ *
+ *
+ *
+ *
  * \ - Escapes the following character,
  * except when the GLOB_NOESCAPE flag is used.
  *

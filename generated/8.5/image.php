@@ -2831,6 +2831,7 @@ function imagewbmp(\GdImage $image, $file = null, ?int $foreground_color = null)
  * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @param int $quality quality ranges from 0 (worst
  * quality, smaller file) to 100 (best quality, biggest file).
+ * If -1 is provided, the default value 80 is used.
  * @throws ImageException
  *
  */

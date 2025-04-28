@@ -1587,10 +1587,10 @@ function openssl_public_encrypt(string $data, ?string &$encrypted_data, $public_
  * @param bool|null $strong_result If passed into the function, this will hold a bool value that determines
  * if the algorithm used was "cryptographically strong", e.g., safe for usage with GPG,
  * passwords, etc. TRUE if it did, otherwise FALSE
- * @return false|string Returns the generated string of bytes.
+ * @return string Returns the generated string of bytes.
  *
  */
-function openssl_random_pseudo_bytes(int $length, ?bool &$strong_result = null)
+function openssl_random_pseudo_bytes(int $length, ?bool &$strong_result = null): string
 {
     error_clear_last();
     $safeResult = \openssl_random_pseudo_bytes($length, $strong_result);

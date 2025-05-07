@@ -391,7 +391,7 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  *
  *
  *
- * Omit newline at the end of each array element
+ * Omit newline at the end of each array element.
  *
  *
  *
@@ -401,7 +401,7 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  *
  *
  *
- * Skip empty lines
+ * Skip empty lines.
  *
  *
  *
@@ -411,7 +411,7 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  *
  *
  *
- * Don't use the default context
+ * Don't use the default context.
  *
  *
  *
@@ -1084,6 +1084,13 @@ function fwrite($stream, string $data, ?int $length = null): int
  * [...] - Matches one character from a group of
  * characters. If the first character is !,
  * matches any character not in the group.
+ *
+ *
+ *
+ *
+ * {a,b,c} - Matches one string from a group of
+ * strings delimited by a comma when the GLOB_BRACE
+ * flag is used.
  *
  *
  *

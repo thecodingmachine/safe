@@ -422,12 +422,12 @@ function ini_get(string $option): string
  * @param string $option Not all the available options can be changed using
  * ini_set. There is a list of all available options
  * in the appendix.
- * @param string $value The new value for the option.
+ * @param bool|float|int|null|string $value The new value for the option.
  * @return string Returns the old value on success.
  * @throws InfoException
  *
  */
-function ini_set(string $option, string $value): string
+function ini_set(string $option, $value): string
 {
     error_clear_last();
     $safeResult = \ini_set($option, $value);

@@ -22,4 +22,5 @@ return [
     'imagesy', // this function throws an error instead of returning false PHP 8.0, see https://github.com/php/doc-en/commit/37f858a5579386dafaddaffbe15034dbcd0f55c8
     'sodium_crypto_auth_verify', // boolean return value is expected from verify
     'sodium_crypto_sign_verify_detached', // boolean return value is expected from verify
+    'sleep', // this function throws an error instead of returning false since PHP 8.0
 ];

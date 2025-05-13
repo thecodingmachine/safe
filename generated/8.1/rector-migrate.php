@@ -253,7 +253,6 @@ return static function (RectorConfig $rectorConfig): void {
             'get_meta_tags' => 'Safe\get_meta_tags',
             'glob' => 'Safe\glob',
             'gmmktime' => 'Safe\gmmktime',
-            'gmp_random_seed' => 'Safe\gmp_random_seed',
             'gmstrftime' => 'Safe\gmstrftime',
             'gnupg_adddecryptkey' => 'Safe\gnupg_adddecryptkey',
             'gnupg_addencryptkey' => 'Safe\gnupg_addencryptkey',

@@ -15,6 +15,7 @@ return [
     'array_walk_recursive', // actually returns always true, see https://github.com/php/doc-en/commit/cec5275f23d2db648df30a5702b378044431be97
     'date', // this function throws an error instead of returning false PHP 8.0, but the doc has only been updated since PHP 8.4
     'getallheaders', // always return an array since PHP 7, see https://github.com/php/doc-en/commit/68e52ef14de33f6752a8fdda1ae83c861c5babdb
+    'gmp_random_seed', // this function throws an error instead of returning false since PHP 8.0
     'long2ip', // false return type cannot actually be returned, see https://github.com/php/php-src/pull/13395
     'pack', // this function no longer returns false since PHP 8.0, but the doc has only been updated since PHP 8.4
     'imagesx', // this function throws an error instead of returning false PHP 8.0, see https://github.com/php/doc-en/commit/0462f49fb00dd5abaec3aa322009f2eb40a3279d

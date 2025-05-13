@@ -522,6 +522,7 @@ return [
     'md5_file',
     'mime_content_type',
     'mkdir',
+    'mktime',
     'msg_get_queue',
     'msg_queue_exists',
     'msg_receive',

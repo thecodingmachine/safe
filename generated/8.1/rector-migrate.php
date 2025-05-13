@@ -109,7 +109,6 @@ return static function (RectorConfig $rectorConfig): void {
             'curl_multi_init' => 'Safe\curl_multi_init',
             'curl_multi_setopt' => 'Safe\curl_multi_setopt',
             'curl_setopt' => 'Safe\curl_setopt',
-            'curl_share_errno' => 'Safe\curl_share_errno',
             'curl_share_setopt' => 'Safe\curl_share_setopt',
             'curl_unescape' => 'Safe\curl_unescape',
             'date_parse' => 'Safe\date_parse',

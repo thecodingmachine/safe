@@ -101,7 +101,6 @@ return [
     'curl_multi_init',
     'curl_multi_setopt',
     'curl_setopt',
-    'curl_share_errno',
     'curl_share_setopt',
     'curl_unescape',
     'date_parse',

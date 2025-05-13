@@ -5,6 +5,36 @@ namespace Safe;
 use Safe\Exceptions\DatetimeException;
 
 /**
+ * This is the procedural version of
+ * DateTime::__construct.
+ *
+ * Unlike the DateTime constructor, it will return
+ * FALSE instead of an exception if the passed in
+ * datetime string is invalid.
+ *
+ * @param null|string $datetime
+ * @param \DateTimeZone|null $timezone
+ * @return \DateTime Returns a new DateTime instance.
+ * Procedural style returns FALSE on failure.
+ * @throws DatetimeException
+ *
+ */
+function date_create(?string $datetime = "now", ?\DateTimeZone $timezone = null): \DateTime
+{
+    error_clear_last();
+    if ($timezone !== null) {
+        $safeResult = \date_create($datetime, $timezone);
+    } else {
+        $safeResult = \date_create($datetime);
+    }
+    if ($safeResult === false) {
+        throw DatetimeException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * Returns associative array with detailed info about given date/time.
  *
  * @param string $format Documentation on how the format is used, please

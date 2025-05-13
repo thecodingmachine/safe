@@ -245,7 +245,6 @@ return [
     'get_meta_tags',
     'glob',
     'gmmktime',
-    'gmp_random_seed',
     'gmstrftime',
     'gnupg_adddecryptkey',
     'gnupg_addencryptkey',

@@ -962,7 +962,6 @@ return static function (RectorConfig $rectorConfig): void {
             'shm_put_var' => 'Safe\shm_put_var',
             'shm_remove' => 'Safe\shm_remove',
             'shm_remove_var' => 'Safe\shm_remove_var',
-            'shuffle' => 'Safe\shuffle',
             'simplexml_import_dom' => 'Safe\simplexml_import_dom',
             'simplexml_load_file' => 'Safe\simplexml_load_file',
             'simplexml_load_string' => 'Safe\simplexml_load_string',

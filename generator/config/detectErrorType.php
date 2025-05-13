@@ -53,6 +53,7 @@ return function (string $text): ErrorType {
         "/If an error occurs, returns &false;./m", // ftell, popen
         '/On failure to change the value, &false; is returned./m', // session_cache_expire, session_cache_limiter
         '/This function returns &true; if a session was successfully started,\s+otherwise &false;./m', // session_start
+        '/&false;\s+if\s+the\s+timestamp\s+doesn\'t\s+fit\s+in\s+a\s+PHP\s+integer./m', // gmmktime / mktime
     ];
     foreach ($falsies as $falsie) {
         if (preg_match($falsie, $text)) {

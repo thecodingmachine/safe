@@ -239,7 +239,6 @@ return static function (RectorConfig $rectorConfig): void {
             'ftp_systype' => 'Safe\ftp_systype',
             'ftruncate' => 'Safe\ftruncate',
             'fwrite' => 'Safe\fwrite',
-            'getallheaders' => 'Safe\getallheaders',
             'getcwd' => 'Safe\getcwd',
             'gethostname' => 'Safe\gethostname',
             'getimagesize' => 'Safe\getimagesize',

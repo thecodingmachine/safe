@@ -9,7 +9,8 @@
 return [
     'array_all', // false is not an error
     'array_walk_recursive', // actually returns always true, see https://github.com/php/doc-en/commit/cec5275f23d2db648df30a5702b378044431be97
+    'getallheaders', // always return an array since PHP 7, see https://github.com/php/doc-en/commit/68e52ef14de33f6752a8fdda1ae83c861c5babdb
+    'pack', // this function no longer returns false since PHP 8.0, but the doc has only been updated since PHP 8.4
     'sodium_crypto_auth_verify', // boolean return value is expected from verify
     'sodium_crypto_sign_verify_detached', // boolean return value is expected from verify
-    'pack', // this function no longer returns false since PHP 8.0, but the doc has only been updated since PHP 8.4
 ];

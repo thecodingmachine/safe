@@ -231,7 +231,6 @@ return [
     'ftp_systype',
     'ftruncate',
     'fwrite',
-    'getallheaders',
     'getcwd',
     'gethostname',
     'getimagesize',

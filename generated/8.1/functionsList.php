@@ -388,8 +388,6 @@ return [
     'imagesettile',
     'imagestring',
     'imagestringup',
-    'imagesx',
-    'imagesy',
     'imagetruecolortopalette',
     'imagettfbbox',
     'imagettftext',

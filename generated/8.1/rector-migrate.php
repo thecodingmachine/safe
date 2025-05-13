@@ -396,8 +396,6 @@ return static function (RectorConfig $rectorConfig): void {
             'imagesettile' => 'Safe\imagesettile',
             'imagestring' => 'Safe\imagestring',
             'imagestringup' => 'Safe\imagestringup',
-            'imagesx' => 'Safe\imagesx',
-            'imagesy' => 'Safe\imagesy',
             'imagetruecolortopalette' => 'Safe\imagetruecolortopalette',
             'imagettfbbox' => 'Safe\imagettfbbox',
             'imagettftext' => 'Safe\imagettftext',

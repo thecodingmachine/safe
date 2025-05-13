@@ -108,7 +108,6 @@ return [
     'date_parse_from_format',
     'date_sunrise',
     'date_sunset',
-    'date_sun_info',
     'db2_autocommit',
     'db2_bind_param',
     'db2_client_info',

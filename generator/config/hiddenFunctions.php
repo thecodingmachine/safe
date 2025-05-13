@@ -7,6 +7,8 @@
  * to suggest that users should be using them.
  */
 return [
+    'apache_request_headers', // always return an array since PHP 7, see https://github.com/php/doc-en/pull/4076
+    'apache_response_headers', // always return an array since PHP 7, see https://github.com/php/doc-en/pull/4076
     'array_all', // false is not an error
     'array_combine', // this function throws an error instead of returning false since PHP 8.0
     'array_flip', // always return an array since PHP 8.0, see https://github.com/php/doc-en/issues/1178

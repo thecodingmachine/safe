@@ -269,7 +269,6 @@ return [
     'gztell',
     'gzuncompress',
     'gzwrite',
-    'hash_hkdf',
     'hash_update_file',
     'header_register_callback',
     'hex2bin',

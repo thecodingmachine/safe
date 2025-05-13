@@ -277,7 +277,6 @@ return static function (RectorConfig $rectorConfig): void {
             'gztell' => 'Safe\gztell',
             'gzuncompress' => 'Safe\gzuncompress',
             'gzwrite' => 'Safe\gzwrite',
-            'hash_hkdf' => 'Safe\hash_hkdf',
             'hash_update_file' => 'Safe\hash_update_file',
             'header_register_callback' => 'Safe\header_register_callback',
             'hex2bin' => 'Safe\hex2bin',

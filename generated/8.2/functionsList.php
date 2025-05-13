@@ -490,7 +490,6 @@ return [
     'ldap_unbind',
     'libxml_set_external_entity_loader',
     'link',
-    'long2ip',
     'lstat',
     'lzf_compress',
     'lzf_decompress',

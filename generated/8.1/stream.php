@@ -457,6 +457,27 @@ function stream_socket_client(string $remote_socket, ?int &$errno = null, ?strin
 
 
 /**
+ * Returns the local or remote name of a given socket connection.
+ *
+ * @param resource $handle The socket to get the name of.
+ * @param bool $want_peer If set to TRUE the remote socket name will be returned, if set
+ * to FALSE the local socket name will be returned.
+ * @return string The name of the socket.
+ * @throws StreamException
+ *
+ */
+function stream_socket_get_name($handle, bool $want_peer): string
+{
+    error_clear_last();
+    $safeResult = \stream_socket_get_name($handle, $want_peer);
+    if ($safeResult === false) {
+        throw StreamException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * stream_socket_pair creates a pair of connected,
  * indistinguishable socket streams. This function is commonly used in IPC
  * (Inter-Process Communication).

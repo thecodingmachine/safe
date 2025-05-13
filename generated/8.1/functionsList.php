@@ -13,7 +13,6 @@ return [
     'apcu_fetch',
     'apcu_inc',
     'apcu_sma_info',
-    'array_combine',
     'array_flip',
     'array_replace',
     'array_replace_recursive',

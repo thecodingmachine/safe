@@ -25,7 +25,6 @@ return static function (RectorConfig $rectorConfig): void {
             'array_flip' => 'Safe\array_flip',
             'array_replace' => 'Safe\array_replace',
             'array_replace_recursive' => 'Safe\array_replace_recursive',
-            'array_walk_recursive' => 'Safe\array_walk_recursive',
             'assert_options' => 'Safe\assert_options',
             'base64_decode' => 'Safe\base64_decode',
             'bindtextdomain' => 'Safe\bindtextdomain',

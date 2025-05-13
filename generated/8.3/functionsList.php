@@ -13,7 +13,6 @@ return [
     'apcu_fetch',
     'apcu_inc',
     'apcu_sma_info',
-    'array_walk_recursive',
     'assert_options',
     'base64_decode',
     'bindtextdomain',

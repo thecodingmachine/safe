@@ -17,7 +17,6 @@ return [
     'array_flip',
     'array_replace',
     'array_replace_recursive',
-    'array_walk_recursive',
     'assert_options',
     'base64_decode',
     'bindtextdomain',

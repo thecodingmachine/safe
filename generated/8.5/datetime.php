@@ -545,11 +545,12 @@ function date(string $format, ?int $timestamp = null): string
  * Values less than 1 (including negative values) reference the days in the previous month, so 0 is the last day of the previous month, -1 is the day before that, etc.
  * Values greater than the number of days in the relevant month reference the appropriate day in the following month(s).
  * @param int|null $year The year
- * @return false|int Returns a int Unix timestamp on success, or FALSE if the
+ * @return int Returns a int Unix timestamp on success, or FALSE if the
  * timestamp doesn't fit in a PHP integer.
+ * @throws DatetimeException
  *
  */
-function gmmktime(int $hour, ?int $minute = null, ?int $second = null, ?int $month = null, ?int $day = null, ?int $year = null)
+function gmmktime(int $hour, ?int $minute = null, ?int $second = null, ?int $month = null, ?int $day = null, ?int $year = null): int
 {
     error_clear_last();
     if ($year !== null) {
@@ -564,6 +565,9 @@ function gmmktime(int $hour, ?int $minute = null, ?int $second = null, ?int $mon
         $safeResult = \gmmktime($hour, $minute);
     } else {
         $safeResult = \gmmktime($hour);
+    }
+    if ($safeResult === false) {
+        throw DatetimeException::createFromPhpError();
     }
     return $safeResult;
 }
@@ -769,11 +773,12 @@ function idate(string $format, ?int $timestamp = null): int
  * 1970-2000. On systems where time_t is a 32bit signed integer, as
  * most common today, the valid range for year
  * is somewhere between 1901 and 2038.
- * @return false|int mktime returns the Unix timestamp of the arguments
+ * @return int mktime returns the Unix timestamp of the arguments
  * given, or FALSE if the timestamp doesn't fit in a PHP integer.
+ * @throws DatetimeException
  *
  */
-function mktime(int $hour, ?int $minute = null, ?int $second = null, ?int $month = null, ?int $day = null, ?int $year = null)
+function mktime(int $hour, ?int $minute = null, ?int $second = null, ?int $month = null, ?int $day = null, ?int $year = null): int
 {
     error_clear_last();
     if ($year !== null) {
@@ -788,6 +793,9 @@ function mktime(int $hour, ?int $minute = null, ?int $second = null, ?int $month
         $safeResult = \mktime($hour, $minute);
     } else {
         $safeResult = \mktime($hour);
+    }
+    if ($safeResult === false) {
+        throw DatetimeException::createFromPhpError();
     }
     return $safeResult;
 }

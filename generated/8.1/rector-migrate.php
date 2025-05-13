@@ -501,7 +501,6 @@ return static function (RectorConfig $rectorConfig): void {
             'ldap_unbind' => 'Safe\ldap_unbind',
             'libxml_set_external_entity_loader' => 'Safe\libxml_set_external_entity_loader',
             'link' => 'Safe\link',
-            'long2ip' => 'Safe\long2ip',
             'lstat' => 'Safe\lstat',
             'lzf_compress' => 'Safe\lzf_compress',
             'lzf_decompress' => 'Safe\lzf_decompress',

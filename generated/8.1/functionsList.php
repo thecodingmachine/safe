@@ -701,7 +701,6 @@ return [
     'openssl_x509_read',
     'output_add_rewrite_var',
     'output_reset_rewrite_vars',
-    'pack',
     'parse_ini_file',
     'parse_ini_string',
     'parse_url',

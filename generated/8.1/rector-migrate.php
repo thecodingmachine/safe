@@ -709,7 +709,6 @@ return static function (RectorConfig $rectorConfig): void {
             'openssl_x509_read' => 'Safe\openssl_x509_read',
             'output_add_rewrite_var' => 'Safe\output_add_rewrite_var',
             'output_reset_rewrite_vars' => 'Safe\output_reset_rewrite_vars',
-            'pack' => 'Safe\pack',
             'parse_ini_file' => 'Safe\parse_ini_file',
             'parse_ini_string' => 'Safe\parse_ini_string',
             'parse_url' => 'Safe\parse_url',

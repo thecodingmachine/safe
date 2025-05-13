@@ -19,6 +19,7 @@ return [
     'openssl_random_pseudo_bytes' => ['string', 'length'=>'int', '&strong_result='=>'bool'],
 
     // theses replace resource by OpenSSLAsymmetricKey
+    'openssl_pkey_get_details' => ['array|false', 'key'=>'OpenSSLAsymmetricKey'],
     'openssl_pkey_get_private' => ['OpenSSLAsymmetricKey|false', 'private_key'=>'OpenSSLAsymmetricKey|OpenSSLCertificate|array|string', 'passphrase='=>'null|string'],
     'openssl_pkey_get_public' => ['OpenSSLAsymmetricKey|false', 'public_key'=>'OpenSSLAsymmetricKey|OpenSSLCertificate|array|string'],
     'openssl_csr_sign' => ['resource|false', 'csr'=>'string|OpenSSLCertificateSigningRequest', 'ca_certificate'=>'string|OpenSSLCertificate|null', 'private_key'=>'OpenSSLAsymmetricKey|OpenSSLCertificate|array|string', 'days'=>'int', 'options='=>'array', 'serial='=>'int', 'serial_hex='=>'string|null'],

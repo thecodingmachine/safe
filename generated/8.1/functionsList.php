@@ -526,7 +526,6 @@ return [
     'msg_send',
     'msg_set_queue',
     'msg_stat_queue',
-    'mysqli_get_client_stats',
     'mysql_close',
     'mysql_connect',
     'mysql_create_db',

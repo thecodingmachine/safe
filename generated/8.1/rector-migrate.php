@@ -534,7 +534,6 @@ return static function (RectorConfig $rectorConfig): void {
             'msg_send' => 'Safe\msg_send',
             'msg_set_queue' => 'Safe\msg_set_queue',
             'msg_stat_queue' => 'Safe\msg_stat_queue',
-            'mysqli_get_client_stats' => 'Safe\mysqli_get_client_stats',
             'mysql_close' => 'Safe\mysql_close',
             'mysql_connect' => 'Safe\mysql_connect',
             'mysql_create_db' => 'Safe\mysql_create_db',

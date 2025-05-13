@@ -18,6 +18,7 @@ return [
     'gmp_random_seed', // this function throws an error instead of returning false since PHP 8.0
     'hash_hkdf', // this function throws an error instead of returning false since PHP 8.0
     'long2ip', // false return type cannot actually be returned, see https://github.com/php/php-src/pull/13395
+    'mysqli_get_client_stats', // false is actually never returned, see https://github.com/php/doc-en/pull/1055
     'pack', // this function no longer returns false since PHP 8.0, but the doc has only been updated since PHP 8.4
     'imagesx', // this function throws an error instead of returning false PHP 8.0, see https://github.com/php/doc-en/commit/0462f49fb00dd5abaec3aa322009f2eb40a3279d
     'imagesy', // this function throws an error instead of returning false PHP 8.0, see https://github.com/php/doc-en/commit/37f858a5579386dafaddaffbe15034dbcd0f55c8

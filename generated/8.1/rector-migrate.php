@@ -21,8 +21,6 @@ return static function (RectorConfig $rectorConfig): void {
             'apcu_fetch' => 'Safe\apcu_fetch',
             'apcu_inc' => 'Safe\apcu_inc',
             'apcu_sma_info' => 'Safe\apcu_sma_info',
-            'array_replace' => 'Safe\array_replace',
-            'array_replace_recursive' => 'Safe\array_replace_recursive',
             'assert_options' => 'Safe\assert_options',
             'base64_decode' => 'Safe\base64_decode',
             'bindtextdomain' => 'Safe\bindtextdomain',

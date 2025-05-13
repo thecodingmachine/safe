@@ -24,6 +24,7 @@ return function (string $text): ErrorType {
         '/[Tt]he function returns &false;/m',
         '/&false;\s+on\s+error/m',
         '/&false;\s+on\s+failure/m',
+        '/&false;\s+in\s+failure/m', // openssl_pkey_get_details (8.1 - 8.3)
         '/&false;\s+for\s+failure/m',
         '/&false;\s+in\s+case\s+of\s+error/m',
         '/&false;\s+if\s+an\s+error\s+occurred/m',

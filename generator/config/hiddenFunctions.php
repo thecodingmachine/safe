@@ -25,6 +25,7 @@ return [
     'pack', // this function no longer returns false since PHP 8.0, but the doc has only been updated since PHP 8.4
     'imagesx', // this function throws an error instead of returning false PHP 8.0, see https://github.com/php/doc-en/commit/0462f49fb00dd5abaec3aa322009f2eb40a3279d
     'imagesy', // this function throws an error instead of returning false PHP 8.0, see https://github.com/php/doc-en/commit/37f858a5579386dafaddaffbe15034dbcd0f55c8
+    'shuffle', // actually returns always true
     'sodium_crypto_auth_verify', // boolean return value is expected from verify
     'sodium_crypto_sign_verify_detached', // boolean return value is expected from verify
     'sleep', // this function throws an error instead of returning false since PHP 8.0

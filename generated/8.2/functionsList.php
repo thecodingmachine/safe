@@ -952,7 +952,6 @@ return [
     'shm_put_var',
     'shm_remove',
     'shm_remove_var',
-    'shuffle',
     'simplexml_import_dom',
     'simplexml_load_file',
     'simplexml_load_string',

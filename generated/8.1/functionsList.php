@@ -4,8 +4,6 @@ return [
     'apache_getenv',
     'apache_get_version',
     'apache_lookup_uri',
-    'apache_request_headers',
-    'apache_response_headers',
     'apache_setenv',
     'apcu_cache_info',
     'apcu_cas',

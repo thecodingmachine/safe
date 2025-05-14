@@ -12,8 +12,6 @@ return static function (RectorConfig $rectorConfig): void {
         [            'apache_getenv' => 'Safe\apache_getenv',
             'apache_get_version' => 'Safe\apache_get_version',
             'apache_lookup_uri' => 'Safe\apache_lookup_uri',
-            'apache_request_headers' => 'Safe\apache_request_headers',
-            'apache_response_headers' => 'Safe\apache_response_headers',
             'apache_setenv' => 'Safe\apache_setenv',
             'apcu_cache_info' => 'Safe\apcu_cache_info',
             'apcu_cas' => 'Safe\apcu_cas',

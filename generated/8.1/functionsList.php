@@ -319,7 +319,6 @@ return [
     'imagecolordeallocate',
     'imagecolormatch',
     'imagecolorset',
-    'imagecolorsforindex',
     'imageconvolution',
     'imagecopy',
     'imagecopymerge',

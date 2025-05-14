@@ -327,7 +327,6 @@ return static function (RectorConfig $rectorConfig): void {
             'imagecolordeallocate' => 'Safe\imagecolordeallocate',
             'imagecolormatch' => 'Safe\imagecolormatch',
             'imagecolorset' => 'Safe\imagecolorset',
-            'imagecolorsforindex' => 'Safe\imagecolorsforindex',
             'imageconvolution' => 'Safe\imageconvolution',
             'imagecopy' => 'Safe\imagecopy',
             'imagecopymerge' => 'Safe\imagecopymerge',

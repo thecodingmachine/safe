@@ -112,7 +112,6 @@ return static function (RectorConfig $rectorConfig): void {
             'date_parse_from_format' => 'Safe\date_parse_from_format',
             'date_sunrise' => 'Safe\date_sunrise',
             'date_sunset' => 'Safe\date_sunset',
-            'date_sun_info' => 'Safe\date_sun_info',
             'db2_autocommit' => 'Safe\db2_autocommit',
             'db2_bind_param' => 'Safe\db2_bind_param',
             'db2_client_info' => 'Safe\db2_client_info',

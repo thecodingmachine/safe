@@ -17,6 +17,7 @@ return [
     'array_walk_recursive', // actually returns always true, see https://github.com/php/doc-en/commit/cec5275f23d2db648df30a5702b378044431be97
     'curl_share_errno', // this function does not anymore return false since PHP 8.0
     'date', // this function throws an error instead of returning false PHP 8.0, but the doc has only been updated since PHP 8.4
+    'date_parse', // always return an array, see https://github.com/php/doc-en/pull/2395
     'getallheaders', // always return an array since PHP 7, see https://github.com/php/doc-en/commit/68e52ef14de33f6752a8fdda1ae83c861c5babdb
     'gmp_random_seed', // this function throws an error instead of returning false since PHP 8.0
     'hash_hkdf', // this function throws an error instead of returning false since PHP 8.0

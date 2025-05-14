@@ -110,7 +110,6 @@ return static function (RectorConfig $rectorConfig): void {
             'curl_share_setopt' => 'Safe\curl_share_setopt',
             'curl_unescape' => 'Safe\curl_unescape',
             'curl_upkeep' => 'Safe\curl_upkeep',
-            'date_parse' => 'Safe\date_parse',
             'date_parse_from_format' => 'Safe\date_parse_from_format',
             'date_sunrise' => 'Safe\date_sunrise',
             'date_sunset' => 'Safe\date_sunset',

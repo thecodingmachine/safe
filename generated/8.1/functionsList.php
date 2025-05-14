@@ -926,7 +926,6 @@ return [
     'simplexml_import_dom',
     'simplexml_load_file',
     'simplexml_load_string',
-    'sleep',
     'socket_accept',
     'socket_addrinfo_bind',
     'socket_addrinfo_connect',

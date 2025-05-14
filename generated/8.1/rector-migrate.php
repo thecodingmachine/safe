@@ -934,7 +934,6 @@ return static function (RectorConfig $rectorConfig): void {
             'simplexml_import_dom' => 'Safe\simplexml_import_dom',
             'simplexml_load_file' => 'Safe\simplexml_load_file',
             'simplexml_load_string' => 'Safe\simplexml_load_string',
-            'sleep' => 'Safe\sleep',
             'socket_accept' => 'Safe\socket_accept',
             'socket_addrinfo_bind' => 'Safe\socket_addrinfo_bind',
             'socket_addrinfo_connect' => 'Safe\socket_addrinfo_connect',

@@ -55,6 +55,7 @@ return function (string $text): ErrorType {
         '/This function returns &true; if a session was successfully started,\s+otherwise &false;./m', // session_start
         '/&false;\s+if\s+the\s+timestamp\s+doesn\'t\s+fit\s+in\s+a\s+PHP\s+integer./m', // gmmktime / mktime
         '/<function>mktime<\/function>\s+returns\s+the\s+Unix\s+timestamp\s+of\s+the\s+arguments\s+given./', // mktime before https://github.com/php/doc-en/pull/2651
+        '/The name of the socket/', // stream_socket_get_name (PHP 8.1)
     ];
     foreach ($falsies as $falsie) {
         if (preg_match($falsie, $text)) {

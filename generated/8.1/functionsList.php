@@ -1024,6 +1024,7 @@ return [
     'stream_set_timeout',
     'stream_socket_accept',
     'stream_socket_client',
+    'stream_socket_get_name',
     'stream_socket_pair',
     'stream_socket_server',
     'stream_socket_shutdown',

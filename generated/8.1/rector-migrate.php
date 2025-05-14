@@ -1032,6 +1032,7 @@ return static function (RectorConfig $rectorConfig): void {
             'stream_set_timeout' => 'Safe\stream_set_timeout',
             'stream_socket_accept' => 'Safe\stream_socket_accept',
             'stream_socket_client' => 'Safe\stream_socket_client',
+            'stream_socket_get_name' => 'Safe\stream_socket_get_name',
             'stream_socket_pair' => 'Safe\stream_socket_pair',
             'stream_socket_server' => 'Safe\stream_socket_server',
             'stream_socket_shutdown' => 'Safe\stream_socket_shutdown',

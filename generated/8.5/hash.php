@@ -8,6 +8,34 @@ use Safe\Exceptions\HashException;
  *
  *
  * @param string $algo Name of selected hashing algorithm (e.g. "sha256").
+ * For a list of supported algorithms see hash_algos.
+ * @param string $filename URL describing location of file to be hashed; Supports fopen wrappers.
+ * @param bool $binary When set to TRUE, outputs raw binary data.
+ * FALSE outputs lowercase hexits.
+ * @param array $options An array of options for the various hashing algorithms.
+ * Currently, only the "seed" parameter is
+ * supported by the MurmurHash variants.
+ * @return non-falsy-string Returns a string containing the calculated message digest as lowercase hexits
+ * unless binary is set to true in which case the raw
+ * binary representation of the message digest is returned.
+ * @throws HashException
+ *
+ */
+function hash_file(string $algo, string $filename, bool $binary = false, array $options = []): string
+{
+    error_clear_last();
+    $safeResult = \hash_file($algo, $filename, $binary, $options);
+    if ($safeResult === false) {
+        throw HashException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ *
+ *
+ * @param string $algo Name of selected hashing algorithm (e.g. "sha256").
  * For a list of supported algorithms see hash_hmac_algos.
  *
  *

@@ -436,7 +436,7 @@ function passthru(string $command, ?int &$result_code = null): void
  *
  * @param \FTP\Connection $ftp An FTP\Connection instance.
  * @param string $command The command to execute.
- * @return array Returns the server's response as an array of strings.
+ * @return string[] Returns the server's response as an array of strings.
  * No parsing is performed on the response string, nor does
  * ftp_raw determine if the command succeeded.
  * @throws FtpException

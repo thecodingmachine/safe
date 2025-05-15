@@ -56,6 +56,6 @@ final class Engine
 
     private static function basePath(): string
     {
-        return __DIR__ . '/templates';
+        return Filesystem::generatorDir().'/templates';
     }
 }

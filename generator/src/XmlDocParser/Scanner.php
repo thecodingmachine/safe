@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Safe\XmlDocParser;
 
+use Safe\Templating\Filesystem;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use function array_merge;
 use function iterator_to_array;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
@@ -58,7 +60,7 @@ class Scanner
     private function getIgnoredFunctions(): array
     {
         if ($this->ignoredFunctions === null) {
-            $ignoredFunctions = require FileCreator::getSafeRootDir() . '/generator/config/ignoredFunctions.php';
+            $ignoredFunctions = require Filesystem::generatorDir() . '/config/ignoredFunctions.php';
             $specialCaseFunctions = $this->getSpecialCases();
 
             $this->ignoredFunctions = array_merge($ignoredFunctions, $specialCaseFunctions);
@@ -73,7 +75,7 @@ class Scanner
     private function getIgnoredModules(): array
     {
         if ($this->ignoredModules === null) {
-            $this->ignoredModules = require FileCreator::getSafeRootDir() . '/generator/config/ignoredModules.php';
+            $this->ignoredModules = require Filesystem::generatorDir() . '/config/ignoredModules.php';
             assert(!is_null($this->ignoredModules));
         }
         return $this->ignoredModules;
@@ -87,7 +89,7 @@ class Scanner
      */
     public static function getSpecialCases(): array
     {
-        $data = file_get_contents(FileCreator::getSafeRootDir() . '/lib/special_cases.php');
+        $data = file_get_contents(Filesystem::projectRootDir() . '/lib/special_cases.php');
         if ($data === false) {
             throw new \RuntimeException('Unable to read special cases');
         }
@@ -104,14 +106,14 @@ class Scanner
      */
     public static function getHiddenFunctions(): array
     {
-        return require FileCreator::getSafeRootDir() . '/generator/config/hiddenFunctions.php';
+        return require Filesystem::generatorDir() . '/config/hiddenFunctions.php';
     }
 
     /**
      * @param SplFileInfo[] $paths
      * @param string[] $pastFunctionNames
      */
-    public function getMethods(array $paths, array $pastFunctionNames, OutputInterface $output): ScannerResponse
+    public function getMethods(array $paths, array $pastFunctionNames, SymfonyStyle $io): ScannerResponse
     {
         /** @var Method[] $functions */
         $functions = [];
@@ -124,9 +126,7 @@ class Scanner
         $ignoredModules = $this->getIgnoredModules();
         $ignoredModules = \array_combine($ignoredModules, $ignoredModules);
 
-        ProgressBar::setFormatDefinition('custom', ' %current%/%max% [%bar%] %message%');
-        $progressBar = new ProgressBar($output, count($paths));
-        $progressBar->setFormat("custom");
+        $progressBar = $io->createProgressBar(\count($paths));
         foreach ($paths as $path) {
             $module = \basename(\dirname($path->getPath()));
             $progressBar->setMessage($path->getFilename());
@@ -167,8 +167,8 @@ class Scanner
                 }
             }
         }
+
         $progressBar->finish();
-        $output->writeln("");
 
         return new ScannerResponse($functions, $overloadedFunctions);
     }

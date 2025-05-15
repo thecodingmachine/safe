@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Safe\Generator;
 
 use Safe\Templating\Engine;
+use Safe\Templating\Filesystem;
 use Safe\XmlDocParser\ErrorType;
 use Safe\XmlDocParser\Scanner;
 use Safe\XmlDocParser\Method;
@@ -45,10 +46,10 @@ class FileCreator
                 \mkdir($path);
             }
 
-            $this->dumpTemplate($path . $lcModule . '.php', 'Module.php.tpl', [
+            Filesystem::dumpFile($path . $lcModule . '.php', $this->engine->generate('Module.php.tpl', [
                 '{{exceptionName}}' => self::toExceptionName($module),
                 '{{functions}}' => \implode(PHP_EOL, $phpFunctions),
-            ]);
+            ]));
         }
     }
 
@@ -102,9 +103,9 @@ class FileCreator
      */
     public function generateFunctionsList(array $functions, string $path): void
     {
-        $this->dumpTemplate($path, 'FunctionList.php.tpl', [
+        Filesystem::dumpFile($path, $this->engine->generate('FunctionList.php.tpl', [
             '{{functionNames}}' => \implode(PHP_EOL, \array_map(static fn(string $name): string => \sprintf('\'%s\',', $name), $this->getFunctionsNameList($functions))),
-        ]);
+        ]));
     }
 
     /**
@@ -114,23 +115,29 @@ class FileCreator
      */
     public function generateRectorFile(array $functions, string $path): void
     {
-        $this->dumpTemplate($path, 'RectorConfig.php.tpl', [
+        Filesystem::dumpFile($path, $this->engine->generate('RectorConfig.php.tpl', [
             '{{functionNames}}' => \implode(PHP_EOL, \array_map(static fn(string $name): string => \sprintf('\'%1$s\' => \'Safe\\%1$s\',', $name), $this->getFunctionsNameList($functions))),
-        ]);
+        ]));
     }
 
     public function createExceptionFile(string $moduleName): void
     {
         $exceptionName = self::toExceptionName($moduleName);
 
-        $this->dumpTemplate(FileCreator::getSafeRootDir() . '/generated/Exceptions/'.$exceptionName.'.php', 'Exception.php.tpl', [
+        Filesystem::dumpFile(Filesystem::outputDir() . '/Exceptions/'.$exceptionName.'.php', $this->engine->generate('Exception.php.tpl', [
             '{{exceptionName}}' => $exceptionName,
-        ]);
+        ]));
     }
 
     public static function getSafeRootDir(): string
     {
-        return __DIR__ . '/../../..';
+        $path = realpath(__DIR__ . '/../../..');
+
+        if (false === $path) {
+            throw new \RuntimeException('Unable to locate root directory');
+        }
+
+        return $path;
     }
 
     /**
@@ -139,17 +146,5 @@ class FileCreator
     public static function toExceptionName(string $moduleName): string
     {
         return str_replace('-', '', \ucfirst($moduleName)).'Exception';
-    }
-
-    /**
-     * @param array<string, string> $context
-     */
-    private function dumpTemplate(string $target, string $template, array $context = []): void
-    {
-        $result = file_put_contents($target, $this->engine->generate($template, $context));
-
-        if (false === $result) {
-            throw new \RuntimeException(\sprintf('Could not write to "%s".', $target));
-        }
     }
 }

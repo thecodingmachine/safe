@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Safe\Commands;
 
-use Safe\Templating\Filesystem;
 use Safe\XmlDocParser\Scanner;
 use Safe\XmlDocParser\DocPage;
 use Safe\Generator\FileCreator;

@@ -265,6 +265,8 @@ return [
     'gztell',
     'gzuncompress',
     'gzwrite',
+    'hash_file',
+    'hash_hmac_file',
     'hash_update_file',
     'header_register_callback',
     'hex2bin',

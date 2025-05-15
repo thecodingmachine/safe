@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Safe\Commands;
 
+use Safe\Templating\Filesystem;
 use Safe\XmlDocParser\Scanner;
 use Safe\XmlDocParser\DocPage;
 use Safe\Generator\FileCreator;
 use Safe\Generator\ComposerJsonEditor;
 
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,12 +19,19 @@ use Symfony\Component\Process\Process;
 
 class GenerateCommand extends Command
 {
+    private SymfonyStyle $io;
+
     protected function configure(): void
     {
         $this
             ->setName('generate')
             ->setDescription('Generates the PHP file with all functions.')
         ;
+    }
+
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        $this->io = new SymfonyStyle($input, $output);
     }
 
     protected function execute(
@@ -32,7 +41,6 @@ class GenerateCommand extends Command
         #[\SensitiveParameter] OutputInterface $output
     ): int {
         $this->rmGenerated();
-
         // Let's build the DTD necessary to load the XML files.
         $this->checkout(DocPage::findReferenceDir(), "master");
         DocPage::buildEntities();
@@ -60,22 +68,30 @@ class GenerateCommand extends Command
         $pastFunctionNames = [];
 
         foreach ($versions as $version => $commit) {
-            $output->writeln('===============================================');
-            $output->writeln('Generating safe wrappers for PHP ' . $version);
-            $output->writeln('===============================================');
+            $this->io->title(\sprintf('Generating safe wrappers for PHP %s', $version));
 
             // Scan the documentation for a given PHP version and find all
             // functions that we need to generate safe wrappers for.
             $this->checkout(DocPage::findReferenceDir(), $commit);
             $scanner = new Scanner(DocPage::findReferenceDir());
-            $res = $scanner->getMethods($scanner->getFunctionsPaths(), $pastFunctionNames, $output);
-            $output->writeln(
-                'Functions have been ignored and must be dealt with manually: ' .
-                ($output->isVerbose() ?
-                    implode(', ', $res->overloadedFunctions) :
-                    count($res->overloadedFunctions) . ' functions'
-                )
-            );
+            $res = $scanner->getMethods($scanner->getFunctionsPaths(), $pastFunctionNames, $this->io);
+
+            $this->io->newLine(2);
+            $this->io->success(\sprintf(
+                '%d functions are safe.',
+                \count($res->methods),
+            ));
+
+            if ($res->hasOverloadedFunctions()) {
+                $this->io->warning(\sprintf(
+                    '%d functions have been ignored and must be dealt with manually. Rerun the command with -v to see them.',
+                    \count($res->overloadedFunctions),
+                ));
+            }
+
+            if ($output->isVerbose()) {
+                $this->io->table(['Function'], \array_map(static fn(string $function): array => [$function], $res->overloadedFunctions));
+            }
 
             $currentFunctionsByName = [];
             foreach ($res->methods as $function) {

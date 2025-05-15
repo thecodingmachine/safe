@@ -11,7 +11,7 @@ class DocPageTest extends TestCase
     // take a documentation XML file path and return an ErrorType
     private function d2e(string $path): ErrorType
     {
-        return (new DocPage(DocPage::findReferenceDir() . "/" . $path))->getErrorType();
+        return (new DocPage(DocPage::referenceDir() . "/" . $path))->getErrorType();
     }
 
     public function testErrorTypeDetection(): void

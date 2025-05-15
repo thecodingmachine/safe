@@ -7,3 +7,5 @@ vendor/
 /generator/tests/rector/composer.lock
 .phpunit.result.cache
 .phpunit.cache
+
+docs/

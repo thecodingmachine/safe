@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Safe\Commands;
 
+use Safe\Filesystem\PathHelper;
 use Safe\XmlDocParser\Scanner;
 use Safe\XmlDocParser\DocPage;
 use Safe\Generator\FileCreator;
@@ -34,7 +35,7 @@ class GenerateCommand extends Command
         $this->rmGenerated();
 
         // Let's build the DTD necessary to load the XML files.
-        $this->checkout(DocPage::findReferenceDir(), "master");
+        $this->checkout(DocPage::referenceDir(), "master");
         DocPage::buildEntities();
 
         // PHP documentation is a living document, which broadly reflects
@@ -66,8 +67,8 @@ class GenerateCommand extends Command
 
             // Scan the documentation for a given PHP version and find all
             // functions that we need to generate safe wrappers for.
-            $this->checkout(DocPage::findReferenceDir(), $commit);
-            $scanner = new Scanner(DocPage::findReferenceDir());
+            $this->checkout(DocPage::referenceDir(), $commit);
+            $scanner = new Scanner(DocPage::referenceDir());
             $res = $scanner->getMethods($scanner->getFunctionsPaths(), $pastFunctionNames, $output);
             $output->writeln(
                 'Functions have been ignored and must be dealt with manually: ' .
@@ -133,8 +134,8 @@ class GenerateCommand extends Command
             }
         }
 
-        if (\file_exists(DocPage::findDocDir() . '/entities/generated.ent')) {
-            \unlink(DocPage::findDocDir() . '/entities/generated.ent');
+        if (\file_exists(PathHelper::docsDirectory() . '/generated.ent')) {
+            \unlink(PathHelper::docsDirectory() . '/generated.ent');
         }
     }
 

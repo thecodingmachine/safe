@@ -692,6 +692,7 @@ return static function (RectorConfig $rectorConfig): void {
             'parse_ini_file' => 'Safe\parse_ini_file',
             'parse_ini_string' => 'Safe\parse_ini_string',
             'parse_url' => 'Safe\parse_url',
+            'passthru' => 'Safe\passthru',
             'pclose' => 'Safe\pclose',
             'pcntl_getpriority' => 'Safe\pcntl_getpriority',
             'pcntl_setpriority' => 'Safe\pcntl_setpriority',

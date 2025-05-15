@@ -8,6 +8,7 @@
 
 namespace Safe;
 
+use Safe\Exceptions\ExecException;
 use Safe\Exceptions\MiscException;
 use Safe\Exceptions\PosixException;
 use Safe\Exceptions\SocketsException;
@@ -398,4 +399,33 @@ function fgetcsv($stream, ?int $length = null, string $separator = ",", string $
         throw FilesystemException::createFromPhpError();
     }
     return $safeResult;
+}
+
+/**
+ * The passthru function is similar to the
+ * exec function in that it executes a
+ * command. This function
+ * should be used in place of exec or
+ * system when the output from the Unix command
+ * is binary data which needs to be passed directly back to the
+ * browser.  A common use for this is to execute something like the
+ * pbmplus utilities that can output an image stream directly.  By
+ * setting the Content-type to image/gif and
+ * then calling a pbmplus program to output a gif, you can create
+ * PHP scripts that output images directly.
+ *
+ * @param string $command The command that will be executed.
+ * @param int|null $result_code If the result_code argument is present, the
+ * return status of the Unix command will be placed here.
+ * @throws ExecException
+ *
+ */
+function passthru(string $command, ?int &$result_code = null): void
+{
+    error_clear_last();
+
+    $safeResult = \passthru($command, $result_code);
+    if ($safeResult === false) {
+        throw ExecException::createFromPhpError();
+    }
 }

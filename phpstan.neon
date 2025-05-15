@@ -12,8 +12,8 @@ parameters:
     level: 8
     ignoreErrors:
         # This must be ignored because there is no way of fixing it.
-		-
-			message: '#^Function Safe\\passthru\(\) never assigns null to &\$result_code so it can be removed from the by\-ref type\.$#'
-			identifier: parameterByRef.unusedType
-			count: 1
-			path: lib/special_cases.php
+        -
+            message: '#^Function Safe\\passthru\(\) never assigns null to &\$result_code so it can be removed from the by\-ref type\.$#'
+            identifier: parameterByRef.unusedType
+            count: 1
+            path: lib/special_cases.php

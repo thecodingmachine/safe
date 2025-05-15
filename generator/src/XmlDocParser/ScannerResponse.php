@@ -15,4 +15,9 @@ class ScannerResponse
         public readonly array $overloadedFunctions
     ) {
     }
+
+    public function hasOverloadedFunctions(): bool
+    {
+        return 0 <= \count($this->overloadedFunctions);
+    }
 }

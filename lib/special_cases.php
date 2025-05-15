@@ -424,12 +424,7 @@ function passthru(string $command, ?int &$result_code = null): void
 {
     error_clear_last();
 
-    if (null === $result_code) {
-        $safeResult = \passthru($command);
-    } else {
-        $safeResult = \passthru($command, $result_code);
-    }
-
+    $safeResult = \passthru($command, $result_code);
     if ($safeResult === false) {
         throw ExecException::createFromPhpError();
     }

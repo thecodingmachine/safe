@@ -18,6 +18,7 @@ use Safe\Exceptions\OpensslException;
 use Safe\Exceptions\PcreException;
 use Safe\Exceptions\SimplexmlException;
 use Safe\Exceptions\FilesystemException;
+use Safe\Exceptions\HashException;
 
 use const PREG_NO_ERROR;
 
@@ -428,4 +429,65 @@ function passthru(string $command, ?int &$result_code = null): void
     if ($safeResult === false) {
         throw ExecException::createFromPhpError();
     }
+}
+
+/**
+ *
+ *
+ * @param string $algo Name of selected hashing algorithm (e.g. "sha256").
+ * For a list of supported algorithms see hash_algos.
+ * @param string $filename URL describing location of file to be hashed; Supports fopen wrappers.
+ * @param bool $binary When set to TRUE, outputs raw binary data.
+ * FALSE outputs lowercase hexits.
+ * @phpstan-param array<string, mixed> $options
+ * @param array $options An array of options for the various hashing algorithms.
+ * Currently, only the "seed" parameter is
+ * supported by the MurmurHash variants.
+ * @return non-falsy-string Returns a string containing the calculated message digest as lowercase hexits
+ * unless binary is set to true in which case the raw
+ * binary representation of the message digest is returned.
+ * @throws HashException
+ *
+ */
+function hash_file(string $algo, string $filename, bool $binary = false, array $options = []): string
+{
+    error_clear_last();
+    $safeResult = \hash_file($algo, $filename, $binary, $options);
+    if ($safeResult === false) {
+        throw HashException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+/**
+ *
+ *
+ * @param string $algo Name of selected hashing algorithm (e.g. "sha256").
+ * For a list of supported algorithms see hash_hmac_algos.
+ *
+ *
+ * Non-cryptographic hash functions are not allowed.
+ *
+ *
+ *
+ * Non-cryptographic hash functions are not allowed.
+ * @param string $filename URL describing location of file to be hashed; Supports fopen wrappers.
+ * @param string $key Shared secret key used for generating the HMAC variant of the message digest.
+ * @param bool $binary When set to TRUE, outputs raw binary data.
+ * FALSE outputs lowercase hexits.
+ * @return non-falsy-string Returns a string containing the calculated message digest as lowercase hexits
+ * unless binary is set to true in which case the raw
+ * binary representation of the message digest is returned.
+ * Returns FALSE if the file filename cannot be read.
+ * @throws HashException
+ *
+ */
+function hash_hmac_file(string $algo, string $filename, string $key, bool $binary = false): string
+{
+    error_clear_last();
+    $safeResult = \hash_hmac_file($algo, $filename, $key, $binary);
+    if ($safeResult === false) {
+        throw HashException::createFromPhpError();
+    }
+    return $safeResult;
 }

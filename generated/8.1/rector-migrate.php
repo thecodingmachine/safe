@@ -221,6 +221,7 @@ return static function (RectorConfig $rectorConfig): void {
             'ftp_pasv' => 'Safe\ftp_pasv',
             'ftp_put' => 'Safe\ftp_put',
             'ftp_pwd' => 'Safe\ftp_pwd',
+            'ftp_raw' => 'Safe\ftp_raw',
             'ftp_rename' => 'Safe\ftp_rename',
             'ftp_rmdir' => 'Safe\ftp_rmdir',
             'ftp_site' => 'Safe\ftp_site',

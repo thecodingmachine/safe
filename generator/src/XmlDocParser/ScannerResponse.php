@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Safe\XmlDocParser;
 
+use Safe\Domain\MethodDefinition;
+
 class ScannerResponse
 {
     /**
      * @param Method[] $methods
-     * @param string[] $overloadedFunctions
+     * @param MethodDefinition[] $overloadedFunctions
      */
     public function __construct(
         public readonly array $methods,

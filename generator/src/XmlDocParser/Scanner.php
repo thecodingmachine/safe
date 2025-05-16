@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Safe\XmlDocParser;
 
+use Safe\Domain\MethodDefinition;
 use function array_merge;
 use function iterator_to_array;
 use Safe\PhpStanFunctions\PhpStanFunctionMapReader;
@@ -115,7 +116,7 @@ class Scanner
     {
         /** @var Method[] $functions */
         $functions = [];
-        /** @var string[] $overloadedFunctions */
+        /** @var MethodDefinition[] $overloadedFunctions */
         $overloadedFunctions = [];
 
         $phpStanFunctionMapReader = new PhpStanFunctionMapReader();
@@ -149,12 +150,9 @@ class Scanner
             if ($errorType !== ErrorType::UNKNOWN || $wasThisFunctionUnsafe) {
                 $functionObjects = $docPage->getMethodSynopsis();
                 if (count($functionObjects) > 1) {
-                    $overloadedFunctions = array_merge($overloadedFunctions, \array_map(function ($functionObject) {
-                        return $functionObject->methodname->__toString();
-                    }, $functionObjects));
-                    $overloadedFunctions = \array_filter($overloadedFunctions, function (string $functionName) use ($ignoredFunctions) {
-                        return !isset($ignoredFunctions[$functionName]);
-                    });
+                    $overloadedFunctions = \array_merge($overloadedFunctions, \array_map(static fn(\SimpleXMLElement $functionObject) => new MethodDefinition((string) $functionObject->methodname, $errorType), $functionObjects));
+                    $overloadedFunctions = \array_filter($overloadedFunctions, static fn(MethodDefinition $method) => !\array_key_exists($method->name, $ignoredFunctions));
+
                     continue;
                 }
                 $rootEntity = $docPage->loadAndResolveFile();
@@ -167,6 +165,7 @@ class Scanner
                 }
             }
         }
+
         $progressBar->finish();
         $output->writeln("");
 

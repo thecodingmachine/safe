@@ -213,6 +213,7 @@ return [
     'ftp_pasv',
     'ftp_put',
     'ftp_pwd',
+    'ftp_raw',
     'ftp_rename',
     'ftp_rmdir',
     'ftp_site',

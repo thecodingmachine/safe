@@ -9,6 +9,7 @@
 namespace Safe;
 
 use Safe\Exceptions\ExecException;
+use Safe\Exceptions\FtpException;
 use Safe\Exceptions\MiscException;
 use Safe\Exceptions\PosixException;
 use Safe\Exceptions\SocketsException;
@@ -488,6 +489,28 @@ function hash_hmac_file(string $algo, string $filename, string $key, bool $binar
     $safeResult = \hash_hmac_file($algo, $filename, $key, $binary);
     if ($safeResult === false) {
         throw HashException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+/**
+ * Sends an arbitrary command to the FTP server.
+ *
+ * @param \FTP\Connection $ftp An FTP\Connection instance.
+ * @param string $command The command to execute.
+ * @phpstan-return string[]
+ * @return array Returns the server's response as an array of strings.
+ * No parsing is performed on the response string, nor does
+ * ftp_raw determine if the command succeeded.
+ * @throws FtpException
+ *
+ */
+function ftp_raw(\FTP\Connection $ftp, string $command): array
+{
+    error_clear_last();
+    $safeResult = \ftp_raw($ftp, $command);
+    if ($safeResult === null) {
+        throw FtpException::createFromPhpError();
     }
     return $safeResult;
 }

@@ -147,7 +147,7 @@ jobs:
         id: cache-php-docs
         uses: "actions/cache@v4"
         with:
-          path: "generator/docs/php/doc-en"
+          path: "generator/docs"
           key: php-docs-${{ needs.fetch_defs.outputs.date }}
           fail-on-cache-miss: true
       - name: "Cache dependencies installed with composer"

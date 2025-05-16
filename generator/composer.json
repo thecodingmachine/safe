@@ -11,10 +11,10 @@
         "php": "^8.3",
         "ext-simplexml": "*",
         "ext-json": "*",
-        "phpstan/phpstan": "^2",
-        "symfony/console": "^7",
-        "symfony/process": "^7",
-        "symfony/finder": "^7",
+        "phpstan/phpstan": "^2.1",
+        "symfony/console": "^7.2",
+        "symfony/process": "^7.2",
+        "symfony/finder": "^7.2",
         "symfony/filesystem": "^7.2"
     },
     "require-dev": {

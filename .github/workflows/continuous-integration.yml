@@ -25,7 +25,7 @@ jobs:
         id: cache-php-doc
         uses: "actions/cache@v4"
         with:
-          path: "generator/doc/doc-en"
+          path: "generator/docs"
           key: php-doc-${{ steps.date.outputs.date }}
       - name: "Check out salathe/phpdoc-base"
         uses: "actions/checkout@v4"
@@ -64,7 +64,7 @@ jobs:
         id: cache-php-doc
         uses: "actions/cache@v4"
         with:
-          path: "generator/doc/doc-en"
+          path: "generator/docs"
           key: php-doc-${{ needs.fetch_defs.outputs.date }}
           fail-on-cache-miss: true
       - name: "Cache dependencies installed with composer"

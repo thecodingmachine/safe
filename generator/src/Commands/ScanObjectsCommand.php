@@ -13,7 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class ScanObjectsCommand extends Command
+final class ScanObjectsCommand extends Command
 {
     private SymfonyStyle $io;
     private Scanner $scanner;
@@ -26,7 +26,7 @@ class ScanObjectsCommand extends Command
         ;
     }
 
-    public function initialize(InputInterface $input, OutputInterface $output): void
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new SymfonyStyle($input, $output);
         $this->scanner = new Scanner(DocPage::referenceDir());

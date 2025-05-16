@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Safe\Generator;
 
+use Safe\Templating\Filesystem;
+
 /**
  * This class will edit the main composer.json file to add the list of files generated from modules.
  */
@@ -15,7 +17,7 @@ class ComposerJsonEditor
     public static function editComposerFileForGeneration(array $modules): void
     {
 
-        $composerContent = file_get_contents(FileCreator::getSafeRootDir() . '/composer.json');
+        $composerContent = file_get_contents(Filesystem::projectRootDir() . '/composer.json');
         if ($composerContent === false) {
             throw new \RuntimeException('Error while loading composer.json file for edition.');
         }
@@ -24,7 +26,7 @@ class ComposerJsonEditor
         $composerJson['autoload']['files'] = self::editFilesListForGeneration($composerJson['autoload']['files'], $modules);
 
         $newContent = \json_encode($composerJson, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES) . "\n";
-        \file_put_contents(FileCreator::getSafeRootDir() . '/composer.json', $newContent);
+        \file_put_contents(Filesystem::projectRootDir() . '/composer.json', $newContent);
     }
 
     /**

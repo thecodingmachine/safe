@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Safe\PhpStanFunctions;
 
 use Safe\Generator\FileCreator;
+use Safe\Templating\Filesystem;
 
 class PhpStanFunctionMapReader
 {
@@ -20,8 +21,8 @@ class PhpStanFunctionMapReader
 
     public function __construct()
     {
-        $this->functionMap = require 'phar://' . FileCreator::getSafeRootDir() . '/generator/vendor/phpstan/phpstan/phpstan.phar/resources/functionMap.php';
-        $this->customFunctionMap = require FileCreator::getSafeRootDir() . '/generator/config/CustomPhpStanFunctionMap.php';
+        $this->functionMap = require 'phar://' . Filesystem::generatorDir() . '/vendor/phpstan/phpstan/phpstan.phar/resources/functionMap.php';
+        $this->customFunctionMap = require Filesystem::generatorDir() . '/config/CustomPhpStanFunctionMap.php';
     }
 
     public function getFunction(string $functionName): ?PhpStanFunction

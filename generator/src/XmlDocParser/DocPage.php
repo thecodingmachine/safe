@@ -7,6 +7,7 @@ namespace Safe\XmlDocParser;
 use Safe\Filesystem\PathHelper;
 use Safe\Generator\FileCreator;
 
+use Safe\Templating\Filesystem;
 use function explode;
 use function strpos;
 
@@ -57,7 +58,7 @@ class DocPage
         // This minimizes 'false positives', where text such as "returns false when ..." could be matched outside
         // the function's dedicated Return Values section.
         $returnDocs = $this->extractSection('returnvalues', $file);
-        $detectErrorType = require FileCreator::getSafeRootDir() . '/generator/config/detectErrorType.php';
+        $detectErrorType = require Filesystem::generatorDir() . '/config/detectErrorType.php';
         return $detectErrorType($returnDocs);
     }
 

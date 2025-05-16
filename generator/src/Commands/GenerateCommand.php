@@ -84,7 +84,7 @@ class GenerateCommand extends Command
                 $modules[$function->getModuleName()] = true;
             }
 
-            $genDir = FileCreator::getSafeRootDir() . "/generated/$version";
+            $genDir = Filesystem::outputDir() . "/$version";
             $fileCreator = new FileCreator();
             $fileCreator->generatePhpFile($res->methods, "$genDir/");
             $fileCreator->generateFunctionsList($res->methods, "$genDir/functionsList.php");
@@ -92,10 +92,11 @@ class GenerateCommand extends Command
         }
 
         foreach (\array_keys($modules) as $moduleName) {
-            $fileCreator->generateVersionSplitters($moduleName, FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions));
+            $fileCreator->generateVersionSplitters($moduleName, Filesystem::outputDir() . "/", \array_keys($versions));
             $fileCreator->createExceptionFile((string) $moduleName);
         }
-        $fileCreator->generateVersionSplitters("functionsList", FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions), true);
+
+        $fileCreator->generateVersionSplitters("functionsList", Filesystem::outputDir() . "/", \array_keys($versions), true);
 
         $this->runCsFix($output);
 

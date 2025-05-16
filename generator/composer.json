@@ -14,7 +14,8 @@
         "phpstan/phpstan": "^2",
         "symfony/console": "^7",
         "symfony/process": "^7",
-        "symfony/finder": "^7"
+        "symfony/finder": "^7",
+        "symfony/filesystem": "^7.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^12",

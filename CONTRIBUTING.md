@@ -91,12 +91,10 @@ generator, as well as some handy shortcut shell scripts. You can use
 The first step is to download the PHP documentation project locally, using git.
 
 ```bash
-$ cd generator/doc
-$ sh update.sh
+$ generator/safe.php download-docs
 ```
 
-The script can be used to both install the doc and to update it.
-All it does is pull from theses mirrors:
+This will download the PHP documentation from the official repository.
 
 https://github.com/salathe/phpdoc-base
 

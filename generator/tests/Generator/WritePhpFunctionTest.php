@@ -14,7 +14,7 @@ class WritePhpFunctionTest extends TestCase
 {
     public function testGetPhpPrototypeFunctionRegular(): void
     {
-        $docPage = new DocPage(DocPage::findReferenceDir() . '/pcre/functions/preg-match.xml');
+        $docPage = new DocPage(DocPage::referenceDir() . '/pcre/functions/preg-match.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::FALSY);
 
@@ -25,7 +25,7 @@ class WritePhpFunctionTest extends TestCase
 
     public function testGetPhpPrototypeFunctionOverloaded(): void
     {
-        $docPage = new DocPage(DocPage::findReferenceDir() . '/filesystem/functions/file-get-contents.xml');
+        $docPage = new DocPage(DocPage::referenceDir() . '/filesystem/functions/file-get-contents.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::FALSY);
 

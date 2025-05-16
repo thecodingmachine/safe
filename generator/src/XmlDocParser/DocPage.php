@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Safe\XmlDocParser;
 
+use Safe\Filesystem\PathHelper;
 use Safe\Generator\FileCreator;
 
 use function explode;
@@ -15,14 +16,9 @@ class DocPage
     {
     }
 
-    public static function findDocDir(): string
+    public static function referenceDir(): string
     {
-        return __DIR__ . '/../../doc';
-    }
-
-    public static function findReferenceDir(): string
-    {
-        return DocPage::findDocDir() . '/doc-en/en/reference';
+        return PathHelper::docsDirectory().'/php/doc-en/reference';
     }
 
     // Ignore function if it was removed before PHP 8.1
@@ -116,10 +112,10 @@ class DocPage
             throw new \RuntimeException('An error occurred while reading '.$this->path);
         }
         $strpos = \strpos($content, '?>')+2;
-        if (!\file_exists(DocPage::findDocDir() . '/entities/generated.ent')) {
+        if (!\file_exists(PathHelper::docsDirectory() . '/generated.ent')) {
             self::buildEntities();
         }
-        $path = \realpath(DocPage::findDocDir() . '/entities/generated.ent');
+        $path = \realpath(PathHelper::docsDirectory() . '/generated.ent');
 
 
         $content = \substr($content, 0, $strpos)
@@ -188,14 +184,14 @@ class DocPage
 
     public static function buildEntities(): void
     {
-        $file1 = \file_get_contents(DocPage::findDocDir() . '/doc-en/en/language-defs.ent') ?: '';
-        $file2 = \file_get_contents(DocPage::findDocDir() . '/doc-en/en/language-snippets.ent') ?: '';
-        $file3 = \file_get_contents(DocPage::findDocDir() . '/doc-en/en/extensions.ent') ?: '';
-        $file4 = \file_get_contents(DocPage::findDocDir() . '/doc-en/doc-base/entities/global.ent') ?: '';
+        $file1 = \file_get_contents(PathHelper::docsDirectory() . '/php/doc-en/language-defs.ent') ?: '';
+        $file2 = \file_get_contents(PathHelper::docsDirectory() . '/php/doc-en/language-snippets.ent') ?: '';
+        $file3 = \file_get_contents(PathHelper::docsDirectory() . '/php/doc-en/extensions.ent') ?: '';
+        $file4 = \file_get_contents(PathHelper::docsDirectory() . '/salathe/phpdoc-base/entities/global.ent') ?: '';
 
         $completeFile = $file1 . self::extractXmlHeader($file2) . self::extractXmlHeader($file3) . $file4;
 
-        \file_put_contents(DocPage::findDocDir() . '/entities/generated.ent', $completeFile);
+        \file_put_contents(PathHelper::docsDirectory() . '/generated.ent', $completeFile);
     }
 
     private static function extractXmlHeader(string $content): string

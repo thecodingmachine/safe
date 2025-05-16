@@ -12,25 +12,25 @@ class ScannerTest extends TestCase
 
     public function testGetMethodsPaths(): void
     {
-        $scanner = new Scanner(DocPage::findReferenceDir());
+        $scanner = new Scanner(DocPage::referenceDir());
         $paths = $scanner->getFunctionsPaths();
 
-        $this->assertArrayHasKey(DocPage::findReferenceDir() . '/filesystem/functions/chmod.xml', $paths);
-        $this->assertArrayNotHasKey(DocPage::findReferenceDir() . '/spl/appenditerator/getarrayiterator.xml', $paths);
+        $this->assertArrayHasKey(DocPage::referenceDir() . '/filesystem/functions/chmod.xml', $paths);
+        $this->assertArrayNotHasKey(DocPage::referenceDir() . '/spl/appenditerator/getarrayiterator.xml', $paths);
     }
 
     public function testGetFunctionsPaths(): void
     {
-        $scanner = new Scanner(DocPage::findReferenceDir() . '/');
+        $scanner = new Scanner(DocPage::referenceDir() . '/');
         $paths = $scanner->getMethodsPaths();
 
-        $this->assertArrayNotHasKey(DocPage::findReferenceDir() . '/filesystem/functions/chmod.xml', $paths);
-        $this->assertArrayHasKey(DocPage::findReferenceDir() . '/spl/appenditerator/getarrayiterator.xml', $paths);
+        $this->assertArrayNotHasKey(DocPage::referenceDir() . '/filesystem/functions/chmod.xml', $paths);
+        $this->assertArrayHasKey(DocPage::referenceDir() . '/spl/appenditerator/getarrayiterator.xml', $paths);
     }
 
     public function testGetMethods(): void
     {
-        $scanner = new Scanner(DocPage::findReferenceDir());
+        $scanner = new Scanner(DocPage::referenceDir());
         $functions = $scanner->getFunctionsPaths();
         $testFunctions = [];
         foreach ($functions as $name => $info) {

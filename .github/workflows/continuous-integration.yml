@@ -18,27 +18,31 @@ jobs:
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v4"
+
       - name: "Get current date for the daily cache"
         id: "date"
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
       - name: "Cache the php documentation"
-        id: cache-php-doc
+        id: cache-php-docs
         uses: "actions/cache@v4"
         with:
-          path: "generator/doc/doc-en"
-          key: php-doc-${{ steps.date.outputs.date }}
+          path: "generator/docs"
+          key: php-docs-${{ steps.date.outputs.date }}
+
       - name: "Check out salathe/phpdoc-base"
         uses: "actions/checkout@v4"
-        if: steps.cache-php-doc.outputs.cache-hit != 'true'
+        if: steps.cache-php-docs.outputs.cache-hit != 'true'
         with:
-          path: "generator/doc/doc-en/doc-base"
+          path: "generator/docs/salathe/phpdoc-base"
           repository: "salathe/phpdoc-base"
           fetch-depth: 0
+
       - name: "Check out php/doc-en"
         uses: "actions/checkout@v4"
-        if: steps.cache-php-doc.outputs.cache-hit != 'true'
+        if: steps.cache-php-docs.outputs.cache-hit != 'true'
         with:
-          path: "generator/doc/doc-en/en"
+          path: "generator/docs/php/doc-en"
           repository: "php/doc-en"
           fetch-depth: 0
 
@@ -61,11 +65,11 @@ jobs:
           coverage: "pcov"
           php-version: "${{ matrix.php-version }}"
       - name: "Fetch cached docs"
-        id: cache-php-doc
+        id: cache-docs
         uses: "actions/cache@v4"
         with:
-          path: "generator/doc/doc-en"
-          key: php-doc-${{ needs.fetch_defs.outputs.date }}
+          path: "generator/docs"
+          key: php-docs-${{ needs.fetch_defs.outputs.date }}
           fail-on-cache-miss: true
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v4"
@@ -140,11 +144,11 @@ jobs:
           coverage: "pcov"
           php-version: "8.4"
       - name: "Fetch cached docs"
-        id: cache-php-doc
+        id: cache-php-docs
         uses: "actions/cache@v4"
         with:
-          path: "generator/doc/doc-en"
-          key: php-doc-${{ needs.fetch_defs.outputs.date }}
+          path: "generator/docs"
+          key: php-docs-${{ needs.fetch_defs.outputs.date }}
           fail-on-cache-miss: true
       - name: "Cache dependencies installed with composer"
         uses: "actions/cache@v4"

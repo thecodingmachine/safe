@@ -22,7 +22,7 @@ class ScanObjectsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $scanner = new Scanner(DocPage::findReferenceDir());
+        $scanner = new Scanner(DocPage::referenceDir());
 
         $paths = $scanner->getMethodsPaths();
 

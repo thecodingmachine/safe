@@ -10,4 +10,5 @@
 /phpstan.neon export-ignore
 /phpunit.xml.dist export-ignore
 /tests export-ignore
+/rector-migrate.php export-ignore
 /generated/**/*.php -merge linguist-generated=true

@@ -63,20 +63,47 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
     public function generateVersionSplitters(string $module, string $path, array $versions, bool $return = false): void
     {
         $lcModule = \lcfirst($module);
+        $availableVersions = \array_filter(
+            $versions,
+            static function (string $version) use ($path, $lcModule): bool {
+                return \file_exists("$path/$version/$lcModule.php");
+            }
+        );
+        if ($availableVersions === []) {
+            throw new \RuntimeException('No versions found for '.$module);
+        }
+
         $stream = \fopen($path.$lcModule.'.php', 'w');
         if ($stream === false) {
             throw new \RuntimeException('Unable to write to '.$path);
         }
+        // Pick up the latest compatible version
+        \rsort($availableVersions);
+        $versionsArrayContent = \implode(
+            ', ',
+            \array_map(
+                function (string $version): string {
+                    return '\'' . $version . '\'';
+                },
+                $availableVersions
+            )
+        );
         $return = $return ? "return " : "";
-        \fwrite($stream, "<?php\n");
-        foreach ($versions as $version) {
-            if (file_exists("$path/$version/$lcModule.php")) {
-                \fwrite($stream, "\nif (str_starts_with(PHP_VERSION, \"$version.\")) {");
-                \fwrite($stream, "\n    {$return}require_once __DIR__ . '/$version/$lcModule.php';");
-                \fwrite($stream, "\n}");
-            }
-        }
-        \fwrite($stream, "\n");
+        \fwrite(
+            $stream,
+            "<?php\n\n" .
+            '\call_user_func(' . "\n" .
+            '    function() {' . "\n" .
+            '        foreach ([' . $versionsArrayContent . '] as $phpVersion) {' . "\n" .
+            '            if (\version_compare(PHP_VERSION, $phpVersion) >= 0) {' . "\n" .
+            '                ' . $return . 'require_once __DIR__ . \'/\' . $phpVersion . \'/' . $lcModule . '.php;\'' . "\n" .
+            '                break;' . "\n" .
+            '            }' . "\n" .
+            '        }' . "\n" .
+            '    }' . "\n" .
+            ');' . "\n"
+        );
+
         \fclose($stream);
     }
 

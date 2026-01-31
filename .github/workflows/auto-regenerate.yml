@@ -11,7 +11,7 @@ jobs:
     runs-on: "ubuntu-24.04"
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
 
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
@@ -20,14 +20,14 @@ jobs:
           php-version: "8.4"
 
       - name: "Check out salathe/phpdoc-base"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
         with:
           path: "generator/docs/salathe/phpdoc-base"
           repository: "salathe/phpdoc-base"
           fetch-depth: 0
 
       - name: "Check out php/doc-en"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
         with:
           path: "generator/docs"
           repository: "php/doc-en"
@@ -54,7 +54,7 @@ jobs:
 
       - name: "Create a pr if the files are different"
         if: "${{ steps.diff.outputs.diff == 'diff' }}"
-        uses: peter-evans/create-pull-request@v6
+        uses: "peter-evans/create-pull-request@v8"
         with:
           commit-message: "Automatically regenerate the files"
           branch: create-pull-request/regenerate-files

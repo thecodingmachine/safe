@@ -17,7 +17,7 @@ jobs:
       date: ${{ steps.date.outputs.date }}
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
 
       - name: "Get current date for the daily cache"
         id: "date"
@@ -25,13 +25,13 @@ jobs:
 
       - name: "Cache the php documentation"
         id: cache-php-docs
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v5"
         with:
           path: "generator/docs"
           key: php-docs-${{ steps.date.outputs.date }}
 
       - name: "Check out salathe/phpdoc-base"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
         if: steps.cache-php-docs.outputs.cache-hit != 'true'
         with:
           path: "generator/docs/salathe/phpdoc-base"
@@ -39,7 +39,7 @@ jobs:
           fetch-depth: 0
 
       - name: "Check out php/doc-en"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
         if: steps.cache-php-docs.outputs.cache-hit != 'true'
         with:
           path: "generator/docs/php/doc-en"
@@ -58,7 +58,7 @@ jobs:
           - "8.5"
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
         with:
@@ -66,13 +66,13 @@ jobs:
           php-version: "${{ matrix.php-version }}"
       - name: "Fetch cached docs"
         id: cache-docs
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v5"
         with:
           path: "generator/docs"
           key: php-docs-${{ needs.fetch_defs.outputs.date }}
           fail-on-cache-miss: true
       - name: "Cache dependencies installed with composer"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v5"
         with:
           path: "~/.composer/cache"
           key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.lock') }}"
@@ -107,14 +107,14 @@ jobs:
           - "8.5"
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "pcov"
           php-version: "${{ matrix.php-version }}"
       - name: "Cache dependencies installed with composer"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v5"
         with:
           path: "~/.composer/cache"
           key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.lock') }}"
@@ -138,7 +138,7 @@ jobs:
     needs: "fetch_defs"
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
         with:
@@ -146,13 +146,13 @@ jobs:
           php-version: "8.4"
       - name: "Fetch cached docs"
         id: cache-php-docs
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v5"
         with:
           path: "generator/docs"
           key: php-docs-${{ needs.fetch_defs.outputs.date }}
           fail-on-cache-miss: true
       - name: "Cache dependencies installed with composer"
-        uses: "actions/cache@v4"
+        uses: "actions/cache@v5"
         with:
           path: "~/.composer/cache"
           key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.lock') }}"
@@ -174,7 +174,7 @@ jobs:
     runs-on: "ubuntu-24.04"
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v6"
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
         with:

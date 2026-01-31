@@ -48,7 +48,7 @@ class GenerateCommand extends Command
             "8.2" => "8f4e8cf3de08208e71eb0117f1c970c27e9120c9",
             "8.3" => "7453a50321f0834421cebea8edade14deef5466b",
             "8.4" => "d553fa36940639b0889ec4358fa3bbb92f123b69",
-            "8.5" => "master",
+            "8.5" => "23e2d505107219b10945c677c9b14ab0237d1886",
         ];
 
         // Keep a track of which modules we have seen across all versions,

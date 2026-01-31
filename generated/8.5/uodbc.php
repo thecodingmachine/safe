@@ -10,7 +10,7 @@ use Safe\Exceptions\UodbcException;
  * By default, auto-commit is on for a connection.  Disabling
  * auto-commit is equivalent with starting a transaction.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param bool|null $enable If enable is TRUE, auto-commit is enabled, if
  * it is FALSE auto-commit is disabled.
@@ -26,7 +26,7 @@ use Safe\Exceptions\UodbcException;
  * @throws UodbcException
  *
  */
-function odbc_autocommit(\Odbc\Connection $odbc, ?bool $enable = null)
+function odbc_autocommit($odbc, ?bool $enable = null)
 {
     error_clear_last();
     if ($enable !== null) {
@@ -109,7 +109,10 @@ function odbc_autocommit(\Odbc\Connection $odbc, ?bool $enable = null)
  * If odbc_result is used, passthru means that the data are
  * sent directly to the client (i.e. printed).
  *
- * @param int $statement The ODBC result object.
+ * @param int $statement The result identifier.
+ *
+ * If statement is 0, the
+ * settings apply as default for new results.
  * @param int $mode Possible values for mode are:
  *
  *
@@ -148,7 +151,7 @@ function odbc_binmode(int $statement, int $mode): bool
 /**
  * Lists columns and associated privileges for the given table.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
  * @param string $schema The schema ('owner' in ODBC 2 parlance).
@@ -163,8 +166,8 @@ function odbc_binmode(int $statement, int $mode): bool
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
- * This result object can be used to fetch a list of columns and
+ * @return resource Returns an ODBC result identifier.
+ * This result identifier can be used to fetch a list of columns and
  * associated privileges.
  *
  * The result set has the following columns:
@@ -179,12 +182,16 @@ function odbc_binmode(int $statement, int $mode): bool
  * IS_GRANTABLE
  *
  * Drivers can report additional columns.
+ * @throws UodbcException
  *
  */
-function odbc_columnprivileges(\Odbc\Connection $odbc, string $catalog, string $schema, string $table, string $column)
+function odbc_columnprivileges($odbc, string $catalog, string $schema, string $table, string $column)
 {
     error_clear_last();
     $safeResult = \odbc_columnprivileges($odbc, $catalog, $schema, $table, $column);
+    if ($safeResult === false) {
+        throw UodbcException::createFromPhpError();
+    }
     return $safeResult;
 }
 
@@ -192,7 +199,7 @@ function odbc_columnprivileges(\Odbc\Connection $odbc, string $catalog, string $
 /**
  * Lists all columns in the requested range.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param null|string $catalog The catalog ('qualifier' in ODBC 2 parlance).
  * @param null|string $schema The schema ('owner' in ODBC 2 parlance).
@@ -207,7 +214,7 @@ function odbc_columnprivileges(\Odbc\Connection $odbc, string $catalog, string $
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -231,9 +238,10 @@ function odbc_columnprivileges(\Odbc\Connection $odbc, string $catalog, string $
  * IS_NULLABLE
  *
  * Drivers can report additional columns.
+ * @throws UodbcException
  *
  */
-function odbc_columns(\Odbc\Connection $odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $column = null)
+function odbc_columns($odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $column = null)
 {
     error_clear_last();
     if ($column !== null) {
@@ -247,6 +255,9 @@ function odbc_columns(\Odbc\Connection $odbc, ?string $catalog = null, ?string $
     } else {
         $safeResult = \odbc_columns($odbc);
     }
+    if ($safeResult === false) {
+        throw UodbcException::createFromPhpError();
+    }
     return $safeResult;
 }
 
@@ -254,12 +265,12 @@ function odbc_columns(\Odbc\Connection $odbc, ?string $catalog = null, ?string $
 /**
  * Commits all pending transactions on the connection.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @throws UodbcException
  *
  */
-function odbc_commit(\Odbc\Connection $odbc): void
+function odbc_commit($odbc): void
 {
     error_clear_last();
     $safeResult = \odbc_commit($odbc);
@@ -274,14 +285,8 @@ function odbc_commit(\Odbc\Connection $odbc): void
  *
  * @param string $dsn The database source name for the connection. Alternatively, a
  * DSN-less connection string can be used.
- * @param null|string $user The username.
- * This parameter is ignored if dsn contains uid.
- * To connect without specifying a user,
- * use NULL.
- * @param null|string $password The password.
- * This parameter is ignored if dsn contains pwd.
- * To connect without specifying a password,
- * use NULL.
+ * @param string $user The username.
+ * @param string $password The password.
  * @param int $cursor_option This sets the type of cursor to be used
  * for this connection. This parameter is not normally needed, but
  * can be useful for working around problems with some ODBC drivers.
@@ -303,22 +308,14 @@ function odbc_commit(\Odbc\Connection $odbc): void
  *
  *
  *
- * @return \Odbc\Connection Returns an ODBC connection.
+ * @return resource Returns an ODBC connection.
  * @throws UodbcException
  *
  */
-function odbc_connect(string $dsn, ?string $user = null, ?string $password = null, int $cursor_option = SQL_CUR_USE_DRIVER): \Odbc\Connection
+function odbc_connect(string $dsn, string $user, string $password, int $cursor_option = SQL_CUR_USE_DRIVER)
 {
     error_clear_last();
-    if ($cursor_option !== SQL_CUR_USE_DRIVER) {
-        $safeResult = \odbc_connect($dsn, $user, $password, $cursor_option);
-    } elseif ($password !== null) {
-        $safeResult = \odbc_connect($dsn, $user, $password);
-    } elseif ($user !== null) {
-        $safeResult = \odbc_connect($dsn, $user);
-    } else {
-        $safeResult = \odbc_connect($dsn);
-    }
+    $safeResult = \odbc_connect($dsn, $user, $password, $cursor_option);
     if ($safeResult === false) {
         throw UodbcException::createFromPhpError();
     }
@@ -329,12 +326,12 @@ function odbc_connect(string $dsn, ?string $user = null, ?string $password = nul
 /**
  * Gets the cursorname for the given result_id.
  *
- * @param \Odbc\Result $statement The ODBC result object.
+ * @param resource $statement The result identifier.
  * @return string Returns the cursor name, as a string.
  * @throws UodbcException
  *
  */
-function odbc_cursor(\Odbc\Result $statement): string
+function odbc_cursor($statement): string
 {
     error_clear_last();
     $safeResult = \odbc_cursor($statement);
@@ -349,7 +346,7 @@ function odbc_cursor(\Odbc\Result $statement): string
  * This function will return the list of available DSN (after calling it
  * several times).
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param int $fetch_type The fetch_type can be one of two constant types:
  * SQL_FETCH_FIRST, SQL_FETCH_NEXT.
@@ -360,7 +357,7 @@ function odbc_cursor(\Odbc\Result $statement): string
  * @throws UodbcException
  *
  */
-function odbc_data_source(\Odbc\Connection $odbc, int $fetch_type): array
+function odbc_data_source($odbc, int $fetch_type): array
 {
     error_clear_last();
     $safeResult = \odbc_data_source($odbc, $fetch_type);
@@ -374,15 +371,15 @@ function odbc_data_source(\Odbc\Connection $odbc, int $fetch_type): array
 /**
  * Sends an SQL statement to the database server.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $query The SQL statement.
- * @return \Odbc\Result Returns an ODBC result object if the SQL command was executed
+ * @return resource Returns an ODBC result identifier if the SQL command was executed
  * successfully.
  * @throws UodbcException
  *
  */
-function odbc_exec(\Odbc\Connection $odbc, string $query): \Odbc\Result
+function odbc_exec($odbc, string $query)
 {
     error_clear_last();
     $safeResult = \odbc_exec($odbc, $query);
@@ -396,7 +393,7 @@ function odbc_exec(\Odbc\Connection $odbc, string $query): \Odbc\Result
 /**
  * Executes a statement prepared with odbc_prepare.
  *
- * @param \Odbc\Result $statement The ODBC result object from odbc_prepare.
+ * @param resource $statement The result id resource, from odbc_prepare.
  * @param array $params Parameters in params will be
  * substituted for placeholders in the prepared statement in order.
  * Elements of this array will be converted to strings by calling this
@@ -409,7 +406,7 @@ function odbc_exec(\Odbc\Connection $odbc, string $query): \Odbc\Result
  * @throws UodbcException
  *
  */
-function odbc_execute(\Odbc\Result $statement, array $params = []): void
+function odbc_execute($statement, array $params = []): void
 {
     error_clear_last();
     $safeResult = \odbc_execute($statement, $params);
@@ -422,25 +419,21 @@ function odbc_execute(\Odbc\Result $statement, array $params = []): void
 /**
  * Fetch one result row into array.
  *
- * @param \Odbc\Result $statement The ODBC result object.
+ * @param resource $statement The result resource.
  * @param array|null $array The result array
  * that can be of any type since it will be converted to type
  * array. The array will contain the column values starting at array
  * index 0.
- * @param int|null $row The row number.
+ * @param int $row The row number.
  * @return int Returns the number of columns in the result;
  * FALSE on error.
  * @throws UodbcException
  *
  */
-function odbc_fetch_into(\Odbc\Result $statement, ?array &$array, ?int $row = null): int
+function odbc_fetch_into($statement, ?array &$array, int $row = 0): int
 {
     error_clear_last();
-    if ($row !== null) {
-        $safeResult = \odbc_fetch_into($statement, $array, $row);
-    } else {
-        $safeResult = \odbc_fetch_into($statement, $array);
-    }
+    $safeResult = \odbc_fetch_into($statement, $array, $row);
     if ($safeResult === false) {
         throw UodbcException::createFromPhpError();
     }
@@ -452,13 +445,13 @@ function odbc_fetch_into(\Odbc\Result $statement, ?array &$array, ?int $row = nu
  * Gets the length of the field referenced by number in the given result
  * identifier.
  *
- * @param \Odbc\Result $statement The ODBC result object.
+ * @param resource $statement The result identifier.
  * @param int $field The field number. Field numbering starts at 1.
  * @return int Returns the field length.
  * @throws UodbcException
  *
  */
-function odbc_field_len(\Odbc\Result $statement, int $field): int
+function odbc_field_len($statement, int $field): int
 {
     error_clear_last();
     $safeResult = \odbc_field_len($statement, $field);
@@ -471,15 +464,15 @@ function odbc_field_len(\Odbc\Result $statement, int $field): int
 
 /**
  * Gets the name of the field occupying the given column number in the given
- * result object.
+ * result identifier.
  *
- * @param \Odbc\Result $statement The ODBC result object.
+ * @param resource $statement The result identifier.
  * @param int $field The field number. Field numbering starts at 1.
  * @return string Returns the field name as a string.
  * @throws UodbcException
  *
  */
-function odbc_field_name(\Odbc\Result $statement, int $field): string
+function odbc_field_name($statement, int $field): string
 {
     error_clear_last();
     $safeResult = \odbc_field_name($statement, $field);
@@ -492,16 +485,16 @@ function odbc_field_name(\Odbc\Result $statement, int $field): string
 
 /**
  * Gets the number of the column slot that corresponds to the named field in
- * the given result object.
+ * the given result identifier.
  *
- * @param \Odbc\Result $statement The ODBC result object.
+ * @param resource $statement The result identifier.
  * @param string $field The field name.
  * @return int Returns the field number as a integer.
  * Field numbering starts at 1.
  * @throws UodbcException
  *
  */
-function odbc_field_num(\Odbc\Result $statement, string $field): int
+function odbc_field_num($statement, string $field): int
 {
     error_clear_last();
     $safeResult = \odbc_field_num($statement, $field);
@@ -516,13 +509,13 @@ function odbc_field_num(\Odbc\Result $statement, string $field): int
  * Gets the scale of the field referenced by number in the given result
  * identifier.
  *
- * @param \Odbc\Result $statement The ODBC result object.
+ * @param resource $statement The result identifier.
  * @param int $field The field number. Field numbering starts at 1.
  * @return int Returns the field scale as a integer.
  * @throws UodbcException
  *
  */
-function odbc_field_scale(\Odbc\Result $statement, int $field): int
+function odbc_field_scale($statement, int $field): int
 {
     error_clear_last();
     $safeResult = \odbc_field_scale($statement, $field);
@@ -537,13 +530,13 @@ function odbc_field_scale(\Odbc\Result $statement, int $field): int
  * Gets the SQL type of the field referenced by number in the given result
  * identifier.
  *
- * @param \Odbc\Result $statement The ODBC result object.
+ * @param resource $statement The result identifier.
  * @param int $field The field number. Field numbering starts at 1.
  * @return string Returns the field type as a string.
  * @throws UodbcException
  *
  */
-function odbc_field_type(\Odbc\Result $statement, int $field): string
+function odbc_field_type($statement, int $field): string
 {
     error_clear_last();
     $safeResult = \odbc_field_type($statement, $field);
@@ -559,7 +552,7 @@ function odbc_field_type(\Odbc\Result $statement, int $field): string
  * foreign keys in other tables that refer to the primary key in the
  * specified table
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $pk_catalog The catalog ('qualifier' in ODBC 2 parlance) of the primary key table.
  * @param string $pk_schema The schema ('owner' in ODBC 2 parlance) of the primary key table.
@@ -567,7 +560,7 @@ function odbc_field_type(\Odbc\Result $statement, int $field): string
  * @param string $fk_catalog The catalog ('qualifier' in ODBC 2 parlance) of the foreign key table.
  * @param string $fk_schema The schema ('owner' in ODBC 2 parlance) of the foreign key table.
  * @param string $fk_table The foreign key table.
- * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -587,12 +580,16 @@ function odbc_field_type(\Odbc\Result $statement, int $field): string
  * DEFERRABILITY
  *
  * Drivers can report additional columns.
+ * @throws UodbcException
  *
  */
-function odbc_foreignkeys(\Odbc\Connection $odbc, string $pk_catalog, string $pk_schema, string $pk_table, string $fk_catalog, string $fk_schema, string $fk_table)
+function odbc_foreignkeys($odbc, string $pk_catalog, string $pk_schema, string $pk_table, string $fk_catalog, string $fk_schema, string $fk_table)
 {
     error_clear_last();
     $safeResult = \odbc_foreignkeys($odbc, $pk_catalog, $pk_schema, $pk_table, $fk_catalog, $fk_schema, $fk_table);
+    if ($safeResult === false) {
+        throw UodbcException::createFromPhpError();
+    }
     return $safeResult;
 }
 
@@ -600,11 +597,11 @@ function odbc_foreignkeys(\Odbc\Connection $odbc, string $pk_catalog, string $pk
 /**
  * Retrieves information about data types supported by the data source.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param int $data_type The data type, which can be used to restrict the information to a
  * single data type.
- * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -626,12 +623,16 @@ function odbc_foreignkeys(\Odbc\Connection $odbc, string $pk_catalog, string $pk
  *
  *
  * The result set is ordered by DATA_TYPE and TYPE_NAME.
+ * @throws UodbcException
  *
  */
-function odbc_gettypeinfo(\Odbc\Connection $odbc, int $data_type = 0)
+function odbc_gettypeinfo($odbc, int $data_type = 0)
 {
     error_clear_last();
     $safeResult = \odbc_gettypeinfo($odbc, $data_type);
+    if ($safeResult === false) {
+        throw UodbcException::createFromPhpError();
+    }
     return $safeResult;
 }
 
@@ -641,14 +642,14 @@ function odbc_gettypeinfo(\Odbc\Connection $odbc, int $data_type = 0)
  * The default length can be set using the
  * uodbc.defaultlrl php.ini directive.
  *
- * @param \Odbc\Result $statement The ODBC result object.
+ * @param resource $statement The result identifier.
  * @param int $length The number of bytes returned to PHP is controlled by the parameter
  * length. If it is set to 0, long column data is passed through to the
  * client (i.e. printed) when retrieved with odbc_result.
  * @return bool Always returns TRUE.
  *
  */
-function odbc_longreadlen(\Odbc\Result $statement, int $length): bool
+function odbc_longreadlen($statement, int $length): bool
 {
     error_clear_last();
     $safeResult = \odbc_longreadlen($statement, $length);
@@ -659,12 +660,12 @@ function odbc_longreadlen(\Odbc\Result $statement, int $length): bool
 /**
  * Gets the number of fields (columns) in an ODBC result.
  *
- * @param \Odbc\Result $statement The ODBC result object returned by odbc_exec.
+ * @param resource $statement The result identifier returned by odbc_exec.
  * @return int Returns the number of fields.
  * @throws UodbcException
  *
  */
-function odbc_num_fields(\Odbc\Result $statement): int
+function odbc_num_fields($statement): int
 {
     error_clear_last();
     $safeResult = \odbc_num_fields($statement);
@@ -688,25 +689,18 @@ function odbc_num_fields(\Odbc\Result $statement): int
  * connection.
  *
  * @param string $dsn
- * @param null|string $user
- * @param null|string $password
+ * @param string $user
+ * @param string $password
  * @param int $cursor_option
- * @return \Odbc\Connection Returns an ODBC connection.
+ * @return resource Returns an ODBC connection.
+ * error.
  * @throws UodbcException
  *
  */
-function odbc_pconnect(string $dsn, ?string $user = null, ?string $password = null, int $cursor_option = SQL_CUR_USE_DRIVER): \Odbc\Connection
+function odbc_pconnect(string $dsn, string $user, string $password, int $cursor_option = SQL_CUR_USE_DRIVER)
 {
     error_clear_last();
-    if ($cursor_option !== SQL_CUR_USE_DRIVER) {
-        $safeResult = \odbc_pconnect($dsn, $user, $password, $cursor_option);
-    } elseif ($password !== null) {
-        $safeResult = \odbc_pconnect($dsn, $user, $password);
-    } elseif ($user !== null) {
-        $safeResult = \odbc_pconnect($dsn, $user);
-    } else {
-        $safeResult = \odbc_pconnect($dsn);
-    }
+    $safeResult = \odbc_pconnect($dsn, $user, $password, $cursor_option);
     if ($safeResult === false) {
         throw UodbcException::createFromPhpError();
     }
@@ -715,7 +709,7 @@ function odbc_pconnect(string $dsn, ?string $user = null, ?string $password = nu
 
 
 /**
- * Prepares a statement for execution. The ODBC result object can be used
+ * Prepares a statement for execution. The result identifier can be used
  * later to execute the statement with odbc_execute.
  *
  * Some databases (such as IBM DB2, MS SQL Server, and Oracle) support
@@ -723,15 +717,15 @@ function odbc_pconnect(string $dsn, ?string $user = null, ?string $password = nu
  * defined by the ODBC specification.  However, the Unified ODBC driver
  * currently only supports parameters of type IN to stored procedures.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $query The query string statement being prepared.
- * @return \Odbc\Result Returns an ODBC result object if the SQL command was prepared
+ * @return resource Returns an ODBC result identifier if the SQL command was prepared
  * successfully.
  * @throws UodbcException
  *
  */
-function odbc_prepare(\Odbc\Connection $odbc, string $query): \Odbc\Result
+function odbc_prepare($odbc, string $query)
 {
     error_clear_last();
     $safeResult = \odbc_prepare($odbc, $query);
@@ -743,15 +737,15 @@ function odbc_prepare(\Odbc\Connection $odbc, string $query): \Odbc\Result
 
 
 /**
- * Returns a result object that can be used to fetch the column names
+ * Returns a result identifier that can be used to fetch the column names
  * that comprise the primary key for a table.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
  * @param string $schema The schema ('owner' in ODBC 2 parlance).
  * @param string $table
- * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -763,12 +757,16 @@ function odbc_prepare(\Odbc\Connection $odbc, string $query): \Odbc\Result
  * PK_NAME
  *
  * Drivers can report additional columns.
+ * @throws UodbcException
  *
  */
-function odbc_primarykeys(\Odbc\Connection $odbc, string $catalog, string $schema, string $table)
+function odbc_primarykeys($odbc, string $catalog, string $schema, string $table)
 {
     error_clear_last();
     $safeResult = \odbc_primarykeys($odbc, $catalog, $schema, $table);
+    if ($safeResult === false) {
+        throw UodbcException::createFromPhpError();
+    }
     return $safeResult;
 }
 
@@ -791,9 +789,9 @@ function odbc_primarykeys(\Odbc\Connection $odbc, string $catalog, string $schem
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @return \Odbc\Result|false Returns the list of input and output parameters, as well as the
+ * @return resource Returns the list of input and output parameters, as well as the
  * columns that make up the result set for the specified procedures.
- * Returns an ODBC result object or FALSE on failure.
+ * Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -818,6 +816,7 @@ function odbc_primarykeys(\Odbc\Connection $odbc, string $catalog, string $schem
  * IS_NULLABLE
  *
  * Drivers can report additional columns.
+ * @throws UodbcException
  *
  */
 function odbc_procedurecolumns($odbc, ?string $catalog = null, ?string $schema = null, ?string $procedure = null, ?string $column = null)
@@ -833,6 +832,9 @@ function odbc_procedurecolumns($odbc, ?string $catalog = null, ?string $schema =
         $safeResult = \odbc_procedurecolumns($odbc, $catalog);
     } else {
         $safeResult = \odbc_procedurecolumns($odbc);
+    }
+    if ($safeResult === false) {
+        throw UodbcException::createFromPhpError();
     }
     return $safeResult;
 }
@@ -852,7 +854,8 @@ function odbc_procedurecolumns($odbc, ?string $catalog = null, ?string $schema =
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @return \Odbc\Result Returns an ODBC result object containing the information.
+ * @return resource Returns an ODBC
+ * result identifier containing the information.
  *
  * The result set has the following columns:
  *
@@ -869,7 +872,7 @@ function odbc_procedurecolumns($odbc, ?string $catalog = null, ?string $schema =
  * @throws UodbcException
  *
  */
-function odbc_procedures($odbc, ?string $catalog = null, ?string $schema = null, ?string $procedure = null): \Odbc\Result
+function odbc_procedures($odbc, ?string $catalog = null, ?string $schema = null, ?string $procedure = null)
 {
     error_clear_last();
     if ($procedure !== null) {
@@ -889,20 +892,20 @@ function odbc_procedures($odbc, ?string $catalog = null, ?string $schema = null,
 
 
 /**
- * Prints all rows from a result object produced by
+ * Prints all rows from a result identifier produced by
  * odbc_exec. The result is printed in HTML table format.
  * The data is not escaped.
  *
  * This function is not supposed to be used in production environments; it is
  * merely meant for development purposes, to get a result set quickly rendered.
  *
- * @param \Odbc\Result $statement The ODBC result object.
+ * @param resource $statement The result identifier.
  * @param string $format Additional overall table formatting.
  * @return int Returns the number of rows in the result.
  * @throws UodbcException
  *
  */
-function odbc_result_all(\Odbc\Result $statement, string $format = ""): int
+function odbc_result_all($statement, string $format = ""): int
 {
     error_clear_last();
     $safeResult = \odbc_result_all($statement, $format);
@@ -916,7 +919,7 @@ function odbc_result_all(\Odbc\Result $statement, string $format = ""): int
 /**
  * Get result data
  *
- * @param \Odbc\Result $statement The ODBC result object.
+ * @param resource $statement The ODBC resource.
  * @param mixed $field The field name being retrieved. It can either be an integer containing
  * the column number of the field you want; or it can be a string
  * containing the name of the field.
@@ -925,7 +928,7 @@ function odbc_result_all(\Odbc\Result $statement, string $format = ""): int
  * @throws UodbcException
  *
  */
-function odbc_result(\Odbc\Result $statement, $field)
+function odbc_result($statement, $field)
 {
     error_clear_last();
     $safeResult = \odbc_result($statement, $field);
@@ -939,12 +942,12 @@ function odbc_result(\Odbc\Result $statement, $field)
 /**
  * Rolls back all pending statements on the connection.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @throws UodbcException
  *
  */
-function odbc_rollback(\Odbc\Connection $odbc): void
+function odbc_rollback($odbc): void
 {
     error_clear_last();
     $safeResult = \odbc_rollback($odbc);
@@ -973,7 +976,7 @@ function odbc_rollback(\Odbc\Connection $odbc): void
  * to use a commercial product, that's all that really
  * matters.
  *
- * @param \Odbc\Connection|\Odbc\Result $odbc Is a connection id or result id on which to change the settings.
+ * @param resource $odbc Is a connection id or result id on which to change the settings.
  * For SQLSetConnectOption(), this is a connection id.
  * For SQLSetStmtOption(), this is a result id.
  * @param int $which Is the ODBC function to use. The value should be
@@ -999,7 +1002,7 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  * row in the table, or columns that are automatically updated when any
  * value in the row is updated by a transaction.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param int $type
  * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
@@ -1010,7 +1013,7 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  * or SQL_SCOPE_SESSION.
  * @param int $nullable Determines whether to return special columns that can have a NULL value.
  * One of SQL_NO_NULLS or SQL_NULLABLE.
- * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -1024,12 +1027,16 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  * PSEUDO_COLUMN
  *
  * Drivers can report additional columns.
+ * @throws UodbcException
  *
  */
-function odbc_specialcolumns(\Odbc\Connection $odbc, int $type, string $catalog, string $schema, string $table, int $scope, int $nullable)
+function odbc_specialcolumns($odbc, int $type, string $catalog, string $schema, string $table, int $scope, int $nullable)
 {
     error_clear_last();
     $safeResult = \odbc_specialcolumns($odbc, $type, $catalog, $schema, $table, $scope, $nullable);
+    if ($safeResult === false) {
+        throw UodbcException::createFromPhpError();
+    }
     return $safeResult;
 }
 
@@ -1037,7 +1044,7 @@ function odbc_specialcolumns(\Odbc\Connection $odbc, int $type, string $catalog,
 /**
  * Get statistics about a table and its indexes.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
  * @param string $schema The schema ('owner' in ODBC 2 parlance).
@@ -1047,7 +1054,7 @@ function odbc_specialcolumns(\Odbc\Connection $odbc, int $type, string $catalog,
  * @param int $accuracy One of SQL_ENSURE or SQL_QUICK.
  * The latter requests that the driver retrieve the CARDINALITY and
  * PAGES only if they are readily available from the server.
- * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ * @return resource Returns an ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -1066,12 +1073,16 @@ function odbc_specialcolumns(\Odbc\Connection $odbc, int $type, string $catalog,
  * FILTER_CONDITION
  *
  * Drivers can report additional columns.
+ * @throws UodbcException
  *
  */
-function odbc_statistics(\Odbc\Connection $odbc, string $catalog, string $schema, string $table, int $unique, int $accuracy)
+function odbc_statistics($odbc, string $catalog, string $schema, string $table, int $unique, int $accuracy)
 {
     error_clear_last();
     $safeResult = \odbc_statistics($odbc, $catalog, $schema, $table, $unique, $accuracy);
+    if ($safeResult === false) {
+        throw UodbcException::createFromPhpError();
+    }
     return $safeResult;
 }
 
@@ -1080,7 +1091,7 @@ function odbc_statistics(\Odbc\Connection $odbc, string $catalog, string $schema
  * Lists tables in the requested range and the privileges associated
  * with each table.
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
  * @param string $schema The schema ('owner' in ODBC 2 parlance).
@@ -1091,7 +1102,7 @@ function odbc_statistics(\Odbc\Connection $odbc, string $catalog, string $schema
  * This parameter accepts the following search patterns:
  * % to match zero or more characters,
  * and _ to match a single character.
- * @return \Odbc\Result|false Returns an ODBC result object or FALSE on failure.
+ * @return resource An ODBC result identifier.
  *
  * The result set has the following columns:
  *
@@ -1104,12 +1115,16 @@ function odbc_statistics(\Odbc\Connection $odbc, string $catalog, string $schema
  * IS_GRANTABLE
  *
  * Drivers can report additional columns.
+ * @throws UodbcException
  *
  */
-function odbc_tableprivileges(\Odbc\Connection $odbc, string $catalog, string $schema, string $table)
+function odbc_tableprivileges($odbc, string $catalog, string $schema, string $table)
 {
     error_clear_last();
     $safeResult = \odbc_tableprivileges($odbc, $catalog, $schema, $table);
+    if ($safeResult === false) {
+        throw UodbcException::createFromPhpError();
+    }
     return $safeResult;
 }
 
@@ -1155,7 +1170,7 @@ function odbc_tableprivileges(\Odbc\Connection $odbc, string $catalog, string $s
  *
  *
  *
- * @param \Odbc\Connection $odbc The ODBC connection object,
+ * @param resource $odbc The ODBC connection object,
  * see odbc_connect for details.
  * @param null|string $catalog The catalog ('qualifier' in ODBC 2 parlance).
  * @param null|string $schema The schema ('owner' in ODBC 2 parlance).
@@ -1173,7 +1188,7 @@ function odbc_tableprivileges(\Odbc\Connection $odbc, string $catalog, string $s
  * data source does not support a specified table type,
  * odbc_tables does not return any results for
  * that type.
- * @return \Odbc\Result Returns an ODBC result object containing the information.
+ * @return resource Returns an ODBC result identifier containing the information.
  *
  * The result set has the following columns:
  *
@@ -1187,7 +1202,7 @@ function odbc_tableprivileges(\Odbc\Connection $odbc, string $catalog, string $s
  * @throws UodbcException
  *
  */
-function odbc_tables(\Odbc\Connection $odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $types = null): \Odbc\Result
+function odbc_tables($odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $types = null)
 {
     error_clear_last();
     if ($types !== null) {

@@ -867,7 +867,7 @@ function pg_parameter_status(?\PgSql\Connection $connection = null, ?string $par
 
 /**
  * pg_pconnect opens a connection to a
- * PostgreSQL database. It returns a PgSql\Connection instance that is
+ * PostgreSQL database. It returns an PgSql\Connection instance that is
  * needed by other PostgreSQL functions.
  *
  * If a second call is made to pg_pconnect with
@@ -876,14 +876,11 @@ function pg_parameter_status(?\PgSql\Connection $connection = null, ?string $par
  * PGSQL_CONNECT_FORCE_NEW as
  * flags.
  *
- * To enable persistent connections, the
- * pgsql.allow_persistent
+ * To enable persistent connection, the pgsql.allow_persistent
  * php.ini directive must be set to "On" (which is the default).
- * The maximum number of persistent connections can be defined with the
- * pgsql.max_persistent
- * php.ini directive (defaults to -1 for no limit).
- * The total number of connections can be set with the
- * pgsql.max_links
+ * The maximum number of persistent connection can be defined with the pgsql.max_persistent
+ * php.ini directive (defaults to -1 for no limit). The total number
+ * of connections can be set with the pgsql.max_links
  * php.ini directive.
  *
  * pg_close will not close persistent links
@@ -903,12 +900,12 @@ function pg_parameter_status(?\PgSql\Connection $connection = null, ?string $par
  * password, connect_timeout,
  * options, tty (ignored), sslmode,
  * requiressl (deprecated in favor of sslmode), and
- * service.
- * Which of these arguments exist depends on the PostgreSQL version.
+ * service.  Which of these arguments exist depends
+ * on your PostgreSQL version.
  * @param int $flags If PGSQL_CONNECT_FORCE_NEW is passed, then a new connection
  * is created, even if the connection_string is identical to
  * an existing connection.
- * @return \PgSql\Connection Returns a PgSql\Connection instance on success.
+ * @return \PgSql\Connection Returns an PgSql\Connection instance on success.
  * @throws PgsqlException
  *
  */
@@ -1263,8 +1260,6 @@ function pg_result_seek(\PgSql\Result $result, int $row): void
  * @param string $table_name Name of the table from which to select rows.
  * @param array $conditions An array whose keys are field names in the table table_name,
  * and whose values are the conditions that a row must meet to be retrieved.
- * As of PHP 8.4.0, when an empty array is provided, no conditions will apply.
- * Previously, the function failed with an empty conditions argument.
  * @param int $flags Any number of PGSQL_CONV_FORCE_NULL,
  * PGSQL_DML_NO_CONV,
  * PGSQL_DML_ESCAPE,
@@ -1285,7 +1280,7 @@ function pg_result_seek(\PgSql\Result $result, int $row): void
  * @throws PgsqlException
  *
  */
-function pg_select(\PgSql\Connection $connection, string $table_name, array $conditions = [], int $flags = PGSQL_DML_EXEC, int $mode = PGSQL_ASSOC)
+function pg_select(\PgSql\Connection $connection, string $table_name, array $conditions, int $flags = PGSQL_DML_EXEC, int $mode = PGSQL_ASSOC)
 {
     error_clear_last();
     $safeResult = \pg_select($connection, $table_name, $conditions, $flags, $mode);

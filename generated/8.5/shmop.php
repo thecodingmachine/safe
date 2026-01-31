@@ -34,11 +34,15 @@ function shmop_delete(\Shmop $shmop): void
  * must be less than or equal to the actual size of the shared memory segment.
  * 0 reads shmop_size($shmid) - $start bytes.
  * @return string Returns the data.
+ * @throws ShmopException
  *
  */
 function shmop_read(\Shmop $shmop, int $offset, int $size): string
 {
     error_clear_last();
     $safeResult = \shmop_read($shmop, $offset, $size);
+    if ($safeResult === false) {
+        throw ShmopException::createFromPhpError();
+    }
     return $safeResult;
 }

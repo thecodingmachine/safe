@@ -5,18 +5,18 @@ namespace Safe;
 use Safe\Exceptions\PcntlException;
 
 /**
+ * Retrieve the cpu affinity of the process_id.
  *
- *
- * @param int|null $pid
- * @return array|bool
+ * @param int|null $process_id If NULL, the current process ID is used.
+ * @return array Returns the cpu affinity mask of the process.
  * @throws PcntlException
  *
  */
-function pcntl_getcpuaffinity(?int $pid = null)
+function pcntl_getcpuaffinity(?int $process_id = null): array
 {
     error_clear_last();
-    if ($pid !== null) {
-        $safeResult = \pcntl_getcpuaffinity($pid);
+    if ($process_id !== null) {
+        $safeResult = \pcntl_getcpuaffinity($process_id);
     } else {
         $safeResult = \pcntl_getcpuaffinity();
     }
@@ -60,20 +60,21 @@ function pcntl_getpriority(?int $process_id = null, int $mode = PRIO_PROCESS): i
 
 
 /**
+ * Sets the cpu affinity for the process_id with the cpu affinity mask given by
+ * cpu_ids.
  *
- *
- * @param int|null $pid
- * @param array $hmask
+ * @param int|null $process_id If NULL, the current process ID is used.
+ * @param array $cpu_ids The cpu affinity mask comprised of one or more cpu id for binding the process to.
  * @throws PcntlException
  *
  */
-function pcntl_setcpuaffinity(?int $pid = null, ?array $hmask = null): void
+function pcntl_setcpuaffinity(?int $process_id = null, array $cpu_ids = []): void
 {
     error_clear_last();
-    if ($hmask !== null) {
-        $safeResult = \pcntl_setcpuaffinity($pid, $hmask);
-    } elseif ($pid !== null) {
-        $safeResult = \pcntl_setcpuaffinity($pid);
+    if ($cpu_ids !== []) {
+        $safeResult = \pcntl_setcpuaffinity($process_id, $cpu_ids);
+    } elseif ($process_id !== null) {
+        $safeResult = \pcntl_setcpuaffinity($process_id);
     } else {
         $safeResult = \pcntl_setcpuaffinity();
     }
@@ -175,7 +176,7 @@ function pcntl_signal_dispatch(): void
  * Note that when you set a handler to an object method, that object's
  * reference count is increased which makes it persist until you either
  * change the handler to something else, or your script ends.
- * @param bool $restart_syscalls
+ * @param bool $restart_syscalls The signal being handled.
  * @throws PcntlException
  *
  */

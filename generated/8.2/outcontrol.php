@@ -211,8 +211,8 @@ function ob_get_clean(): string
  * compressed web pages.  ob_gzhandler determines
  * what type of content encoding the browser will accept and will return
  * its output accordingly.
- * @param int $chunk_size
- * @param int $flags
+ * @param int $chunk_size Contents of the output buffer.
+ * @param int $flags Bitmask of PHP_OUTPUT_HANDLER_* constants.
  * @throws OutcontrolException
  *
  */

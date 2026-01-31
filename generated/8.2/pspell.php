@@ -5,7 +5,11 @@ namespace Safe;
 use Safe\Exceptions\PspellException;
 
 /**
- *
+ * pspell_add_to_personal adds a word to the personal
+ * wordlist. If you used pspell_new_config with
+ * pspell_config_personal to open the dictionary,
+ * you can save the wordlist later with
+ * pspell_save_wordlist.
  *
  * @param int $dictionary An PSpell\Dictionary instance.
  * @param string $word The added word.
@@ -23,7 +27,9 @@ function pspell_add_to_personal(int $dictionary, string $word): void
 
 
 /**
- *
+ * pspell_add_to_session adds a word to the wordlist
+ * associated with the current session. It is very similar to
+ * pspell_add_to_personal
  *
  * @param int $dictionary An PSpell\Dictionary instance.
  * @param string $word The added word.
@@ -41,7 +47,9 @@ function pspell_add_to_session(int $dictionary, string $word): void
 
 
 /**
- *
+ * pspell_clear_session clears the current session.
+ * The current wordlist becomes blank, and, for example, if you try to save
+ * it with pspell_save_wordlist, nothing happens.
  *
  * @param int $dictionary An PSpell\Dictionary instance.
  * @throws PspellException
@@ -142,7 +150,9 @@ function pspell_config_dict_dir(int $config, string $directory): void
 
 
 /**
- *
+ * pspell_config_ignore should be used on a config
+ * before calling pspell_new_config. This function
+ * allows short words to be skipped by the spell checker.
  *
  * @param int $config An PSpell\Config instance.
  * @param int $min_length Words less than min_length characters will be skipped.
@@ -160,7 +170,10 @@ function pspell_config_ignore(int $config, int $min_length): void
 
 
 /**
- *
+ * pspell_config_mode should be used on a config
+ * before calling pspell_new_config. This function
+ * determines how many suggestions will be returned by
+ * pspell_suggest.
  *
  * @param int $config An PSpell\Config instance.
  * @param int $mode The mode parameter is the mode in which spellchecker will work.
@@ -303,7 +316,13 @@ function pspell_config_save_repl(int $config, bool $save): void
 
 
 /**
- *
+ * pspell_new_config opens up a new dictionary with
+ * settings specified in a config, created with
+ * pspell_config_create and modified with
+ * pspell_config_* functions. This method provides you
+ * with the most flexibility and has all the functionality provided by
+ * pspell_new and
+ * pspell_new_personal.
  *
  * @param int $config The config parameter is the one returned by
  * pspell_config_create when the config was created.
@@ -466,7 +485,10 @@ function pspell_new(string $language, string $spelling = "", string $jargon = ""
 
 
 /**
- *
+ * pspell_save_wordlist saves the personal wordlist from
+ * the current session. The location of files to be saved specified with
+ * pspell_config_personal and (optionally)
+ * pspell_config_repl.
  *
  * @param int $dictionary An PSpell\Dictionary instance.
  * @throws PspellException
@@ -483,7 +505,16 @@ function pspell_save_wordlist(int $dictionary): void
 
 
 /**
- *
+ * pspell_store_replacement stores a replacement pair for
+ * a word, so that replacement can be returned by
+ * pspell_suggest later. In order to be able to take
+ * advantage of this function, you have to use
+ * pspell_new_personal to open the dictionary. In order
+ * to permanently save the replacement pair, you have to
+ * use pspell_config_personal and
+ * pspell_config_repl to set the path where to save your
+ * custom wordlists, and then use pspell_save_wordlist
+ * for the changes to be written to disk.
  *
  * @param int $dictionary An PSpell\Dictionary instance.
  * @param string $misspelled The misspelled word.

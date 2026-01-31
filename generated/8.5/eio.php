@@ -35,6 +35,7 @@ function eio_busy(int $delay, int $pri = EIO_PRI_DEFAULT, ?callable $callback = 
  * new permissions are specified by mode.
  *
  * @param string $path Path to the target file or directory
+ *
  * Avoid relative
  * paths
  * @param int $mode The new permissions. E.g. 0644.
@@ -86,6 +87,7 @@ function eio_chmod(string $path, int $mode, int $pri = EIO_PRI_DEFAULT, ?callabl
  * Changes file, or directory permissions.
  *
  * @param string $path Path to file or directory.
+ *
  * Avoid relative
  * paths
  * @param int $uid User ID. Is ignored when equal to -1.
@@ -1112,77 +1114,7 @@ function eio_readahead($fd, int $offset, int $length, int $pri = EIO_PRI_DEFAULT
  *
  * is optional request resource which can be used with functions like eio_get_last_error.
  * @param null|string $data is custom data passed to the request.
- * @return resource eio_readdir returns request resource on success.
- * Sets result argument of
- * callback function according to
- * flags:
- *
- *
- *
- *
- *
- *
- * EIO_READDIR_DENTS
- * (int)
- *
- *
- *
- * eio_readdir flag. If specified, the result argument of the callback
- * becomes an array with the following keys:
- * 'names' - array of directory names
- * 'dents' - array of struct
- * eio_dirent-like arrays having the following keys each:
- * 'name' - the directory name;
- * 'type' - one of EIO_DT_*
- * constants;
- * 'inode' - the inode number, if available, otherwise
- * unspecified;
- *
- *
- *
- *
- *
- * EIO_READDIR_DIRS_FIRST
- * (int)
- *
- *
- *
- * When this flag is specified, the names will be returned in an order
- * where likely directories come first, in optimal stat order.
- *
- *
- *
- *
- *
- * EIO_READDIR_STAT_ORDER
- * (int)
- *
- *
- *
- * When this flag is specified, then the names will be returned in an order
- * suitable for stat'ing each one. When planning to
- * stat all files in the given directory, the
- * returned order will likely be
- * fastest.
- *
- *
- *
- *
- *
- * EIO_READDIR_FOUND_UNKNOWN
- * (int)
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- * Node types:
+ * @return resource Node types:
  *
  *
  *

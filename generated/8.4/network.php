@@ -412,7 +412,9 @@ function header_register_callback(callable $callback): void
 
 
 /**
- *
+ * This function converts a 32bit IPv4, or 128bit IPv6 address (if PHP
+ * was built with IPv6 support enabled) into an address family appropriate
+ * string representation.
  *
  * @param string $ip A 32bit IPv4, or 128bit IPv6 address.
  * @return string Returns a string representation of the address.

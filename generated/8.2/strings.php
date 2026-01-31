@@ -68,7 +68,10 @@ function md5_file(string $filename, bool $binary = false): string
 
 
 /**
- *
+ * Calculates the sha1 hash of the file specified by
+ * filename using the
+ * US Secure Hash Algorithm 1,
+ * and returns that hash. The hash is a 40-character hexadecimal number.
  *
  * @param string $filename The filename of the file to hash.
  * @param bool $binary When TRUE, returns the digest in raw binary format with a length of

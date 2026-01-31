@@ -138,7 +138,7 @@ function pg_convert(\PgSql\Connection $connection, string $table_name, array $va
  *
  * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table into which to copy the rows.
- * @param array $rows An array of data to be copied into table_name.
+ * @param array $rows An iterable data to be copied into table_name.
  * Each value in rows becomes a row in table_name.
  * Each value in rows should be a delimited string of the values
  * to insert into each field.  Values should be linefeed terminated.
@@ -1297,10 +1297,14 @@ function pg_select(\PgSql\Connection $connection, string $table_name, array $con
 
 
 /**
- *
+ * Set the query results to be retrieved in chunk mode.
+ * The query results returned afterward will be divided into multiple chunks,
+ * each containing up to size rows.
+ * This function must be called before retrieving results with pg_get_result.
+ * This function is only available when libpq is version 17 or higher.
  *
  * @param \PgSql\Connection $connection An PgSql\Connection instance.
- * @param int $size
+ * @param int $size The number of rows to be retrieved in each chunk.
  * @throws PgsqlException
  *
  */

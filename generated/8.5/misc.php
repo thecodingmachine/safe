@@ -67,7 +67,8 @@ function highlight_file(string $filename, bool $return = false)
 
 
 /**
- *
+ * Outputs or returns html markup for a syntax highlighted version of the given PHP code
+ * using the colors defined in the built-in syntax highlighter for PHP.
  *
  * @param string $string The PHP code to be highlighted. This should include the opening tag.
  * @param bool $return Set this parameter to TRUE to make this function return the
@@ -86,7 +87,8 @@ function highlight_string(string $string, bool $return = false)
 
 
 /**
- *
+ * Returns the system's high resolution time, counted from an arbitrary point in time.
+ * The delivered timestamp is monotonic and can not be adjusted.
  *
  * @param bool $as_number Whether the high resolution time should be returned as array
  * or number.
@@ -249,7 +251,7 @@ function hrtime(bool $as_number = false)
  *
  *
  * Z
- * NUL-padded string
+ * NUL-terminated (ASCIIZ) string, will be NUL padded
  *
  *
  * @
@@ -382,7 +384,9 @@ function sapi_windows_generate_ctrl_event(int $event, int $pid = 0): void
  * BREAK
  *
  * events.
- * @param bool $add
+ * @param bool $add The CTRL event which has been received;
+ * either PHP_WINDOWS_EVENT_CTRL_C
+ * or PHP_WINDOWS_EVENT_CTRL_BREAK.
  * @throws MiscException
  *
  */
@@ -427,7 +431,8 @@ function sapi_windows_vt100_support($stream, ?bool $enable = null): void
 
 
 /**
- *
+ * Delays the program execution for the given number of
+ * seconds.
  *
  * @param int $seconds Halt time in seconds (must be greater than or equal to 0).
  * @return false|int Returns zero on success.

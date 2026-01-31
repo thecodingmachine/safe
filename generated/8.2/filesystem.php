@@ -406,7 +406,7 @@ function file_put_contents(string $filename, $data, int $flags = 0, $context = n
  *
  *
  *
- * @param null|resource $context
+ * @param null|resource $context Search for the file in the include_path.
  * @return list Returns the file in an array. Each element of the array corresponds to a
  * line in the file, with the newline still attached. Upon failure,
  * file returns FALSE.
@@ -429,7 +429,7 @@ function file(string $filename, int $flags = 0, $context = null): array
 
 
 /**
- *
+ * Gets the last access time of the given file.
  *
  * @param string $filename Path to the file.
  * @return int Returns the time the file was last accessed.
@@ -1022,7 +1022,9 @@ function ftruncate($stream, int $size): void
 
 
 /**
- *
+ * fwrite writes the contents of
+ * data to the file stream pointed to by
+ * stream.
  *
  * @param resource $stream A file system pointer resource
  * that is typically created using fopen.
@@ -1030,7 +1032,8 @@ function ftruncate($stream, int $size): void
  * @param 0|null|positive-int $length If length is an integer, writing will stop
  * after length bytes have been written or the
  * end of data is reached, whichever comes first.
- * @return 0|positive-int
+ * @return 0|positive-int fwrite returns the number of bytes
+ * written.
  * @throws FilesystemException
  *
  */

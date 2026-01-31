@@ -826,8 +826,6 @@ function ps_hyphenate($psdoc, string $text): array
 
 
 /**
- * This function is
- * currently not documented; only its argument list is available.
  *
  *
  * @param resource $psdoc Resource identifier of the postscript file
@@ -1377,8 +1375,6 @@ function ps_setdash($psdoc, float $on, float $off): void
 
 
 /**
- * This function is
- * currently not documented; only its argument list is available.
  *
  *
  * @param resource $psdoc Resource identifier of the postscript file
@@ -1526,8 +1522,6 @@ function ps_setmiterlimit($psdoc, float $value): void
 
 
 /**
- * This function is
- * currently not documented; only its argument list is available.
  *
  *
  * @param resource $psdoc Resource identifier of the postscript file
@@ -1683,8 +1677,6 @@ function ps_show_xy($psdoc, string $text, float $x, float $y): void
 
 
 /**
- * This function is
- * currently not documented; only its argument list is available.
  *
  *
  * @param resource $psdoc

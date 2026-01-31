@@ -128,7 +128,7 @@ function pcntl_signal_dispatch(): void
  * Note that when you set a handler to an object method, that object's
  * reference count is increased which makes it persist until you either
  * change the handler to something else, or your script ends.
- * @param bool $restart_syscalls
+ * @param bool $restart_syscalls The signal being handled.
  * @throws PcntlException
  *
  */

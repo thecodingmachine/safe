@@ -269,13 +269,13 @@ function gzencode(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_G
  * it returns the file in an array.
  *
  * @param string $filename The file name.
- * @param int $use_include_path You can set this optional parameter to 1, if you
+ * @param  $use_include_path You can set this optional parameter to 1, if you
  * want to search for the file in the include_path too.
  * @return list An array containing the file, one line per cell, empty lines included, and with newlines still attached.
  * @throws ZlibException
  *
  */
-function gzfile(string $filename, int $use_include_path = 0): array
+function gzfile(string $filename, $use_include_path = 0): array
 {
     error_clear_last();
     $safeResult = \gzfile($filename, $use_include_path);

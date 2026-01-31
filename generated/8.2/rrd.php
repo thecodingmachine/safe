@@ -5,11 +5,8 @@ namespace Safe;
 use Safe\Exceptions\RrdException;
 
 /**
- * Creates the rdd database file.
- *
- * @param string $filename Filename for newly created rrd file.
- * @param array $options Options for rrd create - list of strings. See man page of rrd create
- * for whole list of options.
+ * @param string $filename
+ * @param array $options
  * @throws RrdException
  *
  */
@@ -24,11 +21,9 @@ function rrd_create(string $filename, array $options): void
 
 
 /**
- * Returns the first data sample from the specified RRA of the RRD file.
- *
- * @param string $file RRD database file name.
- * @param int $raaindex The index number of the RRA that is to be examined. Default value is 0.
- * @return int Integer number of unix timestamp.
+ * @param string $file
+ * @param int $raaindex
+ * @return int
  * @throws RrdException
  *
  */
@@ -44,15 +39,9 @@ function rrd_first(string $file, int $raaindex = 0): int
 
 
 /**
- * Creates image for a particular data from RRD file.
- *
- * @param string $filename The filename to output the graph to. This will generally end in either
- * .png, .svg or
- * .eps, depending on the format you want to output.
- * @param array $options Options for generating image. See man page of rrd graph for all
- * possible options. All options (data definitions, variable definitions, etc.)
- * are allowed.
- * @return array Array with information about generated image is returned.
+ * @param string $filename
+ * @param array $options
+ * @return array
  * @throws RrdException
  *
  */
@@ -68,10 +57,8 @@ function rrd_graph(string $filename, array $options): array
 
 
 /**
- * Returns information about particular RRD database file.
- *
- * @param string $filename RRD database file name.
- * @return array Array with information about requested RRD file.
+ * @param string $filename
+ * @return array
  * @throws RrdException
  *
  */
@@ -87,11 +74,8 @@ function rrd_info(string $filename): array
 
 
 /**
- * Gets array of the UNIX timestamp and the values stored for each date in the
- * most recent update of the RRD database file.
- *
- * @param string $filename RRD database file name.
- * @return array Array of information about last update.
+ * @param string $filename
+ * @return array
  * @throws RrdException
  *
  */
@@ -107,11 +91,9 @@ function rrd_lastupdate(string $filename): array
 
 
 /**
- * Restores the RRD file from the XML dump.
- *
- * @param string $xml_file XML filename with the dump of the original RRD database file.
- * @param string $rrd_file Restored RRD database file name.
- * @param array $options Array of options for restoring. See man page for rrd restore.
+ * @param string $xml_file
+ * @param string $rrd_file
+ * @param array $options
  * @throws RrdException
  *
  */
@@ -130,12 +112,8 @@ function rrd_restore(string $xml_file, string $rrd_file, ?array $options = null)
 
 
 /**
- * Change some options in the RRD dabase header file. E.g. renames the source for
- * the data etc.
- *
- * @param string $filename RRD database file name.
- * @param array $options Options with RRD database file properties which will be changed. See
- * rrd tune man page for details.
+ * @param string $filename
+ * @param array $options
  * @throws RrdException
  *
  */
@@ -150,12 +128,8 @@ function rrd_tune(string $filename, array $options): void
 
 
 /**
- * Updates the RRD database file. The input data is time interpolated according to the
- * properties of the RRD database file.
- *
- * @param string $filename RRD database file name. This database will be updated.
- * @param array $options Options for updating the RRD database. This is list of strings. See man page of rrd update
- * for whole list of options.
+ * @param string $filename
+ * @param array $options
  * @throws RrdException
  *
  */
@@ -170,12 +144,8 @@ function rrd_update(string $filename, array $options): void
 
 
 /**
- * Exports the information about RRD database file. This data can be converted
- * to XML file via user space PHP script and then restored back as RRD database
- * file.
- *
- * @param array $options Array of options for the export, see rrd xport man page.
- * @return array Array with information about RRD database file.
+ * @param array $options
+ * @return array
  * @throws RrdException
  *
  */

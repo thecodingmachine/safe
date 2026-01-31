@@ -5,9 +5,7 @@ namespace Safe;
 use Safe\Exceptions\MysqliException;
 
 /**
- * Returns client per-process statistics.
- *
- * @return array|false Returns an array with client stats.
+ * @return array|false
  *
  */
 function mysqli_get_client_stats()

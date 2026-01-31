@@ -5,13 +5,9 @@ namespace Safe;
 use Safe\Exceptions\FtpException;
 
 /**
- * Sends an ALLO command to the remote FTP server to
- * allocate space for a file to be uploaded.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param int $size The number of bytes to allocate.
- * @param null|string $response A textual representation of the servers response will be returned by
- * reference in response if a variable is provided.
+ * @param \FTP\Connection $ftp
+ * @param int $size
+ * @param null|string $response
  * @throws FtpException
  *
  */
@@ -26,9 +22,7 @@ function ftp_alloc(\FTP\Connection $ftp, int $size, ?string &$response = null): 
 
 
 /**
- *
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
+ * @param \FTP\Connection $ftp
  * @param string $remote_filename
  * @param string $local_filename
  * @param FTP_ASCII|FTP_BINARY $mode
@@ -46,9 +40,7 @@ function ftp_append(\FTP\Connection $ftp, string $remote_filename, string $local
 
 
 /**
- * Changes to the parent directory.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
+ * @param \FTP\Connection $ftp
  * @throws FtpException
  *
  */
@@ -63,10 +55,8 @@ function ftp_cdup(\FTP\Connection $ftp): void
 
 
 /**
- * Changes the current directory to the specified one.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $directory The target directory.
+ * @param \FTP\Connection $ftp
+ * @param string $directory
  * @throws FtpException
  *
  */
@@ -81,13 +71,10 @@ function ftp_chdir(\FTP\Connection $ftp, string $directory): void
 
 
 /**
- * Sets the permissions on the specified remote file to
- * permissions.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param int $permissions The new permissions, given as an octal value.
- * @param string $filename The remote file.
- * @return int Returns the new file permissions on success.
+ * @param \FTP\Connection $ftp
+ * @param int $permissions
+ * @param string $filename
+ * @return int
  * @throws FtpException
  *
  */
@@ -103,10 +90,7 @@ function ftp_chmod(\FTP\Connection $ftp, int $permissions, string $filename): in
 
 
 /**
- * ftp_close closes the given link identifier
- * and releases the resource.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
+ * @param \FTP\Connection $ftp
  * @throws FtpException
  *
  */
@@ -121,18 +105,10 @@ function ftp_close(\FTP\Connection $ftp): void
 
 
 /**
- * ftp_connect opens an FTP connection to the
- * specified hostname.
- *
- * @param string $hostname The FTP server address. This parameter shouldn't have any trailing
- * slashes and shouldn't be prefixed with ftp://.
- * @param int $port This parameter specifies an alternate port to connect to. If it is
- * omitted or set to zero, then the default FTP port, 21, will be used.
- * @param int $timeout This parameter specifies the timeout in seconds for all subsequent network operations.
- * If omitted, the default value is 90 seconds. The timeout can be changed and
- * queried at any time with ftp_set_option and
- * ftp_get_option.
- * @return \FTP\Connection Returns an FTP\Connection instance on success.
+ * @param string $hostname
+ * @param int $port
+ * @param int $timeout
+ * @return \FTP\Connection
  * @throws FtpException
  *
  */
@@ -148,11 +124,8 @@ function ftp_connect(string $hostname, int $port = 21, int $timeout = 90): \FTP\
 
 
 /**
- * ftp_delete deletes the file specified by
- * filename from the FTP server.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $filename The file to delete.
+ * @param \FTP\Connection $ftp
+ * @param string $filename
  * @throws FtpException
  *
  */
@@ -167,15 +140,11 @@ function ftp_delete(\FTP\Connection $ftp, string $filename): void
 
 
 /**
- * ftp_fget retrieves remote_filename
- * from the FTP server, and writes it to the given file pointer.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param resource $stream An open file pointer in which we store the data.
- * @param string $remote_filename The remote file path.
- * @param FTP_ASCII|FTP_BINARY $mode The transfer mode. Must be either FTP_ASCII or
- * FTP_BINARY.
- * @param int $offset The position in the remote file to start downloading from.
+ * @param \FTP\Connection $ftp
+ * @param resource $stream
+ * @param string $remote_filename
+ * @param FTP_ASCII|FTP_BINARY $mode
+ * @param int $offset
  * @throws FtpException
  *
  */
@@ -190,15 +159,11 @@ function ftp_fget(\FTP\Connection $ftp, $stream, string $remote_filename, int $m
 
 
 /**
- * ftp_fput uploads the data from a file pointer
- * to a remote file on the FTP server.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $remote_filename The remote file path.
- * @param resource $stream An open file pointer on the local file. Reading stops at end of file.
- * @param FTP_ASCII|FTP_BINARY $mode The transfer mode. Must be either FTP_ASCII or
- * FTP_BINARY.
- * @param int $offset The position in the remote file to start uploading to.
+ * @param \FTP\Connection $ftp
+ * @param string $remote_filename
+ * @param resource $stream
+ * @param FTP_ASCII|FTP_BINARY $mode
+ * @param int $offset
  * @throws FtpException
  *
  */
@@ -213,15 +178,11 @@ function ftp_fput(\FTP\Connection $ftp, string $remote_filename, $stream, int $m
 
 
 /**
- * ftp_get retrieves a remote file from the FTP server,
- * and saves it into a local file.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $local_filename The local file path (will be overwritten if the file already exists).
- * @param string $remote_filename The remote file path.
- * @param FTP_ASCII|FTP_BINARY $mode The transfer mode. Must be either FTP_ASCII or
- * FTP_BINARY.
- * @param int $offset The position in the remote file to start downloading from.
+ * @param \FTP\Connection $ftp
+ * @param string $local_filename
+ * @param string $remote_filename
+ * @param FTP_ASCII|FTP_BINARY $mode
+ * @param int $offset
  * @throws FtpException
  *
  */
@@ -236,11 +197,9 @@ function ftp_get(\FTP\Connection $ftp, string $local_filename, string $remote_fi
 
 
 /**
- * Logs in to the given FTP connection.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $username The username (USER).
- * @param string $password The password (PASS).
+ * @param \FTP\Connection $ftp
+ * @param string $username
+ * @param string $password
  * @throws FtpException
  *
  */
@@ -255,11 +214,9 @@ function ftp_login(\FTP\Connection $ftp, string $username, string $password): vo
 
 
 /**
- * Creates the specified directory on the FTP server.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $directory The name of the directory that will be created.
- * @return string Returns the newly created directory name on success.
+ * @param \FTP\Connection $ftp
+ * @param string $directory
+ * @return string
  * @throws FtpException
  *
  */
@@ -275,11 +232,9 @@ function ftp_mkdir(\FTP\Connection $ftp, string $directory): string
 
 
 /**
- *
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $directory The directory to be listed.
- * @return array Returns an array of arrays with file infos from the specified directory on success.
+ * @param \FTP\Connection $ftp
+ * @param string $directory
+ * @return array
  * @throws FtpException
  *
  */
@@ -295,20 +250,12 @@ function ftp_mlsd(\FTP\Connection $ftp, string $directory): array
 
 
 /**
- * ftp_nb_put stores a local file on the FTP server.
- *
- * The difference between this function and the ftp_put
- * is that this function uploads the file asynchronously, so your program can
- * perform other operations while the file is being uploaded.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $remote_filename The remote file path.
- * @param string $local_filename The local file path.
- * @param FTP_ASCII|FTP_BINARY $mode The transfer mode. Must be either FTP_ASCII or
- * FTP_BINARY.
- * @param int $offset The position in the remote file to start uploading to.
- * @return int Returns FTP_FAILED or FTP_FINISHED
- * or FTP_MOREDATA to open the local file.
+ * @param \FTP\Connection $ftp
+ * @param string $remote_filename
+ * @param string $local_filename
+ * @param FTP_ASCII|FTP_BINARY $mode
+ * @param int $offset
+ * @return int
  * @throws FtpException
  *
  */
@@ -324,14 +271,9 @@ function ftp_nb_put(\FTP\Connection $ftp, string $remote_filename, string $local
 
 
 /**
- *
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $directory The directory to be listed. This parameter can also include arguments, eg.
- * ftp_nlist($ftp, "-la /your/dir");.
- * Note that this parameter isn't escaped so there may be some issues with
- * filenames containing spaces and other characters.
- * @return array Returns an array of filenames from the specified directory on success.
+ * @param \FTP\Connection $ftp
+ * @param string $directory
+ * @return array
  * @throws FtpException
  *
  */
@@ -347,16 +289,8 @@ function ftp_nlist(\FTP\Connection $ftp, string $directory): array
 
 
 /**
- * ftp_pasv turns on or off passive mode. In
- * passive mode, data connections are initiated by the client,
- * rather than by the server.
- * It may be needed if the client is behind firewall.
- *
- * Please note that ftp_pasv can only be called after a
- * successful login or otherwise it will fail.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param bool $enable If TRUE, the passive mode is turned on, else it's turned off.
+ * @param \FTP\Connection $ftp
+ * @param bool $enable
  * @throws FtpException
  *
  */
@@ -371,14 +305,11 @@ function ftp_pasv(\FTP\Connection $ftp, bool $enable): void
 
 
 /**
- * ftp_put stores a local file on the FTP server.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $remote_filename The remote file path.
- * @param string $local_filename The local file path.
- * @param FTP_ASCII|FTP_BINARY $mode The transfer mode. Must be either FTP_ASCII or
- * FTP_BINARY.
- * @param int $offset The position in the remote file to start uploading to.
+ * @param \FTP\Connection $ftp
+ * @param string $remote_filename
+ * @param string $local_filename
+ * @param FTP_ASCII|FTP_BINARY $mode
+ * @param int $offset
  * @throws FtpException
  *
  */
@@ -393,10 +324,8 @@ function ftp_put(\FTP\Connection $ftp, string $remote_filename, string $local_fi
 
 
 /**
- *
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @return string Returns the current directory name.
+ * @param \FTP\Connection $ftp
+ * @return string
  * @throws FtpException
  *
  */
@@ -412,12 +341,9 @@ function ftp_pwd(\FTP\Connection $ftp): string
 
 
 /**
- * ftp_rename renames a file or a directory on the FTP
- * server.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $from The old file/directory name.
- * @param string $to The new name.
+ * @param \FTP\Connection $ftp
+ * @param string $from
+ * @param string $to
  * @throws FtpException
  *
  */
@@ -432,11 +358,8 @@ function ftp_rename(\FTP\Connection $ftp, string $from, string $to): void
 
 
 /**
- * Removes the specified directory on the FTP server.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $directory The directory to delete. This must be either an absolute or relative
- * path to an empty directory.
+ * @param \FTP\Connection $ftp
+ * @param string $directory
  * @throws FtpException
  *
  */
@@ -451,16 +374,8 @@ function ftp_rmdir(\FTP\Connection $ftp, string $directory): void
 
 
 /**
- * ftp_site sends the given SITE
- * command to the FTP server.
- *
- * SITE commands are not standardized, and vary from server
- * to server. They are useful for handling such things as file permissions and
- * group membership.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $command The SITE command. Note that this parameter isn't escaped so there may
- * be some issues with filenames containing spaces and other characters.
+ * @param \FTP\Connection $ftp
+ * @param string $command
  * @throws FtpException
  *
  */
@@ -475,12 +390,9 @@ function ftp_site(\FTP\Connection $ftp, string $command): void
 
 
 /**
- * ftp_size returns the size of the given file in
- * bytes.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @param string $filename The remote file.
- * @return int Returns the file size on success.
+ * @param \FTP\Connection $ftp
+ * @param string $filename
+ * @return int
  * @throws FtpException
  *
  */
@@ -496,23 +408,10 @@ function ftp_size(\FTP\Connection $ftp, string $filename): int
 
 
 /**
- * ftp_ssl_connect opens an explicit SSL-FTP connection to the
- * specified hostname. That implies that
- * ftp_ssl_connect will succeed even if the server is not
- * configured for SSL-FTP, or its certificate is invalid. Only when
- * ftp_login is called, the client will send the
- * appropriate AUTH FTP command, so ftp_login will fail in
- * the mentioned cases.
- *
- * @param string $hostname The FTP server address. This parameter shouldn't have any trailing
- * slashes and shouldn't be prefixed with ftp://.
- * @param int $port This parameter specifies an alternate port to connect to. If it is
- * omitted or set to zero, then the default FTP port, 21, will be used.
- * @param int $timeout This parameter specifies the timeout for all subsequent network operations.
- * If omitted, the default value is 90 seconds. The timeout can be changed and
- * queried at any time with ftp_set_option and
- * ftp_get_option.
- * @return \FTP\Connection Returns an FTP\Connection instance on success.
+ * @param string $hostname
+ * @param int $port
+ * @param int $timeout
+ * @return \FTP\Connection
  * @throws FtpException
  *
  */
@@ -528,10 +427,8 @@ function ftp_ssl_connect(string $hostname, int $port = 21, int $timeout = 90): \
 
 
 /**
- * Returns the system type identifier of the remote FTP server.
- *
- * @param \FTP\Connection $ftp An FTP\Connection instance.
- * @return string Returns the remote system type.
+ * @param \FTP\Connection $ftp
+ * @return string
  * @throws FtpException
  *
  */

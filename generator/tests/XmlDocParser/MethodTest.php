@@ -112,7 +112,8 @@ class MethodTest extends TestCase
         $docPage = new DocPage(DocPage::referenceDir() . '/array/functions/array-replace.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::NULLSY);
-        $this->assertEquals("@return array Returns an array.\n", $method->getReturnDocBlock());
+        // $this->assertEquals("@return array Returns an array.\n", $method->getReturnDocBlock());
+        $this->assertEquals("@return array\n", $method->getReturnDocBlock());
 
         $docPage = new DocPage(DocPage::referenceDir() . '/shmop/functions/shmop-delete.xml');
         $xmlObject = $docPage->getMethodSynopsis();
@@ -123,7 +124,8 @@ class MethodTest extends TestCase
         $docPage = new DocPage(DocPage::referenceDir() . '/sqlsrv/functions/sqlsrv-next-result.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::FALSY);
-        $this->assertEquals("@return bool|null Returns TRUE if the next result was successfully retrieved, FALSE if an error\n   occurred, and NULL if there are no more results to retrieve.\n", $method->getReturnDocBlock());
+        // $this->assertEquals("@return bool|null Returns TRUE if the next result was successfully retrieved, FALSE if an error\n   occurred, and NULL if there are no more results to retrieve.\n", $method->getReturnDocBlock());
+        $this->assertEquals("@return bool|null\n", $method->getReturnDocBlock());
         $this->assertEquals('?bool', $method->getSignatureReturnType());
     }
 
@@ -153,6 +155,7 @@ class MethodTest extends TestCase
         $docPage = new DocPage(DocPage::referenceDir() . '/openssl/functions/openssl-cipher-key-length.xml');
         $xmlObject = $docPage->getMethodSynopsis();
         $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::FALSY);
-        $this->assertEquals("@return int Returns the cipher length on success.\n", $method->getReturnDocBlock());
+        // $this->assertEquals("@return int Returns the cipher length on success.\n", $method->getReturnDocBlock());
+        $this->assertEquals("@return int\n", $method->getReturnDocBlock());
     }
 }

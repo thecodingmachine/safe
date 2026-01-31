@@ -5,9 +5,7 @@ namespace Safe;
 use Safe\Exceptions\RpminfoException;
 
 /**
- * Add an additional retrieved tag in subsequent queries.
- *
- * @param int $tag One of RPMTAG_* constant, see the rpminfo constants page.
+ * @param int $tag
  * @throws RpminfoException
  *
  */

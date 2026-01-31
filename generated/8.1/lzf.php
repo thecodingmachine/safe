@@ -5,11 +5,8 @@ namespace Safe;
 use Safe\Exceptions\LzfException;
 
 /**
- * lzf_compress compresses the given
- * data string using LZF encoding.
- *
- * @param string $data The string to compress.
- * @return string Returns the compressed data.
+ * @param string $data
+ * @return string
  * @throws LzfException
  *
  */
@@ -25,11 +22,8 @@ function lzf_compress(string $data): string
 
 
 /**
- * lzf_compress decompresses the given
- * data string containing lzf encoded data.
- *
- * @param string $data The compressed string.
- * @return string Returns the decompressed data.
+ * @param string $data
+ * @return string
  * @throws LzfException
  *
  */

@@ -5,16 +5,7 @@ namespace Safe;
 use Safe\Exceptions\SqlsrvException;
 
 /**
- * The transaction begun by sqlsrv_begin_transaction includes
- * all statements that were executed after the call to
- * sqlsrv_begin_transaction and before calls to
- * sqlsrv_rollback or sqlsrv_commit.
- * Explicit transactions should be started and committed or rolled back using
- * these functions instead of executing SQL statements that begin and commit/roll
- * back transactions. For more information, see
- * SQLSRV Transactions.
- *
- * @param resource $conn The connection resource returned by a call to sqlsrv_connect.
+ * @param resource $conn
  * @throws SqlsrvException
  *
  */
@@ -29,14 +20,7 @@ function sqlsrv_begin_transaction($conn): void
 
 
 /**
- * Cancels a statement. Any results associated with the statement that have not
- * been consumed are deleted. After sqlsrv_cancel has been
- * called, the specified statement can be re-executed if it was created with
- * sqlsrv_prepare. Calling sqlsrv_cancel
- * is not necessary if all the results associated with the statement have been
- * consumed.
- *
- * @param resource $stmt The statement resource to be cancelled.
+ * @param resource $stmt
  * @throws SqlsrvException
  *
  */
@@ -51,39 +35,8 @@ function sqlsrv_cancel($stmt): void
 
 
 /**
- * Returns information about the client and specified connection
- *
- * @param resource $conn The connection about which information is returned.
- * @return array Returns an associative array with keys described in the table below.
- *
- * Array returned by sqlsrv_client_info
- *
- *
- *
- * Key
- * Description
- *
- *
- *
- *
- * DriverDllName
- * SQLNCLI10.DLL
- *
- *
- * DriverODBCVer
- * ODBC version (xx.yy)
- *
- *
- * DriverVer
- * SQL Server Native Client DLL version (10.5.xxx)
- *
- *
- * ExtensionVer
- * php_sqlsrv.dll version (2.0.xxx.x)
- *
- *
- *
- *
+ * @param resource $conn
+ * @return array
  * @throws SqlsrvException
  *
  */
@@ -99,9 +52,7 @@ function sqlsrv_client_info($conn): array
 
 
 /**
- * Closes an open connection and releases resourses associated with the connection.
- *
- * @param resource $conn The connection to be closed.
+ * @param resource $conn
  * @throws SqlsrvException
  *
  */
@@ -116,16 +67,7 @@ function sqlsrv_close($conn): void
 
 
 /**
- * Commits a transaction that was begun with sqlsrv_begin_transaction.
- * The connection is returned to auto-commit mode after sqlsrv_commit
- * is called. The transaction that is committed includes all statements that were
- * executed after the call to sqlsrv_begin_transaction.
- * Explicit transactions should be started and committed or rolled back using these
- * functions instead of executing SQL statements that begin and commit/roll back
- * transactions. For more information, see
- * SQLSRV Transactions.
- *
- * @param resource $conn The connection on which the transaction is to be committed.
+ * @param resource $conn
  * @throws SqlsrvException
  *
  */
@@ -140,44 +82,8 @@ function sqlsrv_commit($conn): void
 
 
 /**
- * Changes the driver error handling and logging configurations.
- *
- * @param string $setting The name of the setting to set. The possible values are
- * "WarningsReturnAsErrors", "LogSubsystems", and "LogSeverity".
- * @param mixed $value The value of the specified setting. The following table shows possible values:
- *
- * Error and Logging Setting Options
- *
- *
- *
- * Setting
- * Options
- *
- *
- *
- *
- * WarningsReturnAsErrors
- * 1 (TRUE) or 0 (FALSE)
- *
- *
- * LogSubsystems
- * SQLSRV_LOG_SYSTEM_ALL (-1)
- * SQLSRV_LOG_SYSTEM_CONN (2)
- * SQLSRV_LOG_SYSTEM_INIT (1)
- * SQLSRV_LOG_SYSTEM_OFF (0)
- * SQLSRV_LOG_SYSTEM_STMT (4)
- * SQLSRV_LOG_SYSTEM_UTIL (8)
- *
- *
- * LogSeverity
- * SQLSRV_LOG_SEVERITY_ALL (-1)
- * SQLSRV_LOG_SEVERITY_ERROR (1)
- * SQLSRV_LOG_SEVERITY_NOTICE (4)
- * SQLSRV_LOG_SEVERITY_WARNING (2)
- *
- *
- *
- *
+ * @param string $setting
+ * @param mixed $value
  * @throws SqlsrvException
  *
  */
@@ -192,11 +98,7 @@ function sqlsrv_configure(string $setting, $value): void
 
 
 /**
- * Executes a statement prepared with sqlsrv_prepare. This
- * function is ideal for executing a prepared statement multiple times with
- * different parameter values.
- *
- * @param resource $stmt A statement resource returned by sqlsrv_prepare.
+ * @param resource $stmt
  * @throws SqlsrvException
  *
  */
@@ -211,29 +113,11 @@ function sqlsrv_execute($stmt): void
 
 
 /**
- * Returns the next available row of data as an associative array, a numeric
- * array, or both (the default).
- *
- * @param resource $stmt A statement resource returned by sqlsrv_query or sqlsrv_prepare.
- * @param int $fetchType A predefined constant specifying the type of array to return. Possible
- * values are SQLSRV_FETCH_ASSOC,
- * SQLSRV_FETCH_NUMERIC, and
- * SQLSRV_FETCH_BOTH (the default).
- *
- * A fetch type of SQLSRV_FETCH_ASSOC should not be used when consuming a
- * result set with multiple columns of the same name.
- * @param int $row Specifies the row to access in a result set that uses a scrollable cursor.
- * Possible values are SQLSRV_SCROLL_NEXT,
- * SQLSRV_SCROLL_PRIOR, SQLSRV_SCROLL_FIRST,
- * SQLSRV_SCROLL_LAST, SQLSRV_SCROLL_ABSOLUTE and,
- * SQLSRV_SCROLL_RELATIVE (the default). When this parameter
- * is specified, the fetchType must be explicitly defined.
- * @param int $offset Specifies the row to be accessed if the row parameter is set to
- * SQLSRV_SCROLL_ABSOLUTE or
- * SQLSRV_SCROLL_RELATIVE. Note that the first row in
- * a result set has index 0.
- * @return array|null Returns an array on success, NULL if there are no more rows to return, and
- * FALSE if an error occurs.
+ * @param resource $stmt
+ * @param int $fetchType
+ * @param int $row
+ * @param int $offset
+ * @return array|null
  * @throws SqlsrvException
  *
  */
@@ -257,34 +141,12 @@ function sqlsrv_fetch_array($stmt, ?int $fetchType = null, ?int $row = null, ?in
 
 
 /**
- * Retrieves the next row of data in a result set as an instance of the specified
- * class with properties that match the row field names and values that correspond
- * to the row field values.
- *
- * @param resource $stmt A statement resource created by sqlsrv_query or
- * sqlsrv_execute.
- * @param string $className The name of the class to instantiate. If no class name is specified,
- * stdClass is instantiated.
- * @param array $ctorParams Values passed to the constructor of the specified class. If the constructor
- * of the specified class takes parameters, the ctorParams array must be
- * supplied.
- * @param int $row The row to be accessed. This parameter can only be used if the specified
- * statement was prepared with a scrollable cursor. In that case, this parameter
- * can take on one of the following values:
- *
- * SQLSRV_SCROLL_NEXT
- * SQLSRV_SCROLL_PRIOR
- * SQLSRV_SCROLL_FIRST
- * SQLSRV_SCROLL_LAST
- * SQLSRV_SCROLL_ABSOLUTE
- * SQLSRV_SCROLL_RELATIVE
- *
- * @param int $offset Specifies the row to be accessed if the row parameter is set to
- * SQLSRV_SCROLL_ABSOLUTE or
- * SQLSRV_SCROLL_RELATIVE. Note that the first row in
- * a result set has index 0.
- * @return null|object Returns an object on success, NULL if there are no more rows to return,
- * and FALSE if an error occurs or if the specified class does not exist.
+ * @param resource $stmt
+ * @param string $className
+ * @param array $ctorParams
+ * @param int $row
+ * @param int $offset
+ * @return null|object
  * @throws SqlsrvException
  *
  */
@@ -310,28 +172,10 @@ function sqlsrv_fetch_object($stmt, ?string $className = null, ?array $ctorParam
 
 
 /**
- * Makes the next row in a result set available for reading. Use
- * sqlsrv_get_field to read the fields of the row.
- *
- * @param resource $stmt A statement resource created by executing sqlsrv_query
- * or sqlsrv_execute.
- * @param int $row The row to be accessed. This parameter can only be used if the specified
- * statement was prepared with a scrollable cursor. In that case, this parameter
- * can take on one of the following values:
- *
- * SQLSRV_SCROLL_NEXT
- * SQLSRV_SCROLL_PRIOR
- * SQLSRV_SCROLL_FIRST
- * SQLSRV_SCROLL_LAST
- * SQLSRV_SCROLL_ABSOLUTE
- * SQLSRV_SCROLL_RELATIVE
- *
- * @param int $offset Specifies the row to be accessed if the row parameter is set to
- * SQLSRV_SCROLL_ABSOLUTE or
- * SQLSRV_SCROLL_RELATIVE. Note that the first row in
- * a result set has index 0.
- * @return bool|null Returns TRUE if the next row of a result set was successfully retrieved,
- * FALSE if an error occurs, and NULL if there are no more rows in the result set.
+ * @param resource $stmt
+ * @param int $row
+ * @param int $offset
+ * @return bool|null
  * @throws SqlsrvException
  *
  */
@@ -353,15 +197,7 @@ function sqlsrv_fetch($stmt, ?int $row = null, ?int $offset = null): ?bool
 
 
 /**
- * Frees all resources for the specified statement. The statement cannot be used
- * after sqlsrv_free_stmt has been called on it. If
- * sqlsrv_free_stmt is called on an in-progress statement
- * that alters server state, statement execution is terminated and the statement
- * is rolled back.
- *
- * @param resource $stmt The statement for which resources are freed.
- * Note that NULL is a valid parameter value. This allows the function to be
- * called multiple times in a script.
+ * @param resource $stmt
  * @throws SqlsrvException
  *
  */
@@ -376,20 +212,10 @@ function sqlsrv_free_stmt($stmt): void
 
 
 /**
- * Gets field data from the currently selected row. Fields must be accessed in
- * order. Field indices start at 0.
- *
- * @param resource $stmt A statement resource returned by sqlsrv_query or
- * sqlsrv_execute.
- * @param int $fieldIndex The index of the field to be retrieved. Field indices start at 0. Fields
- * must be accessed in order. i.e. If you access field index 1, then field
- * index 0 will not be available.
- * @param int $getAsType The PHP data type for the returned field data. If this parameter is not
- * set, the field data will be returned as its default PHP data type.
- * For information about default PHP data types, see
- * Default PHP Data Types
- * in the Microsoft SQLSRV documentation.
- * @return mixed Returns data from the specified field on success.
+ * @param resource $stmt
+ * @param int $fieldIndex
+ * @param int $getAsType
+ * @return mixed
  * @throws SqlsrvException
  *
  */
@@ -409,12 +235,8 @@ function sqlsrv_get_field($stmt, int $fieldIndex, ?int $getAsType = null)
 
 
 /**
- * Makes the next result of the specified statement active. Results include result
- * sets, row counts, and output parameters.
- *
- * @param resource $stmt The statement on which the next result is being called.
- * @return bool|null Returns TRUE if the next result was successfully retrieved, FALSE if an error
- * occurred, and NULL if there are no more results to retrieve.
+ * @param resource $stmt
+ * @return bool|null
  * @throws SqlsrvException
  *
  */
@@ -430,12 +252,8 @@ function sqlsrv_next_result($stmt): ?bool
 
 
 /**
- * Retrieves the number of fields (columns) on a statement.
- *
- * @param resource $stmt The statement for which the number of fields is returned.
- * sqlsrv_num_fields can be called on a statement before
- * or after statement execution.
- * @return int Returns the number of fields on success.
+ * @param resource $stmt
+ * @return int
  * @throws SqlsrvException
  *
  */
@@ -451,19 +269,8 @@ function sqlsrv_num_fields($stmt): int
 
 
 /**
- * Retrieves the number of rows in a result set. This function requires that the
- * statement resource be created with a static or keyset cursor. For more information,
- * see sqlsrv_query, sqlsrv_prepare,
- * or Specifying a Cursor Type and Selecting Rows
- * in the Microsoft SQLSRV documentation.
- *
- * @param resource $stmt The statement for which the row count is returned. The statement resource
- * must be created with a static or keyset cursor. For more information, see
- * sqlsrv_query, sqlsrv_prepare, or
- * Specifying a Cursor Type and Selecting Rows
- * in the Microsoft SQLSRV documentation.
- * @return int Returns the number of rows retrieved on success.
- * If a forward cursor (the default) or dynamic cursor is used, FALSE is returned.
+ * @param resource $stmt
+ * @return int
  * @throws SqlsrvException
  *
  */
@@ -479,23 +286,11 @@ function sqlsrv_num_rows($stmt): int
 
 
 /**
- * Prepares a query for execution. This function is ideal for preparing a query
- * that will be executed multiple times with different parameter values.
- *
- * @param resource $conn A connection resource returned by sqlsrv_connect.
- * @param string $sql The string that defines the query to be prepared and executed.
- * @param array $params An array specifying parameter information when executing a parameterized
- * query. Array elements can be any of the following:
- *
- * A literal value
- * A PHP variable
- * An array with this structure:
- * array($value [, $direction [, $phpType [, $sqlType]]])
- *
- * The following table describes the elements in the array structure above:
- * @param array $options An array specifying query property options. The supported keys are described
- * in the following table:
- * @return mixed Returns a statement resource on success.
+ * @param resource $conn
+ * @param string $sql
+ * @param array $params
+ * @param array $options
+ * @return mixed
  * @throws SqlsrvException
  *
  */
@@ -517,22 +312,11 @@ function sqlsrv_prepare($conn, string $sql, ?array $params = null, ?array $optio
 
 
 /**
- * Prepares and executes a query.
- *
- * @param resource $conn A connection resource returned by sqlsrv_connect.
- * @param string $sql The string that defines the query to be prepared and executed.
- * @param array $params An array specifying parameter information when executing a parameterized query.
- * Array elements can be any of the following:
- *
- * A literal value
- * A PHP variable
- * An array with this structure:
- * array($value [, $direction [, $phpType [, $sqlType]]])
- *
- * The following table describes the elements in the array structure above:
- * @param array $options An array specifying query property options. The supported keys are described
- * in the following table:
- * @return mixed Returns a statement resource on success.
+ * @param resource $conn
+ * @param string $sql
+ * @param array $params
+ * @param array $options
+ * @return mixed
  * @throws SqlsrvException
  *
  */
@@ -554,10 +338,7 @@ function sqlsrv_query($conn, string $sql, ?array $params = null, ?array $options
 
 
 /**
- * Rolls back a transaction that was begun with sqlsrv_begin_transaction
- * and returns the connection to auto-commit mode.
- *
- * @param resource $conn The connection resource returned by a call to sqlsrv_connect.
+ * @param resource $conn
  * @throws SqlsrvException
  *
  */

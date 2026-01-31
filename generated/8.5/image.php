@@ -270,7 +270,7 @@ function imagearc(\GdImage $image, int $center_x, int $center_y, int $width, int
  * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @param int $quality quality is optional, and ranges from 0 (worst quality, smaller file)
  * to 100 (best quality, larger file).
- * If -1 is provided, the default value 52 is used.
+ * If -1 is provided, the default value 30 is used.
  * @param int $speed speed is optional, and ranges from 0 (slow, smaller file)
  * to 10 (fast, larger file).
  * If -1 is provided, the default value 6 is used.
@@ -1120,10 +1120,8 @@ function imagedashedline(\GdImage $image, int $x1, int $y1, int $x2, int $y2, in
 
 
 /**
- * Prior to PHP 8.0.0, imagedestroy freed any memory
- * associated with the image resource. As of 8.0.0,
- * the GD extension uses objects instead of resources, and objects
- * cannot be explicitly closed.
+ * Prior to PHP 8.0.0, imagedestroy freed any memory associated
+ * with image image.
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
@@ -1729,7 +1727,7 @@ function imagegammacorrect(\GdImage $image, float $input_gamma, float $output_ga
 
 
 /**
- * Outputs or saves the given image in GD format.
+ * Outputs a GD image to the given file.
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
@@ -1752,7 +1750,7 @@ function imagegd(\GdImage $image, $file = null): void
 
 
 /**
- * Outputs or saves the given image in GD2 format.
+ * Outputs a GD2 image to the given file.
  *
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
@@ -2831,7 +2829,6 @@ function imagewbmp(\GdImage $image, $file = null, ?int $foreground_color = null)
  * @param null|resource|string $file The path or an open stream resource (which is automatically closed after this function returns) to save the file to. If not set or NULL, the raw image stream will be output directly.
  * @param int $quality quality ranges from 0 (worst
  * quality, smaller file) to 100 (best quality, biggest file).
- * If -1 is provided, the default value 80 is used.
  * @throws ImageException
  *
  */

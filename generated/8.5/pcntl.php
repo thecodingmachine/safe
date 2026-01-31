@@ -5,29 +5,6 @@ namespace Safe;
 use Safe\Exceptions\PcntlException;
 
 /**
- *
- *
- * @param int|null $pid
- * @return array|bool
- * @throws PcntlException
- *
- */
-function pcntl_getcpuaffinity(?int $pid = null)
-{
-    error_clear_last();
-    if ($pid !== null) {
-        $safeResult = \pcntl_getcpuaffinity($pid);
-    } else {
-        $safeResult = \pcntl_getcpuaffinity();
-    }
-    if ($safeResult === false) {
-        throw PcntlException::createFromPhpError();
-    }
-    return $safeResult;
-}
-
-
-/**
  * pcntl_getpriority gets the priority of
  * process_id. Because priority levels can differ between
  * system types and kernel versions, please see your system's getpriority(2)
@@ -56,30 +33,6 @@ function pcntl_getpriority(?int $process_id = null, int $mode = PRIO_PROCESS): i
         throw PcntlException::createFromPhpError();
     }
     return $safeResult;
-}
-
-
-/**
- *
- *
- * @param int|null $pid
- * @param array $hmask
- * @throws PcntlException
- *
- */
-function pcntl_setcpuaffinity(?int $pid = null, ?array $hmask = null): void
-{
-    error_clear_last();
-    if ($hmask !== null) {
-        $safeResult = \pcntl_setcpuaffinity($pid, $hmask);
-    } elseif ($pid !== null) {
-        $safeResult = \pcntl_setcpuaffinity($pid);
-    } else {
-        $safeResult = \pcntl_setcpuaffinity();
-    }
-    if ($safeResult === false) {
-        throw PcntlException::createFromPhpError();
-    }
 }
 
 

@@ -246,7 +246,7 @@ function iconv_set_encoding(string $type, string $encoding): void
  * iconv_strlen counts the occurrences of characters
  * in the given byte sequence string on the basis of
  * the specified character set, the result of which is not necessarily
- * identical to the length of the string in bytes.
+ * identical to the length of the string in byte.
  *
  * @param string $string The string.
  * @param null|string $encoding If encoding parameter is omitted or NULL,

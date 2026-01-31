@@ -8,14 +8,16 @@ use Safe\Exceptions\ReadlineException;
  * This function adds a line to the command line history.
  *
  * @param string $prompt The line to be added in the history.
- * @return bool Always returns TRUE.
+ * @throws ReadlineException
  *
  */
-function readline_add_history(string $prompt): bool
+function readline_add_history(string $prompt): void
 {
     error_clear_last();
     $safeResult = \readline_add_history($prompt);
-    return $safeResult;
+    if ($safeResult === false) {
+        throw ReadlineException::createFromPhpError();
+    }
 }
 
 
@@ -33,28 +35,32 @@ function readline_add_history(string $prompt): bool
  * @param string $prompt The prompt message.
  * @param callable $callback The callback function takes one parameter; the
  * user input returned.
- * @return bool Always returns TRUE.
+ * @throws ReadlineException
  *
  */
-function readline_callback_handler_install(string $prompt, callable $callback): bool
+function readline_callback_handler_install(string $prompt, callable $callback): void
 {
     error_clear_last();
     $safeResult = \readline_callback_handler_install($prompt, $callback);
-    return $safeResult;
+    if ($safeResult === false) {
+        throw ReadlineException::createFromPhpError();
+    }
 }
 
 
 /**
  * This function clears the entire command line history.
  *
- * @return bool Always returns TRUE.
+ * @throws ReadlineException
  *
  */
-function readline_clear_history(): bool
+function readline_clear_history(): void
 {
     error_clear_last();
     $safeResult = \readline_clear_history();
-    return $safeResult;
+    if ($safeResult === false) {
+        throw ReadlineException::createFromPhpError();
+    }
 }
 
 

@@ -94,7 +94,7 @@ class Method
             $params = [];
             $i=1;
             foreach ($this->functionObject->methodparam as $param) {
-                $notes = $this->stripReturnFalseText($this->getStringForXPath("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[$i]//docbook:note//docbook:para"));
+                $notes = $this->stripReturnFalseText($this->getStringForXPath("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[$i]//docbook:note/"));
                 $i++;
 
                 if (preg_match('/This parameter has been removed in PHP (\d+\.\d+\.\d+)/', $notes, $matches)) {
@@ -126,13 +126,13 @@ class Method
 
     private function getDocBlock(): string
     {
-        $str = $this->stripReturnFalseText($this->getStringForXPath("//docbook:refsect1[@role='description']/docbook:para"));
+        $str = $this->stripReturnFalseText($this->getStringForXPath("//docbook:refsect1[@role='description']"));
         $str .= "\n\n";
 
         $i=1;
         foreach ($this->getParams() as $parameter) {
             $str .= '@param '.$parameter->getDocBlockType().' $'.$parameter->getParameterName().' ';
-            $str .= $this->getStringForXPath("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[$i]//docbook:para")."\n";
+            $str .= $this->getStringForXPath("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[$i]/")."\n";
             $i++;
         }
 
@@ -147,7 +147,7 @@ class Method
 
     public function getReturnDocBlock(): string
     {
-        $returnDoc = $this->getStringForXPath("//docbook:refsect1[@role='returnvalues']/docbook:para");
+        $returnDoc = $this->getStringForXPath("//docbook:refsect1[@role='returnvalues']");
         $returnDoc = $this->stripReturnFalseText($returnDoc);
 
         $bestReturnType = $this->getDocBlockReturnType();
@@ -223,7 +223,11 @@ class Method
 
     private function getStringForXPath(string $xpath): string
     {
-        $paragraphs = $this->rootEntity->xpath($xpath);
+		// Some doc blocks put their text inside para, some simpara
+        $paragraphs = $this->rootEntity->xpath($xpath . "/docbook:para");
+        if ($paragraphs === []) {
+            $paragraphs = $this->rootEntity->xpath($xpath . "/docbook:simpara");
+        }
         if ($paragraphs === false || $paragraphs === null) {
             throw new \RuntimeException('Error while performing Xpath request.');
         }

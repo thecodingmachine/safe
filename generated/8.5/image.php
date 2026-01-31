@@ -1076,8 +1076,10 @@ function imagecrop(\GdImage $image, array $rectangle): \GdImage
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param int $mode One of the following constants:
- * @param float $threshold
- * @param int $color
+ * @param float $threshold Same as IMG_CROP_TRANSPARENT.
+ * Before PHP 7.4.0, the bundled libgd fell back to IMG_CROP_SIDES,
+ * if the image had no transparent color.
+ * @param int $color Crops out a transparent background.
  * @return \GdImage Returns a cropped image object on success.
  * FALSE is also returned if the whole image was cropped.
  * @throws ImageException
@@ -2651,7 +2653,7 @@ function imagetruecolortopalette(\GdImage $image, bool $dither, int $num_colors)
  * Note that open_basedir does
  * not apply to fontfile.
  * @param string $string The string to be measured.
- * @param array $options
+ * @param array $options Same as in imagettftext.
  * @return array imagettfbbox returns an array with 8
  * elements representing four points making the bounding box of the
  * text on success and FALSE on error.
@@ -2774,7 +2776,7 @@ function imagettfbbox(float $size, float $angle, string $font_filename, string $
  *
  * If a character is used in the string which is not supported by the
  * font, a hollow rectangle will replace the character.
- * @param array $options
+ * @param array $options An array with linespacing key holding a float value.
  * @return array Returns an array with 8 elements representing four points making the
  * bounding box of the text. The order of the points is lower left, lower
  * right, upper right, upper left. The points are relative to the text

@@ -298,8 +298,6 @@ function msg_set_queue(\SysvMessageQueue $queue, array $data): void
  *
  *
  *
- *
- * Returns FALSE on failure.
  * @throws SemException
  *
  */

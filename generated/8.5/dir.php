@@ -103,11 +103,11 @@ function getcwd(): string
  * closedir, readdir, and
  * rewinddir calls.
  *
- * @param string $directory The directory path that is to be opened
+ * @param string $directory The directory path to open.
  * @param null|resource $context For a description of the context parameter,
  * refer to the streams section of
  * the manual.
- * @return resource Returns a directory handle resource on success
+ * @return resource Returns a directory handle on success
  * @throws DirException
  *
  */

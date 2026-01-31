@@ -270,7 +270,17 @@ function odbc_commit(\Odbc\Connection $odbc): void
 
 
 /**
+ * The connection id returned by this functions is needed by other
+ * ODBC functions. You can have multiple connections open at once as long as
+ * they either use different db or different credentials.
  *
+ * With some ODBC drivers, executing a complex stored procedure may
+ * fail with an error similar to: "Cannot open a cursor on a stored
+ * procedure that has anything other than a single select statement
+ * in it".  Using SQL_CUR_USE_ODBC may avoid that error. Also, some
+ * drivers don't support the optional row_number parameter in
+ * odbc_fetch_row. SQL_CUR_USE_ODBC might help
+ * in that case, too.
  *
  * @param string $dsn The database source name for the connection. Alternatively, a
  * DSN-less connection string can be used.
@@ -1001,7 +1011,14 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  *
  * @param \Odbc\Connection $odbc The ODBC connection object,
  * see odbc_connect for details.
- * @param int $type
+ * @param int $type When the type argument is SQL_BEST_ROWID,
+ * odbc_specialcolumns returns the
+ * column or columns that uniquely identify each row in the table.
+ *
+ * When the type argument is SQL_ROWVER,
+ * odbc_specialcolumns returns the column or columns in the
+ * specified table, if any, that are automatically updated by the data source
+ * when any value in the row is updated by any transaction.
  * @param string $catalog The catalog ('qualifier' in ODBC 2 parlance).
  * @param string $schema The schema ('owner' in ODBC 2 parlance).
  * @param string $table The table.

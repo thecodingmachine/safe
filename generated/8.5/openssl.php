@@ -81,11 +81,11 @@ function openssl_cms_decrypt(string $input_filename, string $output_filename, $c
  * @param int $flags Flags to be passed to CMS_sign.
  * @param int $encoding An encoding to output. One of OPENSSL_ENCODING_SMIME,
  * OPENSSL_ENCODING_DER or OPENSSL_ENCODING_PEM.
- * @param int $cipher_algo A cypher to use.
+ * @param int|string $cipher_algo A cipher to use.
  * @throws OpensslException
  *
  */
-function openssl_cms_encrypt(string $input_filename, string $output_filename, $certificate, ?array $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, int $cipher_algo = OPENSSL_CIPHER_AES_128_CBC): void
+function openssl_cms_encrypt(string $input_filename, string $output_filename, $certificate, ?array $headers, int $flags = 0, int $encoding = OPENSSL_ENCODING_SMIME, $cipher_algo = OPENSSL_CIPHER_AES_128_CBC): void
 {
     error_clear_last();
     $safeResult = \openssl_cms_encrypt($input_filename, $output_filename, $certificate, $headers, $flags, $encoding, $cipher_algo);
@@ -1471,13 +1471,18 @@ function openssl_pkey_new(?array $options = null): \OpenSSLAsymmetricKey
  * OPENSSL_SSLV23_PADDING,
  * OPENSSL_PKCS1_OAEP_PADDING,
  * OPENSSL_NO_PADDING.
+ * @param null|string $digest_algo The digest algorithm for OAEP padding, or NULL to use the default algorithm.
  * @throws OpensslException
  *
  */
-function openssl_private_decrypt(string $data, ?string &$decrypted_data, $private_key, int $padding = OPENSSL_PKCS1_PADDING): void
+function openssl_private_decrypt(string $data, ?string &$decrypted_data, $private_key, int $padding = OPENSSL_PKCS1_PADDING, ?string $digest_algo = null): void
 {
     error_clear_last();
-    $safeResult = \openssl_private_decrypt($data, $decrypted_data, $private_key, $padding);
+    if ($digest_algo !== null) {
+        $safeResult = \openssl_private_decrypt($data, $decrypted_data, $private_key, $padding, $digest_algo);
+    } else {
+        $safeResult = \openssl_private_decrypt($data, $decrypted_data, $private_key, $padding);
+    }
     if ($safeResult === false) {
         throw OpensslException::createFromPhpError();
     }
@@ -1561,13 +1566,18 @@ function openssl_public_decrypt(string $data, ?string &$decrypted_data, $public_
  * OPENSSL_SSLV23_PADDING,
  * OPENSSL_PKCS1_OAEP_PADDING,
  * OPENSSL_NO_PADDING.
+ * @param null|string $digest_algo The digest algorithm for OAEP padding, or NULL to use the default algorithm.
  * @throws OpensslException
  *
  */
-function openssl_public_encrypt(string $data, ?string &$encrypted_data, $public_key, int $padding = OPENSSL_PKCS1_PADDING): void
+function openssl_public_encrypt(string $data, ?string &$encrypted_data, $public_key, int $padding = OPENSSL_PKCS1_PADDING, ?string $digest_algo = null): void
 {
     error_clear_last();
-    $safeResult = \openssl_public_encrypt($data, $encrypted_data, $public_key, $padding);
+    if ($digest_algo !== null) {
+        $safeResult = \openssl_public_encrypt($data, $encrypted_data, $public_key, $padding, $digest_algo);
+    } else {
+        $safeResult = \openssl_public_encrypt($data, $encrypted_data, $public_key, $padding);
+    }
     if ($safeResult === false) {
         throw OpensslException::createFromPhpError();
     }
@@ -1657,13 +1667,14 @@ function openssl_seal(string $data, ?string &$sealed_data, ?array &$encrypted_ke
  * @param int|string $algorithm int - one of these Signature Algorithms.
  *
  * string - a valid string returned by openssl_get_md_methods example, "sha256WithRSAEncryption" or "sha384".
+ * @param int $padding RSA PSS padding to use.
  * @throws OpensslException
  *
  */
-function openssl_sign(string $data, ?string &$signature, $private_key, $algorithm = OPENSSL_ALGO_SHA1): void
+function openssl_sign(string $data, ?string &$signature, $private_key, $algorithm = OPENSSL_ALGO_SHA1, int $padding = 0): void
 {
     error_clear_last();
-    $safeResult = \openssl_sign($data, $signature, $private_key, $algorithm);
+    $safeResult = \openssl_sign($data, $signature, $private_key, $algorithm, $padding);
     if ($safeResult === false) {
         throw OpensslException::createFromPhpError();
     }
@@ -1766,15 +1777,16 @@ function openssl_spki_verify(string $spki): void
  * @param int|string $algorithm int - one of these Signature Algorithms.
  *
  * string - a valid string returned by openssl_get_md_methods example, "sha1WithRSAEncryption" or "sha512".
+ * @param int $padding RSA PSS padding to use.
  * @return -1|0|1 Returns 1 if the signature is correct, 0 if it is incorrect, and
  * -1.
  * @throws OpensslException
  *
  */
-function openssl_verify(string $data, string $signature, $public_key, $algorithm = OPENSSL_ALGO_SHA1): int
+function openssl_verify(string $data, string $signature, $public_key, $algorithm = OPENSSL_ALGO_SHA1, int $padding = 0): int
 {
     error_clear_last();
-    $safeResult = \openssl_verify($data, $signature, $public_key, $algorithm);
+    $safeResult = \openssl_verify($data, $signature, $public_key, $algorithm, $padding);
     if ($safeResult === false) {
         throw OpensslException::createFromPhpError();
     }

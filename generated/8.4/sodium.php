@@ -5,13 +5,14 @@ namespace Safe;
 use Safe\Exceptions\SodiumException;
 
 /**
+ * Verify then decrypt a message with AEGIS-128L.
  *
- *
- * @param string $ciphertext
- * @param string $additional_data
- * @param string $nonce
- * @param string $key
- * @return string
+ * @param string $ciphertext Must be in the format provided by sodium_crypto_aead_aegis128l_encrypt.
+ * @param string $additional_data Additional, authenticated data. This is used in the verification of the authentication tag
+ * appended to the ciphertext, but it is not encrypted or stored in the ciphertext.
+ * @param string $nonce A number that must be only used once, per message.
+ * @param string $key Encryption key (128-bit).
+ * @return string Returns the plaintext on success.
  * @throws SodiumException
  *
  */
@@ -27,13 +28,14 @@ function sodium_crypto_aead_aegis128l_decrypt(string $ciphertext, string $additi
 
 
 /**
+ * Verify then decrypt a message with AEGIS-256.
  *
- *
- * @param string $ciphertext
- * @param string $additional_data
- * @param string $nonce
- * @param string $key
- * @return string
+ * @param string $ciphertext Must be in the format provided by sodium_crypto_aead_aegis256_encrypt.
+ * @param string $additional_data Additional, authenticated data. This is used in the verification of the authentication tag
+ * appended to the ciphertext, but it is not encrypted or stored in the ciphertext.
+ * @param string $nonce A number that must be only used once, per message.
+ * @param string $key Encryption key (256-bit).
+ * @return string Returns the plaintext on success.
  * @throws SodiumException
  *
  */

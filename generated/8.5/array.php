@@ -5,9 +5,11 @@ namespace Safe;
 use Safe\Exceptions\ArrayException;
 
 /**
+ * array_all returns TRUE, if the given
+ * callback returns TRUE for all elements.
+ * Otherwise the function returns FALSE.
  *
- *
- * @param array $array
+ * @param array $array The array that should be searched.
  * @param callable $callback The callback function to call to check each element, which must be
  *
  * boolcallback

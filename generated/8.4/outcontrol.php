@@ -242,8 +242,14 @@ function ob_get_flush(): string
  * See
  * and
  * for more details on callbacks (output handlers).
- * @param int $chunk_size
- * @param int $flags
+ * @param int $chunk_size Contents of the output buffer.
+ * @param int $flags Bitmask of
+ *
+ * PHP_OUTPUT_HANDLER_*
+ * constants
+ * .
+ * See
+ * for more details.
  * @throws OutcontrolException
  *
  */

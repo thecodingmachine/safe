@@ -237,7 +237,8 @@ function get_cfg_var(string $option)
 
 
 /**
- *
+ * Gets the current include_path
+ * configuration option value.
  *
  * @return string Returns the path, as a string.
  * @throws InfoException
@@ -278,7 +279,7 @@ function getlastmod(): int
 
 
 /**
- *
+ * Gets the group ID of the current script.
  *
  * @return int Returns the group ID of the current script.
  * @throws InfoException
@@ -332,7 +333,7 @@ function getmypid(): int
 
 
 /**
- *
+ * Gets the user ID of the current script.
  *
  * @return int Returns the user ID of the current script.
  * @throws InfoException
@@ -352,9 +353,22 @@ function getmyuid(): int
 /**
  * Parses options passed to the script.
  *
- * @param string $short_options
- * @param array $long_options
- * @param int|null $rest_index
+ * @param string $short_options Each character in this string will be used as option characters and
+ * matched against options passed to the script starting with a single
+ * hyphen (-).
+ *
+ * For example, an option string "x" recognizes an
+ * option -x.
+ *
+ * Only a-z, A-Z and 0-9 are allowed.
+ * @param array $long_options An array of options. Each element in this array will be used as option
+ * strings and matched against options passed to the script starting with
+ * two hyphens (--).
+ *
+ * For example, an longopts element "opt" recognizes an
+ * option --opt.
+ * @param int|null $rest_index If the rest_index parameter is present, then the
+ * index where argument parsing stopped will be written to this variable.
  * @return array|array|array This function will return an array of option / argument pairs.
  * @throws InfoException
  *
@@ -439,7 +453,11 @@ function ini_set(string $option, $value): string
 
 
 /**
- *
+ * Returns a lowercase string that describes the type of interface
+ * (the Server API, SAPI) that PHP is using. For example, in CLI PHP this
+ * string will be "cli" whereas with Apache it may have several different
+ * values depending on the exact SAPI used. Possible values are listed
+ * below.
  *
  * @return non-empty-string Returns the interface type, as a lowercase string.
  *

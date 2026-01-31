@@ -222,14 +222,16 @@ function mb_ereg_replace_callback(string $pattern, callable $callback, string $s
 
 
 /**
- *
+ * Scans string for matches to
+ * pattern, then replaces the matched text
+ * with replacement
  *
  * @param string $pattern The regular expression pattern.
  *
  * Multibyte characters may be used in pattern.
  * @param string $replacement The replacement text.
  * @param string $string The string being checked.
- * @param null|string $options
+ * @param null|string $options The search option. See mb_regex_set_options for explanation.
  * @return null|string The resultant string on success.
  * If string is not valid for the current encoding, NULL
  * is returned.
@@ -252,9 +254,17 @@ function mb_ereg_replace(string $pattern, string $replacement, string $string, ?
 
 
 /**
+ * Retrieve the result from the last multibyte regular expression match
  *
- *
- * @return array
+ * @return array An array
+ * including the sub-string of matched part by last
+ * mb_ereg_search,
+ * mb_ereg_search_pos,
+ * mb_ereg_search_regs. If there are some
+ * matches, the first element will have the matched sub-string, the
+ * second element will have the first part grouped with brackets,
+ * the third element will have the second part grouped with
+ * brackets, and so on. It returns FALSE on error.
  * @throws MbstringException
  *
  */
@@ -304,7 +314,12 @@ function mb_ereg_search_init(string $string, ?string $pattern = null, ?string $o
  *
  * @param null|string $pattern The search pattern.
  * @param null|string $options The search option. See mb_regex_set_options for explanation.
- * @return array
+ * @return array mb_ereg_search_regs executes the multibyte
+ * regular expression match, and if there are some matched part, it
+ * returns an array including substring of matched part as first
+ * element, the first grouped part with brackets as second element,
+ * the second grouped part as third element, and so on.
+ * It returns FALSE on error.
  * @throws MbstringException
  *
  */
@@ -326,7 +341,8 @@ function mb_ereg_search_regs(?string $pattern = null, ?string $options = null): 
 
 
 /**
- *
+ * mb_ereg_search_setpos sets the starting
+ * point of a match for mb_ereg_search.
  *
  * @param int $offset The position to set. If it is negative, it counts from the end of the string.
  * @throws MbstringException
@@ -343,12 +359,14 @@ function mb_ereg_search_setpos(int $offset): void
 
 
 /**
- *
+ * Scans string for matches to
+ * pattern, then replaces the matched text
+ * with replacement.
  *
  * @param string $pattern The regular expression pattern.  Multibyte characters may be used. The case will be ignored.
  * @param string $replacement The replacement text.
  * @param string $string The searched string.
- * @param null|string $options
+ * @param null|string $options The search option. See mb_regex_set_options for explanation.
  * @return string The resultant string.
  * If string is not valid for the current encoding, NULL
  * is returned.
@@ -371,7 +389,7 @@ function mb_eregi_replace(string $pattern, string $replacement, string $string, 
 
 
 /**
- *
+ * mb_get_info returns the internal setting parameters of mbstring.
  *
  * @param string $type If type is not specified or is specified as "all",
  * "internal_encoding", "http_input",
@@ -529,7 +547,11 @@ function mb_parse_str(string $string, ?array &$result): void
  * @param null|string $encoding The encoding
  * parameter is the character encoding. If it is omitted or NULL, the internal character
  * encoding value will be used.
- * @return bool|string
+ * @return bool|string If encoding is set, then
+ * Returns TRUE on success.
+ * In this case, the internal character encoding is NOT changed.
+ * If encoding is omitted, then
+ * the current character encoding name for a multibyte regex is returned.
  * @throws MbstringException
  *
  */
@@ -620,11 +642,16 @@ function mb_send_mail(string $to, string $subject, string $message, $additional_
 
 
 /**
- *
+ * Split a multibyte
+ * string using regular expression
+ * pattern and returns the result as an
+ * array.
  *
  * @param string $pattern The regular expression pattern.
  * @param string $string The string being split.
- * @param int $limit
+ * @param int $limit If optional parameter limit is specified,
+ * it will be split in limit elements as
+ * maximum.
  * @return list The result as an array.
  * @throws MbstringException
  *

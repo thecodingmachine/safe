@@ -491,7 +491,9 @@ function ldap_get_entries(\LDAP\Connection $ldap, \LDAP\Result $result): array
 /**
  * Sets value to the value of the specified option.
  *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
+ * @param \LDAP\Connection|null $ldap Either an LDAP\Connection instance, returned by
+ * ldap_connect, to get the option for that connection,
+ * or NULL to get the global option.
  * @param int $option The parameter option can be one of:
  *
  *
@@ -670,7 +672,7 @@ function ldap_get_entries(\LDAP\Connection $ldap, \LDAP\Result $result): array
  * @throws LdapException
  *
  */
-function ldap_get_option(\LDAP\Connection $ldap, int $option, &$value = null): void
+function ldap_get_option(?\LDAP\Connection $ldap, int $option, &$value = null): void
 {
     error_clear_last();
     $safeResult = \ldap_get_option($ldap, $option, $value);

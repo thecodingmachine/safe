@@ -269,13 +269,12 @@ function gzencode(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_G
  * it returns the file in an array.
  *
  * @param string $filename The file name.
- * @param int $use_include_path You can set this optional parameter to 1, if you
- * want to search for the file in the include_path too.
+ * @param int $use_include_path If set to TRUE, files in the include_path are searched for too.
  * @return list An array containing the file, one line per cell, empty lines included, and with newlines still attached.
  * @throws ZlibException
  *
  */
-function gzfile(string $filename, int $use_include_path = 0): array
+function gzfile(string $filename, int $use_include_path = false): array
 {
     error_clear_last();
     $safeResult = \gzfile($filename, $use_include_path);
@@ -353,8 +352,7 @@ function gzinflate(string $data, int $max_length = 0): string
  * (See the description of deflateInit2
  * in zlib.h for
  * more information about the strategy parameter.)
- * @param int $use_include_path You can set this optional parameter to 1, if you
- * want to search for the file in the include_path too.
+ * @param int $use_include_path If set to TRUE, files in the include_path are searched for too.
  * @return resource Returns a file pointer to the file opened, after that, everything you read
  * from this file descriptor will be transparently decompressed and what you
  * write gets compressed.
@@ -363,7 +361,7 @@ function gzinflate(string $data, int $max_length = 0): string
  * @throws ZlibException
  *
  */
-function gzopen(string $filename, string $mode, int $use_include_path = 0)
+function gzopen(string $filename, string $mode, int $use_include_path = false)
 {
     error_clear_last();
     $safeResult = \gzopen($filename, $mode, $use_include_path);
@@ -668,13 +666,14 @@ function inflate_init(int $encoding, array $options = []): \InflateContext
  *
  * @param string $filename The file name. This file will be opened from the filesystem and its
  * contents written to standard output.
- * @param int $use_include_path You can set this optional parameter to 1, if you
- * want to search for the file in the include_path too.
+ * @param int $use_include_path When set to TRUE the
+ * include_path
+ * will be used to determine which file to open.
  * @return 0|positive-int Returns the number of (uncompressed) bytes read from the file on success
  * @throws ZlibException
  *
  */
-function readgzfile(string $filename, int $use_include_path = 0): int
+function readgzfile(string $filename, int $use_include_path = false): int
 {
     error_clear_last();
     $safeResult = \readgzfile($filename, $use_include_path);

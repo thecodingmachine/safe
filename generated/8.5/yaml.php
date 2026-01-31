@@ -16,11 +16,13 @@ use Safe\Exceptions\YamlException;
  * tag =&gt; callable mappings. See
  * parse callbacks for more
  * details.
- * @return mixed Returns the value encoded in filename in appropriate
- * PHP type. If pos is -1 an
- * array will be returned with one entry for each document found
- * in the stream.
- * @throws YamlException
+ * @return mixed Returns the value encoded in filename in the appropriate
+ * PHP type.
+ *
+ * On failure, a string containing an error message is returned.
+ *
+ * If pos is -1, an array
+ * will be returned with one entry for each document found in the stream.
  *
  */
 function yaml_parse_file(string $filename, int $pos = 0, ?int &$ndocs = null, ?array $callbacks = null)
@@ -30,9 +32,6 @@ function yaml_parse_file(string $filename, int $pos = 0, ?int &$ndocs = null, ?a
         $safeResult = \yaml_parse_file($filename, $pos, $ndocs, $callbacks);
     } else {
         $safeResult = \yaml_parse_file($filename, $pos, $ndocs);
-    }
-    if ($safeResult === false) {
-        throw YamlException::createFromPhpError();
     }
     return $safeResult;
 }

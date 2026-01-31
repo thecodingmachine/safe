@@ -5,7 +5,8 @@ namespace Safe;
 use Safe\Exceptions\FunchandException;
 
 /**
- *
+ * Registers the given callback to be executed when a
+ * tick is called.
  *
  * @param callable(): void $callback The function to register.
  * @param mixed $args

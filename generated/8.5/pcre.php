@@ -320,9 +320,6 @@ function preg_grep(string $pattern, array $array, int $flags = 0): array
  *
  * If this flag is passed, unmatched subpatterns are reported as NULL;
  * otherwise they are reported as an empty string.
- *
- * If no order flag is given, PREG_PATTERN_ORDER is
- * assumed.
  * @param int $offset Orders results so that $matches[0] is an array of full
  * pattern matches, $matches[1] is an array of strings matched by
  * the first parenthesized subpattern, and so on.

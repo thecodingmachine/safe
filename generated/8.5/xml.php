@@ -7,7 +7,7 @@ use Safe\Exceptions\XmlException;
 /**
  * Frees the given XML parser.
  *
- * @param \XMLParser $parser
+ * @param \XMLParser $parser A reference to the XML parser to free.
  * @throws XmlException
  *
  */
@@ -311,7 +311,7 @@ function xml_set_default_handler(\XMLParser $parser, callable $handler): bool
  *
  *
  *
- * @param callable $end_handler
+ * @param callable $end_handler The XML parser calling the handler.
  * @return bool Always returns TRUE.
  *
  */

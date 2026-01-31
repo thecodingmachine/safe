@@ -1076,8 +1076,10 @@ function imagecrop(\GdImage $image, array $rectangle): \GdImage
  * @param \GdImage $image A GdImage object, returned by one of the image creation functions,
  * such as imagecreatetruecolor.
  * @param int $mode One of the following constants:
- * @param float $threshold
- * @param int $color
+ * @param float $threshold Same as IMG_CROP_TRANSPARENT.
+ * Before PHP 7.4.0, the bundled libgd fell back to IMG_CROP_SIDES,
+ * if the image had no transparent color.
+ * @param int $color Crops out a transparent background.
  * @return \GdImage Returns a cropped image object on success.
  * FALSE is also returned if the whole image was cropped.
  * @throws ImageException

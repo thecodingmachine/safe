@@ -269,13 +269,13 @@ function gzencode(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_G
  * it returns the file in an array.
  *
  * @param string $filename The file name.
- * @param int $use_include_path You can set this optional parameter to 1, if you
+ * @param  $use_include_path You can set this optional parameter to 1, if you
  * want to search for the file in the include_path too.
  * @return list An array containing the file, one line per cell, empty lines included, and with newlines still attached.
  * @throws ZlibException
  *
  */
-function gzfile(string $filename, int $use_include_path = 0): array
+function gzfile(string $filename, $use_include_path = 0): array
 {
     error_clear_last();
     $safeResult = \gzfile($filename, $use_include_path);
@@ -353,7 +353,7 @@ function gzinflate(string $data, int $max_length = 0): string
  * (See the description of deflateInit2
  * in zlib.h for
  * more information about the strategy parameter.)
- * @param int $use_include_path You can set this optional parameter to 1, if you
+ * @param  $use_include_path You can set this optional parameter to 1, if you
  * want to search for the file in the include_path too.
  * @return resource Returns a file pointer to the file opened, after that, everything you read
  * from this file descriptor will be transparently decompressed and what you
@@ -363,7 +363,7 @@ function gzinflate(string $data, int $max_length = 0): string
  * @throws ZlibException
  *
  */
-function gzopen(string $filename, string $mode, int $use_include_path = 0)
+function gzopen(string $filename, string $mode, $use_include_path = 0)
 {
     error_clear_last();
     $safeResult = \gzopen($filename, $mode, $use_include_path);

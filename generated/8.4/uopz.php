@@ -5,10 +5,8 @@ namespace Safe;
 use Safe\Exceptions\UopzException;
 
 /**
- * Makes class extend parent
- *
- * @param string $class The name of the class to extend
- * @param string $parent The name of the class to inherit
+ * @param string $class
+ * @param string $parent
  * @throws UopzException
  *
  */
@@ -23,8 +21,6 @@ function uopz_extend(string $class, string $parent): void
 
 
 /**
- * Makes class implement interface
- *
  * @param string $class
  * @param string $interface
  * @throws UopzException

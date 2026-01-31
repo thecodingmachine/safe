@@ -5,10 +5,8 @@ namespace Safe;
 use Safe\Exceptions\StringsException;
 
 /**
- * convert_uudecode decodes a uuencoded string.
- *
- * @param string $string The uuencoded data.
- * @return string Returns the decoded data as a string.
+ * @param string $string
+ * @return string
  * @throws StringsException
  *
  */
@@ -24,10 +22,8 @@ function convert_uudecode(string $string): string
 
 
 /**
- * Decodes a hexadecimally encoded binary string.
- *
- * @param string $string Hexadecimal representation of data.
- * @return string Returns the binary representation of the given data.
+ * @param string $string
+ * @return string
  * @throws StringsException
  *
  */
@@ -43,16 +39,9 @@ function hex2bin(string $string): string
 
 
 /**
- * Calculates the MD5 hash of the file specified by the
- * filename parameter using the
- * RSA Data Security, Inc.
- * MD5 Message-Digest Algorithm, and returns that hash.
- * The hash is a 32-character hexadecimal number.
- *
- * @param string $filename The filename
- * @param bool $binary When TRUE, returns the digest in raw binary format with a length of
- * 16.
- * @return non-falsy-string&lowercase-string Returns a string on success.
+ * @param string $filename
+ * @param bool $binary
+ * @return non-falsy-string&lowercase-string
  * @throws StringsException
  *
  */
@@ -68,15 +57,9 @@ function md5_file(string $filename, bool $binary = false): string
 
 
 /**
- * Calculates the sha1 hash of the file specified by
- * filename using the
- * US Secure Hash Algorithm 1,
- * and returns that hash. The hash is a 40-character hexadecimal number.
- *
- * @param string $filename The filename of the file to hash.
- * @param bool $binary When TRUE, returns the digest in raw binary format with a length of
- * 20.
- * @return non-falsy-string&lowercase-string Returns a string on success.
+ * @param string $filename
+ * @param bool $binary
+ * @return non-falsy-string&lowercase-string
  * @throws StringsException
  *
  */

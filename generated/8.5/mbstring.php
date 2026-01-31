@@ -5,17 +5,9 @@ namespace Safe;
 use Safe\Exceptions\MbstringException;
 
 /**
- * Returns a string containing the character specified by the Unicode code point value,
- * encoded in the specified encoding.
- *
- * This function complements mb_ord.
- *
- * @param int $codepoint A Unicode codepoint value, e.g. 128024 for U+1F418 ELEPHANT
- * @param null|string $encoding The encoding
- * parameter is the character encoding. If it is omitted or NULL, the internal character
- * encoding value will be used.
- * @return string A string containing the requested character, if it can be represented in the specified
- * encoding.
+ * @param int $codepoint
+ * @param null|string $encoding
+ * @return string
  * @throws MbstringException
  *
  */
@@ -35,26 +27,10 @@ function mb_chr(int $codepoint, ?string $encoding = null): string
 
 
 /**
- * Converts string from from_encoding,
- * or the current internal encoding, to to_encoding.
- * If string is an array, all its string values will be
- * converted recursively.
- *
- * @param array|string $string The string or array to be converted.
- * @param string $to_encoding The desired encoding of the result.
- * @param mixed $from_encoding The current encoding used to interpret string.
- * Multiple encodings may be specified as an array or comma separated
- * list, in which case the correct encoding will be guessed using the
- * same algorithm as mb_detect_encoding.
- *
- * If from_encoding is omitted or NULL, the
- * mbstring.internal_encoding setting
- * will be used if set, otherwise the default_charset setting.
- *
- * See supported encodings
- * for valid values of to_encoding
- * and from_encoding.
- * @return array|string The encoded string or array on success.
+ * @param array|string $string
+ * @param string $to_encoding
+ * @param mixed $from_encoding
+ * @return array|string
  * @throws MbstringException
  *
  */
@@ -74,27 +50,11 @@ function mb_convert_encoding($string, string $to_encoding, $from_encoding = null
 
 
 /**
- * Converts
- * character encoding of variables var and vars in
- * encoding from_encoding to encoding
- * to_encoding.
- *
- * mb_convert_variables join strings in Array
- * or Object to detect encoding, since encoding detection tends to
- * fail for short strings. Therefore, it is impossible to mix
- * encoding in single array or object.
- *
- * @param string $to_encoding The encoding that the string is being converted to.
- * @param array|string $from_encoding from_encoding is specified as an array
- * or comma separated string, it tries to detect encoding from
- * from-coding. When from_encoding
- * is omitted, detect_order is used.
- * @param array|object|string $var var is the reference to the
- * variable being converted. String, Array and Object are accepted.
- * mb_convert_variables assumes all parameters
- * have the same encoding.
- * @param array|object|string $vars Additional vars.
- * @return string The character encoding before conversion for success.
+ * @param string $to_encoding
+ * @param array|string $from_encoding
+ * @param array|object|string $var
+ * @param array|object|string $vars
+ * @return string
  * @throws MbstringException
  *
  */
@@ -110,31 +70,8 @@ function mb_convert_variables(string $to_encoding, $from_encoding, &$var, ...$va
 
 
 /**
- * Sets the automatic character
- * encoding detection order to encoding.
- *
- * @param non-empty-list|non-falsy-string|null $encoding encoding is an array or
- * comma separated list of character encoding. See supported encodings.
- *
- * If encoding is omitted or NULL, it returns
- * the current character encoding detection order as array.
- *
- * This setting affects mb_detect_encoding and
- * mb_send_mail.
- *
- * mbstring currently implements the following
- * encoding detection filters. If there is an invalid byte sequence
- * for the following encodings, encoding detection will fail.
- *
- * For ISO-8859-*, mbstring
- * always detects as ISO-8859-*.
- *
- * For UTF-16, UTF-32,
- * UCS2 and UCS4, encoding
- * detection will fail always.
- * @return bool|list When setting the encoding detection order, TRUE is returned on success.
- *
- * When getting the encoding detection order, an ordered array of the encodings is returned.
+ * @param non-empty-list|non-falsy-string|null $encoding
+ * @return bool|list
  * @throws MbstringException
  *
  */
@@ -154,10 +91,8 @@ function mb_detect_order($encoding = null)
 
 
 /**
- * Returns an array of aliases for a known encoding type.
- *
- * @param string $encoding The encoding type being checked, for aliases.
- * @return false|list Returns a numerically indexed array of encoding aliases.
+ * @param string $encoding
+ * @return false|list
  *
  */
 function mb_encoding_aliases(string $encoding)
@@ -169,36 +104,11 @@ function mb_encoding_aliases(string $encoding)
 
 
 /**
- * Scans string for matches to
- * pattern, then replaces the matched text
- * with the output of callback function.
- *
- * The behavior of this function is almost identical to mb_ereg_replace,
- * except for the fact that instead of
- * replacement parameter, one should specify a
- * callback.
- *
- * @param string $pattern The regular expression pattern.
- *
- * Multibyte characters may be used in pattern.
- * @param callable(array):string $callback A callback that will be called and passed an array of matched elements
- * in the  string string. The callback should
- * return the replacement string.
- *
- * You'll often need the callback function
- * for a mb_ereg_replace_callback in just one place.
- * In this case you can use an
- * anonymous function to
- * declare the callback within the call to
- * mb_ereg_replace_callback. By doing it this way
- * you have all information for the call in one place and do not
- * clutter the function namespace with a callback function's name
- * not used anywhere else.
- * @param string $string The string being checked.
- * @param null|string $options The search option. See mb_regex_set_options for explanation.
- * @return null|string The resultant string on success.
- * If string is not valid for the current encoding, NULL
- * is returned.
+ * @param string $pattern
+ * @param callable(array):string $callback
+ * @param string $string
+ * @param null|string $options
+ * @return null|string
  * @throws MbstringException
  *
  */
@@ -218,19 +128,11 @@ function mb_ereg_replace_callback(string $pattern, callable $callback, string $s
 
 
 /**
- * Scans string for matches to
- * pattern, then replaces the matched text
- * with replacement
- *
- * @param string $pattern The regular expression pattern.
- *
- * Multibyte characters may be used in pattern.
- * @param string $replacement The replacement text.
- * @param string $string The string being checked.
- * @param null|string $options The search option. See mb_regex_set_options for explanation.
- * @return null|string The resultant string on success.
- * If string is not valid for the current encoding, NULL
- * is returned.
+ * @param string $pattern
+ * @param string $replacement
+ * @param string $string
+ * @param null|string $options
+ * @return null|string
  * @throws MbstringException
  *
  */
@@ -250,17 +152,7 @@ function mb_ereg_replace(string $pattern, string $replacement, string $string, ?
 
 
 /**
- * Retrieve the result from the last multibyte regular expression match
- *
- * @return array An array
- * including the sub-string of matched part by last
- * mb_ereg_search,
- * mb_ereg_search_pos,
- * mb_ereg_search_regs. If there are some
- * matches, the first element will have the matched sub-string, the
- * second element will have the first part grouped with brackets,
- * the third element will have the second part grouped with
- * brackets, and so on. It returns FALSE on error.
+ * @return array
  * @throws MbstringException
  *
  */
@@ -276,16 +168,9 @@ function mb_ereg_search_getregs(): array
 
 
 /**
- * mb_ereg_search_init sets
- * string and pattern
- * for a multibyte regular expression. These values are used for
- * mb_ereg_search,
- * mb_ereg_search_pos, and
- * mb_ereg_search_regs.
- *
- * @param string $string The search string.
- * @param null|string $pattern The search pattern.
- * @param null|string $options The search option. See mb_regex_set_options for explanation.
+ * @param string $string
+ * @param null|string $pattern
+ * @param null|string $options
  * @throws MbstringException
  *
  */
@@ -306,16 +191,9 @@ function mb_ereg_search_init(string $string, ?string $pattern = null, ?string $o
 
 
 /**
- * Returns the matched part of a multibyte regular expression.
- *
- * @param null|string $pattern The search pattern.
- * @param null|string $options The search option. See mb_regex_set_options for explanation.
- * @return array mb_ereg_search_regs executes the multibyte
- * regular expression match, and if there are some matched part, it
- * returns an array including substring of matched part as first
- * element, the first grouped part with brackets as second element,
- * the second grouped part as third element, and so on.
- * It returns FALSE on error.
+ * @param null|string $pattern
+ * @param null|string $options
+ * @return array
  * @throws MbstringException
  *
  */
@@ -337,10 +215,7 @@ function mb_ereg_search_regs(?string $pattern = null, ?string $options = null): 
 
 
 /**
- * mb_ereg_search_setpos sets the starting
- * point of a match for mb_ereg_search.
- *
- * @param int $offset The position to set. If it is negative, it counts from the end of the string.
+ * @param int $offset
  * @throws MbstringException
  *
  */
@@ -355,17 +230,11 @@ function mb_ereg_search_setpos(int $offset): void
 
 
 /**
- * Scans string for matches to
- * pattern, then replaces the matched text
- * with replacement.
- *
- * @param string $pattern The regular expression pattern.  Multibyte characters may be used. The case will be ignored.
- * @param string $replacement The replacement text.
- * @param string $string The searched string.
- * @param null|string $options The search option. See mb_regex_set_options for explanation.
- * @return string The resultant string.
- * If string is not valid for the current encoding, NULL
- * is returned.
+ * @param string $pattern
+ * @param string $replacement
+ * @param string $string
+ * @param null|string $options
+ * @return string
  * @throws MbstringException
  *
  */
@@ -385,29 +254,8 @@ function mb_eregi_replace(string $pattern, string $replacement, string $string, 
 
 
 /**
- * mb_get_info returns the internal setting parameters of mbstring.
- *
- * @param string $type If type is not specified or is specified as "all",
- * "internal_encoding", "http_input",
- * "http_output", "http_output_conv_mimetypes",
- * "mail_charset", "mail_header_encoding",
- * "mail_body_encoding", "illegal_chars",
- * "encoding_translation", "language",
- * "detect_order", "substitute_character"
- * and "strict_detection"
- * will be returned.
- *
- * If type is specified as
- * "internal_encoding", "http_input",
- * "http_output", "http_output_conv_mimetypes",
- * "mail_charset", "mail_header_encoding",
- * "mail_body_encoding", "illegal_chars",
- * "encoding_translation", "language",
- * "detect_order", "substitute_character"
- * or "strict_detection"
- * the specified setting parameter will be returned.
- * @return mixed An array of type information if type
- * is not specified, otherwise a specific type.
+ * @param string $type
+ * @return mixed
  * @throws MbstringException
  *
  */
@@ -423,20 +271,8 @@ function mb_get_info(string $type = "all")
 
 
 /**
- * Set/Get the HTTP output character encoding.
- * Output after this function is called will be converted from the set internal encoding to encoding.
- *
- * @param null|string $encoding If encoding is set,
- * mb_http_output sets the HTTP output character
- * encoding to encoding.
- *
- * If encoding is omitted,
- * mb_http_output returns the current HTTP output
- * character encoding.
- * @return bool|string If encoding is omitted,
- * mb_http_output returns the current HTTP output
- * character encoding. Otherwise,
- * Returns TRUE on success.
+ * @param null|string $encoding
+ * @return bool|string
  * @throws MbstringException
  *
  */
@@ -456,18 +292,8 @@ function mb_http_output(?string $encoding = null)
 
 
 /**
- * Set/Get the internal character encoding
- *
- * @param null|string $encoding encoding is the character encoding name
- * used for the HTTP input character encoding conversion, HTTP output
- * character encoding conversion, and the default character encoding
- * for string functions defined by the mbstring module.
- * You should notice that the internal encoding is totally different from the one for multibyte regex.
- * @return bool|string If encoding is set, then
- * Returns TRUE on success.
- * In this case, the character encoding for multibyte regex is NOT changed.
- * If encoding is omitted, then
- * the current character encoding name is returned.
+ * @param null|string $encoding
+ * @return bool|string
  * @throws MbstringException
  *
  */
@@ -487,15 +313,9 @@ function mb_internal_encoding(?string $encoding = null)
 
 
 /**
- * Returns the Unicode code point value of the given character.
- *
- * This function complements mb_chr.
- *
- * @param string $string A string
- * @param null|string $encoding The encoding
- * parameter is the character encoding. If it is omitted or NULL, the internal character
- * encoding value will be used.
- * @return int The Unicode code point for the first character of string.
+ * @param string $string
+ * @param null|string $encoding
+ * @return int
  * @throws MbstringException
  *
  */
@@ -515,15 +335,8 @@ function mb_ord(string $string, ?string $encoding = null): int
 
 
 /**
- * Parses GET/POST/COOKIE data and
- * sets global variables. Since PHP does not provide raw POST/COOKIE
- * data, it can only be used for GET data for now. It parses URL
- * encoded data, detects encoding, converts coding to internal
- * encoding and set values to the result array or
- * global variables.
- *
- * @param string $string The URL encoded data.
- * @param array|null $result An array containing decoded and character encoded converted values.
+ * @param string $string
+ * @param array|null $result
  * @throws MbstringException
  *
  */
@@ -538,16 +351,8 @@ function mb_parse_str(string $string, ?array &$result): void
 
 
 /**
- * Set/Get character encoding for a multibyte regex.
- *
- * @param null|string $encoding The encoding
- * parameter is the character encoding. If it is omitted or NULL, the internal character
- * encoding value will be used.
- * @return bool|string If encoding is set, then
- * Returns TRUE on success.
- * In this case, the internal character encoding is NOT changed.
- * If encoding is omitted, then
- * the current character encoding name for a multibyte regex is returned.
+ * @param null|string $encoding
+ * @return bool|string
  * @throws MbstringException
  *
  */
@@ -567,59 +372,11 @@ function mb_regex_encoding(?string $encoding = null)
 
 
 /**
- * Sends email. Headers and messages are converted and encoded according
- * to the mb_language setting. It's a wrapper function
- * for mail, so see also mail for details.
- *
- * @param string $to The mail addresses being sent to. Multiple
- * recipients may be specified by putting a comma between each
- * address in to.
- * This parameter is not automatically encoded.
- * @param string $subject The subject of the mail.
- * @param string $message The message of the mail.
- * @param array|null|string $additional_headers String or array to be inserted at the end of the email header.
- *
- * This is typically used to add extra headers (From, Cc, and Bcc).
- * Multiple extra headers should be separated with a CRLF (\r\n).
- * Validate parameter not to be injected unwanted headers by attackers.
- *
- * If an array is passed, its keys are the header names and its
- * values are the respective header values.
- *
- * When sending mail, the mail must contain
- * a From header. This can be set with the
- * additional_headers parameter, or a default
- * can be set in php.ini.
- *
- * Failing to do this will result in an error
- * message similar to Warning: mail(): "sendmail_from" not
- * set in php.ini or custom "From:" header missing.
- * The From header sets also
- * Return-Path under Windows.
- *
- * If messages are not received, try using a LF (\n) only.
- * Some Unix mail transfer agents (most notably
- * qmail) replace LF by CRLF
- * automatically (which leads to doubling CR if CRLF is used).
- * This should be a last resort, as it does not comply with
- * RFC 2822.
- * @param null|string $additional_params additional_params is a MTA command line
- * parameter. It is useful when setting the correct Return-Path
- * header when using sendmail.
- *
- * This parameter is escaped by escapeshellcmd internally
- * to prevent command execution. escapeshellcmd prevents
- * command execution, but allows to add additional parameters. For security reason,
- * this parameter should be validated.
- *
- * Since escapeshellcmd is applied automatically, some characters
- * that are allowed as email addresses by internet RFCs cannot be used. Programs
- * that are required to use these characters mail cannot be used.
- *
- * The user that the webserver runs as should be added as a trusted user to the
- * sendmail configuration to prevent a 'X-Warning' header from being added
- * to the message when the envelope sender (-f) is set using this method.
- * For sendmail users, this file is /etc/mail/trusted-users.
+ * @param string $to
+ * @param string $subject
+ * @param string $message
+ * @param array|null|string $additional_headers
+ * @param null|string $additional_params
  * @throws MbstringException
  *
  */
@@ -638,17 +395,10 @@ function mb_send_mail(string $to, string $subject, string $message, $additional_
 
 
 /**
- * Split a multibyte
- * string using regular expression
- * pattern and returns the result as an
- * array.
- *
- * @param string $pattern The regular expression pattern.
- * @param string $string The string being split.
- * @param int $limit If optional parameter limit is specified,
- * it will be split in limit elements as
- * maximum.
- * @return list The result as an array.
+ * @param string $pattern
+ * @param string $string
+ * @param int $limit
+ * @return list
  * @throws MbstringException
  *
  */

@@ -5,15 +5,8 @@ namespace Safe;
 use Safe\Exceptions\LdapException;
 
 /**
- * Translate ISO-8859 characters to t61
- * characters.
- *
- * This function is useful if you have to talk to a legacy
- * LDAPv2 server.
- *
- * @param string $value The text to be translated.
- * @return string Return the t61 translation of
- * value.
+ * @param string $value
+ * @return string
  * @throws LdapException
  *
  */
@@ -29,21 +22,10 @@ function ldap_8859_to_t61(string $value): string
 
 
 /**
- * Add entries in the LDAP directory.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param string $dn The distinguished name of an LDAP entity.
- * @param array $entry An array that specifies the information about the entry. The values in
- * the entries are indexed by individual attributes.
- * In case of multiple values for an attribute, they are indexed using
- * integers starting with 0.
- *
- *
- *
- * ]]>
- *
- *
- * @param array|null $controls Array of LDAP Controls to send with the request.
+ * @param \LDAP\Connection $ldap
+ * @param string $dn
+ * @param array $entry
+ * @param array|null $controls
  * @throws LdapException
  *
  */
@@ -62,9 +44,7 @@ function ldap_add(\LDAP\Connection $ldap, string $dn, array $entry, ?array $cont
 
 
 /**
- * Binds to the LDAP directory with specified RDN and password.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
+ * @param \LDAP\Connection $ldap
  * @param null|string $dn
  * @param null|string $password
  * @throws LdapException
@@ -87,16 +67,12 @@ function ldap_bind(\LDAP\Connection $ldap, ?string $dn = null, ?string $password
 
 
 /**
- * Compare value of attribute
- * with value of same attribute in an LDAP directory entry.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param string $dn The distinguished name of an LDAP entity.
- * @param string $attribute The attribute name.
- * @param string $value The compared value.
- * @param array|null $controls Array of LDAP Controls to send with the request.
- * @return bool Returns TRUE if value matches otherwise returns
- * FALSE.
+ * @param \LDAP\Connection $ldap
+ * @param string $dn
+ * @param string $attribute
+ * @param string $value
+ * @param array|null $controls
+ * @return bool
  * @throws LdapException
  *
  */
@@ -116,12 +92,10 @@ function ldap_compare(\LDAP\Connection $ldap, string $dn, string $attribute, str
 
 
 /**
- * Retrieve the pagination information send by the server.
- *
- * @param resource $link An LDAP resource, returned by ldap_connect.
+ * @param resource $link
  * @param resource $result
- * @param null|string $cookie An opaque structure sent by the server.
- * @param int|null $estimated The estimated number of entries to retrieve.
+ * @param null|string $cookie
+ * @param int|null $estimated
  * @throws LdapException
  *
  */
@@ -136,15 +110,10 @@ function ldap_control_paged_result_response($link, $result, ?string &$cookie = n
 
 
 /**
- * Enable LDAP pagination by sending the pagination control (page size, cookie...).
- *
- * @param resource $link An LDAP resource, returned by ldap_connect.
- * @param int $pagesize The number of entries by page.
- * @param bool $iscritical Indicates whether the pagination is critical or not.
- * If true and if the server doesn't support pagination, the search
- * will return no result.
- * @param string $cookie An opaque structure sent by the server
- * (ldap_control_paged_result_response).
+ * @param resource $link
+ * @param int $pagesize
+ * @param bool $iscritical
+ * @param string $cookie
  * @throws LdapException
  *
  */
@@ -159,12 +128,9 @@ function ldap_control_paged_result($link, int $pagesize, bool $iscritical = fals
 
 
 /**
- * Returns the number of entries stored in the result of previous search
- * operations.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param \LDAP\Result $result An LDAP\Result instance, returned by ldap_list or ldap_search.
- * @return int Returns number of entries in the result.
+ * @param \LDAP\Connection $ldap
+ * @param \LDAP\Result $result
+ * @return int
  * @throws LdapException
  *
  */
@@ -180,11 +146,9 @@ function ldap_count_entries(\LDAP\Connection $ldap, \LDAP\Result $result): int
 
 
 /**
- * Deletes a particular entry in LDAP directory.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param string $dn The distinguished name of an LDAP entity.
- * @param array|null $controls Array of LDAP Controls to send with the request.
+ * @param \LDAP\Connection $ldap
+ * @param string $dn
+ * @param array|null $controls
  * @throws LdapException
  *
  */
@@ -203,11 +167,8 @@ function ldap_delete(\LDAP\Connection $ldap, string $dn, ?array $controls = null
 
 
 /**
- * Turns the specified dn, into a more user-friendly
- * form, stripping off type names.
- *
- * @param string $dn The distinguished name of an LDAP entity.
- * @return string Returns the user friendly name.
+ * @param string $dn
+ * @return string
  * @throws LdapException
  *
  */
@@ -223,17 +184,12 @@ function ldap_dn2ufn(string $dn): string
 
 
 /**
- * Performs a PASSWD extended operation.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param string $user dn of the user to change the password of.
- * @param string $old_password The old password of this user. May be ommited depending of server configuration.
- * @param string $new_password The new password for this user. May be omitted or empty to have a generated password.
- * @param array|null $controls If provided, a password policy request control is send with the request and this is
- * filled with an array of LDAP Controls
- * returned with the request.
- * @return bool|string Returns the generated password if new_password is empty or omitted.
- * Otherwise returns TRUE on success.
+ * @param \LDAP\Connection $ldap
+ * @param string $user
+ * @param string $old_password
+ * @param string $new_password
+ * @param array|null $controls
+ * @return bool|string
  * @throws LdapException
  *
  */
@@ -249,10 +205,8 @@ function ldap_exop_passwd(\LDAP\Connection $ldap, string $user = "", string $old
 
 
 /**
- * Performs a WHOAMI extended operation and returns the data.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @return bool|string The data returned by the server.
+ * @param \LDAP\Connection $ldap
+ * @return bool|string
  * @throws LdapException
  *
  */
@@ -268,20 +222,13 @@ function ldap_exop_whoami(\LDAP\Connection $ldap)
 
 
 /**
- * Performs an extended operation on the specified link with
- * reqoid the OID of the operation and
- * reqdata the data.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param string $reqoid The extended operation request OID. You may use one of LDAP_EXOP_START_TLS, LDAP_EXOP_MODIFY_PASSWD, LDAP_EXOP_REFRESH, LDAP_EXOP_WHO_AM_I, LDAP_EXOP_TURN, or a string with the OID of the operation you want to send.
- * @param null|string $reqdata The extended operation request data. May be NULL for some operations like LDAP_EXOP_WHO_AM_I, may also need to be BER encoded.
- * @param array|null $serverctrls Array of LDAP Controls to send with the request.
- * @param null|string $retdata Will be filled with the extended operation response data if provided.
- * If not provided you may use ldap_parse_exop on the result object
- * later to get this data.
- * @param null|string $retoid Will be filled with the response OID if provided, usually equal to the request OID.
- * @return bool|resource When used with retdata, returns TRUE on success.
- * When used without retdata, returns a result identifier.
+ * @param \LDAP\Connection $ldap
+ * @param string $reqoid
+ * @param null|string $reqdata
+ * @param array|null $serverctrls
+ * @param null|string $retdata
+ * @param null|string $retoid
+ * @return bool|resource
  * @throws LdapException
  *
  */
@@ -307,19 +254,9 @@ function ldap_exop(\LDAP\Connection $ldap, string $reqoid, ?string $reqdata = nu
 
 
 /**
- * Splits the DN returned by ldap_get_dn and breaks it
- * up into its component parts. Each part is known as Relative Distinguished
- * Name, or RDN.
- *
- * @param string $dn The distinguished name of an LDAP entity.
- * @param int $with_attrib Used to request if the RDNs are returned with only values or their
- * attributes as well.  To get RDNs with the attributes (i.e. in
- * attribute=value format) set with_attrib to 0
- * and to get only values set it to 1.
- * @return array Returns an array of all DN components.
- * The first element in the array has count key and
- * represents the number of returned values, next elements are numerically
- * indexed DN components.
+ * @param string $dn
+ * @param int $with_attrib
+ * @return array
  * @throws LdapException
  *
  */
@@ -335,16 +272,9 @@ function ldap_explode_dn(string $dn, int $with_attrib): array
 
 
 /**
- * Gets the first attribute in the given entry. Remaining attributes are
- * retrieved by calling ldap_next_attribute successively.
- *
- * Similar to reading entries, attributes are also read one by one from a
- * particular entry.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param \LDAP\ResultEntry $entry An LDAP\ResultEntry instance.
- * @return string Returns the first attribute in the entry on success and FALSE on
- * error.
+ * @param \LDAP\Connection $ldap
+ * @param \LDAP\ResultEntry $entry
+ * @return string
  * @throws LdapException
  *
  */
@@ -360,17 +290,9 @@ function ldap_first_attribute(\LDAP\Connection $ldap, \LDAP\ResultEntry $entry):
 
 
 /**
- * Returns the entry identifier for first entry in the result. This entry
- * identifier is then supplied to ldap_next_entry
- * routine to get successive entries from the result.
- *
- * Entries in the LDAP result are read sequentially using the
- * ldap_first_entry and
- * ldap_next_entry functions.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param \LDAP\Result $result An LDAP\Result instance, returned by ldap_list or ldap_search.
- * @return \LDAP\ResultEntry Returns an LDAP\ResultEntry instance.
+ * @param \LDAP\Connection $ldap
+ * @param \LDAP\Result $result
+ * @return \LDAP\ResultEntry
  * @throws LdapException
  *
  */
@@ -386,15 +308,7 @@ function ldap_first_entry(\LDAP\Connection $ldap, \LDAP\Result $result): \LDAP\R
 
 
 /**
- * Frees up the memory allocated internally to store the result. All result
- * memory will be automatically freed when the script terminates.
- *
- * Typically all the memory allocated for the LDAP result gets freed at the
- * end of the script. In case the script is making successive searches which
- * return large result sets, ldap_free_result could be
- * called to keep the runtime memory usage by the script low.
- *
- * @param \LDAP\Result $result An LDAP\Result instance, returned by ldap_list or ldap_search.
+ * @param \LDAP\Result $result
  * @throws LdapException
  *
  */
@@ -409,24 +323,9 @@ function ldap_free_result(\LDAP\Result $result): void
 
 
 /**
- * Reads attributes and values from an entry in the search result.
- *
- * Having located a specific entry in the directory, you can find out what
- * information is held for that entry by using this call. You would use this
- * call for an application which "browses" directory entries and/or where you
- * do not know the structure of the directory entries. In many applications
- * you will be searching for a specific attribute such as an email address or
- * a surname, and won't care what other data is held.
- *
- *
- *
- *
- *
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param \LDAP\ResultEntry $entry An LDAP\ResultEntry instance.
- * @return array Returns a complete entry information in a multi-dimensional array
- * on success and FALSE on error.
+ * @param \LDAP\Connection $ldap
+ * @param \LDAP\ResultEntry $entry
+ * @return array
  * @throws LdapException
  *
  */
@@ -442,11 +341,9 @@ function ldap_get_attributes(\LDAP\Connection $ldap, \LDAP\ResultEntry $entry): 
 
 
 /**
- * Finds out the DN of an entry in the result.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param \LDAP\ResultEntry $entry An LDAP\ResultEntry instance.
- * @return string Returns the DN of the result entry and FALSE on error.
+ * @param \LDAP\Connection $ldap
+ * @param \LDAP\ResultEntry $entry
+ * @return string
  * @throws LdapException
  *
  */
@@ -462,23 +359,9 @@ function ldap_get_dn(\LDAP\Connection $ldap, \LDAP\ResultEntry $entry): string
 
 
 /**
- * Reads multiple entries from the given result, and then reading the
- * attributes and multiple values.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param \LDAP\Result $result An LDAP\Result instance, returned by ldap_list or ldap_search.
- * @return array Returns a complete result information in a multi-dimensional array on
- * success.
- *
- * The structure of the array is as follows.
- * The attribute index is converted to lowercase. (Attributes are
- * case-insensitive for directory servers, but not when used as
- * array indices.)
- *
- *
- *
- *
- *
+ * @param \LDAP\Connection $ldap
+ * @param \LDAP\Result $result
+ * @return array
  * @throws LdapException
  *
  */
@@ -494,184 +377,9 @@ function ldap_get_entries(\LDAP\Connection $ldap, \LDAP\Result $result): array
 
 
 /**
- * Sets value to the value of the specified option.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param int $option The parameter option can be one of:
- *
- *
- *
- *
- * Option
- * Type
- * since
- *
- *
- *
- *
- * LDAP_OPT_DEREF
- * int
- *
- *
- *
- * LDAP_OPT_SIZELIMIT
- * int
- *
- *
- *
- * LDAP_OPT_TIMELIMIT
- * int
- *
- *
- *
- * LDAP_OPT_NETWORK_TIMEOUT
- * int
- *
- *
- *
- * LDAP_OPT_PROTOCOL_VERSION
- * int
- *
- *
- *
- * LDAP_OPT_ERROR_NUMBER
- * int
- *
- *
- *
- * LDAP_OPT_DIAGNOSTIC_MESSAGE
- * int
- *
- *
- *
- * LDAP_OPT_REFERRALS
- * int
- *
- *
- *
- * LDAP_OPT_RESTART
- * int
- *
- *
- *
- * LDAP_OPT_HOST_NAME
- * string
- *
- *
- *
- * LDAP_OPT_ERROR_STRING
- * string
- *
- *
- *
- * LDAP_OPT_MATCHED_DN
- * string
- *
- *
- *
- * LDAP_OPT_SERVER_CONTROLS
- * array
- *
- *
- *
- * LDAP_OPT_CLIENT_CONTROLS
- * array
- *
- *
- *
- * LDAP_OPT_X_KEEPALIVE_IDLE
- * int
- * 7.1
- *
- *
- * LDAP_OPT_X_KEEPALIVE_PROBES
- * int
- * 7.1
- *
- *
- * LDAP_OPT_X_KEEPALIVE_INTERVAL
- * int
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_CACERTDIR
- * string
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_CACERTFILE
- * string
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_CERTFILE
- * string
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_CIPHER_SUITE
- * string
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_CRLCHECK
- * int
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_CRL_NONE
- * int
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_CRL_PEER
- * int
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_CRL_ALL
- * int
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_CRLFILE
- * string
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_DHFILE
- * string
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_KEYFILE
- * string
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_PACKAGE
- * string
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_PROTOCOL_MIN
- * int
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_RANDOM_FILE
- * string
- * 7.1
- *
- *
- * LDAP_OPT_X_TLS_REQUIRE_CERT
- * int
- *
- *
- *
- *
- *
- * @param mixed $value This will be set to the option value.
+ * @param \LDAP\Connection $ldap
+ * @param int $option
+ * @param mixed $value
  * @throws LdapException
  *
  */
@@ -686,18 +394,10 @@ function ldap_get_option(\LDAP\Connection $ldap, int $option, &$value = null): v
 
 
 /**
- * Reads all the values of the attribute in the entry in the result.
- *
- * This function is used exactly like ldap_get_values
- * except that it handles binary data and not string data.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param \LDAP\ResultEntry $entry An LDAP\ResultEntry instance.
+ * @param \LDAP\Connection $ldap
+ * @param \LDAP\ResultEntry $entry
  * @param string $attribute
- * @return array Returns an array of values for the attribute on success and FALSE on
- * error. Individual values are accessed by integer index in the array. The
- * first index is 0. The number of values can be found by indexing "count"
- * in the resultant array.
+ * @return array
  * @throws LdapException
  *
  */
@@ -713,35 +413,10 @@ function ldap_get_values_len(\LDAP\Connection $ldap, \LDAP\ResultEntry $entry, s
 
 
 /**
- * Reads all the values of the attribute in the entry in the result.
- *
- * This call needs a entry,
- * so needs to be preceded by one of the ldap search calls and one
- * of the calls to get an individual entry.
- *
- * You application will either be hard coded to look for certain
- * attributes (such as "surname" or "mail") or you will have to use
- * the ldap_get_attributes call to work out
- * what attributes exist for a given entry.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param \LDAP\ResultEntry $entry An LDAP\ResultEntry instance.
+ * @param \LDAP\Connection $ldap
+ * @param \LDAP\ResultEntry $entry
  * @param string $attribute
- * @return array Returns an array of values for the attribute on success and FALSE on
- * error. The number of values can be found by indexing "count" in the
- * resultant array. Individual values are accessed by integer index in the
- * array.  The first index is 0.
- *
- * LDAP allows more than one entry for an attribute, so it can, for example,
- * store a number of email addresses for one person's directory entry all
- * labeled with the attribute "mail"
- *
- *
- * return_value["count"] = number of values for attribute
- * return_value[0] = first value of attribute
- * return_value[i] = ith value of attribute
- *
- *
+ * @return array
  * @throws LdapException
  *
  */
@@ -757,13 +432,10 @@ function ldap_get_values(\LDAP\Connection $ldap, \LDAP\ResultEntry $entry, strin
 
 
 /**
- * Adds one or more attribute values to the specified dn.
- * To add a whole new object see ldap_add function.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param string $dn The distinguished name of an LDAP entity.
- * @param array $entry An associative array listing the attirbute values to add. If an attribute was not existing yet it will be added. If an attribute is existing you can only add values to it if it supports multiple values.
- * @param array|null $controls Array of LDAP Controls to send with the request.
+ * @param \LDAP\Connection $ldap
+ * @param string $dn
+ * @param array $entry
+ * @param array|null $controls
  * @throws LdapException
  *
  */
@@ -782,14 +454,10 @@ function ldap_mod_add(\LDAP\Connection $ldap, string $dn, array $entry, ?array $
 
 
 /**
- * Removes one or more attribute values from the specified dn.
- * Object deletions are done by the
- * ldap_delete function.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param string $dn The distinguished name of an LDAP entity.
+ * @param \LDAP\Connection $ldap
+ * @param string $dn
  * @param array $entry
- * @param array|null $controls Array of LDAP Controls to send with the request.
+ * @param array|null $controls
  * @throws LdapException
  *
  */
@@ -808,13 +476,10 @@ function ldap_mod_del(\LDAP\Connection $ldap, string $dn, array $entry, ?array $
 
 
 /**
- * Replaces one or more attributes from the specified dn.
- * It may also add or remove attributes.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param string $dn The distinguished name of an LDAP entity.
- * @param array $entry An associative array listing the attributes to replace. Sending an empty array as value will remove the attribute, while sending an attribute not existing yet on this entry will add it.
- * @param array|null $controls Array of LDAP Controls to send with the request.
+ * @param \LDAP\Connection $ldap
+ * @param string $dn
+ * @param array $entry
+ * @param array|null $controls
  * @throws LdapException
  *
  */
@@ -833,87 +498,10 @@ function ldap_mod_replace(\LDAP\Connection $ldap, string $dn, array $entry, ?arr
 
 
 /**
- * Modifies an existing entry in the LDAP directory. Allows detailed
- * specification of the modifications to perform.
- *
- * @param \LDAP\Connection $ldap An LDAP resource, returned by ldap_connect.
- * @param string $dn The distinguished name of an LDAP entity.
- * @param array $modifications_info An array that specifies the modifications to make. Each entry in this
- * array is an associative array with two or three keys:
- * attrib maps to the name of the attribute to modify,
- * modtype maps to the type of modification to perform,
- * and (depending on the type of modification) values
- * maps to an array of attribute values relevant to the modification.
- *
- * Possible values for modtype include:
- *
- *
- * LDAP_MODIFY_BATCH_ADD
- *
- *
- * Each value specified through values is added (as
- * an additional value) to the attribute named by
- * attrib.
- *
- *
- *
- *
- * LDAP_MODIFY_BATCH_REMOVE
- *
- *
- * Each value specified through values is removed
- * from the attribute named by attrib. Any value of
- * the attribute not contained in the values array
- * will remain untouched.
- *
- *
- *
- *
- * LDAP_MODIFY_BATCH_REMOVE_ALL
- *
- *
- * All values are removed from the attribute named by
- * attrib. A values entry must
- * not be provided.
- *
- *
- *
- *
- * LDAP_MODIFY_BATCH_REPLACE
- *
- *
- * All current values of the attribute named by
- * attrib are replaced with the values specified
- * through values.
- *
- *
- *
- *
- *
- * Each value specified through values is added (as
- * an additional value) to the attribute named by
- * attrib.
- *
- * Each value specified through values is removed
- * from the attribute named by attrib. Any value of
- * the attribute not contained in the values array
- * will remain untouched.
- *
- * All values are removed from the attribute named by
- * attrib. A values entry must
- * not be provided.
- *
- * All current values of the attribute named by
- * attrib are replaced with the values specified
- * through values.
- *
- * Note that any value for attrib must be a string, any
- * value for values must be an array of strings, and
- * any value for modtype must be one of the
- * LDAP_MODIFY_BATCH_* constants listed above.
- * @param array|null $controls Each value specified through values is added (as
- * an additional value) to the attribute named by
- * attrib.
+ * @param \LDAP\Connection $ldap
+ * @param string $dn
+ * @param array $modifications_info
+ * @param array|null $controls
  * @throws LdapException
  *
  */
@@ -932,15 +520,9 @@ function ldap_modify_batch(\LDAP\Connection $ldap, string $dn, array $modificati
 
 
 /**
- * Retrieves the attributes in an entry. The first call to
- * ldap_next_attribute is made with the
- * entry returned from
- * ldap_first_attribute.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param \LDAP\ResultEntry $entry An LDAP\ResultEntry instance.
- * @return string Returns the next attribute in an entry on success and FALSE on
- * error.
+ * @param \LDAP\Connection $ldap
+ * @param \LDAP\ResultEntry $entry
+ * @return string
  * @throws LdapException
  *
  */
@@ -956,12 +538,10 @@ function ldap_next_attribute(\LDAP\Connection $ldap, \LDAP\ResultEntry $entry): 
 
 
 /**
- * Parse LDAP extended operation data from result object result
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param \LDAP\Result $result An LDAP\Result instance, returned by ldap_list or ldap_search.
- * @param null|string $response_data Will be filled by the response data.
- * @param null|string $response_oid Will be filled by the response OID.
+ * @param \LDAP\Connection $ldap
+ * @param \LDAP\Result $result
+ * @param null|string $response_data
+ * @param null|string $response_oid
  * @throws LdapException
  *
  */
@@ -976,20 +556,13 @@ function ldap_parse_exop(\LDAP\Connection $ldap, \LDAP\Result $result, ?string &
 
 
 /**
- * Parses an LDAP search result.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param \LDAP\Result $result An LDAP\Result instance, returned by ldap_list or ldap_search.
- * @param int|null $error_code A reference to a variable that will be set to the LDAP error code in
- * the result, or 0 if no error occurred.
- * @param null|string $matched_dn A reference to a variable that will be set to a matched DN if one was
- * recognised within the request, otherwise it will be set to NULL.
- * @param null|string $error_message A reference to a variable that will be set to the LDAP error message in
- * the result, or an empty string if no error occurred.
- * @param array|null $referrals A reference to a variable that will be set to an array set
- * to all of the referral strings in the result, or an empty array if no
- * referrals were returned.
- * @param array|null $controls An array of LDAP Controls which have been sent with the response.
+ * @param \LDAP\Connection $ldap
+ * @param \LDAP\Result $result
+ * @param int|null $error_code
+ * @param null|string $matched_dn
+ * @param null|string $error_message
+ * @param array|null $referrals
+ * @param array|null $controls
  * @throws LdapException
  *
  */
@@ -1004,15 +577,12 @@ function ldap_parse_result(\LDAP\Connection $ldap, \LDAP\Result $result, ?int &$
 
 
 /**
- * The entry specified by dn is renamed/moved.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param string $dn The distinguished name of an LDAP entity.
- * @param string $new_rdn The new RDN.
- * @param string $new_parent The new parent/superior entry.
- * @param bool $delete_old_rdn If TRUE the old RDN value(s) is removed, else the old RDN value(s)
- * is retained as non-distinguished values of the entry.
- * @param array|null $controls Array of LDAP Controls to send with the request.
+ * @param \LDAP\Connection $ldap
+ * @param string $dn
+ * @param string $new_rdn
+ * @param string $new_parent
+ * @param bool $delete_old_rdn
+ * @param array|null $controls
  * @throws LdapException
  *
  */
@@ -1031,8 +601,6 @@ function ldap_rename(\LDAP\Connection $ldap, string $dn, string $new_rdn, string
 
 
 /**
- *
- *
  * @param \LDAP\Connection $ldap
  * @param null|string $dn
  * @param null|string $password
@@ -1071,178 +639,9 @@ function ldap_sasl_bind(\LDAP\Connection $ldap, ?string $dn = null, ?string $pas
 
 
 /**
- * Sets the value of the specified option to be value.
- *
- * @param null|resource $ldap An LDAP\Connection instance, returned by ldap_connect.
- * @param int $option The parameter option can be one of:
- *
- *
- *
- *
- * Option
- * Type
- * Available since
- *
- *
- *
- *
- * LDAP_OPT_DEREF
- * int
- *
- *
- *
- * LDAP_OPT_SIZELIMIT
- * int
- *
- *
- *
- * LDAP_OPT_TIMELIMIT
- * int
- *
- *
- *
- * LDAP_OPT_NETWORK_TIMEOUT
- * int
- *
- *
- *
- * LDAP_OPT_PROTOCOL_VERSION
- * int
- *
- *
- *
- * LDAP_OPT_ERROR_NUMBER
- * int
- *
- *
- *
- * LDAP_OPT_REFERRALS
- * bool
- *
- *
- *
- * LDAP_OPT_RESTART
- * bool
- *
- *
- *
- * LDAP_OPT_HOST_NAME
- * string
- *
- *
- *
- * LDAP_OPT_ERROR_STRING
- * string
- *
- *
- *
- * LDAP_OPT_DIAGNOSTIC_MESSAGE
- * string
- *
- *
- *
- * LDAP_OPT_MATCHED_DN
- * string
- *
- *
- *
- * LDAP_OPT_SERVER_CONTROLS
- * array
- *
- *
- *
- * LDAP_OPT_CLIENT_CONTROLS
- * array
- *
- *
- *
- * LDAP_OPT_X_KEEPALIVE_IDLE
- * int
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_KEEPALIVE_PROBES
- * int
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_KEEPALIVE_INTERVAL
- * int
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_TLS_CACERTDIR
- * string
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_TLS_CACERTFILE
- * string
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_TLS_CERTFILE
- * string
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_TLS_CIPHER_SUITE
- * string
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_TLS_CRLCHECK
- * int
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_TLS_CRLFILE
- * string
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_TLS_DHFILE
- * string
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_TLS_KEYFILE
- * string
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_TLS_PROTOCOL_MIN
- * int
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_TLS_RANDOM_FILE
- * string
- * PHP 7.1.0
- *
- *
- * LDAP_OPT_X_TLS_REQUIRE_CERT
- * int
- * PHP 7.0.5
- *
- *
- *
- *
- *
- * LDAP_OPT_SERVER_CONTROLS and
- * LDAP_OPT_CLIENT_CONTROLS require a list of
- * controls, this means that the value must be an array of controls. A
- * control consists of an oid identifying the control,
- * an optional value, and an optional flag for
- * criticality. In PHP a control is given by an
- * array containing an element with the key oid
- * and string value, and two optional elements. The optional
- * elements are key value with string value
- * and key iscritical with boolean value.
- * iscritical defaults to FALSE
- * if not supplied. See draft-ietf-ldapext-ldap-c-api-xx.txt
- * for details. See also the second example below.
- * @param mixed $value The new value for the specified option.
+ * @param null|resource $ldap
+ * @param int $option
+ * @param mixed $value
  * @throws LdapException
  *
  */
@@ -1257,9 +656,7 @@ function ldap_set_option($ldap, int $option, $value): void
 
 
 /**
- * Unbinds from the LDAP directory.
- *
- * @param \LDAP\Connection $ldap An LDAP\Connection instance, returned by ldap_connect.
+ * @param \LDAP\Connection $ldap
  * @throws LdapException
  *
  */

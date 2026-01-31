@@ -126,14 +126,9 @@ class Method
 
     private function getDocBlock(): string
     {
-        $str = $this->stripReturnFalseText($this->getStringForXPath("//docbook:refsect1[@role='description']"));
-        $str .= "\n\n";
-
-        $i=1;
+        $str = '';
         foreach ($this->getParams() as $parameter) {
-            $str .= '@param '.$parameter->getDocBlockType().' $'.$parameter->getParameterName().' ';
-            $str .= $this->getStringForXPath("(//docbook:refsect1[@role='parameters']//docbook:varlistentry)[$i]/")."\n";
-            $i++;
+            $str .= '@param '.$parameter->getDocBlockType().' $'.$parameter->getParameterName()."\n";
         }
 
         $str .= $this->getReturnDocBlock();
@@ -147,12 +142,9 @@ class Method
 
     public function getReturnDocBlock(): string
     {
-        $returnDoc = $this->getStringForXPath("//docbook:refsect1[@role='returnvalues']");
-        $returnDoc = $this->stripReturnFalseText($returnDoc);
-
         $bestReturnType = $this->getDocBlockReturnType();
         if ($bestReturnType !== 'void') {
-            return '@return '.$bestReturnType. ' ' .$returnDoc."\n";
+            return '@return '.$bestReturnType."\n";
         }
         return '';
     }

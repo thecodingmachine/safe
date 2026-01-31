@@ -5,10 +5,8 @@ namespace Safe;
 use Safe\Exceptions\XmlrpcException;
 
 /**
- * Sets xmlrpc type, base64 or datetime, for a PHP string value.
- *
- * @param \DateTime|string $value Value to set the type
- * @param string $type 'base64' or 'datetime'
+ * @param \DateTime|string $value
+ * @param string $type
  * @throws XmlrpcException
  *
  */

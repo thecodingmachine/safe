@@ -5,11 +5,8 @@ namespace Safe;
 use Safe\Exceptions\CurlException;
 
 /**
- * Copies a cURL handle keeping the same preferences.
- *
- * @param \CurlHandle $handle A cURL handle returned by
- * curl_init.
- * @return \CurlHandle Returns a new cURL handle.
+ * @param \CurlHandle $handle
+ * @return \CurlHandle
  * @throws CurlException
  *
  */
@@ -25,12 +22,9 @@ function curl_copy_handle(\CurlHandle $handle): \CurlHandle
 
 
 /**
- * This function URL encodes the given string according to RFC 3986.
- *
- * @param \CurlHandle $handle A cURL handle returned by
- * curl_init.
- * @param string $string The string to be encoded.
- * @return string Returns escaped string.
+ * @param \CurlHandle $handle
+ * @param string $string
+ * @return string
  * @throws CurlException
  *
  */
@@ -46,18 +40,8 @@ function curl_escape(\CurlHandle $handle, string $string): string
 
 
 /**
- * Execute the given cURL session.
- *
- * This function should be called after initializing a cURL session and all
- * the options for the session are set.
- *
- * @param \CurlHandle $handle A cURL handle returned by
- * curl_init.
- * @return bool|string On success, this function flushes the result directly to the
- * stdout and returns TRUE.
- * However, if the CURLOPT_RETURNTRANSFER
- * option is set, it will return
- * the result on success.
+ * @param \CurlHandle $handle
+ * @return bool|string
  * @throws CurlException
  *
  */
@@ -73,158 +57,9 @@ function curl_exec(\CurlHandle $handle)
 
 
 /**
- * Gets information about the last transfer.
- *
- * @param \CurlHandle $handle A cURL handle returned by
- * curl_init.
- * @param int|null $option One of the CURLINFO_* constants.
- * @return mixed If option is given, returns its value.
- * Otherwise, returns an associative array with the following elements
- * (which correspond to option):
- *
- *
- *
- * "url"
- *
- *
- *
- *
- * "content_type"
- *
- *
- *
- *
- * "http_code"
- *
- *
- *
- *
- * "header_size"
- *
- *
- *
- *
- * "request_size"
- *
- *
- *
- *
- * "filetime"
- *
- *
- *
- *
- * "ssl_verify_result"
- *
- *
- *
- *
- * "redirect_count"
- *
- *
- *
- *
- * "total_time"
- *
- *
- *
- *
- * "namelookup_time"
- *
- *
- *
- *
- * "connect_time"
- *
- *
- *
- *
- * "pretransfer_time"
- *
- *
- *
- *
- * "size_upload"
- *
- *
- *
- *
- * "size_download"
- *
- *
- *
- *
- * "speed_download"
- *
- *
- *
- *
- * "speed_upload"
- *
- *
- *
- *
- * "download_content_length"
- *
- *
- *
- *
- * "upload_content_length"
- *
- *
- *
- *
- * "starttransfer_time"
- *
- *
- *
- *
- * "redirect_time"
- *
- *
- *
- *
- * "certinfo"
- *
- *
- *
- *
- * "primary_ip"
- *
- *
- *
- *
- * "primary_port"
- *
- *
- *
- *
- * "local_ip"
- *
- *
- *
- *
- * "local_port"
- *
- *
- *
- *
- * "redirect_url"
- *
- *
- *
- *
- * "request_header" (This is only set if the CURLINFO_HEADER_OUT
- * is set by a previous call to curl_setopt)
- *
- *
- *
- *
- * "posttransfer_time_us" (Available as of PHP 8.4.0 and cURL 8.10.0)
- *
- *
- *
- * Note that private data is not included in the associative array and must be retrieved individually with the CURLINFO_PRIVATE option.
+ * @param \CurlHandle $handle
+ * @param int|null $option
+ * @return mixed
  * @throws CurlException
  *
  */
@@ -244,15 +79,8 @@ function curl_getinfo(\CurlHandle $handle, ?int $option = null)
 
 
 /**
- * Initializes a new session and returns a cURL handle.
- *
- * @param null|string $url If provided, the CURLOPT_URL option will be set
- * to its value. This can be set manually using the
- * curl_setopt function.
- *
- * The file protocol is disabled by cURL if
- * open_basedir is set.
- * @return \CurlHandle Returns a cURL handle on success.
+ * @param null|string $url
+ * @return \CurlHandle
  * @throws CurlException
  *
  */
@@ -272,47 +100,9 @@ function curl_init(?string $url = null): \CurlHandle
 
 
 /**
- * Ask the multi handle if there are any messages or information from the individual transfers.
- * Messages may include information such as an error code from the transfer or just the fact
- * that a transfer is completed.
- *
- * Repeated calls to this function will return a new result each time, until a FALSE is returned
- * as a signal that there is no more to get at this point. The integer pointed to with
- * queued_messages will contain the number of remaining messages after this
- * function was called.
- *
- * @param \CurlMultiHandle $multi_handle A cURL multi handle returned by
- * curl_multi_init.
- * @param int|null $queued_messages Number of messages that are still in the queue
- * @return array On success, returns an associative array for the message.
- *
- *
- * Contents of the returned array
- *
- *
- *
- * Key:
- * Value:
- *
- *
- *
- *
- * msg
- * The CURLMSG_DONE constant. Other return values
- * are currently not available.
- *
- *
- * result
- * One of the CURLE_* constants. If everything is
- * OK, the CURLE_OK will be the result.
- *
- *
- * handle
- * Resource of type curl indicates the handle which it concerns.
- *
- *
- *
- *
+ * @param \CurlMultiHandle $multi_handle
+ * @param int|null $queued_messages
+ * @return array
  * @throws CurlException
  *
  */
@@ -328,9 +118,7 @@ function curl_multi_info_read(\CurlMultiHandle $multi_handle, ?int &$queued_mess
 
 
 /**
- * Allows the processing of multiple cURL handles asynchronously.
- *
- * @return \CurlMultiHandle Returns a cURL multi handle.
+ * @return \CurlMultiHandle
  *
  */
 function curl_multi_init(): \CurlMultiHandle
@@ -342,15 +130,9 @@ function curl_multi_init(): \CurlMultiHandle
 
 
 /**
- * Sets an option on the given cURL multi handle.
- *
- * @param \CurlMultiHandle $multi_handle A cURL multi handle returned by
- * curl_multi_init.
- * @param int $option One of the CURLMOPT_* constants.
- * @param mixed $value The value to be set on option.
- * See the description of the
- * CURLMOPT_* constants
- * for details on the type of values each constant expects.
+ * @param \CurlMultiHandle $multi_handle
+ * @param int $option
+ * @param mixed $value
  * @throws CurlException
  *
  */
@@ -365,15 +147,9 @@ function curl_multi_setopt(\CurlMultiHandle $multi_handle, int $option, $value):
 
 
 /**
- * Sets an option on the given cURL session handle.
- *
- * @param \CurlHandle $handle A cURL handle returned by
- * curl_init.
- * @param int $option The CURLOPT_* option to set.
- * @param mixed $value The value to be set on option.
- * See the description of the
- * CURLOPT_* constants
- * for details on the type of values each constant expects.
+ * @param \CurlHandle $handle
+ * @param int $option
+ * @param mixed $value
  * @throws CurlException
  *
  */
@@ -388,11 +164,8 @@ function curl_setopt(\CurlHandle $handle, int $option, $value): void
 
 
 /**
- * Return an integer containing the last share curl error number.
- *
- * @param \CurlShareHandle $share_handle A cURL share handle returned by
- * curl_share_init.
- * @return int Returns an integer containing the last share curl error number.
+ * @param \CurlShareHandle $share_handle
+ * @return int
  *
  */
 function curl_share_errno(\CurlShareHandle $share_handle): int
@@ -404,12 +177,9 @@ function curl_share_errno(\CurlShareHandle $share_handle): int
 
 
 /**
- * Sets an option on the given cURL share handle.
- *
- * @param \CurlShareHandle $share_handle A cURL share handle returned by
- * curl_share_init.
- * @param int $option One of the CURLSHOPT_* constants.
- * @param mixed $value One of the CURL_LOCK_DATA_* constants.
+ * @param \CurlShareHandle $share_handle
+ * @param int $option
+ * @param mixed $value
  * @throws CurlException
  *
  */
@@ -424,12 +194,9 @@ function curl_share_setopt(\CurlShareHandle $share_handle, int $option, $value):
 
 
 /**
- * This function decodes the given URL encoded string.
- *
- * @param \CurlHandle $handle A cURL handle returned by
- * curl_init.
- * @param string $string The URL encoded string to be decoded.
- * @return string Returns decoded string.
+ * @param \CurlHandle $handle
+ * @param string $string
+ * @return string
  * @throws CurlException
  *
  */
@@ -445,18 +212,7 @@ function curl_unescape(\CurlHandle $handle, string $string): string
 
 
 /**
- * Available if built against libcurl &gt;= 7.62.0.
- *
- * Some protocols have "connection upkeep" mechanisms.
- * These mechanisms usually send some traffic on existing connections in order to keep them alive;
- * this can prevent connections from being closed due to overzealous firewalls, for example.
- *
- * Connection upkeep is currently available only for HTTP/2 connections.
- * A small amount of traffic is usually sent to keep a connection alive.
- * HTTP/2 maintains its connection by sending a HTTP/2 PING frame.
- *
- * @param \CurlHandle $handle A cURL handle returned by
- * curl_init.
+ * @param \CurlHandle $handle
  * @throws CurlException
  *
  */

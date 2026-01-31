@@ -1087,6 +1087,7 @@ return [
     'xml_parser_free',
     'xml_parser_set_option',
     'yaml_parse',
+    'yaml_parse_file',
     'yaml_parse_url',
     'yaz_ccl_parse',
     'yaz_close',

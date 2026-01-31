@@ -176,7 +176,7 @@ function sodium_crypto_aead_chacha20poly1305_ietf_encrypt(string $message, strin
  *
  * Generally, XChaCha20-Poly1305 is the best of the provided AEAD modes to use.
  *
- * @param string $ciphertext Must be in the format provided by sodium_crypto_aead_chacha20poly1305_ietf_encrypt
+ * @param string $ciphertext Must be in the format provided by sodium_crypto_aead_xchacha20poly1305_ietf_encrypt
  * (ciphertext and tag, concatenated).
  * @param string $additional_data Additional, authenticated data. This is used in the verification of the authentication tag
  * appended to the ciphertext, but it is not encrypted or stored in the ciphertext.

@@ -817,7 +817,14 @@ function flock($stream, int $operation, ?int &$would_block = null): void
  * 'e'
  *
  * Set close-on-exec flag on the opened file descriptor. Only
- * available in PHP compiled on POSIX.1-2008 conform systems.
+ * available in PHP compiled on POSIX.1-2008 conformant systems.
+ *
+ *
+ *
+ * 'n'
+ *
+ * Set non-blocking flag on the opened file descriptor. Only
+ * available in PHP compiled on POSIX.1-2008 conformant systems.
  *
  *
  *

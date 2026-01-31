@@ -2651,7 +2651,7 @@ function imagetruecolortopalette(\GdImage $image, bool $dither, int $num_colors)
  * Note that open_basedir does
  * not apply to fontfile.
  * @param string $string The string to be measured.
- * @param array $options
+ * @param array $options Same as in imagettftext.
  * @return array imagettfbbox returns an array with 8
  * elements representing four points making the bounding box of the
  * text on success and FALSE on error.
@@ -2774,7 +2774,7 @@ function imagettfbbox(float $size, float $angle, string $font_filename, string $
  *
  * If a character is used in the string which is not supported by the
  * font, a hollow rectangle will replace the character.
- * @param array $options
+ * @param array $options An array with linespacing key holding a float value.
  * @return array Returns an array with 8 elements representing four points making the
  * bounding box of the text. The order of the points is lower left, lower
  * right, upper right, upper left. The points are relative to the text

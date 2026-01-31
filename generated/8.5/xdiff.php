@@ -234,3 +234,33 @@ function xdiff_string_patch(string $str, string $patch, ?int $flags = null, ?str
     }
     return $safeResult;
 }
+
+
+/**
+ * Makes a binary diff of two strings using the Rabin's polynomial fingerprinting algorithm implemented by
+ * libxdiff. Compared to
+ * xdiff_string_bdiff, this algorithm generally produces smaller diffs and operates faster,
+ * while remaining fully compatible with xdiff_string_bpatch and
+ * xdiff_file_bpatch for applying patches.
+ *
+ * This function can be used with both text and binary data. The resulting diff data can later be
+ * applied to recreate the new version from the old one.
+ *
+ * For further information about the algorithm, see the
+ * libxdiff documentation.
+ *
+ * @param string $old_data The first string containing the "old" binary data.
+ * @param string $new_data The second string containing the "new" binary data.
+ * @return string Returns a binary diff string containing the differences between the old and new data.
+ * @throws XdiffException
+ *
+ */
+function xdiff_string_rabdiff(string $old_data, string $new_data): string
+{
+    error_clear_last();
+    $safeResult = \xdiff_string_rabdiff($old_data, $new_data);
+    if ($safeResult === false) {
+        throw XdiffException::createFromPhpError();
+    }
+    return $safeResult;
+}

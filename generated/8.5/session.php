@@ -214,28 +214,9 @@ function session_encode(): string
 
 
 /**
- * session_gc is used to perform session data
- * GC (garbage collection). PHP does probability based session GC by
- * default.
  *
- * Probability based GC works somewhat but it has few problems. 1) Low
- * traffic sites' session data may not be deleted within the preferred
- * duration. 2) High traffic sites' GC may be too frequent GC. 3) GC is
- * performed on the user's request and the user will experience a GC
- * delay.
  *
- * Therefore, it is recommended to execute GC periodically for
- * production systems using, e.g., "cron" for UNIX-like systems.
- * Make sure to disable probability based GC by setting
- * session.gc_probability
- * to 0.
- *
- * @return int session_gc returns number of deleted session
- * data for success.
- *
- * Old save handlers do not return number of deleted session data, but
- * only success/failure flag. If this is the case, number of deleted
- * session data became 1 regardless of actually deleted data.
+ * @return int
  * @throws SessionException
  *
  */

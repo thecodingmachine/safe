@@ -249,7 +249,7 @@ function hrtime(bool $as_number = false)
  *
  *
  * Z
- * NUL-padded string
+ * NUL-terminated (ASCIIZ) string, will be NUL padded
  *
  *
  * @

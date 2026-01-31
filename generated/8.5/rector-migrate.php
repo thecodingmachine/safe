@@ -1090,6 +1090,7 @@ return static function (RectorConfig $rectorConfig): void {
             'xdiff_string_bpatch' => 'Safe\xdiff_string_bpatch',
             'xdiff_string_patch' => 'Safe\xdiff_string_patch',
             'xdiff_string_patch_binary' => 'Safe\xdiff_string_patch_binary',
+            'xdiff_string_rabdiff' => 'Safe\xdiff_string_rabdiff',
             'xmlrpc_set_type' => 'Safe\xmlrpc_set_type',
             'xml_parser_free' => 'Safe\xml_parser_free',
             'xml_parser_set_option' => 'Safe\xml_parser_set_option',

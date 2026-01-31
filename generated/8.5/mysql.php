@@ -5,6 +5,11 @@ namespace Safe;
 use Safe\Exceptions\MysqlException;
 
 /**
+ * mysql_close closes the non-persistent connection to
+ * the MySQL server that's associated with the specified link identifier. If
+ * link_identifier isn't specified, the last opened
+ * link is used.
+ *
  *
  * Open non-persistent MySQL connections and result sets are automatically destroyed when a
  * PHP script finishes its execution. So, while explicitly closing open

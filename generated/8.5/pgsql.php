@@ -138,7 +138,7 @@ function pg_convert(\PgSql\Connection $connection, string $table_name, array $va
  *
  * @param \PgSql\Connection $connection An PgSql\Connection instance.
  * @param string $table_name Name of the table into which to copy the rows.
- * @param array $rows An iterable data to be copied into table_name.
+ * @param array $rows An array of data to be copied into table_name.
  * Each value in rows becomes a row in table_name.
  * Each value in rows should be a delimited string of the values
  * to insert into each field.  Values should be linefeed terminated.

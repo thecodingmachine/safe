@@ -34,4 +34,6 @@ return [
 
 	// use_include_path is an int in 8.1-8.4 and a bool in 8.5
 	'readgzfile' => ['0|positive-int|false', 'filename'=>'string', 'use_include_path='=>''],
+	'gzfile' => ['list<string>|false', 'filename'=>'string', 'use_include_path='=>''],
+	'gzopen' => ['resource|false', 'filename'=>'string', 'mode'=>'string', 'use_include_path='=>''],
 ];

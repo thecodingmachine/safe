@@ -97,10 +97,10 @@ class GenerateCommand extends Command
         $this->checkout(DocPage::referenceDir(), "master");
 
         foreach (\array_keys($modules) as $moduleName) {
-            $fileCreator->generateVersionSplitters($moduleName, FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions));
+            $fileCreator->deduplicateAndGenerateVersionSplitters($moduleName, FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions));
             $fileCreator->createExceptionFile((string) $moduleName);
         }
-        $fileCreator->generateVersionSplitters("functionsList", FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions), true);
+        $fileCreator->deduplicateAndGenerateVersionSplitters("functionsList", FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions), true);
 
         $this->runCsFix($output);
 

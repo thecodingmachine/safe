@@ -31,4 +31,7 @@ return [
     'socket_addrinfo_connect' => ['resource|false', 'addrinfo'=>'resource'], // doesn't return null
     'socket_addrinfo_lookup' => ['AddressInfo[]|false', 'node'=>'string', 'service='=>'mixed', 'hints='=>'array'], // returns AddressInfo[], not resource[]
     'socket_create_pair' => ['bool', 'domain'=>'int', 'type'=>'int', 'protocol'=>'int', '&w_fd'=>'Socket[]'], // fd is Socket[], not resource[]
+
+	// use_include_path is an int in 8.1-8.4 and a bool in 8.5
+	'readgzfile' => ['0|positive-int|false', 'filename'=>'string', 'use_include_path='=>''],
 ];

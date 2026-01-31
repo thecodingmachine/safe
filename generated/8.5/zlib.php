@@ -668,14 +668,14 @@ function inflate_init(int $encoding, array $options = []): \InflateContext
  *
  * @param string $filename The file name. This file will be opened from the filesystem and its
  * contents written to standard output.
- * @param int $use_include_path When set to TRUE the
+ * @param  $use_include_path When set to TRUE the
  * include_path
  * will be used to determine which file to open.
  * @return 0|positive-int Returns the number of (uncompressed) bytes read from the file on success
  * @throws ZlibException
  *
  */
-function readgzfile(string $filename, int $use_include_path = false): int
+function readgzfile(string $filename, $use_include_path = false): int
 {
     error_clear_last();
     $safeResult = \readgzfile($filename, $use_include_path);

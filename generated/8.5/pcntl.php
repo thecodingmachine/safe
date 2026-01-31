@@ -5,18 +5,18 @@ namespace Safe;
 use Safe\Exceptions\PcntlException;
 
 /**
- * Retrieve the cpu affinity of the process_id.
+ * Retrieve the cpu affinity of the pid.
  *
- * @param int|null $process_id If NULL, the current process ID is used.
- * @return array Returns the cpu affinity mask of the process.
+ * @param int|null $pid If NULL, the current process ID is used.
+ * @return array|bool Returns the cpu affinity mask of the process.
  * @throws PcntlException
  *
  */
-function pcntl_getcpuaffinity(?int $process_id = null): array
+function pcntl_getcpuaffinity(?int $pid = null)
 {
     error_clear_last();
-    if ($process_id !== null) {
-        $safeResult = \pcntl_getcpuaffinity($process_id);
+    if ($pid !== null) {
+        $safeResult = \pcntl_getcpuaffinity($pid);
     } else {
         $safeResult = \pcntl_getcpuaffinity();
     }
@@ -60,21 +60,21 @@ function pcntl_getpriority(?int $process_id = null, int $mode = PRIO_PROCESS): i
 
 
 /**
- * Sets the cpu affinity for the process_id with the cpu affinity mask given by
- * cpu_ids.
+ * Sets the cpu affinity for the pid with the cpu affinity mask given by
+ * hmask.
  *
- * @param int|null $process_id If NULL, the current process ID is used.
- * @param array $cpu_ids The cpu affinity mask comprised of one or more cpu id for binding the process to.
+ * @param int|null $pid If NULL, the current process ID is used.
+ * @param array $hmask The cpu affinity mask comprised of one or more cpu id for binding the process to.
  * @throws PcntlException
  *
  */
-function pcntl_setcpuaffinity(?int $process_id = null, array $cpu_ids = []): void
+function pcntl_setcpuaffinity(?int $pid = null, ?array $hmask = null): void
 {
     error_clear_last();
-    if ($cpu_ids !== []) {
-        $safeResult = \pcntl_setcpuaffinity($process_id, $cpu_ids);
-    } elseif ($process_id !== null) {
-        $safeResult = \pcntl_setcpuaffinity($process_id);
+    if ($hmask !== null) {
+        $safeResult = \pcntl_setcpuaffinity($pid, $hmask);
+    } elseif ($pid !== null) {
+        $safeResult = \pcntl_setcpuaffinity($pid);
     } else {
         $safeResult = \pcntl_setcpuaffinity();
     }

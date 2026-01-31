@@ -60,19 +60,42 @@ use Safe\\Exceptions\\".self::toExceptionName($module). ';');
     /**
      * @param string[] $versions
      */
-    public function generateVersionSplitters(string $module, string $path, array $versions, bool $return = false): void
+    public function deduplicateAndGenerateVersionSplitters(string $module, string $path, array $versions, bool $return = false): void
     {
         $lcModule = \lcfirst($module);
+
+        // Create a map of [current_version => deduplicated_version]
+        // and delete duplicate files, eg if 8.2/ftp.php and 8.3/ftp.php
+        // are identical, delete 8.3/ftp.php and map 8.3 => 8.2
+        $fileHashes = [];
+        $versionFileMap = [];
+        foreach ($versions as $version) {
+            $filePath = "$path/$version/$lcModule.php";
+            if (file_exists($filePath)) {
+                $hash = md5_file($filePath);
+                if (isset($fileHashes[$hash])) {
+                    unlink($filePath);
+                    $versionFileMap[$version] = $fileHashes[$hash];
+                } else {
+                    $fileHashes[$hash] = $version;
+                    $versionFileMap[$version] = $version;
+                }
+            }
+        }
+
+        // Generate version splitter file
         $stream = \fopen($path.$lcModule.'.php', 'w');
         if ($stream === false) {
             throw new \RuntimeException('Unable to write to '.$path);
         }
         $return = $return ? "return " : "";
         \fwrite($stream, "<?php\n");
+
         foreach ($versions as $version) {
-            if (file_exists("$path/$version/$lcModule.php")) {
+            if (isset($versionFileMap[$version])) {
+                $targetVersion = $versionFileMap[$version];
                 \fwrite($stream, "\nif (str_starts_with(PHP_VERSION, \"$version.\")) {");
-                \fwrite($stream, "\n    {$return}require_once __DIR__ . '/$version/$lcModule.php';");
+                \fwrite($stream, "\n    {$return}require_once __DIR__ . '/$targetVersion/$lcModule.php';");
                 \fwrite($stream, "\n}");
             }
         }

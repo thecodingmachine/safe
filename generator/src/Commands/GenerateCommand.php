@@ -91,6 +91,11 @@ class GenerateCommand extends Command
             $fileCreator->generateRectorFile($res->methods, "$genDir/rector-migrate.php");
         }
 
+        // always reset docs to master, even if the most-recently-supported-version
+        // in $versions is pinned to a specific commit - this is so that at the end
+        // of a `generate` run, we don't have docs stuck in the past
+        $this->checkout(DocPage::referenceDir(), "master");
+
         foreach (\array_keys($modules) as $moduleName) {
             $fileCreator->generateVersionSplitters($moduleName, FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions));
             $fileCreator->createExceptionFile((string) $moduleName);

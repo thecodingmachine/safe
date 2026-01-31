@@ -223,7 +223,7 @@ class Method
 
     private function getStringForXPath(string $xpath): string
     {
-		// Some doc blocks put their text inside para, some simpara
+        // Some doc blocks put their text inside para, some simpara
         $paragraphs = $this->rootEntity->xpath($xpath . "/docbook:para");
         if ($paragraphs === []) {
             $paragraphs = $this->rootEntity->xpath($xpath . "/docbook:simpara");

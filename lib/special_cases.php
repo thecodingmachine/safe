@@ -514,3 +514,64 @@ function ftp_raw(\FTP\Connection $ftp, string $command): array
     }
     return $safeResult;
 }
+
+/**
+ * Creates a PHP value from a stored representation
+ *
+ * @param string $data <p>
+ * The serialized string.
+ *
+ * If the variable being unserialized is an object, after successfully
+ * reconstructing the object PHP will automatically attempt to call the
+ * __wakeup member function (if it exists).
+ *
+ * unserialize_callback_func directive
+ *
+ * It's possible to set a callback-function which will be called,
+ * if an undefined class should be instantiated during unserializing.
+ * (to prevent getting an incomplete object "__PHP_Incomplete_Class".)
+ * Use your "php.ini", ini_set or ".htaccess"
+ * to define 'unserialize_callback_func'. Everytime an undefined class
+ * should be instantiated, it'll be called. To disable this feature just
+ * empty this setting.
+ *
+ * @param mixed[] $options [optional]
+ * Any options to be provided to unserialize(), as an associative array.
+ *
+ * The 'allowed_classes' option key may be set to a value that is
+ * either an array of class names which should be accepted, FALSE to
+ * accept no classes, or TRUE to accept all classes. If this option is defined
+ * and unserialize() encounters an object of a class that isn't to be accepted,
+ * then the object will be instantiated as __PHP_Incomplete_Class instead.
+ * Omitting this option is the same as defining it as TRUE: PHP will attempt
+ * to instantiate objects of any class.
+ *
+ * @return mixed The converted value is returned, and can be a boolean,
+ * integer, float, string, array or object.
+ *
+ * In case the passed value is not unserializeable, an \ErrorException will
+ * be thrown.
+ */
+function unserialize(string $data, array $options = []): mixed
+{
+    error_clear_last();
+
+    $previous = set_error_handler(function ($severity, $message, $file, $line) use (&$previous) {
+        $unserialize_error_msg_prefix = 'unserialize():';
+        if (str_starts_with($message, $unserialize_error_msg_prefix)) {
+            throw new \ErrorException($message, 0, $severity, $file, $line);
+        }
+
+        if (!$previous) {
+            return false;
+        }
+
+        return $previous($severity, $message, $file, $line);
+    });
+
+    try {
+        return \unserialize($data, $options);
+    } finally {
+        restore_error_handler();
+    }
+}

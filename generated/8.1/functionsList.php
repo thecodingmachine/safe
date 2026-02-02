@@ -1052,6 +1052,7 @@ return [
     'unixtojd',
     'unlink',
     'unpack',
+    'unserialize',
     'uopz_extend',
     'uopz_implement',
     'variant_date_to_timestamp',

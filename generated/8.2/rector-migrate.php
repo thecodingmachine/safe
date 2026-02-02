@@ -1097,6 +1097,7 @@ return static function (RectorConfig $rectorConfig): void {
             'unixtojd' => 'Safe\unixtojd',
             'unlink' => 'Safe\unlink',
             'unpack' => 'Safe\unpack',
+            'unserialize' => 'Safe\unserialize',
             'uopz_extend' => 'Safe\uopz_extend',
             'uopz_implement' => 'Safe\uopz_implement',
             'variant_date_to_timestamp' => 'Safe\variant_date_to_timestamp',

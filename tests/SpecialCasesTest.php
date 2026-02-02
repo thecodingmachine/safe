@@ -41,6 +41,23 @@ class SpecialCasesTest extends TestCase
         \fclose($handle);
     }
 
+    public function testUnserialize(): void
+    {
+        $data = new stdClass();
+        $serialized_data = \serialize($data);
+        $this->assertEquals($data, \Safe\unserialize($serialized_data));
+
+        $serialized_data = \serialize(false);
+        $this->assertFalse(\Safe\unserialize($serialized_data));
+    }
+
+    public function testUnserializeOnInvalidData(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('unserialize(): Error at offset 0 of 8 bytes');
+        \Safe\unserialize('invalid{');
+    }
+
     /*public function testFgetcsvThrowsOnError()
     {
         if (($handle = \fopen(__DIR__."/csv/test3.csv", "r")) === false) {

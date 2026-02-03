@@ -138,7 +138,7 @@ function gzencode(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_G
  * @throws ZlibException
  *
  */
-function gzfile(string $filename, $use_include_path = 0): array
+function gzfile(string $filename, $use_include_path = false): array
 {
     error_clear_last();
     $safeResult = \gzfile($filename, $use_include_path);
@@ -197,7 +197,7 @@ function gzinflate(string $data, int $max_length = 0): string
  * @throws ZlibException
  *
  */
-function gzopen(string $filename, string $mode, $use_include_path = 0)
+function gzopen(string $filename, string $mode, $use_include_path = false)
 {
     error_clear_last();
     $safeResult = \gzopen($filename, $mode, $use_include_path);
@@ -210,17 +210,13 @@ function gzopen(string $filename, string $mode, $use_include_path = 0)
 
 /**
  * @param resource $stream
- * @return int
- * @throws ZlibException
+ * @return false|int
  *
  */
-function gzpassthru($stream): int
+function gzpassthru($stream)
 {
     error_clear_last();
     $safeResult = \gzpassthru($stream);
-    if ($safeResult === false) {
-        throw ZlibException::createFromPhpError();
-    }
     return $safeResult;
 }
 
@@ -335,17 +331,13 @@ function inflate_get_read_len(\InflateContext $context): int
 
 /**
  * @param \InflateContext $context
- * @return int
- * @throws ZlibException
+ * @return false|int
  *
  */
-function inflate_get_status(\InflateContext $context): int
+function inflate_get_status(\InflateContext $context)
 {
     error_clear_last();
     $safeResult = \inflate_get_status($context);
-    if ($safeResult === false) {
-        throw ZlibException::createFromPhpError();
-    }
     return $safeResult;
 }
 
@@ -394,7 +386,7 @@ function inflate_init(int $encoding, array $options = []): \InflateContext
  * @throws ZlibException
  *
  */
-function readgzfile(string $filename, $use_include_path = 0): int
+function readgzfile(string $filename, $use_include_path = false): int
 {
     error_clear_last();
     $safeResult = \readgzfile($filename, $use_include_path);

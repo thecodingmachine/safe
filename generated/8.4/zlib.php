@@ -133,12 +133,12 @@ function gzencode(string $data, int $level = -1, int $encoding = ZLIB_ENCODING_G
 
 /**
  * @param string $filename
- * @param int $use_include_path
+ * @param  $use_include_path
  * @return list
  * @throws ZlibException
  *
  */
-function gzfile(string $filename, int $use_include_path = 0): array
+function gzfile(string $filename, $use_include_path = 0): array
 {
     error_clear_last();
     $safeResult = \gzfile($filename, $use_include_path);
@@ -192,12 +192,12 @@ function gzinflate(string $data, int $max_length = 0): string
 /**
  * @param string $filename
  * @param string $mode
- * @param int $use_include_path
+ * @param  $use_include_path
  * @return resource
  * @throws ZlibException
  *
  */
-function gzopen(string $filename, string $mode, int $use_include_path = 0)
+function gzopen(string $filename, string $mode, $use_include_path = 0)
 {
     error_clear_last();
     $safeResult = \gzopen($filename, $mode, $use_include_path);

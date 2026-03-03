@@ -40,7 +40,7 @@ final class DownloadDocsCommand extends Command
         $this->filesystem->remove(PathHelper::docsDirectory());
         $this->filesystem->mkdir(PathHelper::docsDirectory());
 
-        $this->clone($output, 'salathe/phpdoc-base');
+        $this->clone($output, 'php/doc-base');
         $this->clone($output, 'php/doc-en');
 
         return self::SUCCESS;

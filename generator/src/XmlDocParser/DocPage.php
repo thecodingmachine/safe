@@ -187,7 +187,7 @@ class DocPage
         $file1 = \file_get_contents(PathHelper::docsDirectory() . '/php/doc-en/language-defs.ent') ?: '';
         $file2 = \file_get_contents(PathHelper::docsDirectory() . '/php/doc-en/language-snippets.ent') ?: '';
         $file3 = \file_get_contents(PathHelper::docsDirectory() . '/php/doc-en/extensions.ent') ?: '';
-        $file4 = \file_get_contents(PathHelper::docsDirectory() . '/salathe/phpdoc-base/entities/global.ent') ?: '';
+        $file4 = \file_get_contents(PathHelper::docsDirectory() . '/php/doc-base/entities/global.ent') ?: '';
 
         $completeFile = $file1 . self::extractXmlHeader($file2) . self::extractXmlHeader($file3) . $file4;
 

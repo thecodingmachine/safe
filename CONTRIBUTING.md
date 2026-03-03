@@ -96,7 +96,7 @@ $ generator/safe.php download-docs
 
 This will download the PHP documentation from the official repository.
 
-https://github.com/salathe/phpdoc-base
+https://github.com/php/doc-base
 
 https://github.com/php/doc-en
 

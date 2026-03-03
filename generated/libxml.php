@@ -16,5 +16,5 @@ if (str_starts_with(PHP_VERSION, "8.5.")) {
     require_once __DIR__ . '/8.1/libxml.php';
 }
 if (str_starts_with(PHP_VERSION, "8.6.")) {
-    require_once __DIR__ . '/8.1/libxml.php';
+    require_once __DIR__ . '/8.6/libxml.php';
 }

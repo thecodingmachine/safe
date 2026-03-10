@@ -65,6 +65,8 @@ function apcu_fetch($key)
 }
 
 /**
+ * @template TKey of array-key
+ *
  * Searches subject for matches to
  * pattern and replaces them with
  * replacement.
@@ -117,7 +119,7 @@ function apcu_fetch($key)
  * 'strlen(\'$1\')+strlen("$2")'). Make sure you are
  * aware of PHP's string
  * syntax to know exactly how the interpreted string will look.
- * @param string|array|string[] $subject The string or an array with strings to search and replace.
+ * @param string|array<TKey, string> $subject The string or an array with strings to search and replace.
  *
  * If subject is an array, then the search and
  * replace is performed on every entry of subject,
@@ -129,7 +131,7 @@ function apcu_fetch($key)
  * replacements done.
  * @param-out int $count
  *
- * @return string|array|string[] preg_replace returns an array if the
+ * @return ($subject is array ? array<TKey, string> : string) preg_replace returns an array if the
  * subject parameter is an array, or a string
  * otherwise.
  *

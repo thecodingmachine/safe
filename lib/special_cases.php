@@ -34,8 +34,8 @@ use const PREG_NO_ERROR;
  * so the generator cannot detect that it returns false on failure.
  *
  * @param string $string The image data as a string.
- * @param array|null $image_info See getimagesize.
- * @return array{0: 0|positive-int, 1: 0|positive-int, 2: int, 3: string, mime: string, channels: int, bits: int}
+ * @param array<mixed>|null $image_info See getimagesize.
+ * @return array{0: 0|positive-int, 1: 0|positive-int, 2: int, 3: string, mime: string, channels?: int, bits?: int}
  * @throws ImageException
  */
 function getimagesizefromstring(string $string, ?array &$image_info = null): array

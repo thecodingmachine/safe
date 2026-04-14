@@ -10,6 +10,7 @@ namespace Safe;
 
 use Safe\Exceptions\ExecException;
 use Safe\Exceptions\FtpException;
+use Safe\Exceptions\ImageException;
 use Safe\Exceptions\MiscException;
 use Safe\Exceptions\PosixException;
 use Safe\Exceptions\SocketsException;
@@ -22,6 +23,30 @@ use Safe\Exceptions\FilesystemException;
 use Safe\Exceptions\HashException;
 
 use const PREG_NO_ERROR;
+
+/**
+ * Identical to getimagesize except that
+ * getimagesizefromstring accepts a string instead of a file name.
+ *
+ * See getimagesize for documentation on how this function works.
+ *
+ * The PHP documentation for this function only references getimagesize,
+ * so the generator cannot detect that it returns false on failure.
+ *
+ * @param string $string The image data as a string.
+ * @param array|null $image_info See getimagesize.
+ * @return array{0: 0|positive-int, 1: 0|positive-int, 2: int, 3: string, mime: string, channels: int, bits: int}
+ * @throws ImageException
+ */
+function getimagesizefromstring(string $string, ?array &$image_info = null): array
+{
+    error_clear_last();
+    $safeResult = \getimagesizefromstring($string, $image_info);
+    if ($safeResult === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $safeResult;
+}
 
 /**
  * Wrapper for json_decode that throws when an error occurs.

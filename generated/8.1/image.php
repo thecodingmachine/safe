@@ -23,6 +23,24 @@ function getimagesize(string $filename, ?array &$image_info = null): ?array
 
 
 /**
+ * @param string $string
+ * @param array|null $image_info
+ * @return array{0: 0|positive-int, 1: 0|positive-int, 2: int, 3: string, mime: string, channels: int, bits: int}|null
+ * @throws ImageException
+ *
+ */
+function getimagesizefromstring(string $string, ?array &$image_info = null): ?array
+{
+    error_clear_last();
+    $safeResult = \getimagesizefromstring($string, $image_info);
+    if ($safeResult === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * @param int $image_type
  * @param bool $include_dot
  * @return string

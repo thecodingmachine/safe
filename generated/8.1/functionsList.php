@@ -225,6 +225,7 @@ return [
     'getcwd',
     'gethostname',
     'getimagesize',
+    'getimagesizefromstring',
     'getlastmod',
     'getmygid',
     'getmyinode',

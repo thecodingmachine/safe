@@ -57,6 +57,7 @@ return function (string $text): ErrorType {
         '/<function>mktime<\/function>\s+returns\s+the\s+Unix\s+timestamp\s+of\s+the\s+arguments\s+given./', // mktime before https://github.com/php/doc-en/pull/2651
         '/The name of the socket/', // stream_socket_get_name (PHP 8.1)
         '/&return.falseforfailure.style.procedural;/', // date_create (8.1 - 8.3)
+        '/See <function>getimagesize<\/function>/', // getimagesizefromstring
     ];
     foreach ($falsies as $falsie) {
         if (preg_match($falsie, $text)) {

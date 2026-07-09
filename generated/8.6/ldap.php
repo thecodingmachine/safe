@@ -131,16 +131,12 @@ function ldap_control_paged_result($link, int $pagesize, bool $iscritical = fals
  * @param \LDAP\Connection $ldap
  * @param \LDAP\Result $result
  * @return int
- * @throws LdapException
  *
  */
 function ldap_count_entries(\LDAP\Connection $ldap, \LDAP\Result $result): int
 {
     error_clear_last();
     $safeResult = \ldap_count_entries($ldap, $result);
-    if ($safeResult === false) {
-        throw LdapException::createFromPhpError();
-    }
     return $safeResult;
 }
 
@@ -197,6 +193,38 @@ function ldap_exop_passwd(\LDAP\Connection $ldap, string $user = "", string $old
 {
     error_clear_last();
     $safeResult = \ldap_exop_passwd($ldap, $user, $old_password, $new_password, $controls);
+    if ($safeResult === false) {
+        throw LdapException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * @param \LDAP\Connection $ldap
+ * @param string $request_oid
+ * @param null|string $request_data
+ * @param array|null $controls
+ * @param null|string $response_data
+ * @param null|string $response_oid
+ * @return \LDAP\Result|bool
+ * @throws LdapException
+ *
+ */
+function ldap_exop_sync(\LDAP\Connection $ldap, string $request_oid, ?string $request_data = null, ?array $controls = null, ?string &$response_data = null, ?string &$response_oid = null)
+{
+    error_clear_last();
+    if ($response_oid !== null) {
+        $safeResult = \ldap_exop_sync($ldap, $request_oid, $request_data, $controls, $response_data, $response_oid);
+    } elseif ($response_data !== null) {
+        $safeResult = \ldap_exop_sync($ldap, $request_oid, $request_data, $controls, $response_data);
+    } elseif ($controls !== null) {
+        $safeResult = \ldap_exop_sync($ldap, $request_oid, $request_data, $controls);
+    } elseif ($request_data !== null) {
+        $safeResult = \ldap_exop_sync($ldap, $request_oid, $request_data);
+    } else {
+        $safeResult = \ldap_exop_sync($ldap, $request_oid);
+    }
     if ($safeResult === false) {
         throw LdapException::createFromPhpError();
     }

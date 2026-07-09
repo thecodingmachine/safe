@@ -45,6 +45,7 @@
             "generated/json.php",
             "generated/ldap.php",
             "generated/libxml.php",
+            "generated/litespeed.php",
             "generated/lzf.php",
             "generated/mailparse.php",
             "generated/mbstring.php",

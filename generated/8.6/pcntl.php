@@ -72,6 +72,28 @@ function pcntl_setcpuaffinity(?int $process_id = null, array $cpu_ids = []): voi
 
 
 /**
+ * @param int|null $process_id
+ * @param int $nstype
+ * @throws PcntlException
+ *
+ */
+function pcntl_setns(?int $process_id = null, int $nstype = CLONE_NEWNET): void
+{
+    error_clear_last();
+    if ($nstype !== CLONE_NEWNET) {
+        $safeResult = \pcntl_setns($process_id, $nstype);
+    } elseif ($process_id !== null) {
+        $safeResult = \pcntl_setns($process_id);
+    } else {
+        $safeResult = \pcntl_setns();
+    }
+    if ($safeResult === false) {
+        throw PcntlException::createFromPhpError();
+    }
+}
+
+
+/**
  * @param int $priority
  * @param int|null $process_id
  * @param int $mode

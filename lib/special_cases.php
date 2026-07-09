@@ -537,7 +537,7 @@ function ftp_raw(\FTP\Connection $ftp, string $command): array
  * should be instantiated, it'll be called. To disable this feature just
  * empty this setting.
  *
- * @param mixed[] $options [optional]
+ * @param array{allowed_classes?: array<string>|bool} $options [optional]
  * Any options to be provided to unserialize(), as an associative array.
  *
  * The 'allowed_classes' option key may be set to a value that is

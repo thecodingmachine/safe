@@ -236,6 +236,7 @@ return static function (RectorConfig $rectorConfig): void {
             'getcwd' => 'Safe\getcwd',
             'gethostname' => 'Safe\gethostname',
             'getimagesize' => 'Safe\getimagesize',
+            'getimagesizefromstring' => 'Safe\getimagesizefromstring',
             'getlastmod' => 'Safe\getlastmod',
             'getmygid' => 'Safe\getmygid',
             'getmyinode' => 'Safe\getmyinode',

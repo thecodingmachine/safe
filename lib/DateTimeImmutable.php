@@ -257,6 +257,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @param mixed[] $array
      * @return DateTimeImmutable
      */
+    #[\ReturnTypeWillChange]
     public static function __set_state($array): self
     {
         return self::createFromRegular(parent::__set_state($array));

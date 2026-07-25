@@ -1088,7 +1088,7 @@ function imap_num_msg($imap_stream): int
  *
  *
  * @param int $n_retries Number of maximum connect attempts
- * @param array|null $params Connection parameters, the following (string) keys maybe used
+ * @param array $params Connection parameters, the following (string) keys maybe used
  * to set one or more connection parameters:
  *
  *
@@ -1101,7 +1101,7 @@ function imap_num_msg($imap_stream): int
  * @throws ImapException
  *
  */
-function imap_open(string $mailbox, string $username, string $password, int $options = 0, int $n_retries = 0, ?array $params = null)
+function imap_open(string $mailbox, string $username, string $password, int $options = 0, int $n_retries = 0, array $params = [])
 {
     error_clear_last();
     $result = \imap_open($mailbox, $username, $password, $options, $n_retries, $params);

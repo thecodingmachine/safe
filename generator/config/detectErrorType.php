@@ -43,10 +43,11 @@ return function (string $text): ErrorType {
         '/If a non-numeric value is used for\s+\<parameter\>timestamp\<\/parameter\>, &false; is returned/m', // date
         '/&false; is returned if\s+the image type is unsupported, the data is not in a recognised format,\s+or the image is corrupt and cannot be loaded/m', // imagecreatefromstring
         "/&false; when the given class doesn't exist/m", // class_implements
-        "/&false; on failure/m" , // get_headers and ldap_search
+        "/&false; on failure/m" , // get_headers
         "/&false; if a syntactically invalid/m", // inet_pton
         "/&false; if the pipe\s+cannot be established/m", // shell_exec
         "/&false; if an error occurs/m", // cfg_get_var
+        "/&ldap.return-result-array;/m" , // ldap_* family
         "/On failure\s+returns &false;./m", // proc_open
         "/If output buffering isn't active then &false; is returned./m", // ob_get_clean (8.1 - 8.3)
         "/If the open fails, <function>bzopen<\/function> returns &false;/m", // bzopen

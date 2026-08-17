@@ -15,6 +15,3 @@ if (str_starts_with(PHP_VERSION, "8.4.")) {
 if (str_starts_with(PHP_VERSION, "8.5.")) {
     return require_once __DIR__ . '/8.5/functionsList.php';
 }
-if (str_starts_with(PHP_VERSION, "8.6.")) {
-    return require_once __DIR__ . '/8.6/functionsList.php';
-}

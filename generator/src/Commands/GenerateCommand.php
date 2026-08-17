@@ -35,7 +35,7 @@ class GenerateCommand extends Command
         $this->rmGenerated();
 
         // Let's build the DTD necessary to load the XML files.
-        $this->checkout(DocPage::referenceDir(), "master");
+        $this->checkout(DocPage::referenceDir(), "ce397343296708654c8cdac774e23a9ee47ab27d");
         DocPage::buildEntities();
 
         // PHP documentation is a living document, which broadly reflects
@@ -49,7 +49,7 @@ class GenerateCommand extends Command
             "8.3" => "7453a50321f0834421cebea8edade14deef5466b",
             "8.4" => "d553fa36940639b0889ec4358fa3bbb92f123b69",
             "8.5" => "ce397343296708654c8cdac774e23a9ee47ab27d",
-            "8.6" => "master",
+            // "8.6" => "master",
         ];
 
         // Keep a track of which modules we have seen across all versions,

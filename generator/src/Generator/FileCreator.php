@@ -35,7 +35,7 @@ class FileCreator
         foreach ($phpFunctionsByModule as $module => $phpFunctions) {
             $lcModule = \lcfirst($module);
             if (!is_dir($path)) {
-                \mkdir($path);
+                \mkdir($path, recursive: true);
             }
             $stream = \fopen($path.$lcModule.'.php', 'w');
             if ($stream === false) {
@@ -188,6 +188,9 @@ TXT;
     {
         $exceptionName = self::toExceptionName($moduleName);
         if (!file_exists(FileCreator::getSafeRootDir() . '/lib/Exceptions/'.$exceptionName.'.php')) {
+            if (!is_dir(FileCreator::getSafeRootDir() . '/generated/Exceptions')) {
+                \mkdir(FileCreator::getSafeRootDir() . '/generated/Exceptions', recursive: true);
+            }
             \file_put_contents(
                 FileCreator::getSafeRootDir() . '/generated/Exceptions/'.$exceptionName.'.php',
                 <<<EOF

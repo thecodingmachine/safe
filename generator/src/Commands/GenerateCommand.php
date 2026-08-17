@@ -13,6 +13,7 @@ use Safe\Generator\ComposerJsonEditor;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
@@ -23,6 +24,7 @@ class GenerateCommand extends Command
         $this
             ->setName('generate')
             ->setDescription('Generates the PHP file with all functions.')
+            ->addArgument('version', InputArgument::OPTIONAL, 'The version of PHP to generate for.')
         ;
     }
 
@@ -47,6 +49,11 @@ class GenerateCommand extends Command
             "8.5" => "ce397343296708654c8cdac774e23a9ee47ab27d",
             "8.6" => "master",
         ];
+
+        $version = $input->getArgument("version");
+        if ($version) {
+            $versions = [$version => $versions[$version]];
+        }
 
         // Keep a track of which modules we have seen across all versions,
         // so that we can generate version splitters and exceptions for them.

@@ -140,11 +140,13 @@ class GenerateCommand extends Command
 
     private function rmGenerated(): void
     {
-        $finder = new Finder();
-        $finder->in(FileCreator::getSafeRootDir() . "/generated");
-        foreach ($finder as $file) {
-            if ($file->isFile()) {
-                \unlink($file->getPathname());
+        if (\file_exists(FileCreator::getSafeRootDir() . "/generated")) {
+            $finder = new Finder();
+            $finder->in(FileCreator::getSafeRootDir() . "/generated");
+            foreach ($finder as $file) {
+                if ($file->isFile()) {
+                    \unlink($file->getPathname());
+                }
             }
         }
 

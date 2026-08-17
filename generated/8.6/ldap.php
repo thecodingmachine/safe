@@ -456,6 +456,35 @@ function ldap_get_values(\LDAP\Connection $ldap, \LDAP\ResultEntry $entry, strin
 
 
 /**
+ * @param array|resource $ldap
+ * @param string $base
+ * @param string $filter
+ * @param array $attributes
+ * @param int $attributes_only
+ * @param int $sizelimit
+ * @param int $timelimit
+ * @param int $deref
+ * @param array|null $controls
+ * @return \LDAP\Result|array
+ * @throws LdapException
+ *
+ */
+function ldap_list($ldap, string $base, string $filter, array $attributes = [], int $attributes_only = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, ?array $controls = null)
+{
+    error_clear_last();
+    if ($controls !== null) {
+        $safeResult = \ldap_list($ldap, $base, $filter, $attributes, $attributes_only, $sizelimit, $timelimit, $deref, $controls);
+    } else {
+        $safeResult = \ldap_list($ldap, $base, $filter, $attributes, $attributes_only, $sizelimit, $timelimit, $deref);
+    }
+    if ($safeResult === false) {
+        throw LdapException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * @param \LDAP\Connection $ldap
  * @param string $dn
  * @param array $entry
@@ -601,6 +630,35 @@ function ldap_parse_result(\LDAP\Connection $ldap, \LDAP\Result $result, ?int &$
 
 
 /**
+ * @param array|resource $ldap
+ * @param string $base
+ * @param string $filter
+ * @param array $attributes
+ * @param int $attributes_only
+ * @param int $sizelimit
+ * @param int $timelimit
+ * @param int $deref
+ * @param array|null $controls
+ * @return \LDAP\Result|array
+ * @throws LdapException
+ *
+ */
+function ldap_read($ldap, string $base, string $filter, array $attributes = [], int $attributes_only = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, ?array $controls = null)
+{
+    error_clear_last();
+    if ($controls !== null) {
+        $safeResult = \ldap_read($ldap, $base, $filter, $attributes, $attributes_only, $sizelimit, $timelimit, $deref, $controls);
+    } else {
+        $safeResult = \ldap_read($ldap, $base, $filter, $attributes, $attributes_only, $sizelimit, $timelimit, $deref);
+    }
+    if ($safeResult === false) {
+        throw LdapException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * @param \LDAP\Connection $ldap
  * @param string $dn
  * @param string $new_rdn
@@ -659,6 +717,35 @@ function ldap_sasl_bind(\LDAP\Connection $ldap, ?string $dn = null, ?string $pas
     if ($safeResult === false) {
         throw LdapException::createFromPhpError();
     }
+}
+
+
+/**
+ * @param array|resource $ldap
+ * @param string $base
+ * @param string $filter
+ * @param array $attributes
+ * @param int $attributes_only
+ * @param int $sizelimit
+ * @param int $timelimit
+ * @param int $deref
+ * @param array|null $controls
+ * @return \LDAP\Result|array
+ * @throws LdapException
+ *
+ */
+function ldap_search($ldap, string $base, string $filter, array $attributes = [], int $attributes_only = 0, int $sizelimit = -1, int $timelimit = -1, int $deref = LDAP_DEREF_NEVER, ?array $controls = null)
+{
+    error_clear_last();
+    if ($controls !== null) {
+        $safeResult = \ldap_search($ldap, $base, $filter, $attributes, $attributes_only, $sizelimit, $timelimit, $deref, $controls);
+    } else {
+        $safeResult = \ldap_search($ldap, $base, $filter, $attributes, $attributes_only, $sizelimit, $timelimit, $deref);
+    }
+    if ($safeResult === false) {
+        throw LdapException::createFromPhpError();
+    }
+    return $safeResult;
 }
 
 

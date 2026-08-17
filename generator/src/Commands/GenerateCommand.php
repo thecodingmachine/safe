@@ -36,10 +36,6 @@ class GenerateCommand extends Command
     ): int {
         $this->rmGenerated();
 
-        // Let's build the DTD necessary to load the XML files.
-        $this->checkout(DocPage::referenceDir(), "ce397343296708654c8cdac774e23a9ee47ab27d");
-        DocPage::buildEntities();
-
         // PHP documentation is a living document, which broadly reflects
         // "the current state of PHP". There is no guarantee that any version
         // of the documentation accurately reflects the state of PHP at any
@@ -51,7 +47,7 @@ class GenerateCommand extends Command
             "8.3" => "7453a50321f0834421cebea8edade14deef5466b",
             "8.4" => "d553fa36940639b0889ec4358fa3bbb92f123b69",
             "8.5" => "ce397343296708654c8cdac774e23a9ee47ab27d",
-            // "8.6" => "master",
+            "8.6" => "master",
         ];
 
         $version = $input->getArgument("version");
@@ -76,6 +72,7 @@ class GenerateCommand extends Command
             // Scan the documentation for a given PHP version and find all
             // functions that we need to generate safe wrappers for.
             $this->checkout(DocPage::referenceDir(), $commit);
+
             $scanner = new Scanner(DocPage::referenceDir());
             $res = $scanner->getMethods($scanner->getFunctionsPaths(), $pastFunctionNames, $output);
             $output->writeln(
@@ -148,10 +145,6 @@ class GenerateCommand extends Command
                     \unlink($file->getPathname());
                 }
             }
-        }
-
-        if (\file_exists(PathHelper::docsDirectory() . '/generated.ent')) {
-            \unlink(PathHelper::docsDirectory() . '/generated.ent');
         }
     }
 

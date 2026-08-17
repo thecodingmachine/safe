@@ -103,12 +103,13 @@ class GenerateCommand extends Command
         }
         $fileCreator->deduplicateAndGenerateVersionSplitters("functionsList", FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions), true);
 
-        $this->runCsFix($output);
-
-        // Finally, let's edit the composer.json file
+        // Edit the composer.json file
         $output->writeln('Editing composer.json');
         \ksort($modules);
         ComposerJsonEditor::editComposerFileForGeneration(\array_keys($modules));
+
+        // Format the generated files
+        $this->runCsFix($output);
 
         return 0;
     }

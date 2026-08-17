@@ -111,16 +111,49 @@ class DocPage
         if ($content === false) {
             throw new \RuntimeException('An error occurred while reading '.$this->path);
         }
-        $strpos = \strpos($content, '?>')+2;
-        if (!\file_exists(PathHelper::docsDirectory() . '/generated.ent')) {
-            self::buildEntities();
+
+        // Load entity definitions from .ent files and build entity replacement map
+        $entityReplacements = []; // Map of entity name => replacement value
+        
+        // Load DTD-format entity files
+        $patterns = [
+            '/php/doc-base/entities/*.ent',
+            '/php/doc-en/*.ent',
+            '/php/doc-en/entities/*.ent',
+        ];
+        
+        foreach ($patterns as $pattern) {
+            $files = glob(PathHelper::docsDirectory() . $pattern);
+            if ($files !== false) {
+                foreach ($files as $file) {
+                    self::parseEntityFile($file, $entityReplacements);
+                }
+            }
         }
-        $path = \realpath(PathHelper::docsDirectory() . '/generated.ent');
+        
+        // Also handle XML-format entity files (newer format)
+        $xmlFiles = glob(PathHelper::docsDirectory() . '/php/doc-en/entities/*.ent');
+        if ($xmlFiles !== false) {
+            foreach ($xmlFiles as $file) {
+                self::parseXmlEntityFile($file, $entityReplacements);
+            }
+        }
 
-
-        $content = \substr($content, 0, $strpos)
-            .'<!DOCTYPE refentry SYSTEM "'.$path.'">'
-            .\substr($content, $strpos+1);
+        // Replace entities in the content before parsing
+        // Do multiple passes to handle nested entity references
+        if (!empty($entityReplacements)) {
+            for ($pass = 0; $pass < 10; $pass++) { // Max 10 passes to prevent infinite loops
+                $contentBefore = $content;
+                foreach ($entityReplacements as $entityName => $entityValue) {
+                    $pattern = '&' . $entityName . ';';
+                    $content = \str_replace($pattern, $entityValue, $content);
+                }
+                // Stop if nothing changed
+                if ($content === $contentBefore) {
+                    break;
+                }
+            }
+        }
 
         libxml_use_internal_errors(true);
         $elem = \simplexml_load_string($content, \SimpleXMLElement::class, LIBXML_DTDLOAD | LIBXML_NOENT);
@@ -130,6 +163,100 @@ class DocPage
         $elem->registerXPathNamespace('docbook', 'http://docbook.org/ns/docbook');
 
         return $elem;
+    }
+
+    /**
+     * Parse DTD-format entity file and populate the entity replacements map.
+     * Uses an XML parser approach to properly handle complex entity content.
+     *
+     * @param string $filePath Path to .ent file
+     * @param array<string, string> &$entityReplacements Map to populate with entity name => value
+     */
+    private static function parseEntityFile(string $filePath, array &$entityReplacements): void
+    {
+        $content = \file_get_contents($filePath);
+        if ($content === false) {
+            return;
+        }
+        
+        // Remove XML declaration and comments before wrapping in DOCTYPE
+        $content = (string)\preg_replace('/<\?xml[^?]*\?>/', '', $content);
+        $content = (string)\preg_replace('/<!--[\s\S]*?-->/', '', $content);
+        
+        // Wrap the entity declarations in a DOCTYPE so we can parse them
+        // This allows libxml2 to properly parse the entity declarations
+        $doctype = '<!DOCTYPE entities [' . $content . ']>';
+        $wrappedXml = '<?xml version="1.0" encoding="utf-8"?>' . $doctype . '<root/>';
+        
+        // Use DOMDocument to load the wrapped XML, which will parse the DTD entities
+        $dom = new \DOMDocument('1.0', 'utf-8');
+        $dom->preserveWhiteSpace = true;
+        
+        libxml_use_internal_errors(true);
+        if ($dom->loadXML($wrappedXml)) {
+            // Get the internal DTD subset which contains the entity definitions
+            $internalSubset = $dom->doctype?->internalSubset;
+            if ($internalSubset !== null) {
+                // Parse the internal subset to extract entities
+                self::extractEntitiesFromDtd($internalSubset, $entityReplacements);
+            }
+        }
+        libxml_use_internal_errors(false);
+    }
+    
+    /**
+     * Extract entity definitions from a DTD internal subset string.
+     *
+     * @param string $dtdSubset The internal DTD subset content
+     * @param array<string, string> &$entityReplacements Map to populate with entity name => value
+     */
+    private static function extractEntitiesFromDtd(string $dtdSubset, array &$entityReplacements): void
+    {
+        // Parse entity declarations from the DTD subset
+        // Match: <!ENTITY name "value"> or <!ENTITY name 'value'>
+        if (\preg_match_all('/<!ENTITY\s+(\S+)\s+(["\'])(.+?)\2\s*>/s', $dtdSubset, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $match) {
+                $entityName = $match[1];
+                $entityValue = $match[3];
+                // Only add if not already defined (first occurrence wins)
+                if (!isset($entityReplacements[$entityName])) {
+                    $entityReplacements[$entityName] = $entityValue;
+                }
+            }
+        }
+    }
+    
+    /**
+     * Parse XML-format entity file (newer PHP doc format).
+     * These files contain <entity name="...">...</entity> elements.
+     * Uses regex parsing instead of XML parsing to avoid entity resolution issues.
+     *
+     * @param string $filePath Path to .ent file
+     * @param array<string, string> &$entityReplacements Map to populate with entity name => value
+     */
+    private static function parseXmlEntityFile(string $filePath, array &$entityReplacements): void
+    {
+        $content = \file_get_contents($filePath);
+        if ($content === false) {
+            return;
+        }
+        
+        // Remove XML declaration and comments
+        $content = (string)\preg_replace('/<\?xml[^?]*\?>/', '', $content);
+        $content = (string)\preg_replace('/<!--[\s\S]*?-->/', '', $content);
+        
+        // Extract entity elements using regex: <entity name="...">...</entity>
+        // This avoids XML parsing issues with undefined entities
+        if (\preg_match_all('/<entity\s+name="([^"]+)"[^>]*>([\s\S]*?)<\/entity>/s', $content, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $match) {
+                $entityName = $match[1];
+                $entityValue = \trim($match[2]);
+                // Only add if not already defined (first occurrence wins)
+                if (!isset($entityReplacements[$entityName]) && !empty($entityValue)) {
+                    $entityReplacements[$entityName] = $entityValue;
+                }
+            }
+        }
     }
 
     /**
@@ -180,23 +307,5 @@ class DocPage
             }
         }
         return $result;
-    }
-
-    public static function buildEntities(): void
-    {
-        $file1 = \file_get_contents(PathHelper::docsDirectory() . '/php/doc-en/language-defs.ent') ?: '';
-        $file2 = \file_get_contents(PathHelper::docsDirectory() . '/php/doc-en/language-snippets.ent') ?: '';
-        $file3 = \file_get_contents(PathHelper::docsDirectory() . '/php/doc-en/extensions.ent') ?: '';
-        $file4 = \file_get_contents(PathHelper::docsDirectory() . '/php/doc-base/entities/global.ent') ?: '';
-
-        $completeFile = $file1 . self::extractXmlHeader($file2) . self::extractXmlHeader($file3) . $file4;
-
-        \file_put_contents(PathHelper::docsDirectory() . '/generated.ent', $completeFile);
-    }
-
-    private static function extractXmlHeader(string $content): string
-    {
-        $strpos = strpos($content, '?>')+2;
-        return substr($content, $strpos);
     }
 }

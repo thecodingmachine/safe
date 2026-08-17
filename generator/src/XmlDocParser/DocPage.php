@@ -125,7 +125,11 @@ class DocPage
         libxml_use_internal_errors(true);
         $elem = \simplexml_load_string($content, \SimpleXMLElement::class, LIBXML_DTDLOAD | LIBXML_NOENT);
         if ($elem === false) {
-            throw new \RuntimeException('Invalid XML file for '.$this->path);
+            $errors = "";
+            foreach(libxml_get_errors() as $error) {
+                $errors .= trim($error->message) . "\n";
+            }
+            throw new \RuntimeException('Invalid XML file for '.$this->path . ":\n" . $errors);
         }
         $elem->registerXPathNamespace('docbook', 'http://docbook.org/ns/docbook');
 

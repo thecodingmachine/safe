@@ -58,6 +58,13 @@ class SpecialCasesTest extends TestCase
         \Safe\unserialize('invalid{');
     }
 
+    public function testHashFileWithDefaultOptions(): void
+    {
+        $filename = __DIR__ . '/csv/test.csv';
+
+        $this->assertSame(\hash_file('sha256', $filename), \Safe\hash_file('sha256', $filename));
+    }
+
     /*public function testFgetcsvThrowsOnError()
     {
         if (($handle = \fopen(__DIR__."/csv/test3.csv", "r")) === false) {

@@ -455,7 +455,11 @@ function passthru(string $command, ?int &$result_code = null): void
 function hash_file(string $algo, string $filename, bool $binary = false, array $options = []): string
 {
     error_clear_last();
-    $safeResult = \hash_file($algo, $filename, $binary, $options);
+    if (PHP_VERSION_ID >= 80500) {
+        $safeResult = \hash_file($algo, $filename, $binary, $options);
+    } else {
+        $safeResult = \hash_file($algo, $filename, $binary);
+    }
     if ($safeResult === false) {
         throw HashException::createFromPhpError();
     }

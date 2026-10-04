@@ -230,6 +230,23 @@ function ssh2_forward_listen($session, int $port, ?string $host = null, int $max
 
 
 /**
+ * @param resource $session
+ * @return int
+ * @throws Ssh2Exception
+ *
+ */
+function ssh2_keepalive_send($session): int
+{
+    error_clear_last();
+    $safeResult = \ssh2_keepalive_send($session);
+    if ($safeResult === false) {
+        throw Ssh2Exception::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * @param resource $pkey
  * @param string $algoname
  * @param string $blob
@@ -330,6 +347,22 @@ function ssh2_send_eof($channel): void
 {
     error_clear_last();
     $safeResult = \ssh2_send_eof($channel);
+    if ($safeResult === false) {
+        throw Ssh2Exception::createFromPhpError();
+    }
+}
+
+
+/**
+ * @param resource $channel
+ * @param string $signal
+ * @throws Ssh2Exception
+ *
+ */
+function ssh2_send_signal($channel, string $signal): void
+{
+    error_clear_last();
+    $safeResult = \ssh2_send_signal($channel, $signal);
     if ($safeResult === false) {
         throw Ssh2Exception::createFromPhpError();
     }

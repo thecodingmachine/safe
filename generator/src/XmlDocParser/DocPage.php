@@ -8,7 +8,6 @@ use Safe\Filesystem\PathHelper;
 use Safe\Generator\FileCreator;
 
 use function explode;
-use function strpos;
 
 class DocPage
 {
@@ -113,15 +112,19 @@ class DocPage
         }
 
         // Load entity definitions from .ent files and build entity replacement map
-        $entityReplacements = []; // Map of entity name => replacement value
-        
+        $entityReplacements = [
+            'false' => 'false',
+            'true' => 'true',
+            'null' => 'null',
+        ]; // Map of entity name => replacement value
+
         // Load DTD-format entity files
         $patterns = [
             '/php/doc-base/entities/*.ent',
             '/php/doc-en/*.ent',
             '/php/doc-en/entities/*.ent',
         ];
-        
+
         foreach ($patterns as $pattern) {
             $files = glob(PathHelper::docsDirectory() . $pattern);
             if ($files !== false) {
@@ -130,7 +133,7 @@ class DocPage
                 }
             }
         }
-        
+
         // Also handle XML-format entity files (newer format)
         $xmlFiles = glob(PathHelper::docsDirectory() . '/php/doc-en/entities/*.ent');
         if ($xmlFiles !== false) {
@@ -154,6 +157,22 @@ class DocPage
                 }
             }
         }
+
+        // If php-base and php-en are out-of-sync, we get other undefined entities,
+        // let's strip those here
+        $content = (string)\preg_replace_callback(
+            '/&([a-zA-Z_][a-zA-Z0-9._-]*);/',
+            static function ($matches) {
+                $entity = $matches[1];
+                // Preserve standard XML entities
+                if (\in_array($entity, ['lt', 'gt', 'amp', 'quot', 'apos'], true)) {
+                    return $matches[0];
+                }
+                // Render "undefined &url.mersenne;" as "url.mersenne"
+                return $entity;
+            },
+            $content
+        );
 
         libxml_use_internal_errors(true);
         $elem = \simplexml_load_string($content, \SimpleXMLElement::class, LIBXML_DTDLOAD | LIBXML_NOENT);
@@ -182,20 +201,20 @@ class DocPage
         if ($content === false) {
             return;
         }
-        
+
         // Remove XML declaration and comments before wrapping in DOCTYPE
         $content = (string)\preg_replace('/<\?xml[^?]*\?>/', '', $content);
         $content = (string)\preg_replace('/<!--[\s\S]*?-->/', '', $content);
-        
+
         // Wrap the entity declarations in a DOCTYPE so we can parse them
         // This allows libxml2 to properly parse the entity declarations
         $doctype = '<!DOCTYPE entities [' . $content . ']>';
         $wrappedXml = '<?xml version="1.0" encoding="utf-8"?>' . $doctype . '<root/>';
-        
+
         // Use DOMDocument to load the wrapped XML, which will parse the DTD entities
         $dom = new \DOMDocument('1.0', 'utf-8');
         $dom->preserveWhiteSpace = true;
-        
+
         libxml_use_internal_errors(true);
         if ($dom->loadXML($wrappedXml)) {
             // Get the internal DTD subset which contains the entity definitions
@@ -207,7 +226,7 @@ class DocPage
         }
         libxml_use_internal_errors(false);
     }
-    
+
     /**
      * Extract entity definitions from a DTD internal subset string.
      *
@@ -229,7 +248,7 @@ class DocPage
             }
         }
     }
-    
+
     /**
      * Parse XML-format entity file (newer PHP doc format).
      * These files contain <entity name="...">...</entity> elements.
@@ -244,11 +263,11 @@ class DocPage
         if ($content === false) {
             return;
         }
-        
+
         // Remove XML declaration and comments
         $content = (string)\preg_replace('/<\?xml[^?]*\?>/', '', $content);
         $content = (string)\preg_replace('/<!--[\s\S]*?-->/', '', $content);
-        
+
         // Extract entity elements using regex: <entity name="...">...</entity>
         // This avoids XML parsing issues with undefined entities
         if (\preg_match_all('/<entity\s+name="([^"]+)"[^>]*>([\s\S]*?)<\/entity>/s', $content, $matches, PREG_SET_ORDER)) {

@@ -5,6 +5,23 @@ namespace Safe;
 use Safe\Exceptions\PcntlException;
 
 /**
+ * @param string $path
+ * @param array $args
+ * @param array $env_vars
+ * @throws PcntlException
+ *
+ */
+function pcntl_exec(string $path, array $args = [], array $env_vars = []): void
+{
+    error_clear_last();
+    $safeResult = \pcntl_exec($path, $args, $env_vars);
+    if ($safeResult === false) {
+        throw PcntlException::createFromPhpError();
+    }
+}
+
+
+/**
  * @param int|null $process_id
  * @return array
  * @throws PcntlException
@@ -199,4 +216,19 @@ function pcntl_sigwaitinfo(array $signals, ?array &$info = []): int
         throw PcntlException::createFromPhpError();
     }
     return $safeResult;
+}
+
+
+/**
+ * @param int $flags
+ * @throws PcntlException
+ *
+ */
+function pcntl_unshare(int $flags): void
+{
+    error_clear_last();
+    $safeResult = \pcntl_unshare($flags);
+    if ($safeResult === false) {
+        throw PcntlException::createFromPhpError();
+    }
 }

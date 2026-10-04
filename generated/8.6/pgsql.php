@@ -37,6 +37,24 @@ function pg_change_password(\PgSql\Connection $connection, string $user, string 
 
 
 /**
+ * @param \PgSql\Connection $connection
+ * @param string $statement_name
+ * @return \PgSql\Result
+ * @throws PgsqlException
+ *
+ */
+function pg_close_stmt(\PgSql\Connection $connection, string $statement_name): \PgSql\Result
+{
+    error_clear_last();
+    $safeResult = \pg_close_stmt($connection, $statement_name);
+    if ($safeResult === false) {
+        throw PgsqlException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
  * @param string $connection_string
  * @param int $flags
  * @return \PgSql\Connection

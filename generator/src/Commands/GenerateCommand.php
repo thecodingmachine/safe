@@ -65,6 +65,10 @@ class GenerateCommand extends Command
                 "2f8a49e992af23ef26749d7c2cf12157669d7d31",
             ],
             "8.6" => [
+                "99a687b41b2d9578f5c6c6702a76d545feb8ecec",
+                "a99f4372a97499886afc5ddde0f75cdfdd138e4a",
+            ],
+            "8.7" => [
                 "master",
                 "master",
             ],

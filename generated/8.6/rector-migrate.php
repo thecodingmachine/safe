@@ -901,6 +901,7 @@ return static function (RectorConfig $rectorConfig): void {
             'session_save_path' => 'Safe\session_save_path',
             'session_start' => 'Safe\session_start',
             'session_unset' => 'Safe\session_unset',
+            'session_write_close' => 'Safe\session_write_close',
             'set_include_path' => 'Safe\set_include_path',
             'set_time_limit' => 'Safe\set_time_limit',
             'sha1_file' => 'Safe\sha1_file',

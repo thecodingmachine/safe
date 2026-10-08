@@ -893,6 +893,7 @@ return [
     'session_save_path',
     'session_start',
     'session_unset',
+    'session_write_close',
     'set_include_path',
     'set_time_limit',
     'sha1_file',

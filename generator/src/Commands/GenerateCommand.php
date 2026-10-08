@@ -41,13 +41,37 @@ class GenerateCommand extends Command
         // of the documentation accurately reflects the state of PHP at any
         // given time, but these are some best-guess commits that approximately
         // match the state of PHP at the time of writing.
+        // Each tuple is [doc-en, doc-base]. The doc-base revision is the latest
+        // one available when the corresponding doc-en revision was committed.
         $versions = [
-            "8.1" => "9097ea48f608dbbbf795235a31af82b85bd94430",
-            "8.2" => "8f4e8cf3de08208e71eb0117f1c970c27e9120c9",
-            "8.3" => "7453a50321f0834421cebea8edade14deef5466b",
-            "8.4" => "d553fa36940639b0889ec4358fa3bbb92f123b69",
-            "8.5" => "ce397343296708654c8cdac774e23a9ee47ab27d",
-            "8.6" => "master",
+            "8.1" => [
+                "9097ea48f608dbbbf795235a31af82b85bd94430",
+                "03bc5fa4060c36c8af4ef3d64b8e272929d6ac0a",
+            ],
+            "8.2" => [
+                "8f4e8cf3de08208e71eb0117f1c970c27e9120c9",
+                "26046559ed4cbe962cd86813516dfb143449b145",
+            ],
+            "8.3" => [
+                "7453a50321f0834421cebea8edade14deef5466b",
+                "8d24f29c229843a8a6c5aeeeaba83fd0b343fd99",
+            ],
+            "8.4" => [
+                "d553fa36940639b0889ec4358fa3bbb92f123b69",
+                "dfcbb8664db0a8f2cc8184835702a4c60abd59d8",
+            ],
+            "8.5" => [
+                "ce397343296708654c8cdac774e23a9ee47ab27d",
+                "2f8a49e992af23ef26749d7c2cf12157669d7d31",
+            ],
+            "8.6" => [
+                "99a687b41b2d9578f5c6c6702a76d545feb8ecec",
+                "a99f4372a97499886afc5ddde0f75cdfdd138e4a",
+            ],
+            "8.7" => [
+                "99a687b41b2d9578f5c6c6702a76d545feb8ecec",
+                "a99f4372a97499886afc5ddde0f75cdfdd138e4a",
+            ],
         ];
 
         $version = $input->getArgument("version");
@@ -64,7 +88,7 @@ class GenerateCommand extends Command
         // generating no-op wrappers instead.
         $pastFunctionNames = [];
 
-        foreach ($versions as $version => $commit) {
+        foreach ($versions as $version => [$commit, $docBaseCommit]) {
             $output->writeln('===============================================');
             $output->writeln('Generating safe wrappers for PHP ' . $version);
             $output->writeln('===============================================');
@@ -72,6 +96,7 @@ class GenerateCommand extends Command
             // Scan the documentation for a given PHP version and find all
             // functions that we need to generate safe wrappers for.
             $this->checkout(DocPage::referenceDir(), $commit);
+            $this->checkout(PathHelper::docsDirectory() . '/php/doc-base', $docBaseCommit);
 
             $scanner = new Scanner(DocPage::referenceDir());
             $res = $scanner->getMethods($scanner->getFunctionsPaths(), $pastFunctionNames, $output);
@@ -100,6 +125,7 @@ class GenerateCommand extends Command
         // in $versions is pinned to a specific commit - this is so that at the end
         // of a `generate` run, we don't have docs stuck in the past
         $this->checkout(DocPage::referenceDir(), "master");
+        $this->checkout(PathHelper::docsDirectory() . '/php/doc-base', "master");
 
         foreach (\array_keys($modules) as $moduleName) {
             $fileCreator->deduplicateAndGenerateVersionSplitters($moduleName, FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions));

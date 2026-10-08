@@ -33,4 +33,14 @@ class WritePhpFunctionTest extends TestCase
         $funcStr = $writePhpFunction->getPhpFunctionalFunction();
         $this->assertStringContainsString('} else {', $funcStr);
     }
+
+    public function testPregSplitNormalizesNullLimit(): void
+    {
+        $docPage = new DocPage(DocPage::referenceDir() . '/pcre/functions/preg-split.xml');
+        $xmlObject = $docPage->getMethodSynopsis();
+        $method = new Method($xmlObject[0], $docPage->loadAndResolveFile(), $docPage->getModule(), new PhpStanFunctionMapReader(), ErrorType::FALSY);
+
+        $funcStr = (new WritePhpFunction($method))->getPhpFunctionalFunction();
+        $this->assertStringContainsString('$limit ??= -1;', $funcStr);
+    }
 }

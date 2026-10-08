@@ -894,7 +894,6 @@ return [
     'session_start',
     'session_unset',
     'session_write_close',
-    'settype',
     'set_include_path',
     'set_time_limit',
     'sha1_file',

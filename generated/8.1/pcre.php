@@ -120,6 +120,7 @@ function preg_replace_callback($pattern, callable $callback, $subject, int $limi
 function preg_split(string $pattern, string $subject, ?int $limit = -1, int $flags = 0): array
 {
     error_clear_last();
+    $limit ??= -1;
     $safeResult = \preg_split($pattern, $subject, $limit, $flags);
     if ($safeResult === false) {
         throw PcreException::createFromPhpError();

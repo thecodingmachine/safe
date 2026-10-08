@@ -57,6 +57,10 @@ class WritePhpFunction
     error_clear_last();
 ";
 
+        if ($this->method->getFunctionName() === 'preg_split') {
+            $phpFunction .= "    \$limit ??= -1;\n";
+        }
+
         if (!$this->method->isOverloaded()) {
             $phpFunction .= '    $safeResult = '.$this->printFunctionCall($this->method);
         } else {

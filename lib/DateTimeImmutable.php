@@ -24,8 +24,8 @@ class DateTimeImmutable extends \DateTimeImmutable
      */
     public function __construct($time = 'now', $timezone = null)
     {
-        parent::__construct($time, $timezone);
         $this->innerDateTime = new parent($time, $timezone);
+        parent::__construct($this->innerDateTime->format('Y-m-d H:i:s.u'), $this->innerDateTime->getTimezone());
     }
 
     //switch between regular datetime and safe version

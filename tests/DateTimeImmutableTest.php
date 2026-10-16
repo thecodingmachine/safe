@@ -56,6 +56,31 @@ final class DateTimeImmutableTest extends TestCase
         $this->assertEquals($timezone, $datetime->getTimezone());
     }
 
+    public function testConstructorInnerAndOuterDatesAreEqual(): void
+    {
+        for ($i = 0; $i < 1000; $i++) {
+            $datetime = new \Safe\DateTimeImmutable();
+            $this->assertSame(
+                self::nativeFormat($datetime, 'Y-m-d H:i:s.u'),
+                $datetime->getInnerDateTime()->format('Y-m-d H:i:s.u')
+            );
+        }
+    }
+
+    public function testConstructorPreservesTimezoneFromTimeString(): void
+    {
+        foreach (['@1700000000', '2020-01-01T00:00:00+02:00'] as $time) {
+            $datetime = new \Safe\DateTimeImmutable($time);
+            $this->assertSame(self::nativeFormat($datetime, 'U P'), $datetime->getInnerDateTime()->format('U P'));
+        }
+    }
+
+    private static function nativeFormat(\DateTimeImmutable $datetime, string $format): string
+    {
+        // bypass \Safe\DateTimeImmutable::format() to read the parent's own value
+        return (new \ReflectionMethod(\DateTimeImmutable::class, 'format'))->invoke($datetime, $format);
+    }
+
     public function testCreateFromFormatPreserveTimeAndTimezone(): void
     {
         $timezone = new \DateTimeZone('Pacific/Chatham');

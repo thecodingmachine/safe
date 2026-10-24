@@ -252,6 +252,47 @@ function imagecharup(\GdImage $image, int $font, int $x, int $y, string $char, i
 
 /**
  * @param \GdImage $image
+ * @param int $red
+ * @param int $green
+ * @param int $blue
+ * @return int
+ * @throws ImageException
+ *
+ */
+function imagecolorallocate(\GdImage $image, int $red, int $green, int $blue): int
+{
+    error_clear_last();
+    $safeResult = \imagecolorallocate($image, $red, $green, $blue);
+    if ($safeResult === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * @param \GdImage $image
+ * @param int $red
+ * @param int $green
+ * @param int $blue
+ * @param int $alpha
+ * @return int
+ * @throws ImageException
+ *
+ */
+function imagecolorallocatealpha(\GdImage $image, int $red, int $green, int $blue, int $alpha): int
+{
+    error_clear_last();
+    $safeResult = \imagecolorallocatealpha($image, $red, $green, $blue, $alpha);
+    if ($safeResult === false) {
+        throw ImageException::createFromPhpError();
+    }
+    return $safeResult;
+}
+
+
+/**
+ * @param \GdImage $image
  * @param int $x
  * @param int $y
  * @return int

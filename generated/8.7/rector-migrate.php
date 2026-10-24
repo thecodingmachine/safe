@@ -318,6 +318,8 @@ return static function (RectorConfig $rectorConfig): void {
             'imageaffinematrixget' => 'Safe\imageaffinematrixget',
             'imageavif' => 'Safe\imageavif',
             'imagebmp' => 'Safe\imagebmp',
+            'imagecolorallocate' => 'Safe\imagecolorallocate',
+            'imagecolorallocatealpha' => 'Safe\imagecolorallocatealpha',
             'imagecolorat' => 'Safe\imagecolorat',
             'imagecolorset' => 'Safe\imagecolorset',
             'imageconvolution' => 'Safe\imageconvolution',

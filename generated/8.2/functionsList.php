@@ -318,6 +318,8 @@ return [
     'imagebmp',
     'imagechar',
     'imagecharup',
+    'imagecolorallocate',
+    'imagecolorallocatealpha',
     'imagecolorat',
     'imagecolordeallocate',
     'imagecolormatch',

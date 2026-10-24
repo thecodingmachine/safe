@@ -310,6 +310,8 @@ return [
     'imageaffinematrixget',
     'imageavif',
     'imagebmp',
+    'imagecolorallocate',
+    'imagecolorallocatealpha',
     'imagecolorat',
     'imagecolorset',
     'imageconvolution',

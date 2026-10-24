@@ -324,6 +324,8 @@ return static function (RectorConfig $rectorConfig): void {
             'imagebmp' => 'Safe\imagebmp',
             'imagechar' => 'Safe\imagechar',
             'imagecharup' => 'Safe\imagecharup',
+            'imagecolorallocate' => 'Safe\imagecolorallocate',
+            'imagecolorallocatealpha' => 'Safe\imagecolorallocatealpha',
             'imagecolorat' => 'Safe\imagecolorat',
             'imagecolordeallocate' => 'Safe\imagecolordeallocate',
             'imagecolormatch' => 'Safe\imagecolormatch',

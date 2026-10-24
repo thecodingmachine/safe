@@ -59,6 +59,7 @@ return function (string $text): ErrorType {
         '/The name of the socket/', // stream_socket_get_name (PHP 8.1)
         '/&return.falseforfailure.style.procedural;/', // date_create (8.1 - 8.3)
         '/See <function>getimagesize<\/function>/', // getimagesizefromstring
+        '/&false; if the allocation failed/', // imagecolorallocate
     ];
     foreach ($falsies as $falsie) {
         if (preg_match($falsie, $text)) {

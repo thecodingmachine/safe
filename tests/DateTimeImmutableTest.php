@@ -45,7 +45,7 @@ final class DateTimeImmutableTest extends TestCase
     public function testCreateFromFormatCrashOnError(): void
     {
         $this->expectException(\Safe\Exceptions\DatetimeException::class);
-        $datetime = \Safe\DateTimeImmutable::createFromFormat('lol', 'super');
+        \Safe\DateTimeImmutable::createFromFormat('lol', 'super');
     }
 
     public function testConstructorPreserveTimeAndTimezone(): void
@@ -109,7 +109,7 @@ final class DateTimeImmutableTest extends TestCase
     {
         $datetime = new \DateTimeImmutable('2000-01-01');
         $safeDatime = new \Safe\DateTimeImmutable('2000-01-01');
-        $datetime = $datetime = $datetime->setTimestamp(12);
+        $datetime = $datetime->setTimestamp(12);
         $safeDatime = $safeDatime->setTimestamp(12);
 
         $this->assertEquals($datetime->getTimestamp(), $safeDatime->getTimestamp());

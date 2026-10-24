@@ -53,8 +53,8 @@ class GenerateCommand extends Command
                 "26046559ed4cbe962cd86813516dfb143449b145",
             ],
             "8.3" => [
-                "7453a50321f0834421cebea8edade14deef5466b",
-                "8d24f29c229843a8a6c5aeeeaba83fd0b343fd99",
+                "4b00c7916e62f2599d06965251e206532c3368c9",
+                "59bc2bb7061a9803294c5b1e0190d45ce6577151",
             ],
             "8.4" => [
                 "d553fa36940639b0889ec4358fa3bbb92f123b69",

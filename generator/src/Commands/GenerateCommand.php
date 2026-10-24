@@ -112,6 +112,12 @@ class GenerateCommand extends Command
         \ksort($modules);
         ComposerJsonEditor::editComposerFileForGeneration(\array_keys($modules));
 
+        // Regenerate the autoloader to account for any generated/*.php files being
+        // added or removed (files can get removed if you for example only generate
+        // for a subset of versions), otherwise phpcbf will fail
+        $output->writeln('Running composer install');
+        $this->runComposerInstall();
+
         // Format the generated files
         $this->runCsFix($output);
 
@@ -145,6 +151,16 @@ class GenerateCommand extends Command
                     \unlink($file->getPathname());
                 }
             }
+        }
+    }
+
+    private function runComposerInstall(): void
+    {
+        $process = new Process(['composer', 'install'], FileCreator::getSafeRootDir());
+        $process->setTimeout(10);
+        $code = $process->run();
+        if ($code !== 0) {
+            throw new \RuntimeException("Failed to run composer install in " . FileCreator::getSafeRootDir() . " (exit $code):\n{$process->getErrorOutput()}");
         }
     }
 

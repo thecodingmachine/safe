@@ -12,7 +12,7 @@ class DateTimeTest extends TestCase
     public function testSafeDatetimeCrashOnError(): void
     {
         $this->expectException(DatetimeException::class);
-        $datetime = \Safe\DateTime::createFromFormat('lol', 'super');
+        \Safe\DateTime::createFromFormat('lol', 'super');
     }
 
     public function testCreateFromFormatPreserveTimeAndTimezone(): void

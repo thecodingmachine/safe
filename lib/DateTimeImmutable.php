@@ -96,6 +96,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @return DateTimeImmutable
      * @throws DatetimeException
      */
+    #[\ReturnTypeWillChange]
     public function modify($modify): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -113,6 +114,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @return DateTimeImmutable
      * @throws DatetimeException
      */
+    #[\ReturnTypeWillChange]
     public function setDate($year, $month, $day): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -130,6 +132,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @return DateTimeImmutable
      * @throws DatetimeException
      */
+    #[\ReturnTypeWillChange]
     public function setISODate($year, $week, $day = 1): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -148,6 +151,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @return DateTimeImmutable
      * @throws DatetimeException
      */
+    #[\ReturnTypeWillChange]
     public function setTime($hour, $minute, $second = 0, $microseconds = 0): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -163,6 +167,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @return DateTimeImmutable
      * @throws DatetimeException
      */
+    #[\ReturnTypeWillChange]
     public function setTimestamp($unixtimestamp): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -178,6 +183,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @return DateTimeImmutable
      * @throws DatetimeException
      */
+    #[\ReturnTypeWillChange]
     public function setTimezone($timezone): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -193,6 +199,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @return DateTimeImmutable
      * @throws DatetimeException
      */
+    #[\ReturnTypeWillChange]
     public function sub($interval): self
     {
         /** @var \DateTimeImmutable|false $result */
@@ -223,6 +230,7 @@ class DateTimeImmutable extends \DateTimeImmutable
      * @param \DateInterval $interval
      * @return DateTimeImmutable
      */
+    #[\ReturnTypeWillChange]
     public function add($interval): self
     {
         return self::createFromRegular($this->innerDateTime->add($interval));
@@ -243,6 +251,7 @@ class DateTimeImmutable extends \DateTimeImmutable
     /**
      * @return DateTimeImmutable
      */
+    #[\ReturnTypeWillChange]
     public static function createFromInterface(\DateTimeInterface $object): self
     {
         if ($object instanceof \DateTime) {

@@ -6,6 +6,30 @@ use PHPUnit\Framework\TestCase;
 
 final class DateTimeImmutableTest extends TestCase
 {
+    /**
+     * PHP 8.6 adds tentative static return types to DateTimeImmutable, so an
+     * incompatible override is reported once, when the class is declared.
+     *
+     * @runInSeparateProcess
+     */
+    public function testDeclaringTheClassTriggersNoDeprecation(): void
+    {
+        $deprecations = [];
+        set_error_handler(static function (int $errno, string $errstr) use (&$deprecations): bool {
+            $deprecations[] = $errstr;
+
+            return true;
+        }, E_DEPRECATED);
+
+        try {
+            self::assertTrue(class_exists(\Safe\DateTimeImmutable::class));
+        } finally {
+            restore_error_handler();
+        }
+
+        self::assertSame([], $deprecations);
+    }
+
     public function testCreateFromMutable(): void
     {
         $unsafeDate = new \DateTime('2021-10-16T12:30:16+00:00');

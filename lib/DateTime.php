@@ -39,8 +39,10 @@ class DateTime extends \DateTime
      */
     public function diff($datetime2, $absolute = false): DateInterval
     {
+        // in PHP <8.3 this returns false, 8.3 onwards throw an exception,
+        // phpstan is can't seem to comprehend both at once?
         /** @var \DateInterval|false $result */
-        $result = parent::diff($datetime2, $absolute);
+        $result = parent::diff($datetime2, $absolute); // @phpstan-ignore-line
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }
@@ -52,27 +54,13 @@ class DateTime extends \DateTime
      * @return DateTime Returns the DateTime object for method chaining.
      * @throws DatetimeException
      */
+    #[\ReturnTypeWillChange]
     public function modify($modify): self
     {
+        // in PHP <8.3 this returns false, 8.3 onwards throw an exception,
+        // phpstan is can't seem to comprehend both at once?
         /** @var DateTime|false $result */
-        $result = parent::modify($modify);
-        if ($result === false) {
-            throw DatetimeException::createFromPhpError();
-        }
-        return $result;
-    }
-
-    /**
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     * @return DateTime
-     * @throws DatetimeException
-     */
-    public function setDate($year, $month, $day): self
-    {
-        /** @var DateTime|false $result */
-        $result = parent::setDate($year, $month, $day);
+        $result = parent::modify($modify); // @phpstan-ignore-line
         if ($result === false) {
             throw DatetimeException::createFromPhpError();
         }

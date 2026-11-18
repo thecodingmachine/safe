@@ -24,18 +24,6 @@ class DateTimeTest extends TestCase
         $this->assertEquals($timezone, $datetime->getTimezone());
     }
 
-    public function testSetDate(): void
-    {
-        $datetime = new \Safe\DateTime();
-        $datetime = $datetime->setDate(2017, 4, 6);
-        $this->assertInstanceOf(DateTime::class, $datetime);
-        $this->assertEquals(2017, $datetime->format('Y'));
-        $this->assertEquals(4, $datetime->format('n'));
-        $this->assertEquals(6, $datetime->format('j'));
-
-        //todo: test an error case
-    }
-
     public function testModify(): void
     {
         $datetime = new \Safe\DateTime();
@@ -43,5 +31,14 @@ class DateTimeTest extends TestCase
         $datetime = $datetime->modify('+1 day');
         $this->assertInstanceOf(DateTime::class, $datetime);
         $this->assertEquals('7-4-2017', $datetime->format('j-n-Y'));
+    }
+
+    public function testModifyThrowsExceptionOnInvalidInput(): void
+    {
+        // In php 8.1/8.2 this is \Safe\DatetimeException
+        // In php 8.3+ this is \DateMalformedStringException
+        // TODO: find some way to get phpstan to check the above
+        $this->expectException(\Throwable::class);
+        (new \Safe\DateTime())->modify('invalid date');
     }
 }

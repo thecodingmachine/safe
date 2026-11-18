@@ -19,29 +19,19 @@ jobs:
           coverage: "pcov"
           php-version: "8.4"
 
-      - name: "Check out php/doc-base"
-        uses: "actions/checkout@v6"
-        with:
-          path: "generator/docs/php/doc-base"
-          repository: "php/doc-base"
-          fetch-depth: 0
-
-      - name: "Check out php/doc-en"
-        uses: "actions/checkout@v6"
-        with:
-          path: "generator/docs"
-          repository: "php/doc-en"
-          fetch-depth: 0
-
       - name: "Install dependencies with composer in generator/ directory"
         run: "composer install --no-interaction"
         working-directory: "generator"
 
-      - name: "Install dependencies with composer in root/ directory"
+      - name: "Install dependencies with composer in root directory"
         run: "composer install --no-interaction"
 
       - name: "Dump autoloader with composer in root directory"
         run: "composer dump-autoload"
+
+      - name: "Download docs"
+        run: "./safe.php download-docs"
+        working-directory: "generator"
 
       - name: "Regenerate files"
         run: "./safe.php generate"
@@ -50,7 +40,6 @@ jobs:
       - name: "Check for differences"
         id: diff
         run: "git diff --exit-code && (echo diff=no-diff >> $GITHUB_OUTPUT) || (echo diff=diff >> $GITHUB_OUTPUT)"
-        working-directory: "generator"
 
       - name: "Create a pr if the files are different"
         if: "${{ steps.diff.outputs.diff == 'diff' }}"

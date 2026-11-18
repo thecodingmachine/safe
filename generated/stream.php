@@ -19,5 +19,5 @@ if (str_starts_with(PHP_VERSION, "8.6.")) {
     require_once __DIR__ . '/8.6/stream.php';
 }
 if (str_starts_with(PHP_VERSION, "8.7.")) {
-    require_once __DIR__ . '/8.6/stream.php';
+    require_once __DIR__ . '/8.7/stream.php';
 }

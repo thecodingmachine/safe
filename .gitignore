@@ -2,7 +2,6 @@
 /generator/build/
 /generator/doc/doc-en/
 /generator/doc/entities/generated.ent
-/composer.lock
 vendor/
 /generator/tests/rector/composer.lock
 .phpunit.result.cache

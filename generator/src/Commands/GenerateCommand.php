@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Safe\Commands;
 
 use Safe\Filesystem\PathHelper;
+use Safe\VersionManager;
 use Safe\XmlDocParser\Scanner;
 use Safe\XmlDocParser\DocPage;
 use Safe\Generator\FileCreator;
@@ -36,46 +37,15 @@ class GenerateCommand extends Command
     ): int {
         $this->rmGenerated();
 
-        // PHP documentation is a living document, which broadly reflects
-        // "the current state of PHP". There is no guarantee that any version
-        // of the documentation accurately reflects the state of PHP at any
-        // given time, but these are some best-guess commits that approximately
-        // match the state of PHP at the time of writing.
-        // Each tuple is [doc-en, doc-base]. The doc-base revision is the latest
-        // one available when the corresponding doc-en revision was committed.
-        $versions = [
-            "8.1" => [
-                "9097ea48f608dbbbf795235a31af82b85bd94430",
-                "03bc5fa4060c36c8af4ef3d64b8e272929d6ac0a",
-            ],
-            "8.2" => [
-                "8f4e8cf3de08208e71eb0117f1c970c27e9120c9",
-                "26046559ed4cbe962cd86813516dfb143449b145",
-            ],
-            "8.3" => [
-                "4b00c7916e62f2599d06965251e206532c3368c9",
-                "59bc2bb7061a9803294c5b1e0190d45ce6577151",
-            ],
-            "8.4" => [
-                "d553fa36940639b0889ec4358fa3bbb92f123b69",
-                "dfcbb8664db0a8f2cc8184835702a4c60abd59d8",
-            ],
-            "8.5" => [
-                "ce397343296708654c8cdac774e23a9ee47ab27d",
-                "2f8a49e992af23ef26749d7c2cf12157669d7d31",
-            ],
-            "8.6" => [
-                "99a687b41b2d9578f5c6c6702a76d545feb8ecec",
-                "a99f4372a97499886afc5ddde0f75cdfdd138e4a",
-            ],
-            "8.7" => [
-                "master",
-                "master",
-            ],
-        ];
+        $allVersions = VersionManager::load();
+        $latestVersion = VersionManager::latestVersion($allVersions);
+        $versions = $allVersions;
 
         $version = $input->getArgument("version");
         if ($version) {
+            if (!isset($versions[$version])) {
+                throw new \InvalidArgumentException("Unknown PHP version: $version");
+            }
             $versions = [$version => $versions[$version]];
         }
 
@@ -87,8 +57,11 @@ class GenerateCommand extends Command
         // in the past, so if we stop needing a safe-wrapper, we can start
         // generating no-op wrappers instead.
         $pastFunctionNames = [];
+        $fileCreator = new FileCreator();
 
-        foreach ($versions as $version => [$commit, $docBaseCommit]) {
+        foreach ($versions as $version => $commits) {
+            $commit = $commits['doc-en'];
+            $docBaseCommit = $commits['doc-base'];
             $output->writeln('===============================================');
             $output->writeln('Generating safe wrappers for PHP ' . $version);
             $output->writeln('===============================================');
@@ -114,17 +87,16 @@ class GenerateCommand extends Command
             }
 
             $genDir = FileCreator::getSafeRootDir() . "/generated/$version";
-            $fileCreator = new FileCreator();
             $fileCreator->generatePhpFile($res->methods, "$genDir/");
             $fileCreator->generateFunctionsList($res->methods, "$genDir/functionsList.php");
             $fileCreator->generateRectorFile($res->methods, "$genDir/rector-migrate.php");
         }
 
-        // always reset docs to master, even if the most-recently-supported-version
+        // always reset docs to the latest tracked commits, even if the most-recently-supported-version
         // in $versions is pinned to a specific commit - this is so that at the end
         // of a `generate` run, we don't have docs stuck in the past
-        $this->checkout(DocPage::referenceDir(), "master");
-        $this->checkout(PathHelper::docsDirectory() . '/php/doc-base', "master");
+        $this->checkout(DocPage::referenceDir(), $allVersions[$latestVersion]['doc-en']);
+        $this->checkout(PathHelper::docsDirectory() . '/php/doc-base', $allVersions[$latestVersion]['doc-base']);
 
         foreach (\array_keys($modules) as $moduleName) {
             $fileCreator->deduplicateAndGenerateVersionSplitters($moduleName, FileCreator::getSafeRootDir() . "/generated/", \array_keys($versions));

@@ -25,12 +25,12 @@ function deflate_add(\DeflateContext $context, string $data, int $flush_mode = Z
 
 /**
  * @param int $encoding
- * @param array $options
+ * @param array|object $options
  * @return \DeflateContext
  * @throws ZlibException
  *
  */
-function deflate_init(int $encoding, array $options = []): \DeflateContext
+function deflate_init(int $encoding, $options = []): \DeflateContext
 {
     error_clear_last();
     $safeResult = \deflate_init($encoding, $options);
@@ -363,12 +363,12 @@ function inflate_add(\InflateContext $context, string $data, int $flush_mode = Z
 
 /**
  * @param int $encoding
- * @param array $options
+ * @param array|object $options
  * @return \InflateContext
  * @throws ZlibException
  *
  */
-function inflate_init(int $encoding, array $options = []): \InflateContext
+function inflate_init(int $encoding, $options = []): \InflateContext
 {
     error_clear_last();
     $safeResult = \inflate_init($encoding, $options);

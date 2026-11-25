@@ -235,7 +235,7 @@ function stream_set_timeout($stream, int $seconds, int $microseconds = 0): void
 /**
  * @param resource $server_socket
  * @param float $timeout
- * @param null|string $peername
+ * @param string $peername
  * @return resource
  * @throws StreamException
  *
@@ -326,8 +326,8 @@ function stream_socket_pair(int $domain, int $type, int $protocol): array
 
 /**
  * @param string $local_socket
- * @param int|null $errno
- * @param null|string $errstr
+ * @param int $errno
+ * @param string $errstr
  * @param int $flags
  * @param resource $context
  * @return resource

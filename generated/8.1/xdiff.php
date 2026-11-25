@@ -148,7 +148,7 @@ function xdiff_string_patch_binary(string $str, string $patch): string
  * @param string $str
  * @param string $patch
  * @param int $flags
- * @param null|string $error
+ * @param string $error
  * @return string
  * @throws XdiffException
  *

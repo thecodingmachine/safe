@@ -133,6 +133,7 @@ class PhpStanType
             } elseif (str_contains($type, 'array<') ||
                 str_contains($type, 'array{') ||
                 str_contains($type, 'list<') ||
+                str_contains($type, 'list{') ||
                 str_contains($type, '[]')
             ) {
                 $type = 'array'; //typed array has to be untyped

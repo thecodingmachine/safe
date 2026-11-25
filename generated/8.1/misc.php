@@ -59,7 +59,7 @@ function highlight_string(string $string, bool $return = false)
 
 /**
  * @param bool $as_number
- * @return array{0:int,1:int}|float|int
+ * @return float|int|list{int,int}
  * @throws MiscException
  *
  */

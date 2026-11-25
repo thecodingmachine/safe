@@ -108,7 +108,6 @@ class GenerateCommand extends Command
                 )
             );
 
-            $currentFunctionsByName = [];
             foreach ($res->methods as $function) {
                 $pastFunctionNames[] = $function->getFunctionName();
                 $modules[$function->getModuleName()] = true;

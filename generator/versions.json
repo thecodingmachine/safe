@@ -1,0 +1,30 @@
+{
+    "8.1": {
+        "doc-en": "9097ea48f608dbbbf795235a31af82b85bd94430",
+        "doc-base": "03bc5fa4060c36c8af4ef3d64b8e272929d6ac0a"
+    },
+    "8.2": {
+        "doc-en": "8f4e8cf3de08208e71eb0117f1c970c27e9120c9",
+        "doc-base": "26046559ed4cbe962cd86813516dfb143449b145"
+    },
+    "8.3": {
+        "doc-en": "4b00c7916e62f2599d06965251e206532c3368c9",
+        "doc-base": "59bc2bb7061a9803294c5b1e0190d45ce6577151"
+    },
+    "8.4": {
+        "doc-en": "d553fa36940639b0889ec4358fa3bbb92f123b69",
+        "doc-base": "dfcbb8664db0a8f2cc8184835702a4c60abd59d8"
+    },
+    "8.5": {
+        "doc-en": "ce397343296708654c8cdac774e23a9ee47ab27d",
+        "doc-base": "2f8a49e992af23ef26749d7c2cf12157669d7d31"
+    },
+    "8.6": {
+        "doc-en": "99a687b41b2d9578f5c6c6702a76d545feb8ecec",
+        "doc-base": "a99f4372a97499886afc5ddde0f75cdfdd138e4a"
+    },
+    "8.7": {
+        "doc-en": "ab8c3fc04d81d25ac11d9426e4118daa62424ee8",
+        "doc-base": "a331e55094ca170b73357fa461101ffa28e0c617"
+    }
+}

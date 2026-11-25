@@ -33,6 +33,10 @@ jobs:
         run: "./safe.php download-docs"
         working-directory: "generator"
 
+      - name: "Update documentation versions"
+        run: "./safe.php update-versions"
+        working-directory: "generator"
+
       - name: "Regenerate files"
         run: "./safe.php generate"
         working-directory: "generator"

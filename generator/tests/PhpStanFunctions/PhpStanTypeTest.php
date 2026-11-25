@@ -171,6 +171,10 @@ class PhpStanTypeTest extends TestCase
         $param = new PhpStanType('list<string>|false');
         $this->assertEquals('list<string>', $param->getDocBlockType(ErrorType::FALSY));
         $this->assertEquals('array', $param->getSignatureType(ErrorType::FALSY));
+
+        $param = new PhpStanType('list{float,float,float,float,float,float}');
+        $this->assertEquals('list{float,float,float,float,float,float}', $param->getDocBlockType());
+        $this->assertEquals('array', $param->getSignatureType());
     }
 
     public function testIntGeneralisation(): void

@@ -71,11 +71,10 @@ function mb_convert_variables(string $to_encoding, $from_encoding, &$var, ...$va
 
 /**
  * @param non-empty-list|non-falsy-string|null $encoding
- * @return bool|list
  * @throws MbstringException
  *
  */
-function mb_detect_order($encoding = null)
+function mb_detect_order($encoding = null): void
 {
     error_clear_last();
     if ($encoding !== null) {
@@ -86,7 +85,6 @@ function mb_detect_order($encoding = null)
     if ($safeResult === false) {
         throw MbstringException::createFromPhpError();
     }
-    return $safeResult;
 }
 
 

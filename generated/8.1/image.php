@@ -84,7 +84,7 @@ function imageaffine(\GdImage $image, array $affine, ?array $clip = null): \GdIm
 /**
  * @param array $matrix1
  * @param array $matrix2
- * @return array{0:float,1:float,2:float,3:float,4:float,5:float}
+ * @return list{float,float,float,float,float,float}
  * @throws ImageException
  *
  */
@@ -102,7 +102,7 @@ function imageaffinematrixconcat(array $matrix1, array $matrix2): array
 /**
  * @param int $type
  * @param array|float $options
- * @return array{0:float,1:float,2:float,3:float,4:float,5:float}
+ * @return list{float,float,float,float,float,float}
  * @throws ImageException
  *
  */

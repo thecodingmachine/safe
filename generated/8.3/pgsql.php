@@ -116,7 +116,7 @@ function pg_copy_to(\PgSql\Connection $connection, string $table_name, string $s
  * @param string $table_name
  * @param array $conditions
  * @param int $flags
- * @return mixed
+ * @return bool|string
  * @throws PgsqlException
  *
  */
@@ -272,7 +272,7 @@ function pg_host(?\PgSql\Connection $connection = null): string
  * @param string $table_name
  * @param array $values
  * @param int $flags
- * @return mixed
+ * @return bool|resource|string
  * @throws PgsqlException
  *
  */
@@ -348,11 +348,11 @@ function pg_lo_export(?\PgSql\Connection $connection = null, ?int $oid = null, ?
  * @param \PgSql\Connection $connection
  * @param string $pathname
  * @param  $object_id
- * @return int
+ * @return int|string
  * @throws PgsqlException
  *
  */
-function pg_lo_import(?\PgSql\Connection $connection = null, ?string $pathname = null, $object_id = null): int
+function pg_lo_import(?\PgSql\Connection $connection = null, ?string $pathname = null, $object_id = null)
 {
     error_clear_last();
     if ($object_id !== null) {
@@ -700,7 +700,7 @@ function pg_result_seek(\PgSql\Result $result, int $row): void
  * @param array $conditions
  * @param int $flags
  * @param int $mode
- * @return mixed
+ * @return array|string
  * @throws PgsqlException
  *
  */
@@ -762,7 +762,7 @@ function pg_trace(string $filename, string $mode = "w", ?\PgSql\Connection $conn
  * @param array $values
  * @param array $conditions
  * @param int $flags
- * @return mixed
+ * @return bool|string
  * @throws PgsqlException
  *
  */

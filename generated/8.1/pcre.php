@@ -113,7 +113,7 @@ function preg_replace_callback($pattern, callable $callback, $subject, int $limi
  * @param string $subject
  * @param int|null $limit
  * @param int $flags
- * @return list
+ * @return list|list
  * @throws PcreException
  *
  */

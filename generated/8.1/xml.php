@@ -21,11 +21,11 @@ function xml_parser_free(\XMLParser $parser): void
 
 /**
  * @param \XMLParser $parser
- * @param callable $handler
+ * @param callable|null|string $handler
  * @throws XmlException
  *
  */
-function xml_set_character_data_handler(\XMLParser $parser, callable $handler): void
+function xml_set_character_data_handler(\XMLParser $parser, $handler): void
 {
     error_clear_last();
     $safeResult = \xml_set_character_data_handler($parser, $handler);
@@ -37,11 +37,11 @@ function xml_set_character_data_handler(\XMLParser $parser, callable $handler): 
 
 /**
  * @param \XMLParser $parser
- * @param callable $handler
+ * @param callable|null|string $handler
  * @throws XmlException
  *
  */
-function xml_set_default_handler(\XMLParser $parser, callable $handler): void
+function xml_set_default_handler(\XMLParser $parser, $handler): void
 {
     error_clear_last();
     $safeResult = \xml_set_default_handler($parser, $handler);
@@ -53,12 +53,12 @@ function xml_set_default_handler(\XMLParser $parser, callable $handler): void
 
 /**
  * @param \XMLParser $parser
- * @param callable $start_handler
- * @param callable $end_handler
+ * @param callable|null|string $start_handler
+ * @param callable|null|string $end_handler
  * @throws XmlException
  *
  */
-function xml_set_element_handler(\XMLParser $parser, callable $start_handler, callable $end_handler): void
+function xml_set_element_handler(\XMLParser $parser, $start_handler, $end_handler): void
 {
     error_clear_last();
     $safeResult = \xml_set_element_handler($parser, $start_handler, $end_handler);
@@ -70,11 +70,11 @@ function xml_set_element_handler(\XMLParser $parser, callable $start_handler, ca
 
 /**
  * @param \XMLParser $parser
- * @param callable $handler
+ * @param callable|null|string $handler
  * @throws XmlException
  *
  */
-function xml_set_end_namespace_decl_handler(\XMLParser $parser, callable $handler): void
+function xml_set_end_namespace_decl_handler(\XMLParser $parser, $handler): void
 {
     error_clear_last();
     $safeResult = \xml_set_end_namespace_decl_handler($parser, $handler);
@@ -86,11 +86,11 @@ function xml_set_end_namespace_decl_handler(\XMLParser $parser, callable $handle
 
 /**
  * @param \XMLParser $parser
- * @param callable $handler
+ * @param callable|null|string $handler
  * @throws XmlException
  *
  */
-function xml_set_external_entity_ref_handler(\XMLParser $parser, callable $handler): void
+function xml_set_external_entity_ref_handler(\XMLParser $parser, $handler): void
 {
     error_clear_last();
     $safeResult = \xml_set_external_entity_ref_handler($parser, $handler);
@@ -102,11 +102,11 @@ function xml_set_external_entity_ref_handler(\XMLParser $parser, callable $handl
 
 /**
  * @param \XMLParser $parser
- * @param callable $handler
+ * @param callable|null|string $handler
  * @throws XmlException
  *
  */
-function xml_set_notation_decl_handler(\XMLParser $parser, callable $handler): void
+function xml_set_notation_decl_handler(\XMLParser $parser, $handler): void
 {
     error_clear_last();
     $safeResult = \xml_set_notation_decl_handler($parser, $handler);
@@ -134,11 +134,11 @@ function xml_set_object(\XMLParser $parser, object $object): void
 
 /**
  * @param \XMLParser $parser
- * @param callable $handler
+ * @param callable|null|string $handler
  * @throws XmlException
  *
  */
-function xml_set_processing_instruction_handler(\XMLParser $parser, callable $handler): void
+function xml_set_processing_instruction_handler(\XMLParser $parser, $handler): void
 {
     error_clear_last();
     $safeResult = \xml_set_processing_instruction_handler($parser, $handler);
@@ -150,11 +150,11 @@ function xml_set_processing_instruction_handler(\XMLParser $parser, callable $ha
 
 /**
  * @param \XMLParser $parser
- * @param callable $handler
+ * @param callable|null|string $handler
  * @throws XmlException
  *
  */
-function xml_set_start_namespace_decl_handler(\XMLParser $parser, callable $handler): void
+function xml_set_start_namespace_decl_handler(\XMLParser $parser, $handler): void
 {
     error_clear_last();
     $safeResult = \xml_set_start_namespace_decl_handler($parser, $handler);
@@ -166,11 +166,11 @@ function xml_set_start_namespace_decl_handler(\XMLParser $parser, callable $hand
 
 /**
  * @param \XMLParser $parser
- * @param callable $handler
+ * @param callable|null|string $handler
  * @throws XmlException
  *
  */
-function xml_set_unparsed_entity_decl_handler(\XMLParser $parser, callable $handler): void
+function xml_set_unparsed_entity_decl_handler(\XMLParser $parser, $handler): void
 {
     error_clear_last();
     $safeResult = \xml_set_unparsed_entity_decl_handler($parser, $handler);

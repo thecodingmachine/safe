@@ -5,13 +5,13 @@ namespace Safe;
 use Safe\Exceptions\DatetimeException;
 
 /**
- * @param null|string $datetime
+ * @param string $datetime
  * @param \DateTimeZone|null $timezone
  * @return \DateTime
  * @throws DatetimeException
  *
  */
-function date_create(?string $datetime = "now", ?\DateTimeZone $timezone = null): \DateTime
+function date_create(string $datetime = "now", ?\DateTimeZone $timezone = null): \DateTime
 {
     error_clear_last();
     if ($timezone !== null) {
@@ -87,7 +87,7 @@ function date_sun_info(int $timestamp, float $latitude, float $longitude): array
  * @param float|null $longitude
  * @param float|null $zenith
  * @param float|null $utcOffset
- * @return mixed
+ * @return float|int|string
  * @throws DatetimeException
  *
  */
@@ -119,7 +119,7 @@ function date_sunrise(int $timestamp, int $returnFormat = SUNFUNCS_RET_STRING, ?
  * @param float|null $longitude
  * @param float|null $zenith
  * @param float|null $utcOffset
- * @return mixed
+ * @return float|int|string
  * @throws DatetimeException
  *
  */

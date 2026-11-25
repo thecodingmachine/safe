@@ -46,7 +46,7 @@ function odbc_binmode(int $statement, int $mode): bool
  * @param string $schema
  * @param string $table
  * @param string $column
- * @return \Odbc\Result|false
+ * @return false|resource
  *
  */
 function odbc_columnprivileges(\Odbc\Connection $odbc, string $catalog, string $schema, string $table, string $column)
@@ -63,7 +63,7 @@ function odbc_columnprivileges(\Odbc\Connection $odbc, string $catalog, string $
  * @param null|string $schema
  * @param null|string $table
  * @param null|string $column
- * @return \Odbc\Result|false
+ * @return false|resource
  *
  */
 function odbc_columns(\Odbc\Connection $odbc, ?string $catalog = null, ?string $schema = null, ?string $table = null, ?string $column = null)
@@ -309,7 +309,7 @@ function odbc_field_type(\Odbc\Result $statement, int $field): string
  * @param string $fk_catalog
  * @param string $fk_schema
  * @param string $fk_table
- * @return \Odbc\Result|false
+ * @return false|resource
  *
  */
 function odbc_foreignkeys(\Odbc\Connection $odbc, string $pk_catalog, string $pk_schema, string $pk_table, string $fk_catalog, string $fk_schema, string $fk_table)
@@ -323,7 +323,7 @@ function odbc_foreignkeys(\Odbc\Connection $odbc, string $pk_catalog, string $pk
 /**
  * @param \Odbc\Connection $odbc
  * @param int $data_type
- * @return \Odbc\Result|false
+ * @return false|resource
  *
  */
 function odbc_gettypeinfo(\Odbc\Connection $odbc, int $data_type = 0)
@@ -408,7 +408,7 @@ function odbc_prepare(\Odbc\Connection $odbc, string $query): \Odbc\Result
  * @param string $catalog
  * @param string $schema
  * @param string $table
- * @return \Odbc\Result|false
+ * @return false|resource
  *
  */
 function odbc_primarykeys(\Odbc\Connection $odbc, string $catalog, string $schema, string $table)
@@ -425,7 +425,7 @@ function odbc_primarykeys(\Odbc\Connection $odbc, string $catalog, string $schem
  * @param null|string $schema
  * @param null|string $procedure
  * @param null|string $column
- * @return \Odbc\Result|false
+ * @return false|resource
  *
  */
 function odbc_procedurecolumns($odbc, ?string $catalog = null, ?string $schema = null, ?string $procedure = null, ?string $column = null)
@@ -551,7 +551,7 @@ function odbc_setoption($odbc, int $which, int $option, int $value): void
  * @param string $table
  * @param int $scope
  * @param int $nullable
- * @return \Odbc\Result|false
+ * @return false|resource
  *
  */
 function odbc_specialcolumns(\Odbc\Connection $odbc, int $type, string $catalog, string $schema, string $table, int $scope, int $nullable)
@@ -569,7 +569,7 @@ function odbc_specialcolumns(\Odbc\Connection $odbc, int $type, string $catalog,
  * @param string $table
  * @param int $unique
  * @param int $accuracy
- * @return \Odbc\Result|false
+ * @return false|resource
  *
  */
 function odbc_statistics(\Odbc\Connection $odbc, string $catalog, string $schema, string $table, int $unique, int $accuracy)
@@ -585,7 +585,7 @@ function odbc_statistics(\Odbc\Connection $odbc, string $catalog, string $schema
  * @param string $catalog
  * @param string $schema
  * @param string $table
- * @return \Odbc\Result|false
+ * @return false|resource
  *
  */
 function odbc_tableprivileges(\Odbc\Connection $odbc, string $catalog, string $schema, string $table)

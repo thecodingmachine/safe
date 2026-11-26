@@ -43,7 +43,7 @@ jobs:
 
       - name: "Check for differences"
         id: diff
-        run: "git diff --exit-code && (echo diff=no-diff >> $GITHUB_OUTPUT) || (echo diff=diff >> $GITHUB_OUTPUT)"
+        run: "git diff --exit-code -- . ':(exclude)generator/versions.json' && (echo diff=no-diff >> $GITHUB_OUTPUT) || (echo diff=diff >> $GITHUB_OUTPUT)"
 
       - name: "Create a pr if the files are different"
         if: "${{ steps.diff.outputs.diff == 'diff' }}"
